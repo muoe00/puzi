@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+  <FrameLayout
+    android:id="@+id/fl_level"
+    android:orientation="horizontal"
+    android:background="#EAEAEA"
+    android:layout_width="match_parent"
+    android:layout_height="55dp">
+
+    <ImageButton
+      android:layout_gravity="left|center"
+      android:layout_width="50dp"
+      android:layout_height="match_parent"
+      android:id="@+id/ibtn_back"/>
+
+    <TextView
+      android:text="쿠폰함"
+      android:textSize="15sp"
+      android:gravity="center"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:id="@+id/tv_setting_title"/>
+  </FrameLayout>
+
+</LinearLayout>

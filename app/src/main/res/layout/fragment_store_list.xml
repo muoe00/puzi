@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:gravity="center|left">
+
+    <TextView
+      android:id="@+id/tv_store_category"
+      android:gravity="center|left"
+      android:text="TextView"
+      android:layout_marginLeft="10dp"
+      android:layout_width="match_parent"
+      android:layout_height="30dp"/>
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <GridView
+      android:layout_margin="5dp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/gv_store_list"
+      android:background="@color/colorWhite"
+      android:numColumns="2"
+      android:horizontalSpacing="1dip"
+      android:verticalSpacing="1dip"
+      android:paddingLeft="2dip"
+      android:paddingTop="1dip"
+      android:gravity="center"
+      android:columnWidth="120dp">
+
+    </GridView>
+
+  </LinearLayout>
+
+
+</LinearLayout>

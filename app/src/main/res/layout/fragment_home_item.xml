@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="168dp"
+              android:layout_height="224dp"
+              android:layout_margin="2dp"
+              android:background="@drawable/ad_line">
+
+  <FrameLayout
+    android:orientation="vertical"
+    android:layout_width="168dp"
+    android:layout_height="176dp">
+    <ImageView
+      android:layout_width="40dp"
+      android:layout_height="16dp"
+      android:layout_marginRight="9dp"
+      android:layout_marginTop="9dp"
+      android:layout_gravity="right"
+      android:background="@drawable/new_"
+      android:id="@+id/iv_advertiseNew"/>
+    <ImageView
+      android:background="@drawable/image_line"
+      android:scaleType="centerCrop"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_weight="0.74"
+      android:id="@+id/iv_home_advertise"/>
+
+    <LinearLayout
+      android:background="#66000000"
+      android:id="@+id/ll_advertise_text"
+      android:layout_gravity="bottom"
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="48dp">
+      <TextView
+        android:textColor="@color/colorWhite"
+        android:text="tv_advertise"
+        android:padding="2dp"
+        android:paddingLeft="6dp"
+        android:layout_width="158dp"
+        android:layout_height="match_parent"
+        android:id="@+id/tv_advertise"
+        android:layout_weight="1"/>
+    </LinearLayout>
+
+    <Button
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:background="@null"
+      android:id="@+id/btn_advertiseWv"/>
+  </FrameLayout>
+
+  <FrameLayout
+    android:orientation="horizontal"
+    android:layout_width="168dp"
+    android:layout_height="48dp">
+    <ImageView
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:padding="9dp"
+      app:srcCompat="@drawable/background_tab"
+      android:id="@+id/iv_companyPicture"/>
+    <TextView
+      android:layout_marginLeft="60dp"
+      android:layout_width="match_parent"
+      android:layout_height="19dp"
+      android:layout_gravity="center_vertical"
+      android:textSize="16sp"
+      android:id="@+id/tv_companyId"
+      android:layout_weight="1"/>
+    <Button
+      android:background="@null"
+      android:layout_height="60dp"
+      android:id="@+id/btn_company"
+      android:layout_width="180dp"/>
+  </FrameLayout>
+
+</LinearLayout>

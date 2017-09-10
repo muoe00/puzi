@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:weightSum="1"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+  <LinearLayout
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="18sp"
+      android:textColor="@color/colorBlack"
+      android:text="아이디/비밀번호 찾기"
+      android:layout_gravity="center"
+      android:paddingTop="20dp"
+      android:paddingBottom="10dp" />
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    android:layout_gravity="center">
+
+    <TextView
+      android:layout_width="270dp"
+      android:layout_height="wrap_content"
+      android:textSize="15sp"
+      android:textColor="@color/colorBlack"
+      android:text="아이디 찾기"
+      android:paddingTop="20dp"
+      android:paddingBottom="20dp" />
+
+    <EditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="15sp"
+      android:id="@+id/search_idemailEditText"
+      android:hint="이메일 주소"
+      android:paddingBottom="20dp"
+      android:paddingTop="20dp"
+      android:paddingLeft="20dp" android:inputType="textEmailAddress"/>
+
+    <Button
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/search_idButton"
+      android:textSize="15sp"
+      android:text="아이디 찾기"
+      android:layout_marginTop="15dp"
+      android:textColor="@color/colorWhite"
+      android:background="@color/colorNavy"
+    />
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    android:layout_gravity="center">
+
+    <TextView
+      android:layout_width="270dp"
+      android:layout_height="wrap_content"
+      android:textSize="15sp"
+      android:textColor="@color/colorBlack"
+      android:text="비밀번호 찾기"
+      android:paddingTop="20dp"
+      android:paddingBottom="20dp" />
+
+    <EditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="15sp"
+      android:id="@+id/search_pwidEditText"
+      android:hint="아이디"
+      android:paddingBottom="20dp"
+      android:paddingTop="20dp"
+      android:paddingLeft="20dp" />
+
+    <EditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="15sp"
+      android:id="@+id/search_pwemailEditText"
+      android:hint="이메일 주소"
+      android:layout_marginTop="10dp"
+      android:paddingBottom="20dp"
+      android:paddingTop="20dp"
+      android:paddingLeft="20dp" android:inputType="textEmailAddress"/>
+
+    <Button
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/search_pwButton"
+      android:textSize="15sp"
+      android:text="비밀번호 찾기"
+      android:layout_marginTop="15dp"
+      android:textColor="@color/colorWhite"
+      android:background="@color/colorNavy"
+    />
+
+  </LinearLayout>
+</LinearLayout>

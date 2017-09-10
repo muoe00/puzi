@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+  <TextView
+    android:text="카테고리"
+    android:textSize="15sp"
+    android:gravity="center_vertical"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:id="@+id/tv_storeCategory"/>
+  <GridView
+    android:layout_margin="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/gv_storeBrand"
+    android:background="@color/colorGray"
+    android:numColumns="3"
+    android:horizontalSpacing="1dip"
+    android:verticalSpacing="1dip"
+    android:paddingLeft="1dip"
+    android:paddingTop="1dip"
+    android:gravity="center"
+    android:columnWidth="100dp"/>
+
+</LinearLayout>

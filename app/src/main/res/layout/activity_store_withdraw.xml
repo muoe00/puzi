@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+  <FrameLayout
+    android:id="@+id/fl_level"
+    android:orientation="horizontal"
+    android:background="@color/colorPuzi"
+    android:layout_width="match_parent"
+    android:layout_height="55dp">
+
+    <ImageButton
+      android:layout_gravity="left|center"
+      android:layout_width="50dp"
+      android:layout_height="match_parent"
+      android:background="@null"
+      android:src="@drawable/back_chevron"
+      android:id="@+id/ibtn_back"/>
+
+    <TextView
+      android:text="출금하기"
+      android:textColor="@color/colorWhite"
+      android:textSize="20sp"
+      android:gravity="center"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:id="@+id/tv_setting_title"/>
+  </FrameLayout>
+
+  <LinearLayout
+    android:gravity="center"
+    android:background="#EEEEEE"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="77dp">
+
+    <TextView
+      android:gravity="center"
+      android:layout_gravity="center"
+      android:textSize="38sp"
+      android:textStyle="bold"
+      android:text="0"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:id="@+id/tv_point"/>
+
+    <ImageView
+      android:layout_marginLeft="10dp"
+      android:background="@drawable/puzi_bi_text_08"
+      android:layout_width="22dp"
+      android:layout_height="30dp"
+      android:id="@+id/tv_p"/>
+
+  </LinearLayout>
+  
+  <LinearLayout
+    android:layout_marginTop="15dp"
+    android:layout_gravity="center"
+    android:layout_marginLeft="35dp"
+    android:layout_marginRight="35dp"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="84dp">
+    
+    <TextView
+      android:text="은행"
+      android:textColor="#555555"
+      android:textSize="16sp"
+      android:layout_marginBottom="8dp"
+      android:layout_width="wrap_content"
+      android:layout_height="24dp"/>
+    <Spinner
+      android:hint="은행을 선택하세요"
+      android:layout_width="290dp"
+      android:layout_height="52dp"
+      android:id="@+id/spinner_withdraw"/>
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:layout_marginTop="15dp"
+    android:layout_gravity="center"
+    android:layout_marginLeft="35dp"
+    android:layout_marginRight="35dp"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="84dp">
+
+    <TextView
+      android:text="계좌번호"
+      android:textColor="#555555"
+      android:textSize="16sp"
+      android:layout_marginBottom="8dp"
+      android:layout_width="wrap_content"
+      android:layout_height="24dp"/>
+    <EditText
+      android:hint="계좌 번호를 입력하세요"
+      android:background="@drawable/edittext"
+      android:layout_width="290dp"
+      android:layout_height="52dp"
+      android:id="@+id/edit_account"/>
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:layout_marginTop="15dp"
+    android:layout_gravity="center"
+    android:layout_marginLeft="35dp"
+    android:layout_marginRight="35dp"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="84dp">
+
+    <TextView
+      android:text="출금금액"
+      android:textColor="#555555"
+      android:textSize="16sp"
+      android:layout_marginBottom="8dp"
+      android:layout_width="wrap_content"
+      android:layout_height="24dp"/>
+    <EditText
+      android:hint="출금금액을 입력하세요"
+      android:background="@drawable/edittext"
+      android:layout_width="290dp"
+      android:layout_height="52dp"
+      android:id="@+id/edit_money"/>
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:layout_marginTop="15dp"
+    android:layout_gravity="center"
+    android:layout_marginLeft="35dp"
+    android:layout_marginRight="35dp"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="84dp">
+
+    <TextView
+      android:text="받는사람"
+      android:textColor="#555555"
+      android:textSize="16sp"
+      android:layout_marginBottom="8dp"
+      android:layout_width="wrap_content"
+      android:layout_height="24dp"/>
+    <EditText
+      android:hint="받는 분을 입력하세요"
+      android:background="@drawable/edittext"
+      android:layout_width="290dp"
+      android:layout_height="52dp"
+      android:id="@+id/edit_recipient"/>
+
+  </LinearLayout>
+
+  <Button
+    android:text="출금하기"
+    android:textSize="20sp"
+    android:textColor="@color/colorWhite"
+    android:layout_marginLeft="35dp"
+    android:layout_marginRight="35dp"
+    android:layout_marginTop="15dp"
+    android:background="@drawable/button"
+    android:layout_gravity="center"
+    android:layout_width="290dp"
+    android:layout_height="52dp"/>
+
+</LinearLayout>

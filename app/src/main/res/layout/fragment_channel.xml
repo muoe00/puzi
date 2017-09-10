@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+  <LinearLayout
+    android:id="@+id/channel_fragment_container"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <FrameLayout
+      android:id="@+id/fl_channelRecommend"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:orientation="vertical">
+
+      <TextView
+        android:text="추천"
+        android:textColor="@color/colorPuzi"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tv_channelRecommend"/>
+      <Button
+        android:id="@+id/btn_channelRecommend"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00000000"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+      android:layout_gravity="center"
+      android:layout_width="2dp"
+      android:layout_height="24dp"
+      android:background="#d8d8d8">
+    </LinearLayout>
+
+    <FrameLayout
+      android:id="@+id/fl_channelFavorit"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:orientation="vertical">
+
+      <TextView
+        android:text="관심사"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:textColor="@color/colorPuzi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tv_channelFavorit"/>
+      <Button
+        android:id="@+id/btn_channelFavorit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00000000"/>
+
+    </FrameLayout>
+
+  </LinearLayout>
+  <LinearLayout
+    android:id="@+id/channel_fragment_line"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="#dddddd"
+    android:layout_height="0.1dp">
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/channel_fragment_container2"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    android:layout_weight="1"
+    android:layout_width="match_parent"
+    android:layout_height="0dp">
+
+    <ListView
+      android:id="@+id/lv_channel"
+      android:layout_marginTop="10dp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:divider="@color/colorWhite"
+      android:dividerHeight="10dp"/>
+
+  </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#EEEEEE"
+              android:orientation="vertical"
+              android:weightSum="1">
+
+  <FrameLayout
+    android:id="@+id/fl_setting"
+    android:orientation="horizontal"
+    android:background="@color/colorPuzi"
+    android:layout_width="match_parent"
+    android:layout_height="55dp">
+
+    <ImageButton
+      android:layout_gravity="left|center"
+      android:layout_width="50dp"
+      android:layout_height="match_parent"
+      android:background="@null"
+      android:src="@drawable/back_chevron"
+      android:id="@+id/ibtn_back"/>
+    <TextView
+      android:text="포인트 안내"
+      android:textColor="@color/colorWhite"
+      android:textSize="20sp"
+      android:gravity="center"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
+  </FrameLayout>
+
+  <LinearLayout
+    android:id="@+id/ll_point_info"
+    android:layout_marginTop="5dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:weightSum="1">
+
+    <RelativeLayout
+      android:layout_marginTop="10dp"
+      android:layout_marginBottom="10dp"
+      android:id="@+id/rl_point"
+      android:gravity="center"
+      android:layout_width="match_parent"
+      android:layout_height="55dp">
+
+      <ImageView
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:src="@mipmap/level"
+        android:id="@+id/iv_rankImage"/>
+
+      <FrameLayout
+        android:id="@+id/fl_point"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_toRightOf="@+id/iv_rankImage">
+
+        <Button
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/btn_pointhistory"
+          android:background="@null"/>
+        <TextView
+          android:gravity="center"
+          android:textSize="38sp"
+          android:textStyle="bold"
+          android:text="100,000"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:id="@+id/tv_point"
+          android:layout_alignParentTop="true"/>
+      </FrameLayout>
+
+      <TextView
+        android:text="P"
+        android:textSize="38sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/colorYellow"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_alignParentTop="true"
+        android:id="@+id/tv_p"
+        android:layout_toRightOf="@+id/fl_point"
+        android:layout_marginRight="10dp"/>
+
+    </RelativeLayout>
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/ll_point_today"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_marginBottom="10dp"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <TextView
+      android:text="오늘 적립 내역"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="16sp"
+      android:textColor="#555555"/>
+
+    <View
+      android:layout_width="5dp"
+      android:layout_height="0dp"/>
+
+    <TextView
+      android:text="1000"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="16sp"
+      android:textColor="#555555"/>
+
+  </LinearLayout>
+
+<!--
+  <LinearLayout
+    android:id="@+id/ll_point_tab"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <FrameLayout
+      android:id="@+id/fl_channelRecommend"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:orientation="vertical">
+
+      <TextView
+        android:text="적립"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tv_channelRecommend"/>
+      <Button
+        android:id="@+id/btn_channelRecommend"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00000000"/>
+      <ImageView
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorNavy"
+        android:id="@+id/iv_chrecommend_select"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+      android:id="@+id/fl_channelFavorit"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:orientation="vertical">
+
+      <TextView
+        android:text="사용"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tv_channelFavorit"/>
+      <Button
+        android:id="@+id/btn_channelFavorit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00000000"/>
+      <ImageView
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorNavy"
+        android:id="@+id/iv_chfavorit_select"/>
+
+    </FrameLayout>
+  </LinearLayout>
+-->
+
+  <LinearLayout
+    android:background="@color/colorWhite"
+    android:id="@+id/ll_point_content"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ListView
+      android:id="@+id/lv_point"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginStart="9.5dp"
+      android:padding="0dp"
+      android:layout_marginEnd="9.5dp"
+      android:divider="#f2f1ef"
+      android:dividerHeight="1dp">
+    </ListView>
+  </LinearLayout>
+
+</LinearLayout>

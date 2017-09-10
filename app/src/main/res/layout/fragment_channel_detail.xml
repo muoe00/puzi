@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+  <RelativeLayout
+    android:id="@+id/rl_channel_content"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+      android:layout_marginBottom="40dp"
+      android:id="@+id/sv_channelPage"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_alignParentTop="true"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentStart="true">
+
+      <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/rl_channelPage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp">
+
+        <ImageView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:scaleType="fitXY"
+          android:id="@+id/iv_channelPageImage"
+          android:layout_marginBottom="5dp"/>
+
+        <LinearLayout
+          android:orientation="vertical"
+          android:layout_below="@+id/iv_channelPageImage"
+          android:id="@+id/rl_channelStar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="5dp"
+          android:layout_marginLeft="8dp"
+          android:layout_marginRight="8dp">
+
+          <LinearLayout
+            android:id="@+id/ll_channelStar"
+            android:gravity="left"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="21dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+            <TextView
+              android:layout_gravity="center_vertical"
+              android:layout_marginRight="2dp"
+              android:layout_toRightOf="@+id/tv_channelStar1"
+              android:text="별점주기"
+              android:textSize="16sp"
+              android:layout_width="60dp"
+              android:layout_height="19dp"
+              android:id="@+id/tv_channelReplyNumber"/>
+            <ImageView
+              android:layout_width="30dp"
+              android:layout_height="30dp"
+              android:background="@drawable/combined_shape"
+              android:id="@+id/iv_channelStar1"/>
+            <ImageView
+              android:layout_toRightOf="@+id/iv_channelStar1"
+              android:layout_width="30dp"
+              android:layout_height="30dp"
+              android:background="@drawable/combined_shape"
+              android:id="@+id/iv_channelStar2"/>
+            <ImageView
+              android:layout_toRightOf="@+id/iv_channelStar2"
+              android:layout_width="30dp"
+              android:layout_height="30dp"
+              android:background="@drawable/combined_shape"
+              android:id="@+id/iv_channelStar3"/>
+            <ImageView
+              android:layout_toRightOf="@+id/iv_channelStar3"
+              android:layout_width="30dp"
+              android:layout_height="30dp"
+              android:background="@drawable/combined_shape"
+              android:id="@+id/iv_channelStar4"/>
+            <ImageView
+              android:layout_toRightOf="@+id/iv_channelStar4"
+              android:layout_width="30dp"
+              android:layout_height="30dp"
+              android:background="@drawable/combined_shape"
+              android:id="@+id/iv_channelStar5"/>
+          </LinearLayout>
+
+          <TextView
+            android:layout_below="@+id/ll_channelStar"
+            android:text="TextView"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_channelPageComment"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:id="@+id/linearlayout"
+          android:layout_below="@+id/rl_channelStar"
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="2dp"
+          android:layout_marginLeft="8dp"
+          android:layout_marginRight="8dp">
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_below="@+id/linearlayout"
+          android:id="@+id/ll_channelReply_num"
+          android:layout_width="match_parent"
+          android:layout_height="30dp"
+          android:orientation="horizontal">
+
+          <TextView
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:text="댓글"
+            android:textSize="10sp"/>
+
+          <TextView
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:text="100개"
+            android:textSize="10sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_below="@+id/ll_channelReply_num"
+          android:id="@+id/ll_bar5"
+          android:layout_marginLeft="5dp"
+          android:layout_marginRight="5dp"
+          android:background="@color/colorGray"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:orientation="vertical">
+        </LinearLayout>
+
+        <ListView
+          android:scrollbars="none"
+          android:id="@+id/lv_channelReply"
+          android:layout_below="@+id/ll_bar5"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"/>
+
+      </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+      android:layout_marginTop="-50dp"
+      android:layout_above="@+id/ll_channelReply"
+      android:id="@+id/linearlayout2"
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="2dp"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp">
+    </LinearLayout>
+
+    <LinearLayout
+      android:background="@color/colorWhite"
+      android:id="@+id/ll_channelReply"
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:weightSum="1"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp"
+      android:focusable="true"
+      android:focusableInTouchMode="true">
+      <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/edittext"
+        android:hint="댓글달기"
+        android:textSize="14sp"
+        android:textColor="@color/colorGray"
+        android:ems="10"
+        android:id="@+id/et_channelReply"
+        android:layout_weight="1"/>
+      <Button
+        android:text="게시"
+        android:textSize="15sp"
+        android:background="@null"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:id="@+id/btn_channelReply"/>
+    </LinearLayout>
+
+
+    <ImageButton
+      android:layout_marginLeft="9dp"
+      android:layout_marginTop="25.3dp"
+      android:layout_gravity="left|center"
+      android:layout_width="12.5dp"
+      android:layout_height="21dp"
+      android:background="@drawable/back_chevron"
+      android:id="@+id/ibtn_back"/>
+
+  </RelativeLayout>
+
+</LinearLayout>
