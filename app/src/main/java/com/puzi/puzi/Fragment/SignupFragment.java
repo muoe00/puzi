@@ -35,6 +35,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
 	private static final String TAG = "SignupFragment";
 
+	private Boolean idCheck = false;
 	private String id, passward, confirm, email;
 	private EditText idEdittext, emailEdittext, pwEdittext, repwEdittext;
 	private Button overBtn, signupBtn;
@@ -79,28 +80,13 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 		return view;
 	}
 
-	private void initComponent(View view) {
-
-		idEdittext = (EditText) view.findViewById(R.id.signup_idEditText);
-		emailEdittext = (EditText) view.findViewById(R.id.signup_emailEditText);
-		pwEdittext = (EditText) view.findViewById(R.id.signup_pwEditText);
-		repwEdittext = (EditText) view.findViewById(R.id.signup_repwEditText);
-
-		overBtn = (Button) view.findViewById(R.id.signup_overButton);
-		signupBtn = (Button) view.findViewById(R.id.signupButton);
-
-		overBtn.setOnClickListener(this);
-		signupBtn.setOnClickListener(this);
-	}
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.signup_overButton :
-				overlapCheck();
+				idCheck();
 				break;
 			case R.id.signupButton :
-
 				id = idEdittext.getText().toString().trim();
 				email = emailEdittext.getText().toString().trim();
 
@@ -108,36 +94,35 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 				PreferenceUtil.addProperty(getActivity(), "pw", passward);
 				PreferenceUtil.addProperty(getActivity(), "email", email);
 
-				emailCheck();
-				fragmentChange();
+				if(idCheck == true) {
+					if(emailCheck() == true) {
+						fragmentChange();
+					} else {
+						alert.setMessage("정확한 이메일 주소를 입력해주세요.");
+						alert.show();
+					}
+				} else {
+					alert.setMessage("아이디 중복 확인을 해주세요.");
+					alert.show();
+				}
 				break;
 		}
 	}
 
-	public void fragmentChange() {
-
-		Log.i("DEBUG", "fragment changed.");
-
-		Fragment infoFragment = new InfoFragment();
-
-		FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-		fragmentTransaction.replace(R.id.intro_fragment_container2, infoFragment);
-		fragmentTransaction.addToBackStack("INFO");
-		fragmentTransaction.commit();
-	}
-
-	public void emailCheck() {
+	public Boolean emailCheck() {
+		Boolean check = false;
 		email = emailEdittext.getText().toString();
-		if(!validationUtil.checkEmail(email)) {
-			alert.setMessage("정확한 이메일 주소를 입력해주세요");	// 이메일 중복 확인도 해야함
-			alert.show();
-			return;
+
+		if(validationUtil.checkEmail(email)) {
+			check = true;
 		}
+
+		return check;
 	}
 
-	public void overlapCheck() {
+	public void idCheck() {
+
+		idCheck = true;
 
 		UserService userService = RetrofitManager.create(UserService.class);
 		id = idEdittext.getText().toString().trim();
@@ -145,7 +130,6 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 		if (!validationUtil.checkUserId(id)) {
 			alert.setMessage("6-15자 이내로 입력해주세요");
 			alert.show();
-			return;
 
 		} else {
 			Call<ResponseVO> call = userService.check(id);
@@ -171,6 +155,27 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 				}
 			});
 		}
+	}
+
+	public void fragmentChange() {
+		Log.i("DEBUG", "fragment changed.");
+		Fragment infoFragment = new InfoFragment();
+		FragmentManager fragmentManager = getFragmentManager();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		fragmentTransaction.replace(R.id.intro_fragment_container2, infoFragment);
+		fragmentTransaction.addToBackStack("INFO");
+		fragmentTransaction.commit();
+	}
+
+	private void initComponent(View view) {
+		idEdittext = (EditText) view.findViewById(R.id.signup_idEditText);
+		emailEdittext = (EditText) view.findViewById(R.id.signup_emailEditText);
+		pwEdittext = (EditText) view.findViewById(R.id.signup_pwEditText);
+		repwEdittext = (EditText) view.findViewById(R.id.signup_repwEditText);
+		overBtn = (Button) view.findViewById(R.id.signup_overButton);
+		signupBtn = (Button) view.findViewById(R.id.signupButton);
+		overBtn.setOnClickListener(this);
+		signupBtn.setOnClickListener(this);
 	}
 
 }

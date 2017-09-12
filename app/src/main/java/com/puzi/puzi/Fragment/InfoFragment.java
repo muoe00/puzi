@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import com.puzi.puzi.R;
 import com.puzi.puzi.model.ResponseVO;
+import com.puzi.puzi.model.UserVO;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.PuziNetworkException;
 import com.puzi.puzi.network.RetrofitManager;
@@ -33,6 +34,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
 
 	private static final String TAG = "InfoFragment";
 
+	private UserVO userVO;
 	private ValidationUtil validationUtil;
 	private AlertDialog.Builder alert_confirm;
 	private AlertDialog alert;
@@ -41,10 +43,9 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
 	private CheckBox beautyCheckBox, shoppingCheckBox, gameCheckBox, diningCheckBox
 		, tripCheckBox, financeCheckBox, cultureCheckBox, agreeCheckBox;
 	private Button storeButton, serviceButton, personalButton, gpsButton;
-	private RadioButton radioButton;
-	private int genderId;
-	private String id, passwd, email, notifyId, phoneType, gender, age, recommendId, favorites, registerType;
-	private String[] favoritesList = new String[7];;
+	private RadioButton btnMale, btnFemale;
+	private String age, recommendId, favorites, registerType;
+	private String[] favoritesList = new String[7];
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,7 +59,15 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
 		alert_confirm.setPositiveButton("확인", null);
 		alert = alert_confirm.create();
 
-		registerType = "N";
+		userVO = new UserVO();
+
+		userVO.setUserId(PreferenceUtil.getProperty(getActivity(), "id"));
+		userVO.setPasswd(PreferenceUtil.getProperty(getActivity(), "pw"));
+		userVO.setRegisterType("N");
+		userVO.setEmail(PreferenceUtil.getProperty(getActivity(), "email"));
+		userVO.setNotifyId("NoRegister");
+
+		userVO.setPhoneType("A");
 
 		storeButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -68,29 +77,13 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
 				infoCheck();
 				validationCheck();
 
-				passwd = PreferenceUtil.getProperty(getActivity(), "pw");
-				id = PreferenceUtil.getProperty(getActivity(), "id");
-				email = PreferenceUtil.getProperty(getActivity(), "email");
-				notifyId = "NoRegister";
-				phoneType = "A";
-
-				Log.i("DEBUG", "userId : " + id);
-				Log.i("DEBUG", "passwd : " + passwd);
-				Log.i("DEBUG", "registerType : " + registerType);
-				Log.i("DEBUG", "email : " + email);
-				Log.i("DEBUG", "notifyId : " + notifyId);
-				Log.i("DEBUG", "gender : " + gender);
-				Log.i("DEBUG", "age : " + age);
-				Log.i("DEBUG", "favorites : " + favorites);
-				Log.i("DEBUG", "recommendId : " + recommendId);
-				Log.i("DEBUG", "phoneType : " + phoneType);
-
 				UserService userService = RetrofitManager.create(UserService.class);
 
-				Call<ResponseVO> call = userService.signup(id, EncryptUtil.sha256(passwd), registerType, email
-					, notifyId, gender, age, favorites, recommendId, phoneType);
-				call.enqueue(new CustomCallback<ResponseVO>() {
+				Call<ResponseVO> call = userService.signup(userVO.getUserId(), EncryptUtil.sha256(userVO.getPasswd()), userVO.getRegisterType()
+					, userVO.getEmail(), userVO.getNotifyId(), userVO.getGenderType(), userVO.getAgeType(), userVO.getFavoriteTypeList()
+					, userVO.getRecommendId(), userVO.getPhoneType(), userVO.getPhoneKey());
 
+				call.enqueue(new CustomCallback<ResponseVO>() {
 					@Override
 					public void onResponse(ResponseVO response) {
 						if (response.getResultCode() == 1000) {
@@ -98,8 +91,8 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
 							/*userVO = new UserVO(MemoriesVO.id, MemoriesVO.email, registerType, MemoriesVO.pw,
 								MemoriesVO.notifyId, gender, age, favorites);*/
 
-							System.setProperty("userId", id);
-							System.setProperty("passwd", passwd);
+							System.setProperty("userId", userVO.getUserId());
+							System.setProperty("passwd", userVO.getPasswd());
 
 							//MemoriesVO.token = response.getToken();
 							Intent intent = new Intent(getActivity(), FragmentActivity.class);
@@ -124,50 +117,29 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
 		return view;
 	}
 
-	private void initComponent(View view) {
-
-		genderRadioGroup = (RadioGroup) view.findViewById(R.id.info_genderRadioGroup);
-
-		ageEditText = (EditText) view.findViewById(R.id.info_ageEditText);
-		recommendidEdittext = (EditText) view.findViewById(R.id.info_recommendidEditText);
-
-		beautyCheckBox = (CheckBox) view.findViewById(R.id.info_beautyRadioButton);
-		shoppingCheckBox = (CheckBox) view.findViewById(R.id.info_shoppingRadioButton);
-		gameCheckBox = (CheckBox) view.findViewById(R.id.info_gameRadioButton);
-		diningCheckBox = (CheckBox) view.findViewById(R.id.info_diningRadioButton);
-		tripCheckBox = (CheckBox) view.findViewById(R.id.info_tripRadioButton);
-		financeCheckBox = (CheckBox) view.findViewById(R.id.info_financeRadioButton);
-		cultureCheckBox = (CheckBox) view.findViewById(R.id.info_cultureRadioButton);
-		agreeCheckBox = (CheckBox) view.findViewById(R.id.cb_join_agree);
-
-		genderId = genderRadioGroup.getCheckedRadioButtonId();
-		radioButton = (RadioButton) view.findViewById(genderId);
-
-		storeButton = (Button) view.findViewById(R.id.info_storeButton);
-		serviceButton = (Button) view.findViewById(R.id.btn_join_service);
-		personalButton = (Button) view.findViewById(R.id.btn_join_personal);
-		gpsButton = (Button) view.findViewById(R.id.btn_join_gps);
-
-		serviceButton.setOnClickListener(this);
-		personalButton.setOnClickListener(this);
-		gpsButton.setOnClickListener(this);
-	}
-
 	public void infoCheck() {
-		/*String gType = radioButton.getText().toString();
 
-		Log.i("DEBUG", "gender type : " + gType);
+		if(btnMale.isChecked()) {
+			userVO.setGenderType("MALE");
+		} else if(btnFemale.isChecked()) {
+			userVO.setGenderType("FEMALE");
+		}
 
-		if (gType == "남자") {
-			gender = "M";
-		} else {
-			gender = "W";
-		}*/
+		userVO.setAge(Integer.parseInt(ageEditText.getText().toString().trim()));
+		int temp = 2017 - userVO.getAge() + 1;
+		age = String.valueOf(temp);
 
-		gender = "FEMALE";
+		if(temp < 20) {
+			userVO.setAgeType("TEN");
+		} else if(temp >= 20 && temp < 30) {
+			userVO.setAgeType("TWENTY");
+		} else if(temp >= 30 && temp < 40) {
+			userVO.setAgeType("THI");
+		}
 
-		age = ageEditText.getText().toString().trim();
-		recommendId = recommendidEdittext.getText().toString().trim();
+		// TODO : favoriteTypeList / phoneKey
+
+		userVO.setRecommendId(recommendidEdittext.getText().toString().trim());
 	}
 
 	public void checkBox() {
@@ -242,5 +214,32 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
 			case R.id.btn_join_gps:
 				break;
 		}
+	}
+
+	private void initComponent(View view) {
+
+		ageEditText = (EditText) view.findViewById(R.id.info_ageEditText);
+		recommendidEdittext = (EditText) view.findViewById(R.id.info_recommendidEditText);
+		beautyCheckBox = (CheckBox) view.findViewById(R.id.info_beautyRadioButton);
+		shoppingCheckBox = (CheckBox) view.findViewById(R.id.info_shoppingRadioButton);
+		gameCheckBox = (CheckBox) view.findViewById(R.id.info_gameRadioButton);
+		diningCheckBox = (CheckBox) view.findViewById(R.id.info_diningRadioButton);
+		tripCheckBox = (CheckBox) view.findViewById(R.id.info_tripRadioButton);
+		financeCheckBox = (CheckBox) view.findViewById(R.id.info_financeRadioButton);
+		cultureCheckBox = (CheckBox) view.findViewById(R.id.info_cultureRadioButton);
+		agreeCheckBox = (CheckBox) view.findViewById(R.id.cb_join_agree);
+
+		genderRadioGroup = (RadioGroup) view.findViewById(R.id.info_genderRadioGroup);
+		btnMale = (RadioButton) view.findViewById(R.id.info_mRadioButton);
+		btnFemale = (RadioButton) view.findViewById(R.id.info_wRadioButton);
+
+		storeButton = (Button) view.findViewById(R.id.info_storeButton);
+		serviceButton = (Button) view.findViewById(R.id.btn_join_service);
+		personalButton = (Button) view.findViewById(R.id.btn_join_personal);
+		gpsButton = (Button) view.findViewById(R.id.btn_join_gps);
+
+		serviceButton.setOnClickListener(this);
+		personalButton.setOnClickListener(this);
+		gpsButton.setOnClickListener(this);
 	}
 }

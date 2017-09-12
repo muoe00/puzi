@@ -11,6 +11,31 @@ import java.util.Map;
 public class ResponseVO<T> {
 	private int resultCode;
 	private String resultMsg;
+
+	public int getResultCode() {
+		return resultCode;
+	}
+
+	public void setResultCode(int resultCode) {
+		this.resultCode = resultCode;
+	}
+
+	public String getResultMsg() {
+		return resultMsg;
+	}
+
+	public void setResultMsg(String resultMsg) {
+		this.resultMsg = resultMsg;
+	}
+
+	public Map<String, T> getParams() {
+		return params;
+	}
+
+	public void setParams(Map<String, T> params) {
+		this.params = params;
+	}
+
 	private Map <String, T> params;
 
 	public T getValue(String key) {
