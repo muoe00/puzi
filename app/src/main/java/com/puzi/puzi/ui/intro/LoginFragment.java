@@ -1,8 +1,5 @@
 package com.puzi.puzi.ui.intro;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,6 +26,7 @@ import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.ProgressDialog;
+import com.puzi.puzi.ui.common.BasicDialog;
 import com.puzi.puzi.util.EncryptUtil;
 import com.puzi.puzi.util.PreferenceUtil;
 import com.puzi.puzi.util.tokenUtil;
@@ -126,17 +124,7 @@ public class LoginFragment extends Fragment implements TextView.OnEditorActionLi
 							break;
 
 						case LOGIN_FAIL:
-							PreferenceUtil.addProperty(getActivity(), "loginPwd", "");
-
-							AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-							builder.setTitle("로그인실패");
-							builder.setMessage("아이디 또는 비밀번호를 확인해주세요");
-							builder.setNeutralButton("닫기", new Dialog.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-								}
-							});
-							builder.show();
+							BasicDialog.show(getActivity(), "로그인실패", "아이디 또는 비밀번호를 확인해주세요");
 							break;
 					}
 				}
@@ -156,6 +144,7 @@ public class LoginFragment extends Fragment implements TextView.OnEditorActionLi
 
 	@OnClick(R.id.kakao_login_btn)
 	public void kakaoLogin() {
+
 	}
 
 	@OnClick(R.id.search_btn)
