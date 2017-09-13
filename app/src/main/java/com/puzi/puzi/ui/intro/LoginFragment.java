@@ -36,7 +36,7 @@ import retrofit2.Call;
  * Created by muoe0 on 2017-04-28.
  */
 
-public class LoginFragment extends Fragment implements TextView.OnEditorActionListener {
+public class LoginFragment extends Fragment {
 
 	private static final String TAG = "LoginFragment";
 
