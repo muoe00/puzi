@@ -2,6 +2,7 @@ package com.puzi.puzi.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
@@ -22,6 +23,8 @@ import com.puzi.puzi.util.PreferenceUtil;
 import com.puzi.puzi.util.ValidationUtil;
 import retrofit2.Call;
 
+import java.util.List;
+
 /**
  * Created by muoe0 on 2017-07-27.
  */
@@ -40,12 +43,12 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
 	private AlertDialog alert;
 	private RadioGroup genderRadioGroup;
 	private EditText ageEditText, recommendidEdittext;
-	private CheckBox beautyCheckBox, shoppingCheckBox, gameCheckBox, diningCheckBox
-		, tripCheckBox, financeCheckBox, cultureCheckBox, agreeCheckBox;
+	private CheckBox beautyCheckBox, shoppingCheckBox, gameCheckBox, eatCheckBox
+		, tourCheckBox, financeCheckBox, cultureCheckBox, agreeCheckBox;
 	private Button storeButton, serviceButton, personalButton, gpsButton;
 	private RadioButton btnMale, btnFemale;
-	private String age, recommendId, favorites, registerType;
-	private String[] favoritesList = new String[7];
+	private String age;
+	private List<String> favoritesList;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,7 +63,6 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
 		alert = alert_confirm.create();
 
 		userVO = new UserVO();
-
 		userVO.setUserId(PreferenceUtil.getProperty(getActivity(), "id"));
 		userVO.setPasswd(PreferenceUtil.getProperty(getActivity(), "pw"));
 		userVO.setRegisterType("N");
@@ -73,9 +75,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
 			@Override
 			public void onClick(View v) {
 
-				checkBox();
 				infoCheck();
-				validationCheck();
 
 				UserService userService = RetrofitManager.create(UserService.class);
 
@@ -137,70 +137,27 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
 			userVO.setAgeType("THI");
 		}
 
-		// TODO : favoriteTypeList / phoneKey
+		String idByANDROID_ID = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+		userVO.setPhoneKey(idByANDROID_ID);
 
+		if(beautyCheckBox.isChecked() == true) {
+			favoritesList.add("BEAUTY");
+		} if(shoppingCheckBox.isChecked() == true) {
+			favoritesList.add("SHOPPING");
+		} if(gameCheckBox.isChecked() == true) {
+			favoritesList.add("GAME");
+		} if(eatCheckBox.isChecked() == true) {
+			favoritesList.add("EAT");
+		} if(tourCheckBox.isChecked() == true) {
+			favoritesList.add("TOUR");
+		} if(financeCheckBox.isChecked() == true) {
+			favoritesList.add("FINANCE");
+		} if(cultureCheckBox.isChecked() == true) {
+			favoritesList.add("CULTURE");
+		}
+
+		userVO.setFavoriteTypeList(favoritesList);
 		userVO.setRecommendId(recommendidEdittext.getText().toString().trim());
-	}
-
-	public void checkBox() {
-		if (beautyCheckBox.isChecked() == true) {
-			favoritesList[0] = "1";
-		} else if (beautyCheckBox.isChecked() == false) {
-			favoritesList[0] = "0";
-		}
-		if (shoppingCheckBox.isChecked() == true) {
-			favoritesList[1] = "1";
-		} else if (shoppingCheckBox.isChecked() == false) {
-			favoritesList[1] = "0";
-		}
-		if (gameCheckBox.isChecked() == true) {
-			favoritesList[2] = "1";
-		} else if (gameCheckBox.isChecked() == false) {
-			favoritesList[2] = "0";
-		}
-		if (diningCheckBox.isChecked() == true) {
-			favoritesList[3] = "1";
-		} else if (diningCheckBox.isChecked() == false) {
-			favoritesList[3] = "0";
-		}
-		if (tripCheckBox.isChecked() == true) {
-			favoritesList[4] = "1";
-		} else if (tripCheckBox.isChecked() == false) {
-			favoritesList[4] = "0";
-		}
-		if (financeCheckBox.isChecked() == true) {
-			favoritesList[5] = "1";
-		} else if (financeCheckBox.isChecked() == false) {
-			favoritesList[5] = "0";
-		}
-		if (cultureCheckBox.isChecked() == true) {
-			favoritesList[6] = "1";
-		} else if (cultureCheckBox.isChecked() == false) {
-			favoritesList[6] = "0";
-		}
-
-		for (int i = 0; i < 7; i++) {
-			if (i == 0) {
-				favorites = favoritesList[i];
-				continue;
-			}
-			favorites = favorites.concat(favoritesList[i]);
-		}
-	}
-
-	public void validationCheck() {
-
-		/*if (!validationUtil.checkUserFavorites(favorites)) {
-			alert.setMessage("관심사를 선택하세요");
-			alert.show();
-			return;
-		}
-		if (age.length() == 0) {
-			alert.setMessage("출생년도를 입력하세요");
-			alert.show();
-			return;
-		}*/
-
 	}
 
 	@Override
@@ -217,16 +174,17 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
 	}
 
 	private void initComponent(View view) {
-
 		ageEditText = (EditText) view.findViewById(R.id.info_ageEditText);
 		recommendidEdittext = (EditText) view.findViewById(R.id.info_recommendidEditText);
+
 		beautyCheckBox = (CheckBox) view.findViewById(R.id.info_beautyRadioButton);
 		shoppingCheckBox = (CheckBox) view.findViewById(R.id.info_shoppingRadioButton);
 		gameCheckBox = (CheckBox) view.findViewById(R.id.info_gameRadioButton);
-		diningCheckBox = (CheckBox) view.findViewById(R.id.info_diningRadioButton);
-		tripCheckBox = (CheckBox) view.findViewById(R.id.info_tripRadioButton);
+		eatCheckBox = (CheckBox) view.findViewById(R.id.info_diningRadioButton);
+		tourCheckBox = (CheckBox) view.findViewById(R.id.info_tripRadioButton);
 		financeCheckBox = (CheckBox) view.findViewById(R.id.info_financeRadioButton);
 		cultureCheckBox = (CheckBox) view.findViewById(R.id.info_cultureRadioButton);
+
 		agreeCheckBox = (CheckBox) view.findViewById(R.id.cb_join_agree);
 
 		genderRadioGroup = (RadioGroup) view.findViewById(R.id.info_genderRadioGroup);
