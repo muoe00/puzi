@@ -15,7 +15,7 @@ import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.ui.company.CompanyDialog;
 import com.puzi.puzi.R;
 import com.puzi.puzi.ui.advertisement.WebActivity;
-import com.puzi.puzi.model.ReceivedAdvertiseVO;
+import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 
 import java.util.List;
 

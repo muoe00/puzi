@@ -10,13 +10,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import com.google.gson.reflect.TypeToken;
 import com.puzi.puzi.R;
-import com.puzi.puzi.model.ResponseVO;
-import com.puzi.puzi.model.StoreVO;
+import com.puzi.puzi.network.ResponseVO;
+import com.puzi.puzi.biz.store.StoreVO;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResultType;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.StoreNetworkService;
-import com.puzi.puzi.util.PreferenceUtil;
+import com.puzi.puzi.cache.Preference;
 import retrofit2.Call;
 
 import java.lang.reflect.Type;
@@ -108,7 +108,7 @@ public class StoreFragment extends Fragment implements View.OnClickListener {
 
 		final StoreNetworkService storeNetworkService = RetrofitManager.create(StoreNetworkService.class);
 
-		String token = PreferenceUtil.getProperty(getActivity(), "token");
+		String token = Preference.getProperty(getActivity(), "token");
 
 		final Call<ResponseVO<List<StoreVO>>> call = storeNetworkService.brandList(token);
 		call.enqueue(new CustomCallback<ResponseVO<List<StoreVO>>>(getActivity()) {

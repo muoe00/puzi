@@ -1,8 +1,8 @@
 package com.puzi.puzi.network.service;
 
-import com.puzi.puzi.model.ChannelReply;
-import com.puzi.puzi.model.ChannelVO;
-import com.puzi.puzi.model.ResponseVO;
+import com.puzi.puzi.biz.channel.ChannelReplyVO;
+import com.puzi.puzi.biz.channel.ChannelVO;
+import com.puzi.puzi.network.ResponseVO;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -31,7 +31,7 @@ public interface ChannelNetworkService {
 		@Field("comment") String comment);
 
 	@GET("/channel/reply/list")
-	Call<ResponseVO<List<ChannelReply>>> replyList(@Header("token") String token,
+	Call<ResponseVO<List<ChannelReplyVO>>> replyList(@Header("token") String token,
 		@Query("channelId") int channelId,
 		@Query("pagingIndex") int pagingIndex);
 

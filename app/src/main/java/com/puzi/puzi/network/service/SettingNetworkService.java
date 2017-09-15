@@ -1,6 +1,6 @@
 package com.puzi.puzi.network.service;
 
-import com.puzi.puzi.model.ResponseVO;
+import com.puzi.puzi.network.ResponseVO;
 import retrofit2.Call;
 import retrofit2.http.*;
 

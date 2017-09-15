@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.puzi.puzi.R;
-import com.puzi.puzi.model.ChannelReply;
-import com.puzi.puzi.model.ResponseVO;
+import com.puzi.puzi.biz.channel.ChannelReplyVO;
+import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResultType;
 import com.puzi.puzi.network.RetrofitManager;
@@ -26,8 +26,8 @@ import java.util.List;
 public class ReplyListAdapter extends BaseAdapter implements View.OnClickListener {
 
 	private TextView tvId, tvComment, tvDate;
-	private List<ChannelReply> replyList;
-	private ChannelReply channelReply;
+	private List<ChannelReplyVO> replyList;
+	private ChannelReplyVO channelReplyVO;
 	private LayoutInflater inflater;
 	private Activity activity;
 	private Button btnGood, btnBad;
@@ -38,7 +38,7 @@ public class ReplyListAdapter extends BaseAdapter implements View.OnClickListene
 	private int channelId, goodCount = 100, badCount = 50;
 	private boolean flag = false;
 
-	public ReplyListAdapter(Activity activity, List<ChannelReply> list, int channelId, String token) {
+	public ReplyListAdapter(Activity activity, List<ChannelReplyVO> list, int channelId, String token) {
 		this.activity = activity;
 		this.replyList = list;
 		this.channelId = channelId;
@@ -87,12 +87,12 @@ public class ReplyListAdapter extends BaseAdapter implements View.OnClickListene
 
 		initComponents(convertView);
 
-		channelReply = replyList.get(position);
+		channelReplyVO = replyList.get(position);
 
-		Log.i("DEBUG", "channelReply : " + channelReply);
+		Log.i("DEBUG", "channelReply : " + channelReplyVO);
 
-		tvId.setText("" + channelReply.getChannelReplyId());
-		tvComment.setText("" + channelReply.getComment());
+		tvId.setText("" + channelReplyVO.getChannelReplyId());
+		tvComment.setText("" + channelReplyVO.getComment());
 		tvGood.setText("" + goodCount);
 		tvBad.setText("" + badCount);
 
@@ -108,7 +108,7 @@ public class ReplyListAdapter extends BaseAdapter implements View.OnClickListene
 					ivGood.setBackgroundResource(R.drawable.like_icon_red);
 					tvGood.setTextColor(Color.parseColor("#f13d3a"));
 					tvGood.setText("" + ++goodCount);
-					getChannelReply(token, channelId, channelReply.getChannelReplyId(), true);
+					getChannelReply(token, channelId, channelReplyVO.getChannelReplyId(), true);
 				}
 			}
 		});
@@ -124,7 +124,7 @@ public class ReplyListAdapter extends BaseAdapter implements View.OnClickListene
 					ivBad.setBackgroundResource(R.drawable.dislike_icon_red);
 					tvBad.setTextColor(Color.parseColor("#f13d3a"));
 					tvBad.setText("" + ++badCount);
-					getChannelReply(token, channelId, channelReply.getChannelReplyId(), false);
+					getChannelReply(token, channelId, channelReplyVO.getChannelReplyId(), false);
 				}
 			}
 		});

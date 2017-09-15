@@ -1,6 +1,6 @@
 package com.puzi.puzi.ui;
 
-import android.content.Context;
+import android.app.Activity;
 
 /**
  * Created by muoe0 on 2017-04-28.
@@ -12,10 +12,10 @@ public class ProgressDialog {
 
 	private static int showCount = 0;
 
-	public static void show(Context context){
+	public static void show(Activity activity){
 		if(showCount == 0){
 			++showCount;
-			dialog = android.app.ProgressDialog.show(context, "", "연결중입니다...", true);
+			dialog = android.app.ProgressDialog.show(activity, "", "연결중입니다...", true);
 		} else {
 			++showCount;
 		}

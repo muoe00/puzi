@@ -11,12 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.puzi.puzi.R;
-import com.puzi.puzi.model.ResponseVO;
+import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.util.EncryptUtil;
-import com.puzi.puzi.util.PreferenceUtil;
+import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.util.ValidationUtil;
 import retrofit2.Call;
 
@@ -67,9 +67,9 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
 				infoCheck();
 				validationCheck();
 
-				passwd = PreferenceUtil.getProperty(getActivity(), "pw");
-				id = PreferenceUtil.getProperty(getActivity(), "id");
-				email = PreferenceUtil.getProperty(getActivity(), "email");
+				passwd = Preference.getProperty(getActivity(), "pw");
+				id = Preference.getProperty(getActivity(), "id");
+				email = Preference.getProperty(getActivity(), "email");
 				notifyId = "NoRegister";
 				phoneType = "A";
 

@@ -15,12 +15,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import com.puzi.puzi.R;
-import com.puzi.puzi.model.ResponseVO;
+import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.setting.InfoFragment;
-import com.puzi.puzi.util.PreferenceUtil;
+import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.util.ValidationUtil;
 import retrofit2.Call;
 
@@ -104,9 +104,9 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 				id = idEdittext.getText().toString().trim();
 				email = emailEdittext.getText().toString().trim();
 
-				PreferenceUtil.addProperty(getActivity(), "id", id);
-				PreferenceUtil.addProperty(getActivity(), "pw", passward);
-				PreferenceUtil.addProperty(getActivity(), "email", email);
+				Preference.addProperty(getActivity(), "id", id);
+				Preference.addProperty(getActivity(), "pw", passward);
+				Preference.addProperty(getActivity(), "email", email);
 
 				emailCheck();
 				fragmentChange();

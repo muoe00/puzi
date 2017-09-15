@@ -1,4 +1,4 @@
-package com.puzi.puzi.model;
+package com.puzi.puzi.biz.store;
 
 import lombok.Data;
 

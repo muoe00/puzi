@@ -1,4 +1,4 @@
-package com.puzi.puzi.model;
+package com.puzi.puzi.biz.channel;
 
 /**
  * Created by muoe0 on 2017-08-12.

@@ -11,14 +11,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.widget.Toast;
 import com.puzi.puzi.R;
-import com.puzi.puzi.model.ResponseVO;
+import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResultType;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.intro.LoginFragment;
 import com.puzi.puzi.util.EncryptUtil;
-import com.puzi.puzi.util.PreferenceUtil;
+import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.util.tokenUtil;
 import retrofit2.Call;
 
@@ -37,15 +37,15 @@ public class IntroActivity extends FragmentActivity {
 		setTheme(R.style.AppTheme);
 		setContentView(R.layout.activity_intro);
 
-		final String autoId = PreferenceUtil.getProperty(this, "autoId");
-		final String autoPw = PreferenceUtil.getProperty(this, "autoPw");
+		final String autoId = Preference.getProperty(this, "autoId");
+		final String autoPw = Preference.getProperty(this, "autoPw");
 
 		// 메인 화면으로 갈지(자동로그인 성공), 로그인 화면으로 갈지(자동로그인 실패) 결정 (변수 : auto_login)
 		if(autoId != null && autoPw != null) {
 
 			UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
 
-			Call<ResponseVO<String>> call = userNetworkService.login(autoId, EncryptUtil.sha256(autoPw), "NoRegister", "A");
+			Call<ResponseVO<String>> call = userNetworkService.login(autoId, EncryptUtil.sha256(autoPw), "NoRegister", "A", "");
 			call.enqueue(new CustomCallback<ResponseVO<String>>(this) {
 				@Override
 				public void onSuccess(ResponseVO<String> responseVO) {
@@ -61,7 +61,7 @@ public class IntroActivity extends FragmentActivity {
 							if(token != null)
 								Log.e("AUTO TOKEN : ", token);
 							tokenUtil.TOKEN = token;
-							PreferenceUtil.addProperty(IntroActivity.this, "token", token);
+							Preference.addProperty(IntroActivity.this, "token", token);
 							break;
 						case LOGIN_FAIL:
 							AUTO_LOGIN = false;

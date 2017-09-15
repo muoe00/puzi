@@ -1,6 +1,6 @@
 package com.puzi.puzi.network.service;
 
-import com.puzi.puzi.model.ResponseVO;
+import com.puzi.puzi.network.ResponseVO;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -38,5 +38,6 @@ public interface UserNetworkService {
 	Call<ResponseVO<String>> login(@Header("userId") String userId,
 		@Header("passwd") String passwd,
 		@Field("notifyId") String notifyId, // 푸시아이디는 없을경우 'NoRegister' 로 전송
-		@Field("phoneType") String phoneType);
+		@Field("phoneType") String phoneType,
+		@Field("phoneKey") String phoneKey);
 }

@@ -1,4 +1,4 @@
-package com.puzi.puzi.model;
+package com.puzi.puzi.biz.company;
 
 import lombok.Data;
 
@@ -18,17 +18,5 @@ public class CompanyVO {
 	private String createdBy;			// 생성자
 	private String modifiedAt;			// 수정일자
 	private String modifiedBy;			// 수정자
-
-	/*private int companyId;
-	private String companyName;
-	private String companyAlias;
-	private String pictureUrl;
-	private String comment;
-	private LocalDateTime createdAt;
-	private String createdBy;
-	private LocalDateTime modifiedAt;
-	private String modifiedBy;
-	private Contract contract;
-	private Advertiser advertiser;*/
 
 }

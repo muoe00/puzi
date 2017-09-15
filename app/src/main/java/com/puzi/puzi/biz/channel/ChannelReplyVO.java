@@ -1,4 +1,4 @@
-package com.puzi.puzi.model;
+package com.puzi.puzi.biz.channel;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ import lombok.Data;
  */
 
 @Data
-public class ChannelReply {
+public class ChannelReplyVO {
 
 	private int channelId;
 	private int channelReplyId;
@@ -16,10 +16,4 @@ public class ChannelReply {
 	private int reverse;
 	private int warning;
 	private boolean scored;
-
-	/*public ChannelReply(String userId, int channelId, String comment) {
-		setCreatedBy(userId);
-		this.channelId = channelId;
-		this.comment = comment;
-	}*/
 }

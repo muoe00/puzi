@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 import com.puzi.puzi.R;
-import com.puzi.puzi.model.StoreVO;
+import com.puzi.puzi.biz.store.StoreVO;
 
 import java.util.*;
 

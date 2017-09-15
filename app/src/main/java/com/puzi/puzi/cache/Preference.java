@@ -1,4 +1,4 @@
-package com.puzi.puzi.util;
+package com.puzi.puzi.cache;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
  * Created by muoe0 on 2017-04-28.
  */
 
-public class PreferenceUtil {
+public class Preference {
 
 	public static void addProperty(Activity activity, String key, String value) {
 		SharedPreferences.Editor editor = getEditor(activity);

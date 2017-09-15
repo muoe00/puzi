@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.util.Log;
+import com.puzi.puzi.ui.ProgressDialog;
 import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,6 +39,8 @@ public abstract class CustomCallback<T> implements Callback<T> {
 		//BODY
 		Log.d("REQUEST", "## " + request.toString());
 
+		ProgressDialog.dismiss();
+
 		if(response.isSuccessful()){
 			Log.d("CustomCallback", "####### RESPONSE ######");
 			Log.d("CustomCallback", response.body().toString());
@@ -61,8 +64,8 @@ public abstract class CustomCallback<T> implements Callback<T> {
 		}
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-		builder.setTitle("통신 실패");
-		builder.setMessage("통신에 실패하였습니다. 네트워크 상태를 다시 한번 확인해주시기 바랍니다.");
+		builder.setTitle(title);
+		builder.setMessage(comment);
 		builder.setNegativeButton("닫기", new Dialog.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -78,6 +81,7 @@ public abstract class CustomCallback<T> implements Callback<T> {
 	}
 
 	private void retry(Call<T> call){
+		ProgressDialog.show(activity);
 		call.clone().enqueue(this);
 	}
 }

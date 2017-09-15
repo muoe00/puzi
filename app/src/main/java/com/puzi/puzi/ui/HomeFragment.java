@@ -10,15 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.puzi.puzi.R;
-import com.puzi.puzi.model.*;
+import com.puzi.puzi.biz.*;
+import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
+import com.puzi.puzi.biz.notice.NoticeVO;
+import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.ResultType;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.AdvertisementNetworkService;
 import com.puzi.puzi.ui.user.LevelActivity;
 import com.puzi.puzi.ui.user.PointActivity;
 import com.puzi.puzi.ui.user.RecommendActivity;
-import com.puzi.puzi.util.PreferenceUtil;
+import com.puzi.puzi.cache.Preference;
 import retrofit2.Call;
 
 import java.text.NumberFormat;
@@ -111,7 +115,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, AbsL
 
 		final AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
 
-		String token = PreferenceUtil.getProperty(getActivity(), "token");
+		String token = Preference.getProperty(getActivity(), "token");
 
 		Call<ResponseVO<UserVO>> callUser = advertisementNetworkService.main(token);
 		callUser.enqueue(new CustomCallback<ResponseVO<UserVO>>(getActivity()) {
@@ -139,7 +143,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, AbsL
 
 		final AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
 
-		String token = PreferenceUtil.getProperty(getActivity(), "token");
+		String token = Preference.getProperty(getActivity(), "token");
 
 		Call<ResponseVO<List<ReceivedAdvertiseVO>>> callList = advertisementNetworkService.adList(token, 1);
 		callList.enqueue(new CustomCallback<ResponseVO<List<ReceivedAdvertiseVO>>>(getActivity()) {

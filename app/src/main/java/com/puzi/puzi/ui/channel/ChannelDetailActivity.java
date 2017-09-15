@@ -10,15 +10,15 @@ import android.view.ViewGroup;
 import android.widget.*;
 import com.puzi.puzi.R;
 import com.puzi.puzi.image.BitmapUIL;
-import com.puzi.puzi.model.ChannelReply;
-import com.puzi.puzi.model.ChannelVO;
-import com.puzi.puzi.model.ResponseVO;
+import com.puzi.puzi.biz.channel.ChannelReplyVO;
+import com.puzi.puzi.biz.channel.ChannelVO;
+import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResultType;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.ChannelNetworkService;
 import com.puzi.puzi.ui.channel.reply.ReplyListAdapter;
-import com.puzi.puzi.util.PreferenceUtil;
+import com.puzi.puzi.cache.Preference;
 import retrofit2.Call;
 
 import java.util.List;
@@ -40,8 +40,8 @@ public class ChannelDetailActivity extends Activity implements TextView.OnEditor
 
 	private int channelId, channelReplyId;
 	private ChannelVO channel;
-	private ChannelReply channelReply;
-	private List<ChannelReply> channelReplyList;
+	private ChannelReplyVO channelReplyVO;
+	private List<ChannelReplyVO> channelReplyVOList;
 
 	private ChannelNetworkService channelNetworkService = RetrofitManager.create(ChannelNetworkService.class);
 
@@ -65,20 +65,20 @@ public class ChannelDetailActivity extends Activity implements TextView.OnEditor
 	public void getChannelReply() {
 
 		final ChannelNetworkService channelNetworkService = RetrofitManager.create(ChannelNetworkService.class);
-		final String token = PreferenceUtil.getProperty(this, "token");
+		final String token = Preference.getProperty(this, "token");
 
 		Log.i("DEBUG", "Channel Reply List");
 
-		Call<ResponseVO<List<ChannelReply>>> call = channelNetworkService.replyList(token, channelId, 1);
-		call.enqueue(new CustomCallback<ResponseVO<List<ChannelReply>>>(this) {
+		Call<ResponseVO<List<ChannelReplyVO>>> call = channelNetworkService.replyList(token, channelId, 1);
+		call.enqueue(new CustomCallback<ResponseVO<List<ChannelReplyVO>>>(this) {
 			@Override
-			public void onSuccess(ResponseVO<List<ChannelReply>> responseVO) {
+			public void onSuccess(ResponseVO<List<ChannelReplyVO>> responseVO) {
 				ResultType resultType = responseVO.getResultType();
 
 				if (resultType.isSuccess()) {
 
-					channelReplyList = responseVO.getValue("channelReplyList");
-					replyListAdapter = new ReplyListAdapter(ChannelDetailActivity.this, channelReplyList, channelId, token);
+					channelReplyVOList = responseVO.getValue("channelReplyList");
+					replyListAdapter = new ReplyListAdapter(ChannelDetailActivity.this, channelReplyVOList, channelId, token);
 					lvReply.setAdapter(replyListAdapter);
 					setListViewHeightBasedOnChildren(lvReply, replyListAdapter);
 				}
@@ -90,7 +90,7 @@ public class ChannelDetailActivity extends Activity implements TextView.OnEditor
 
 		final ChannelNetworkService channelNetworkService = RetrofitManager.create(ChannelNetworkService.class);
 
-		String token = PreferenceUtil.getProperty(this, "token");
+		String token = Preference.getProperty(this, "token");
 
 		Log.i("DEBUG", "Channel Detail");
 
@@ -158,7 +158,7 @@ public class ChannelDetailActivity extends Activity implements TextView.OnEditor
 					Toast.makeText(getApplicationContext(), "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show();
 				} else {
 
-					final String token = PreferenceUtil.getProperty(this, "token");
+					final String token = Preference.getProperty(this, "token");
 
 					Call<ResponseVO<Integer>> call = channelNetworkService.replyWrite(token, channelId, reply);
 					call.enqueue(new CustomCallback<ResponseVO<Integer>>(this) {
@@ -170,13 +170,13 @@ public class ChannelDetailActivity extends Activity implements TextView.OnEditor
 
 								Log.i("DEBUG", "responseVO : " + responseVO);
 
-								channelReply = new ChannelReply();
+								channelReplyVO = new ChannelReplyVO();
 
-								channelReply.setChannelReplyId(responseVO.getValue("channelReplyId"));
-								channelReply.setComment(reply);
+								channelReplyVO.setChannelReplyId(responseVO.getValue("channelReplyId"));
+								channelReplyVO.setComment(reply);
 
-								channelReplyList.add(channelReply);
-								replyListAdapter = new ReplyListAdapter(ChannelDetailActivity.this, channelReplyList, channelId, token);
+								channelReplyVOList.add(channelReplyVO);
+								replyListAdapter = new ReplyListAdapter(ChannelDetailActivity.this, channelReplyVOList, channelId, token);
 								lvReply.setAdapter(replyListAdapter);
 								setListViewHeightBasedOnChildren(lvReply, replyListAdapter);
 								editReply.setText("");

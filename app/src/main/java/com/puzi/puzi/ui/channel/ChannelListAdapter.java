@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.R;
-import com.puzi.puzi.model.ChannelVO;
-import com.puzi.puzi.model.CompanyVO;
+import com.puzi.puzi.biz.channel.ChannelVO;
+import com.puzi.puzi.biz.company.CompanyVO;
 
 import java.util.List;
 

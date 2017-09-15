@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import com.puzi.puzi.R;
-import com.puzi.puzi.model.ChannelVO;
-import com.puzi.puzi.model.ResponseVO;
+import com.puzi.puzi.biz.channel.ChannelVO;
+import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResultType;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.ChannelNetworkService;
-import com.puzi.puzi.util.PreferenceUtil;
+import com.puzi.puzi.cache.Preference;
 import retrofit2.Call;
 
 import java.util.List;
@@ -81,7 +81,7 @@ public class ChannelFragment extends Fragment{
 
 		final ChannelNetworkService channelNetworkService = RetrofitManager.create(ChannelNetworkService.class);
 
-		String token = PreferenceUtil.getProperty(getActivity(), "token");
+		String token = Preference.getProperty(getActivity(), "token");
 		int pagingIndex = 1;
 
 		Call<ResponseVO<List<ChannelVO>>> call = channelNetworkService.channelList(token, type, pagingIndex);

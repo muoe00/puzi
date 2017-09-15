@@ -1,7 +1,6 @@
-package com.puzi.puzi.model;
+package com.puzi.puzi.network;
 
 import android.util.Log;
-import com.puzi.puzi.network.ResultType;
 import lombok.Data;
 import lombok.ToString;
 

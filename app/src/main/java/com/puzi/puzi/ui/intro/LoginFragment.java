@@ -19,17 +19,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.*;
 import com.puzi.puzi.R;
-import com.puzi.puzi.model.ResponseVO;
+import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
-import com.puzi.puzi.network.ResultType;
+import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.common.BasicDialog;
 import com.puzi.puzi.util.EncryptUtil;
-import com.puzi.puzi.util.PreferenceUtil;
-import com.puzi.puzi.util.tokenUtil;
 import retrofit2.Call;
 
 /**
@@ -37,8 +35,6 @@ import retrofit2.Call;
  */
 
 public class LoginFragment extends Fragment {
-
-	private static final String TAG = "LoginFragment";
 
 	private Unbinder unbinder;
 
@@ -70,19 +66,17 @@ public class LoginFragment extends Fragment {
 	}
 
 	private boolean isValid(String id, String pwd) {
-
-		if(id == null || id.length() < 5){
+		if(id == null || id.length() < 6){
 			String errorNoid = getActivity().getResources().getString(R.string.login_error_noid);
 			Toast.makeText(getActivity(), errorNoid, Toast.LENGTH_SHORT).show();
 			return false;
-		} else if(pwd == null || pwd.length() < 5){
+		} else if(pwd == null || pwd.length() < 6){
 			String errorNopwd = getActivity().getResources().getString(R.string.login_error_nopwd);
 			Toast.makeText(getActivity(), errorNopwd, Toast.LENGTH_SHORT).show();
 			return false;
 		} else {
 			return true;
 		}
-
 	}
 
 	@OnClick(R.id.login_btn)
@@ -93,34 +87,21 @@ public class LoginFragment extends Fragment {
 		// check valid id&pwd
 		if(isValid(id, pwd)){
 
-			// progress
 			ProgressDialog.show(getActivity());
 
 			UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
 			String notifyId = "NoRegister";
 			String phoneType = "A";
+			String phoneKey = "";
 
-			Call<ResponseVO<String>> call = userNetworkService.login(id, EncryptUtil.sha256(pwd), notifyId, phoneType);
+			Call<ResponseVO<String>> call = userNetworkService.login(id, EncryptUtil.sha256(pwd), notifyId, phoneType, phoneKey);
 			call.enqueue(new CustomCallback<ResponseVO<String>>(getActivity()) {
 				@Override
 				public void onSuccess(ResponseVO<String> responseVO) {
 
-					ProgressDialog.dismiss();
-					ResultType resultType = responseVO.getResultType();
-
-					switch(resultType){
+					switch(responseVO.getResultType()){
 						case SUCCESS:
-							String token = responseVO.getValue("token");
-							tokenUtil.TOKEN = token;
-							Log.e("### login token : ", ""+token);
-
-							PreferenceUtil.addProperty(getActivity(), "autoId", id);
-							PreferenceUtil.addProperty(getActivity(), "autoPw", pwd);
-							PreferenceUtil.addProperty(getActivity(),"token", token);
-
-							startActivity(new Intent(getActivity(), MainActivity.class));
-							getActivity().overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
-							getActivity().finish();
+							successLogin(responseVO.getValue("token"), id, pwd);
 							break;
 
 						case LOGIN_FAIL:
@@ -130,6 +111,17 @@ public class LoginFragment extends Fragment {
 				}
 			});
 		}
+	}
+
+	private void successLogin(String token, String id, String pwd) {
+		Log.d("### login token : ", token);
+
+		Preference.addProperty(getActivity(), "autoId", id);
+		Preference.addProperty(getActivity(), "autoPw", pwd);
+
+		startActivity(new Intent(getActivity(), MainActivity.class));
+		getActivity().overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
+		getActivity().finish();
 	}
 
 	@OnClick(R.id.signup_btn)

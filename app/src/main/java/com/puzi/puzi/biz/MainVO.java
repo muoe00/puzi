@@ -1,5 +1,8 @@
-package com.puzi.puzi.model;
+package com.puzi.puzi.biz;
 
+import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
+import com.puzi.puzi.biz.notice.NoticeVO;
+import com.puzi.puzi.biz.user.UserVO;
 import lombok.Data;
 
 import java.util.List;

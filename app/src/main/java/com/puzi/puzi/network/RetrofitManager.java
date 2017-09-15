@@ -13,7 +13,11 @@ public class RetrofitManager {
 
 	public static <T> T create(Class<T> c){
 
-		return new Retrofit.Builder().baseUrl(baseURL).addConverterFactory(GsonConverterFactory.create()).build().create(c);
+		return new Retrofit.Builder()
+			.baseUrl(baseURL)
+			.addConverterFactory(GsonConverterFactory.create())
+			.build()
+			.create(c);
 	}
 
 }
