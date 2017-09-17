@@ -1,4 +1,4 @@
-package com.puzi.puzi.ui.setting;
+package com.puzi.puzi.ui.intro;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,17 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.puzi.puzi.R;
-<<<<<<< HEAD:app/src/main/java/com/puzi/puzi/Fragment/InfoFragment.java
 import com.puzi.puzi.model.ResponseVO;
 import com.puzi.puzi.model.UserVO;
-=======
-import com.puzi.puzi.network.ResponseVO;
->>>>>>> origin/develop:app/src/main/java/com/puzi/puzi/ui/setting/InfoFragment.java
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.PuziNetworkException;
 import com.puzi.puzi.network.RetrofitManager;
-import com.puzi.puzi.network.service.UserNetworkService;
+import com.puzi.puzi.service.UserService;
 import com.puzi.puzi.util.EncryptUtil;
-import com.puzi.puzi.cache.Preference;
+import com.puzi.puzi.util.PreferenceUtil;
 import com.puzi.puzi.util.ValidationUtil;
 import retrofit2.Call;
 
@@ -79,43 +76,16 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
 			public void onClick(View v) {
 
 				infoCheck();
-<<<<<<< HEAD:app/src/main/java/com/puzi/puzi/Fragment/InfoFragment.java
-=======
-				validationCheck();
 
-				passwd = Preference.getProperty(getActivity(), "pw");
-				id = Preference.getProperty(getActivity(), "id");
-				email = Preference.getProperty(getActivity(), "email");
-				notifyId = "NoRegister";
-				phoneType = "A";
+				UserService userService = RetrofitManager.create(UserService.class);
 
-				Log.i("DEBUG", "userId : " + id);
-				Log.i("DEBUG", "passwd : " + passwd);
-				Log.i("DEBUG", "registerType : " + registerType);
-				Log.i("DEBUG", "email : " + email);
-				Log.i("DEBUG", "notifyId : " + notifyId);
-				Log.i("DEBUG", "gender : " + gender);
-				Log.i("DEBUG", "age : " + age);
-				Log.i("DEBUG", "favorites : " + favorites);
-				Log.i("DEBUG", "recommendId : " + recommendId);
-				Log.i("DEBUG", "phoneType : " + phoneType);
->>>>>>> origin/develop:app/src/main/java/com/puzi/puzi/ui/setting/InfoFragment.java
-
-				UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
-
-<<<<<<< HEAD:app/src/main/java/com/puzi/puzi/Fragment/InfoFragment.java
 				Call<ResponseVO> call = userService.signup(userVO.getUserId(), EncryptUtil.sha256(userVO.getPasswd()), userVO.getRegisterType()
 					, userVO.getEmail(), userVO.getNotifyId(), userVO.getGenderType(), userVO.getAgeType(), userVO.getFavoriteTypeList()
 					, userVO.getRecommendId(), userVO.getPhoneType(), userVO.getPhoneKey());
-=======
-				Call<ResponseVO> call = userNetworkService.signup(id, EncryptUtil.sha256(passwd), registerType, email
-					, notifyId, gender, age, favorites, recommendId, phoneType);
-				call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
->>>>>>> origin/develop:app/src/main/java/com/puzi/puzi/ui/setting/InfoFragment.java
 
 				call.enqueue(new CustomCallback<ResponseVO>() {
 					@Override
-					public void onSuccess(ResponseVO response) {
+					public void onResponse(ResponseVO response) {
 						if (response.getResultCode() == 1000) {
 
 							/*userVO = new UserVO(MemoriesVO.id, MemoriesVO.email, registerType, MemoriesVO.pw,
@@ -133,6 +103,12 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
 							alert.show();
 						}
 					}
+
+					@Override
+					public void onFailure(PuziNetworkException e) {
+						Log.e("TAG", "통신 오류(" + e.getCode() + ")");
+					}
+
 				});
 
 			}
