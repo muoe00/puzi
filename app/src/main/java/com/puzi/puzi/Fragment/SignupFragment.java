@@ -1,26 +1,21 @@
-package com.puzi.puzi.Fragment;
+package com.puzi.puzi.ui.intro;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.*;
+import butterknife.*;
 import com.puzi.puzi.R;
-import com.puzi.puzi.model.ResponseVO;
+import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
-import com.puzi.puzi.network.PuziNetworkException;
+import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
-import com.puzi.puzi.service.UserService;
-import com.puzi.puzi.util.PreferenceUtil;
+import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.util.ValidationUtil;
 import retrofit2.Call;
 
@@ -28,136 +23,100 @@ import retrofit2.Call;
  * Created by muoe0 on 2017-05-26.
  */
 
-public class SignupFragment extends Fragment implements View.OnClickListener {
+public class SignupFragment extends Fragment {
 
 	public SignupFragment() {
 	}
 
 	private static final String TAG = "SignupFragment";
+	private Unbinder unbinder;
+	private String id, email, pw, rePw;
 
-	private Boolean idCheck = false;
-	private String id, passward, confirm, email;
-	private EditText idEdittext, emailEdittext, pwEdittext, repwEdittext;
-	private Button overBtn, signupBtn;
-	private ValidationUtil validationUtil;
-	private AlertDialog.Builder alert_confirm;
-	private AlertDialog alert;
+	@BindView(R.id.edt_signup_id)
+	public EditText ethId;
+	@BindView(R.id.edt_signup_email)
+	public EditText ethEmail;
+	@BindView(R.id.edt_signup_pw)
+	public EditText ethPw;
+	@BindView(R.id.edt_signup_repw)
+	public EditText ethRePw;
+	@BindView(R.id.btn_signup_next)
+	public Button btnNext;
+	@BindView(R.id.ibtn_back)
+	public ImageButton ibtnBack;
 
 	public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState){
 
 		View view = inflater.inflate(R.layout.fragment_signup, container, false);
-
-		alert_confirm = new AlertDialog.Builder(this.getContext());
-		alert_confirm.setPositiveButton("확인", null);
-		alert = alert_confirm.create();
-
-		initComponent(view);
-
-		repwEdittext.addTextChangedListener(new TextWatcher() {
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-			}
-
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-			}
-
-			@Override
-			public void afterTextChanged(Editable s) {
-				passward = pwEdittext.getText().toString();
-				confirm = repwEdittext.getText().toString();
-
-				if( passward.equals(confirm) ) {
-					pwEdittext.setTextColor(Color.GREEN);
-					repwEdittext.setTextColor(Color.GREEN);
-				} else {
-					pwEdittext.setTextColor(Color.RED);
-					repwEdittext.setTextColor(Color.RED);
-				}
-			}
-		});
+		unbinder = ButterKnife.bind(this, view);
 
 		return view;
 	}
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-			case R.id.signup_overButton :
-				idCheck();
-				break;
-			case R.id.signupButton :
-				id = idEdittext.getText().toString().trim();
-				email = emailEdittext.getText().toString().trim();
-
-				PreferenceUtil.addProperty(getActivity(), "id", id);
-				PreferenceUtil.addProperty(getActivity(), "pw", passward);
-				PreferenceUtil.addProperty(getActivity(), "email", email);
-
-				if(idCheck == true) {
-					if(emailCheck() == true) {
-						fragmentChange();
-					} else {
-						alert.setMessage("정확한 이메일 주소를 입력해주세요.");
-						alert.show();
-					}
-				} else {
-					alert.setMessage("아이디 중복 확인을 해주세요.");
-					alert.show();
-				}
-				break;
-		}
-	}
-
-	public Boolean emailCheck() {
-		Boolean check = false;
-		email = emailEdittext.getText().toString();
-
-		if(validationUtil.checkEmail(email)) {
-			check = true;
-		}
-
-		return check;
-	}
-
 	public void idCheck() {
 
-		idCheck = true;
+		UserNetworkService userService = RetrofitManager.create(UserNetworkService.class);
 
-		UserService userService = RetrofitManager.create(UserService.class);
-		id = idEdittext.getText().toString().trim();
+		Call<ResponseVO> call = userService.check(id);
+		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
 
-		if (!validationUtil.checkUserId(id)) {
-			alert.setMessage("6-15자 이내로 입력해주세요");
-			alert.show();
+			@Override
+			public void onSuccess(ResponseVO response) {
+				if (response.getResultCode() == 1000) {
+					Toast.makeText(getContext(), "사용할 수 있는 아이디입니다.", Toast.LENGTH_SHORT).show();
 
+					Preference.addProperty(getActivity(), "id", id);
+					Preference.addProperty(getActivity(), "pw", pw);
+					Preference.addProperty(getActivity(), "email", email);
+
+					changedFragment();
+
+				} else if (response.getResultCode() == 2002) {
+					Toast.makeText(getContext(), "중복된 아이디입니다.", Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(getContext(), "잘못된 형식의 아이디입니다.", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+
+	}
+
+	@OnClick(R.id.btn_signup_next)
+	public void signupNext() {
+
+		id = ethId.getText().toString().trim();
+		email = ethEmail.getText().toString().trim();
+		pw = ethPw.getText().toString().trim();
+		rePw = ethRePw.getText().toString().trim();
+
+		if((id == null)||(email == null)||(pw == null)||(rePw == null)) {
+			if(id == null) {
+				Toast.makeText(getContext(), "아이디를 입력하세요.", Toast.LENGTH_SHORT).show();
+			} else if(email == null) {
+				Toast.makeText(getContext(), "이메일 주소를 입력하세요.", Toast.LENGTH_SHORT).show();
+			} else if(pw == null) {
+				Toast.makeText(getContext(), "비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show();
+			} else if(rePw == null) {
+				Toast.makeText(getContext(), "비밀번호를 다시 입력하세요.", Toast.LENGTH_SHORT).show();
+			}
 		} else {
-			Call<ResponseVO> call = userService.check(id);
-			call.enqueue(new CustomCallback<ResponseVO>() {
-
-				@Override
-				public void onResponse(ResponseVO response) {
-					if (response.getResultCode() == 1000) {
-						alert.setMessage("사용할 수 있는 아이디입니다");
-						alert.show();
-					} else if (response.getResultCode() == 2002) {
-						alert.setMessage("중복된 아이디입니다");
-						alert.show();
+			if(ValidationUtil.checkEmail(email)) {
+				if(pw.equals(rePw)) {
+					if(ValidationUtil.checkUserId(id)) {
+						idCheck();
 					} else {
-						alert.setMessage("잘못된 형식의 아이디입니다");
-						alert.show();
+						Toast.makeText(getContext(), "정확한 아이디를 입력하세요.", Toast.LENGTH_SHORT).show();
 					}
+				} else {
+					Toast.makeText(getContext(), "정확한 비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show();
 				}
-				@Override
-				public void onFailure(PuziNetworkException e) {
-
-					Log.e("TAG", "통신 오류(" + e.getCode()+")");
-				}
-			});
+			} else {
+				Toast.makeText(getContext(), "정확한 이메일 주소를 입력하세요.", Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 
-	public void fragmentChange() {
+	public void changedFragment() {
 		Log.i("DEBUG", "fragment changed.");
 		Fragment infoFragment = new InfoFragment();
 		FragmentManager fragmentManager = getFragmentManager();
@@ -167,15 +126,9 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 		fragmentTransaction.commit();
 	}
 
-	private void initComponent(View view) {
-		idEdittext = (EditText) view.findViewById(R.id.signup_idEditText);
-		emailEdittext = (EditText) view.findViewById(R.id.signup_emailEditText);
-		pwEdittext = (EditText) view.findViewById(R.id.signup_pwEditText);
-		repwEdittext = (EditText) view.findViewById(R.id.signup_repwEditText);
-		overBtn = (Button) view.findViewById(R.id.signup_overButton);
-		signupBtn = (Button) view.findViewById(R.id.signupButton);
-		overBtn.setOnClickListener(this);
-		signupBtn.setOnClickListener(this);
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		unbinder.unbind();
 	}
-
 }
