@@ -76,17 +76,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, AbsL
 
 	private void initComponent(View view) {
 		gvAd = (GridView) view.findViewById(R.id.gv_advertise);
-
 		btnPoint = (Button) view.findViewById(R.id.btn_pointhistory);
 		btnPoint.setOnClickListener(this);
 		btnLevel = (Button) view.findViewById(R.id.btn_level);
 		btnLevel.setOnClickListener(this);
-
 		ivRangking = (ImageView) view.findViewById(R.id.iv_rankImage);
-
 		ibtnRecommend = (ImageButton) view.findViewById(R.id.ibtn_recommend);
 		ibtnRecommend.setOnClickListener(this);
-
 		tvPoint = (TextView) view.findViewById(R.id.tv_point);
 		flAd = (FrameLayout) view.findViewById(R.id.fl_advertise);
 	}

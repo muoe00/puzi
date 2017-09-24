@@ -28,7 +28,7 @@ public class SignupFragment extends Fragment {
 	public SignupFragment() {
 	}
 
-	private static final String TAG = "SignupFragment";
+	private static final String TAG = "Signup";
 	private Unbinder unbinder;
 	private String id, email, pw, rePw;
 
@@ -63,14 +63,10 @@ public class SignupFragment extends Fragment {
 			@Override
 			public void onSuccess(ResponseVO response) {
 				if (response.getResultCode() == 1000) {
-					Toast.makeText(getContext(), "사용할 수 있는 아이디입니다.", Toast.LENGTH_SHORT).show();
-
 					Preference.addProperty(getActivity(), "id", id);
 					Preference.addProperty(getActivity(), "pw", pw);
 					Preference.addProperty(getActivity(), "email", email);
-
 					changedFragment();
-
 				} else if (response.getResultCode() == 2002) {
 					Toast.makeText(getContext(), "중복된 아이디입니다.", Toast.LENGTH_SHORT).show();
 				} else {
@@ -78,7 +74,6 @@ public class SignupFragment extends Fragment {
 				}
 			}
 		});
-
 	}
 
 	@OnClick(R.id.btn_signup_next)
@@ -121,7 +116,7 @@ public class SignupFragment extends Fragment {
 		Fragment infoFragment = new InfoFragment();
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.replace(R.id.intro_fragment_container2, infoFragment);
+		fragmentTransaction.replace(R.id.intro_fragment_container, infoFragment);
 		fragmentTransaction.addToBackStack("INFO");
 		fragmentTransaction.commit();
 	}
@@ -130,5 +125,10 @@ public class SignupFragment extends Fragment {
 	public void onDestroyView() {
 		super.onDestroyView();
 		unbinder.unbind();
+	}
+
+	@OnClick(R.id.ibtn_back)
+	public void back() {
+		getActivity().onBackPressed();
 	}
 }

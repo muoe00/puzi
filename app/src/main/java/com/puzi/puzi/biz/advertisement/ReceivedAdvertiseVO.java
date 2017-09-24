@@ -14,14 +14,6 @@ public class ReceivedAdvertiseVO {
 	private String userId;					// 사용자아이디
 	private String cmpnId;					// 캠페인시퀀스
 
-	public String getViewType() {
-		return viewType;
-	}
-
-	public void setViewType(String viewType) {
-		this.viewType = viewType;
-	}
-
 	public String getChannelId() {
 		return channelId;
 	}

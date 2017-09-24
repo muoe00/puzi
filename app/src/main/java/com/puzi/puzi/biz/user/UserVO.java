@@ -1,4 +1,4 @@
-package com.puzi.puzi.model;
+package com.puzi.puzi.biz.user;
 
 import lombok.Data;
 
@@ -17,6 +17,21 @@ public class UserVO implements Serializable {
 	private String registerType;			// 가입 경로 (N:일반, K:카카오톡)
 	private String email;					// 메일주소
 	private String notifyId;				// 푸시아이디
+	private String genderType;				// 성별 (MALE:남자, FEMALE:여자)
+	private int age;						// 출생년도
+	private String ageType;					// TEN : 10대, TWENTY : 20대, THIRTY : 30대, FOURTY : 40대 이상
+	private List<String> favoriteTypeList;	// 관심사(BUEATY:뷰티, SHOPPING:쇼핑, GAME:게임, EAT:외식, TOUR:여행, FINANCE:금융, CULTURE:문화)
+	private String recommendId;				// 추천인 아이디
+	private int rankRatio;					// 상위 %
+	private int rewardRatio;				// 보상비율
+	private int accumulatedPoint;			// 누적포인트
+	private int todayPoint;					// 오늘적립금액
+	private int point;						// 포인트
+	private int score;						// 내부점수
+	private String phoneType;				// 폰종류(A)
+	private Boolean spendFlag;				// 구매가능여부
+	private String phoneKey;				// 핸드폰고유키
+	private String levelType;				// 등급
 
 	public String getUserId() {
 		return userId;
@@ -169,20 +184,5 @@ public class UserVO implements Serializable {
 	public void setPhoneKey(String phoneKey) {
 		this.phoneKey = phoneKey;
 	}
-
-	private String genderType;				// 성별 (MALE:남자, FEMALE:여자)
-	private int age;						// 출생년도
-	private String ageType;					// TEN : 10대, TWENTY : 20대, THIRTY : 30대, FOURTY : 40대 이상
-	private List<String> favoriteTypeList;	// 관심사(BUEATY:뷰티, SHOPPING:쇼핑, GAME:게임, EAT:외식, TOUR:여행, FINANCE:금융, CULTURE:문화)
-	private String recommendId;				// 추천인 아이디
-	private int rankRatio;					// 상위 %
-	private int rewardRatio;				// 보상비율
-	private int accumulatedPoint;			// 누적포인트
-	private int todayPoint;					// 오늘적립금액
-	private int point;						// 포인트
-	private int score;						// 내부점수
-	private String phoneType;				// 폰종류(A)
-	private Boolean spendFlag;				// 구매가능여부
-	private String phoneKey;				// 핸드폰고유키
 
 }

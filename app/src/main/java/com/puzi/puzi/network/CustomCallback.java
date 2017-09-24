@@ -28,7 +28,7 @@ public abstract class CustomCallback<T> implements Callback<T> {
 
 	@Override
 	public void onResponse(final Call<T> call, retrofit2.Response<T> response) {
-		Log.d("retrofit2Response", response.body().toString());
+		Log.d("retrofit2Response", "" + response.body());
 
 		Request request = call.request();
 		Log.d("CustomCallback", "####### REQUEST #######");

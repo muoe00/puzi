@@ -4,58 +4,66 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import butterknife.*;
 import com.puzi.puzi.R;
-import com.puzi.puzi.model.ResponseVO;
-import com.puzi.puzi.model.UserVO;
+import com.puzi.puzi.biz.user.UserVO;
+import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
-import com.puzi.puzi.network.PuziNetworkException;
+import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
-import com.puzi.puzi.service.UserService;
+import com.puzi.puzi.network.service.UserNetworkService;
+import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.util.EncryptUtil;
-import com.puzi.puzi.util.PreferenceUtil;
 import com.puzi.puzi.util.ValidationUtil;
 import retrofit2.Call;
 
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by muoe0 on 2017-07-27.
  */
 
-public class InfoFragment extends Fragment implements View.OnClickListener{
+public class InfoFragment extends Fragment {
 
-	public InfoFragment() {
+	private Unbinder unbinder;
 
-	}
+	@BindView(R.id.rbtn_male)
+	public RadioButton rbtnMale;
+	@BindView(R.id.rbtn_female)
+	public RadioButton rbtnFemale;
+	@BindView(R.id.sp_age)
+	public Spinner spAge;
+	@BindView(R.id.edit_recommend)
+	public EditText edtiRecommend;
+	@BindView(R.id.ibtn_back)
+	public ImageView ibtnBack;
 
-	private static final String TAG = "InfoFragment";
+	private static final String TAG = "Info";
 
+	private boolean isClause = false;
 	private UserVO userVO;
 	private ValidationUtil validationUtil;
 	private AlertDialog.Builder alert_confirm;
 	private AlertDialog alert;
-	private RadioGroup genderRadioGroup;
-	private EditText ageEditText, recommendidEdittext;
-	private CheckBox beautyCheckBox, shoppingCheckBox, gameCheckBox, eatCheckBox
-		, tourCheckBox, financeCheckBox, cultureCheckBox, agreeCheckBox;
-	private Button storeButton, serviceButton, personalButton, gpsButton;
-	private RadioButton btnMale, btnFemale;
-	private String age;
-	private List<String> favoritesList;
+	private ArrayList<String> favoritesList = new ArrayList<String>();
+	private ArrayList<String> yearList = new ArrayList<String>();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		View view = inflater.inflate(R.layout.fragment_signup_info, container, false);
 
-		initComponent(view);
+		unbinder = ButterKnife.bind(this, view);
+
+		settingYears();
 
 		validationUtil = new ValidationUtil();
 		alert_confirm = new AlertDialog.Builder(this.getContext());
@@ -63,141 +71,242 @@ public class InfoFragment extends Fragment implements View.OnClickListener{
 		alert = alert_confirm.create();
 
 		userVO = new UserVO();
-		userVO.setUserId(PreferenceUtil.getProperty(getActivity(), "id"));
-		userVO.setPasswd(PreferenceUtil.getProperty(getActivity(), "pw"));
+		userVO.setUserId(Preference.getProperty(getActivity(), "id"));
+		userVO.setPasswd(Preference.getProperty(getActivity(), "pw"));
 		userVO.setRegisterType("N");
-		userVO.setEmail(PreferenceUtil.getProperty(getActivity(), "email"));
+		userVO.setEmail(Preference.getProperty(getActivity(), "email"));
 		userVO.setNotifyId("NoRegister");
-
 		userVO.setPhoneType("A");
+		userVO.setLevelType("BRONZE");
 
-		storeButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-
-				infoCheck();
-
-				UserService userService = RetrofitManager.create(UserService.class);
-
-				Call<ResponseVO> call = userService.signup(userVO.getUserId(), EncryptUtil.sha256(userVO.getPasswd()), userVO.getRegisterType()
-					, userVO.getEmail(), userVO.getNotifyId(), userVO.getGenderType(), userVO.getAgeType(), userVO.getFavoriteTypeList()
-					, userVO.getRecommendId(), userVO.getPhoneType(), userVO.getPhoneKey());
-
-				call.enqueue(new CustomCallback<ResponseVO>() {
-					@Override
-					public void onResponse(ResponseVO response) {
-						if (response.getResultCode() == 1000) {
-
-							/*userVO = new UserVO(MemoriesVO.id, MemoriesVO.email, registerType, MemoriesVO.pw,
-								MemoriesVO.notifyId, gender, age, favorites);*/
-
-							System.setProperty("userId", userVO.getUserId());
-							System.setProperty("passwd", userVO.getPasswd());
-
-							//MemoriesVO.token = response.getToken();
-							Intent intent = new Intent(getActivity(), FragmentActivity.class);
-							startActivity(intent);
-
-						} else {
-							alert.setMessage("잘못된 형식입니다");
-							alert.show();
-						}
-					}
-
-					@Override
-					public void onFailure(PuziNetworkException e) {
-						Log.e("TAG", "통신 오류(" + e.getCode() + ")");
-					}
-
-				});
-
-			}
-		});
+		checkInfo();
 
 		return view;
 	}
 
-	public void infoCheck() {
+	@OnClick(R.id.btn_signup_ok)
+	public void signup() {
 
-		if(btnMale.isChecked()) {
-			userVO.setGenderType("MALE");
-		} else if(btnFemale.isChecked()) {
-			userVO.setGenderType("FEMALE");
+		isChecked();
+
+		Log.i("INFO", "signup check complete.");
+		Log.i("INFO", "User VO : " + userVO.toString());
+
+		UserNetworkService userService = RetrofitManager.create(UserNetworkService.class);
+
+		Call<ResponseVO> call = userService.signup(userVO.getUserId(), EncryptUtil.sha256(userVO.getPasswd()), userVO.getRegisterType()
+			, userVO.getEmail(), userVO.getNotifyId(), userVO.getGenderType(), userVO.getAge(), userVO.getFavoriteTypeList()
+			, userVO.getRecommendId(), userVO.getPhoneType(), userVO.getPhoneKey());
+
+		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+			@Override
+			public void onSuccess(ResponseVO responseVO) {
+				switch(responseVO.getResultType()){
+					case SUCCESS:
+						Log.i("INFO", "signup success.");
+
+						System.setProperty("userId", userVO.getUserId());
+						System.setProperty("passwd", userVO.getPasswd());
+
+						Intent intent = new Intent(getActivity(), MainActivity.class);
+						startActivity(intent);
+						break;
+				}
+			}
+		});
+	}
+
+	@OnItemSelected(R.id.sp_age)
+	public void checkAge(int position) {
+		int year = position + 1940;
+		int currentYear = currentYear();
+		int age = currentYear - year + 1;
+
+		userVO.setAge(year);
+
+		if(age < 20) {
+			userVO.setAgeType("TEN");
+		} else if(age >= 20 && age < 30) {
+			userVO.setAgeType("TWENTY");
+		} else if(age >= 30 && age < 40) {
+			userVO.setAgeType("THI");
+		} else if(age >= 40 && age < 50) {
+			userVO.setAgeType("TOUR");
 		}
 
-		userVO.setAge(Integer.parseInt(ageEditText.getText().toString().trim()));
-		int temp = 2017 - userVO.getAge() + 1;
-		age = String.valueOf(temp);
+		Log.i("INFO", "Year : " + year + ", age type : " + userVO.getAgeType());
+	}
 
-		if(temp < 20) {
-			userVO.setAgeType("TEN");
-		} else if(temp >= 20 && temp < 30) {
-			userVO.setAgeType("TWENTY");
-		} else if(temp >= 30 && temp < 40) {
-			userVO.setAgeType("THI");
+	public int currentYear() {
+		long nowTime = System.currentTimeMillis();
+		Date date = new Date(nowTime);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
+		String currentYear = simpleDateFormat.format(date);
+		int year = Integer.parseInt(currentYear);
+
+		return year;
+	}
+
+	public void settingYears() {
+
+		int currentYear = currentYear();
+
+		for(int index = 1940; index <= currentYear; index++){
+			yearList.add(String.valueOf(index));
+		}
+
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>
+			(getActivity(), android.R.layout.simple_spinner_dropdown_item, yearList);
+
+		spAge.setPrompt(getResources().getString(R.string.info_age));
+		spAge.setAdapter(adapter);
+	}
+
+	@OnClick({R.id.btn_info_beauty, R.id.btn_info_shopping, R.id.btn_info_game, R.id.btn_info_eat,
+		R.id.btn_info_tour, R.id.btn_info_finance, R.id.btn_info_culture})
+	public void checkFavorites(View view) {
+		switch (view.getId()) {
+			case R.id.btn_info_beauty:
+				if(isFavorites("BEAUTY")) {
+					favoritesList.remove("BEAUTY");
+				} else {
+					favoritesList.add("BEAUTY");
+				}
+				break;
+			case R.id.btn_info_shopping:
+				if(isFavorites("SHOPPING")) {
+					favoritesList.remove("SHOPPING");
+				} else {
+					favoritesList.add("SHOPPING");
+				}
+				break;
+			case R.id.btn_info_game:
+				if(isFavorites("GAME")) {
+					favoritesList.remove("GAME");
+				} else {
+					favoritesList.add("GAME");
+				}
+				break;
+			case R.id.btn_info_eat:
+				if(isFavorites("EAT")) {
+					favoritesList.remove("EAT");
+				} else {
+					favoritesList.add("EAT");
+				}
+				break;
+			case R.id.btn_info_tour:
+				if(isFavorites("TOUR")) {
+					favoritesList.remove("TOUR");
+				} else {
+					favoritesList.add("TOUR");
+				}
+				break;
+			case R.id.btn_info_finance:
+				if(isFavorites("FINANCE")) {
+					favoritesList.remove("FINANCE");
+				} else {
+					favoritesList.add("FINANCE");
+				}
+				break;
+			case R.id.btn_info_culture:
+				if(isFavorites("CULTURE")) {
+					favoritesList.remove("CULTURE");
+				} else {
+					favoritesList.add("CULTURE");
+				}
+				break;
+			default:
+				break;
+		}
+
+		userVO.setFavoriteTypeList(favoritesList);
+	}
+
+	public boolean isFavorites(String item) {
+		if(favoritesList.isEmpty()) {
+			return false;
+		} else {
+			for (String favorite : favoritesList) {
+				if (favorite.equals(item)) {
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+
+	@OnClick({R.id.btn_signup_service, R.id.btn_signup_personal, R.id.btn_signup_gps, R.id.btn_signup_all})
+	public void checkClause(View view) {
+
+		boolean isService = false, isPersonal = false, isGps = false;
+
+		switch (view.getId()) {
+			case R.id.btn_signup_service:
+				if(isService) {
+					isService = false;
+				} else {
+					isService = true;
+				}
+				break;
+			case R.id.btn_signup_personal:
+				if(isPersonal) {
+					isPersonal = false;
+				} else {
+					isPersonal = true;
+				}
+				break;
+			case R.id.btn_signup_gps:
+				if(isGps) {
+					isGps = false;
+				} else {
+					isGps = true;
+				}
+				break;
+			case R.id.btn_signup_all:
+				if(isClause) {
+					isClause = false;
+				} else {
+					isClause = true;
+				}
+				break;
+			default:
+				break;
+		}
+
+		if(!isClause) {
+			if(isService && isPersonal && isGps) {
+				isClause = true;
+			} else {
+				isClause = false;
+			}
+		}
+	}
+
+	public void checkInfo() {
+
+		if(rbtnMale.isChecked()) {
+			userVO.setGenderType("MALE");
+		} else if(rbtnFemale.isChecked()) {
+			userVO.setGenderType("FEMALE");
 		}
 
 		String idByANDROID_ID = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 		userVO.setPhoneKey(idByANDROID_ID);
-
-		if(beautyCheckBox.isChecked() == true) {
-			favoritesList.add("BEAUTY");
-		} if(shoppingCheckBox.isChecked() == true) {
-			favoritesList.add("SHOPPING");
-		} if(gameCheckBox.isChecked() == true) {
-			favoritesList.add("GAME");
-		} if(eatCheckBox.isChecked() == true) {
-			favoritesList.add("EAT");
-		} if(tourCheckBox.isChecked() == true) {
-			favoritesList.add("TOUR");
-		} if(financeCheckBox.isChecked() == true) {
-			favoritesList.add("FINANCE");
-		} if(cultureCheckBox.isChecked() == true) {
-			favoritesList.add("CULTURE");
-		}
-
-		userVO.setFavoriteTypeList(favoritesList);
-		userVO.setRecommendId(recommendidEdittext.getText().toString().trim());
+		userVO.setRecommendId(edtiRecommend.getText().toString().trim());
 	}
 
-	@Override
-	public void onClick(View v) {
-
-		switch (v.getId()) {
-			case R.id.btn_join_service:
-				break;
-			case R.id.btn_join_personal:
-				break;
-			case R.id.btn_join_gps:
-				break;
+	public void isChecked() {
+		if(userVO.getAgeType() == null) {
+			Toast.makeText(getContext(), "출생년도를 선택하세요", Toast.LENGTH_SHORT).show();
+		} else if(userVO.getFavoriteTypeList().isEmpty()) {
+			Toast.makeText(getContext(), "관심분야를 선택하세요", Toast.LENGTH_SHORT).show();
+		} else if(!isClause) {
+			Toast.makeText(getContext(), "약관에 동의해주세요", Toast.LENGTH_SHORT).show();
 		}
 	}
 
-	private void initComponent(View view) {
-		ageEditText = (EditText) view.findViewById(R.id.info_ageEditText);
-		recommendidEdittext = (EditText) view.findViewById(R.id.info_recommendidEditText);
-
-		beautyCheckBox = (CheckBox) view.findViewById(R.id.info_beautyRadioButton);
-		shoppingCheckBox = (CheckBox) view.findViewById(R.id.info_shoppingRadioButton);
-		gameCheckBox = (CheckBox) view.findViewById(R.id.info_gameRadioButton);
-		eatCheckBox = (CheckBox) view.findViewById(R.id.info_diningRadioButton);
-		tourCheckBox = (CheckBox) view.findViewById(R.id.info_tripRadioButton);
-		financeCheckBox = (CheckBox) view.findViewById(R.id.info_financeRadioButton);
-		cultureCheckBox = (CheckBox) view.findViewById(R.id.info_cultureRadioButton);
-
-		agreeCheckBox = (CheckBox) view.findViewById(R.id.cb_join_agree);
-
-		genderRadioGroup = (RadioGroup) view.findViewById(R.id.info_genderRadioGroup);
-		btnMale = (RadioButton) view.findViewById(R.id.info_mRadioButton);
-		btnFemale = (RadioButton) view.findViewById(R.id.info_wRadioButton);
-
-		storeButton = (Button) view.findViewById(R.id.info_storeButton);
-		serviceButton = (Button) view.findViewById(R.id.btn_join_service);
-		personalButton = (Button) view.findViewById(R.id.btn_join_personal);
-		gpsButton = (Button) view.findViewById(R.id.btn_join_gps);
-
-		serviceButton.setOnClickListener(this);
-		personalButton.setOnClickListener(this);
-		gpsButton.setOnClickListener(this);
+	@OnClick(R.id.ibtn_back)
+	public void back() {
+		getActivity().onBackPressed();
 	}
 }

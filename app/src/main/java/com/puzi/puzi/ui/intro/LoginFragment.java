@@ -40,7 +40,7 @@ public class LoginFragment extends Fragment {
 
 	@BindView(R.id.login_et_id)
 	public EditText etId;
-	@BindView(R.id.login_et_pwd)
+	@BindView(R.id.edit_login_pw)
 	public EditText etPwd;
 	@BindView(R.id.login_btn)
 	public Button btnLogin;
@@ -124,12 +124,12 @@ public class LoginFragment extends Fragment {
 		getActivity().finish();
 	}
 
-	@OnClick(R.id.signup_btn)
+	@OnClick(R.id.btn_signup)
 	public void signup() {
 		Fragment signupFragment = new SignupFragment();
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.replace(R.id.intro_fragment_container2, signupFragment);
+		fragmentTransaction.replace(R.id.intro_fragment_container, signupFragment);
 		fragmentTransaction.addToBackStack("SIGNUP");
 		fragmentTransaction.commit();
 	}
@@ -139,17 +139,27 @@ public class LoginFragment extends Fragment {
 
 	}
 
-	@OnClick(R.id.search_btn)
-	public void search() {
-		Fragment searchFragment = new SearchFragment();
+	@OnClick(R.id.btn_srch_id)
+	public void searchId() {
+		Fragment searchFragment = new SearchIdFragment();
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.replace(R.id.intro_fragment_container2, searchFragment);
+		fragmentTransaction.replace(R.id.intro_fragment_container, searchFragment);
 		fragmentTransaction.addToBackStack("SEARCH");
 		fragmentTransaction.commit();
 	}
 
-	@OnEditorAction(R.id.login_et_pwd)
+	@OnClick(R.id.btn_srch_pw)
+	public void searchPw() {
+		Fragment searchFragment = new SearchPwFragment();
+		FragmentManager fragmentManager = getFragmentManager();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		fragmentTransaction.replace(R.id.intro_fragment_container, searchFragment);
+		fragmentTransaction.addToBackStack("SEARCH");
+		fragmentTransaction.commit();
+	}
+
+	@OnEditorAction(R.id.edit_login_pw)
 	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 		if(actionId == EditorInfo.IME_ACTION_DONE){
 			login();

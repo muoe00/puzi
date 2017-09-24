@@ -40,7 +40,7 @@
 
     <EditText
       android:background="@drawable/edittext"
-      android:id="@+id/login_et_pwd"
+      android:id="@+id/edit_login_pw"
       android:layout_width="match_parent"
       android:layout_height="48.5dp"
       android:layout_below="@+id/login_et_id"
@@ -60,7 +60,7 @@
       android:id="@+id/login_btn"
       android:layout_width="match_parent"
       android:layout_height="48.5dp"
-      android:layout_below="@+id/login_et_pwd"
+      android:layout_below="@+id/edit_login_pw"
       android:layout_centerHorizontal="true"
       android:layout_marginLeft="50dp"
       android:layout_marginRight="50dp"
@@ -95,7 +95,7 @@
       android:layout_below="@+id/kakao_login_btn">
 
       <Button
-        android:id="@+id/search_btn"
+        android:id="@+id/btn_srch_id"
         android:layout_width="wrap_content"
         android:layout_height="48.5dp"
         android:textColor="@color/colorGray"
@@ -103,20 +103,35 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="2dp"
         android:ems="10"
-        android:text="아이디 / 비밀번호 찾기"
-        android:textSize="13sp" />
+        android:text="아이디 찾기"
+        android:textSize="13sp"
+        android:layout_weight="1"/>
 
       <Button
-        android:id="@+id/signup_btn"
+        android:id="@+id/btn_srch_pw"
         android:layout_width="wrap_content"
         android:layout_height="48.5dp"
-        android:layout_marginTop="8dp"
+        android:textColor="@color/colorGray"
+        android:background="@null"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:text="비밀번호 찾기"
+        android:textSize="13sp"
+        android:layout_weight="1"/>
+
+      <Button
+        android:id="@+id/btn_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="48.5dp"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="2dp"
         android:ems="10"
         android:textColor="@color/colorGray"
         android:background="@null"
         android:text="무료 회원가입"
-        android:textSize="13sp" />
+        android:textSize="13sp"
+        android:layout_weight="1"/>
+
     </LinearLayout>
   </RelativeLayout>
 
