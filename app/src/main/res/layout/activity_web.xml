@@ -53,30 +53,31 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-    android:gravity="center"
-    android:id="@+id/ll_level_content"
-    android:layout_margin="5dp"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <WebView
-      android:id="@+id/web_ad"
+      android:gravity="center"
+      android:id="@+id/ll_level_content"
+      android:layout_margin="5dp"
+      android:orientation="horizontal"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-    </WebView>
+      <WebView
+        android:id="@+id/web_ad"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-  </LinearLayout>
+      </WebView>
+
+    </LinearLayout>
 
     <LinearLayout
-      android:layout_width="50dp"
-      android:layout_height="50dp"
-      android:layout_gravity="bottom|right">
+      android:layout_gravity="bottom"
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="5dp">
 
       <ProgressBar
-        android:id="@+id/progress_circle"
-        style="?android:attr/progressBarStyle"
+        android:id="@+id/progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"/>

@@ -12,7 +12,7 @@ import com.puzi.puzi.biz.notice.NoticeVO;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.SettingNetworkService;
-import com.puzi.puzi.util.tokenUtil;
+import com.puzi.puzi.utils.tokenUtils;
 import retrofit2.Call;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class SettingDetailActivity extends Activity {
 	private List<NoticeVO> noticeVO;
 	private ImageButton btnBack;
 	private TextView tvTitle;
-	private String token = tokenUtil.TOKEN;
+	private String token = tokenUtils.TOKEN;
 	private int tag, pagingIndex = 0;
 	private SettingNetworkService settingNetworkService = RetrofitManager.create(SettingNetworkService.class);
 	private Call<ResponseVO> call = null;
@@ -48,7 +48,7 @@ public class SettingDetailActivity extends Activity {
 		Intent intent = getIntent();
 		tag = intent.getExtras().getInt("TAG");
 
-		Log.e("### tokenutil : ", ""+tokenUtil.TOKEN);
+		Log.e("### tokenutil : ", ""+ tokenUtils.TOKEN);
 
 		switch (tag) {
 			case 0:

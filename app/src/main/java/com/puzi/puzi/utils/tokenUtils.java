@@ -1,10 +1,10 @@
-package com.puzi.puzi.util;
+package com.puzi.puzi.utils;
 
 /**
  * Created by muoe0 on 2017-07-09.
  */
 
-public class tokenUtil {
+public class tokenUtils {
 
 	public static String TOKEN = null;
 }

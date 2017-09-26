@@ -31,6 +31,15 @@ public class UserVO implements Serializable {
 	private String phoneType;				// 폰종류(A)
 	private Boolean spendFlag;				// 구매가능여부
 	private String phoneKey;				// 핸드폰고유키
+
+	public String getLevelType() {
+		return levelType;
+	}
+
+	public void setLevelType(String levelType) {
+		this.levelType = levelType;
+	}
+
 	private String levelType;				// 등급
 
 	public String getUserId() {

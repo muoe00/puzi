@@ -16,7 +16,7 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
-import com.puzi.puzi.util.ValidationUtil;
+import com.puzi.puzi.utils.ValidationUtils;
 import retrofit2.Call;
 
 /**
@@ -95,9 +95,9 @@ public class SignupFragment extends Fragment {
 				Toast.makeText(getContext(), "비밀번호를 다시 입력하세요.", Toast.LENGTH_SHORT).show();
 			}
 		} else {
-			if(ValidationUtil.checkEmail(email)) {
+			if(ValidationUtils.checkEmail(email)) {
 				if(pw.equals(rePw)) {
-					if(ValidationUtil.checkUserId(id)) {
+					if(ValidationUtils.checkUserId(id)) {
 						idCheck();
 					} else {
 						Toast.makeText(getContext(), "정확한 아이디를 입력하세요.", Toast.LENGTH_SHORT).show();

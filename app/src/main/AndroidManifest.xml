@@ -35,7 +35,7 @@
     <activity android:name=".ui.user.PointActivity"></activity>
     <activity android:name=".ui.user.RecommendActivity"></activity>
     <activity android:name=".ui.setting.SettingDetailActivity"></activity>
-    <activity android:name=".ui.advertisement.WebActivity">
+    <activity android:name=".ui.advertisement.AdvertisementDetailActivity">
       android:windowSoftInputMode="stateAlwaysHidden"
     </activity>
     <activity android:name=".ui.store.withdraw.WithdrawActivity"></activity>

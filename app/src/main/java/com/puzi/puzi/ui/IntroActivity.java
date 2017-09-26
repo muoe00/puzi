@@ -18,8 +18,8 @@ import com.puzi.puzi.network.ResultType;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.intro.LoginFragment;
-import com.puzi.puzi.util.EncryptUtil;
-import com.puzi.puzi.util.tokenUtil;
+import com.puzi.puzi.utils.EncryptUtils;
+import com.puzi.puzi.utils.tokenUtils;
 import retrofit2.Call;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class IntroActivity extends FragmentActivity {
 
 			UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
 
-			Call<ResponseVO<String>> call = userNetworkService.login(autoId, EncryptUtil.sha256(autoPw), "NoRegister", "A", "");
+			Call<ResponseVO<String>> call = userNetworkService.login(autoId, EncryptUtils.sha256(autoPw), "NoRegister", "A", "");
 			call.enqueue(new CustomCallback<ResponseVO<String>>(this) {
 				@Override
 				public void onSuccess(ResponseVO<String> responseVO) {
@@ -63,7 +63,7 @@ public class IntroActivity extends FragmentActivity {
 							String token = responseVO.getValue("token");
 							if(token != null)
 								Log.i("INFO", "AUTO TOKEN : " + token);
-							tokenUtil.TOKEN = token;
+							tokenUtils.TOKEN = token;
 							Preference.addProperty(IntroActivity.this, "token", token);
 							break;
 						case LOGIN_FAIL:

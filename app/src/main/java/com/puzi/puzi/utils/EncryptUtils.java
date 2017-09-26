@@ -1,4 +1,4 @@
-package com.puzi.puzi.util;
+package com.puzi.puzi.utils;
 
 import android.util.Log;
 
@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
  * Created by muoe0 on 2017-04-28.
  */
 
-public class EncryptUtil {
+public class EncryptUtils {
 
 	private static String SALT_FOR_SHA256 = "cs0604";
 

@@ -19,8 +19,8 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.MainActivity;
-import com.puzi.puzi.util.EncryptUtil;
-import com.puzi.puzi.util.ValidationUtil;
+import com.puzi.puzi.utils.EncryptUtils;
+import com.puzi.puzi.utils.ValidationUtils;
 import retrofit2.Call;
 
 import java.text.SimpleDateFormat;
@@ -50,7 +50,7 @@ public class InfoFragment extends Fragment {
 
 	private boolean isClause = false;
 	private UserVO userVO;
-	private ValidationUtil validationUtil;
+	private ValidationUtils validationUtil;
 	private AlertDialog.Builder alert_confirm;
 	private AlertDialog alert;
 	private ArrayList<String> favoritesList = new ArrayList<String>();
@@ -65,7 +65,7 @@ public class InfoFragment extends Fragment {
 
 		settingYears();
 
-		validationUtil = new ValidationUtil();
+		validationUtil = new ValidationUtils();
 		alert_confirm = new AlertDialog.Builder(this.getContext());
 		alert_confirm.setPositiveButton("확인", null);
 		alert = alert_confirm.create();
@@ -94,7 +94,7 @@ public class InfoFragment extends Fragment {
 
 		UserNetworkService userService = RetrofitManager.create(UserNetworkService.class);
 
-		Call<ResponseVO> call = userService.signup(userVO.getUserId(), EncryptUtil.sha256(userVO.getPasswd()), userVO.getRegisterType()
+		Call<ResponseVO> call = userService.signup(userVO.getUserId(), EncryptUtils.sha256(userVO.getPasswd()), userVO.getRegisterType()
 			, userVO.getEmail(), userVO.getNotifyId(), userVO.getGenderType(), userVO.getAge(), userVO.getFavoriteTypeList()
 			, userVO.getRecommendId(), userVO.getPhoneType(), userVO.getPhoneKey());
 

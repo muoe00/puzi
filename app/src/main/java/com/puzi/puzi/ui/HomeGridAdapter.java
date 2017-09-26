@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.ui.company.CompanyDialog;
 import com.puzi.puzi.R;
-import com.puzi.puzi.ui.advertisement.WebActivity;
+import com.puzi.puzi.ui.advertisement.AdvertisementDetailActivity;
 import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 
 import java.util.List;
@@ -77,7 +77,7 @@ public class HomeGridAdapter extends BaseAdapter {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		if(convertView == null) {
 			inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.fragment_home_item, parent, false);
+			convertView = inflater.inflate(R.layout.fragment_advertisement_item, parent, false);
 		}
 
 		initComponents(convertView);
@@ -92,7 +92,7 @@ public class HomeGridAdapter extends BaseAdapter {
 		btnAd.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(context, WebActivity.class);
+				Intent intent = new Intent(context, AdvertisementDetailActivity.class);
 				intent.putExtra("url", receivedAdvertise.getLink());
 				context.startActivity(intent);
 			}

@@ -1,4 +1,4 @@
-package com.puzi.puzi.ui;
+package com.puzi.puzi.ui.advertisement;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,10 +19,12 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.ResultType;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.AdvertisementNetworkService;
+import com.puzi.puzi.ui.HomeGridAdapter;
 import com.puzi.puzi.ui.user.LevelActivity;
 import com.puzi.puzi.ui.user.PointActivity;
 import com.puzi.puzi.ui.user.RecommendActivity;
 import com.puzi.puzi.cache.Preference;
+import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
 import java.text.NumberFormat;
@@ -32,7 +34,7 @@ import java.util.List;
  * Created by muoe0 on 2017-07-08.
  */
 
-public class HomeFragment extends Fragment implements View.OnClickListener, AbsListView.OnScrollListener {
+public class AdvertisementFragment extends Fragment implements View.OnClickListener, AbsListView.OnScrollListener {
 
 	private Context context;
 	private GridView gvAd;
@@ -49,7 +51,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, AbsL
 	private List<NoticeVO> noticeList;
 	private HomeGridAdapter homeGridAdapter;
 
-	public HomeFragment() {
+	public AdvertisementFragment() {
 	}
 
 	private static final String TAG = "HomeFragment";
@@ -60,9 +62,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, AbsL
 		super.onCreate(savedInstanceState);
 	}
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-	{
-		View view = inflater.inflate(R.layout.fragment_home, container, false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.fragment_advertisement, container, false);
 
 		context = this.getContext();
 
@@ -149,9 +150,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, AbsL
 				ResultType resultType = responseVO.getResultType();
 
 				if (resultType.isSuccess()) {
-
 					advertiseList = responseVO.getValue("receivedAdvertiseList");
-					Log.i("DEBUG", "HomeFragment main / advertiseList : " + advertiseList.toString());
+					Log.i(PuziUtils.INFO, "Advertise main / advertiseList : " + advertiseList.toString());
 
 					homeGridAdapter = new HomeGridAdapter(view.getContext(), advertiseList);
 					gvAd.setAdapter(homeGridAdapter);

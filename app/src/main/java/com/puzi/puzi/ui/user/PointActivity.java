@@ -2,8 +2,11 @@ package com.puzi.puzi.ui.user;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import com.puzi.puzi.R;
 
 /**
@@ -12,20 +15,20 @@ import com.puzi.puzi.R;
 
 public class PointActivity extends Activity {
 
-	private ImageButton btnBack;
+	private Unbinder unbinder;
+
+	@BindView(R.id.ibtn_back) public ImageButton btnBack;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_point);
 
-		btnBack = (ImageButton) findViewById(R.id.ibtn_back);
+		unbinder = ButterKnife.bind(this);
+	}
 
-		btnBack.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
+	@OnClick(R.id.ibtn_back)
+	public void back() {
+		finish();
 	}
 }

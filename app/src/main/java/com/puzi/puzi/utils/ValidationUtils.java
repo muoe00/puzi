@@ -1,8 +1,8 @@
-package com.puzi.puzi.util;
+package com.puzi.puzi.utils;
 
 import java.util.regex.Pattern;
 
-public class ValidationUtil {
+public class ValidationUtils {
 
 	public static boolean checkUserId(String userId) {
 		int length = userId.length();
