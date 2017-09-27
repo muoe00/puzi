@@ -149,6 +149,8 @@ public class MainActivity extends FragmentActivity {
 		Log.i("INFO", "movePageListener index : " + index);
 	}
 
+
+
 	/*View.OnClickListener movePageListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
