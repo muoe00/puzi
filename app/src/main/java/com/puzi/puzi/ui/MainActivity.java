@@ -7,24 +7,41 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
+import butterknife.*;
 import com.puzi.puzi.R;
 
 import java.util.List;
 
+import static com.puzi.puzi.R.id.btn_advertise;
+
 public class MainActivity extends FragmentActivity {
+
+	Unbinder unbinder;
+
+	@BindView(R.id.vp_main) public ViewPager viewPager;
+	@BindView(R.id.main_fragment_container) public LinearLayout llMain;
+	@BindView(R.id.iv_advertise) public ImageView ivAdvertise;
+	@BindView(R.id.iv_channel) public ImageView ivChannel;
+	@BindView(R.id.iv_store) public ImageView ivStore;
+	@BindView(R.id.iv_setting) public ImageView ivSetting;
+	@BindView(R.id.iv_advertise_select) public ImageView ivAdSelected;
+	@BindView(R.id.iv_channel_select) public ImageView ivChSelected;
+	@BindView(R.id.iv_store_select) public ImageView ivStoreSelected;
+	@BindView(R.id.iv_setting_select) public ImageView ivSettingSelected;
+	@BindView(R.id.fl_advertise) public FrameLayout flAdvertise;
+	@BindView(R.id.fl_channel) public FrameLayout flChannel;
+	@BindView(R.id.fl_store) public FrameLayout flStore;
+	@BindView(R.id.fl_setting) public FrameLayout flSetting;
+	@BindView(btn_advertise) public Button btnAdvertise;
+	@BindView(R.id.btn_channel) public Button btnChannel;
+	@BindView(R.id.btn_store) public Button btnStore;
+	@BindView(R.id.btn_setting) public Button btnSetting;
 
 	public static final int FRAGMENT_ADVERTISE = 0;
 	public static final int FRAGMENT_CHANNEL = 1;
 	public static final int FRAGMENT_STORE = 2;
 	public static final int FRAGMENT_SETTING  = 3;
-	private int currentIndex = FRAGMENT_ADVERTISE;
 
-	private ViewPager viewPager;
-	private LinearLayout llMain;
-	private ImageView ivAd, ivCh, ivStore, ivSetting, ivAdSelected, ivChSelected, ivStoreSelected, ivSettingSelected;
-	private FrameLayout flAd, flCh, flStore, flSetting;
-	private Button btnAd, btnCh, btnStore, btnSetting;
-	private int tag, position;
 	private long backKeyPressedTime;
 	private Fragment currentFragment = null;
 
@@ -34,31 +51,30 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		initComponent();
+		unbinder = ButterKnife.bind(this);
 
-		PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
-
-		viewPager.setAdapter(pagerAdapter);
+		viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
 		viewPager.setCurrentItem(FRAGMENT_ADVERTISE);
 		getFragment(FRAGMENT_ADVERTISE);
 
-		ivAd.setBackgroundResource(R.drawable.home_selected);
-		ivCh.setBackgroundResource(R.drawable.channel);
+		ivAdvertise.setBackgroundResource(R.drawable.home_selected);
+		ivChannel.setBackgroundResource(R.drawable.channel);
 		ivStore.setBackgroundResource(R.drawable.store);
 		ivSetting.setBackgroundResource(R.drawable.gear);
 
-		btnAd.setOnClickListener(movePageListener);
-		btnAd.setTag(FRAGMENT_ADVERTISE);
-		btnCh.setOnClickListener(movePageListener);
-		btnCh.setTag(FRAGMENT_CHANNEL);
+		/*btnAdvertise.setOnClickListener(movePageListener);
+		btnChannel.setOnClickListener(movePageListener);
 		btnStore.setOnClickListener(movePageListener);
+		btnSetting.setOnClickListener(movePageListener);*/
+
+		btnAdvertise.setTag(FRAGMENT_ADVERTISE);
+		btnChannel.setTag(FRAGMENT_CHANNEL);
 		btnStore.setTag(FRAGMENT_STORE);
-		btnSetting.setOnClickListener(movePageListener);
 		btnSetting.setTag(FRAGMENT_SETTING);
 
-		btnAd.setSelected(true);
+		btnAdvertise.setSelected(true);
 
-		viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+		/*viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 			@Override
 			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 			}
@@ -79,16 +95,61 @@ public class MainActivity extends FragmentActivity {
 
 				getFragment(position);
 				changeBottomButton(position);
-				Log.i("DEBUG", "##### OnPageSelected position : " + position);
+				Log.i("INFO", "OnPageSelected position : " + position);
 			}
 
 			@Override
 			public void onPageScrollStateChanged(int state) {
 			}
-		});
+		});*/
 	}
 
-	View.OnClickListener movePageListener = new View.OnClickListener() {
+	// swipe
+	@OnPageChange(R.id.vp_main)
+	public void addPage(int position) {
+		int index = FRAGMENT_ADVERTISE;
+
+		while(index < 4) {
+			if(position == index) {
+				llMain.findViewWithTag(index).setSelected(true);
+			}
+			else {
+				llMain.findViewWithTag(index).setSelected(false);
+			}
+			index++;
+		}
+
+		getFragment(position);
+		changeBottomButton(position);
+		Log.i("INFO", "OnPageSelected index : " + index);
+		Log.i("INFO", "OnPageSelected position : " + position);
+	}
+
+	// button
+	@OnClick({R.id.btn_advertise, R.id.btn_channel, R.id.btn_store, R.id.btn_setting})
+	public void movePage(View view){
+		int tag = (int) view.getTag();
+		int index = FRAGMENT_ADVERTISE;
+
+		while(index < 4) {
+			if(tag == index) {
+				llMain.findViewWithTag(index).setSelected(true);
+			}
+			else {
+				llMain.findViewWithTag(index).setSelected(false);
+			}
+			index++;
+		}
+
+		viewPager.setCurrentItem(tag);
+		changeBottomButton(tag);
+		getFragment(tag);
+
+		Log.i("INFO", "movePageListener tag : " + tag);
+		Log.i("INFO", "movePageListener index : " + index);
+	}
+
+	/*View.OnClickListener movePageListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			int tag = (int) v.getTag();
@@ -106,102 +167,44 @@ public class MainActivity extends FragmentActivity {
 			viewPager.setCurrentItem(tag);
 			changeBottomButton(tag);
 			getFragment(tag);
-			Log.e("DEBUG", "##### movePageListener tag : " + tag);
-			Log.e("DEBUG", "##### movePageListener index : " + index);
+			Log.i("INFO", "movePageListener tag : " + tag);
+			Log.i("INFO", "movePageListener index : " + index);
 		}
-	};
-
-	@Override
-	public void onBackPressed() {
-
-		int entrySize = getSupportFragmentManager().getBackStackEntryCount();
-		Log.i("DEBUG", "MainActivity entrySize : " + entrySize);
-		if(entrySize <= 1){
-			// exit
-			if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
-				backKeyPressedTime = System.currentTimeMillis();
-				Toast.makeText(this, "한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT).show();
-				return;
-			}
-			if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
-				finish();
-			}
-		} else {
-			List<Fragment> fragments = getSupportFragmentManager().getFragments();
-
-			for(int i=0;i<fragments.size();i++){
-				if(fragments.get(i) != null && fragments.get(i).isVisible()){
-					if(i != 0){
-						currentFragment = (Fragment) fragments.get(i-1);
-					} else {
-						currentFragment = (Fragment) fragments.get(i);
-					}
-				}
-			}
-			getSupportFragmentManager().popBackStack();
-		}
-	}
-
-	private void initComponent() {
-
-		viewPager = (ViewPager)findViewById(R.id.vp_main);
-		llMain = (LinearLayout)findViewById(R.id.main_fragment_container);
-
-		btnAd = (Button) findViewById(R.id.btn_advertise);
-		ivAd = (ImageView) findViewById(R.id.iv_advertise);
-		flAd = (FrameLayout) findViewById(R.id.fl_advertise);
-		ivAdSelected = (ImageView) findViewById(R.id.iv_advertise_select);
-
-		btnCh = (Button) findViewById(R.id.btn_channel);
-		ivCh = (ImageView) findViewById(R.id.iv_channel);
-		flCh = (FrameLayout) findViewById(R.id.fl_channel);
-		ivChSelected = (ImageView) findViewById(R.id.iv_channel_select);
-
-		btnStore = (Button) findViewById(R.id.btn_store);
-		ivStore = (ImageView) findViewById(R.id.iv_store);
-		flStore = (FrameLayout) findViewById(R.id.fl_store);
-		ivStoreSelected = (ImageView) findViewById(R.id.iv_store_select);
-
-		btnSetting = (Button) findViewById(R.id.btn_setting);
-		ivSetting = (ImageView) findViewById(R.id.iv_setting);
-		flSetting = (FrameLayout) findViewById(R.id.fl_setting);
-		ivSettingSelected = (ImageView) findViewById(R.id.iv_setting_select);
-	}
+	};*/
 
 	@SuppressWarnings("deprecation")
 	private void changeBottomButton(int id){
 
-		// back
-		flAd.setBackgroundColor(getResources().getColor(R.color.colorPuzi));
-		flCh.setBackgroundColor(getResources().getColor(R.color.colorPuzi));
+		flAdvertise.setBackgroundColor(getResources().getColor(R.color.colorPuzi));
+		flChannel.setBackgroundColor(getResources().getColor(R.color.colorPuzi));
 		flStore.setBackgroundColor(getResources().getColor(R.color.colorPuzi));
 		flSetting.setBackgroundColor(getResources().getColor(R.color.colorPuzi));
 
 		switch (id) {
 			case FRAGMENT_ADVERTISE:
-				ivAd.setBackgroundResource(R.drawable.home_selected);
-				ivCh.setBackgroundResource(R.drawable.channel);
+				ivAdvertise.setBackgroundResource(R.drawable.home_selected);
+				ivChannel.setBackgroundResource(R.drawable.channel);
 				ivStore.setBackgroundResource(R.drawable.store);
 				ivSetting.setBackgroundResource(R.drawable.gear);
-				flAd.setBackgroundColor(getResources().getColor(R.color.colorPuzi));
+				flAdvertise.setBackgroundColor(getResources().getColor(R.color.colorPuzi));
 				return;
 			case FRAGMENT_CHANNEL:
-				ivAd.setBackgroundResource(R.drawable.home);
-				ivCh.setBackgroundResource(R.drawable.channel_selected);
+				ivAdvertise.setBackgroundResource(R.drawable.home);
+				ivChannel.setBackgroundResource(R.drawable.channel_selected);
 				ivStore.setBackgroundResource(R.drawable.store);
 				ivSetting.setBackgroundResource(R.drawable.gear);
-				flCh.setBackgroundColor(getResources().getColor(R.color.colorPuzi));
+				flChannel.setBackgroundColor(getResources().getColor(R.color.colorPuzi));
 				return;
 			case FRAGMENT_STORE:
-				ivAd.setBackgroundResource(R.drawable.home);
-				ivCh.setBackgroundResource(R.drawable.channel);
+				ivAdvertise.setBackgroundResource(R.drawable.home);
+				ivChannel.setBackgroundResource(R.drawable.channel);
 				ivStore.setBackgroundResource(R.drawable.store_selected);
 				ivSetting.setBackgroundResource(R.drawable.gear);
 				flStore.setBackgroundColor(getResources().getColor(R.color.colorPuzi));
 				return;
 			case FRAGMENT_SETTING:
-				ivAd.setBackgroundResource(R.drawable.home);
-				ivCh.setBackgroundResource(R.drawable.channel);
+				ivAdvertise.setBackgroundResource(R.drawable.home);
+				ivChannel.setBackgroundResource(R.drawable.channel);
 				ivStore.setBackgroundResource(R.drawable.store);
 				ivSetting.setBackgroundResource(R.drawable.gear);
 				flSetting.setBackgroundColor(getResources().getColor(R.color.colorPuzi));
@@ -245,5 +248,33 @@ public class MainActivity extends FragmentActivity {
 				break;
 		}
 
+	}
+
+	@Override
+	public void onBackPressed() {
+
+		int entrySize = getSupportFragmentManager().getBackStackEntryCount();
+		Log.i("INFO", "MainActivity entrySize : " + entrySize);
+		if(entrySize <= 1){
+			if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
+				backKeyPressedTime = System.currentTimeMillis();
+				Toast.makeText(this, "한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT).show();
+				return;
+			} if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
+				finish();
+			}
+		} else {
+			List<Fragment> fragments = getSupportFragmentManager().getFragments();
+			for(int i=0;i<fragments.size();i++){
+				if(fragments.get(i) != null && fragments.get(i).isVisible()){
+					if(i != 0){
+						currentFragment = (Fragment) fragments.get(i-1);
+					} else {
+						currentFragment = (Fragment) fragments.get(i);
+					}
+				}
+			}
+			getSupportFragmentManager().popBackStack();
+		}
 	}
 }

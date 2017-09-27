@@ -38,12 +38,9 @@ public class LoginFragment extends Fragment {
 
 	private Unbinder unbinder;
 
-	@BindView(R.id.login_et_id)
-	public EditText etId;
-	@BindView(R.id.edit_login_pw)
-	public EditText etPwd;
-	@BindView(R.id.login_btn)
-	public Button btnLogin;
+	@BindView(R.id.login_et_id) public EditText etId;
+	@BindView(R.id.edit_login_pw) public EditText etPwd;
+	@BindView(R.id.login_btn) public Button btnLogin;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 

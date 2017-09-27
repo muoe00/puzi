@@ -9,9 +9,14 @@ import java.util.Map;
 @Data
 @ToString
 public class ResponseVO<T> {
+
 	private int resultCode;
 	private String resultMsg;
 	private Map <String, T> params;
+
+	public int getResultCode() {
+		return resultCode;
+	}
 
 	public T getValue(String key) {
 		Log.i("params", params.toString());

@@ -35,9 +35,6 @@ public class ChannelFragment extends Fragment{
 	private int index = RECOMMEND;
 	private String type = "RECOMMEND";
 
-	public ChannelFragment() {
-	}
-
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -49,21 +46,15 @@ public class ChannelFragment extends Fragment{
 		initComponent(view);
 		getChannelList(view);
 
-		btnReccomend.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				index = RECOMMEND;
-				type = "RECOMMEND";
-				getChannelList(view);
-			}
+		btnReccomend.setOnClickListener(v -> {
+			index = RECOMMEND;
+			type = "RECOMMEND";
+			getChannelList(view);
 		});
-		btnFavorit.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				index = FAVORITS;
-				type = "FAVORITES";
-				getChannelList(view);
-			}
+		btnFavorit.setOnClickListener(v -> {
+			index = FAVORITS;
+			type = "FAVORITES";
+			getChannelList(view);
 		});
 
 		return view;

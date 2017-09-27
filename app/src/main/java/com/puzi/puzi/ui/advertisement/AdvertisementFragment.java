@@ -1,6 +1,5 @@
 package com.puzi.puzi.ui.advertisement;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,12 +7,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.AbsListView;
+import android.widget.GridView;
+import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import com.puzi.puzi.R;
-import com.puzi.puzi.biz.*;
 import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
-import com.puzi.puzi.biz.notice.NoticeVO;
 import com.puzi.puzi.biz.user.UserVO;
+import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.ResultType;
@@ -23,7 +27,6 @@ import com.puzi.puzi.ui.HomeGridAdapter;
 import com.puzi.puzi.ui.user.LevelActivity;
 import com.puzi.puzi.ui.user.PointActivity;
 import com.puzi.puzi.ui.user.RecommendActivity;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
@@ -34,21 +37,15 @@ import java.util.List;
  * Created by muoe0 on 2017-07-08.
  */
 
-public class AdvertisementFragment extends Fragment implements View.OnClickListener, AbsListView.OnScrollListener {
+public class AdvertisementFragment extends Fragment implements AbsListView.OnScrollListener {
 
-	private Context context;
-	private GridView gvAd;
-	private TextView tvPoint;
-	private ImageView ivRangking;
-	private ImageButton ibtnRecommend;
-	private Button btnPoint, btnLevel;
-	private FrameLayout flAd;
-	private LinearLayout llText;
+	Unbinder unbinder;
+
+	@BindView(R.id.gv_advertise) public GridView gvAd;
+	@BindView(R.id.tv_point) public TextView tvPoint;
+
 	private UserVO userVO;
-	private MainVO mainVO;
 	private List<ReceivedAdvertiseVO> advertiseList;
-	private List testList;
-	private List<NoticeVO> noticeList;
 	private HomeGridAdapter homeGridAdapter;
 
 	public AdvertisementFragment() {
@@ -61,38 +58,24 @@ public class AdvertisementFragment extends Fragment implements View.OnClickListe
 	{
 		super.onCreate(savedInstanceState);
 	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_advertisement, container, false);
 
-		context = this.getContext();
+		unbinder = ButterKnife.bind(this, view);
 
-		initComponent(view);
-		getMainInfomation(view);
-		getUser(view);
+		getAdvertiseList(view);
+		getUser();
 		gvAd.setOnScrollListener(this);
 
 		return view;
 	}
 
-	private void initComponent(View view) {
-		gvAd = (GridView) view.findViewById(R.id.gv_advertise);
-		btnPoint = (Button) view.findViewById(R.id.btn_pointhistory);
-		btnPoint.setOnClickListener(this);
-		btnLevel = (Button) view.findViewById(R.id.btn_level);
-		btnLevel.setOnClickListener(this);
-		ivRangking = (ImageView) view.findViewById(R.id.iv_rankImage);
-		ibtnRecommend = (ImageButton) view.findViewById(R.id.ibtn_recommend);
-		ibtnRecommend.setOnClickListener(this);
-		tvPoint = (TextView) view.findViewById(R.id.tv_point);
-		flAd = (FrameLayout) view.findViewById(R.id.fl_advertise);
-	}
-
-	@Override
-	public void onClick(View v) {
+	@OnClick({R.id.btn_pointhistory, R.id.btn_level, R.id.ibtn_recommend})
+	public void changePage(View view) {
 		Intent intent = null;
-
-		switch (v.getId()) {
+		switch (view.getId()) {
 			case R.id.btn_level:
 				intent = new Intent(getActivity(), LevelActivity.class);
 				break;
@@ -108,7 +91,7 @@ public class AdvertisementFragment extends Fragment implements View.OnClickListe
 		startActivity(intent);
 	}
 
-	public void getUser(final View view) {
+	public void getUser() {
 
 		final AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
 
@@ -123,9 +106,8 @@ public class AdvertisementFragment extends Fragment implements View.OnClickListe
 
 				if (resultType.isSuccess()) {
 
-					//mainVO = responseVO.getValue("user");
 					userVO = responseVO.getValue("user");
-					Log.i("DEBUG", "HomeFragment main / userVO : " + userVO.toString());
+					Log.i("INFO", "HomeFragment main / userVO : " + userVO.toString());
 
 					int point = userVO.getPoint();
 					NumberFormat numberFormat = NumberFormat.getInstance();
@@ -136,7 +118,7 @@ public class AdvertisementFragment extends Fragment implements View.OnClickListe
 		});
 	}
 
-	public void getMainInfomation(final View view) {
+	public void getAdvertiseList(final View view) {
 
 		final AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
 

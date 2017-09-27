@@ -23,61 +23,45 @@ import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.ui.MainActivity;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-
 /**
  * Created by muoe0 on 2017-07-30.
  */
 
 public class AdvertisementDetailActivity extends Activity {
 
-	private Unbinder unbinder;
-	private int seconds, count;
-	private Boolean isTime = false;
-	private ScheduledExecutorService executors = Executors.newSingleThreadScheduledExecutor();
+	Unbinder unbinder;
 
 	@BindView(R.id.ll_web_dialog) public LinearLayout llDialog;
 	@BindView(R.id.btn_back_web) public Button btnHome;
 	@BindView(R.id.btn_channel_web) public Button btnChannel;
 	@BindView(R.id.editText_url) public EditText editUrl;
 	@BindView(R.id.progressbar) public ProgressBar progressBar;
-
-	private Intent intent;
-	private Button btnDialogCancel, btnDialogOk;
-	private WebView webView;
-	private WebSettings webSettings;
-	private String url;
-	private Boolean bool = false;
+	@BindView(R.id.web_ad) public WebView webView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_web);
+		setContentView(R.layout.activity_advertisement_detail);
 
 		unbinder = ButterKnife.bind(this);
 
-		initComponents();
-
-		intent = getIntent();
-		url = intent.getStringExtra("url");
+		Intent intent = getIntent();
+		String url = intent.getStringExtra("url");
 
 		webView.setWebViewClient(new WebViewClient());
-		webSettings = webView.getSettings();
+		WebSettings webSettings = webView.getSettings();
 		webSettings.setJavaScriptEnabled(true);
 
 		webView.loadUrl(url);
 		editUrl.setText(url);
 
 		progressBar.setIndeterminate(true);
-		progressBar.setMax(500);
 		progressBar.setVisibility(View.GONE);
 		llDialog.setVisibility(View.GONE);
 
 		DialogAsync dialogAsync = new DialogAsync();
 		dialogAsync.execute();
-
 	}
 
 	class DialogAsync extends AsyncTask<Void, Integer, Void> {
@@ -110,20 +94,7 @@ public class AdvertisementDetailActivity extends Activity {
 			isCanceled = true;
 			progressBar.setVisibility(View.GONE);
 
-			bool = true;
-			transAnimation(bool);
-			btnDialogCancel.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					llDialog.setVisibility(View.GONE);
-				}
-			});
-			btnDialogOk.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					llDialog.setVisibility(View.GONE);
-				}
-			});
+			transAnimation(true);
 		}
 
 		@Override
@@ -138,13 +109,16 @@ public class AdvertisementDetailActivity extends Activity {
 	}
 
 	private void transAnimation(boolean bool){
+
 		AnimationSet aniInSet = new AnimationSet(true);
 		AnimationSet aniOutSet = new AnimationSet(true);
 		aniInSet.setInterpolator(new AccelerateInterpolator());
+
 		Animation transInAni = new TranslateAnimation(0,0,200.0f,0);
 		Animation transOutAni = new TranslateAnimation(0,0,0,200.0f);
 		transInAni.setDuration(300);
 		transOutAni.setDuration(300);
+
 		aniInSet.addAnimation(transInAni);
 		aniOutSet.addAnimation(transOutAni);
 
@@ -157,12 +131,14 @@ public class AdvertisementDetailActivity extends Activity {
 		}
 	}
 
-	private void initComponents() {
-		webView = (WebView) findViewById(R.id.web_ad);
-		btnHome = (Button) findViewById(R.id.btn_back_web);
-		btnChannel = (Button) findViewById(R.id.btn_channel_web);
-		btnDialogCancel = (Button) findViewById(R.id.btn_web_cancel);
-		btnDialogOk = (Button) findViewById(R.id.btn_web_ok);
+	@OnClick(R.id.btn_web_ok)
+	public void returnDialogOK() {
+		llDialog.setVisibility(View.GONE);
+	}
+
+	@OnClick(R.id.btn_web_cancel)
+	public void returnDialogCancel() {
+		llDialog.setVisibility(View.GONE);
 	}
 
 	@OnClick(R.id.btn_back_web)
@@ -174,6 +150,7 @@ public class AdvertisementDetailActivity extends Activity {
 
 	@OnClick(R.id.btn_channel_web)
 	public void changedChannel() {
+
 
 	}
 

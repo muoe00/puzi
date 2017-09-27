@@ -30,14 +30,10 @@ public class SearchIdFragment extends Fragment {
 
 	Unbinder unbinder;
 
-	@BindView(R.id.edit_search_email)
-	public EditText editEmail;
-	@BindView(R.id.btn_srchid)
-	public Button btnSearch;
-	@BindView(R.id.btn_srch_signup)
-	public Button btnSignup;
-	@BindView(R.id.ibtn_back)
-	public ImageButton ibtnBack;
+	@BindView(R.id.edit_search_email) public EditText editEmail;
+	@BindView(R.id.btn_srchid) public Button btnSearch;
+	@BindView(R.id.btn_srch_signup) public Button btnSignup;
+	@BindView(R.id.ibtn_back) public ImageButton ibtnBack;
 
 	private static final String TAG = "SearchId";
 
@@ -51,30 +47,29 @@ public class SearchIdFragment extends Fragment {
 
 	@OnClick(R.id.btn_srchid)
 	public void searchId(){
-		String email = null;
 
 		if(editEmail.getText() != null) {
-			email = editEmail.getText().toString();
+			String email = editEmail.getText().toString();
+
+			UserNetworkService userNetworkService  = RetrofitManager.create(UserNetworkService.class);
+
+			Call<ResponseVO> call = userNetworkService.searchid(email);
+			call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+				@Override
+				public void onSuccess(ResponseVO responseVO) {
+					switch(responseVO.getResultType()){
+						case SUCCESS:
+							Toast.makeText(getContext(), "이메일을 전송하였습니다", Toast.LENGTH_SHORT).show();
+							break;
+						case NOT_FOUND_USER:
+							Toast.makeText(getContext(), "등록되지 않은 사용자입니다", Toast.LENGTH_SHORT).show();
+							break;
+					}
+				}
+			});
 		} else {
 			Toast.makeText(getContext(), "이메일 주소를 입력하세요", Toast.LENGTH_SHORT).show();
 		}
-
-		UserNetworkService userNetworkService  = RetrofitManager.create(UserNetworkService.class);
-
-		Call<ResponseVO> call = userNetworkService.searchid(email);
-		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
-			@Override
-			public void onSuccess(ResponseVO responseVO) {
-				switch(responseVO.getResultType()){
-					case SUCCESS:
-						Toast.makeText(getContext(), "이메일을 전송하였습니다", Toast.LENGTH_SHORT).show();
-						break;
-					case NOT_FOUND_USER:
-						Toast.makeText(getContext(), "등록되지 않은 사용자입니다", Toast.LENGTH_SHORT).show();
-						break;
-				}
-			}
-		});
 	}
 
 	@OnClick(R.id.btn_srch_signup)

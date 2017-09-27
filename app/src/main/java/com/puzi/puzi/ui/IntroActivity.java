@@ -45,7 +45,6 @@ public class IntroActivity extends FragmentActivity {
 
 		// 메인 화면으로 갈지(자동로그인 성공), 로그인 화면으로 갈지(자동로그인 실패) 결정 (변수 : auto_login)
 		if(autoId != null && autoPw != null) {
-
 			UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
 
 			Call<ResponseVO<String>> call = userNetworkService.login(autoId, EncryptUtils.sha256(autoPw), "NoRegister", "A", "");
@@ -76,17 +75,9 @@ public class IntroActivity extends FragmentActivity {
 			});
 		}
 
-		// delay 2 second
 		new Handler(){
 			@Override
 			public void handleMessage(Message message){
-				String temp;
-
-				if(AUTO_LOGIN)
-					temp = "true";
-				else
-					temp = "false";
-
 				if(AUTO_LOGIN) {
 					startActivity(new Intent(IntroActivity.this, MainActivity.class));
 				}
@@ -101,9 +92,8 @@ public class IntroActivity extends FragmentActivity {
 	}
 
 	public void backFragment() {
-
 		int size = fragmentList.size();
-		int position = size-1;
+		int position = size - 1;
 
 		Log.i("INFO", "size : " + size + ", position : " + position);
 

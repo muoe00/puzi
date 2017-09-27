@@ -20,7 +20,6 @@ import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.utils.EncryptUtils;
-import com.puzi.puzi.utils.ValidationUtils;
 import retrofit2.Call;
 
 import java.text.SimpleDateFormat;
@@ -35,24 +34,17 @@ public class InfoFragment extends Fragment {
 
 	private Unbinder unbinder;
 
-	@BindView(R.id.rbtn_male)
-	public RadioButton rbtnMale;
-	@BindView(R.id.rbtn_female)
-	public RadioButton rbtnFemale;
-	@BindView(R.id.sp_age)
-	public Spinner spAge;
-	@BindView(R.id.edit_recommend)
-	public EditText edtiRecommend;
-	@BindView(R.id.ibtn_back)
-	public ImageView ibtnBack;
+	@BindView(R.id.rbtn_male) public RadioButton rbtnMale;
+	@BindView(R.id.rbtn_female) public RadioButton rbtnFemale;
+	@BindView(R.id.sp_age) public Spinner spAge;
+	@BindView(R.id.edit_recommend) public EditText edtiRecommend;
+	@BindView(R.id.ibtn_back) public ImageView ibtnBack;
 
 	private static final String TAG = "Info";
 
 	private boolean isClause = false;
 	private UserVO userVO;
-	private ValidationUtils validationUtil;
 	private AlertDialog.Builder alert_confirm;
-	private AlertDialog alert;
 	private ArrayList<String> favoritesList = new ArrayList<String>();
 	private ArrayList<String> yearList = new ArrayList<String>();
 
@@ -65,10 +57,9 @@ public class InfoFragment extends Fragment {
 
 		settingYears();
 
-		validationUtil = new ValidationUtils();
 		alert_confirm = new AlertDialog.Builder(this.getContext());
 		alert_confirm.setPositiveButton("확인", null);
-		alert = alert_confirm.create();
+		AlertDialog alert = alert_confirm.create();
 
 		userVO = new UserVO();
 		userVO.setUserId(Preference.getProperty(getActivity(), "id"));
@@ -167,59 +158,39 @@ public class InfoFragment extends Fragment {
 	public void checkFavorites(View view) {
 		switch (view.getId()) {
 			case R.id.btn_info_beauty:
-				if(isFavorites("BEAUTY")) {
-					favoritesList.remove("BEAUTY");
-				} else {
-					favoritesList.add("BEAUTY");
-				}
+				checkList("BEAUTY");
 				break;
 			case R.id.btn_info_shopping:
-				if(isFavorites("SHOPPING")) {
-					favoritesList.remove("SHOPPING");
-				} else {
-					favoritesList.add("SHOPPING");
-				}
+				checkList("SHOPPING");
 				break;
 			case R.id.btn_info_game:
-				if(isFavorites("GAME")) {
-					favoritesList.remove("GAME");
-				} else {
-					favoritesList.add("GAME");
-				}
+				checkList("GAME");
 				break;
 			case R.id.btn_info_eat:
-				if(isFavorites("EAT")) {
-					favoritesList.remove("EAT");
-				} else {
-					favoritesList.add("EAT");
-				}
+				checkList("EAT");
 				break;
 			case R.id.btn_info_tour:
-				if(isFavorites("TOUR")) {
-					favoritesList.remove("TOUR");
-				} else {
-					favoritesList.add("TOUR");
-				}
+				checkList("TOUR");
 				break;
 			case R.id.btn_info_finance:
-				if(isFavorites("FINANCE")) {
-					favoritesList.remove("FINANCE");
-				} else {
-					favoritesList.add("FINANCE");
-				}
+				checkList("FINANCE");
 				break;
 			case R.id.btn_info_culture:
-				if(isFavorites("CULTURE")) {
-					favoritesList.remove("CULTURE");
-				} else {
-					favoritesList.add("CULTURE");
-				}
+				checkList("CULTURE");
 				break;
 			default:
 				break;
 		}
 
 		userVO.setFavoriteTypeList(favoritesList);
+	}
+
+	public void checkList(String category) {
+		if(isFavorites(category)) {
+			favoritesList.remove(category);
+		} else {
+			favoritesList.add(category);
+		}
 	}
 
 	public boolean isFavorites(String item) {
@@ -276,14 +247,11 @@ public class InfoFragment extends Fragment {
 		if(!isClause) {
 			if(isService && isPersonal && isGps) {
 				isClause = true;
-			} else {
-				isClause = false;
 			}
 		}
 	}
 
 	public void checkInfo() {
-
 		if(rbtnMale.isChecked()) {
 			userVO.setGenderType("MALE");
 		} else if(rbtnFemale.isChecked()) {

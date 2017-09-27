@@ -32,18 +32,12 @@ public class SignupFragment extends Fragment {
 	private Unbinder unbinder;
 	private String id, email, pw, rePw;
 
-	@BindView(R.id.edt_signup_id)
-	public EditText ethId;
-	@BindView(R.id.edt_signup_email)
-	public EditText ethEmail;
-	@BindView(R.id.edt_signup_pw)
-	public EditText ethPw;
-	@BindView(R.id.edt_signup_repw)
-	public EditText ethRePw;
-	@BindView(R.id.btn_signup_next)
-	public Button btnNext;
-	@BindView(R.id.ibtn_back)
-	public ImageButton ibtnBack;
+	@BindView(R.id.edt_signup_id) public EditText ethId;
+	@BindView(R.id.edt_signup_email) public EditText ethEmail;
+	@BindView(R.id.edt_signup_pw) public EditText ethPw;
+	@BindView(R.id.edt_signup_repw) public EditText ethRePw;
+	@BindView(R.id.btn_signup_next) public Button btnNext;
+	@BindView(R.id.ibtn_back) public ImageButton ibtnBack;
 
 	public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState){
 
@@ -92,7 +86,7 @@ public class SignupFragment extends Fragment {
 			} else if(pw == null) {
 				Toast.makeText(getContext(), "비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show();
 			} else if(rePw == null) {
-				Toast.makeText(getContext(), "비밀번호를 다시 입력하세요.", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getContext(), "비밀번호를 한번 더 입력하세요.", Toast.LENGTH_SHORT).show();
 			}
 		} else {
 			if(ValidationUtils.checkEmail(email)) {

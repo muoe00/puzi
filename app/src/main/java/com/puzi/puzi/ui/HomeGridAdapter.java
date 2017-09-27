@@ -48,7 +48,7 @@ public class HomeGridAdapter extends BaseAdapter {
 		/*GradientDrawable drawable=
 			(GradientDrawable) context.getDrawable(R.drawable.image_line);
 
-		ivAd.setBackground(drawable);*/
+		ivAdvertise.setBackground(drawable);*/
 
 		tvAd = (TextView) view.findViewById(R.id.tv_advertise);
 		btnAd = (Button) view.findViewById(R.id.btn_advertiseWv);
