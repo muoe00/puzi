@@ -1,25 +1,27 @@
 package com.puzi.puzi.ui.intro;
 
-	import android.os.Bundle;
-	import android.support.v4.app.Fragment;
-	import android.support.v4.app.FragmentManager;
-	import android.support.v4.app.FragmentTransaction;
-	import android.view.LayoutInflater;
-	import android.view.View;
-	import android.view.ViewGroup;
-	import android.widget.Button;
-	import android.widget.EditText;
-	import android.widget.Toast;
-	import butterknife.BindView;
-	import butterknife.ButterKnife;
-	import butterknife.OnClick;
-	import butterknife.Unbinder;
-	import com.puzi.puzi.R;
-	import com.puzi.puzi.network.CustomCallback;
-	import com.puzi.puzi.network.ResponseVO;
-	import com.puzi.puzi.network.RetrofitManager;
-	import com.puzi.puzi.network.service.UserNetworkService;
-	import retrofit2.Call;
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+import com.puzi.puzi.R;
+import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.ResponseVO;
+import com.puzi.puzi.network.RetrofitManager;
+import com.puzi.puzi.network.service.UserNetworkService;
+import retrofit2.Call;
 
 /**
  * Created by muoe0 on 2017-05-26.
@@ -27,7 +29,8 @@ package com.puzi.puzi.ui.intro;
 
 public class SearchPwFragment extends Fragment {
 
-	Unbinder unbinder;
+	private Unbinder unbinder;
+	private InputMethodManager inputMethodManager;
 
 	@BindView(R.id.edit_search_id) public EditText editId;
 	@BindView(R.id.edit_search_email) public EditText editEmail;
@@ -40,6 +43,7 @@ public class SearchPwFragment extends Fragment {
 		View view = inflater.inflate(R.layout.fragment_search_pw, container, false);
 
 		unbinder = ButterKnife.bind(this, view);
+		inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
 		return view;
 	}
@@ -85,6 +89,11 @@ public class SearchPwFragment extends Fragment {
 		fragmentTransaction.replace(R.id.intro_fragment_container, signupFragment);
 		fragmentTransaction.addToBackStack("SIGNUP");
 		fragmentTransaction.commit();
+	}
+
+	@OnClick(R.id.ll_main)
+	public void layoutClick() {
+		inputMethodManager.hideSoftInputFromWindow(editEmail.getWindowToken(), 0);
 	}
 
 	@OnClick(R.id.ibtn_back)

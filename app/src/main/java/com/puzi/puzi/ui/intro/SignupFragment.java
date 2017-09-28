@@ -1,5 +1,6 @@
 package com.puzi.puzi.ui.intro;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,8 +9,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-import butterknife.*;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
@@ -25,12 +33,9 @@ import retrofit2.Call;
 
 public class SignupFragment extends Fragment {
 
-	public SignupFragment() {
-	}
-
-	private static final String TAG = "Signup";
 	private Unbinder unbinder;
 	private String id, email, pw, rePw;
+	private InputMethodManager inputMethodManager;
 
 	@BindView(R.id.edt_signup_id) public EditText ethId;
 	@BindView(R.id.edt_signup_email) public EditText ethEmail;
@@ -43,6 +48,7 @@ public class SignupFragment extends Fragment {
 
 		View view = inflater.inflate(R.layout.fragment_signup, container, false);
 		unbinder = ButterKnife.bind(this, view);
+		inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
 		return view;
 	}
@@ -113,6 +119,11 @@ public class SignupFragment extends Fragment {
 		fragmentTransaction.replace(R.id.intro_fragment_container, infoFragment);
 		fragmentTransaction.addToBackStack("INFO");
 		fragmentTransaction.commit();
+	}
+
+	@OnClick(R.id.ll_main)
+	public void layoutClick() {
+		inputMethodManager.hideSoftInputFromWindow(ethId.getWindowToken(), 0);
 	}
 
 	@Override

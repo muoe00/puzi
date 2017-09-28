@@ -1,5 +1,6 @@
 package com.puzi.puzi.ui.intro;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,10 +14,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.*;
 import butterknife.*;
 import com.puzi.puzi.R;
 import com.puzi.puzi.cache.Preference;
@@ -37,18 +36,18 @@ import retrofit2.Call;
 public class LoginFragment extends Fragment {
 
 	private Unbinder unbinder;
+	private InputMethodManager inputMethodManager;
 
 	@BindView(R.id.login_et_id) public EditText etId;
 	@BindView(R.id.edit_login_pw) public EditText etPwd;
 	@BindView(R.id.login_btn) public Button btnLogin;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-
 		View view = inflater.inflate(R.layout.fragment_login, container, false);
-
 		unbinder = ButterKnife.bind(this, view);
-
 		startAnimation();
+
+		inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
 		return view;
 	}
@@ -81,7 +80,6 @@ public class LoginFragment extends Fragment {
 		final String id = etId.getText().toString();
 		final String pwd = etPwd.getText().toString();
 
-		// check valid id&pwd
 		if(isValid(id, pwd)){
 
 			ProgressDialog.show(getActivity());
@@ -154,6 +152,11 @@ public class LoginFragment extends Fragment {
 		fragmentTransaction.replace(R.id.intro_fragment_container, searchFragment);
 		fragmentTransaction.addToBackStack("SEARCH");
 		fragmentTransaction.commit();
+	}
+
+	@OnClick(R.id.ll_main)
+	public void layoutClick() {
+		inputMethodManager.hideSoftInputFromWindow(etId.getWindowToken(), 0);
 	}
 
 	@OnEditorAction(R.id.edit_login_pw)

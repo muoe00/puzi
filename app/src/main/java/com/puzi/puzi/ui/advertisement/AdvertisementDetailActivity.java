@@ -22,6 +22,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.ui.MainActivity;
+import com.puzi.puzi.ui.channel.ChannelDetailActivity;
 
 /**
  * Created by muoe0 on 2017-07-30.
@@ -150,8 +151,8 @@ public class AdvertisementDetailActivity extends Activity {
 
 	@OnClick(R.id.btn_channel_web)
 	public void changedChannel() {
-
-
+		Intent intent = new Intent(AdvertisementDetailActivity.this, ChannelDetailActivity.class);
+		startActivity(intent);
 	}
 
 	@Override

@@ -1,14 +1,17 @@
 package com.puzi.puzi.ui.intro;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import butterknife.*;
 import com.puzi.puzi.R;
@@ -18,7 +21,6 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
-import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.utils.EncryptUtils;
 import retrofit2.Call;
 
@@ -40,13 +42,12 @@ public class InfoFragment extends Fragment {
 	@BindView(R.id.edit_recommend) public EditText edtiRecommend;
 	@BindView(R.id.ibtn_back) public ImageView ibtnBack;
 
-	private static final String TAG = "Info";
-
 	private boolean isClause = false;
 	private UserVO userVO;
 	private AlertDialog.Builder alert_confirm;
 	private ArrayList<String> favoritesList = new ArrayList<String>();
 	private ArrayList<String> yearList = new ArrayList<String>();
+	private InputMethodManager inputMethodManager;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class InfoFragment extends Fragment {
 		View view = inflater.inflate(R.layout.fragment_signup_info, container, false);
 
 		unbinder = ButterKnife.bind(this, view);
+		inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
 		settingYears();
 
@@ -99,8 +101,11 @@ public class InfoFragment extends Fragment {
 						System.setProperty("userId", userVO.getUserId());
 						System.setProperty("passwd", userVO.getPasswd());
 
-						Intent intent = new Intent(getActivity(), MainActivity.class);
+						Intent intent = new Intent(getActivity(), LoginFragment.class);
 						startActivity(intent);
+
+						getActivity().getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
 						break;
 				}
 			}
@@ -266,11 +271,20 @@ public class InfoFragment extends Fragment {
 	public void isChecked() {
 		if(userVO.getAgeType() == null) {
 			Toast.makeText(getContext(), "출생년도를 선택하세요", Toast.LENGTH_SHORT).show();
-		} else if(userVO.getFavoriteTypeList().isEmpty()) {
-			Toast.makeText(getContext(), "관심분야를 선택하세요", Toast.LENGTH_SHORT).show();
+		} else if(userVO.getFavoriteTypeList().size() < 3) {
+			if(userVO.getFavoriteTypeList().isEmpty()) {
+				Toast.makeText(getContext(), "관심분야를 선택하세요", Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(getContext(), "관심분야를 3가지 이상 선택하세요", Toast.LENGTH_SHORT).show();
+			}
 		} else if(!isClause) {
 			Toast.makeText(getContext(), "약관에 동의해주세요", Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	@OnClick(R.id.ll_main)
+	public void layoutClick() {
+		inputMethodManager.hideSoftInputFromWindow(edtiRecommend.getWindowToken(), 0);
 	}
 
 	@OnClick(R.id.ibtn_back)

@@ -1,36 +1,10 @@
-buildscript {
-	repositories {
-		mavenCentral()
-	}
-
-	dependencies {
-		classpath 'me.tatarka:gradle-retrolambda:3.7.0'
-	}
-}
-
-repositories {
-	mavenCentral()
-}
-
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'android-apt'
-
-retrolambda {
-	javaVersion JavaVersion.VERSION_1_6
-	jvmArgs '-arg1', '-arg2'
-	defaultMethods false
-	incremental true
-}
 
 android {
 	compileSdkVersion 25
 	buildToolsVersion "25.0.2"
 
-	compileOptions {
-		sourceCompatibility JavaVersion.VERSION_1_8
-		targetCompatibility JavaVersion.VERSION_1_8
-	}
 	defaultConfig {
 		applicationId "com.puzi.puzi"
 		minSdkVersion 16
