@@ -3,6 +3,7 @@ package com.puzi.puzi.cache;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import com.puzi.puzi.utils.PuziUtils;
 
 /**
  * Created by muoe0 on 2017-04-28.
@@ -27,6 +28,6 @@ public class Preference {
 	}
 
 	public static SharedPreferences getSharedPreferences(Activity activity) {
-		return activity.getSharedPreferences("AUTO_LOGIN", Context.MODE_PRIVATE);
+		return activity.getSharedPreferences(PuziUtils.PUZI, Context.MODE_PRIVATE);
 	}
 }

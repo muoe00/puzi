@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
@@ -23,6 +25,11 @@ import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.channel.ChannelDetailActivity;
+import com.puzi.puzi.utils.PuziUtils;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by muoe0 on 2017-07-30.
@@ -39,6 +46,12 @@ public class AdvertisementDetailActivity extends Activity {
 	@BindView(R.id.progressbar) public ProgressBar progressBar;
 	@BindView(R.id.web_ad) public WebView webView;
 
+	private String url, companyId;
+	private long startTime;
+	private int touchCount;
+	private boolean isChanged = false;
+	private ScheduledExecutorService executors = Executors.newSingleThreadScheduledExecutor();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,9 +59,11 @@ public class AdvertisementDetailActivity extends Activity {
 		setContentView(R.layout.activity_advertisement_detail);
 
 		unbinder = ButterKnife.bind(this);
+		startTime = System.currentTimeMillis();
 
 		Intent intent = getIntent();
-		String url = intent.getStringExtra("url");
+		url = intent.getStringExtra("url");
+		companyId = intent.getStringExtra("companyId");
 
 		webView.setWebViewClient(new WebViewClient());
 		WebSettings webSettings = webView.getSettings();
@@ -63,6 +78,30 @@ public class AdvertisementDetailActivity extends Activity {
 
 		DialogAsync dialogAsync = new DialogAsync();
 		dialogAsync.execute();
+
+		executors.scheduleAtFixedRate(new Runnable() {
+			@Override
+			public void run() {
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						if(!webView.getUrl().equals(url)) {
+							isChanged = true;
+						}
+					}
+				});
+			}
+		}, 0, 1, TimeUnit.SECONDS);
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+
+		if(event.getAction() == MotionEvent.ACTION_DOWN) {
+			touchCount++;
+		}
+
+		return super.onTouchEvent(event);
 	}
 
 	class DialogAsync extends AsyncTask<Void, Integer, Void> {
@@ -144,6 +183,13 @@ public class AdvertisementDetailActivity extends Activity {
 
 	@OnClick(R.id.btn_back_web)
 	public void back() {
+
+		long endTime = startTime = System.currentTimeMillis();
+		long stayTime = (long)((endTime - startTime)/1000.0);
+
+		// TODO: Network (companyId, touchCount, stayTime, isChanged)
+		Log.i(PuziUtils.INFO, "companyId : " + companyId + ", touchCount : " + touchCount + ", stayTime : " + stayTime + ", isChanged : " + isChanged);
+
 		Intent intent = new Intent(AdvertisementDetailActivity.this, MainActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);

@@ -15,7 +15,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.*;
 import com.puzi.puzi.R;
 import com.puzi.puzi.cache.Preference;
@@ -109,10 +112,11 @@ public class LoginFragment extends Fragment {
 	}
 
 	private void successLogin(String token, String id, String pwd) {
-		Log.d("### login token : ", token);
+		Log.i("INFO", "login token : " + token);
 
-		Preference.addProperty(getActivity(), "autoId", id);
-		Preference.addProperty(getActivity(), "autoPw", pwd);
+		Preference.addProperty(getActivity(), "id", id);
+		Preference.addProperty(getActivity(), "passwd", pwd);
+		Preference.addProperty(getActivity(), "token", token);
 
 		startActivity(new Intent(getActivity(), MainActivity.class));
 		getActivity().overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
@@ -154,7 +158,7 @@ public class LoginFragment extends Fragment {
 		fragmentTransaction.commit();
 	}
 
-	@OnClick(R.id.ll_main)
+	@OnClick(R.id.rl_login)
 	public void layoutClick() {
 		inputMethodManager.hideSoftInputFromWindow(etId.getWindowToken(), 0);
 	}

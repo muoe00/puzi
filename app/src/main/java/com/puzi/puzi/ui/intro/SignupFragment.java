@@ -64,7 +64,7 @@ public class SignupFragment extends Fragment {
 			public void onSuccess(ResponseVO response) {
 				if (response.getResultCode() == 1000) {
 					Preference.addProperty(getActivity(), "id", id);
-					Preference.addProperty(getActivity(), "pw", pw);
+					Preference.addProperty(getActivity(), "passwd", pw);
 					Preference.addProperty(getActivity(), "email", email);
 					changedFragment();
 				} else if (response.getResultCode() == 2002) {
@@ -121,7 +121,7 @@ public class SignupFragment extends Fragment {
 		fragmentTransaction.commit();
 	}
 
-	@OnClick(R.id.ll_main)
+	@OnClick(R.id.ll_signup)
 	public void layoutClick() {
 		inputMethodManager.hideSoftInputFromWindow(ethId.getWindowToken(), 0);
 	}

@@ -1,5 +1,6 @@
 package com.puzi.puzi.network.service;
 
+import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.network.ResponseVO;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -17,7 +18,7 @@ public interface UserNetworkService {
 
 	@FormUrlEncoded
 	@POST("/guest/signup")
-	Call<ResponseVO> signup(@Header("userId") String userId,
+	Call<ResponseVO<String>> signup(@Header("userId") String userId,
 		@Header("passwd") String passwd,
 		@Field("registerType") String registerType,
 		@Field("email") String email,
@@ -43,4 +44,7 @@ public interface UserNetworkService {
 		@Field("notifyId") String notifyId, // 푸시아이디는 없을경우 'NoRegister' 로 전송
 		@Field("phoneType") String phoneType,
 		@Field("phoneKey") String phoneKey);
+
+	@GET("/v2/user/myInfo")
+	Call<ResponseVO<UserVO>> myInfo(@Header("token") String token);
 }

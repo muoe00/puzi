@@ -6,6 +6,7 @@ package com.puzi.puzi.utils;
 
 public class PuziUtils {
 
+	public static final String PUZI = "puzi";
 	public static final String INFO = "INFO";
 
 }

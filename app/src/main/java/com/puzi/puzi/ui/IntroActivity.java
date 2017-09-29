@@ -19,7 +19,6 @@ import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.intro.LoginFragment;
 import com.puzi.puzi.utils.EncryptUtils;
-import com.puzi.puzi.utils.tokenUtils;
 import retrofit2.Call;
 
 import java.util.ArrayList;
@@ -40,8 +39,8 @@ public class IntroActivity extends FragmentActivity {
 		setTheme(R.style.AppTheme);
 		setContentView(R.layout.activity_intro);
 
-		final String autoId = Preference.getProperty(this, "autoId");
-		final String autoPw = Preference.getProperty(this, "autoPw");
+		final String autoId = Preference.getProperty(this, "id");
+		final String autoPw = Preference.getProperty(this, "passwd");
 
 		// 메인 화면으로 갈지(자동로그인 성공), 로그인 화면으로 갈지(자동로그인 실패) 결정 (변수 : auto_login)
 		if(autoId != null && autoPw != null) {
@@ -60,10 +59,10 @@ public class IntroActivity extends FragmentActivity {
 							Log.i("INFO", "AUTO LOGIN SUCCESS");
 							AUTO_LOGIN = true;
 							String token = responseVO.getValue("token");
-							if(token != null)
+							if(token != null) {
 								Log.i("INFO", "AUTO TOKEN : " + token);
-							tokenUtils.TOKEN = token;
-							Preference.addProperty(IntroActivity.this, "token", token);
+								Preference.addProperty(IntroActivity.this, "token", token);
+							}
 							break;
 						case LOGIN_FAIL:
 							AUTO_LOGIN = false;

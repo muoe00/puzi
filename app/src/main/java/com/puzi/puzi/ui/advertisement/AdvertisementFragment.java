@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,10 +21,8 @@ import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.ResultType;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.AdvertisementNetworkService;
-import com.puzi.puzi.ui.HomeGridAdapter;
 import com.puzi.puzi.ui.user.LevelActivity;
 import com.puzi.puzi.ui.user.PointActivity;
 import com.puzi.puzi.ui.user.RecommendActivity;
@@ -46,12 +45,12 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 	private UserVO userVO;
 	private List<ReceivedAdvertiseVO> advertiseList;
-	private HomeGridAdapter homeGridAdapter;
+	private AdvertisementGridAdapter advertiseGridAdapter;
 
 	public AdvertisementFragment() {
 	}
 
-	private static final String TAG = "HomeFragment";
+	private static final String TAG = "AdvertisementFragment";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -93,6 +92,8 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 	public void getUser() {
 
+		Log.i("INFO", "getUser");
+
 		final AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
 
 		String token = Preference.getProperty(getActivity(), "token");
@@ -102,18 +103,26 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 			@Override
 			public void onSuccess(ResponseVO<UserVO> responseVO) {
-				ResultType resultType = responseVO.getResultType();
 
-				if (resultType.isSuccess()) {
+				Log.i("INFO", "advertise responseVO : " + responseVO.toString());
 
-					userVO = responseVO.getValue("user");
-					Log.i("INFO", "HomeFragment main / userVO : " + userVO.toString());
+				switch(responseVO.getResultType()){
+					case SUCCESS:
+						userVO = responseVO.getValue("userInfoDTO");
+						Log.i("INFO", "HomeFragment main / userVO : " + userVO.toString());
 
-					int point = userVO.getPoint();
-					NumberFormat numberFormat = NumberFormat.getInstance();
-					String result = numberFormat.format(point);
-					tvPoint.setText(result);
+						int point = userVO.getPoint();
+						NumberFormat numberFormat = NumberFormat.getInstance();
+						String result = numberFormat.format(point);
+						tvPoint.setText(result);
+
+						break;
+
+					default:
+						Log.i("INFO", "advertisement getUser failed.");
+						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
 				}
+
 			}
 		});
 	}
@@ -122,22 +131,30 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 		final AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
 
+		int pagingIndex = 1;
 		String token = Preference.getProperty(getActivity(), "token");
 
-		Call<ResponseVO<List<ReceivedAdvertiseVO>>> callList = advertisementNetworkService.adList(token, 1);
+		Call<ResponseVO<List<ReceivedAdvertiseVO>>> callList = advertisementNetworkService.adList(token, pagingIndex);
 		callList.enqueue(new CustomCallback<ResponseVO<List<ReceivedAdvertiseVO>>>(getActivity()) {
 
 			@Override
 			public void onSuccess(ResponseVO<List<ReceivedAdvertiseVO>> responseVO) {
-				ResultType resultType = responseVO.getResultType();
 
-				if (resultType.isSuccess()) {
-					advertiseList = responseVO.getValue("receivedAdvertiseList");
-					Log.i(PuziUtils.INFO, "Advertise main / advertiseList : " + advertiseList.toString());
+				Log.i("INFO", "advertise responseVO : " + responseVO.toString());
 
-					homeGridAdapter = new HomeGridAdapter(view.getContext(), advertiseList);
-					gvAd.setAdapter(homeGridAdapter);
+				switch(responseVO.getResultType()){
+					case SUCCESS:
+						advertiseList = responseVO.getValue("receivedAdvertiseDTOList");
+						Log.i(PuziUtils.INFO, "Advertise main / advertiseList : " + advertiseList.toString());
 
+						advertiseGridAdapter = new AdvertisementGridAdapter(view.getContext(), advertiseList);
+						gvAd.setAdapter(advertiseGridAdapter);
+
+						break;
+
+					default:
+						Log.i("INFO", "advertisement getAdvertiseList failed.");
+						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
 				}
 			}
 		});

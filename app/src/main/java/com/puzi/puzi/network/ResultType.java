@@ -49,4 +49,8 @@ public enum ResultType {
 	public boolean isSuccess() {
 		return this == SUCCESS;
 	}
+
+	public int getResultCode() {
+		return resultCode;
+	}
 }

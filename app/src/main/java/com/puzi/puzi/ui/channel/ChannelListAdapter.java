@@ -77,7 +77,7 @@ public class ChannelListAdapter extends BaseAdapter {
 		channel = channelList.get(position);
 		company = channel.getCompany();
 
-		tvCompany.setText(company.getCompanyName());
+		tvCompany.setText(company.getCompanyAlias());
 
 		BitmapUIL.load(company.getPictureUrl(), ivCompany);
 		BitmapUIL.load(channel.getPictureUrl(), ivAd);

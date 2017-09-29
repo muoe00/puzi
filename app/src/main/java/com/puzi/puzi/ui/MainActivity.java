@@ -62,46 +62,12 @@ public class MainActivity extends FragmentActivity {
 		ivStore.setBackgroundResource(R.drawable.store);
 		ivSetting.setBackgroundResource(R.drawable.gear);
 
-		/*btnAdvertise.setOnClickListener(movePageListener);
-		btnChannel.setOnClickListener(movePageListener);
-		btnStore.setOnClickListener(movePageListener);
-		btnSetting.setOnClickListener(movePageListener);*/
-
 		btnAdvertise.setTag(FRAGMENT_ADVERTISE);
 		btnChannel.setTag(FRAGMENT_CHANNEL);
 		btnStore.setTag(FRAGMENT_STORE);
 		btnSetting.setTag(FRAGMENT_SETTING);
 
 		btnAdvertise.setSelected(true);
-
-		/*viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-			@Override
-			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-			}
-
-			@Override
-			public void onPageSelected(int position) {
-				int index = FRAGMENT_ADVERTISE;
-
-				while(index < 4) {
-					if(position == index) {
-						llMain.findViewWithTag(position).setSelected(true);
-					}
-					else {
-						llMain.findViewWithTag(position).setSelected(false);
-					}
-					index++;
-				}
-
-				getFragment(position);
-				changeBottomButton(position);
-				Log.i("INFO", "OnPageSelected position : " + position);
-			}
-
-			@Override
-			public void onPageScrollStateChanged(int state) {
-			}
-		});*/
 	}
 
 	// swipe
@@ -121,7 +87,6 @@ public class MainActivity extends FragmentActivity {
 
 		getFragment(position);
 		changeBottomButton(position);
-		Log.i("INFO", "OnPageSelected index : " + index);
 		Log.i("INFO", "OnPageSelected position : " + position);
 	}
 
@@ -146,31 +111,7 @@ public class MainActivity extends FragmentActivity {
 		getFragment(tag);
 
 		Log.i("INFO", "movePageListener tag : " + tag);
-		Log.i("INFO", "movePageListener index : " + index);
 	}
-
-	/*View.OnClickListener movePageListener = new View.OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			int tag = (int) v.getTag();
-			int index = FRAGMENT_ADVERTISE;
-
-			while(index < 4) {
-				if(tag == index) {
-					llMain.findViewWithTag(index).setSelected(true);
-				}
-				else {
-					llMain.findViewWithTag(index).setSelected(false);
-				}
-				index++;
-			}
-			viewPager.setCurrentItem(tag);
-			changeBottomButton(tag);
-			getFragment(tag);
-			Log.i("INFO", "movePageListener tag : " + tag);
-			Log.i("INFO", "movePageListener index : " + index);
-		}
-	};*/
 
 	@SuppressWarnings("deprecation")
 	private void changeBottomButton(int id){

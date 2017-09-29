@@ -1,4 +1,4 @@
-package com.puzi.puzi.ui;
+package com.puzi.puzi.ui.advertisement;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,11 +11,11 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.puzi.puzi.R;
+import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
+import com.puzi.puzi.biz.company.CompanyVO;
 import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.ui.company.CompanyDialog;
-import com.puzi.puzi.R;
-import com.puzi.puzi.ui.advertisement.AdvertisementDetailActivity;
-import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import java.util.List;
  * Created by muoe0 on 2017-07-08.
  */
 
-public class HomeGridAdapter extends BaseAdapter {
+public class AdvertisementGridAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
 	private ImageView ivNew, ivAd, ivComp;
@@ -31,14 +31,15 @@ public class HomeGridAdapter extends BaseAdapter {
 	private Button btnAd, btnComp;
 
 	private Context context = null;
+	private CompanyVO company;
 	private List<ReceivedAdvertiseVO> advertiseList;
 	private ReceivedAdvertiseVO receivedAdvertise;
 	private Handler handler = new Handler();
 
-	public HomeGridAdapter(Context context, List<ReceivedAdvertiseVO> list) {
+	public AdvertisementGridAdapter(Context context, List<ReceivedAdvertiseVO> list) {
 		this.context = context;
 		this.advertiseList = list;
-		Log.i("DEBUG", "HomeGridAdapter advertiseList size : " + advertiseList.size());
+		Log.i("DEBUG", "AdvertisementGridAdapter advertiseList size : " + advertiseList.size());
 	}
 
 	public void initComponents(View view) {
@@ -83,10 +84,12 @@ public class HomeGridAdapter extends BaseAdapter {
 		initComponents(convertView);
 		receivedAdvertise = advertiseList.get(position);
 
-		Log.i("DEBUG", "URL Company : " + receivedAdvertise.getPictureUrl());
+		Log.i("INFO", "URL Company : " + receivedAdvertise.getLinkPreviewUrl());
 
 		BitmapUIL.load(receivedAdvertise.getLinkPreviewUrl(), ivAd);
-		BitmapUIL.load(receivedAdvertise.getPictureUrl(), ivComp);
+		BitmapUIL.load(receivedAdvertise.getLinkPreviewUrl(), ivComp);
+
+		company = receivedAdvertise.getCompanyInfoDTO();
 
 		tvAd.setText(receivedAdvertise.getSendComment());
 		btnAd.setOnClickListener(new View.OnClickListener() {
@@ -94,17 +97,18 @@ public class HomeGridAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				Intent intent = new Intent(context, AdvertisementDetailActivity.class);
 				intent.putExtra("url", receivedAdvertise.getLink());
+				intent.putExtra("companyId", company.getCompanyAlias());
 				context.startActivity(intent);
 			}
 		});
 
-		tvComp.setText(receivedAdvertise.getCompanyName());
+		tvComp.setText(company.getCompanyAlias());
 		btnComp.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(context, CompanyDialog.class);
-				intent.putExtra("name", receivedAdvertise.getCompanyName());
-				intent.putExtra("url", receivedAdvertise.getPictureUrl());
+				intent.putExtra("name", company.getCompanyAlias());
+				intent.putExtra("url", company.getPictureUrl());
 				context.startActivity(intent);
 			}
 		});

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/ll_signup"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
@@ -51,6 +52,7 @@
       android:id="@+id/edt_signup_id"
       android:hint="아이디를 입력하세요."
       android:maxLength="15"
+      android:maxLines="1"
       android:paddingBottom="15dp"
       android:paddingTop="15dp"
       android:paddingLeft="15dp"/>
@@ -89,7 +91,8 @@
       android:textSize="15sp"
       android:id="@+id/edt_signup_email"
       android:hint="이메일 주소를 입력하세요."
-      android:ems="10"
+      android:ems="15"
+      android:maxLines="1"
       android:inputType="textEmailAddress"
       android:paddingBottom="15dp"
       android:paddingTop="15dp"
@@ -125,7 +128,8 @@
       android:paddingTop="15dp"
       android:paddingLeft="15dp"
       android:inputType="textPassword"
-      android:ems="10"/>
+      android:ems="15"
+      android:maxLines="1"/>
 
     <EditText
       android:background="@drawable/edittext"
@@ -139,7 +143,8 @@
       android:paddingLeft="15dp"
       android:layout_marginTop="10dp"
       android:inputType="textPassword"
-      android:ems="10"/>
+      android:ems="15"
+      android:maxLines="1"/>
 
     <TextView
       android:layout_width="match_parent"

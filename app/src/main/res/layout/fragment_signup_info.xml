@@ -10,6 +10,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+      android:id="@+id/ll_signup_info"
       android:orientation="vertical"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
@@ -210,6 +211,7 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:textSize="15sp"
+          android:maxLines="1"
           android:id="@+id/edit_recommend"
           android:hint="추천인 아이디를 입력해주세요 (선택)"
           android:background="@drawable/edittext"

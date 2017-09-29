@@ -18,4 +18,35 @@ public class MainVO {
 	private List<NoticeVO> noticeList;
 	private String version;
 
+	public UserVO getUserVO() {
+		return userVO;
+	}
+
+	public void setUserVO(UserVO user) {
+		this.userVO = user;
+	}
+
+	public List<ReceivedAdvertiseVO> getReceivedAdvertiseList() {
+		return receivedAdvertiseList;
+	}
+
+	public void setReceivedAdvertiseList(List<ReceivedAdvertiseVO> receivedAdvertiseList) {
+		this.receivedAdvertiseList = receivedAdvertiseList;
+	}
+
+	public List<NoticeVO> getNoticeList() {
+		return noticeList;
+	}
+
+	public void setNoticeList(List<NoticeVO> noticeList) {
+		this.noticeList = noticeList;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
 }

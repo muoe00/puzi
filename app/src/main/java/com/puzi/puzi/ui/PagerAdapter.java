@@ -12,15 +12,13 @@ import com.puzi.puzi.ui.store.StoreFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
-	public PagerAdapter(android.support.v4.app.FragmentManager fragmentManager)
-	{
+	public PagerAdapter(android.support.v4.app.FragmentManager fragmentManager) {
 		super(fragmentManager);
 	}
+
 	@Override
-	public android.support.v4.app.Fragment getItem(int position)
-	{
-		switch(position)
-		{
+	public android.support.v4.app.Fragment getItem(int position) {
+		switch(position) {
 			case 0:
 				return new AdvertisementFragment();
 			case 1:
@@ -33,6 +31,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 				return null;
 		}
 	}
+
 	@Override
 	public int getCount()
 	{

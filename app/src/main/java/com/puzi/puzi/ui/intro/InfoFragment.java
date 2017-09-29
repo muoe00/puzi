@@ -21,6 +21,7 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
+import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.utils.EncryptUtils;
 import retrofit2.Call;
 
@@ -65,7 +66,7 @@ public class InfoFragment extends Fragment {
 
 		userVO = new UserVO();
 		userVO.setUserId(Preference.getProperty(getActivity(), "id"));
-		userVO.setPasswd(Preference.getProperty(getActivity(), "pw"));
+		userVO.setPasswd(Preference.getProperty(getActivity(), "passwd"));
 		userVO.setRegisterType("N");
 		userVO.setEmail(Preference.getProperty(getActivity(), "email"));
 		userVO.setNotifyId("NoRegister");
@@ -82,31 +83,41 @@ public class InfoFragment extends Fragment {
 
 		isChecked();
 
-		Log.i("INFO", "signup check complete.");
 		Log.i("INFO", "User VO : " + userVO.toString());
 
 		UserNetworkService userService = RetrofitManager.create(UserNetworkService.class);
 
-		Call<ResponseVO> call = userService.signup(userVO.getUserId(), EncryptUtils.sha256(userVO.getPasswd()), userVO.getRegisterType()
+		Call<ResponseVO<String>> call = userService.signup(userVO.getUserId(), EncryptUtils.sha256(userVO.getPasswd()), userVO.getRegisterType()
 			, userVO.getEmail(), userVO.getNotifyId(), userVO.getGenderType(), userVO.getAge(), userVO.getFavoriteTypeList()
 			, userVO.getRecommendId(), userVO.getPhoneType(), userVO.getPhoneKey());
 
-		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+		call.enqueue(new CustomCallback<ResponseVO<String>>(getActivity()) {
 			@Override
-			public void onSuccess(ResponseVO responseVO) {
+			public void onSuccess(ResponseVO<String> responseVO) {
+
+				Log.i("INFO", "signup responseVO : " + responseVO.toString());
+
 				switch(responseVO.getResultType()){
 					case SUCCESS:
 						Log.i("INFO", "signup success.");
 
-						System.setProperty("userId", userVO.getUserId());
-						System.setProperty("passwd", userVO.getPasswd());
+						String token = responseVO.getValue("token");
+						Log.i("INFO", "signup token : " + token);
 
-						Intent intent = new Intent(getActivity(), LoginFragment.class);
+						Preference.addProperty(getActivity(), "token", token);
+						Preference.addProperty(getActivity(), "id", userVO.getUserId());
+						Preference.addProperty(getActivity(), "passwd", userVO.getPasswd());
+
+						Intent intent = new Intent(getActivity(), MainActivity.class);
 						startActivity(intent);
 
 						getActivity().getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
 						break;
+
+					default:
+						Log.i("INFO", "signup failed.");
+						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -264,7 +275,7 @@ public class InfoFragment extends Fragment {
 		}
 
 		String idByANDROID_ID = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-		userVO.setPhoneKey(idByANDROID_ID);
+		userVO.setPhoneKey("a");
 		userVO.setRecommendId(edtiRecommend.getText().toString().trim());
 	}
 
@@ -279,10 +290,12 @@ public class InfoFragment extends Fragment {
 			}
 		} else if(!isClause) {
 			Toast.makeText(getContext(), "약관에 동의해주세요", Toast.LENGTH_SHORT).show();
+		} else {
+			Log.i("INFO", "signup check complete.");
 		}
 	}
 
-	@OnClick(R.id.ll_main)
+	@OnClick(R.id.ll_signup_info)
 	public void layoutClick() {
 		inputMethodManager.hideSoftInputFromWindow(edtiRecommend.getWindowToken(), 0);
 	}

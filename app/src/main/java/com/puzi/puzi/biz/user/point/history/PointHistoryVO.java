@@ -10,11 +10,8 @@ import lombok.Data;
 @Data
 public class PointHistoryVO {
 
-	private String userId;
-	private int pointHistoryId;
-	private String answer;
 	private boolean saved;
 	private int point;
 	private PointType pointType;
-	private String createdAtString;
+	private String createdAt;
 }

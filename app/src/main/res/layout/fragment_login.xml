@@ -6,6 +6,7 @@
               android:orientation="vertical" >
 
   <RelativeLayout
+    android:id="@+id/rl_login"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="80dp">
@@ -31,6 +32,7 @@
       android:layout_marginLeft="50dp"
       android:layout_marginRight="50dp"
       android:ems="10"
+      android:maxLines="1"
       android:focusable="true"
       android:hint="아이디를 입력하세요"
       android:textColorHint="@color/colorGray"
@@ -49,6 +51,7 @@
       android:layout_marginRight="50dp"
       android:layout_marginTop="14.5dp"
       android:ems="10"
+      android:maxLines="1"
       android:hint="비밀번호를 입력하세요"
       android:textColorHint="@color/colorGray"
       android:inputType="textPassword"

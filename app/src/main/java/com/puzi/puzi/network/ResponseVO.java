@@ -11,6 +11,11 @@ import java.util.Map;
 public class ResponseVO<T> {
 
 	private int resultCode;
+
+	public String getResultMsg() {
+		return resultMsg;
+	}
+
 	private String resultMsg;
 	private Map <String, T> params;
 
