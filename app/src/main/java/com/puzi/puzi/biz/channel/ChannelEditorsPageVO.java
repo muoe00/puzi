@@ -1,17 +1,15 @@
 package com.puzi.puzi.biz.channel;
 
-import java.util.List;
+import lombok.Data;
 
 /**
  * Created by JangwonPark on 2017. 10. 2..
  */
-
-public class ChannelEditorsPage {
-	private int channelEditorsPageId;
+@Data
+public class ChannelEditorsPageVO {
 	private String title;
 	private String previewUrl;
-	private boolean directlyWrite;
 	private String link;
-	private List<ChannelCategoryType> categoryTypeList;
 	private String createdAt;
+	private String createdBy;
 }
