@@ -2,7 +2,6 @@ package com.puzi.puzi.ui.channel;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +9,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelVO;
-import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.CustomCallback;
-import com.puzi.puzi.network.ResultType;
+import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.ChannelNetworkService;
-import com.puzi.puzi.cache.Preference;
-import retrofit2.Call;
 
 import java.util.List;
 
@@ -81,21 +76,21 @@ public class ChannelFragment extends Fragment{
 		String token = Preference.getProperty(getActivity(), "token");
 		int pagingIndex = 1;
 
-		Call<ResponseVO<List<ChannelVO>>> call = channelNetworkService.channelList(token, type, pagingIndex);
-		call.enqueue(new CustomCallback<ResponseVO<List<ChannelVO>>>(getActivity()) {
-			@Override
-			public void onSuccess(ResponseVO<List<ChannelVO>> responseVO) {
-				ResultType resultType = responseVO.getResultType();
-
-				if (resultType.isSuccess()) {
-
-					channelList = responseVO.getValue("channelList");
-					Log.i("DEBUG", "ChannelFragment main / channelList : " + channelList.toString());
-
-					channelListAdapter = new ChannelListAdapter(view.getContext(), channelList);
-					lvChannel.setAdapter(channelListAdapter);
-				}
-			}
-		});
+//		Call<ResponseVO<List<ChannelVO>>> call = channelNetworkService.channelList(token, "", type, pagingIndex);
+//		call.enqueue(new CustomCallback<ResponseVO<List<ChannelVO>>>(getActivity()) {
+//			@Override
+//			public void onSuccess(ResponseVO<List<ChannelVO>> responseVO) {
+//				ResultType resultType = responseVO.getResultType();
+//
+//				if (resultType.isSuccess()) {
+//
+//					channelList = responseVO.getValue("channelList");
+//					Log.i("DEBUG", "ChannelFragment main / channelList : " + channelList.toString());
+//
+//					channelListAdapter = new ChannelListAdapter(view.getContext(), channelList);
+//					lvChannel.setAdapter(channelListAdapter);
+//				}
+//			}
+//		});
 	}
 }

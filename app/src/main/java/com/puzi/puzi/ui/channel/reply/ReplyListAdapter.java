@@ -10,12 +10,8 @@ import android.view.ViewGroup;
 import android.widget.*;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelReplyVO;
-import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.CustomCallback;
-import com.puzi.puzi.network.ResultType;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.ChannelNetworkService;
-import retrofit2.Call;
 
 import java.util.List;
 
@@ -138,17 +134,17 @@ public class ReplyListAdapter extends BaseAdapter implements View.OnClickListene
 
 		Log.i("DEBUG", "Channel Reply List");
 
-		Call<ResponseVO> call = channelNetworkService.replyRecommend(token, channelId, channelReplyId, recommend);
-		call.enqueue(new CustomCallback<ResponseVO>(activity) {
-			@Override
-			public void onSuccess(ResponseVO responseVO) {
-				ResultType resultType = responseVO.getResultType();
-
-				if (resultType.isSuccess()) {
-
-				}
-			}
-		});
+//		Call<ResponseVO> call = channelNetworkService.replyRecommend(token, channelId, channelReplyId, recommend);
+//		call.enqueue(new CustomCallback<ResponseVO>(activity) {
+//			@Override
+//			public void onSuccess(ResponseVO responseVO) {
+//				ResultType resultType = responseVO.getResultType();
+//
+//				if (resultType.isSuccess()) {
+//
+//				}
+//			}
+//		});
 	}
 
 	@Override

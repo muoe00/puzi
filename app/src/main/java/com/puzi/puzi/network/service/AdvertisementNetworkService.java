@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Created by muoe0 on 2017-04-28.
  */
-
 public interface AdvertisementNetworkService {
 	@GET("/v2/advertise/main")
 	Call<ResponseVO<UserVO>> main(@Header("token") String token);

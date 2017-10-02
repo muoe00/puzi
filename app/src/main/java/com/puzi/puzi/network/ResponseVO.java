@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Data
 @ToString
-public class ResponseVO<T> {
+public class ResponseVO {
 
 	private int resultCode;
 
@@ -16,15 +16,14 @@ public class ResponseVO<T> {
 	}
 
 	private String resultMsg;
-	private Map <String, T> params;
+	private Map params;
 
 	public int getResultCode() {
 		return resultCode;
 	}
 
-	public T getValue(String key) {
-//		Log.i("params", params.toString());
-		return params.get(key);
+	public <R> R getValue(String key, Class<R> clazz) {
+		return (R) params.get(key);
 	}
 
 	public ResultType getResultType(){

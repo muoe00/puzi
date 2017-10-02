@@ -9,17 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.puzi.puzi.R;
-import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.biz.channel.ChannelReplyVO;
 import com.puzi.puzi.biz.channel.ChannelVO;
-import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.CustomCallback;
-import com.puzi.puzi.network.ResultType;
+import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.ChannelNetworkService;
 import com.puzi.puzi.ui.channel.reply.ReplyListAdapter;
-import com.puzi.puzi.cache.Preference;
-import retrofit2.Call;
 
 import java.util.List;
 
@@ -69,21 +64,21 @@ public class ChannelDetailActivity extends Activity implements TextView.OnEditor
 
 		Log.i("DEBUG", "Channel Reply List");
 
-		Call<ResponseVO<List<ChannelReplyVO>>> call = channelNetworkService.replyList(token, channelId, 1);
-		call.enqueue(new CustomCallback<ResponseVO<List<ChannelReplyVO>>>(this) {
-			@Override
-			public void onSuccess(ResponseVO<List<ChannelReplyVO>> responseVO) {
-				ResultType resultType = responseVO.getResultType();
-
-				if (resultType.isSuccess()) {
-
-					channelReplyVOList = responseVO.getValue("channelReplyList");
-					replyListAdapter = new ReplyListAdapter(ChannelDetailActivity.this, channelReplyVOList, channelId, token);
-					lvReply.setAdapter(replyListAdapter);
-					setListViewHeightBasedOnChildren(lvReply, replyListAdapter);
-				}
-			}
-		});
+//		Call<ResponseVO<List<ChannelReplyVO>>> call = channelNetworkService.replyList(token, channelId, 1);
+//		call.enqueue(new CustomCallback<ResponseVO<List<ChannelReplyVO>>>(this) {
+//			@Override
+//			public void onSuccess(ResponseVO<List<ChannelReplyVO>> responseVO) {
+//				ResultType resultType = responseVO.getResultType();
+//
+//				if (resultType.isSuccess()) {
+//
+//					channelReplyVOList = responseVO.getValue("channelReplyList");
+//					replyListAdapter = new ReplyListAdapter(ChannelDetailActivity.this, channelReplyVOList, channelId, token);
+//					lvReply.setAdapter(replyListAdapter);
+//					setListViewHeightBasedOnChildren(lvReply, replyListAdapter);
+//				}
+//			}
+//		});
 	}
 
 	public void getChannelDetail() {
@@ -94,23 +89,23 @@ public class ChannelDetailActivity extends Activity implements TextView.OnEditor
 
 		Log.i("DEBUG", "Channel Detail");
 
-		Call<ResponseVO<ChannelVO>> call = channelNetworkService.channelDetail(token, channelId);
-		call.enqueue(new CustomCallback<ResponseVO<ChannelVO>>(this) {
-			@Override
-			public void onSuccess(ResponseVO<ChannelVO> responseVO) {
-				ResultType resultType = responseVO.getResultType();
-
-				if (resultType.isSuccess()) {
-					Log.i("DEBUG", "Channel Detail Activity / Success");
-					Log.i("DEBUG", "Channel Detail Activity / response : " + responseVO);
-
-					channel = responseVO.getValue("channel");
-					Log.i("DEBUG", "Channel Detail Activity / channel : " + channel);
-					tvComment.setText(channel.getComment());
-					BitmapUIL.load(channel.getPictureUrl(), ivAdvertise);
-				}
-			}
-		});
+//		Call<ResponseVO<ChannelVO>> call = channelNetworkService.channelDetail(token, channelId);
+//		call.enqueue(new CustomCallback<ResponseVO<ChannelVO>>(this) {
+//			@Override
+//			public void onSuccess(ResponseVO<ChannelVO> responseVO) {
+//				ResultType resultType = responseVO.getResultType();
+//
+//				if (resultType.isSuccess()) {
+//					Log.i("DEBUG", "Channel Detail Activity / Success");
+//					Log.i("DEBUG", "Channel Detail Activity / response : " + responseVO);
+//
+//					channel = responseVO.getValue("channel");
+//					Log.i("DEBUG", "Channel Detail Activity / channel : " + channel);
+//					tvComment.setText(channel.getComment());
+//					BitmapUIL.load(channel.getPictureUrl(), ivAdvertise);
+//				}
+//			}
+//		});
 	}
 
 	@Override
@@ -160,29 +155,29 @@ public class ChannelDetailActivity extends Activity implements TextView.OnEditor
 
 					final String token = Preference.getProperty(this, "token");
 
-					Call<ResponseVO<Integer>> call = channelNetworkService.replyWrite(token, channelId, reply);
-					call.enqueue(new CustomCallback<ResponseVO<Integer>>(this) {
-						@Override
-						public void onSuccess(ResponseVO<Integer> responseVO) {
-							ResultType resultType = responseVO.getResultType();
-
-							if (resultType.isSuccess()) {
-
-								Log.i("DEBUG", "responseVO : " + responseVO);
-
-								channelReplyVO = new ChannelReplyVO();
-
-								channelReplyVO.setChannelReplyId(responseVO.getValue("channelReplyId"));
-								channelReplyVO.setComment(reply);
-
-								channelReplyVOList.add(channelReplyVO);
-								replyListAdapter = new ReplyListAdapter(ChannelDetailActivity.this, channelReplyVOList, channelId, token);
-								lvReply.setAdapter(replyListAdapter);
-								setListViewHeightBasedOnChildren(lvReply, replyListAdapter);
-								editReply.setText("");
-							}
-						}
-					});
+//					Call<ResponseVO<Integer>> call = channelNetworkService.replyWrite(token, channelId, reply);
+//					call.enqueue(new CustomCallback<ResponseVO<Integer>>(this) {
+//						@Override
+//						public void onSuccess(ResponseVO<Integer> responseVO) {
+//							ResultType resultType = responseVO.getResultType();
+//
+//							if (resultType.isSuccess()) {
+//
+//								Log.i("DEBUG", "responseVO : " + responseVO);
+//
+//								channelReplyVO = new ChannelReplyVO();
+//
+//								channelReplyVO.setChannelReplyId(responseVO.getValue("channelReplyId"));
+//								channelReplyVO.setComment(reply);
+//
+//								channelReplyVOList.add(channelReplyVO);
+//								replyListAdapter = new ReplyListAdapter(ChannelDetailActivity.this, channelReplyVOList, channelId, token);
+//								lvReply.setAdapter(replyListAdapter);
+//								setListViewHeightBasedOnChildren(lvReply, replyListAdapter);
+//								editReply.setText("");
+//							}
+//						}
+//					});
 				}
 				break;
 
