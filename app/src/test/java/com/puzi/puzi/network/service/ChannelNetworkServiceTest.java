@@ -1,13 +1,14 @@
 package com.puzi.puzi.network.service;
 
+import com.puzi.puzi.biz.channel.ChannelCategoryType;
 import com.puzi.puzi.biz.channel.ChannelVO;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import org.junit.Before;
 import org.junit.Test;
 import retrofit2.Call;
-import retrofit2.Response;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -25,18 +26,25 @@ public class ChannelNetworkServiceTest {
 
 	@Test
 	public void channelList() throws Exception {
-		Call<ResponseVO> call = sut.channelList(TOKEN, "GAME", "POPULARITY", 1);
+		Call<ResponseVO> call = sut.channelList(TOKEN, Arrays.asList(ChannelCategoryType.BEAUTY, ChannelCategoryType.GAME), null, 1);
 
 		ResponseVO responseVO = NetworkTestValidation.call(call);
 
-		List<ChannelVO> channelList = responseVO.getValue("channelList", List.class);
+		List<ChannelVO> channelList = responseVO.getList("channelDTOList", ChannelVO.class);
 		System.out.println("+++ channelList : " + channelList.toString());
+
+		for(ChannelVO channelVO : channelList) {
+			System.out.println("+++ channelVO : " + channelVO.toString());
+		}
 	}
 
 	@Test
 	public void channelDetail() throws Exception {
 		Call<ResponseVO> call = sut.channelDetail(TOKEN, 2);
-		Response<ResponseVO> response = call.execute();
+
+		ResponseVO responseVO = NetworkTestValidation.call(call);
+
+//		responseVO.getValue("")
 	}
 
 }
