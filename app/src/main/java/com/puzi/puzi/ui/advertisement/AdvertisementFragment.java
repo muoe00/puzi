@@ -30,6 +30,7 @@ import com.puzi.puzi.ui.user.RecommendActivity;
 import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 /**
@@ -104,13 +105,13 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 				Log.i("INFO", "advertise responseVO : " + responseVO.toString());
 				switch(responseVO.getResultType()){
 					case SUCCESS:
-						/*userVO = responseVO.getValue("userInfoDTO");
+						userVO = responseVO.getValue("userInfoDTO", UserVO.class);
 						Log.i("INFO", "HomeFragment main / userVO : " + userVO.toString());
 
 						int point = userVO.getPoint();
 						NumberFormat numberFormat = NumberFormat.getInstance();
 						String result = numberFormat.format(point);
-						tvPoint.setText(result);*/
+						tvPoint.setText(result);
 						break;
 
 					default:
@@ -136,11 +137,11 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 				switch(responseVO.getResultType()){
 					case SUCCESS:
-						/*advertiseList = responseVO.getValue("cmpnDTOList");
+						advertiseList = responseVO.getValue("cmpnDTOList", List.class);
 						Log.i(PuziUtils.INFO, "Advertise main / advertiseList : " + advertiseList.toString());
 
 						advertiseGridAdapter = new AdvertisementListAdapter(view.getContext(), advertiseList);
-						lvAd.setAdapter(advertiseGridAdapter);*/
+						lvAd.setAdapter(advertiseGridAdapter);
 						break;
 
 					default:

@@ -99,7 +99,7 @@ public class LoginFragment extends Fragment {
 
 					switch(responseVO.getResultType()){
 						case SUCCESS:
-							// successLogin(responseVO.getValue("token"), id, pwd);
+							successLogin(responseVO.getValue("token", String.class), id, pwd);
 							break;
 
 						case LOGIN_FAIL:
