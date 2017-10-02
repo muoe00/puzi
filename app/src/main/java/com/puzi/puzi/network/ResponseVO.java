@@ -12,14 +12,13 @@ import java.util.Map;
 public class ResponseVO {
 
 	private int resultCode;
+	private String resultMsg;
+	private Map params;
 	private Gson gson = new Gson();
 
 	public String getResultMsg() {
 		return resultMsg;
 	}
-
-	private String resultMsg;
-	private Map params;
 
 	public int getResultCode() {
 		return resultCode;

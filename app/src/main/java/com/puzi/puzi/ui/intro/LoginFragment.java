@@ -96,6 +96,7 @@ public class LoginFragment extends Fragment {
 			Log.i(PuziUtils.INFO, "login start");
 
 			Call<ResponseVO> call = userNetworkService.login(id, EncryptUtils.sha256(pwd), notifyId, phoneType, phoneKey);
+
 			call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
 				@Override
 				public void onSuccess(ResponseVO responseVO) {
