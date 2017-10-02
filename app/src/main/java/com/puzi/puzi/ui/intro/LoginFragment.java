@@ -30,6 +30,7 @@ import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.common.BasicDialog;
 import com.puzi.puzi.utils.EncryptUtils;
+import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
 /**
@@ -92,14 +93,18 @@ public class LoginFragment extends Fragment {
 			String phoneType = "A";
 			String phoneKey = "";
 
+			Log.i(PuziUtils.INFO, "login start");
+
 			Call<ResponseVO> call = userNetworkService.login(id, EncryptUtils.sha256(pwd), notifyId, phoneType, phoneKey);
 			call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
 				@Override
 				public void onSuccess(ResponseVO responseVO) {
 
+					Log.i(PuziUtils.INFO, "login onSuccess start");
 					switch(responseVO.getResultType()){
 						case SUCCESS:
-							successLogin(responseVO.getValue("token", String.class), id, pwd);
+							Log.i(PuziUtils.INFO, "login Success");
+							successLogin(responseVO.getString("token"), id, pwd);
 							break;
 
 						case LOGIN_FAIL:

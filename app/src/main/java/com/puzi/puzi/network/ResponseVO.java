@@ -29,6 +29,10 @@ public class ResponseVO {
 		return ((Double) params.get(key)).intValue();
 	}
 
+	public String getString(String key) {
+		return (String) params.get(key);
+	}
+
 	public <T> T getValue(String key, Class<T> classOfT) {
 		LinkedTreeMap map = (LinkedTreeMap) params.get(key);
 		return gson.fromJson(gson.toJson(map), classOfT);
@@ -50,4 +54,5 @@ public class ResponseVO {
 		return ResultType.findBy(resultCode);
 	}
 }
+
 

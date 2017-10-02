@@ -29,4 +29,16 @@ public class UserNetworkServiceTest {
 		UserVO userVO = responseVO.getValue("userInfoDTO", UserVO.class);
 		System.out.println("+++ userVO : " + userVO.toString());
 	}
+
+	@Test
+	public void login() throws Exception {
+		System.out.println("+++ START");
+
+		Call<ResponseVO> call = sut.login("muoe01", "00558a039edccbe7912a9e6f5eaafb1a8764f37ccc6e768e62b70a44162331b3", "b", "A", "d");
+		ResponseVO responseVO = NetworkTestValidation.call(call);
+
+		String token = responseVO.getString("token");
+
+		System.out.println("token : " + token);
+	}
 }

@@ -137,7 +137,7 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 				switch(responseVO.getResultType()){
 					case SUCCESS:
-						advertiseList = responseVO.getValue("cmpnDTOList", List.class);
+						advertiseList = responseVO.getList("receivedAdvertiseDTOList", ReceivedAdvertiseVO.class);
 						Log.i(PuziUtils.INFO, "Advertise main / advertiseList : " + advertiseList.toString());
 
 						advertiseGridAdapter = new AdvertisementListAdapter(view.getContext(), advertiseList);
