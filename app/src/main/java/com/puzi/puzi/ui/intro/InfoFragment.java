@@ -1,11 +1,9 @@
 package com.puzi.puzi.ui.intro;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,13 +15,6 @@ import butterknife.*;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.cache.Preference;
-import com.puzi.puzi.network.CustomCallback;
-import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
-import com.puzi.puzi.network.service.UserNetworkService;
-import com.puzi.puzi.ui.MainActivity;
-import com.puzi.puzi.utils.EncryptUtils;
-import retrofit2.Call;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -85,15 +76,15 @@ public class InfoFragment extends Fragment {
 
 		Log.i("INFO", "User VO : " + userVO.toString());
 
-		UserNetworkService userService = RetrofitManager.create(UserNetworkService.class);
+		/*UserNetworkService userService = RetrofitManager.create(UserNetworkService.class);
 
-		Call<ResponseVO<String>> call = userService.signup(userVO.getUserId(), EncryptUtils.sha256(userVO.getPasswd()), userVO.getRegisterType()
+		Call<ResponseVO> call = userService.signup(userVO.getUserId(), EncryptUtils.sha256(userVO.getPasswd()), userVO.getRegisterType()
 			, userVO.getEmail(), userVO.getNotifyId(), userVO.getGenderType(), userVO.getAge(), userVO.getFavoriteTypeList()
 			, userVO.getRecommendId(), userVO.getPhoneType(), userVO.getPhoneKey());
 
-		call.enqueue(new CustomCallback<ResponseVO<String>>(getActivity()) {
+		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
 			@Override
-			public void onSuccess(ResponseVO<String> responseVO) {
+			public void onSuccess(ResponseVO responseVO) {
 
 				Log.i("INFO", "signup responseVO : " + responseVO.toString());
 
@@ -120,7 +111,7 @@ public class InfoFragment extends Fragment {
 						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
 				}
 			}
-		});
+		});*/
 	}
 
 	@OnItemSelected(R.id.sp_age)

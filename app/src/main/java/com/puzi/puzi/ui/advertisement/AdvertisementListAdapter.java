@@ -23,7 +23,7 @@ import java.util.List;
  * Created by muoe0 on 2017-07-08.
  */
 
-public class AdvertisementGridAdapter extends BaseAdapter {
+public class AdvertisementListAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
 	private ImageView ivNew, ivAd, ivComp;
@@ -36,10 +36,10 @@ public class AdvertisementGridAdapter extends BaseAdapter {
 	private ReceivedAdvertiseVO receivedAdvertise;
 	private Handler handler = new Handler();
 
-	public AdvertisementGridAdapter(Context context, List<ReceivedAdvertiseVO> list) {
+	public AdvertisementListAdapter(Context context, List<ReceivedAdvertiseVO> list) {
 		this.context = context;
 		this.advertiseList = list;
-		Log.i("DEBUG", "AdvertisementGridAdapter advertiseList size : " + advertiseList.size());
+		Log.i("DEBUG", "AdvertisementListAdapter advertiseList size : " + advertiseList.size());
 	}
 
 	public void initComponents(View view) {

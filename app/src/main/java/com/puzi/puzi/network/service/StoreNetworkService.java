@@ -1,11 +1,8 @@
 package com.puzi.puzi.network.service;
 
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.biz.store.StoreVO;
 import retrofit2.Call;
 import retrofit2.http.*;
-
-import java.util.List;
 
 /**
  * Created by muoe0 on 2017-07-09.
@@ -14,7 +11,7 @@ import java.util.List;
 public interface StoreNetworkService {
 
 	@GET("/store/brand/list")
-	Call<ResponseVO<List<StoreVO>>> brandList(@Header("token") String token);
+	Call<ResponseVO> brandList(@Header("token") String token);
 
 	@GET("/store/item/list")
 	Call<ResponseVO> itemList(@Header("token") String token,
