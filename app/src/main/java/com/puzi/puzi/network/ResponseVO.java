@@ -25,6 +25,10 @@ public class ResponseVO {
 		return resultCode;
 	}
 
+	public int getInteger(String key) {
+		return (int) params.get(key);
+	}
+
 	public <T> T getValue(String key, Class<T> classOfT) {
 		LinkedTreeMap map = (LinkedTreeMap) params.get(key);
 		return gson.fromJson(gson.toJson(map), classOfT);

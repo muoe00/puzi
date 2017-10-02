@@ -39,12 +39,23 @@ public class ChannelNetworkServiceTest {
 	}
 
 	@Test
+	public void channelEditorsPageList() throws Exception {
+		Call<ResponseVO> call = sut.channelEditorsPageList(TOKEN, Arrays.asList(ChannelCategoryType.BEAUTY, ChannelCategoryType.GAME), 1);
+
+		ResponseVO responseVO = NetworkTestValidation.call(call);
+
+//		ChannelVO channelVO = responseVO.getValue("channelEditorsPageDTOList", ChannelEditors.class);
+//		System.out.println("+++ channelVO : " + channelVO.toString());
+	}
+
+	@Test
 	public void channelDetail() throws Exception {
 		Call<ResponseVO> call = sut.channelDetail(TOKEN, 2);
 
 		ResponseVO responseVO = NetworkTestValidation.call(call);
 
-//		responseVO.getValue("")
+		ChannelVO channelVO = responseVO.getValue("channelDTO", ChannelVO.class);
+		System.out.println("+++ channelVO : " + channelVO.toString());
 	}
 
 }
