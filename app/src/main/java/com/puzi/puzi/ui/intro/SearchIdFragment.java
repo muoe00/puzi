@@ -86,7 +86,7 @@ public class SearchIdFragment extends Fragment {
 		fragmentTransaction.commit();
 	}
 
-	@OnClick(R.id.ll_main)
+	@OnClick(R.id.ll_searchid)
 	public void layoutClick() {
 		inputMethodManager.hideSoftInputFromWindow(editEmail.getWindowToken(), 0);
 	}

@@ -91,7 +91,7 @@ public class SearchPwFragment extends Fragment {
 		fragmentTransaction.commit();
 	}
 
-	@OnClick(R.id.ll_main)
+	@OnClick(R.id.ll_searchpw)
 	public void layoutClick() {
 		inputMethodManager.hideSoftInputFromWindow(editEmail.getWindowToken(), 0);
 	}
