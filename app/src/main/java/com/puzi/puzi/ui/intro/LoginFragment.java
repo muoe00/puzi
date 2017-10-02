@@ -91,11 +91,14 @@ public class LoginFragment extends Fragment {
 			UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
 			String notifyId = "NoRegister";
 			String phoneType = "A";
-			String phoneKey = "";
+			String phoneKey = "ABC";
 
-			Log.i(PuziUtils.INFO, "login start");
+			Log.i(PuziUtils.INFO, "login start - id:" + id + " / pwd:" + EncryptUtils.sha256(pwd));
 
-			Call<ResponseVO> call = userNetworkService.login(id, EncryptUtils.sha256(pwd), notifyId, phoneType, phoneKey);
+			Call call = userNetworkService.login(id, EncryptUtils.sha256(pwd), notifyId, phoneType, phoneKey);
+
+			Log.i(PuziUtils.INFO, "login AFTER");
+
 			call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
 				@Override
 				public void onSuccess(ResponseVO responseVO) {
