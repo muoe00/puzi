@@ -23,6 +23,7 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.AdvertisementNetworkService;
+import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.user.LevelActivity;
 import com.puzi.puzi.ui.user.PointActivity;
 import com.puzi.puzi.ui.user.RecommendActivity;
@@ -93,11 +94,11 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 		Log.i("INFO", "getUser");
 
-		final AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
+		final UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
 
 		String token = Preference.getProperty(getActivity(), "token");
 
-		Call<ResponseVO<UserVO>> callUser = advertisementNetworkService.main(token);
+		Call<ResponseVO<UserVO>> callUser = userNetworkService.myInfo(token);
 		callUser.enqueue(new CustomCallback<ResponseVO<UserVO>>(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO<UserVO> responseVO) {
@@ -154,7 +155,9 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 		if((scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) && lastVisible) {
-			pagingIndex++;
+			if(pagingIndex < 10) {
+				pagingIndex++;
+			}
 			Log.i(PuziUtils.INFO, "pagingIndex : " + pagingIndex);
 		}
 	}
