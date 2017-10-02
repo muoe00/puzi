@@ -1,6 +1,5 @@
 package com.puzi.puzi.network;
 
-import android.util.Log;
 import lombok.Data;
 import lombok.ToString;
 
@@ -24,7 +23,7 @@ public class ResponseVO<T> {
 	}
 
 	public T getValue(String key) {
-		Log.i("params", params.toString());
+//		Log.i("params", params.toString());
 		return params.get(key);
 	}
 
