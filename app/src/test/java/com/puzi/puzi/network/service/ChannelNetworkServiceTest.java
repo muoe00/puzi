@@ -25,18 +25,18 @@ public class ChannelNetworkServiceTest {
 
 	@Test
 	public void channelList() throws Exception {
-		System.out.println("+++ START channelList");
-
 		Call<ResponseVO> call = sut.channelList(TOKEN, "GAME", "POPULARITY", 1);
-		Response<ResponseVO> response = call.execute();
 
-		if(!response.isSuccessful()) {
-			System.out.println("+++ ERROR : " + response.errorBody().string());
-			throw new Exception();
-		}
+		ResponseVO responseVO = NetworkTestValidation.call(call);
 
-		List<ChannelVO> channelList = response.body().getValue("channelList", List.class);
+		List<ChannelVO> channelList = responseVO.getValue("channelList", List.class);
 		System.out.println("+++ channelList : " + channelList.toString());
+	}
+
+	@Test
+	public void channelDetail() throws Exception {
+		Call<ResponseVO> call = sut.channelDetail(TOKEN, 2);
+		Response<ResponseVO> response = call.execute();
 	}
 
 }
