@@ -26,7 +26,7 @@ public class ResponseVO {
 	}
 
 	public int getInteger(String key) {
-		return (int) params.get(key);
+		return ((Double) params.get(key)).intValue();
 	}
 
 	public <T> T getValue(String key, Class<T> classOfT) {
@@ -37,6 +37,9 @@ public class ResponseVO {
 	public <T> List<T> getList(String key, Class<T> classOfT) {
 		List<T> result = new ArrayList<T>();
 		List<LinkedTreeMap> list = (List) params.get(key);
+		if(list == null) {
+			return new ArrayList<>();
+		}
 		for(LinkedTreeMap map : list) {
 			result.add(gson.fromJson(gson.toJson(map), classOfT));
 		}

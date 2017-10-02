@@ -3,6 +3,7 @@ package com.puzi.puzi.network.service;
 import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import com.puzi.puzi.biz.notice.NoticeVO;
 import com.puzi.puzi.biz.user.UserVO;
+import com.puzi.puzi.biz.user.point.history.PointHistoryVO;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import org.junit.Before;
@@ -32,9 +33,9 @@ public class AdvertisementNetworkServiceTest {
 
 		UserVO userVO = responseVO.getValue("userInfoDTO", UserVO.class);
 		List<ReceivedAdvertiseVO> receivedAdvertiseVOs = responseVO.getList("receivedAdvertiseDTOList", ReceivedAdvertiseVO.class);
-		int raTotalCount = responseVO.getValue("raTotalCount", int.class);
+		int raTotalCount = responseVO.getInteger("raTotalCount");
 		List<NoticeVO> noticeVOs = responseVO.getList("noticeDTOList", NoticeVO.class);
-		int unTotalCount = responseVO.getValue("unTotalCount", int.class);
+		int unTotalCount = responseVO.getInteger("unTotalCount");
 		String version = responseVO.getValue("version", String.class);
 
 		System.out.println("+++ userVO : " + userVO.toString());
@@ -56,7 +57,7 @@ public class AdvertisementNetworkServiceTest {
 		Call<ResponseVO> call = sut.adList("test123123123", 1);
 		ResponseVO responseVO = NetworkTestValidation.call(call);
 		List<ReceivedAdvertiseVO> receivedAdvertiseVOs = responseVO.getList("receivedAdvertiseDTOList", ReceivedAdvertiseVO.class);
-		int totalCount = responseVO.getValue("totalCount", Integer.class);
+		int totalCount = responseVO.getInteger("totalCount");
 
 		System.out.println("+++ receivedAdvertiseVOs : " + receivedAdvertiseVOs.toString());
 		System.out.println("+++ totalCount : " + totalCount);
@@ -64,5 +65,35 @@ public class AdvertisementNetworkServiceTest {
 		for(ReceivedAdvertiseVO receivedAdvertiseVO : receivedAdvertiseVOs) {
 			System.out.println("+++ receivedAdvertiseVO : " + receivedAdvertiseVO.toString());
 		}
+	}
+
+	@Test
+	public void pointSave() throws Exception {
+		System.out.println("+++ START");
+
+		Call<ResponseVO> call = sut.pointSave("test123123123", 2, "a");
+		ResponseVO responseVO = NetworkTestValidation.call(call);
+	}
+
+	@Test
+	public void pointHistory() throws Exception {
+		System.out.println("+++ START");
+
+		Call<ResponseVO> call = sut.pointHistory("test123123123", 1);
+		ResponseVO responseVO = NetworkTestValidation.call(call);
+
+		List<PointHistoryVO> pointHistoryVOs = responseVO.getList("pointHistoryList", PointHistoryVO.class);
+		int totalCount = responseVO.getInteger("totalCount");
+
+		System.out.println("pointHistoryVOs : " + pointHistoryVOs.toString());
+		System.out.println("totalCount : " + totalCount);
+	}
+
+	@Test
+	public void advertiseParams() throws Exception {
+		System.out.println("+++ START");
+
+		/*Call<ResponseVO> call = sut.advertiseParams("test123123123", 1, 1, 1, true);
+		ResponseVO responseVO = NetworkTestValidation.call(call);*/
 	}
 }
