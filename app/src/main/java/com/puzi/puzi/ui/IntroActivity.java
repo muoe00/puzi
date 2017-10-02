@@ -58,7 +58,7 @@ public class IntroActivity extends FragmentActivity {
 						case SUCCESS:
 							Log.i("INFO", "AUTO LOGIN SUCCESS");
 							AUTO_LOGIN = true;
-							String token = responseVO.getValue("token", String.class);
+							String token = responseVO.getString("token");
 							if(token != null) {
 								Log.i("INFO", "AUTO TOKEN : " + token);
 								Preference.addProperty(IntroActivity.this, "token", token);
