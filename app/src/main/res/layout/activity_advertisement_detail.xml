@@ -71,21 +71,6 @@
     </LinearLayout>
 
     <LinearLayout
-      android:layout_gravity="bottom"
-      android:orientation="vertical"
-      android:layout_width="match_parent"
-      android:layout_height="5dp">
-
-      <ProgressBar
-        android:id="@+id/progressbar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"/>
-
-    </LinearLayout>
-
-    <LinearLayout
       android:paddingTop="2dp"
       android:paddingBottom="2dp"
       android:layout_marginLeft="5dp"
@@ -96,6 +81,13 @@
       android:layout_width="match_parent"
       android:layout_height="100dp"
       android:orientation="vertical">
+
+      <ProgressBar
+        android:id="@+id/progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_gravity="center"/>
 
       <TextView
         android:text="만족하십니까?"

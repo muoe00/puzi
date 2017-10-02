@@ -43,12 +43,11 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 	@BindView(R.id.gv_advertise) public GridView gvAd;
 	@BindView(R.id.tv_point) public TextView tvPoint;
 
+	private int pagingIndex = 1;
+	private boolean lastVisible = false;
 	private UserVO userVO;
 	private List<ReceivedAdvertiseVO> advertiseList;
 	private AdvertisementGridAdapter advertiseGridAdapter;
-
-	public AdvertisementFragment() {
-	}
 
 	private static final String TAG = "AdvertisementFragment";
 
@@ -100,12 +99,9 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 		Call<ResponseVO<UserVO>> callUser = advertisementNetworkService.main(token);
 		callUser.enqueue(new CustomCallback<ResponseVO<UserVO>>(getActivity()) {
-
 			@Override
 			public void onSuccess(ResponseVO<UserVO> responseVO) {
-
 				Log.i("INFO", "advertise responseVO : " + responseVO.toString());
-
 				switch(responseVO.getResultType()){
 					case SUCCESS:
 						userVO = responseVO.getValue("userInfoDTO");
@@ -115,14 +111,12 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 						NumberFormat numberFormat = NumberFormat.getInstance();
 						String result = numberFormat.format(point);
 						tvPoint.setText(result);
-
 						break;
 
 					default:
 						Log.i("INFO", "advertisement getUser failed.");
 						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
 				}
-
 			}
 		});
 	}
@@ -131,12 +125,10 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 		final AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
 
-		int pagingIndex = 1;
 		String token = Preference.getProperty(getActivity(), "token");
 
 		Call<ResponseVO<List<ReceivedAdvertiseVO>>> callList = advertisementNetworkService.adList(token, pagingIndex);
 		callList.enqueue(new CustomCallback<ResponseVO<List<ReceivedAdvertiseVO>>>(getActivity()) {
-
 			@Override
 			public void onSuccess(ResponseVO<List<ReceivedAdvertiseVO>> responseVO) {
 
@@ -144,12 +136,11 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 				switch(responseVO.getResultType()){
 					case SUCCESS:
-						advertiseList = responseVO.getValue("receivedAdvertiseDTOList");
+						advertiseList = responseVO.getValue("cmpnDTOList");
 						Log.i(PuziUtils.INFO, "Advertise main / advertiseList : " + advertiseList.toString());
 
 						advertiseGridAdapter = new AdvertisementGridAdapter(view.getContext(), advertiseList);
 						gvAd.setAdapter(advertiseGridAdapter);
-
 						break;
 
 					default:
@@ -162,11 +153,20 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
-
+		if((scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) && lastVisible) {
+			pagingIndex++;
+			Log.i(PuziUtils.INFO, "pagingIndex : " + pagingIndex);
+		}
 	}
 
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
+		if((totalItemCount > 0) && (firstVisibleItem + visibleItemCount >= totalItemCount)) {
+			lastVisible = true;
+			Log.i(PuziUtils.INFO, "lastVisible : " + lastVisible);
+		} else {
+			lastVisible = false;
+			Log.i(PuziUtils.INFO, "lastVisible : " + lastVisible);
+		}
 	}
 }

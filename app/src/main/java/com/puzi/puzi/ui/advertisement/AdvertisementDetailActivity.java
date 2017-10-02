@@ -187,6 +187,9 @@ public class AdvertisementDetailActivity extends Activity {
 		long endTime = startTime = System.currentTimeMillis();
 		long stayTime = (long)((endTime - startTime)/1000.0);
 
+		Log.i(PuziUtils.INFO, "startTime : " + startTime);
+		Log.i(PuziUtils.INFO, "endTime : " + endTime);
+
 		// TODO: Network (companyId, touchCount, stayTime, isChanged)
 		Log.i(PuziUtils.INFO, "companyId : " + companyId + ", touchCount : " + touchCount + ", stayTime : " + stayTime + ", isChanged : " + isChanged);
 
