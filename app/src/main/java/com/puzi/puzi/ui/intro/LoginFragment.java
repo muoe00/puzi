@@ -92,14 +92,14 @@ public class LoginFragment extends Fragment {
 			String phoneType = "A";
 			String phoneKey = "";
 
-			Call<ResponseVO<String>> call = userNetworkService.login(id, EncryptUtils.sha256(pwd), notifyId, phoneType, phoneKey);
-			call.enqueue(new CustomCallback<ResponseVO<String>>(getActivity()) {
+			Call<ResponseVO> call = userNetworkService.login(id, EncryptUtils.sha256(pwd), notifyId, phoneType, phoneKey);
+			call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
 				@Override
-				public void onSuccess(ResponseVO<String> responseVO) {
+				public void onSuccess(ResponseVO responseVO) {
 
 					switch(responseVO.getResultType()){
 						case SUCCESS:
-							successLogin(responseVO.getValue("token"), id, pwd);
+							// successLogin(responseVO.getValue("token"), id, pwd);
 							break;
 
 						case LOGIN_FAIL:

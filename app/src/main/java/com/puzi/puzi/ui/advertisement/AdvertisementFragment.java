@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
@@ -30,7 +30,6 @@ import com.puzi.puzi.ui.user.RecommendActivity;
 import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
-import java.text.NumberFormat;
 import java.util.List;
 
 /**
@@ -41,14 +40,14 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 	Unbinder unbinder;
 
-	@BindView(R.id.gv_advertise) public GridView gvAd;
+	@BindView(R.id.lv_advertise) public ListView lvAd;
 	@BindView(R.id.tv_point) public TextView tvPoint;
 
 	private int pagingIndex = 1;
 	private boolean lastVisible = false;
 	private UserVO userVO;
 	private List<ReceivedAdvertiseVO> advertiseList;
-	private AdvertisementGridAdapter advertiseGridAdapter;
+	private AdvertisementListAdapter advertiseGridAdapter;
 
 	private static final String TAG = "AdvertisementFragment";
 
@@ -66,7 +65,7 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 		getAdvertiseList(view);
 		getUser();
-		gvAd.setOnScrollListener(this);
+		lvAd.setOnScrollListener(this);
 
 		return view;
 	}
@@ -98,20 +97,20 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 		String token = Preference.getProperty(getActivity(), "token");
 
-		Call<ResponseVO<UserVO>> callUser = userNetworkService.myInfo(token);
-		callUser.enqueue(new CustomCallback<ResponseVO<UserVO>>(getActivity()) {
+		Call<ResponseVO> callUser = userNetworkService.myInfo(token);
+		callUser.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
 			@Override
-			public void onSuccess(ResponseVO<UserVO> responseVO) {
+			public void onSuccess(ResponseVO responseVO) {
 				Log.i("INFO", "advertise responseVO : " + responseVO.toString());
 				switch(responseVO.getResultType()){
 					case SUCCESS:
-						userVO = responseVO.getValue("userInfoDTO");
+						/*userVO = responseVO.getValue("userInfoDTO");
 						Log.i("INFO", "HomeFragment main / userVO : " + userVO.toString());
 
 						int point = userVO.getPoint();
 						NumberFormat numberFormat = NumberFormat.getInstance();
 						String result = numberFormat.format(point);
-						tvPoint.setText(result);
+						tvPoint.setText(result);*/
 						break;
 
 					default:
@@ -128,20 +127,20 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 		String token = Preference.getProperty(getActivity(), "token");
 
-		Call<ResponseVO<List<ReceivedAdvertiseVO>>> callList = advertisementNetworkService.adList(token, pagingIndex);
-		callList.enqueue(new CustomCallback<ResponseVO<List<ReceivedAdvertiseVO>>>(getActivity()) {
+		Call<ResponseVO> callList = advertisementNetworkService.adList(token, pagingIndex);
+		callList.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
 			@Override
-			public void onSuccess(ResponseVO<List<ReceivedAdvertiseVO>> responseVO) {
+			public void onSuccess(ResponseVO responseVO) {
 
 				Log.i("INFO", "advertise responseVO : " + responseVO.toString());
 
 				switch(responseVO.getResultType()){
 					case SUCCESS:
-						advertiseList = responseVO.getValue("cmpnDTOList");
+						/*advertiseList = responseVO.getValue("cmpnDTOList");
 						Log.i(PuziUtils.INFO, "Advertise main / advertiseList : " + advertiseList.toString());
 
-						advertiseGridAdapter = new AdvertisementGridAdapter(view.getContext(), advertiseList);
-						gvAd.setAdapter(advertiseGridAdapter);
+						advertiseGridAdapter = new AdvertisementListAdapter(view.getContext(), advertiseList);
+						lvAd.setAdapter(advertiseGridAdapter);*/
 						break;
 
 					default:

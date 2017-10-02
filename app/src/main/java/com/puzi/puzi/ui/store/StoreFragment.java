@@ -2,25 +2,17 @@ package com.puzi.puzi.ui.store;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
-import com.google.gson.reflect.TypeToken;
 import com.puzi.puzi.R;
-import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.biz.store.StoreVO;
-import com.puzi.puzi.network.CustomCallback;
-import com.puzi.puzi.network.ResultType;
+import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.StoreNetworkService;
-import com.puzi.puzi.cache.Preference;
-import retrofit2.Call;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -109,7 +101,7 @@ public class StoreFragment extends Fragment implements View.OnClickListener {
 		final StoreNetworkService storeNetworkService = RetrofitManager.create(StoreNetworkService.class);
 
 		String token = Preference.getProperty(getActivity(), "token");
-
+/*
 		final Call<ResponseVO<List<StoreVO>>> call = storeNetworkService.brandList(token);
 		call.enqueue(new CustomCallback<ResponseVO<List<StoreVO>>>(getActivity()) {
 
@@ -138,6 +130,6 @@ public class StoreFragment extends Fragment implements View.OnClickListener {
 					lvStore.setAdapter(storeListAdapter);
 				}
 			}
-		});
+		});*/
 	}
 }
