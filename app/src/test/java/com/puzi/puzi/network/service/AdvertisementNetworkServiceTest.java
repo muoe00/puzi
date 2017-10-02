@@ -31,9 +31,9 @@ public class AdvertisementNetworkServiceTest {
 		ResponseVO responseVO = NetworkTestValidation.call(call);
 
 		UserVO userVO = responseVO.getValue("userInfoDTO", UserVO.class);
-		List<ReceivedAdvertiseVO> receivedAdvertiseVOs = responseVO.getValue("receivedAdvertiseDTOList", List.class);
+		List<ReceivedAdvertiseVO> receivedAdvertiseVOs = responseVO.getList("receivedAdvertiseDTOList", ReceivedAdvertiseVO.class);
 		int raTotalCount = responseVO.getValue("raTotalCount", int.class);
-		List<NoticeVO> noticeVOs = responseVO.getValue("noticeDTOList", List.class);
+		List<NoticeVO> noticeVOs = responseVO.getList("noticeDTOList", NoticeVO.class);
 		int unTotalCount = responseVO.getValue("unTotalCount", int.class);
 		String version = responseVO.getValue("version", String.class);
 
@@ -55,8 +55,8 @@ public class AdvertisementNetworkServiceTest {
 
 		Call<ResponseVO> call = sut.adList("test123123123", 1);
 		ResponseVO responseVO = NetworkTestValidation.call(call);
-		List<ReceivedAdvertiseVO> receivedAdvertiseVOs = responseVO.getValue("receivedAdvertiseDTOList", List.class);
-		String totalCount = responseVO.getValue("totalCount", String.class);
+		List<ReceivedAdvertiseVO> receivedAdvertiseVOs = responseVO.getList("receivedAdvertiseDTOList", ReceivedAdvertiseVO.class);
+		int totalCount = responseVO.getValue("totalCount", Integer.class);
 
 		System.out.println("+++ receivedAdvertiseVOs : " + receivedAdvertiseVOs.toString());
 		System.out.println("+++ totalCount : " + totalCount);
