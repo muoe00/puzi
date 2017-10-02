@@ -44,7 +44,6 @@ public interface ChannelNetworkService {
 		@Field("score") int score,
 		@Field("comment") String comment);
 
-
 	@FormUrlEncoded
 	@POST("/channel/reply/write")
 	Call<ResponseVO> replyWrite(@Header("token") String token,
@@ -52,6 +51,7 @@ public interface ChannelNetworkService {
 		@Field("comment") String comment);
 
 
+	@FormUrlEncoded
 	@POST("/channel/reply/delete")
 	Call<ResponseVO> replyDelete(@Header("token") String token,
 		@Field("channelId") int channelId,
