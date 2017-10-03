@@ -1,6 +1,5 @@
 package com.puzi.puzi.ui.advertisement;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -9,28 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
-import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.AdvertisementNetworkService;
-import com.puzi.puzi.network.service.UserNetworkService;
-import com.puzi.puzi.ui.user.LevelActivity;
-import com.puzi.puzi.ui.user.PointActivity;
-import com.puzi.puzi.ui.user.RecommendActivity;
 import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
-import java.text.NumberFormat;
 import java.util.List;
 
 /**
@@ -42,11 +33,9 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 	Unbinder unbinder;
 
 	@BindView(R.id.lv_advertise) public ListView lvAd;
-	@BindView(R.id.tv_point) public TextView tvPoint;
 
 	private int pagingIndex = 1;
 	private boolean lastVisible = false;
-	private UserVO userVO;
 	private List<ReceivedAdvertiseVO> advertiseList;
 	private AdvertisementListAdapter advertiseGridAdapter;
 
@@ -65,61 +54,9 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 		unbinder = ButterKnife.bind(this, view);
 
 		getAdvertiseList(view);
-		getUser();
 		lvAd.setOnScrollListener(this);
 
 		return view;
-	}
-
-	@OnClick({R.id.btn_pointhistory, R.id.btn_level, R.id.ibtn_recommend})
-	public void changePage(View view) {
-		Intent intent = null;
-		switch (view.getId()) {
-			case R.id.btn_level:
-				intent = new Intent(getActivity(), LevelActivity.class);
-				break;
-			case R.id.btn_pointhistory:
-				intent = new Intent(getActivity(), PointActivity.class);
-				break;
-			case R.id.ibtn_recommend:
-				intent = new Intent(getActivity(), RecommendActivity.class);
-				break;
-			default:
-				break;
-		}
-		startActivity(intent);
-	}
-
-	public void getUser() {
-
-		Log.i("INFO", "getUser");
-
-		final UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
-
-		String token = Preference.getProperty(getActivity(), "token");
-
-		Call<ResponseVO> callUser = userNetworkService.myInfo(token);
-		callUser.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
-			@Override
-			public void onSuccess(ResponseVO responseVO) {
-				Log.i("INFO", "advertise responseVO : " + responseVO.toString());
-				switch(responseVO.getResultType()){
-					case SUCCESS:
-						userVO = responseVO.getValue("userInfoDTO", UserVO.class);
-						Log.i("INFO", "HomeFragment main / userVO : " + userVO.toString());
-
-						int point = userVO.getPoint();
-						NumberFormat numberFormat = NumberFormat.getInstance();
-						String result = numberFormat.format(point);
-						tvPoint.setText(result);
-						break;
-
-					default:
-						Log.i("INFO", "advertisement getUser failed.");
-						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
 	}
 
 	public void getAdvertiseList(final View view) {

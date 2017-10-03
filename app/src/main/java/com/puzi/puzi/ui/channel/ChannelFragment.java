@@ -41,32 +41,12 @@ public class ChannelFragment extends Fragment{
 		initComponent(view);
 		getChannelList(view);
 
-//		btnReccomend.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				index = RECOMMEND;
-//				type = "RECOMMEND";
-//				getChannelList(view);
-//			}
-//		});
-//		btnFavorit.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				index = FAVORITS;
-//				type = "FAVORITES";
-//				getChannelList(view);
-//			}
-//		});
-
 		return view;
 	}
 
 	private void initComponent(View view) {
 
 		lvChannel = (ListView) view.findViewById(R.id.lv_channel);
-
-//		btnReccomend = (Button) view.findViewById(R.id.btn_channelRecommend);
-//		btnFavorit = (Button) view.findViewById(R.id.btn_channelFavorit);
 	}
 
 	public void getChannelList(final View view) {
