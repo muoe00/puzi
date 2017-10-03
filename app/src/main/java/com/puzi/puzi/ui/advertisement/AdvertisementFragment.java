@@ -104,4 +104,10 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 		lastVisible = (totalItemCount > 0) && firstVisibleItem + visibleItemCount >= totalItemCount;
 	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		unbinder.unbind();
+	}
 }

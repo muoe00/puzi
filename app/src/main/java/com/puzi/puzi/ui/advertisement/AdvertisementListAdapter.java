@@ -89,6 +89,7 @@ public class AdvertisementListAdapter extends BaseAdapter {
 		tvAd.setText(receivedAdvertise.getSendComment());
 		tvComp.setText(company.getCompanyAlias());
 
+
 		return convertView;
 	}
 
