@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+  <LinearLayout
+    android:orientation="horizontal"
+    android:background="@color/colorWhite"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="96dp">
+
+    <ImageButton
+      android:layout_width="160dp"
+      android:layout_height="match_parent"
+      android:src="@drawable/ad_line"
+      android:scaleType="centerCrop"
+      android:background="#00000000"
+      android:id="@+id/iv_item_channel_editor_image"/>
+
+    <LinearLayout
+      android:orientation="vertical"
+      android:layout_weight="1"
+      android:layout_width="0dp"
+      android:layout_height="match_parent">
+
+      <TextView
+        android:text="title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:typeface="sans"
+        android:textSize="16sp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="33dp"
+        android:textColor="#35343d"
+        android:id="@+id/tv_item_channel_editor_title"/>
+
+      <TextView
+        android:text="name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:typeface="sans"
+        android:textSize="12sp"
+        android:textColor="#9b9b9b"
+        android:id="@+id/tv_item_channel_editor_name"/>
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+</LinearLayout>

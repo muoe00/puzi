@@ -24,6 +24,12 @@ public interface ChannelNetworkService {
 		@Query("categoryTypeList") List<ChannelCategoryType> categoryTypeList,
 		@Query("pagingIndex") int pagingIndex);
 
+	@GET("/v2/channel/witheditorspage/list")
+	Call<ResponseVO> channelWithEditorsPageList(@Header("token") String token,
+		@Query("categoryTypeList") List<ChannelCategoryType> categoryTypeList,
+		@Query("searchType") String searchType,
+		@Query("pagingIndex") int pagingIndex);
+
 	@GET("/v2/channel/detail")
 	Call<ResponseVO> channelDetail(@Header("token") String token,
 		@Query("channelId") int ChannelId);
