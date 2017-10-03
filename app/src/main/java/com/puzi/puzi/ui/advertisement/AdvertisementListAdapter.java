@@ -29,6 +29,9 @@ import java.util.List;
 
 public class AdvertisementListAdapter extends BaseAdapter {
 
+	private static final int VIEW_ADVERTISE = 0;
+	private static final int VIEW_PROGRESS = 1;
+
 	Unbinder unbinder;
 
 	@BindView(R.id.iv_home_advertise) public ImageView ivAd;
@@ -92,6 +95,10 @@ public class AdvertisementListAdapter extends BaseAdapter {
 	@OnClick(R.id.btn_advertiseWv)
 	public void changedDetail() {
 		Intent intent = new Intent(context, AdvertisementDetailActivity.class);
+		intent.putExtra("channelId", receivedAdvertise.getChannelId());
+		intent.putExtra("quiz", receivedAdvertise.getQuiz());
+		intent.putExtra("firstAnswer", receivedAdvertise.getAnswerOne());
+		intent.putExtra("secondAnswer", receivedAdvertise.getAnswerTwo());
 		intent.putExtra("url", receivedAdvertise.getLink());
 		intent.putExtra("companyId", company.getCompanyAlias());
 		context.startActivity(intent);

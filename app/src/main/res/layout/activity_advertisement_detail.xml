@@ -105,6 +105,7 @@
       android:orientation="vertical">
 
       <TextView
+        android:id="@+id/tv_ad_quiz"
         android:text="광고의 할인하는 상품명은?"
         android:textSize="15sp"
         android:gravity="center"
@@ -118,14 +119,14 @@
 
         <Button
           android:text="취소"
-          android:id="@+id/btn_web_cancel"
+          android:id="@+id/tv_ad_answer_first"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_weight="1"/>
 
         <Button
           android:text="확인"
-          android:id="@+id/btn_web_ok"
+          android:id="@+id/tv_ad_answer_second"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_weight="1"/>

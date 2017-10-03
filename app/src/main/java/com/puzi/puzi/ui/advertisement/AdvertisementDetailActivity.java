@@ -17,6 +17,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,6 +25,7 @@ import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.channel.ChannelDetailActivity;
+import com.puzi.puzi.ui.company.CompanyDialog;
 import com.puzi.puzi.utils.PuziUtils;
 
 import java.util.concurrent.Executors;
@@ -43,8 +45,11 @@ public class AdvertisementDetailActivity extends Activity {
 	@BindView(R.id.btn_channel_web) public Button btnChannel;
 	@BindView(R.id.progressbar) public ProgressBar progressBar;
 	@BindView(R.id.web_ad) public WebView webView;
+	@BindView(R.id.tv_ad_quiz) public TextView tvQuiz;
+	@BindView(R.id.tv_ad_answer_first) public TextView firstAnswer;
+	@BindView(R.id.tv_ad_answer_second) public TextView secondAnswer;
 
-	private String url, companyId;
+	private String url, companyId, channelId;
 	private long startTime;
 	private int touchCount;
 	private boolean isChanged = false;
@@ -60,8 +65,16 @@ public class AdvertisementDetailActivity extends Activity {
 		startTime = System.currentTimeMillis();
 
 		Intent intent = getIntent();
+		String quiz = intent.getStringExtra("quiz");
+		String answerOne = intent.getStringExtra("firstAnswer");
+		String answerTwo = intent.getStringExtra("secondAnswer");
+		channelId = intent.getStringExtra("channelId");
 		url = intent.getStringExtra("url");
 		companyId = intent.getStringExtra("companyId");
+
+		tvQuiz.setText(quiz);
+		firstAnswer.setText(answerOne);
+		secondAnswer.setText(answerTwo);
 
 		webView.setWebViewClient(new WebViewClient());
 		WebSettings webSettings = webView.getSettings();
@@ -172,13 +185,8 @@ public class AdvertisementDetailActivity extends Activity {
 		}
 	}
 
-	@OnClick(R.id.btn_web_ok)
-	public void returnDialogOK() {
-		llDialog.setVisibility(View.GONE);
-	}
-
-	@OnClick(R.id.btn_web_cancel)
-	public void returnDialogCancel() {
+	@OnClick({R.id.tv_ad_answer_first, R.id.tv_ad_answer_second})
+	public void returnAnswer() {
 		llDialog.setVisibility(View.GONE);
 	}
 
@@ -201,12 +209,23 @@ public class AdvertisementDetailActivity extends Activity {
 
 	@OnClick(R.id.btn_back_page)
 	public void backPage() {
-		// TODO: webview back
+		if(webView.canGoBack()) {
+			webView.goBack();
+		} else {
+			back();
+		}
 	}
 
 	@OnClick(R.id.btn_channel_web)
 	public void changedChannel() {
 		Intent intent = new Intent(AdvertisementDetailActivity.this, ChannelDetailActivity.class);
+		intent.putExtra("channelId", Integer.parseInt(channelId));
+		startActivity(intent);
+	}
+
+	@OnClick(R.id.btn_company)
+	public void changedCompony() {
+		Intent intent = new Intent(AdvertisementDetailActivity.this, CompanyDialog.class);
 		startActivity(intent);
 	}
 
