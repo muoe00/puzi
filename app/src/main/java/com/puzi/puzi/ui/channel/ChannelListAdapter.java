@@ -1,22 +1,25 @@
 package com.puzi.puzi.ui.channel;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.TextView;
-import com.puzi.puzi.image.BitmapUIL;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.puzi.puzi.R;
+import com.puzi.puzi.biz.channel.ChannelEditorsPageVO;
 import com.puzi.puzi.biz.channel.ChannelVO;
-import com.puzi.puzi.biz.company.CompanyVO;
+import com.puzi.puzi.image.BitmapUIL;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.google.common.collect.Lists.newArrayList;
 
 /**
  * Created by muoe0 on 2017-07-16.
@@ -24,40 +27,71 @@ import java.util.List;
 
 public class ChannelListAdapter extends BaseAdapter {
 
-	private LayoutInflater inflater;
-	private Context context;
-	private List<ChannelVO> channelList;
-	private ChannelVO channel;
-	private CompanyVO company;
-	private ImageView ivCompany, ivAd;
-	private TextView tvCompany, tvComment;
-	private Button btnChannel;
-	private Handler handler = new Handler();
+	private static final int VIEW_CHANNEL = 0;
+	private static final int VIEW_EDITORSPAGE = 1;
+	private static final int VIEW_PROGRESS = 2;
 
-	public ChannelListAdapter(Context context, List<ChannelVO> list) {
-		this.context = context;
-		this.channelList = list;
-		Log.i("DEBUG", "ChannelListAdapter advertiseList size : " + channelList.size());
+	private LayoutInflater inflater;
+	private Activity activity;
+	private List<Object> list = new ArrayList();
+	private List<Integer> typeList = new ArrayList();
+
+	public ChannelListAdapter(Activity activity) {
+		this.inflater = activity.getLayoutInflater();
+		this.activity = activity;
 	}
 
-	public void initComponents(View view) {
-		ivCompany = (ImageView) view.findViewById(R.id.iv_ch_companyPicture);
-		ivAd = (ImageView) view.findViewById(R.id.iv_channelAdvertise);
+	public void startProgress() {
+		if(typeList.size() == 0 || VIEW_PROGRESS != typeList.get(typeList.size()-1)) {
+			list.add(new Object());
+			typeList.add(VIEW_PROGRESS);
+			notifyDataSetChanged();
+		}
+	}
 
-		tvCompany = (TextView) view.findViewById(R.id.tv_companyId);
-		tvComment = (TextView) view.findViewById(R.id.tv_channelComment);
+	public void stopProgress() {
+		if(VIEW_PROGRESS == typeList.get(typeList.size()-1)) {
+			list.remove(list.size()-1);
+			typeList.remove(typeList.size()-1);
+			notifyDataSetChanged();
+		}
+	}
 
-		btnChannel = (Button) view.findViewById(R.id.btn_advertiseWv);
+	public void addChannel(List<ChannelVO> channelList) {
+		synchronized (list) {
+			List<ChannelVO> channelSet = newArrayList();
+			for(ChannelVO channelVO : channelList) {
+				channelSet.add(channelVO);
+				if(channelSet.size() >= 2) {
+					list.add(newArrayList(channelSet));
+					typeList.add(VIEW_CHANNEL);
+					channelSet = newArrayList();
+				}
+			}
+			if(channelSet.size() != 0){
+				list.add(newArrayList(channelSet));
+				typeList.add(VIEW_CHANNEL);
+			}
+		}
+	}
+
+	public void addEditorsPage(List<ChannelEditorsPageVO> editorsPageList) {
+		synchronized (list) {
+			for(ChannelEditorsPageVO editorsPageVO : editorsPageList) {
+				list.add(editorsPageVO);
+				typeList.add(VIEW_EDITORSPAGE);
+			}
+		}
 	}
 
 	@Override
 	public int getCount() {
-		return channelList.size();
+		return list.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return channelList.get(position);
+		return list.get(position);
 	}
 
 	@Override
@@ -65,36 +99,127 @@ public class ChannelListAdapter extends BaseAdapter {
 		return position;
 	}
 
+	public int getViewTypeCount() {
+		return 3;
+	}
+
+	public int getItemViewType(int position) {
+		return typeList.get(position);
+	}
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if(convertView == null) {
-			inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.fragment_channel_item, parent, false);
+		View v = convertView;
+		ChannelViewHolder channelHolder = null;
+		EditorsPageViewHolder editorsPageHolder = null;
+		int viewType = getItemViewType(position);
+
+		if (v == null) {
+			switch (viewType) {
+				case VIEW_CHANNEL:
+					v = inflater.inflate(R.layout.item_channel_list_channel, null);
+					channelHolder = new ChannelViewHolder(v);
+					v.setTag(channelHolder);
+					break;
+
+				case VIEW_EDITORSPAGE:
+					v = inflater.inflate(R.layout.item_channel_list_editorspage, null);
+					editorsPageHolder = new EditorsPageViewHolder(v);
+					v.setTag(editorsPageHolder);
+					break;
+
+				case VIEW_PROGRESS:
+					v = inflater.inflate(R.layout.item_list_progressbar, null);
+					break;
+			}
+
+		} else {
+			switch (viewType) {
+				case VIEW_CHANNEL:
+					channelHolder = (ChannelViewHolder) v.getTag();
+					break;
+
+				case VIEW_EDITORSPAGE:
+					editorsPageHolder = (EditorsPageViewHolder) v.getTag();
+					break;
+
+				case VIEW_PROGRESS:
+					break;
+			}
 		}
 
-		initComponents(convertView);
+		switch (viewType) {
+			case VIEW_CHANNEL:
+				final List<ChannelVO> channelList = (List) getItem(position);
+				ChannelVO firstChannel = channelList.get(0);
+				BitmapUIL.load(firstChannel.getPictureUrl(), channelHolder.ibtnImage1);
+				channelHolder.btnTitle1.setText(firstChannel.getTitle());
+				BitmapUIL.load(firstChannel.getCompanyInfoDTO().getPictureUrl(), channelHolder.ibtnCompany1);
+				channelHolder.tvScore1.setText(firstChannel.getAverageScore() + "/10");
 
-		channel = channelList.get(position);
-		company = channel.getCompany();
+				View.OnClickListener listener1 = new View.OnClickListener() {
 
-		tvCompany.setText(company.getCompanyAlias());
+					@Override
+					public void onClick(View v) {
+						activity.startActivity(new Intent(activity, ChannelDetailActivity.class));
+					}
+				};
+				channelHolder.ibtnImage1.setOnClickListener(listener1);
+				channelHolder.btnTitle1.setOnClickListener(listener1);
 
-		BitmapUIL.load(company.getPictureUrl(), ivCompany);
-		BitmapUIL.load(channel.getPictureUrl(), ivAd);
+				if(channelList.size() > 1) {
+					ChannelVO secondChannel = channelList.get(1);
+					BitmapUIL.load(secondChannel.getPictureUrl(), channelHolder.ibtnImage2);
+					channelHolder.btnTitle2.setText(secondChannel.getTitle());
+					BitmapUIL.load(secondChannel.getCompanyInfoDTO().getPictureUrl(), channelHolder.ibtnCompany2);
+					channelHolder.tvScore2.setText(secondChannel.getAverageScore() + "/10");
 
-		Log.i("DEBUG", "channel.getPictureUrl() : " + channel.getPictureUrl());
+					View.OnClickListener listener2 = new View.OnClickListener() {
 
-		tvComment.setText(channel.getComment());
-		btnChannel.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(context, ChannelDetailActivity.class);
-				Log.i("DEBUG", "channel id : " + channel.getChannelId());
-				intent.putExtra("Id", channel.getChannelId());
-				context.startActivity(intent);
-			}
-		});
+						@Override
+						public void onClick(View v) {
+							activity.startActivity(new Intent(activity, ChannelDetailActivity.class));
+						}
+					};
+					channelHolder.ibtnImage2.setOnClickListener(listener2);
+					channelHolder.btnTitle2.setOnClickListener(listener2);
+				}
 
-		return convertView;
+				break;
+
+			case VIEW_EDITORSPAGE:
+				ChannelEditorsPageVO channelEditorsPageVO = (ChannelEditorsPageVO) getItem(position);
+				BitmapUIL.load(channelEditorsPageVO.getPreviewUrl(), editorsPageHolder.ibtnImage);
+				editorsPageHolder.tvTitle.setText(channelEditorsPageVO.getTitle());
+				editorsPageHolder.tvName.setText(channelEditorsPageVO.getCreatedBy());
+				break;
+		}
+
+		return v;
+	}
+
+	public class ChannelViewHolder {
+		@BindView(R.id.ibtn_item_channel_image_1) public ImageButton ibtnImage1;
+		@BindView(R.id.ibtn_item_channel_image_2) public ImageButton ibtnImage2;
+		@BindView(R.id.tv_item_channel_title_1) public Button btnTitle1;
+		@BindView(R.id.tv_item_channel_title_2) public Button btnTitle2;
+		@BindView(R.id.ibtn_item_channel_company_image_1) public ImageButton ibtnCompany1;
+		@BindView(R.id.ibtn_item_channel_company_image_2) public ImageButton ibtnCompany2;
+		@BindView(R.id.tv_item_channel_score_1) public TextView tvScore1;
+		@BindView(R.id.tv_item_channel_score_2) public TextView tvScore2;
+
+		public ChannelViewHolder(View view) {
+			ButterKnife.bind(this, view);
+		}
+	}
+
+	public class EditorsPageViewHolder {
+		@BindView(R.id.iv_item_channel_editor_image) public ImageButton ibtnImage;
+		@BindView(R.id.tv_item_channel_editor_title) public TextView tvTitle;
+		@BindView(R.id.tv_item_channel_editor_name) public TextView tvName;
+
+		public EditorsPageViewHolder(View view) {
+			ButterKnife.bind(this, view);
+		}
 	}
 }
