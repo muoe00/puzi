@@ -15,7 +15,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import butterknife.BindView;
@@ -42,7 +41,6 @@ public class AdvertisementDetailActivity extends Activity {
 	@BindView(R.id.ll_web_dialog) public LinearLayout llDialog;
 	@BindView(R.id.btn_back_web) public Button btnHome;
 	@BindView(R.id.btn_channel_web) public Button btnChannel;
-	@BindView(R.id.editText_url) public EditText editUrl;
 	@BindView(R.id.progressbar) public ProgressBar progressBar;
 	@BindView(R.id.web_ad) public WebView webView;
 
@@ -70,9 +68,7 @@ public class AdvertisementDetailActivity extends Activity {
 		webSettings.setJavaScriptEnabled(true);
 
 		webView.loadUrl(url);
-		editUrl.setText(url);
 
-		progressBar.setIndeterminate(true);
 		progressBar.setVisibility(View.GONE);
 		llDialog.setVisibility(View.GONE);
 
@@ -104,19 +100,20 @@ public class AdvertisementDetailActivity extends Activity {
 		return super.onTouchEvent(event);
 	}
 
-	class DialogAsync extends AsyncTask<Void, Integer, Void> {
+	class DialogAsync extends AsyncTask<Integer, Integer, Integer> {
 
 		private boolean isCanceled = false;
 
 		@Override
 		protected void onPreExecute() {
 			isCanceled = false;
+			progressBar.setProgress(0);
 			progressBar.setMax(50);
 			progressBar.setVisibility(View.VISIBLE);
 		}
 
 		@Override
-		protected Void doInBackground(Void... params) {
+		protected Integer doInBackground(Integer... params) {
 			for(int i = 1 ; i <= 50 && ! isCanceled ; i++) {
 				try {
 					publishProgress(i);
@@ -130,7 +127,7 @@ public class AdvertisementDetailActivity extends Activity {
 		}
 
 		@Override
-		protected void onPostExecute(Void aVoid) {
+		protected void onPostExecute(Integer params) {
 			isCanceled = true;
 			progressBar.setVisibility(View.GONE);
 
@@ -139,11 +136,15 @@ public class AdvertisementDetailActivity extends Activity {
 
 		@Override
 		protected void onProgressUpdate(Integer... progress) {
-			progressBar.setProgress(progress[0].intValue());
+			Log.i(PuziUtils.INFO, "progress i : " + progress[0]);
+			progressBar.setProgress(progress[0]);
+			Log.i(PuziUtils.INFO, "progressbar : " + progressBar.getProgress());
+			super.onProgressUpdate(progress);
 		}
 
 		@Override
 		protected void onCancelled() {
+			progressBar.setProgress(0);
 			isCanceled = true;
 		}
 	}
@@ -196,6 +197,11 @@ public class AdvertisementDetailActivity extends Activity {
 		Intent intent = new Intent(AdvertisementDetailActivity.this, MainActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
+	}
+
+	@OnClick(R.id.btn_back_page)
+	public void backPage() {
+		// TODO: webview back
 	}
 
 	@OnClick(R.id.btn_channel_web)

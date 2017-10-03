@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
               android:background="@color/colorWhite"
               android:orientation="vertical"
               android:id="@+id/ll_home"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:weightSum="1">
+              android:layout_height="match_parent">
 
   <LinearLayout
     android:id="@+id/ll_gv"
+    android:layout_gravity="center"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
+    android:layout_marginLeft="5dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="0.89">
+    android:layout_height="wrap_content">
+
     <ListView
-      android:layout_margin="5dp"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:id="@+id/lv_advertise"
       android:background="@color/colorWhite"
-      android:numColumns="2"
-      android:verticalSpacing="8dip"
-      android:horizontalSpacing="4dip"
-      android:paddingLeft="2dip"
-      android:paddingTop="1dip"
-      android:gravity="center"
-      android:columnWidth="210dp"/>
+      android:divider="@color/colorWhite"
+      android:dividerHeight="16dp"
+      android:columnWidth="240dp"/>
+
   </LinearLayout>
 
 </LinearLayout>
