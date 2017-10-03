@@ -24,4 +24,8 @@ public class ReceivedAdvertiseVO {
 	private boolean isNew;
 	private CompanyVO companyInfoDTO;
 
+	public boolean getIsNew() {
+		return this.isNew;
+	}
+
 }
