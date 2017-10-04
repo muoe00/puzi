@@ -15,9 +15,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -25,6 +25,7 @@ import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.channel.ChannelDetailActivity;
+import com.puzi.puzi.ui.company.CompanyDialog;
 import com.puzi.puzi.utils.PuziUtils;
 
 import java.util.concurrent.Executors;
@@ -42,11 +43,13 @@ public class AdvertisementDetailActivity extends Activity {
 	@BindView(R.id.ll_web_dialog) public LinearLayout llDialog;
 	@BindView(R.id.btn_back_web) public Button btnHome;
 	@BindView(R.id.btn_channel_web) public Button btnChannel;
-	@BindView(R.id.editText_url) public EditText editUrl;
 	@BindView(R.id.progressbar) public ProgressBar progressBar;
 	@BindView(R.id.web_ad) public WebView webView;
+	@BindView(R.id.tv_ad_quiz) public TextView tvQuiz;
+	@BindView(R.id.tv_ad_answer_first) public TextView firstAnswer;
+	@BindView(R.id.tv_ad_answer_second) public TextView secondAnswer;
 
-	private String url, companyId;
+	private String url, companyId, channelId;
 	private long startTime;
 	private int touchCount;
 	private boolean isChanged = false;
@@ -62,17 +65,23 @@ public class AdvertisementDetailActivity extends Activity {
 		startTime = System.currentTimeMillis();
 
 		Intent intent = getIntent();
+		String quiz = intent.getStringExtra("quiz");
+		String answerOne = intent.getStringExtra("firstAnswer");
+		String answerTwo = intent.getStringExtra("secondAnswer");
+		channelId = intent.getStringExtra("channelId");
 		url = intent.getStringExtra("url");
 		companyId = intent.getStringExtra("companyId");
+
+		tvQuiz.setText(quiz);
+		firstAnswer.setText(answerOne);
+		secondAnswer.setText(answerTwo);
 
 		webView.setWebViewClient(new WebViewClient());
 		WebSettings webSettings = webView.getSettings();
 		webSettings.setJavaScriptEnabled(true);
 
 		webView.loadUrl(url);
-		editUrl.setText(url);
 
-		progressBar.setIndeterminate(true);
 		progressBar.setVisibility(View.GONE);
 		llDialog.setVisibility(View.GONE);
 
@@ -104,19 +113,20 @@ public class AdvertisementDetailActivity extends Activity {
 		return super.onTouchEvent(event);
 	}
 
-	class DialogAsync extends AsyncTask<Void, Integer, Void> {
+	class DialogAsync extends AsyncTask<Integer, Integer, Integer> {
 
 		private boolean isCanceled = false;
 
 		@Override
 		protected void onPreExecute() {
 			isCanceled = false;
+			progressBar.setProgress(0);
 			progressBar.setMax(50);
 			progressBar.setVisibility(View.VISIBLE);
 		}
 
 		@Override
-		protected Void doInBackground(Void... params) {
+		protected Integer doInBackground(Integer... params) {
 			for(int i = 1 ; i <= 50 && ! isCanceled ; i++) {
 				try {
 					publishProgress(i);
@@ -130,7 +140,7 @@ public class AdvertisementDetailActivity extends Activity {
 		}
 
 		@Override
-		protected void onPostExecute(Void aVoid) {
+		protected void onPostExecute(Integer params) {
 			isCanceled = true;
 			progressBar.setVisibility(View.GONE);
 
@@ -139,11 +149,15 @@ public class AdvertisementDetailActivity extends Activity {
 
 		@Override
 		protected void onProgressUpdate(Integer... progress) {
-			progressBar.setProgress(progress[0].intValue());
+			Log.i(PuziUtils.INFO, "progress i : " + progress[0]);
+			progressBar.setProgress(progress[0]);
+			Log.i(PuziUtils.INFO, "progressbar : " + progressBar.getProgress());
+			super.onProgressUpdate(progress);
 		}
 
 		@Override
 		protected void onCancelled() {
+			progressBar.setProgress(0);
 			isCanceled = true;
 		}
 	}
@@ -171,13 +185,8 @@ public class AdvertisementDetailActivity extends Activity {
 		}
 	}
 
-	@OnClick(R.id.btn_web_ok)
-	public void returnDialogOK() {
-		llDialog.setVisibility(View.GONE);
-	}
-
-	@OnClick(R.id.btn_web_cancel)
-	public void returnDialogCancel() {
+	@OnClick({R.id.tv_ad_answer_first, R.id.tv_ad_answer_second})
+	public void returnAnswer() {
 		llDialog.setVisibility(View.GONE);
 	}
 
@@ -198,9 +207,25 @@ public class AdvertisementDetailActivity extends Activity {
 		startActivity(intent);
 	}
 
+	@OnClick(R.id.btn_back_page)
+	public void backPage() {
+		if(webView.canGoBack()) {
+			webView.goBack();
+		} else {
+			back();
+		}
+	}
+
 	@OnClick(R.id.btn_channel_web)
 	public void changedChannel() {
 		Intent intent = new Intent(AdvertisementDetailActivity.this, ChannelDetailActivity.class);
+		intent.putExtra("channelId", Integer.parseInt(channelId));
+		startActivity(intent);
+	}
+
+	@OnClick(R.id.btn_company)
+	public void changedCompony() {
+		Intent intent = new Intent(AdvertisementDetailActivity.this, CompanyDialog.class);
 		startActivity(intent);
 	}
 

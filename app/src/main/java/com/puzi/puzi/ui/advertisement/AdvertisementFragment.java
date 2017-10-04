@@ -94,6 +94,7 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 		if((scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) && lastVisible) {
 			if(pagingIndex < 10) {
 				pagingIndex++;
+				getAdvertiseList(view);
 			}
 			Log.i(PuziUtils.INFO, "pagingIndex : " + pagingIndex);
 		}
@@ -101,12 +102,12 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		if((totalItemCount > 0) && (firstVisibleItem + visibleItemCount >= totalItemCount)) {
-			lastVisible = true;
-			Log.i(PuziUtils.INFO, "lastVisible : " + lastVisible);
-		} else {
-			lastVisible = false;
-			Log.i(PuziUtils.INFO, "lastVisible : " + lastVisible);
-		}
+		lastVisible = (totalItemCount > 0) && firstVisibleItem + visibleItemCount >= totalItemCount;
+	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		unbinder.unbind();
 	}
 }

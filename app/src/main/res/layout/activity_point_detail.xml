@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="60dp">
+
+  <LinearLayout
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:layout_width="250dp"
+    android:layout_height="60dp">
+
+    <TextView
+      android:gravity="center_vertical"
+      android:text="가입 축하 포인트 적립"
+      android:textSize="15sp"
+      android:layout_width="match_parent"
+      android:layout_height="30dp"/>
+
+    <TextView
+      android:gravity="center_vertical"
+      android:text="2017-10-03 20:00"
+      android:textSize="12sp"
+      android:layout_width="match_parent"
+      android:layout_height="20dp"/>
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <TextView
+      android:layout_gravity="center_vertical"
+      android:gravity="center_vertical"
+      android:layout_width="100dp"
+      android:layout_height="35dp"/>
+
+    <TextView
+      android:layout_gravity="center_vertical"
+      android:gravity="center_vertical"
+      android:layout_width="25dp"
+      android:layout_height="25dp"/>
+
+  </LinearLayout>
+
+</LinearLayout>

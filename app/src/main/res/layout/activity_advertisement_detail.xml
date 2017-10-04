@@ -5,37 +5,59 @@
               android:layout_height="match_parent">
 
   <LinearLayout
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
     android:id="@+id/fl_level"
     android:orientation="horizontal"
     android:background="#e6fafafa"
     android:layout_width="match_parent"
-    android:layout_height="64dp"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:layout_height="45dp">
 
     <Button
       android:background="@drawable/back_chevron"
       android:layout_gravity="left|center"
-      android:layout_width="12.5dp"
+      android:layout_width="15dp"
       android:layout_height="21dp"
       android:layout_marginLeft="10dp"
-      android:id="@+id/btn_back_web"
-      android:layout_weight="1"/>
+      android:id="@+id/btn_back_web"/>
 
-    <EditText
-      android:background="@drawable/url_edittext"
-      android:layout_gravity="center"
-      android:layout_width="296dp"
-      android:layout_height="34dp"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-      android:gravity="center"
-      android:textSize="17sp"
-      android:inputType="textUri"
-      android:id="@+id/editText_url"
-      android:layout_weight="1"/>
+    <FrameLayout
+      android:layout_weight="1"
+      android:layout_gravity="center_vertical"
+      android:layout_width="match_parent"
+      android:layout_height="45dp">
+
+      <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginLeft="9dp"
+        android:layout_gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <ImageView
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:background="@drawable/background_tab"
+          android:id="@+id/iv_companyPicture"/>
+
+        <TextView
+          android:textSize="20sp"
+          android:textColor="#000000"
+          android:text="company"
+          android:gravity="center_vertical"
+          android:layout_width="250dp"
+          android:layout_height="match_parent"
+          android:id="@+id/tv_companyId"/>
+
+      </LinearLayout>
+
+      <Button
+        android:background="@null"
+        android:id="@+id/btn_company"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
+
+    </FrameLayout>
 
     <Button
       android:id="@+id/btn_channel_web"
@@ -43,13 +65,13 @@
       android:background="@drawable/channel"
       android:layout_width="32dp"
       android:layout_height="32dp"
-      android:layout_marginRight="10dp"
-      android:layout_weight="1"/>
+      android:layout_marginRight="10dp"/>
 
   </LinearLayout>
 
   <FrameLayout
     android:id="@+id/fl_advertise_detail"
+    android:layout_weight="1"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -82,26 +104,13 @@ w
       android:layout_height="100dp"
       android:orientation="vertical">
 
-      <ProgressBar
-        android:id="@+id/progressbar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:layout_gravity="center"/>
-
       <TextView
-        android:text="만족하십니까?"
+        android:id="@+id/tv_ad_quiz"
+        android:text="광고의 할인하는 상품명은?"
         android:textSize="15sp"
-        android:layout_marginLeft="5dp"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
-
-      <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorGray">
-      </LinearLayout>
 
       <LinearLayout
         android:layout_width="match_parent"
@@ -110,14 +119,14 @@ w
 
         <Button
           android:text="취소"
-          android:id="@+id/btn_web_cancel"
+          android:id="@+id/tv_ad_answer_first"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_weight="1"/>
 
         <Button
           android:text="확인"
-          android:id="@+id/btn_web_ok"
+          android:id="@+id/tv_ad_answer_second"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_weight="1"/>
@@ -128,5 +137,27 @@ w
 
   </FrameLayout>
 
+  <LinearLayout
+    android:layout_weight="0.1"
+    android:id="@+id/ad_bottom_container"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_gravity="bottom"
+    android:layout_height="50dp">
+
+    <ProgressBar
+      android:id="@+id/progressbar"
+      style="?android:attr/progressBarStyleHorizontal"
+      android:layout_width="match_parent"
+      android:layout_height="5dp"
+      android:layout_gravity="center"/>
+
+    <ImageView
+      android:id="@+id/btn_back_page"
+      android:background="@drawable/back"
+      android:layout_width="35dp"
+      android:layout_height="35dp"/>
+
+  </LinearLayout>
 
 </LinearLayout>

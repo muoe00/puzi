@@ -8,14 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import com.puzi.puzi.biz.company.CompanyVO;
 import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.ui.company.CompanyDialog;
+import com.puzi.puzi.utils.PuziUtils;
 
 import java.util.List;
 
@@ -25,11 +29,18 @@ import java.util.List;
 
 public class AdvertisementListAdapter extends BaseAdapter {
 
-	private LayoutInflater inflater;
-	private ImageView ivNew, ivAd, ivComp;
-	private TextView tvAd, tvComp;
-	private Button btnAd, btnComp;
+	private static final int VIEW_ADVERTISE = 0;
+	private static final int VIEW_PROGRESS = 1;
 
+	Unbinder unbinder;
+
+	@BindView(R.id.iv_home_advertise) public ImageView ivAd;
+	@BindView(R.id.iv_companyPicture) public ImageView ivComp;
+	@BindView(R.id.iv_advertiseNew) public ImageView ivNew;
+	@BindView(R.id.tv_advertise) public TextView tvAd;
+	@BindView(R.id.tv_companyId) public TextView tvComp;
+
+	private LayoutInflater inflater;
 	private Context context = null;
 	private CompanyVO company;
 	private List<ReceivedAdvertiseVO> advertiseList;
@@ -39,24 +50,7 @@ public class AdvertisementListAdapter extends BaseAdapter {
 	public AdvertisementListAdapter(Context context, List<ReceivedAdvertiseVO> list) {
 		this.context = context;
 		this.advertiseList = list;
-		Log.i("DEBUG", "AdvertisementListAdapter advertiseList size : " + advertiseList.size());
-	}
-
-	public void initComponents(View view) {
-		ivNew = (ImageView) view.findViewById(R.id.iv_advertiseNew);
-		ivAd = (ImageView) view.findViewById(R.id.iv_home_advertise);
-
-		/*GradientDrawable drawable=
-			(GradientDrawable) context.getDrawable(R.drawable.image_line);
-
-		ivAdvertise.setBackground(drawable);*/
-
-		tvAd = (TextView) view.findViewById(R.id.tv_advertise);
-		btnAd = (Button) view.findViewById(R.id.btn_advertiseWv);
-
-		ivComp = (ImageView) view.findViewById(R.id.iv_companyPicture);
-		tvComp = (TextView) view.findViewById(R.id.tv_companyId);
-		btnComp = (Button) view.findViewById(R.id.btn_company);
+		Log.i(PuziUtils.INFO, "AdvertisementListAdapter advertiseList size : " + advertiseList.size());
 	}
 
 	@Override
@@ -81,7 +75,8 @@ public class AdvertisementListAdapter extends BaseAdapter {
 			convertView = inflater.inflate(R.layout.fragment_advertisement_item, parent, false);
 		}
 
-		initComponents(convertView);
+		unbinder = ButterKnife.bind(this, convertView);
+
 		receivedAdvertise = advertiseList.get(position);
 
 		Log.i("INFO", "URL Company : " + receivedAdvertise.getLinkPreviewUrl());
@@ -92,27 +87,35 @@ public class AdvertisementListAdapter extends BaseAdapter {
 		company = receivedAdvertise.getCompanyInfoDTO();
 
 		tvAd.setText(receivedAdvertise.getSendComment());
-		btnAd.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(context, AdvertisementDetailActivity.class);
-				intent.putExtra("url", receivedAdvertise.getLink());
-				intent.putExtra("companyId", company.getCompanyAlias());
-				context.startActivity(intent);
-			}
-		});
-
 		tvComp.setText(company.getCompanyAlias());
-		btnComp.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(context, CompanyDialog.class);
-				intent.putExtra("name", company.getCompanyAlias());
-				intent.putExtra("url", company.getPictureUrl());
-				context.startActivity(intent);
-			}
-		});
+
+		if(receivedAdvertise.getIsNew()) {
+			ivNew.setVisibility(View.VISIBLE);
+		} else {
+			ivNew.setVisibility(View.GONE);
+		}
 
 		return convertView;
 	}
+
+	@OnClick(R.id.btn_advertiseWv)
+	public void changedDetail() {
+		Intent intent = new Intent(context, AdvertisementDetailActivity.class);
+		intent.putExtra("channelId", receivedAdvertise.getChannelId());
+		intent.putExtra("quiz", receivedAdvertise.getQuiz());
+		intent.putExtra("firstAnswer", receivedAdvertise.getAnswerOne());
+		intent.putExtra("secondAnswer", receivedAdvertise.getAnswerTwo());
+		intent.putExtra("url", receivedAdvertise.getLink());
+		intent.putExtra("companyId", company.getCompanyAlias());
+		context.startActivity(intent);
+	}
+
+	@OnClick(R.id.btn_company)
+	public void changedCompany() {
+		Intent intent = new Intent(context, CompanyDialog.class);
+		intent.putExtra("name", company.getCompanyAlias());
+		intent.putExtra("url", company.getPictureUrl());
+		context.startActivity(intent);
+	}
+
 }

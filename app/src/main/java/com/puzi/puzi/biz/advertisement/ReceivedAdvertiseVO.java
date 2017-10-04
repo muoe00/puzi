@@ -21,6 +21,11 @@ public class ReceivedAdvertiseVO {
 	private String answerOne;
 	private String answerTwo;
 	private String receivedAt;
+	private boolean isNew;
 	private CompanyVO companyInfoDTO;
+
+	public boolean getIsNew() {
+		return this.isNew;
+	}
 
 }

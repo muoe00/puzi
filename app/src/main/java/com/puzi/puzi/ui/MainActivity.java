@@ -24,8 +24,6 @@ import retrofit2.Call;
 import java.text.NumberFormat;
 import java.util.List;
 
-import static com.puzi.puzi.R.id.btn_advertise;
-
 public class MainActivity extends FragmentActivity {
 
 	Unbinder unbinder;
@@ -41,7 +39,7 @@ public class MainActivity extends FragmentActivity {
 	@BindView(R.id.fl_channel) public FrameLayout flChannel;
 	@BindView(R.id.fl_store) public FrameLayout flStore;
 	@BindView(R.id.fl_setting) public FrameLayout flSetting;
-	@BindView(btn_advertise) public Button btnAdvertise;
+	@BindView(R.id.btn_advertise) public Button btnAdvertise;
 	@BindView(R.id.btn_channel) public Button btnChannel;
 	@BindView(R.id.btn_store) public Button btnStore;
 	@BindView(R.id.btn_setting) public Button btnSetting;
