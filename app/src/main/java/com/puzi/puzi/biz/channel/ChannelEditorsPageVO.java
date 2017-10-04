@@ -2,11 +2,13 @@ package com.puzi.puzi.biz.channel;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * Created by JangwonPark on 2017. 10. 2..
  */
 @Data
-public class ChannelEditorsPageVO {
+public class ChannelEditorsPageVO implements Serializable {
 	private String title;
 	private String previewUrl;
 	private String link;

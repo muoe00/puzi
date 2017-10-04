@@ -3,12 +3,14 @@ package com.puzi.puzi.biz.channel;
 import com.puzi.puzi.biz.company.CompanyVO;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * Created by muoe0 on 2017-07-30.
  */
 
 @Data
-public class ChannelVO {
+public class ChannelVO implements Serializable {
 	private int channelId;
 	private String link;
 	private int score;

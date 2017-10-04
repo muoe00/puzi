@@ -1,14 +1,17 @@
 package com.puzi.puzi.ui.channel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelCategoryType;
@@ -19,6 +22,7 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.ChannelNetworkService;
+import com.puzi.puzi.ui.channel.editorspage.EditorsPageActivity;
 import retrofit2.Call;
 
 import java.util.Arrays;
@@ -84,6 +88,7 @@ public class ChannelFragment extends Fragment {
 					if(newChannelList.size() >= 4) {
 						List<ChannelEditorsPageVO> editorsPageList = responseVO.getList("channelEditorsPageDTOList", ChannelEditorsPageVO.class);
 
+						// 채널4개 > 에디터스3개 > 채널4개 > 에디터스3개 로 뿌리기 위해
 						channelListAdapter.addChannel(newChannelList.subList(0, 4));
 						if(editorsPageList.size() >= 3) {
 							channelListAdapter.addEditorsPage(editorsPageList.subList(0, 3));
@@ -132,6 +137,16 @@ public class ChannelFragment extends Fragment {
 	private void initAdapter() {
 		channelListAdapter = new ChannelListAdapter(getActivity());
 		lvChannel.setAdapter(channelListAdapter);
+	}
+
+	@OnItemClick(R.id.lv_channel)
+	public void editorsPageItemClick(AdapterView<?> parent, View view, int position, long id) {
+		if(ChannelListAdapter.VIEW_EDITORSPAGE == channelListAdapter.getItemViewType(position)) {
+			ChannelEditorsPageVO channelEditorsPageVO = (ChannelEditorsPageVO) channelListAdapter.getItem(position);
+			Intent intent = new Intent(getActivity(), EditorsPageActivity.class);
+			intent.putExtra("channelEditorsPageVO", channelEditorsPageVO);
+			startActivity(intent);
+		}
 	}
 
 	@Override
