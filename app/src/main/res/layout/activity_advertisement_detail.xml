@@ -152,11 +152,26 @@ w
       android:layout_height="5dp"
       android:layout_gravity="center"/>
 
-    <ImageView
-      android:id="@+id/btn_back_page"
-      android:background="@drawable/back"
-      android:layout_width="35dp"
-      android:layout_height="35dp"/>
+    <LinearLayout
+      android:orientation="horizontal"
+      android:gravity="center_vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <ImageView
+        android:id="@+id/btn_back_page"
+        android:background="@drawable/back"
+        android:layout_gravity="left"
+        android:layout_width="35dp"
+        android:layout_height="35dp"/>
+
+      <TextView
+        android:id="@+id/tv_ad_state"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    </LinearLayout>
 
   </LinearLayout>
 
