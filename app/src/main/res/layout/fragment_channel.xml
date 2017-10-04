@@ -5,25 +5,22 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-  <HorizontalScrollView
+  <com.puzi.puzi.ui.HorizontalListView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:widget="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/hlv_channel_filter"
     android:layout_width="match_parent"
-    android:layout_height="32dp" android:id="@+id/view_filter">
-
-    <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:orientation="vertical">
-      <TextView
-        android:text="TextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:id="@+id/textView2"/>
-    </LinearLayout>
-
-  </HorizontalScrollView>
+    android:layout_height="48dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:visibility="gone"
+    android:background="#dddddd"
+    widget:dividerWidth="1dp"/>
 
   <ListView
     android:id="@+id/lv_channel"
-    android:layout_marginTop="8dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:divider="@color/colorWhite"

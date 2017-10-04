@@ -32,7 +32,7 @@ public class MainActivity extends FragmentActivity {
 	Unbinder unbinder;
 
 	@BindView(R.id.tv_point) public TextView tvPoint;
-	@BindView(R.id.vp_main) public ViewPager viewPager;
+	@BindView(R.id.vp_main) public CustomViewPager viewPager;
 	@BindView(R.id.main_fragment_container) public LinearLayout llMain;
 	@BindView(R.id.iv_advertise) public ImageView ivAdvertise;
 	@BindView(R.id.iv_channel) public ImageView ivChannel;
@@ -131,7 +131,7 @@ public class MainActivity extends FragmentActivity {
 						intent = new Intent(MainActivity.this, ChannelFilterActivity.class);
 						List<ChannelCategoryType> categoryTypeList = null;
 						for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-							if (fragment.isVisible()) {
+							if (fragment != null && fragment.isVisible()) {
 								if(fragment instanceof ChannelFragment){
 									ChannelFragment channelFragment = (ChannelFragment) fragment;
 									categoryTypeList = channelFragment.getCategoryTypeList();

@@ -152,7 +152,7 @@
         android:textColor="#333333"
         android:id="@+id/tv_channel_detail_comment"/>
 
-      <!-- 에디터스페이지 가로스크롤 96 8 19 11 8 -->
+      <!-- 에디터스페이지 가로스크롤 -->
       <com.puzi.puzi.ui.HorizontalListView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:widget="http://schemas.android.com/apk/res-auto"

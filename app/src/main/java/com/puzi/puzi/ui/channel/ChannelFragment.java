@@ -3,7 +3,6 @@ package com.puzi.puzi.ui.channel;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +22,7 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.ChannelNetworkService;
+import com.puzi.puzi.ui.HorizontalListView;
 import com.puzi.puzi.ui.channel.editorspage.EditorsPageActivity;
 import lombok.Getter;
 import retrofit2.Call;
@@ -47,8 +47,10 @@ public class ChannelFragment extends Fragment {
 	boolean lastestScrollFlag = false;
 
 	private ChannelListAdapter channelListAdapter = null;
+	private ChannelFilterAdapter channelFilterAdapter = null;
 
 	@BindView(R.id.lv_channel) public ListView lvChannel;
+	@BindView(R.id.hlv_channel_filter) public HorizontalListView hlvChannelFilter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -138,6 +140,10 @@ public class ChannelFragment extends Fragment {
 	}
 
 	private void initAdapter() {
+		// 필터
+		channelFilterAdapter = new ChannelFilterAdapter(getActivity());
+		hlvChannelFilter.setAdapter(channelFilterAdapter);
+		// 리스트
 		channelListAdapter = new ChannelListAdapter(getActivity());
 		lvChannel.setAdapter(channelListAdapter);
 	}
@@ -162,7 +168,12 @@ public class ChannelFragment extends Fragment {
 		channelListAdapter.removeAll();
 		pagingIndex = 1;
 		this.categoryTypeList = categoryTypeList;
-		Log.d("TEST", "+++ refresh > categoryTypeList : " + categoryTypeList);
+		if(categoryTypeList.size() != ChannelCategoryType.values().length) {
+			channelFilterAdapter.refreshAndAdd(categoryTypeList);
+			hlvChannelFilter.setVisibility(View.VISIBLE);
+		} else {
+			hlvChannelFilter.setVisibility(View.GONE);
+		}
 		getChannelWithEditorsPageList();
 	}
 
