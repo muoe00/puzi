@@ -89,7 +89,7 @@ public class AdvertisementListAdapter extends BaseAdapter {
 
 		if(receivedAdvertise.getSaved()) {
 			ivNew.setBackgroundResource(R.drawable.check);
-		} else if(receivedAdvertise.getIsNew()) {
+		} else if(receivedAdvertise.getToday()) {
 			ivNew.setBackgroundResource(R.drawable.new_);
 		} else {
 			ivNew.setVisibility(View.GONE);

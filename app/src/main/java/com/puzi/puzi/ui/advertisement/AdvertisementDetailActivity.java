@@ -17,16 +17,23 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
+import com.puzi.puzi.cache.Preference;
+import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.ResponseVO;
+import com.puzi.puzi.network.RetrofitManager;
+import com.puzi.puzi.network.service.AdvertisementNetworkService;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.channel.ChannelDetailActivity;
 import com.puzi.puzi.ui.company.CompanyDialog;
 import com.puzi.puzi.utils.PuziUtils;
+import retrofit2.Call;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -48,7 +55,7 @@ public class AdvertisementDetailActivity extends Activity {
 	@BindView(R.id.tv_ad_answer_first) public TextView firstAnswer;
 	@BindView(R.id.tv_ad_answer_second) public TextView secondAnswer;
 
-	private String url;
+	private String url, answerOne, answerTwo;
 	private long startTime;
 	private int touchCount, channelId;
 	private boolean isChanged = false;
@@ -67,14 +74,15 @@ public class AdvertisementDetailActivity extends Activity {
 		ReceivedAdvertiseVO receivedAdvertise = (ReceivedAdvertiseVO) intent.getExtras().getSerializable("advertise");
 
 		Log.i(PuziUtils.INFO, "receivedAdvertise.getSaved() : " + receivedAdvertise.getSaved());
+		Log.i(PuziUtils.INFO, "receivedAdvertise.getToday() : " + receivedAdvertise.getToday());
 
 		progressBar.setVisibility(View.GONE);
 		llDialog.setVisibility(View.GONE);
 
-		if(!receivedAdvertise.getSaved() && receivedAdvertise.getIsNew()) {
+		if(!receivedAdvertise.getSaved() && receivedAdvertise.getToday()) {
 			String quiz = receivedAdvertise.getQuiz();
-			String answerOne = receivedAdvertise.getAnswerOne();
-			String answerTwo = receivedAdvertise.getAnswerTwo();
+			answerOne = receivedAdvertise.getAnswerOne();
+			answerTwo = receivedAdvertise.getAnswerTwo();
 
 			tvQuiz.setText(quiz);
 			firstAnswer.setText(answerOne);
@@ -82,6 +90,7 @@ public class AdvertisementDetailActivity extends Activity {
 
 			DialogAsync dialogAsync = new DialogAsync();
 			dialogAsync.execute();
+
 		} else if(receivedAdvertise.getSaved()) {
 			tvState.setText("이미 적립된 광고입니다.");
 		} else {
@@ -195,8 +204,43 @@ public class AdvertisementDetailActivity extends Activity {
 	}
 
 	@OnClick({R.id.tv_ad_answer_first, R.id.tv_ad_answer_second})
-	public void returnAnswer() {
+	public void returnAnswer(View view) {
 		llDialog.setVisibility(View.GONE);
+
+		String answer = null;
+
+		switch (view.getId()) {
+			case R.id.tv_ad_answer_first:
+				answer = answerOne;
+				break;
+			case R.id.tv_ad_answer_second:
+				answer = answerTwo;
+				break;
+		}
+
+		AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
+
+		String token = Preference.getProperty(AdvertisementDetailActivity.this, "token");
+
+		Call<ResponseVO> call = advertisementNetworkService.pointSave(token, 1, answer);
+		call.enqueue(new CustomCallback<ResponseVO>(AdvertisementDetailActivity.this) {
+			@Override
+			public void onSuccess(ResponseVO responseVO) {
+
+				switch(responseVO.getResultType()){
+					case SUCCESS:
+						Toast.makeText(getBaseContext(), "적립되었습니다.", Toast.LENGTH_SHORT).show();
+
+
+
+						break;
+
+					default:
+						Log.i("INFO", "point history failed.");
+						Toast.makeText(getBaseContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
 	}
 
 	@OnClick(R.id.btn_back_web)
