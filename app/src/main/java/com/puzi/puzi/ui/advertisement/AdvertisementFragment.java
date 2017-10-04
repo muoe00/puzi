@@ -35,10 +35,11 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 	@BindView(R.id.lv_advertise) public ListView lvAd;
 
 	private View view = null;
+	private boolean more = false;
 	private int pagingIndex = 1;
 	private boolean lastVisible = false;
-	private List<ReceivedAdvertiseVO> advertiseList;
 	private AdvertisementListAdapter advertiseListAdapter;
+	private AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
 
 	private static final String TAG = "AdvertisementFragment";
 
@@ -53,6 +54,8 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 		view = inflater.inflate(R.layout.fragment_advertisement, container, false);
 
 		unbinder = ButterKnife.bind(this, view);
+		advertiseListAdapter = new AdvertisementListAdapter(view.getContext());
+		lvAd.setAdapter(advertiseListAdapter);
 
 		getAdvertiseList(view);
 		lvAd.setOnScrollListener(this);
@@ -62,7 +65,7 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 	public void getAdvertiseList(final View view) {
 
-		final AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
+		advertiseListAdapter.startProgress();
 
 		String token = Preference.getProperty(getActivity(), "token");
 
@@ -70,16 +73,29 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 		callList.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-
 				Log.i("INFO", "advertise responseVO : " + responseVO.toString());
+				advertiseListAdapter.stopProgress();
 
 				switch(responseVO.getResultType()){
 					case SUCCESS:
-						advertiseList = responseVO.getList("receivedAdvertiseDTOList", ReceivedAdvertiseVO.class);
+						List<ReceivedAdvertiseVO> advertiseList = responseVO.getList("receivedAdvertiseDTOList", ReceivedAdvertiseVO.class);
 						Log.i(PuziUtils.INFO, "Advertise main / advertiseList : " + advertiseList.toString());
 
-						advertiseListAdapter = new AdvertisementListAdapter(view.getContext(), advertiseList);
-						lvAd.setAdapter(advertiseListAdapter);
+						if(advertiseList.size() == 0) {
+							advertiseListAdapter.empty();
+							more = false;
+							return;
+						}
+
+						advertiseListAdapter.addAdvertiseList(advertiseList);
+						advertiseListAdapter.notifyDataSetChanged();
+
+						if(advertiseListAdapter.getCount() == advertiseList.size()) {
+							more = false;
+							return;
+						}
+						more = true;
+
 						break;
 
 					default:
@@ -106,18 +122,8 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 		lastVisible = (totalItemCount > 0) && firstVisibleItem + visibleItemCount >= totalItemCount;
 	}
 
-	public void refresh(int index, boolean state) {
-		// advertiseListAdapter.changedState(index, state);
-		pagingIndex = 1;
-		getAdvertiseList(view);
-	}
-
-	public void changedState(int index, boolean state) {
-		for(int i = 0; i < advertiseList.size(); i++) {
-			if(advertiseList.get(i).getReceivedAdvertiseId() == index) {
-				advertiseList.get(i).setSaved(state);
-			}
-		}
+	public void refresh(int adId, boolean saved) {
+		advertiseListAdapter.changeSaved(adId, saved);
 	}
 
 	@Override
