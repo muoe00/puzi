@@ -1,6 +1,5 @@
 package com.puzi.puzi.utils;
 
-import android.util.Log;
 import android.widget.ImageView;
 import com.puzi.puzi.R;
 
@@ -25,7 +24,6 @@ public class UIUtils {
 
 	public static void setEvaluateStarScoreImage(int score, ImageView star1, ImageView star2, ImageView star3, ImageView star4,
 		ImageView star5, int onResource, int offResource) {
-		Log.d("TEST", "+++ score : " + score);
 		if(score <= 1) {
 			star1.setImageResource(onResource);
 			star2.setImageResource(offResource);

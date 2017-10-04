@@ -33,7 +33,7 @@ public class PuziApplication extends Application {
 				.discCacheSize(30 * 1024 * 1024)
 				.discCacheFileCount(500)
 				.tasksProcessingOrder(QueueProcessingType.LIFO)
-				.writeDebugLogs() 
+				.writeDebugLogs()
 				.build();
 		ImageLoader.getInstance().init(config);
 	}

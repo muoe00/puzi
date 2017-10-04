@@ -39,6 +39,7 @@ dependencies {
 	compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 	compile 'com.jakewharton:butterknife:8.2.0'
 	compile group: 'com.google.collections', name: 'google-collections', version:'1.0'
+	compile 'com.joooonho:selectableroundedimageview:1.0.1'
 	apt 'com.jakewharton:butterknife-compiler:8.2.0'
 
 	testCompile 'junit:junit:4.12'

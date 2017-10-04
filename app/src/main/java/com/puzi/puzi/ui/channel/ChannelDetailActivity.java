@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import butterknife.*;
 import com.puzi.puzi.R;
+import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import com.puzi.puzi.biz.channel.ChannelEditorsPageVO;
 import com.puzi.puzi.biz.channel.ChannelReplyVO;
 import com.puzi.puzi.biz.channel.ChannelVO;
@@ -22,6 +23,7 @@ import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.ChannelNetworkService;
 import com.puzi.puzi.ui.HorizontalListView;
 import com.puzi.puzi.ui.ProgressDialog;
+import com.puzi.puzi.ui.advertisement.AdvertisementDetailActivity;
 import com.puzi.puzi.ui.channel.editorspage.EditorsPageActivity;
 import com.puzi.puzi.ui.channel.editorspage.EditorsPageAdapter;
 import com.puzi.puzi.ui.channel.reply.ReplyListAdapter;
@@ -244,6 +246,20 @@ public class ChannelDetailActivity extends Activity {
 				channelVO.setScored(true);
 			}
 		});
+	}
+
+	@OnClick(R.id.ibtn_chanenl_detail_picture)
+	public void clickAdvertisement(View v) {
+		ReceivedAdvertiseVO receivedAdvertiseVO = new ReceivedAdvertiseVO();
+		receivedAdvertiseVO.setChannelId(channelVO.getChannelId());
+		receivedAdvertiseVO.setSaved(false);
+		receivedAdvertiseVO.setNew(false);
+		receivedAdvertiseVO.setLink(channelVO.getLink());
+		receivedAdvertiseVO.setCompanyInfoDTO(channelVO.getCompanyInfoDTO());
+
+		Intent intent = new Intent(this, AdvertisementDetailActivity.class);
+		intent.putExtra("advertise", receivedAdvertiseVO);
+		startActivity(intent);
 	}
 
 	@OnClick(R.id.btn_channel_detail_write)
