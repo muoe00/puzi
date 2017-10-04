@@ -260,7 +260,7 @@ public class ChannelDetailActivity extends BaseActivity {
 		ReceivedAdvertiseVO receivedAdvertiseVO = new ReceivedAdvertiseVO();
 		receivedAdvertiseVO.setChannelId(channelVO.getChannelId());
 		receivedAdvertiseVO.setSaved(false);
-		receivedAdvertiseVO.setNew(false);
+		receivedAdvertiseVO.setToday(false);
 		receivedAdvertiseVO.setLink(channelVO.getLink());
 		receivedAdvertiseVO.setCompanyInfoDTO(channelVO.getCompanyInfoDTO());
 

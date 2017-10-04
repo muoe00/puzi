@@ -34,10 +34,11 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 	@BindView(R.id.lv_advertise) public ListView lvAd;
 
+	private View view = null;
 	private int pagingIndex = 1;
 	private boolean lastVisible = false;
 	private List<ReceivedAdvertiseVO> advertiseList;
-	private AdvertisementListAdapter advertiseGridAdapter;
+	private AdvertisementListAdapter advertiseListAdapter;
 
 	private static final String TAG = "AdvertisementFragment";
 
@@ -49,7 +50,7 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_advertisement, container, false);
+		view = inflater.inflate(R.layout.fragment_advertisement, container, false);
 
 		unbinder = ButterKnife.bind(this, view);
 
@@ -77,8 +78,8 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 						advertiseList = responseVO.getList("receivedAdvertiseDTOList", ReceivedAdvertiseVO.class);
 						Log.i(PuziUtils.INFO, "Advertise main / advertiseList : " + advertiseList.toString());
 
-						advertiseGridAdapter = new AdvertisementListAdapter(view.getContext(), advertiseList);
-						lvAd.setAdapter(advertiseGridAdapter);
+						advertiseListAdapter = new AdvertisementListAdapter(view.getContext(), advertiseList);
+						lvAd.setAdapter(advertiseListAdapter);
 						break;
 
 					default:
@@ -103,6 +104,20 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 		lastVisible = (totalItemCount > 0) && firstVisibleItem + visibleItemCount >= totalItemCount;
+	}
+
+	public void refresh(int index, boolean state) {
+		// advertiseListAdapter.changedState(index, state);
+		pagingIndex = 1;
+		getAdvertiseList(view);
+	}
+
+	public void changedState(int index, boolean state) {
+		for(int i = 0; i < advertiseList.size(); i++) {
+			if(advertiseList.get(i).getReceivedAdvertiseId() == index) {
+				advertiseList.get(i).setSaved(state);
+			}
+		}
 	}
 
 	@Override

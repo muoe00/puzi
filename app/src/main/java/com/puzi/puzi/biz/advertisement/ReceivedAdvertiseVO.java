@@ -23,12 +23,12 @@ public class ReceivedAdvertiseVO implements Serializable {
 	private String answerOne;
 	private String answerTwo;
 	private String receivedAt;
-	private boolean isNew;
+	private boolean today;
 	private boolean saved;
 	private CompanyVO companyInfoDTO;
 
-	public boolean getIsNew() {
-		return this.isNew;
+	public boolean getToday() {
+		return this.today;
 	}
 
 	public boolean getSaved() {
@@ -47,7 +47,7 @@ public class ReceivedAdvertiseVO implements Serializable {
 		answerOne = in.readString();
 		answerTwo = in.readString();
 		receivedAt = in.readString();
-		isNew = in.readByte() != 0;
+		today = in.readByte() != 0;
 		saved = in.readByte() != 0;
 	}
 

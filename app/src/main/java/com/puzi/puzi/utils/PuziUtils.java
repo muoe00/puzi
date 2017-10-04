@@ -8,5 +8,7 @@ public class PuziUtils {
 
 	public static final String PUZI = "puzi";
 	public static final String INFO = "INFO";
+	public static final int VIEW_POINT = 0;
+	public static final int VIEW_LEVEL = 1;
 
 }

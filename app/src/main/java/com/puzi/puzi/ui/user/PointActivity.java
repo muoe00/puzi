@@ -12,15 +12,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
+import com.puzi.puzi.utils.PuziUtils;
 
 /**
  * Created by muoe0 on 2017-07-08.
  */
 
 public class PointActivity extends FragmentActivity {
-
-	private static final int VIEW_POINT = 0;
-	private static final int VIEW_LEVEL = 1;
 
 	Unbinder unbinder;
 	View view;
@@ -54,11 +52,11 @@ public class PointActivity extends FragmentActivity {
 	public void changedTag(View view) {
 
 		switch(view.getId()) {
-			case VIEW_POINT:
-				tag = 0;
+			case R.id.btn_channelRecommend:
+				tag = PuziUtils.VIEW_POINT;
 				break;
-			case VIEW_LEVEL:
-				tag = 1;
+			case R.id.btn_point_level:
+				tag = PuziUtils.VIEW_LEVEL;
 				break;
 		}
 

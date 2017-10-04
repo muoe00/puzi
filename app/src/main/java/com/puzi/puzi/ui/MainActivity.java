@@ -17,11 +17,13 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
+import com.puzi.puzi.ui.advertisement.AdvertisementFragment;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.channel.ChannelFilterActivity;
 import com.puzi.puzi.ui.channel.ChannelFragment;
 import com.puzi.puzi.ui.user.PointActivity;
 import com.puzi.puzi.ui.user.RecommendActivity;
+import com.puzi.puzi.utils.PuziUtils;
 import com.puzi.puzi.utils.SerializeUtils;
 import retrofit2.Call;
 
@@ -227,7 +229,7 @@ public class MainActivity extends BaseFragmentActivity {
 	}
 
 	/**
-	 * 현재 채널 필터링에 이용
+	 * 현재 광고 적립 상태변경 및 채널 필터링에 이용
 	 * @param requestCode
 	 * @param resultCode
 	 * @param data
@@ -244,6 +246,21 @@ public class MainActivity extends BaseFragmentActivity {
 							if(fragment instanceof ChannelFragment){
 								ChannelFragment channelFragment = (ChannelFragment) fragment;
 								channelFragment.refresh(categoryTypeList);
+							}
+						}
+					}
+				} else {
+					int index = data.getIntExtra("advertiseIndex", 0);
+					boolean state = data.getBooleanExtra("pointSavedState", false);
+					if(index != 0) {
+						for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+							if (fragment.isVisible()) {
+								if(fragment instanceof AdvertisementFragment){
+									AdvertisementFragment advertisementFragment = (AdvertisementFragment) fragment;
+									advertisementFragment.refresh(index, state);
+
+									Log.i(PuziUtils.INFO, "index : " + index + ", state : " + state);
+								}
 							}
 						}
 					}
