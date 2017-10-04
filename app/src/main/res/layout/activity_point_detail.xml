@@ -32,14 +32,19 @@
     android:layout_height="60dp">
 
     <TextView
+      android:id="@+id/tv_point"
       android:layout_gravity="center_vertical"
       android:gravity="center_vertical"
+      android:textColor="@color/colorPuzi"
       android:layout_width="100dp"
       android:layout_height="35dp"/>
 
     <TextView
       android:layout_gravity="center_vertical"
       android:gravity="center_vertical"
+      android:text="P"
+      android:textStyle="bold"
+      android:textColor="@color/colorYellow"
       android:layout_width="25dp"
       android:layout_height="25dp"/>
 

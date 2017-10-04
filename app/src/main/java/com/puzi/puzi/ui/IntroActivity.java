@@ -79,6 +79,7 @@ public class IntroActivity extends FragmentActivity {
 			public void handleMessage(Message message){
 				if(AUTO_LOGIN) {
 					startActivity(new Intent(IntroActivity.this, MainActivity.class));
+					finish();
 				}
 				else {
 					fragment = new LoginFragment();
