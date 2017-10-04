@@ -28,7 +28,7 @@ import static com.google.common.collect.Lists.newArrayList;
 public class ChannelListAdapter extends BaseAdapter {
 
 	private static final int VIEW_CHANNEL = 0;
-	private static final int VIEW_EDITORSPAGE = 1;
+	public static final int VIEW_EDITORSPAGE = 1;
 	private static final int VIEW_PROGRESS = 2;
 
 	private LayoutInflater inflater;
@@ -151,7 +151,7 @@ public class ChannelListAdapter extends BaseAdapter {
 		switch (viewType) {
 			case VIEW_CHANNEL:
 				final List<ChannelVO> channelList = (List) getItem(position);
-				ChannelVO firstChannel = channelList.get(0);
+				final ChannelVO firstChannel = channelList.get(0);
 				BitmapUIL.load(firstChannel.getPictureUrl(), channelHolder.ibtnImage1);
 				channelHolder.btnTitle1.setText(firstChannel.getTitle());
 				BitmapUIL.load(firstChannel.getCompanyInfoDTO().getPictureUrl(), channelHolder.ibtnCompany1);
@@ -161,14 +161,16 @@ public class ChannelListAdapter extends BaseAdapter {
 
 					@Override
 					public void onClick(View v) {
-						activity.startActivity(new Intent(activity, ChannelDetailActivity.class));
+						Intent intent = new Intent(activity, ChannelDetailActivity.class);
+						intent.putExtra("channelVO", firstChannel);
+						activity.startActivity(intent);
 					}
 				};
 				channelHolder.ibtnImage1.setOnClickListener(listener1);
 				channelHolder.btnTitle1.setOnClickListener(listener1);
 
 				if(channelList.size() > 1) {
-					ChannelVO secondChannel = channelList.get(1);
+					final ChannelVO secondChannel = channelList.get(1);
 					BitmapUIL.load(secondChannel.getPictureUrl(), channelHolder.ibtnImage2);
 					channelHolder.btnTitle2.setText(secondChannel.getTitle());
 					BitmapUIL.load(secondChannel.getCompanyInfoDTO().getPictureUrl(), channelHolder.ibtnCompany2);
@@ -178,7 +180,9 @@ public class ChannelListAdapter extends BaseAdapter {
 
 						@Override
 						public void onClick(View v) {
-							activity.startActivity(new Intent(activity, ChannelDetailActivity.class));
+							Intent intent = new Intent(activity, ChannelDetailActivity.class);
+							intent.putExtra("channelVO", secondChannel);
+							activity.startActivity(intent);
 						}
 					};
 					channelHolder.ibtnImage2.setOnClickListener(listener2);

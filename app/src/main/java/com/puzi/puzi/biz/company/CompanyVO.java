@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 
 @Data
-public class CompanyVO implements Serializable{
+public class CompanyVO implements Serializable {
 	private int companyId;
 	private String companyAlias;
 	private String pictureUrl;

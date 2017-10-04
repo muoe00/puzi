@@ -14,4 +14,7 @@ public class ChannelReplyVO {
 	private int recommend = 0;
 	private int reverse = 0;
 	private String createdAt;
+	private String writer;
+	private boolean scored;
+	private boolean recommended;
 }

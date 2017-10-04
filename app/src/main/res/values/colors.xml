@@ -11,4 +11,6 @@
   <color name="colorGray">#828282</color>
 
   <color name="colorPuzi">#f13d3a</color>
+
+  <color name="noAlpha">#00000000</color>
 </resources>

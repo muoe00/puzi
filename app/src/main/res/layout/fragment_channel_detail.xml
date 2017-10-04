@@ -1,217 +1,250 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-  <RelativeLayout
-    android:id="@+id/rl_channel_content"
-    android:orientation="horizontal"
+  <ScrollView
+    android:id="@+id/sv_channel_detail"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="67dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:fillViewport="true">
 
-    <ScrollView
-      android:layout_marginBottom="40dp"
-      android:id="@+id/sv_channelPage"
+    <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_alignParentTop="true"
-      android:layout_alignParentLeft="true"
-      android:layout_alignParentStart="true">
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
 
+      <!-- 상단바 -->
       <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/rl_channelPage"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="5dp">
+        android:layout_height="45dp">
 
-        <ImageView
+        <ImageButton
+          android:paddingRight="10dp"
+          android:paddingLeft="8dp"
+          android:paddingTop="12.5dp"
+          android:paddingBottom="12.5dp"
+          android:layout_width="30dp"
+          android:layout_height="match_parent"
+          android:background="#00000000"
+          android:src="@drawable/back"
+          android:id="@+id/ibtn_chanenl_detail_back"
+          android:backgroundTint="#000000"/>
+
+        <ImageButton
+          android:paddingLeft="7dp"
+          android:paddingRight="7dp"
+          android:paddingTop="8dp"
+          android:paddingBottom="8dp"
+          android:layout_width="43dp"
+          android:layout_height="match_parent"
+          android:scaleType="centerCrop"
+          android:background="@drawable/oval"
+          android:id="@+id/ibtn_chanenl_detail_company_image"/>
+
+        <TextView
+          android:text="companyName"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:scaleType="fitXY"
-          android:id="@+id/iv_channelPageImage"
-          android:layout_marginBottom="5dp"/>
-
-        <LinearLayout
-          android:orientation="vertical"
-          android:layout_below="@+id/iv_channelPageImage"
-          android:id="@+id/rl_channelStar"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="5dp"
-          android:layout_marginLeft="8dp"
-          android:layout_marginRight="8dp">
-
-          <LinearLayout
-            android:id="@+id/ll_channelStar"
-            android:gravity="left"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="21dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="30dp">
-            <TextView
-              android:layout_gravity="center_vertical"
-              android:layout_marginRight="2dp"
-              android:layout_toRightOf="@+id/tv_channelStar1"
-              android:text="별점주기"
-              android:textSize="16sp"
-              android:layout_width="60dp"
-              android:layout_height="19dp"
-              android:id="@+id/tv_channelReplyNumber"/>
-            <ImageView
-              android:layout_width="30dp"
-              android:layout_height="30dp"
-              android:background="@drawable/combined_shape"
-              android:id="@+id/iv_channelStar1"/>
-            <ImageView
-              android:layout_toRightOf="@+id/iv_channelStar1"
-              android:layout_width="30dp"
-              android:layout_height="30dp"
-              android:background="@drawable/combined_shape"
-              android:id="@+id/iv_channelStar2"/>
-            <ImageView
-              android:layout_toRightOf="@+id/iv_channelStar2"
-              android:layout_width="30dp"
-              android:layout_height="30dp"
-              android:background="@drawable/combined_shape"
-              android:id="@+id/iv_channelStar3"/>
-            <ImageView
-              android:layout_toRightOf="@+id/iv_channelStar3"
-              android:layout_width="30dp"
-              android:layout_height="30dp"
-              android:background="@drawable/combined_shape"
-              android:id="@+id/iv_channelStar4"/>
-            <ImageView
-              android:layout_toRightOf="@+id/iv_channelStar4"
-              android:layout_width="30dp"
-              android:layout_height="30dp"
-              android:background="@drawable/combined_shape"
-              android:id="@+id/iv_channelStar5"/>
-          </LinearLayout>
-
-          <TextView
-            android:layout_below="@+id/ll_channelStar"
-            android:text="TextView"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_channelPageComment"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-          android:id="@+id/linearlayout"
-          android:layout_below="@+id/rl_channelStar"
-          android:orientation="horizontal"
-          android:layout_width="match_parent"
-          android:layout_height="2dp"
-          android:layout_marginLeft="8dp"
-          android:layout_marginRight="8dp">
-        </LinearLayout>
-
-        <LinearLayout
-          android:layout_below="@+id/linearlayout"
-          android:id="@+id/ll_channelReply_num"
-          android:layout_width="match_parent"
-          android:layout_height="30dp"
-          android:orientation="horizontal">
-
-          <TextView
-            android:layout_marginLeft="5dp"
-            android:gravity="center"
-            android:layout_width="30dp"
-            android:layout_height="20dp"
-            android:text="댓글"
-            android:textSize="10sp"/>
-
-          <TextView
-            android:layout_marginLeft="5dp"
-            android:gravity="center"
-            android:layout_width="30dp"
-            android:layout_height="20dp"
-            android:text="100개"
-            android:textSize="10sp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-          android:layout_below="@+id/ll_channelReply_num"
-          android:id="@+id/ll_bar5"
-          android:layout_marginLeft="5dp"
-          android:layout_marginRight="5dp"
-          android:background="@color/colorGray"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:orientation="vertical">
-        </LinearLayout>
-
-        <ListView
-          android:scrollbars="none"
-          android:id="@+id/lv_channelReply"
-          android:layout_below="@+id/ll_bar5"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"/>
+          android:textSize="16sp"
+          android:textColor="#9b9b9b"
+          android:layout_gravity="center_vertical"
+          android:id="@+id/tv_channel_detail_company_name"/>
 
       </LinearLayout>
 
-    </ScrollView>
+      <!-- 광고이미지 -->
+      <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="360dp"
+        android:src="@drawable/puzi_bi_02"
+        android:background="#00000000"
+        android:scaleType="centerCrop"
+        android:id="@+id/ibtn_chanenl_detail_picture" android:elevation="0dp"/>
 
-    <LinearLayout
-      android:layout_marginTop="-50dp"
-      android:layout_above="@+id/ll_channelReply"
-      android:id="@+id/linearlayout2"
-      android:orientation="horizontal"
-      android:layout_width="match_parent"
-      android:layout_height="2dp"
-      android:layout_marginLeft="8dp"
-      android:layout_marginRight="8dp">
+      <!-- 평가 -->
+      <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="52dp">
+
+        <Button
+          android:text="별점주기"
+          android:textColor="#9b9b9b"
+          android:background="#00000000"
+          android:textSize="16sp"
+          android:layout_gravity="center_vertical"
+          android:paddingLeft="16dp"
+          android:paddingRight="16dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/btn_channel_detail_evaluate"/>
+
+        <ImageView
+          android:layout_width="20dp"
+          android:layout_height="20dp"
+          android:src="@drawable/oval_4"
+          android:layout_gravity="center_vertical"
+          android:id="@+id/iv_evaluate_star_1"/>
+
+        <ImageView
+          android:layout_marginLeft="16dp"
+          android:layout_width="20dp"
+          android:layout_height="20dp"
+          android:src="@drawable/oval_4"
+          android:layout_gravity="center_vertical"
+          android:id="@+id/iv_evaluate_star_2"/>
+
+        <ImageView
+          android:layout_marginLeft="16dp"
+          android:layout_width="20dp"
+          android:layout_height="20dp"
+          android:src="@drawable/oval_4"
+          android:layout_gravity="center_vertical"
+          android:id="@+id/iv_evaluate_star_3"/>
+
+        <ImageView
+          android:layout_marginLeft="16dp"
+          android:layout_width="20dp"
+          android:layout_height="20dp"
+          android:src="@drawable/oval_4"
+          android:layout_gravity="center_vertical"
+          android:id="@+id/iv_evaluate_star_4"/>
+
+        <ImageView
+          android:layout_marginLeft="16dp"
+          android:layout_width="20dp"
+          android:layout_height="20dp"
+          android:src="@drawable/oval_4"
+          android:layout_gravity="center_vertical"
+          android:id="@+id/iv_evaluate_star_5"/>
+
+        <LinearLayout
+          android:layout_weight="1"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"/>
+
+        <TextView
+          android:text="0/10"
+          android:layout_marginRight="16dp"
+          android:layout_gravity="center_vertical"
+          android:layout_width="wrap_content"
+          android:textColor="#333333"
+          android:textSize="12sp"
+          android:layout_height="wrap_content"
+          android:id="@+id/tv_channel_detail_evaluate_average"/>
+
+      </LinearLayout>
+
+      <!-- 코멘트 -->
+      <TextView
+        android:text="comment"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#333333"
+        android:id="@+id/tv_channel_detail_comment"/>
+
+      <!-- 에디터스페이지 가로스크롤 96 8 19 11 8 -->
+      <com.puzi.puzi.ui.HorizontalListView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:widget="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/hlv_channel_detail_editors_page"
+        android:layout_width="match_parent"
+        android:layout_height="148dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        widget:dividerWidth="1dp" />
+
+      <!-- 댓글 타이틀 -->
+      <TextView
+        android:text="댓글"
+        android:textSize="16sp"
+        android:textColor="#35343d"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="19dp"
+        android:id="@+id/tv_channel_detail_reply_title"/>
+
+      <LinearLayout
+        android:background="#d8d8d8"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+      <!-- 댓글 리스트 -->
+      <ListView
+        android:id="@+id/lv_channel_detail_reply"
+        android:choiceMode="none"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:longClickable="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     </LinearLayout>
 
+  </ScrollView>
+
+  <!-- 댓글입력창 -->
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_gravity="bottom"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="68dp">
+
     <LinearLayout
-      android:background="@color/colorWhite"
-      android:id="@+id/ll_channelReply"
-      android:orientation="horizontal"
+      android:background="#d8d8d8"
       android:layout_width="match_parent"
-      android:layout_height="40dp"
-      android:weightSum="1"
-      android:layout_alignParentBottom="true"
-      android:layout_centerHorizontal="true"
-      android:layout_marginLeft="8dp"
-      android:layout_marginRight="8dp"
-      android:focusable="true"
-      android:focusableInTouchMode="true">
+      android:layout_height="1dp"/>
+
+    <LinearLayout
+      android:orientation="horizontal"
+      android:layout_gravity="bottom"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
       <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@drawable/edittext"
-        android:hint="댓글달기"
-        android:textSize="14sp"
-        android:textColor="@color/colorGray"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:inputType="text"
+        android:layout_marginLeft="16dp"
         android:ems="10"
-        android:id="@+id/et_channelReply"
+        android:background="#ffffff"
+        android:textSize="16sp"
+        android:textColor="#333333"
+        android:id="@+id/et_channel_detail_write_reply"
+        android:hint="의견을 입력하세요"
         android:layout_weight="1"/>
+
       <Button
-        android:text="게시"
-        android:textSize="15sp"
-        android:background="@null"
-        android:layout_width="60dp"
-        android:layout_height="match_parent"
-        android:id="@+id/btn_channelReply"/>
+        android:text="입력"
+        android:paddingLeft="12dp"
+        android:paddingRight="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:layout_width="63dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/btn_channel_detail_write"
+        android:textSize="20sp"
+        android:textColor="#333333"
+        android:background="#00000000"/>
+
     </LinearLayout>
 
+  </LinearLayout>
 
-    <ImageButton
-      android:layout_marginLeft="9dp"
-      android:layout_marginTop="25.3dp"
-      android:layout_gravity="left|center"
-      android:layout_width="12.5dp"
-      android:layout_height="21dp"
-      android:background="@drawable/back_chevron"
-      android:id="@+id/ibtn_back"/>
-
-  </RelativeLayout>
-
-</LinearLayout>
+</FrameLayout>

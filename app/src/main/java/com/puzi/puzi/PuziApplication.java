@@ -31,7 +31,7 @@ public class PuziApplication extends Application {
 				.denyCacheImageMultipleSizesInMemory()
 				.discCacheFileNameGenerator(new Md5FileNameGenerator())
 				.discCacheSize(30 * 1024 * 1024)
-				.discCacheFileCount(200)
+				.discCacheFileCount(500)
 				.tasksProcessingOrder(QueueProcessingType.LIFO)
 				.writeDebugLogs() 
 				.build();
