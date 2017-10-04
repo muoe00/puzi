@@ -160,7 +160,7 @@
         android:layout_height="match_parent"
         android:id="@+id/tv_channelFavorit"/>
       <Button
-        android:id="@+id/btn_channelFavorit"
+        android:id="@+id/btn_point_level"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00000000"/>
@@ -188,16 +188,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ListView
-      android:id="@+id/lv_point"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginStart="9.5dp"
-      android:padding="0dp"
-      android:layout_marginEnd="9.5dp"
-      android:divider="#f2f1ef"
-      android:dividerHeight="1dp">
-    </ListView>
+
   </LinearLayout>
 
 </LinearLayout>

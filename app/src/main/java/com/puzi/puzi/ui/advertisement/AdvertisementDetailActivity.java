@@ -14,7 +14,6 @@ import android.view.animation.TranslateAnimation;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -42,8 +41,7 @@ public class AdvertisementDetailActivity extends Activity {
 	Unbinder unbinder;
 
 	@BindView(R.id.ll_web_dialog) public LinearLayout llDialog;
-	@BindView(R.id.btn_back_web) public Button btnHome;
-	@BindView(R.id.btn_channel_web) public Button btnChannel;
+	@BindView(R.id.tv_ad_state) public TextView tvState;
 	@BindView(R.id.progressbar) public ProgressBar progressBar;
 	@BindView(R.id.web_ad) public WebView webView;
 	@BindView(R.id.tv_ad_quiz) public TextView tvQuiz;
@@ -73,20 +71,25 @@ public class AdvertisementDetailActivity extends Activity {
 		progressBar.setVisibility(View.GONE);
 		llDialog.setVisibility(View.GONE);
 
-		if(!receivedAdvertise.getSaved()) {
+		if(!receivedAdvertise.getSaved() && receivedAdvertise.getIsNew()) {
+			String quiz = receivedAdvertise.getQuiz();
+			String answerOne = receivedAdvertise.getAnswerOne();
+			String answerTwo = receivedAdvertise.getAnswerTwo();
+
+			tvQuiz.setText(quiz);
+			firstAnswer.setText(answerOne);
+			secondAnswer.setText(answerTwo);
+
 			DialogAsync dialogAsync = new DialogAsync();
 			dialogAsync.execute();
+		} else if(receivedAdvertise.getSaved()) {
+			tvState.setText("이미 적립된 광고입니다.");
+		} else {
+			tvState.setText("적립 대상이 아닙니다.");
 		}
 
-		String quiz = receivedAdvertise.getQuiz();
-		String answerOne = receivedAdvertise.getAnswerOne();
-		String answerTwo = receivedAdvertise.getAnswerTwo();
 		channelId = receivedAdvertise.getChannelId();
 		url = receivedAdvertise.getLink();
-
-		tvQuiz.setText(quiz);
-		firstAnswer.setText(answerOne);
-		secondAnswer.setText(answerTwo);
 
 		webView.setWebViewClient(new WebViewClient());
 		WebSettings webSettings = webView.getSettings();

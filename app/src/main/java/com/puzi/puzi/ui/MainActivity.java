@@ -16,7 +16,6 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
-import com.puzi.puzi.ui.user.LevelActivity;
 import com.puzi.puzi.ui.user.PointActivity;
 import com.puzi.puzi.ui.user.RecommendActivity;
 import retrofit2.Call;
@@ -115,9 +114,6 @@ public class MainActivity extends FragmentActivity {
 	public void changePage(View view) {
 		Intent intent = null;
 		switch (view.getId()) {
-			case R.id.btn_level:
-				intent = new Intent(MainActivity.this, LevelActivity.class);
-				break;
 			case R.id.btn_pointhistory:
 				intent = new Intent(MainActivity.this, PointActivity.class);
 				break;
