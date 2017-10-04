@@ -52,6 +52,10 @@
 
         <com.joooonho.SelectableRoundedImageView
           xmlns:app="http://schemas.android.com/apk/res-auto"
+          app:sriv_right_top_corner_radius="12dp"
+          app:sriv_left_top_corner_radius="12dp"
+          app:sriv_left_bottom_corner_radius="12dp"
+          app:sriv_right_bottom_corner_radius="12dp"
           android:layout_width="24dp"
           android:layout_height="24dp"
           android:layout_marginTop="4dp"
@@ -61,12 +65,7 @@
           android:background="#00000000"
           android:src="@drawable/active_icon"
           android:id="@+id/ibtn_item_channel_company_image_1"
-          android:scaleType="centerCrop"
-          app:sriv_right_top_corner_radius="12dp"
-          app:sriv_left_top_corner_radius="12dp"
-          app:sriv_left_bottom_corner_radius="12dp"
-          app:sriv_right_bottom_corner_radius="12dp"
-          app:sriv_oval="false" />
+          android:scaleType="centerCrop"/>
 
         <ImageView
           android:layout_gravity="center_vertical"

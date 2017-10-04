@@ -14,6 +14,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelCategoryType;
+import com.puzi.puzi.ui.base.BaseActivity;
 import com.puzi.puzi.utils.SerializeUtils;
 
 import java.util.List;
@@ -24,7 +25,7 @@ import static com.google.common.collect.Lists.newArrayList;
  * Created by JangwonPark on 2017. 10. 4..
  */
 
-public class ChannelFilterActivity extends Activity {
+public class ChannelFilterActivity extends BaseActivity {
 
 	private Unbinder unbinder;
 
@@ -76,7 +77,13 @@ public class ChannelFilterActivity extends Activity {
 
 	@OnClick(R.id.ibtn_channel_filter_back)
 	public void backPress() {
+		onBackPressed();
+	}
+
+	@Override
+	public void onBackPressed() {
 		super.onBackPressed();
+		doAnimationGoLeft();
 	}
 
 	@OnClick(R.id.ibtn_channel_filter_male)
@@ -163,6 +170,7 @@ public class ChannelFilterActivity extends Activity {
 		intent.putStringArrayListExtra("categoryTypeList", SerializeUtils.convertToString(categoryTypeList));
 		setResult(Activity.RESULT_OK, intent);
 		finish();
+		doAnimationGoLeft();
 	}
 
 	private void setByCategoryType(ChannelCategoryType categoryType) {

@@ -17,6 +17,7 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.channel.ChannelFilterActivity;
 import com.puzi.puzi.ui.channel.ChannelFragment;
 import com.puzi.puzi.ui.user.PointActivity;
@@ -27,7 +28,7 @@ import retrofit2.Call;
 import java.text.NumberFormat;
 import java.util.List;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseFragmentActivity {
 
 	Unbinder unbinder;
 
@@ -140,6 +141,7 @@ public class MainActivity extends FragmentActivity {
 						}
 						intent.putStringArrayListExtra("categoryTypeList", SerializeUtils.convertToString(categoryTypeList));
 						startActivityForResult(intent, 0);
+						doAnimationGoRight();
 						return;
 				}
 				break;
@@ -147,6 +149,7 @@ public class MainActivity extends FragmentActivity {
 				break;
 		}
 		startActivity(intent);
+		doAnimationGoRight();
 	}
 
 	// swipe

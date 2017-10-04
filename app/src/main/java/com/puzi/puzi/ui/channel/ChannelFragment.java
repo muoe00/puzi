@@ -2,7 +2,6 @@ package com.puzi.puzi.ui.channel;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +22,7 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.ChannelNetworkService;
 import com.puzi.puzi.ui.HorizontalListView;
+import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.ui.channel.editorspage.EditorsPageActivity;
 import lombok.Getter;
 import retrofit2.Call;
@@ -34,7 +34,7 @@ import java.util.List;
  * Created by muoe0 on 2017-07-08.
  */
 
-public class ChannelFragment extends Fragment {
+public class ChannelFragment extends BaseFragment {
 
 	private Unbinder unbinder;
 
@@ -155,6 +155,7 @@ public class ChannelFragment extends Fragment {
 			Intent intent = new Intent(getActivity(), EditorsPageActivity.class);
 			intent.putExtra("channelEditorsPageVO", channelEditorsPageVO);
 			startActivity(intent);
+			doAnimationGoRight();
 		}
 	}
 

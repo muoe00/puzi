@@ -42,6 +42,11 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
+      <WebView
+        android:id="@+id/wv_channel_editors_page_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+      </WebView>
       <FrameLayout
         android:id="@+id/fl_channel_editors_page_container"
         android:background="#ffffff"
@@ -79,11 +84,6 @@
         </LinearLayout>
 
       </FrameLayout>
-      <WebView
-        android:id="@+id/wv_channel_editors_page_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-      </WebView>
 
     </FrameLayout>
   </LinearLayout>

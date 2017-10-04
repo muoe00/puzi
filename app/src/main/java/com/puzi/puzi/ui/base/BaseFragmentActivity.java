@@ -54,7 +54,7 @@ public class BaseFragmentActivity extends FragmentActivity {
 		overridePendingTransition(R.anim.leftin, R.anim.rightout);
 	}
 
-	protected void doAnimationGoRight() {
+	public void doAnimationGoRight() {
 		overridePendingTransition(R.anim.rightin, R.anim.leftout);
 	}
 

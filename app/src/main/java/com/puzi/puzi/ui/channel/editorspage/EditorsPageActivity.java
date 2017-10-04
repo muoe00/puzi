@@ -1,6 +1,5 @@
 package com.puzi.puzi.ui.channel.editorspage;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,12 +16,13 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelEditorsPageVO;
+import com.puzi.puzi.ui.base.BaseActivity;
 
 /**
  * Created by JangwonPark on 2017. 10. 4..
  */
 
-public class EditorsPageActivity extends Activity {
+public class EditorsPageActivity extends BaseActivity {
 
 	private Unbinder unbinder;
 
@@ -55,7 +55,6 @@ public class EditorsPageActivity extends Activity {
 	}
 
 	private void initChannelEditorsPage() {
-		Log.d("test", "+++ channelEditorsPageVO.getLink() : " + channelEditorsPageVO.getLink());
 		tvTitle.setText(channelEditorsPageVO.getTitle());
 		wvContainer.getSettings().setJavaScriptEnabled(true);
 		if(!channelEditorsPageVO.getLink().startsWith("http")) {
@@ -86,7 +85,13 @@ public class EditorsPageActivity extends Activity {
 
 	@OnClick(R.id.ibtn_channel_editors_page_back)
 	public void backPress() {
+		onBackPressed();
+	}
+
+	@Override
+	public void onBackPressed() {
 		super.onBackPressed();
+		doAnimationGoLeft();
 	}
 
 }
