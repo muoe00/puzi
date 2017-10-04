@@ -19,7 +19,9 @@ import com.puzi.puzi.biz.company.CompanyVO;
 import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.ui.company.CompanyDialog;
 import com.puzi.puzi.utils.PuziUtils;
+import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,50 +30,84 @@ import java.util.List;
 
 public class AdvertisementListAdapter extends BaseAdapter {
 
-	private static final int VIEW_CHANNEL = 0;
-	private static final int VIEW_PROGRESS = 1;
+	private static final int VIEW_ADVERTISE = 0;
+	private static final int VIEW_EMPTY = 1;
+	private static final int VIEW_PROGRESS = 2;
 
 	private Context context = null;
 	private LayoutInflater inflater;
-	private List<ReceivedAdvertiseVO> advertiseList;
+	private List<ReceivedAdvertiseVO> list = new ArrayList();
+	@Getter
+	private boolean progressed = false;
+	private boolean empty = false;
 
-	public AdvertisementListAdapter(Context context, List<ReceivedAdvertiseVO> list) {
+	public AdvertisementListAdapter(Context context) {
 		this.context = context;
-		this.advertiseList = list;
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		Log.i(PuziUtils.INFO, "AdvertisementListAdapter advertiseList size : " + advertiseList.size());
+	}
+
+	public void addAdvertiseFirst(ReceivedAdvertiseVO advertiseVO) {
+		empty = false;
+		list.add(0, advertiseVO);
+	}
+
+	public void addAdvertiseList(List<ReceivedAdvertiseVO> advertiseVOList) {
+		if(empty && advertiseVOList.size() > 0) {
+			empty = false;
+		}
+		list.addAll(advertiseVOList);
+	}
+
+	public void empty() {
+		if(!empty){
+			empty = true;
+		}
 	}
 
 	public int getViewTypeCount() {
-		return 1;
+		return 3;
 	}
 
-	public int getItemViewType(int position) { return 1; }
+	public int getItemViewType(int position) {
+		if(empty) {
+			return VIEW_EMPTY;
+		}
+		if(progressed) {
+			if(getCount() - 1 == position) {
+				return VIEW_PROGRESS;
+			}
+		}
+		return VIEW_ADVERTISE;
+	}
 
-	/*public void startProgress() {
-		if(typeList.size() == 0 || VIEW_PROGRESS != typeList.get(typeList.size()-1)) {
-			list.add(new Object());
-			typeList.add(VIEW_PROGRESS);
+	public void startProgress() {
+		if(!progressed) {
+			progressed = true;
 			notifyDataSetChanged();
 		}
 	}
 
 	public void stopProgress() {
-		if(VIEW_PROGRESS == typeList.get(typeList.size()-1)) {
-			list.remove(list.size()-1);
-			typeList.remove(typeList.size()-1);
+		if(progressed) {
+			progressed = false;
 			notifyDataSetChanged();
 		}
-	}*/
+	}
 
 	@Override
 	public int getCount() {
-		return advertiseList.size();
+		if(empty) {
+			return 1;
+		}
+		if(progressed) {
+			return list.size() + 1;
+		}
+		return list.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return advertiseList.get(position);
+		return list.get(position);
 	}
 
 	@Override
@@ -84,51 +120,68 @@ public class AdvertisementListAdapter extends BaseAdapter {
 
 		View v = convertView;
 		ViewHolder viewHolder = null;
+		int viewType = getItemViewType(position);
 
 		if(v == null) {
-			v = inflater.inflate(R.layout.fragment_advertisement_item, null);
-			viewHolder = new ViewHolder(v);
-			v.setTag(viewHolder);
+			switch(viewType) {
+				case VIEW_ADVERTISE:
+					v = inflater.inflate(R.layout.fragment_advertisement_item, null);
+					viewHolder = new ViewHolder(v);
+					v.setTag(viewHolder);
+					break;
+
+				case VIEW_EMPTY:
+					v = inflater.inflate(R.layout.item_list_empty_advertise, null);
+					break;
+
+				case VIEW_PROGRESS:
+					v = inflater.inflate(R.layout.item_list_progressbar, null);
+					break;
+			}
 		} else {
 			viewHolder = (ViewHolder) v.getTag();
 		}
 
-		final ReceivedAdvertiseVO receivedAdvertise = (ReceivedAdvertiseVO) getItem(position);
+		switch(viewType) {
+			case VIEW_ADVERTISE:
+				final ReceivedAdvertiseVO receivedAdvertise = (ReceivedAdvertiseVO) getItem(position);
 
-		Log.i("INFO", "URL Company : " + receivedAdvertise.getLinkPreviewUrl());
+				Log.i("INFO", "URL Company : " + receivedAdvertise.getLinkPreviewUrl());
 
-		BitmapUIL.load(receivedAdvertise.getLinkPreviewUrl(), viewHolder.ivAd);
-		BitmapUIL.load(receivedAdvertise.getLinkPreviewUrl(), viewHolder.ivComp);
+				BitmapUIL.load(receivedAdvertise.getLinkPreviewUrl(), viewHolder.ivAd);
+				BitmapUIL.load(receivedAdvertise.getLinkPreviewUrl(), viewHolder.ivComp);
 
-		final CompanyVO company = receivedAdvertise.getCompanyInfoDTO();
+				final CompanyVO company = receivedAdvertise.getCompanyInfoDTO();
 
-		viewHolder.tvAd.setText(receivedAdvertise.getSendComment());
-		viewHolder.tvComp.setText(company.getCompanyAlias());
+				viewHolder.tvAd.setText(receivedAdvertise.getSendComment());
+				viewHolder.tvComp.setText(company.getCompanyAlias());
 
-		Log.i(PuziUtils.INFO, "adapter.getSaved() : " + receivedAdvertise.getSaved());
-		Log.i(PuziUtils.INFO, "adapter.getToday() : " + receivedAdvertise.getToday());
+				Log.i(PuziUtils.INFO, "adapter.getSaved() : " + receivedAdvertise.getSaved());
+				Log.i(PuziUtils.INFO, "adapter.getToday() : " + receivedAdvertise.getToday());
 
-		if(receivedAdvertise.getSaved() && receivedAdvertise.getToday()) {
-			viewHolder.ivNew.setBackgroundResource(R.drawable.check);
-		} else if(!receivedAdvertise.getSaved() && receivedAdvertise.getToday()) {
-			viewHolder.ivNew.setBackgroundResource(R.drawable.new_);
-		} else {
-			viewHolder.ivNew.setVisibility(View.GONE);
+				if(receivedAdvertise.getSaved() && receivedAdvertise.getToday()) {
+					viewHolder.ivNew.setBackgroundResource(R.drawable.check);
+				} else if(!receivedAdvertise.getSaved() && receivedAdvertise.getToday()) {
+					viewHolder.ivNew.setBackgroundResource(R.drawable.new_);
+				} else {
+					viewHolder.ivNew.setVisibility(View.GONE);
+				}
+
+				viewHolder.btnAd.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						changedDetail(receivedAdvertise);
+					}
+				});
+
+				viewHolder.btnCompany.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						changedCompany(company);
+					}
+				});
+				break;
 		}
-
-		viewHolder.btnAd.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				changedDetail(receivedAdvertise);
-			}
-		});
-
-		viewHolder.btnCompany.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				changedCompany(company);
-			}
-		});
 
 		return v;
 	}
@@ -146,6 +199,15 @@ public class AdvertisementListAdapter extends BaseAdapter {
 		intent.putExtra("name", company.getCompanyAlias());
 		intent.putExtra("url", company.getPictureUrl());
 		context.startActivity(intent);
+	}
+
+	public void changeSaved(int adId, boolean saved) {
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getReceivedAdvertiseId() == adId) {
+				list.get(i).setSaved(saved);
+			}
+		}
+		notifyDataSetChanged();
 	}
 
 	public class ViewHolder {
