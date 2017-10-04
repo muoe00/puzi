@@ -59,6 +59,7 @@ public class AdvertisementDetailActivity extends Activity {
 	private long startTime;
 	private int touchCount, channelId;
 	private boolean isChanged = false;
+	private ReceivedAdvertiseVO receivedAdvertise;
 	private ScheduledExecutorService executors = Executors.newSingleThreadScheduledExecutor();
 
 	@Override
@@ -71,10 +72,10 @@ public class AdvertisementDetailActivity extends Activity {
 		startTime = System.currentTimeMillis();
 
 		Intent intent = getIntent();
-		ReceivedAdvertiseVO receivedAdvertise = (ReceivedAdvertiseVO) intent.getExtras().getSerializable("advertise");
+		receivedAdvertise = (ReceivedAdvertiseVO) intent.getExtras().getSerializable("advertise");
 
-		Log.i(PuziUtils.INFO, "receivedAdvertise.getSaved() : " + receivedAdvertise.getSaved());
-		Log.i(PuziUtils.INFO, "receivedAdvertise.getToday() : " + receivedAdvertise.getToday());
+		Log.i(PuziUtils.INFO, "detail.getSaved() : " + receivedAdvertise.getSaved());
+		Log.i(PuziUtils.INFO, "detail.getToday() : " + receivedAdvertise.getToday());
 
 		progressBar.setVisibility(View.GONE);
 		llDialog.setVisibility(View.GONE);
@@ -222,7 +223,7 @@ public class AdvertisementDetailActivity extends Activity {
 
 		String token = Preference.getProperty(AdvertisementDetailActivity.this, "token");
 
-		Call<ResponseVO> call = advertisementNetworkService.pointSave(token, 1, answer);
+		Call<ResponseVO> call = advertisementNetworkService.pointSave(token, receivedAdvertise.getCmpnId(), answer);
 		call.enqueue(new CustomCallback<ResponseVO>(AdvertisementDetailActivity.this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
@@ -231,7 +232,15 @@ public class AdvertisementDetailActivity extends Activity {
 					case SUCCESS:
 						Toast.makeText(getBaseContext(), "적립되었습니다.", Toast.LENGTH_SHORT).show();
 
+						Intent intent = new Intent();
+						intent.putExtra("advertiseIndex", receivedAdvertise.getReceivedAdvertiseId());
+						intent.putExtra("pointSavedState", true);
 
+						Log.i(PuziUtils.INFO, "advertiseIndex : " + receivedAdvertise.getReceivedAdvertiseId());
+
+						setResult(Activity.RESULT_OK, intent);
+
+						// finish();
 
 						break;
 
@@ -258,6 +267,8 @@ public class AdvertisementDetailActivity extends Activity {
 		Intent intent = new Intent(AdvertisementDetailActivity.this, MainActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
+
+		finish();
 	}
 
 	@OnClick(R.id.btn_back_page)

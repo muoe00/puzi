@@ -83,7 +83,6 @@
         android:layout_height="16dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/new_"
         android:id="@+id/iv_advertiseNew"/>
     </LinearLayout>
 

@@ -87,9 +87,12 @@ public class AdvertisementListAdapter extends BaseAdapter {
 		tvAd.setText(receivedAdvertise.getSendComment());
 		tvComp.setText(company.getCompanyAlias());
 
-		if(receivedAdvertise.getSaved()) {
+		Log.i(PuziUtils.INFO, "adapter.getSaved() : " + receivedAdvertise.getSaved());
+		Log.i(PuziUtils.INFO, "adapter.getToday() : " + receivedAdvertise.getToday());
+
+		if(receivedAdvertise.getSaved() && receivedAdvertise.getToday()) {
 			ivNew.setBackgroundResource(R.drawable.check);
-		} else if(receivedAdvertise.getToday()) {
+		} else if(!receivedAdvertise.getSaved() && receivedAdvertise.getToday()) {
 			ivNew.setBackgroundResource(R.drawable.new_);
 		} else {
 			ivNew.setVisibility(View.GONE);
