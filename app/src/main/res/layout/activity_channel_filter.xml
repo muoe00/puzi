@@ -4,311 +4,309 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-  <LinearLayout
-    android:orientation="horizontal"
+  <ScrollView
     android:layout_width="match_parent"
-    android:background="#ffffff"
-    android:layout_height="40dp">
+    android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+      <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:background="#ffffff"
+        android:layout_height="match_parent">
 
-    <ImageButton
-      android:layout_width="28dp"
-      android:layout_height="40dp"
-      android:paddingLeft="8dp"
-      android:paddingRight="8dp"
-      android:paddingTop="10dp"
-      android:paddingBottom="10dp"
-      android:src="@drawable/back"
-      android:background="#00000000"
-      android:id="@+id/ibtn_channel_filter_back"/>
+        <ImageButton
+          android:layout_width="28dp"
+          android:layout_height="40dp"
+          android:paddingLeft="8dp"
+          android:paddingRight="8dp"
+          android:paddingTop="10dp"
+          android:paddingBottom="10dp"
+          android:src="@drawable/back"
+          android:background="#00000000"
+          android:id="@+id/ibtn_channel_filter_back"/>
 
-    <TextView
-      android:text="필터링"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:gravity="center_horizontal"
-      android:textColor="#333333"
-      android:layout_marginRight="28dp"
-      android:textSize="16sp"
-      android:layout_gravity="center_vertical"
-      android:layout_weight="1"/>
+        <TextView
+          android:text="필터링"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:gravity="center_horizontal"
+          android:textColor="#333333"
+          android:layout_marginRight="28dp"
+          android:textSize="16sp"
+          android:layout_gravity="center_vertical"
+          android:layout_weight="1"/>
 
-  </LinearLayout>
+      </LinearLayout>
+      <TextView
+        android:text="성별"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#333333" android:id="@+id/textView4"/>
+      <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+          android:layout_gravity="center_vertical"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:src="@drawable/oval_4_copy_2"
+          android:background="#00000000"
+          android:id="@+id/ibtn_channel_filter_male"/>
+
+        <TextView
+          android:text="남성"
+          android:layout_marginRight="20dp"
+          android:layout_gravity="center_vertical"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="20sp"
+          android:textColor="#333333"/>
+
+        <ImageButton
+          android:layout_gravity="center_vertical"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:src="@drawable/oval_4_copy_2"
+          android:background="#00000000"
+          android:id="@+id/ibtn_channel_filter_female"/>
+
+        <TextView
+          android:text="여성"
+          android:layout_gravity="center_vertical"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="20sp"
+          android:textColor="#333333"/>
+
+      </LinearLayout>
+      <TextView
+        android:text="연령대"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#333333" android:id="@+id/textView3" android:layout_weight="1"/>
+      <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+          android:orientation="vertical"
+          android:layout_width="80dp"
+          android:layout_height="wrap_content">
+
+          <ImageButton
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:src="@drawable/oval_4_copy_2"
+            android:background="#00000000"
+            android:id="@+id/ibtn_channel_filter_10"/>
+          <TextView
+            android:text="10대"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#333333"/>
+        </LinearLayout>
+
+        <LinearLayout
+          android:orientation="vertical"
+          android:layout_width="80dp"
+          android:layout_height="wrap_content">
+
+          <ImageButton
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:src="@drawable/oval_4_copy_2"
+            android:background="#00000000"
+            android:id="@+id/ibtn_channel_filter_20"/>
+
+          <TextView
+            android:text="20대"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#333333"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:orientation="vertical"
+          android:layout_width="80dp"
+          android:layout_height="wrap_content">
+
+          <ImageButton
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:src="@drawable/oval_4_copy_2"
+            android:background="#00000000"
+            android:id="@+id/ibtn_channel_filter_30"/>
+
+          <TextView
+            android:text="30대"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#333333"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:orientation="vertical"
+          android:layout_width="80dp"
+          android:layout_height="wrap_content">
+
+          <ImageButton
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:src="@drawable/oval_4_copy_2"
+            android:background="#00000000"
+            android:id="@+id/ibtn_channel_filter_40"/>
+
+          <TextView
+            android:text="40대이상"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#333333"/>
+
+        </LinearLayout>
+
+      </LinearLayout>
+      <TextView
+        android:text="관심사"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#333333" android:id="@+id/textView2"/>
+      <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="match_parent">
+
+        <Button
+          android:text="뷰티"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/btn_channel_filter_beauty"
+          android:layout_weight="1"/>
+
+        <Button
+          android:text="쇼핑"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/btn_channel_filter_shopping"
+          android:layout_weight="1"/>
+
+      </LinearLayout>
+      <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="match_parent" android:layout_weight="1">
+
+        <Button
+          android:text="외식"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/btn_channel_filter_eat"
+          android:layout_weight="1"/>
+
+        <Button
+          android:text="여행"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/btn_channel_filter_tour"
+          android:layout_weight="1"/>
+
+      </LinearLayout>
+      <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="match_parent">
+
+        <Button
+          android:text="문화"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/btn_channel_filter_culture"
+          android:layout_weight="1"/>
+
+        <Button
+          android:text="게임"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/btn_channel_filter_game"
+          android:layout_weight="1"/>
+
+      </LinearLayout>
+      <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="match_parent">
+
+        <Button
+          android:text="금융"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:id="@+id/btn_channel_filter_finance"
+          android:layout_weight="1"/>
+
+        <LinearLayout
+          android:layout_weight="1"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"/>
+      </LinearLayout>
+      <Button
+        android:text="전체선택"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/btn_channel_filter_all" android:layout_weight="1"/>
+      <Button
+        android:text="선택완료"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/btn_channel_filter_confirm"/>
+    </LinearLayout>
+  </ScrollView>
 
   <!-- 성별 -->
-  <TextView
-    android:text="성별"
-    android:layout_marginLeft="20dp"
-    android:layout_marginTop="20dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textSize="20sp"
-    android:textColor="#333333"/>
-
-  <LinearLayout
-    android:layout_gravity="center_horizontal"
-    android:layout_marginTop="8dp"
-    android:orientation="horizontal"
-    android:layout_width="wrap_content"
-    android:layout_height="56dp">
-
-    <ImageButton
-      android:layout_gravity="center_vertical"
-      android:layout_width="40dp"
-      android:layout_height="40dp"
-      android:src="@drawable/oval_4_copy_2"
-      android:background="#00000000"
-      android:id="@+id/ibtn_channel_filter_male"/>
-
-    <TextView
-      android:text="남성"
-      android:layout_marginRight="20dp"
-      android:layout_gravity="center_vertical"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textSize="20sp"
-      android:textColor="#333333"/>
-
-    <ImageButton
-      android:layout_gravity="center_vertical"
-      android:layout_width="40dp"
-      android:layout_height="40dp"
-      android:src="@drawable/oval_4_copy_2"
-      android:background="#00000000"
-      android:id="@+id/ibtn_channel_filter_female"/>
-
-    <TextView
-      android:text="여성"
-      android:layout_gravity="center_vertical"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textSize="20sp"
-      android:textColor="#333333"/>
-
-  </LinearLayout>
 
   <!-- 연령대 -->
-  <TextView
-    android:text="연령대"
-    android:layout_marginLeft="20dp"
-    android:layout_marginTop="20dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textSize="20sp"
-    android:textColor="#333333"/>
-
-  <LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:layout_height="76dp">
-
-    <LinearLayout
-      android:orientation="vertical"
-      android:layout_width="80dp"
-      android:layout_height="wrap_content">
-
-      <ImageButton
-        android:layout_gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:src="@drawable/oval_4_copy_2"
-        android:background="#00000000"
-        android:id="@+id/ibtn_channel_filter_10"/>
-      <TextView
-        android:text="10대"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="#333333"/>
-    </LinearLayout>
-
-    <LinearLayout
-      android:orientation="vertical"
-      android:layout_width="80dp"
-      android:layout_height="wrap_content">
-
-      <ImageButton
-        android:layout_gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:src="@drawable/oval_4_copy_2"
-        android:background="#00000000"
-        android:id="@+id/ibtn_channel_filter_20"/>
-
-      <TextView
-        android:text="20대"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="#333333"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-      android:orientation="vertical"
-      android:layout_width="80dp"
-      android:layout_height="wrap_content">
-
-      <ImageButton
-        android:layout_gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:src="@drawable/oval_4_copy_2"
-        android:background="#00000000"
-        android:id="@+id/ibtn_channel_filter_30"/>
-
-      <TextView
-        android:text="30대"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="#333333"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-      android:orientation="vertical"
-      android:layout_width="80dp"
-      android:layout_height="wrap_content">
-
-      <ImageButton
-        android:layout_gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:src="@drawable/oval_4_copy_2"
-        android:background="#00000000"
-        android:id="@+id/ibtn_channel_filter_40"/>
-
-      <TextView
-        android:text="40대이상"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="#333333"/>
-
-    </LinearLayout>
-
-  </LinearLayout>
 
   <!-- 관심사 -->
-  <TextView
-    android:text="관심사"
-    android:layout_marginLeft="20dp"
-    android:layout_marginTop="20dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textSize="20sp"
-    android:textColor="#333333"/>
-
-  <LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_height="40dp">
-
-    <Button
-      android:text="뷰티"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/btn_channel_filter_beauty"
-      android:layout_weight="1"/>
-
-    <Button
-      android:text="쇼핑"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/btn_channel_filter_shopping"
-      android:layout_weight="1"/>
-
-  </LinearLayout>
-
-  <LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_height="40dp">
-
-    <Button
-      android:text="외식"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/btn_channel_filter_eat"
-      android:layout_weight="1"/>
-
-    <Button
-      android:text="여행"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/btn_channel_filter_tour"
-      android:layout_weight="1"/>
-
-  </LinearLayout>
-
-  <LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_height="40dp">
-
-    <Button
-      android:text="문화"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/btn_channel_filter_culture"
-      android:layout_weight="1"/>
-
-    <Button
-      android:text="게임"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/btn_channel_filter_game"
-      android:layout_weight="1"/>
-
-  </LinearLayout>
-
-  <LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_height="40dp">
-
-    <Button
-      android:text="금융"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:id="@+id/btn_channel_filter_finance"
-      android:layout_weight="1"/>
-
-    <LinearLayout
-      android:layout_weight="1"
-      android:layout_width="0dp"
-      android:layout_height="match_parent"/>
-  </LinearLayout>
-
-  <Button
-    android:text="전체선택"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:id="@+id/btn_channel_filter_all"/>
-
-  <Button
-    android:text="선택완료"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:id="@+id/btn_channel_filter_confirm"/>
 
 </LinearLayout>
