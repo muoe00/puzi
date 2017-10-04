@@ -1,5 +1,6 @@
 package com.puzi.puzi.ui;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import com.puzi.puzi.ui.advertisement.AdvertisementFragment;
 import com.puzi.puzi.ui.channel.ChannelFragment;
@@ -12,7 +13,7 @@ import com.puzi.puzi.ui.store.StoreFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
-	public PagerAdapter(android.support.v4.app.FragmentManager fragmentManager) {
+	public PagerAdapter(FragmentManager fragmentManager) {
 		super(fragmentManager);
 	}
 

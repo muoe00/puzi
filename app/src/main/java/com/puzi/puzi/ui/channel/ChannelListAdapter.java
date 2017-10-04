@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.joooonho.SelectableRoundedImageView;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelEditorsPageVO;
 import com.puzi.puzi.biz.channel.ChannelVO;
@@ -211,12 +212,12 @@ public class ChannelListAdapter extends BaseAdapter {
 	}
 
 	public class ChannelViewHolder {
-		@BindView(R.id.ibtn_item_channel_image_1) public ImageButton ibtnImage1;
-		@BindView(R.id.ibtn_item_channel_image_2) public ImageButton ibtnImage2;
+		@BindView(R.id.ibtn_item_channel_image_1) public SelectableRoundedImageView ibtnImage1;
+		@BindView(R.id.ibtn_item_channel_image_2) public SelectableRoundedImageView ibtnImage2;
 		@BindView(R.id.tv_item_channel_title_1) public Button btnTitle1;
 		@BindView(R.id.tv_item_channel_title_2) public Button btnTitle2;
-		@BindView(R.id.ibtn_item_channel_company_image_1) public ImageButton ibtnCompany1;
-		@BindView(R.id.ibtn_item_channel_company_image_2) public ImageButton ibtnCompany2;
+		@BindView(R.id.ibtn_item_channel_company_image_1) public SelectableRoundedImageView ibtnCompany1;
+		@BindView(R.id.ibtn_item_channel_company_image_2) public SelectableRoundedImageView ibtnCompany2;
 		@BindView(R.id.tv_item_channel_score_1) public TextView tvScore1;
 		@BindView(R.id.tv_item_channel_score_2) public TextView tvScore2;
 		@BindView(R.id.iv_item_channel_company_star_1) public ImageView ivStar1;

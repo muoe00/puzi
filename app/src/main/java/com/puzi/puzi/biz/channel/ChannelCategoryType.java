@@ -31,9 +31,8 @@ public enum ChannelCategoryType implements Serializable {
 
 	@Getter
 	private Class parentClass;
-
+	@Getter
 	private String comment;
-
 	@Getter
 	private int resource;
 
