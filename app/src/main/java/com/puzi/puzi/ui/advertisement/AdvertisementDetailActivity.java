@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
+import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.channel.ChannelDetailActivity;
 import com.puzi.puzi.ui.company.CompanyDialog;
@@ -49,9 +50,9 @@ public class AdvertisementDetailActivity extends Activity {
 	@BindView(R.id.tv_ad_answer_first) public TextView firstAnswer;
 	@BindView(R.id.tv_ad_answer_second) public TextView secondAnswer;
 
-	private String url, companyId, channelId;
+	private String url;
 	private long startTime;
-	private int touchCount;
+	private int touchCount, channelId;
 	private boolean isChanged = false;
 	private ScheduledExecutorService executors = Executors.newSingleThreadScheduledExecutor();
 
@@ -65,12 +66,23 @@ public class AdvertisementDetailActivity extends Activity {
 		startTime = System.currentTimeMillis();
 
 		Intent intent = getIntent();
-		String quiz = intent.getStringExtra("quiz");
-		String answerOne = intent.getStringExtra("firstAnswer");
-		String answerTwo = intent.getStringExtra("secondAnswer");
-		channelId = intent.getStringExtra("channelId");
-		url = intent.getStringExtra("url");
-		companyId = intent.getStringExtra("companyId");
+		ReceivedAdvertiseVO receivedAdvertise = (ReceivedAdvertiseVO) intent.getExtras().getSerializable("advertise");
+
+		Log.i(PuziUtils.INFO, "receivedAdvertise.getSaved() : " + receivedAdvertise.getSaved());
+
+		progressBar.setVisibility(View.GONE);
+		llDialog.setVisibility(View.GONE);
+
+		if(!receivedAdvertise.getSaved()) {
+			DialogAsync dialogAsync = new DialogAsync();
+			dialogAsync.execute();
+		}
+
+		String quiz = receivedAdvertise.getQuiz();
+		String answerOne = receivedAdvertise.getAnswerOne();
+		String answerTwo = receivedAdvertise.getAnswerTwo();
+		channelId = receivedAdvertise.getChannelId();
+		url = receivedAdvertise.getLink();
 
 		tvQuiz.setText(quiz);
 		firstAnswer.setText(answerOne);
@@ -81,12 +93,6 @@ public class AdvertisementDetailActivity extends Activity {
 		webSettings.setJavaScriptEnabled(true);
 
 		webView.loadUrl(url);
-
-		progressBar.setVisibility(View.GONE);
-		llDialog.setVisibility(View.GONE);
-
-		DialogAsync dialogAsync = new DialogAsync();
-		dialogAsync.execute();
 
 		executors.scheduleAtFixedRate(new Runnable() {
 			@Override
@@ -199,8 +205,8 @@ public class AdvertisementDetailActivity extends Activity {
 		Log.i(PuziUtils.INFO, "startTime : " + startTime);
 		Log.i(PuziUtils.INFO, "endTime : " + endTime);
 
-		// TODO: Network (companyId, touchCount, stayTime, isChanged)
-		Log.i(PuziUtils.INFO, "companyId : " + companyId + ", touchCount : " + touchCount + ", stayTime : " + stayTime + ", isChanged : " + isChanged);
+		// TODO: Network (cmpnId, touchCount, stayTime, isChanged)
+		Log.i(PuziUtils.INFO, "touchCount : " + touchCount + ", stayTime : " + stayTime + ", isChanged : " + isChanged);
 
 		Intent intent = new Intent(AdvertisementDetailActivity.this, MainActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -219,7 +225,7 @@ public class AdvertisementDetailActivity extends Activity {
 	@OnClick(R.id.btn_channel_web)
 	public void changedChannel() {
 		Intent intent = new Intent(AdvertisementDetailActivity.this, ChannelDetailActivity.class);
-		intent.putExtra("channelId", Integer.parseInt(channelId));
+		intent.putExtra("channelId", channelId);
 		startActivity(intent);
 	}
 
@@ -231,8 +237,6 @@ public class AdvertisementDetailActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		if(webView.canGoBack()) {
-			webView.goBack();
-		}
+		backPage();
 	}
 }

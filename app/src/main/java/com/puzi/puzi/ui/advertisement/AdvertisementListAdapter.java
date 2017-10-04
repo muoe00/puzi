@@ -2,6 +2,7 @@ package com.puzi.puzi.ui.advertisement;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,9 +29,6 @@ import java.util.List;
  */
 
 public class AdvertisementListAdapter extends BaseAdapter {
-
-	private static final int VIEW_ADVERTISE = 0;
-	private static final int VIEW_PROGRESS = 1;
 
 	Unbinder unbinder;
 
@@ -89,8 +87,10 @@ public class AdvertisementListAdapter extends BaseAdapter {
 		tvAd.setText(receivedAdvertise.getSendComment());
 		tvComp.setText(company.getCompanyAlias());
 
-		if(receivedAdvertise.getIsNew()) {
-			ivNew.setVisibility(View.VISIBLE);
+		if(receivedAdvertise.getSaved()) {
+			ivNew.setBackgroundResource(R.drawable.check);
+		} else if(receivedAdvertise.getIsNew()) {
+			ivNew.setBackgroundResource(R.drawable.new_);
 		} else {
 			ivNew.setVisibility(View.GONE);
 		}
@@ -101,12 +101,9 @@ public class AdvertisementListAdapter extends BaseAdapter {
 	@OnClick(R.id.btn_advertiseWv)
 	public void changedDetail() {
 		Intent intent = new Intent(context, AdvertisementDetailActivity.class);
-		intent.putExtra("channelId", receivedAdvertise.getChannelId());
-		intent.putExtra("quiz", receivedAdvertise.getQuiz());
-		intent.putExtra("firstAnswer", receivedAdvertise.getAnswerOne());
-		intent.putExtra("secondAnswer", receivedAdvertise.getAnswerTwo());
-		intent.putExtra("url", receivedAdvertise.getLink());
-		intent.putExtra("companyId", company.getCompanyAlias());
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("advertise", receivedAdvertise);
+		intent.putExtras(bundle);
 		context.startActivity(intent);
 	}
 

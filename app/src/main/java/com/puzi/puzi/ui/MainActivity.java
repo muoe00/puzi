@@ -204,9 +204,9 @@ public class MainActivity extends FragmentActivity {
 
 	@Override
 	public void onBackPressed() {
-
 		int entrySize = getSupportFragmentManager().getBackStackEntryCount();
 		Log.i("INFO", "MainActivity entrySize : " + entrySize);
+
 		if(entrySize <= 1){
 			if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
 				backKeyPressedTime = System.currentTimeMillis();
