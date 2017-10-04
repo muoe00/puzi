@@ -5,16 +5,14 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelEditorsPageVO;
 import com.puzi.puzi.biz.channel.ChannelVO;
 import com.puzi.puzi.image.BitmapUIL;
+import com.puzi.puzi.utils.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +53,12 @@ public class ChannelListAdapter extends BaseAdapter {
 			typeList.remove(typeList.size()-1);
 			notifyDataSetChanged();
 		}
+	}
+
+	public void removeAll() {
+		list = newArrayList();
+		typeList = newArrayList();
+		notifyDataSetChanged();
 	}
 
 	public void addChannel(List<ChannelVO> channelList) {
@@ -155,7 +159,7 @@ public class ChannelListAdapter extends BaseAdapter {
 				BitmapUIL.load(firstChannel.getPictureUrl(), channelHolder.ibtnImage1);
 				channelHolder.btnTitle1.setText(firstChannel.getTitle());
 				BitmapUIL.load(firstChannel.getCompanyInfoDTO().getPictureUrl(), channelHolder.ibtnCompany1);
-				channelHolder.tvScore1.setText(firstChannel.getAverageScore() + "/10");
+				channelHolder.tvScore1.setText(firstChannel.getAverageScore() + "/5");
 
 				View.OnClickListener listener1 = new View.OnClickListener() {
 
@@ -168,13 +172,15 @@ public class ChannelListAdapter extends BaseAdapter {
 				};
 				channelHolder.ibtnImage1.setOnClickListener(listener1);
 				channelHolder.btnTitle1.setOnClickListener(listener1);
+				UIUtils.setEvaluateStarScoreImage(firstChannel.getAverageScore(), channelHolder.ivStar1, channelHolder.ivStar2, channelHolder.ivStar3,
+					channelHolder.ivStar4, channelHolder.ivStar5, R.drawable.oval_2_copy_3, R.drawable.oval_2_copy_7);
 
 				if(channelList.size() > 1) {
 					final ChannelVO secondChannel = channelList.get(1);
 					BitmapUIL.load(secondChannel.getPictureUrl(), channelHolder.ibtnImage2);
 					channelHolder.btnTitle2.setText(secondChannel.getTitle());
 					BitmapUIL.load(secondChannel.getCompanyInfoDTO().getPictureUrl(), channelHolder.ibtnCompany2);
-					channelHolder.tvScore2.setText(secondChannel.getAverageScore() + "/10");
+					channelHolder.tvScore2.setText(secondChannel.getAverageScore() + "/5");
 
 					View.OnClickListener listener2 = new View.OnClickListener() {
 
@@ -187,13 +193,15 @@ public class ChannelListAdapter extends BaseAdapter {
 					};
 					channelHolder.ibtnImage2.setOnClickListener(listener2);
 					channelHolder.btnTitle2.setOnClickListener(listener2);
+					UIUtils.setEvaluateStarScoreImage(secondChannel.getAverageScore(), channelHolder.ivStar21, channelHolder.ivStar22, channelHolder.ivStar23,
+						channelHolder.ivStar24, channelHolder.ivStar25, R.drawable.oval_2_copy_3, R.drawable.oval_2_copy_7);
 				}
 
 				break;
 
 			case VIEW_EDITORSPAGE:
 				ChannelEditorsPageVO channelEditorsPageVO = (ChannelEditorsPageVO) getItem(position);
-				BitmapUIL.load(channelEditorsPageVO.getPreviewUrl(), editorsPageHolder.ibtnImage);
+				BitmapUIL.load(channelEditorsPageVO.getPreviewUrl(), editorsPageHolder.ivImage);
 				editorsPageHolder.tvTitle.setText(channelEditorsPageVO.getTitle());
 				editorsPageHolder.tvName.setText(channelEditorsPageVO.getCreatedBy());
 				break;
@@ -211,6 +219,16 @@ public class ChannelListAdapter extends BaseAdapter {
 		@BindView(R.id.ibtn_item_channel_company_image_2) public ImageButton ibtnCompany2;
 		@BindView(R.id.tv_item_channel_score_1) public TextView tvScore1;
 		@BindView(R.id.tv_item_channel_score_2) public TextView tvScore2;
+		@BindView(R.id.iv_item_channel_company_star_1) public ImageView ivStar1;
+		@BindView(R.id.iv_item_channel_company_star_2) public ImageView ivStar2;
+		@BindView(R.id.iv_item_channel_company_star_3) public ImageView ivStar3;
+		@BindView(R.id.iv_item_channel_company_star_4) public ImageView ivStar4;
+		@BindView(R.id.iv_item_channel_company_star_5) public ImageView ivStar5;
+		@BindView(R.id.iv_item_channel_company_star2_1) public ImageView ivStar21;
+		@BindView(R.id.iv_item_channel_company_star2_2) public ImageView ivStar22;
+		@BindView(R.id.iv_item_channel_company_star2_3) public ImageView ivStar23;
+		@BindView(R.id.iv_item_channel_company_star2_4) public ImageView ivStar24;
+		@BindView(R.id.iv_item_channel_company_star2_5) public ImageView ivStar25;
 
 		public ChannelViewHolder(View view) {
 			ButterKnife.bind(this, view);
@@ -218,7 +236,7 @@ public class ChannelListAdapter extends BaseAdapter {
 	}
 
 	public class EditorsPageViewHolder {
-		@BindView(R.id.iv_item_channel_editor_image) public ImageButton ibtnImage;
+		@BindView(R.id.iv_item_channel_editor_image) public ImageView ivImage;
 		@BindView(R.id.tv_item_channel_editor_title) public TextView tvTitle;
 		@BindView(R.id.tv_item_channel_editor_name) public TextView tvName;
 

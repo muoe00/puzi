@@ -10,14 +10,18 @@ import android.view.View;
 import android.widget.*;
 import butterknife.*;
 import com.puzi.puzi.R;
+import com.puzi.puzi.biz.channel.ChannelCategoryType;
 import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
+import com.puzi.puzi.ui.channel.ChannelFilterActivity;
+import com.puzi.puzi.ui.channel.ChannelFragment;
 import com.puzi.puzi.ui.user.PointActivity;
 import com.puzi.puzi.ui.user.RecommendActivity;
+import com.puzi.puzi.utils.SerializeUtils;
 import retrofit2.Call;
 
 import java.text.NumberFormat;
@@ -42,6 +46,7 @@ public class MainActivity extends FragmentActivity {
 	@BindView(R.id.btn_channel) public Button btnChannel;
 	@BindView(R.id.btn_store) public Button btnStore;
 	@BindView(R.id.btn_setting) public Button btnSetting;
+	@BindView(R.id.ibtn_right_button) public ImageButton ibtnRightButton;
 
 	public static final int FRAGMENT_ADVERTISE = 0;
 	public static final int FRAGMENT_CHANNEL = 1;
@@ -50,7 +55,6 @@ public class MainActivity extends FragmentActivity {
 
 	private UserVO userVO;
 	private long backKeyPressedTime;
-	private Fragment currentFragment = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -110,15 +114,34 @@ public class MainActivity extends FragmentActivity {
 		});
 	}
 
-	@OnClick({R.id.btn_pointhistory, R.id.btn_level, R.id.ibtn_recommend})
+	@OnClick({R.id.btn_pointhistory, R.id.btn_level, R.id.ibtn_right_button})
 	public void changePage(View view) {
 		Intent intent = null;
 		switch (view.getId()) {
 			case R.id.btn_pointhistory:
 				intent = new Intent(MainActivity.this, PointActivity.class);
 				break;
-			case R.id.ibtn_recommend:
-				intent = new Intent(MainActivity.this, RecommendActivity.class);
+			case R.id.ibtn_right_button:
+				switch (viewPager.getCurrentItem()) {
+					case FRAGMENT_ADVERTISE:
+						intent = new Intent(MainActivity.this, RecommendActivity.class);
+						break;
+
+					case FRAGMENT_CHANNEL:
+						intent = new Intent(MainActivity.this, ChannelFilterActivity.class);
+						List<ChannelCategoryType> categoryTypeList = null;
+						for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+							if (fragment.isVisible()) {
+								if(fragment instanceof ChannelFragment){
+									ChannelFragment channelFragment = (ChannelFragment) fragment;
+									categoryTypeList = channelFragment.getCategoryTypeList();
+								}
+							}
+						}
+						intent.putStringArrayListExtra("categoryTypeList", SerializeUtils.convertToString(categoryTypeList));
+						startActivityForResult(intent, 0);
+						return;
+				}
 				break;
 			default:
 				break;
@@ -175,12 +198,14 @@ public class MainActivity extends FragmentActivity {
 				ivChannel.setBackgroundResource(R.drawable.channel);
 				ivStore.setBackgroundResource(R.drawable.store);
 				ivSetting.setBackgroundResource(R.drawable.gear);
+				ibtnRightButton.setBackgroundResource(R.drawable.add_friend);
 				return;
 			case FRAGMENT_CHANNEL:
 				ivAdvertise.setBackgroundResource(R.drawable.home);
 				ivChannel.setBackgroundResource(R.drawable.channel_selected);
 				ivStore.setBackgroundResource(R.drawable.store);
 				ivSetting.setBackgroundResource(R.drawable.gear);
+				ibtnRightButton.setBackgroundResource(R.drawable.filter);
 				return;
 			case FRAGMENT_STORE:
 				ivAdvertise.setBackgroundResource(R.drawable.home);
@@ -198,6 +223,32 @@ public class MainActivity extends FragmentActivity {
 
 	}
 
+	/**
+	 * 현재 채널 필터링에 이용
+	 * @param requestCode
+	 * @param resultCode
+	 * @param data
+	 */
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (resultCode) {
+			case RESULT_OK:
+				List<ChannelCategoryType> categoryTypeList =
+					SerializeUtils.convertToType((List<String>) data.getSerializableExtra("categoryTypeList"));
+				if(categoryTypeList != null && categoryTypeList.size() != 0 && viewPager.getCurrentItem() == FRAGMENT_CHANNEL) {
+					for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+						if (fragment.isVisible()) {
+							if(fragment instanceof ChannelFragment){
+								ChannelFragment channelFragment = (ChannelFragment) fragment;
+								channelFragment.refresh(categoryTypeList);
+							}
+						}
+					}
+				}
+				break;
+		}
+	}
+
 	@Override
 	public void onBackPressed() {
 		int entrySize = getSupportFragmentManager().getBackStackEntryCount();
@@ -212,16 +263,6 @@ public class MainActivity extends FragmentActivity {
 				finish();
 			}
 		} else {
-			List<Fragment> fragments = getSupportFragmentManager().getFragments();
-			for(int i=0;i<fragments.size();i++){
-				if(fragments.get(i) != null && fragments.get(i).isVisible()){
-					if(i != 0){
-						currentFragment = (Fragment) fragments.get(i-1);
-					} else {
-						currentFragment = (Fragment) fragments.get(i);
-					}
-				}
-			}
 			getSupportFragmentManager().popBackStack();
 		}
 	}

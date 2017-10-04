@@ -63,35 +63,35 @@
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
           android:src="@drawable/oval_2_copy_3"
-          android:id="@+id/imageView"/>
+          android:id="@+id/iv_item_channel_company_star_1"/>
         <ImageView
           android:layout_gravity="center_vertical"
           android:layout_width="8dp"
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
           android:src="@drawable/oval_2_copy_3"
-          android:id="@+id/imageView"/>
+          android:id="@+id/iv_item_channel_company_star_2"/>
         <ImageView
           android:layout_gravity="center_vertical"
           android:layout_width="8dp"
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
           android:src="@drawable/oval_2_copy_3"
-          android:id="@+id/imageView"/>
+          android:id="@+id/iv_item_channel_company_star_3"/>
         <ImageView
           android:layout_gravity="center_vertical"
           android:layout_width="8dp"
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
           android:src="@drawable/oval_2_copy_3"
-          android:id="@+id/imageView"/>
+          android:id="@+id/iv_item_channel_company_star_4"/>
         <ImageView
           android:layout_gravity="center_vertical"
           android:layout_width="8dp"
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
           android:src="@drawable/oval_2_copy_3"
-          android:id="@+id/imageView"/>
+          android:id="@+id/iv_item_channel_company_star_5"/>
 
         <TextView
           android:layout_gravity="center_vertical"
@@ -156,35 +156,35 @@
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
           android:src="@drawable/oval_2_copy_3"
-          android:id="@+id/imageView"/>
+          android:id="@+id/iv_item_channel_company_star2_1"/>
         <ImageView
           android:layout_gravity="center_vertical"
           android:layout_width="8dp"
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
           android:src="@drawable/oval_2_copy_3"
-          android:id="@+id/imageView"/>
+          android:id="@+id/iv_item_channel_company_star2_2"/>
         <ImageView
           android:layout_gravity="center_vertical"
           android:layout_width="8dp"
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
           android:src="@drawable/oval_2_copy_3"
-          android:id="@+id/imageView"/>
+          android:id="@+id/iv_item_channel_company_star2_3"/>
         <ImageView
           android:layout_gravity="center_vertical"
           android:layout_width="8dp"
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
           android:src="@drawable/oval_2_copy_3"
-          android:id="@+id/imageView"/>
+          android:id="@+id/iv_item_channel_company_star2_4"/>
         <ImageView
           android:layout_gravity="center_vertical"
           android:layout_width="8dp"
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
           android:src="@drawable/oval_2_copy_3"
-          android:id="@+id/imageView"/>
+          android:id="@+id/iv_item_channel_company_star2_5"/>
 
         <TextView
           android:layout_gravity="center_vertical"

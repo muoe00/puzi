@@ -41,6 +41,7 @@
     <activity android:name=".ui.store.withdraw.WithdrawActivity"></activity>
     <activity android:name=".ui.store.coupon.CouponActivity"></activity>
     <activity android:name=".ui.channel.editorspage.EditorsPageActivity"/>
+    <activity android:name=".ui.channel.ChannelFilterActivity"/>
 
     <activity
       android:name=".ui.company.CompanyDialog"

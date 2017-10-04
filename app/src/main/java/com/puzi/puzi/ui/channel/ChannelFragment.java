@@ -3,6 +3,7 @@ package com.puzi.puzi.ui.channel;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.ChannelNetworkService;
 import com.puzi.puzi.ui.channel.editorspage.EditorsPageActivity;
+import lombok.Getter;
 import retrofit2.Call;
 
 import java.util.Arrays;
@@ -36,6 +38,7 @@ public class ChannelFragment extends Fragment {
 
 	private Unbinder unbinder;
 
+	@Getter
 	private List<ChannelCategoryType> categoryTypeList = Arrays.asList(ChannelCategoryType.values());
 	private String searchType = null;
 	private int pagingIndex = 1;
@@ -153,6 +156,14 @@ public class ChannelFragment extends Fragment {
 	public void onDestroyView() {
 		super.onDestroyView();
 		unbinder.unbind();
+	}
+
+	public void refresh(List<ChannelCategoryType> categoryTypeList) {
+		channelListAdapter.removeAll();
+		pagingIndex = 1;
+		this.categoryTypeList = categoryTypeList;
+		Log.d("TEST", "+++ refresh > categoryTypeList : " + categoryTypeList);
+		getChannelWithEditorsPageList();
 	}
 
 }
