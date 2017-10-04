@@ -66,6 +66,7 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 	public void getAdvertiseList(final View view) {
 
 		advertiseListAdapter.startProgress();
+		lvAd.setSelection(advertiseListAdapter.getCount() - 1);
 
 		String token = Preference.getProperty(getActivity(), "token");
 
