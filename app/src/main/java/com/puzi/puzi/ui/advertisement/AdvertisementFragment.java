@@ -107,18 +107,17 @@ public class AdvertisementFragment extends Fragment implements AbsListView.OnScr
 	}
 
 	public void refresh(int index, boolean state) {
-		// advertiseListAdapter.changedState(index, state);
 		pagingIndex = 1;
 		getAdvertiseList(view);
 	}
 
-	public void changedState(int index, boolean state) {
+	/*public void changedState(int index, boolean state) {
 		for(int i = 0; i < advertiseList.size(); i++) {
 			if(advertiseList.get(i).getReceivedAdvertiseId() == index) {
 				advertiseList.get(i).setSaved(state);
 			}
 		}
-	}
+	}*/
 
 	@Override
 	public void onDestroyView() {
