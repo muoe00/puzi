@@ -4,7 +4,12 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-  <ImageView
+  <com.joooonho.SelectableRoundedImageView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:sriv_right_top_corner_radius="8dp"
+    app:sriv_left_top_corner_radius="8dp"
+    app:sriv_left_bottom_corner_radius="8dp"
+    app:sriv_right_bottom_corner_radius="8dp"
     android:layout_marginLeft="8dp"
     android:layout_width="176dp"
     android:layout_height="96dp"

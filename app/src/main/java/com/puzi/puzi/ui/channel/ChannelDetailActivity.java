@@ -1,6 +1,5 @@
 package com.puzi.puzi.ui.channel;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +9,7 @@ import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import butterknife.*;
+import com.joooonho.SelectableRoundedImageView;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import com.puzi.puzi.biz.channel.ChannelEditorsPageVO;
@@ -24,6 +24,7 @@ import com.puzi.puzi.network.service.ChannelNetworkService;
 import com.puzi.puzi.ui.HorizontalListView;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.advertisement.AdvertisementDetailActivity;
+import com.puzi.puzi.ui.base.BaseActivity;
 import com.puzi.puzi.ui.channel.editorspage.EditorsPageActivity;
 import com.puzi.puzi.ui.channel.editorspage.EditorsPageAdapter;
 import com.puzi.puzi.ui.channel.reply.ReplyListAdapter;
@@ -36,14 +37,14 @@ import java.util.List;
  * Created by muoe0 on 2017-08-06.
  */
 
-public class ChannelDetailActivity extends Activity {
+public class ChannelDetailActivity extends BaseActivity {
 
 	private Unbinder unbinder;
 
 	@BindView(R.id.ibtn_chanenl_detail_back)
 	ImageButton ibtnBack;
 	@BindView(R.id.ibtn_chanenl_detail_company_image)
-	ImageButton ibtnCompanyImage;
+	SelectableRoundedImageView ibtnCompanyImage;
 	@BindView(R.id.ibtn_chanenl_detail_picture)
 	ImageButton ibtnAdvertisementPicture;
 	@BindView(R.id.tv_channel_detail_company_name)
@@ -230,7 +231,13 @@ public class ChannelDetailActivity extends Activity {
 
 	@OnClick(R.id.ibtn_chanenl_detail_back)
 	public void backPress() {
+		onBackPressed();
+	}
+
+	@Override
+	public void onBackPressed() {
 		super.onBackPressed();
+		doAnimationGoLeft();
 	}
 
 	@OnClick(R.id.btn_channel_detail_evaluate)
@@ -305,6 +312,7 @@ public class ChannelDetailActivity extends Activity {
 		Intent intent = new Intent(this, EditorsPageActivity.class);
 		intent.putExtra("channelEditorsPageVO", channelEditorsPageVO);
 		startActivity(intent);
+		doAnimationGoRight();
 	}
 
 	/**

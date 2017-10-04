@@ -5,10 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.joooonho.SelectableRoundedImageView;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelEditorsPageVO;
 import com.puzi.puzi.image.BitmapUIL;
@@ -117,7 +117,7 @@ public class EditorsPageAdapter extends BaseAdapter {
 	}
 
 	public class ViewHolder {
-		@BindView(R.id.iv_item_channel_detail_editors_page_image) public ImageView ivImage;
+		@BindView(R.id.iv_item_channel_detail_editors_page_image) public SelectableRoundedImageView ivImage;
 		@BindView(R.id.tv_item_channel_detail_editors_page_title) public TextView tvTitle;
 		@BindView(R.id.tv_item_channel_detail_editors_page_name) public TextView tvName;
 

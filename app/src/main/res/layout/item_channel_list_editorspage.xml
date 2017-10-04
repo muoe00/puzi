@@ -12,10 +12,12 @@
     android:layout_width="match_parent"
     android:layout_height="96dp">
 
-    <ImageView
+    <com.joooonho.SelectableRoundedImageView
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      app:sriv_left_top_corner_radius="8dp"
+      app:sriv_left_bottom_corner_radius="8dp"
       android:layout_width="160dp"
       android:layout_height="match_parent"
-      android:src="@drawable/ad_line"
       android:scaleType="centerCrop"
       android:background="#00000000"
       android:id="@+id/iv_item_channel_editor_image"/>

@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.joooonho.SelectableRoundedImageView;
@@ -13,6 +16,7 @@ import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelEditorsPageVO;
 import com.puzi.puzi.biz.channel.ChannelVO;
 import com.puzi.puzi.image.BitmapUIL;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.utils.UIUtils;
 
 import java.util.ArrayList;
@@ -31,13 +35,13 @@ public class ChannelListAdapter extends BaseAdapter {
 	private static final int VIEW_PROGRESS = 2;
 
 	private LayoutInflater inflater;
-	private Activity activity;
+	private BaseFragmentActivity activity;
 	private List<Object> list = new ArrayList();
 	private List<Integer> typeList = new ArrayList();
 
 	public ChannelListAdapter(Activity activity) {
 		this.inflater = activity.getLayoutInflater();
-		this.activity = activity;
+		this.activity = (BaseFragmentActivity) activity;
 	}
 
 	public void startProgress() {
@@ -169,6 +173,7 @@ public class ChannelListAdapter extends BaseAdapter {
 						Intent intent = new Intent(activity, ChannelDetailActivity.class);
 						intent.putExtra("channelVO", firstChannel);
 						activity.startActivity(intent);
+						activity.doAnimationGoRight();
 					}
 				};
 				channelHolder.ibtnImage1.setOnClickListener(listener1);
@@ -190,6 +195,7 @@ public class ChannelListAdapter extends BaseAdapter {
 							Intent intent = new Intent(activity, ChannelDetailActivity.class);
 							intent.putExtra("channelVO", secondChannel);
 							activity.startActivity(intent);
+							activity.doAnimationGoRight();
 						}
 					};
 					channelHolder.ibtnImage2.setOnClickListener(listener2);
@@ -237,7 +243,7 @@ public class ChannelListAdapter extends BaseAdapter {
 	}
 
 	public class EditorsPageViewHolder {
-		@BindView(R.id.iv_item_channel_editor_image) public ImageView ivImage;
+		@BindView(R.id.iv_item_channel_editor_image) public SelectableRoundedImageView ivImage;
 		@BindView(R.id.tv_item_channel_editor_title) public TextView tvTitle;
 		@BindView(R.id.tv_item_channel_editor_name) public TextView tvName;
 
