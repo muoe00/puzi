@@ -77,7 +77,7 @@ public class ChannelDetailActivity extends Activity {
 	private ReplyListAdapter replyListAdapter;
 
 	private ChannelVO channelVO;
-	private boolean more = true;
+	private boolean more = false;
 	private int pagingIndex = 1;
 	private int totalCount = 0;
 
@@ -218,7 +218,9 @@ public class ChannelDetailActivity extends Activity {
 
 					if(replyListAdapter.getCount() == totalCount) {
 						more = false;
+						return;
 					}
+					more = true;
 				}
 			}
 		});
