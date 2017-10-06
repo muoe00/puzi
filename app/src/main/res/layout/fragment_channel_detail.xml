@@ -134,7 +134,7 @@
           android:layout_height="match_parent"/>
 
         <TextView
-          android:text="0/10"
+          android:text="0/5"
           android:layout_marginRight="16dp"
           android:layout_gravity="center_vertical"
           android:layout_width="wrap_content"

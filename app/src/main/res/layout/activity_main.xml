@@ -95,9 +95,10 @@
 
     <ImageButton
       android:gravity="right"
-      android:background="@drawable/add_friend"
+      android:src="@drawable/add_friend"
       android:layout_width="32dp"
       android:layout_height="20dp"
+      android:background="#00000000"
       android:id="@+id/ibtn_right_button"/>
 
   </LinearLayout>

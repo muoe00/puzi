@@ -40,8 +40,8 @@ dependencies {
 	compile 'com.jakewharton:butterknife:8.2.0'
 	compile group: 'com.google.collections', name: 'google-collections', version:'1.0'
 	compile 'com.joooonho:selectableroundedimageview:1.0.1'
+	compile 'com.balysv:material-ripple:1.0.2'
 	apt 'com.jakewharton:butterknife-compiler:8.2.0'
-
 	testCompile 'junit:junit:4.12'
 
 	provided 'org.projectlombok:lombok:1.12.6'
