@@ -76,7 +76,6 @@ public class ReplyListAdapter extends BaseAdapter {
 		if(!empty){
 			empty = true;
 		}
-
 	}
 
 	@Override
