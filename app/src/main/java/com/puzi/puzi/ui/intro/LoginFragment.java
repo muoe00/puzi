@@ -131,39 +131,34 @@ public class LoginFragment extends Fragment {
 		getActivity().finish();
 	}
 
-	@OnClick(R.id.btn_signup)
-	public void signup() {
-		Fragment signupFragment = new SignupFragment();
+	@OnClick({R.id.btn_signup, R.id.btn_srch_id, R.id.btn_srch_pw})
+	public void changedFragment(View view) {
+		Fragment fragment = null;
+		switch (view.getId()) {
+			case R.id.btn_signup:
+				fragment = new SignupFragment();
+				break;
+			case R.id.btn_srch_id:
+				fragment = new SearchIdFragment();
+				break;
+			case R.id.btn_srch_pw:
+				fragment = new SearchPwFragment();
+				break;
+		}
+
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.replace(R.id.intro_fragment_container, signupFragment);
-		fragmentTransaction.addToBackStack("SIGNUP");
+		fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
 		fragmentTransaction.commit();
+
+		/*Intent intent = new Intent();
+		intent.putExtra("fragment", );
+		setResult(Activity.RESULT_OK, intent);*/
 	}
 
 	@OnClick(R.id.kakao_login_btn)
 	public void kakaoLogin() {
 
-	}
-
-	@OnClick(R.id.btn_srch_id)
-	public void searchId() {
-		Fragment searchFragment = new SearchIdFragment();
-		FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.replace(R.id.intro_fragment_container, searchFragment);
-		fragmentTransaction.addToBackStack("SEARCH");
-		fragmentTransaction.commit();
-	}
-
-	@OnClick(R.id.btn_srch_pw)
-	public void searchPw() {
-		Fragment searchFragment = new SearchPwFragment();
-		FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.replace(R.id.intro_fragment_container, searchFragment);
-		fragmentTransaction.addToBackStack("SEARCH");
-		fragmentTransaction.commit();
 	}
 
 	@OnClick(R.id.rl_login)
