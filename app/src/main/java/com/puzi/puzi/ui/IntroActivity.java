@@ -91,6 +91,19 @@ public class IntroActivity extends FragmentActivity {
 		}.sendEmptyMessageDelayed(0, 1000);
 	}
 
+	/*protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (resultCode) {
+			case RESULT_OK:
+				Fragment addFragment =
+					SerializeUtils.convertToType((Fragment) data.getSerializableExtra("fragment"));
+				if(addFragment != null) {
+					fragmentList.add(addFragment);
+				}
+				break;
+		}
+	}*/
+
 	public void backFragment() {
 		int size = fragmentList.size();
 		int position = size - 1;
@@ -98,16 +111,6 @@ public class IntroActivity extends FragmentActivity {
 		Log.i("INFO", "size : " + size + ", position : " + position);
 
 		if(size == 1) {
-			if(position == 0) {
-				finish();
-			}
-			fragmentManager.popBackStack();
-		} else if(size > 1) {
-			fragmentList.remove(position);
-			fragment = fragmentList.get(position - 1);
-			fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
-			fragmentTransaction.commit();
-		} else {
 			if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
 				backKeyPressedTime = System.currentTimeMillis();
 				Toast.makeText(this, "한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT).show();
@@ -116,6 +119,11 @@ public class IntroActivity extends FragmentActivity {
 			if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
 				finish();
 			}
+		} else if(size > 1) {
+			fragmentList.remove(position);
+			fragment = fragmentList.get(position - 1);
+			fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
+			fragmentTransaction.commit();
 		}
 	}
 
