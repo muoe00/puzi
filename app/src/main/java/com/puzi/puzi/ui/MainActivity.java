@@ -1,14 +1,14 @@
 package com.puzi.puzi.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import butterknife.*;
+import com.balysv.materialripple.MaterialRippleLayout;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelCategoryType;
 import com.puzi.puzi.biz.user.UserVO;
@@ -83,6 +83,7 @@ public class MainActivity extends BaseFragmentActivity {
 		btnSetting.setTag(FRAGMENT_SETTING);
 
 		btnAdvertise.setSelected(true);
+
 	}
 
 	public void getUser() {
@@ -203,14 +204,14 @@ public class MainActivity extends BaseFragmentActivity {
 				ivChannel.setBackgroundResource(R.drawable.channel);
 				ivStore.setBackgroundResource(R.drawable.store);
 				ivSetting.setBackgroundResource(R.drawable.gear);
-				ibtnRightButton.setBackgroundResource(R.drawable.add_friend);
+				ibtnRightButton.setImageResource(R.drawable.add_friend);
 				return;
 			case FRAGMENT_CHANNEL:
 				ivAdvertise.setBackgroundResource(R.drawable.home);
 				ivChannel.setBackgroundResource(R.drawable.channel_selected);
 				ivStore.setBackgroundResource(R.drawable.store);
 				ivSetting.setBackgroundResource(R.drawable.gear);
-				ibtnRightButton.setBackgroundResource(R.drawable.filter);
+				ibtnRightButton.setImageResource(R.drawable.filter);
 				return;
 			case FRAGMENT_STORE:
 				ivAdvertise.setBackgroundResource(R.drawable.home);

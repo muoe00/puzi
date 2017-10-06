@@ -77,7 +77,10 @@ public abstract class CustomCallback<T> implements Callback<T> {
 				retry(call);
 			}
 		});
-		dialog = builder.show();
+
+		if(!activity.isFinishing()) {
+			dialog = builder.show();
+		}
 	}
 
 	private void retry(Call<T> call){
