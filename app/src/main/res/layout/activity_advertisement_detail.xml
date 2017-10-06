@@ -4,68 +4,65 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+  <!-- 상단바 -->
   <LinearLayout
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
-    android:id="@+id/fl_level"
     android:orientation="horizontal"
-    android:background="#e6fafafa"
     android:layout_width="match_parent"
     android:layout_height="45dp">
 
-    <Button
-      android:background="@drawable/back_chevron"
-      android:layout_gravity="left|center"
-      android:layout_width="15dp"
-      android:layout_height="21dp"
-      android:layout_marginLeft="10dp"
-      android:id="@+id/btn_back_web"/>
+    <ImageButton
+      android:paddingRight="17dp"
+      android:paddingLeft="8dp"
+      android:paddingTop="12.5dp"
+      android:paddingBottom="12.5dp"
+      android:layout_width="37dp"
+      android:layout_height="match_parent"
+      android:background="#00000000"
+      android:src="@drawable/back"
+      android:id="@+id/btn_back_web"
+      android:backgroundTint="#000000"/>
 
-    <FrameLayout
+    <LinearLayout
+      android:id="@+id/ll_ad_company"
+      android:clickable="true"
       android:layout_weight="1"
-      android:layout_gravity="center_vertical"
+      android:orientation="horizontal"
       android:layout_width="match_parent"
-      android:layout_height="45dp">
+      android:layout_height="match_parent">
 
-      <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginLeft="9dp"
+      <com.joooonho.SelectableRoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:sriv_right_top_corner_radius="14.5dp"
+        app:sriv_left_top_corner_radius="14.5dp"
+        app:sriv_left_bottom_corner_radius="14.5dp"
+        app:sriv_right_bottom_corner_radius="14.5dp"
+        app:sriv_border_color="#979797"
+        app:sriv_border_width="1dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="14dp"
+        android:layout_width="29dp"
+        android:layout_height="29dp"
+        android:scaleType="centerCrop"
+        android:id="@+id/iv_companyPicture"/>
+
+      <TextView
+        android:text="companyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#9b9b9b"
         android:layout_gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:id="@+id/tv_companyId"/>
 
-        <ImageView
-          android:layout_width="40dp"
-          android:layout_height="40dp"
-          android:background="@drawable/background_tab"
-          android:id="@+id/iv_companyPicture"/>
-
-        <TextView
-          android:textSize="20sp"
-          android:textColor="#000000"
-          android:text="company"
-          android:gravity="center_vertical"
-          android:layout_width="250dp"
-          android:layout_height="match_parent"
-          android:id="@+id/tv_companyId"/>
-
-      </LinearLayout>
-
-      <Button
-        android:background="@null"
-        android:id="@+id/btn_company"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
-
-    </FrameLayout>
+    </LinearLayout>
 
     <Button
       android:id="@+id/btn_channel_web"
-      android:layout_gravity="right|center"
+      android:layout_gravity="right|center_vertical"
       android:background="@drawable/channel"
-      android:layout_width="32dp"
-      android:layout_height="32dp"
-      android:layout_marginRight="10dp"/>
+      android:padding="13dp"
+      android:layout_width="45dp"
+      android:layout_height="45dp"/>
 
   </LinearLayout>
 

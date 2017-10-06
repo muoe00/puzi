@@ -98,6 +98,9 @@ public class IntroActivity extends FragmentActivity {
 		Log.i("INFO", "size : " + size + ", position : " + position);
 
 		if(size == 1) {
+			if(position == 0) {
+				finish();
+			}
 			fragmentManager.popBackStack();
 		} else if(size > 1) {
 			fragmentList.remove(position);

@@ -17,7 +17,7 @@ import com.puzi.puzi.R;
 import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import com.puzi.puzi.biz.company.CompanyVO;
 import com.puzi.puzi.image.BitmapUIL;
-import com.puzi.puzi.ui.company.CompanyDialog;
+import com.puzi.puzi.ui.company.CompanyActivity;
 import com.puzi.puzi.utils.PuziUtils;
 import lombok.Getter;
 
@@ -195,9 +195,10 @@ public class AdvertisementListAdapter extends BaseAdapter {
 	}
 
 	public void changedCompany(CompanyVO company) {
-		Intent intent = new Intent(context, CompanyDialog.class);
-		intent.putExtra("name", company.getCompanyAlias());
-		intent.putExtra("url", company.getPictureUrl());
+		Intent intent = new Intent(context, CompanyActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("company", company);
+		intent.putExtras(bundle);
 		context.startActivity(intent);
 	}
 
