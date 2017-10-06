@@ -31,7 +31,7 @@ import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.AdvertisementNetworkService;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.channel.ChannelDetailActivity;
-import com.puzi.puzi.ui.company.CompanyDialog;
+import com.puzi.puzi.ui.company.CompanyActivity;
 import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
@@ -240,8 +240,6 @@ public class AdvertisementDetailActivity extends Activity {
 
 						setResult(Activity.RESULT_OK, intent);
 
-						// finish();
-
 						break;
 
 					default:
@@ -287,9 +285,13 @@ public class AdvertisementDetailActivity extends Activity {
 		startActivity(intent);
 	}
 
-	@OnClick(R.id.btn_company)
+	@OnClick(R.id.ll_ad_company)
 	public void changedCompony() {
-		Intent intent = new Intent(AdvertisementDetailActivity.this, CompanyDialog.class);
+		Intent intent = new Intent(AdvertisementDetailActivity.this, CompanyActivity.class);
+		Bundle bundle = new Bundle();
+		Log.i(PuziUtils.INFO, "receivedAdvertise.getCompanyInfoDTO() : " + receivedAdvertise.getCompanyInfoDTO());
+		bundle.putSerializable("company", receivedAdvertise.getCompanyInfoDTO());
+		intent.putExtras(bundle);
 		startActivity(intent);
 	}
 

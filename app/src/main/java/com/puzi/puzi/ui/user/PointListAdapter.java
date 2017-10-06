@@ -1,7 +1,6 @@
 package com.puzi.puzi.ui.user;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +8,11 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.user.point.history.PointHistoryVO;
-import com.puzi.puzi.utils.PuziUtils;
+import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,30 +21,84 @@ import java.util.List;
 
 public class PointListAdapter extends BaseAdapter {
 
-	@BindView(R.id.tv_point_type) public TextView tvType;
-	@BindView(R.id.tv_point_at) public TextView tvTime;
-	@BindView(R.id.tv_point) public TextView tvPoint;
+	private static final int VIEW_POINT = 0;
+	private static final int VIEW_EMPTY = 1;
+	private static final int VIEW_PROGRESS = 2;
 
-	private Unbinder unbinder;
+	private Context context = null;
 	private LayoutInflater inflater;
-	private Context context;
-	private PointHistoryVO pointHistory;
-	private List<PointHistoryVO> pointHistoryVOs;
+	private List<PointHistoryVO> list = new ArrayList();
+	@Getter
+	private boolean progressed = false;
+	private boolean empty = false;
 
-	public PointListAdapter(Context context, List<PointHistoryVO> list) {
+	public PointListAdapter(Context context) {
 		this.context = context;
-		this.pointHistoryVOs = list;
-		Log.i(PuziUtils.INFO, "PointListAdapter pointHistoryVOs size : " + pointHistoryVOs.size());
+		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	}
+
+	public void addPointFirst(PointHistoryVO pointHistoryVO) {
+		empty = false;
+		list.add(0, pointHistoryVO);
+	}
+
+	public void addPointList(List<PointHistoryVO> pointHistoryVOs) {
+		if(empty && pointHistoryVOs.size() > 0) {
+			empty = false;
+		}
+		list.addAll(pointHistoryVOs);
+	}
+
+	public void empty() {
+		if(!empty){
+			empty = true;
+		}
+	}
+
+	public int getViewTypeCount() {
+		return 3;
+	}
+
+	public int getItemViewType(int position) {
+		if(empty) {
+			return VIEW_EMPTY;
+		}
+		if(progressed) {
+			if(getCount() - 1 == position) {
+				return VIEW_PROGRESS;
+			}
+		}
+		return VIEW_POINT;
+	}
+
+	public void startProgress() {
+		if(!progressed) {
+			progressed = true;
+			notifyDataSetChanged();
+		}
+	}
+
+	public void stopProgress() {
+		if(progressed) {
+			progressed = false;
+			notifyDataSetChanged();
+		}
 	}
 
 	@Override
 	public int getCount() {
-		return pointHistoryVOs.size();
+		if(empty) {
+			return 1;
+		}
+		if(progressed) {
+			return list.size() + 1;
+		}
+		return list.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return pointHistoryVOs.get(position);
+		return list.get(position);
 	}
 
 	@Override
@@ -56,20 +109,50 @@ public class PointListAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		if(convertView == null) {
-			inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.fragment_point_detail, parent, false);
+		View v = convertView;
+		ViewHolder viewHolder = null;
+		int viewType = getItemViewType(position);
+
+		if(v == null) {
+			switch(viewType) {
+				case VIEW_POINT:
+					v = inflater.inflate(R.layout.fragment_point_detail, null);
+					viewHolder = new ViewHolder(v);
+					v.setTag(viewHolder);
+					break;
+
+				case VIEW_EMPTY:
+					v = inflater.inflate(R.layout.item_list_empty_point, null);
+					break;
+
+				case VIEW_PROGRESS:
+					v = inflater.inflate(R.layout.item_list_progressbar, null);
+					break;
+			}
+		} else {
+			viewHolder = (ViewHolder) v.getTag();
 		}
 
-		unbinder = ButterKnife.bind(this, convertView);
+		switch(viewType) {
+			case VIEW_POINT:
+				final PointHistoryVO pointHistoryVO = (PointHistoryVO) getItem(position);
 
-		pointHistory = pointHistoryVOs.get(position);
+				viewHolder.tvType.setText(pointHistoryVO.getPointType().getComment());
+				viewHolder.tvTime.setText(pointHistoryVO.getCreatedAt());
+				viewHolder.tvPoint.setText(pointHistoryVO.getPoint());
 
-		tvType.setText(pointHistory.getPointType().getComment());
-		tvTime.setText(pointHistory.getCreatedAt());
-		tvPoint.setText(pointHistory.getPoint());
+				break;
+		}
+		return v;
+	}
 
+	public class ViewHolder {
+		@BindView(R.id.tv_point_type) public TextView tvType;
+		@BindView(R.id.tv_point_at) public TextView tvTime;
+		@BindView(R.id.tv_point) public TextView tvPoint;
 
-		return null;
+		public ViewHolder(View view) {
+			ButterKnife.bind(this, view);
+		}
 	}
 }
