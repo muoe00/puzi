@@ -1,14 +1,9 @@
 package com.puzi.puzi.ui.intro;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -22,16 +17,17 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
+import com.puzi.puzi.ui.IntroActivity;
+import com.puzi.puzi.ui.base.BaseFragment;
 import retrofit2.Call;
 
 /**
  * Created by muoe0 on 2017-05-26.
  */
 
-public class SearchIdFragment extends Fragment {
+public class SearchIdFragment extends BaseFragment {
 
 	private Unbinder unbinder;
-	private InputMethodManager inputMethodManager;
 
 	@BindView(R.id.edit_search_email) public EditText editEmail;
 	@BindView(R.id.btn_srchid) public Button btnSearch;
@@ -44,7 +40,6 @@ public class SearchIdFragment extends Fragment {
 		View view = inflater.inflate(R.layout.fragment_search_id, container, false);
 
 		unbinder = ButterKnife.bind(this, view);
-		inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
 		return view;
 	}
@@ -78,22 +73,20 @@ public class SearchIdFragment extends Fragment {
 
 	@OnClick(R.id.btn_srch_signup)
 	public void changedSignup() {
-		Fragment signupFragment = new SignupFragment();
-		FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.replace(R.id.intro_fragment_container, signupFragment);
-		fragmentTransaction.addToBackStack("SIGNUP");
-		fragmentTransaction.commit();
+		BaseFragment signupFragment = new SignupFragment();
+		IntroActivity introActivity = (IntroActivity) getActivity();
+		introActivity.addFragment(signupFragment);
 	}
 
 	@OnClick(R.id.ll_searchid)
 	public void layoutClick() {
-		inputMethodManager.hideSoftInputFromWindow(editEmail.getWindowToken(), 0);
+		closeInputKeyboard(editEmail);
 	}
 
 	@OnClick(R.id.ibtn_back)
 	public void back() {
 		getActivity().onBackPressed();
+		doAnimationGoLeft();
 	}
 }
 

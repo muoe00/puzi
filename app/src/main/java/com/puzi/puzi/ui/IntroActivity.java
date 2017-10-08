@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -17,19 +15,22 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.ResultType;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
+import com.puzi.puzi.ui.base.BaseFragment;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.intro.LoginFragment;
 import com.puzi.puzi.utils.EncryptUtils;
+import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
 import java.util.ArrayList;
 
-public class IntroActivity extends FragmentActivity {
+public class IntroActivity extends BaseFragmentActivity {
 
 	private long backKeyPressedTime;
 	public boolean AUTO_LOGIN = false;
 
-	private ArrayList<Fragment> fragmentList = new ArrayList<Fragment>();
-	private Fragment fragment;
+	private ArrayList<BaseFragment> fragmentList = new ArrayList<BaseFragment>();
+	private BaseFragment fragment;
 	private FragmentManager fragmentManager = getSupportFragmentManager();
 	private FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -79,38 +80,43 @@ public class IntroActivity extends FragmentActivity {
 			public void handleMessage(Message message){
 				if(AUTO_LOGIN) {
 					startActivity(new Intent(IntroActivity.this, MainActivity.class));
+					fragmentList.clear();
 					finish();
 				}
 				else {
 					fragment = new LoginFragment();
-					fragmentList.add(fragment);
-					fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
-					fragmentTransaction.commit();
+					addFragment(fragment);
 				}
 			}
 		}.sendEmptyMessageDelayed(0, 1000);
 	}
 
-	/*protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		switch (resultCode) {
-			case RESULT_OK:
-				Fragment addFragment =
-					SerializeUtils.convertToType((Fragment) data.getSerializableExtra("fragment"));
-				if(addFragment != null) {
-					fragmentList.add(addFragment);
-				}
-				break;
+	public void addFragment(BaseFragment fragment) {
+		if(fragment.isAdded()) {
+			return;
+		} else {
+			fragmentList.add(fragment);
+			fragmentTransaction = fragmentManager.beginTransaction();
+			fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
+			fragmentTransaction.addToBackStack(null);
+			fragmentTransaction.commitAllowingStateLoss();
+			Log.i(PuziUtils.INFO, "fragment list size : " + fragmentList.size());
 		}
-	}*/
+	}
+
+	public void removeFragment(int position) {
+		fragmentList.remove(position);
+		fragment = fragmentList.get(position - 1);
+		fragmentTransaction = fragmentManager.beginTransaction();
+		fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
+		fragmentTransaction.commitAllowingStateLoss();
+		Log.i(PuziUtils.INFO, "fragment list size : " + fragmentList.size());
+	}
 
 	public void backFragment() {
-		int size = fragmentList.size();
-		int position = size - 1;
+		int position = fragmentList.size() - 1;
 
-		Log.i("INFO", "size : " + size + ", position : " + position);
-
-		if(size == 1) {
+		if(fragmentList.size() == 1) {
 			if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
 				backKeyPressedTime = System.currentTimeMillis();
 				Toast.makeText(this, "한번 더 누르시면 앱이 종료됩니다.", Toast.LENGTH_SHORT).show();
@@ -119,11 +125,11 @@ public class IntroActivity extends FragmentActivity {
 			if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
 				finish();
 			}
-		} else if(size > 1) {
-			fragmentList.remove(position);
-			fragment = fragmentList.get(position - 1);
+		} else if(fragmentList.size() > 1) {
+			removeFragment(position);
+			/*fragment = fragmentList.get(position - 1);
 			fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
-			fragmentTransaction.commit();
+			fragmentTransaction.commitNow();*/
 		}
 	}
 

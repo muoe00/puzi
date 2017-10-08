@@ -1,15 +1,10 @@
 package com.puzi.puzi.ui.intro;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -24,6 +19,8 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
+import com.puzi.puzi.ui.IntroActivity;
+import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.utils.ValidationUtils;
 import retrofit2.Call;
 
@@ -31,11 +28,10 @@ import retrofit2.Call;
  * Created by muoe0 on 2017-05-26.
  */
 
-public class SignupFragment extends Fragment {
+public class SignupFragment extends BaseFragment {
 
 	private Unbinder unbinder;
 	private String id, email, pw, rePw;
-	private InputMethodManager inputMethodManager;
 
 	@BindView(R.id.edt_signup_id) public EditText ethId;
 	@BindView(R.id.edt_signup_email) public EditText ethEmail;
@@ -48,7 +44,6 @@ public class SignupFragment extends Fragment {
 
 		View view = inflater.inflate(R.layout.fragment_signup, container, false);
 		unbinder = ButterKnife.bind(this, view);
-		inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
 		return view;
 	}
@@ -113,17 +108,20 @@ public class SignupFragment extends Fragment {
 
 	public void changedFragment() {
 		Log.i("DEBUG", "fragment changed.");
-		Fragment infoFragment = new InfoFragment();
-		FragmentManager fragmentManager = getFragmentManager();
+		BaseFragment infoFragment = new InfoFragment();
+
+		IntroActivity introActivity = (IntroActivity) getActivity();
+		introActivity.addFragment(infoFragment);
+
+		/*FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.replace(R.id.intro_fragment_container, infoFragment);
-		fragmentTransaction.addToBackStack("INFO");
-		fragmentTransaction.commit();
+		fragmentTransaction.commitNow();*/
 	}
 
 	@OnClick(R.id.ll_signup)
 	public void layoutClick() {
-		inputMethodManager.hideSoftInputFromWindow(ethId.getWindowToken(), 0);
+		closeInputKeyboard(ethId);
 	}
 
 	@Override
@@ -135,5 +133,6 @@ public class SignupFragment extends Fragment {
 	@OnClick(R.id.ibtn_back)
 	public void back() {
 		getActivity().onBackPressed();
+		doAnimationGoLeft();
 	}
 }

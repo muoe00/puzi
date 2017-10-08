@@ -1,8 +1,6 @@
 package com.puzi.puzi.ui.user;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -12,16 +10,17 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
+import com.puzi.puzi.ui.base.BaseFragment;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.utils.PuziUtils;
 
 /**
  * Created by muoe0 on 2017-07-08.
  */
 
-public class PointActivity extends FragmentActivity {
+public class PointActivity extends BaseFragmentActivity {
 
 	Unbinder unbinder;
-	View view;
 	private int tag = 0;
 
 	@BindView(R.id.ibtn_back) public ImageButton btnBack;
@@ -41,7 +40,7 @@ public class PointActivity extends FragmentActivity {
 		Bundle bundle = new Bundle(1);
 		bundle.putInt("tag", tag);
 
-		Fragment fragment = new PointContentsFragment();
+		BaseFragment fragment = new PointContentsFragment();
 		fragment.setArguments(bundle);
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().replace(R.id.ll_point_content, fragment);
@@ -66,5 +65,6 @@ public class PointActivity extends FragmentActivity {
 	@OnClick(R.id.ibtn_back)
 	public void back() {
 		finish();
+		doAnimationGoLeft();
 	}
 }

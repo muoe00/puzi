@@ -1,7 +1,6 @@
 package com.puzi.puzi.ui.advertisement;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +18,7 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.AdvertisementNetworkService;
+import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
@@ -28,7 +28,7 @@ import java.util.List;
  * Created by muoe0 on 2017-07-08.
  */
 
-public class AdvertisementFragment extends Fragment implements AbsListView.OnScrollListener {
+public class AdvertisementFragment extends BaseFragment implements AbsListView.OnScrollListener {
 
 	Unbinder unbinder;
 

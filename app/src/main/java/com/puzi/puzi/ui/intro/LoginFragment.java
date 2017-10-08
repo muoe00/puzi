@@ -1,11 +1,7 @@
 package com.puzi.puzi.ui.intro;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -14,7 +10,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,8 +21,10 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
+import com.puzi.puzi.ui.IntroActivity;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.ProgressDialog;
+import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.ui.common.BasicDialog;
 import com.puzi.puzi.utils.EncryptUtils;
 import com.puzi.puzi.utils.PuziUtils;
@@ -37,10 +34,9 @@ import retrofit2.Call;
  * Created by muoe0 on 2017-04-28.
  */
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends BaseFragment {
 
 	private Unbinder unbinder;
-	private InputMethodManager inputMethodManager;
 
 	@BindView(R.id.login_et_id) public EditText etId;
 	@BindView(R.id.edit_login_pw) public EditText etPwd;
@@ -50,8 +46,6 @@ public class LoginFragment extends Fragment {
 		View view = inflater.inflate(R.layout.fragment_login, container, false);
 		unbinder = ButterKnife.bind(this, view);
 		startAnimation();
-
-		inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
 		return view;
 	}
@@ -133,7 +127,7 @@ public class LoginFragment extends Fragment {
 
 	@OnClick({R.id.btn_signup, R.id.btn_srch_id, R.id.btn_srch_pw})
 	public void changedFragment(View view) {
-		Fragment fragment = null;
+		BaseFragment fragment = null;
 		switch (view.getId()) {
 			case R.id.btn_signup:
 				fragment = new SignupFragment();
@@ -146,14 +140,13 @@ public class LoginFragment extends Fragment {
 				break;
 		}
 
-		FragmentManager fragmentManager = getFragmentManager();
+		IntroActivity introActivity = (IntroActivity) getActivity();
+		introActivity.addFragment(fragment);
+
+		/*FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
-		fragmentTransaction.commit();
-
-		/*Intent intent = new Intent();
-		intent.putExtra("fragment", );
-		setResult(Activity.RESULT_OK, intent);*/
+		fragmentTransaction.commit();*/
 	}
 
 	@OnClick(R.id.kakao_login_btn)
@@ -163,7 +156,7 @@ public class LoginFragment extends Fragment {
 
 	@OnClick(R.id.rl_login)
 	public void layoutClick() {
-		inputMethodManager.hideSoftInputFromWindow(etId.getWindowToken(), 0);
+		closeInputKeyboard(etId);
 	}
 
 	@OnEditorAction(R.id.edit_login_pw)

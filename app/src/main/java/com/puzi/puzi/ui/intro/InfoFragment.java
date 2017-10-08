@@ -1,17 +1,14 @@
 package com.puzi.puzi.ui.intro;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import butterknife.*;
 import com.puzi.puzi.R;
@@ -22,6 +19,7 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.MainActivity;
+import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.utils.EncryptUtils;
 import retrofit2.Call;
 
@@ -33,7 +31,7 @@ import java.util.Date;
  * Created by muoe0 on 2017-07-27.
  */
 
-public class InfoFragment extends Fragment {
+public class InfoFragment extends BaseFragment {
 
 	private Unbinder unbinder;
 
@@ -48,7 +46,6 @@ public class InfoFragment extends Fragment {
 	private AlertDialog.Builder alert_confirm;
 	private ArrayList<String> favoritesList = new ArrayList<String>();
 	private ArrayList<String> yearList = new ArrayList<String>();
-	private InputMethodManager inputMethodManager;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,7 +53,6 @@ public class InfoFragment extends Fragment {
 		View view = inflater.inflate(R.layout.fragment_signup_info, container, false);
 
 		unbinder = ButterKnife.bind(this, view);
-		inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
 		settingYears();
 
@@ -275,7 +271,7 @@ public class InfoFragment extends Fragment {
 		}
 
 		String idByANDROID_ID = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-		userVO.setPhoneKey("a");
+		userVO.setPhoneKey(idByANDROID_ID);
 		userVO.setRecommendId(edtiRecommend.getText().toString().trim());
 	}
 
@@ -297,11 +293,12 @@ public class InfoFragment extends Fragment {
 
 	@OnClick(R.id.ll_signup_info)
 	public void layoutClick() {
-		inputMethodManager.hideSoftInputFromWindow(edtiRecommend.getWindowToken(), 0);
+		closeInputKeyboard(edtiRecommend);
 	}
 
 	@OnClick(R.id.ibtn_back)
 	public void back() {
 		getActivity().onBackPressed();
+		doAnimationGoLeft();
 	}
 }
