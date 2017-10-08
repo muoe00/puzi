@@ -97,7 +97,7 @@ public class InfoFragment extends BaseFragment {
 					case SUCCESS:
 						Log.i("INFO", "signup success.");
 
-						String token = responseVO.getValue("token", String.class);
+						String token = responseVO.getString("token");
 						Log.i("INFO", "signup token : " + token);
 
 						Preference.addProperty(getActivity(), "token", token);

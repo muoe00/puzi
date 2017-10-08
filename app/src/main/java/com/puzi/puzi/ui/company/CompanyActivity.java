@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,7 +21,11 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.CompanyNetworkService;
+import com.puzi.puzi.network.service.SettingNetworkService;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
+import com.puzi.puzi.ui.common.DialogButtonCallback;
+import com.puzi.puzi.ui.common.OneButtonDialog;
+import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
 import java.util.List;
@@ -29,6 +34,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 
 	Unbinder unbinder;
 
+	@BindView(R.id.btn_block) public ImageButton btnBlock;
 	@BindView(R.id.iv_companyProfile_picture) public SelectableRoundedImageView companyPicture;
 	@BindView(R.id.tv_companyName) public TextView companyName;
 	@BindView(R.id.tv_companyComment) public TextView companyComment;
@@ -39,6 +45,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 
 	private int companyId = 0;
 	private int pagingIndex = 1;
+	private boolean isBlock = false;
 	private boolean more = false;
 	private boolean lastestScrollFlag = false;
 	private int totalCount = 0;
@@ -51,17 +58,29 @@ public class CompanyActivity extends BaseFragmentActivity {
 		unbinder = ButterKnife.bind(this);
 
 		initScrollAction();
-
 		initAdapter();
 
 		Intent intent = getIntent();
 		CompanyVO companyVO = (CompanyVO) intent.getSerializableExtra("company");
+		Log.i(PuziUtils.INFO, "companyVO : " + companyVO.toString());
+
 		if(companyVO == null) {
 			companyId = intent.getIntExtra("companyId", 0);
+			Log.i(PuziUtils.INFO, "companyId : " + companyId);
+			getCompany();
 		} else {
-			companyId = companyVO.getCompanyId();
+			BitmapUIL.load(companyVO.getPictureUrl(), companyPicture);
+			companyName.setText(companyVO.getCompanyAlias());
+			companyComment.setText(companyVO.getComment());
 		}
-		getCompany();
+
+		isBlock = companyVO.getBlocked();
+
+		if(isBlock) {
+			// btnBlock.setBackgroundResource();
+		} else if(!isBlock) {
+			// btnBlock.setBackgroundResource();
+		}
 
 		getChannelList();
 	}
@@ -159,9 +178,52 @@ public class CompanyActivity extends BaseFragmentActivity {
 		});
 	}
 
+	public void updateBlock(boolean isBlock) {
+
+		SettingNetworkService settingNetworkService = RetrofitManager.create(SettingNetworkService.class);
+		String token = Preference.getProperty(CompanyActivity.this, "token");
+
+		Call<ResponseVO> call = settingNetworkService.company(token, isBlock, companyId);
+		call.enqueue(new CustomCallback<ResponseVO>(CompanyActivity.this) {
+			@Override
+			public void onSuccess(ResponseVO responseVO) {
+
+				switch(responseVO.getResultType()){
+					case SUCCESS:
+						Log.i("INFO", "company block success.");
+						break;
+
+					default:
+						Log.i("INFO", "company block failed.");
+						Toast.makeText(getBaseContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+	}
+
 	@OnClick(R.id.btn_block)
 	public void blockCompany() {
-		//TODO
+
+		String title = "차단하기";
+		String message = "차단하시겠습니까?";
+
+		if(isBlock) {
+			// btnBlock.setBackgroundResource();
+			isBlock = false;
+			title = "차단 해제하기";
+			message = "차단을 해제하시겠습니까?";
+		} else if(!isBlock) {
+			// btnBlock.setBackgroundResource();
+			isBlock = true;
+		}
+
+		OneButtonDialog.show(CompanyActivity.this, title, message, "확인", new DialogButtonCallback() {
+			@Override
+			public void onClick() {
+				updateBlock(isBlock);
+				Log.i(PuziUtils.INFO, "isBlock : " + isBlock);
+			}
+		});
 	}
 
 	@OnClick(R.id.btn_back_profile)

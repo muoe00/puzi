@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.joooonho.SelectableRoundedImageView;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import com.puzi.puzi.biz.company.CompanyVO;
@@ -149,7 +150,7 @@ public class AdvertisementListAdapter extends BaseAdapter {
 				Log.i("INFO", "URL Company : " + receivedAdvertise.getLinkPreviewUrl());
 
 				BitmapUIL.load(receivedAdvertise.getLinkPreviewUrl(), viewHolder.ivAd);
-				BitmapUIL.load(receivedAdvertise.getLinkPreviewUrl(), viewHolder.ivComp);
+				BitmapUIL.load(receivedAdvertise.getCompanyInfoDTO().getPictureUrl(), viewHolder.ivComp);
 
 				final CompanyVO company = receivedAdvertise.getCompanyInfoDTO();
 
@@ -174,7 +175,7 @@ public class AdvertisementListAdapter extends BaseAdapter {
 					}
 				});
 
-				viewHolder.btnCompany.setOnClickListener(new View.OnClickListener() {
+				viewHolder.ivComp.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						changedCompany(company);
@@ -212,10 +213,9 @@ public class AdvertisementListAdapter extends BaseAdapter {
 	}
 
 	public class ViewHolder {
-		@BindView(R.id.btn_company) public Button btnCompany;
 		@BindView(R.id.btn_advertiseWv) public Button btnAd;
 		@BindView(R.id.iv_home_advertise) public ImageView ivAd;
-		@BindView(R.id.iv_companyPicture) public ImageView ivComp;
+		@BindView(R.id.iv_companyPicture) public SelectableRoundedImageView ivComp;
 		@BindView(R.id.iv_advertiseNew) public ImageView ivNew;
 		@BindView(R.id.tv_advertise) public TextView tvAd;
 		@BindView(R.id.tv_companyId) public TextView tvComp;
