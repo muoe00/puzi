@@ -3,10 +3,9 @@ package com.puzi.puzi.ui.company;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.AbsListView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -34,6 +33,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 	@BindView(R.id.tv_companyName) public TextView companyName;
 	@BindView(R.id.tv_companyComment) public TextView companyComment;
 	@BindView(R.id.lv_profile_channel_list) public ListView lvChannelList;
+	@BindView(R.id.ll_company_container) public ListView llCompanyContainer;
 
 	private CompanyChannelAdapter companyChannelAdapter;
 
@@ -69,6 +69,18 @@ public class CompanyActivity extends BaseFragmentActivity {
 	private void initAdapter() {
 		companyChannelAdapter = new CompanyChannelAdapter(this);
 		lvChannelList.setAdapter(companyChannelAdapter);
+//		lvChannelList.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+//			@Override
+//			public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//				if(scrollY > 100) { // 채널확대
+//					llCompanyContainer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0));
+//				} else if(scrollY > 5) { // 줄이기
+//					llCompanyContainer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, scrollY));
+//				} else { // 기본
+//					llCompanyContainer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 100));
+//				}
+//			}
+//		});
 	}
 
 	private void initScrollAction() {

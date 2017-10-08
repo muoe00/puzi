@@ -23,6 +23,8 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.google.common.collect.Lists.newArrayList;
+
 /**
  * Created by JangwonPark on 2017. 10. 6..
  */
@@ -48,7 +50,9 @@ public class CompanyChannelAdapter extends BaseAdapter {
 
 	public void addList(List<ChannelVO> newChannelList) {
 		if(newChannelList == null || newChannelList.size() == 0) {
-			empty();
+			if(list.size() == 0) {
+				empty();
+			}
 			return;
 		}
 		list.addAll(newChannelList);
@@ -80,14 +84,16 @@ public class CompanyChannelAdapter extends BaseAdapter {
 			return 1;
 		}
 		if(progressed) {
-			return list.size() + 1;
+			return list.size()/2 + 1;
 		}
-		return list.size();
+		return list.size()/2;
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return list.get(position);
+		int firstPosition = position * 2;
+		int secondPosition = firstPosition + 1;
+		return newArrayList(list.get(firstPosition), list.get(secondPosition));
 	}
 
 	@Override
@@ -126,7 +132,7 @@ public class CompanyChannelAdapter extends BaseAdapter {
 					break;
 
 				case VIEW_EMPTY:
-					v = inflater.inflate(R.layout.item_list_empty_reply, null);
+					v = inflater.inflate(R.layout.item_list_empty_channel, null);
 					break;
 
 				case VIEW_PROGRESS:

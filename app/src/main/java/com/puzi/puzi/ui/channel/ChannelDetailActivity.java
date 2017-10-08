@@ -28,6 +28,7 @@ import com.puzi.puzi.ui.base.BaseActivity;
 import com.puzi.puzi.ui.channel.editorspage.EditorsPageActivity;
 import com.puzi.puzi.ui.channel.editorspage.EditorsPageAdapter;
 import com.puzi.puzi.ui.channel.reply.ReplyListAdapter;
+import com.puzi.puzi.ui.company.CompanyActivity;
 import com.puzi.puzi.utils.UIUtils;
 import retrofit2.Call;
 
@@ -227,6 +228,14 @@ public class ChannelDetailActivity extends BaseActivity {
 				}
 			}
 		});
+	}
+
+	@OnClick(R.id.ibtn_chanenl_detail_company_image)
+	public void clickProfile() {
+		Intent intent = new Intent(this, CompanyActivity.class);
+		intent.putExtra("company", channelVO.getCompanyInfoDTO());
+		startActivity(intent);
+		doAnimationGoRight();
 	}
 
 	@OnClick(R.id.ibtn_chanenl_detail_back)
