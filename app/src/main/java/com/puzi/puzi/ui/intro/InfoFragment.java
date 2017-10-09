@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.*;
 import butterknife.*;
 import com.puzi.puzi.R;
+import com.puzi.puzi.biz.user.AgeType;
+import com.puzi.puzi.biz.user.FavoriteType;
+import com.puzi.puzi.biz.user.GenderType;
 import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
@@ -128,13 +131,13 @@ public class InfoFragment extends BaseFragment {
 		userVO.setAge(year);
 
 		if(age < 20) {
-			userVO.setAgeType("TEN");
+			userVO.setAgeType(AgeType.TEN);
 		} else if(age >= 20 && age < 30) {
-			userVO.setAgeType("TWENTY");
+			userVO.setAgeType(AgeType.TWENTY);
 		} else if(age >= 30 && age < 40) {
-			userVO.setAgeType("THI");
-		} else if(age >= 40 && age < 50) {
-			userVO.setAgeType("TOUR");
+			userVO.setAgeType(AgeType.THIRTY);
+		} else if(age >= 40) {
+			userVO.setAgeType(AgeType.FOURTY);
 		}
 
 		Log.i("INFO", "Year : " + year + ", age type : " + userVO.getAgeType());
@@ -170,25 +173,25 @@ public class InfoFragment extends BaseFragment {
 	public void checkFavorites(View view) {
 		switch (view.getId()) {
 			case R.id.btn_info_beauty:
-				checkList("BEAUTY");
+				checkList(FavoriteType.BEAUTY);
 				break;
 			case R.id.btn_info_shopping:
-				checkList("SHOPPING");
+				checkList(FavoriteType.SHOPPING);
 				break;
 			case R.id.btn_info_game:
-				checkList("GAME");
+				checkList(FavoriteType.GAME);
 				break;
 			case R.id.btn_info_eat:
-				checkList("EAT");
+				checkList(FavoriteType.EAT);
 				break;
 			case R.id.btn_info_tour:
-				checkList("TOUR");
+				checkList(FavoriteType.TOUR);
 				break;
 			case R.id.btn_info_finance:
-				checkList("FINANCE");
+				checkList(FavoriteType.FINANCE);
 				break;
 			case R.id.btn_info_culture:
-				checkList("CULTURE");
+				checkList(FavoriteType.CULTURE);
 				break;
 			default:
 				break;
@@ -197,20 +200,20 @@ public class InfoFragment extends BaseFragment {
 		userVO.setFavoriteTypeList(favoritesList);
 	}
 
-	public void checkList(String category) {
+	public void checkList(FavoriteType category) {
 		if(isFavorites(category)) {
 			favoritesList.remove(category);
 		} else {
-			favoritesList.add(category);
+			favoritesList.add(String.valueOf(category));
 		}
 	}
 
-	public boolean isFavorites(String item) {
+	public boolean isFavorites(FavoriteType item) {
 		if(favoritesList.isEmpty()) {
 			return false;
 		} else {
 			for (String favorite : favoritesList) {
-				if (favorite.equals(item)) {
+				if (favorite.equals(String.valueOf(item))) {
 					return true;
 				}
 			}
@@ -265,9 +268,9 @@ public class InfoFragment extends BaseFragment {
 
 	public void checkInfo() {
 		if(rbtnMale.isChecked()) {
-			userVO.setGenderType("MALE");
+			userVO.setGenderType(GenderType.MALE);
 		} else if(rbtnFemale.isChecked()) {
-			userVO.setGenderType("FEMALE");
+			userVO.setGenderType(GenderType.FEMALE);
 		}
 
 		String idByANDROID_ID = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
