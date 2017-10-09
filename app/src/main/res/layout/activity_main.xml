@@ -22,11 +22,6 @@
       android:layout_gravity="center_vertical"
       android:layout_width="35dp"
       android:layout_height="37dp">
-      <Button
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/btn_level"
-        android:background="@null"/>
       <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

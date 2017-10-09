@@ -132,49 +132,49 @@
           android:layout_height="250dp"
           android:id="@+id/gl_favorites"
           android:columnCount="2"
-          android:columnWidth="80dp"
+          android:columnWidth="60dp"
           android:layout_marginTop="10dp">
 
           <Button
             android:id="@+id/btn_info_beauty"
             android:text="뷰티"
-            android:layout_width="150dp"
+            android:layout_width="140dp"
             android:layout_height="60dp"/>
 
           <Button
             android:id="@+id/btn_info_shopping"
             android:text="쇼핑"
-            android:layout_width="150dp"
+            android:layout_width="140dp"
             android:layout_height="60dp"/>
 
           <Button
             android:id="@+id/btn_info_game"
             android:text="게임"
-            android:layout_width="150dp"
+            android:layout_width="140dp"
             android:layout_height="60dp"/>
 
           <Button
             android:id="@+id/btn_info_eat"
             android:text="외식"
-            android:layout_width="150dp"
+            android:layout_width="140dp"
             android:layout_height="60dp"/>
 
           <Button
             android:id="@+id/btn_info_tour"
             android:text="여행\n(항공,호텔)"
-            android:layout_width="150dp"
+            android:layout_width="140dp"
             android:layout_height="60dp"/>
 
           <Button
             android:id="@+id/btn_info_finance"
             android:text="금융(보험,제테크)"
-            android:layout_width="150dp"
+            android:layout_width="140dp"
             android:layout_height="60dp"/>
 
           <Button
             android:id="@+id/btn_info_culture"
             android:text="문화\n(콘서트,공연)"
-            android:layout_width="150dp"
+            android:layout_width="140dp"
             android:layout_height="60dp"/>
 
         </GridLayout>
@@ -228,48 +228,84 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp">
-
-        <TextView
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginBottom="5dp"
-          android:gravity="left"
-          android:textSize="20sp"
-          android:textColor="@color/colorBlack"
-          android:text="약관동의"/>
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="5dp">
 
         <LinearLayout
+          android:orientation="horizontal"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginLeft="30dp"
-          android:layout_marginRight="30dp">
+          android:layout_marginBottom="5dp">
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlack"
+            android:text="약관동의"/>
+
+          <FrameLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/ad_line"
+            android:id="@+id/ll_signup_all">
+
+            <TextView
+              android:text="약관 전체동의"
+              android:gravity="center_vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"/>
+
+            <ImageView
+              android:layout_gravity="right|center_vertical"
+              android:id="@+id/iv_signup_all_check"
+              android:layout_width="30dp"
+              android:layout_height="30dp"/>
+
+            <Button
+              android:background="@null"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:id="@+id/btn_signup_all"/>
+
+          </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:orientation="vertical"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
           <Button
             android:text="서비스 이용 약관"
+            android:gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:id="@+id/btn_signup_service"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="@null"/>
           <Button
             android:text="개인정보 취급 방침"
+            android:gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:id="@+id/btn_signup_personal"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="@null"/>
           <Button
             android:text="위치기반 서비스 이용약관"
+            android:gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:id="@+id/btn_signup_gps"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="@null"/>
         </LinearLayout>
 
-        <Button
-          android:layout_gravity="center"
-          android:text="약관 전체동의"
-          android:layout_width="wrap_content"
-          android:layout_height="40dp"
-          android:id="@+id/btn_signup_all"/>
+
 
       </LinearLayout>
 

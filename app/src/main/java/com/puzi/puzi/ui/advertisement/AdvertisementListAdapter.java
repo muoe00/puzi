@@ -214,7 +214,7 @@ public class AdvertisementListAdapter extends BaseAdapter {
 
 	public class ViewHolder {
 		@BindView(R.id.btn_advertiseWv) public Button btnAd;
-		@BindView(R.id.iv_home_advertise) public ImageView ivAd;
+		@BindView(R.id.iv_home_advertise) public SelectableRoundedImageView ivAd;
 		@BindView(R.id.iv_companyPicture) public SelectableRoundedImageView ivComp;
 		@BindView(R.id.iv_advertiseNew) public ImageView ivNew;
 		@BindView(R.id.tv_advertise) public TextView tvAd;

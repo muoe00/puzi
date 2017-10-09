@@ -1,14 +1,12 @@
 package com.puzi.puzi.ui;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import butterknife.*;
-import com.balysv.materialripple.MaterialRippleLayout;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelCategoryType;
 import com.puzi.puzi.biz.user.UserVO;
@@ -118,7 +116,7 @@ public class MainActivity extends BaseFragmentActivity {
 		});
 	}
 
-	@OnClick({R.id.btn_pointhistory, R.id.btn_level, R.id.ibtn_right_button})
+	@OnClick({R.id.btn_pointhistory, R.id.ibtn_right_button})
 	public void changePage(View view) {
 		Intent intent = null;
 		switch (view.getId()) {
