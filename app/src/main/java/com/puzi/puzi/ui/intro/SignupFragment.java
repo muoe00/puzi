@@ -112,11 +112,6 @@ public class SignupFragment extends BaseFragment {
 
 		IntroActivity introActivity = (IntroActivity) getActivity();
 		introActivity.addFragment(infoFragment);
-
-		/*FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.replace(R.id.intro_fragment_container, infoFragment);
-		fragmentTransaction.commitNow();*/
 	}
 
 	@OnClick(R.id.ll_signup)

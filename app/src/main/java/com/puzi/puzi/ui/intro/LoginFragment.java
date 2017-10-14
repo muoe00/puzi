@@ -41,6 +41,7 @@ public class LoginFragment extends BaseFragment {
 	@BindView(R.id.login_et_id) public EditText etId;
 	@BindView(R.id.edit_login_pw) public EditText etPwd;
 	@BindView(R.id.login_btn) public Button btnLogin;
+	@BindView(R.id.kakao_login_btn) public Button btnKakao;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View view = inflater.inflate(R.layout.fragment_login, container, false);
@@ -57,6 +58,7 @@ public class LoginFragment extends BaseFragment {
 		etId.startAnimation(animation1);
 		etPwd.startAnimation(animation2);
 		btnLogin.startAnimation(animation3);
+		btnKakao.startAnimation(animation3);
 	}
 
 	private boolean isValid(String id, String pwd) {
@@ -142,11 +144,6 @@ public class LoginFragment extends BaseFragment {
 
 		IntroActivity introActivity = (IntroActivity) getActivity();
 		introActivity.addFragment(fragment);
-
-		/*FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
-		fragmentTransaction.commit();*/
 	}
 
 	@OnClick(R.id.kakao_login_btn)

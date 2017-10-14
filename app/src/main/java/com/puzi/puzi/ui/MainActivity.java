@@ -1,14 +1,12 @@
 package com.puzi.puzi.ui;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import butterknife.*;
-import com.balysv.materialripple.MaterialRippleLayout;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelCategoryType;
 import com.puzi.puzi.biz.user.UserVO;
@@ -35,6 +33,7 @@ public class MainActivity extends BaseFragmentActivity {
 	Unbinder unbinder;
 
 	@BindView(R.id.tv_point) public TextView tvPoint;
+	@BindView(R.id.tv_todaypoint) public TextView tvTodayPoint;
 	@BindView(R.id.vp_main) public CustomViewPager viewPager;
 	@BindView(R.id.main_fragment_container) public LinearLayout llMain;
 	@BindView(R.id.iv_advertise) public ImageView ivAdvertise;
@@ -66,16 +65,15 @@ public class MainActivity extends BaseFragmentActivity {
 		setContentView(R.layout.activity_main);
 
 		unbinder = ButterKnife.bind(this);
-
 		getUser();
 
 		viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
 		viewPager.setCurrentItem(FRAGMENT_ADVERTISE);
 
-		ivAdvertise.setBackgroundResource(R.drawable.home_selected);
-		ivChannel.setBackgroundResource(R.drawable.channel);
-		ivStore.setBackgroundResource(R.drawable.store);
-		ivSetting.setBackgroundResource(R.drawable.gear);
+		ivAdvertise.setImageResource(R.drawable.home_on);
+		ivChannel.setImageResource(R.drawable.channel_off);
+		ivStore.setImageResource(R.drawable.store_off);
+		ivSetting.setImageResource(R.drawable.setting_off);
 
 		btnAdvertise.setTag(FRAGMENT_ADVERTISE);
 		btnChannel.setTag(FRAGMENT_CHANNEL);
@@ -83,7 +81,6 @@ public class MainActivity extends BaseFragmentActivity {
 		btnSetting.setTag(FRAGMENT_SETTING);
 
 		btnAdvertise.setSelected(true);
-
 	}
 
 	public void getUser() {
@@ -104,10 +101,15 @@ public class MainActivity extends BaseFragmentActivity {
 						userVO = responseVO.getValue("userInfoDTO", UserVO.class);
 						Log.i("INFO", "HomeFragment main / userVO : " + userVO.toString());
 
-						int point = userVO.getPoint();
 						NumberFormat numberFormat = NumberFormat.getInstance();
-						String result = numberFormat.format(point);
-						tvPoint.setText(result);
+
+						int point = userVO.getPoint();
+						String resultPoint = numberFormat.format(point);
+						tvPoint.setText(resultPoint);
+
+						int todayPoint = userVO.getTodayPoint();
+						String resultTodayPoint = numberFormat.format(todayPoint);
+						tvTodayPoint.setText(resultTodayPoint);
 						break;
 
 					default:
@@ -118,7 +120,7 @@ public class MainActivity extends BaseFragmentActivity {
 		});
 	}
 
-	@OnClick({R.id.btn_pointhistory, R.id.btn_level, R.id.ibtn_right_button})
+	@OnClick({R.id.btn_pointhistory, R.id.ibtn_right_button})
 	public void changePage(View view) {
 		Intent intent = null;
 		switch (view.getId()) {
@@ -200,30 +202,30 @@ public class MainActivity extends BaseFragmentActivity {
 	private void changeBottomButton(int id){
 		switch (id) {
 			case FRAGMENT_ADVERTISE:
-				ivAdvertise.setBackgroundResource(R.drawable.home_selected);
-				ivChannel.setBackgroundResource(R.drawable.channel);
-				ivStore.setBackgroundResource(R.drawable.store);
-				ivSetting.setBackgroundResource(R.drawable.gear);
+				ivAdvertise.setImageResource(R.drawable.home_on);
+				ivChannel.setImageResource(R.drawable.channel_off);
+				ivStore.setImageResource(R.drawable.store_off);
+				ivSetting.setImageResource(R.drawable.setting_off);
 				ibtnRightButton.setImageResource(R.drawable.add_friend);
 				return;
 			case FRAGMENT_CHANNEL:
-				ivAdvertise.setBackgroundResource(R.drawable.home);
-				ivChannel.setBackgroundResource(R.drawable.channel_selected);
-				ivStore.setBackgroundResource(R.drawable.store);
-				ivSetting.setBackgroundResource(R.drawable.gear);
+				ivAdvertise.setImageResource(R.drawable.home_off);
+				ivChannel.setImageResource(R.drawable.channel_on);
+				ivStore.setImageResource(R.drawable.store_off);
+				ivSetting.setImageResource(R.drawable.setting_off);
 				ibtnRightButton.setImageResource(R.drawable.filter);
 				return;
 			case FRAGMENT_STORE:
-				ivAdvertise.setBackgroundResource(R.drawable.home);
-				ivChannel.setBackgroundResource(R.drawable.channel);
-				ivStore.setBackgroundResource(R.drawable.store_selected);
-				ivSetting.setBackgroundResource(R.drawable.gear);
+				ivAdvertise.setImageResource(R.drawable.home_off);
+				ivChannel.setImageResource(R.drawable.channel_off);
+				ivStore.setImageResource(R.drawable.store_selected);
+				ivSetting.setImageResource(R.drawable.setting_off);
 				return;
 			case FRAGMENT_SETTING:
-				ivAdvertise.setBackgroundResource(R.drawable.home);
-				ivChannel.setBackgroundResource(R.drawable.channel);
-				ivStore.setBackgroundResource(R.drawable.store);
-				ivSetting.setBackgroundResource(R.drawable.gear);
+				ivAdvertise.setImageResource(R.drawable.home_off);
+				ivChannel.setImageResource(R.drawable.channel_off);
+				ivStore.setImageResource(R.drawable.store_off);
+				ivSetting.setImageResource(R.drawable.setting_on);
 				return;
 		}
 

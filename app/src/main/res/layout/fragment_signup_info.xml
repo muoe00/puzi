@@ -19,9 +19,10 @@
         android:id="@+id/fl_signup_info"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="55dp">
+        android:layout_height="54dp">
 
         <ImageButton
+          android:padding="16dp"
           android:layout_gravity="left|center"
           android:layout_width="50dp"
           android:layout_height="match_parent"
@@ -38,13 +39,20 @@
       </FrameLayout>
 
       <LinearLayout
+        android:background="#DADADA"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
+
+      </LinearLayout>
+
+      <LinearLayout
         android:orientation="vertical"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp">
+        android:layout_marginTop="19dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp">
 
         <TextView
           android:layout_width="match_parent"
@@ -57,26 +65,35 @@
         <RadioGroup
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:layout_marginLeft="45dp"
-          android:layout_marginRight="45dp"
+          android:layout_marginTop="9dp"
+          android:layout_marginLeft="48dp"
+          android:layout_marginRight="48dp"
           android:layout_gravity="center_vertical"
           android:orientation="horizontal"
           android:id="@+id/rg_gender">
 
           <RadioButton
+            android:button="@drawable/check_button_selector"
             android:text="남자"
+            android:textSize="16sp"
+            android:textColor="#6D6D6D"
             android:layout_gravity="left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="77dp"
+            android:layout_height="40dp"
+            android:paddingLeft="7dp"
             android:id="@+id/rbtn_male"
             android:checked="true"
             android:layout_weight="1"/>
 
           <RadioButton
+            android:button="@drawable/check_button_selector"
             android:text="여자"
+            android:textSize="16sp"
+            android:textColor="#6D6D6D"
             android:layout_gravity="right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="77dp"
+            android:layout_height="40dp"
+            android:paddingLeft="7dp"
             android:id="@+id/rbtn_female"
             android:layout_weight="1"/>
 
@@ -89,22 +106,22 @@
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp">
+        android:layout_marginTop="19dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp">
 
         <TextView
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="24dp"
           android:gravity="left"
-          android:textSize="15sp"
+          android:textSize="16sp"
           android:textColor="@color/colorBlack"
           android:text="출생년도"/>
 
         <Spinner
           android:id="@+id/sp_age"
           android:layout_width="match_parent"
-          android:layout_height="40dp">
+          android:layout_height="54dp">
 
         </Spinner>
 
@@ -115,66 +132,99 @@
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp">
+        android:layout_marginTop="19dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp">
 
         <TextView
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="24dp"
           android:gravity="left"
-          android:textSize="15sp"
+          android:textSize="16sp"
           android:textColor="@color/colorBlack"
           android:text="관심분야"/>
 
         <GridLayout
           android:layout_width="match_parent"
-          android:layout_height="250dp"
+          android:layout_height="295dp"
           android:id="@+id/gl_favorites"
+          android:layout_gravity="center"
           android:columnCount="2"
-          android:columnWidth="80dp"
-          android:layout_marginTop="10dp">
+          android:layout_marginTop="8dp">
 
           <Button
+            android:background="@drawable/button_favorite_off"
             android:id="@+id/btn_info_beauty"
             android:text="뷰티"
-            android:layout_width="150dp"
-            android:layout_height="60dp"/>
+            android:textSize="16sp"
+            android:textColor="@color/colorWhite"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="140dp"
+            android:layout_height="54dp"/>
 
           <Button
+            android:background="@drawable/button_favorite_off"
             android:id="@+id/btn_info_shopping"
             android:text="쇼핑"
-            android:layout_width="150dp"
+            android:textSize="16sp"
+            android:textColor="@color/colorWhite"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="140dp"
             android:layout_height="60dp"/>
 
           <Button
+            android:background="@drawable/button_favorite_off"
             android:id="@+id/btn_info_game"
             android:text="게임"
-            android:layout_width="150dp"
+            android:textSize="16sp"
+            android:textColor="@color/colorWhite"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="140dp"
             android:layout_height="60dp"/>
 
           <Button
+            android:background="@drawable/button_favorite_off"
             android:id="@+id/btn_info_eat"
             android:text="외식"
-            android:layout_width="150dp"
+            android:textSize="16sp"
+            android:textColor="@color/colorWhite"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="140dp"
             android:layout_height="60dp"/>
 
           <Button
+            android:background="@drawable/button_favorite_off"
             android:id="@+id/btn_info_tour"
             android:text="여행\n(항공,호텔)"
-            android:layout_width="150dp"
+            android:textSize="16sp"
+            android:textColor="@color/colorWhite"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="140dp"
             android:layout_height="60dp"/>
 
           <Button
+            android:background="@drawable/button_favorite_off"
             android:id="@+id/btn_info_finance"
             android:text="금융(보험,제테크)"
-            android:layout_width="150dp"
+            android:textSize="16sp"
+            android:textColor="@color/colorWhite"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="140dp"
             android:layout_height="60dp"/>
 
           <Button
+            android:background="@drawable/button_favorite_off"
             android:id="@+id/btn_info_culture"
             android:text="문화\n(콘서트,공연)"
-            android:layout_width="150dp"
+            android:textSize="16sp"
+            android:textColor="@color/colorWhite"
+            android:layout_width="140dp"
             android:layout_height="60dp"/>
 
         </GridLayout>
@@ -182,10 +232,10 @@
         <TextView
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:layout_marginTop="5dp"
+          android:layout_marginTop="13dp"
           android:textSize="12sp"
           android:text="3개 이상 선택해주세요"
-          android:gravity="left"/>
+          android:gravity="left" android:id="@+id/textView5"/>
 
       </LinearLayout>
 
@@ -194,26 +244,26 @@
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp">
+        android:layout_marginTop="19dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp">
 
         <TextView
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="24dp"
           android:layout_marginBottom="5dp"
           android:gravity="left"
-          android:textSize="20sp"
+          android:textSize="16sp"
           android:textColor="@color/colorBlack"
-          android:text="추천 아이디"/>
+          android:text="추천 아이디 (선택)"/>
 
         <EditText
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="64dp"
           android:textSize="15sp"
           android:maxLines="1"
           android:id="@+id/edit_recommend"
-          android:hint="추천인 아이디를 입력해주세요 (선택)"
+          android:hint="추천인 아이디를 입력해주세요"
           android:background="@drawable/edittext"
           android:paddingBottom="15dp"
           android:paddingTop="15dp"
@@ -226,72 +276,93 @@
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp">
-
-        <TextView
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginBottom="5dp"
-          android:gravity="left"
-          android:textSize="20sp"
-          android:textColor="@color/colorBlack"
-          android:text="약관동의"/>
+        android:layout_marginTop="19dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="5dp">
 
         <LinearLayout
+          android:orientation="horizontal"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="30dp"
-          android:layout_marginRight="30dp">
-          <Button
-            android:text="서비스 이용 약관"
+          android:layout_height="54dp"
+          android:layout_marginBottom="5dp">
+
+          <TextView
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:id="@+id/btn_signup_service"
-            android:layout_weight="1"/>
-          <Button
-            android:text="개인정보 취급 방침"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:id="@+id/btn_signup_personal"
-            android:layout_weight="1"/>
-          <Button
-            android:text="위치기반 서비스 이용약관"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:id="@+id/btn_signup_gps"
-            android:layout_weight="1"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:textSize="20sp"
+            android:textColor="@color/colorBlack"
+            android:text="약관동의"/>
+
+          <ImageButton
+            android:background="@drawable/btn_confirm_off"
+            android:layout_width="140dp"
+            android:layout_height="54dp"
+            android:id="@+id/btn_signup_all"/>
+
         </LinearLayout>
 
-        <Button
-          android:layout_gravity="center"
-          android:text="약관 전체동의"
-          android:layout_width="wrap_content"
-          android:layout_height="40dp"
-          android:id="@+id/btn_signup_all"/>
+        <LinearLayout
+          android:orientation="vertical"
+          android:layout_marginTop="10dp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+          <Button
+            android:text="@string/confirm_service"
+            android:textSize="16sp"
+            android:textColor="#6D6D6D"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:id="@+id/btn_signup_service"
+            android:layout_marginBottom="12dp"
+            android:layout_weight="1"
+            android:background="@null"/>
+          <Button
+            android:text="@string/confirm_personal"
+            android:textSize="16sp"
+            android:textColor="#6D6D6D"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginBottom="12dp"
+            android:id="@+id/btn_signup_personal"
+            android:layout_weight="1"
+            android:background="@null"/>
+          <Button
+            android:text="@string/confirm_gps"
+            android:textSize="16sp"
+            android:textColor="#6D6D6D"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:id="@+id/btn_signup_gps"
+            android:layout_weight="1"
+            android:background="@null"/>
+        </LinearLayout>
 
       </LinearLayout>
 
       <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="28dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
         android:orientation="horizontal"
         android:weightSum="1">
 
         <Button
           android:layout_width="match_parent"
-          android:layout_height="35dp"
+          android:layout_height="54dp"
           android:id="@+id/btn_signup_ok"
-          android:textSize="15sp"
-          android:text="저장하기"
-          android:src="@drawable/button"
-          android:textColor="@color/colorWhite"
-          android:background="@color/colorNavy"
-        />
+          android:textSize="16sp"
+          android:text="회원가입"
+          android:background="@drawable/button_puzi"
+          android:textColor="@color/colorWhite"/>
 
       </LinearLayout>
 

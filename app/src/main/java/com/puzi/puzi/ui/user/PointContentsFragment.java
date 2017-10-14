@@ -98,7 +98,6 @@ public class PointContentsFragment extends BaseFragment implements AbsListView.O
 						}
 						more = true;
 
-
 						pointViewHolder.lvPoint.setAdapter(pointListAdapter);
 
 						break;

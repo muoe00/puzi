@@ -62,8 +62,8 @@ public class UserVO implements Serializable {
 		return registerType;
 	}
 
-	public void setRegisterType(String registerType) {
-		this.registerType = registerType;
+	public void setRegisterType(RegisterType registerType) {
+		this.registerType = String.valueOf(registerType);
 	}
 
 	public String getEmail() {
@@ -86,8 +86,8 @@ public class UserVO implements Serializable {
 		return genderType;
 	}
 
-	public void setGenderType(String genderType) {
-		this.genderType = genderType;
+	public void setGenderType(GenderType genderType) {
+		this.genderType = String.valueOf(genderType);
 	}
 
 	public int getAge() {
@@ -102,8 +102,8 @@ public class UserVO implements Serializable {
 		return ageType;
 	}
 
-	public void setAgeType(String ageType) {
-		this.ageType = ageType;
+	public void setAgeType(AgeType ageType) {
+		this.ageType = String.valueOf(ageType);
 	}
 
 	public List<String> getFavoriteTypeList() {
@@ -174,8 +174,8 @@ public class UserVO implements Serializable {
 		return phoneType;
 	}
 
-	public void setPhoneType(String phoneType) {
-		this.phoneType = phoneType;
+	public void setPhoneType(PhoneType phoneType) {
+		this.phoneType = String.valueOf(phoneType);
 	}
 
 	public Boolean getSpendFlag() {

@@ -161,7 +161,7 @@
     android:layout_marginLeft="35dp"
     android:layout_marginRight="35dp"
     android:layout_marginTop="15dp"
-    android:background="@drawable/button"
+    android:background="@drawable/button_puzi"
     android:layout_gravity="center"
     android:layout_width="290dp"
     android:layout_height="52dp"/>

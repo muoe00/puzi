@@ -37,8 +37,7 @@ public class IntroActivity extends BaseFragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setTheme(R.style.AppTheme);
-		setContentView(R.layout.activity_intro);
+		setContentView(R.layout.layout_splash);
 
 		final String autoId = Preference.getProperty(this, "id");
 		final String autoPw = Preference.getProperty(this, "passwd");
@@ -84,6 +83,7 @@ public class IntroActivity extends BaseFragmentActivity {
 					finish();
 				}
 				else {
+					setContentView(R.layout.activity_intro);
 					fragment = new LoginFragment();
 					addFragment(fragment);
 				}
@@ -127,9 +127,6 @@ public class IntroActivity extends BaseFragmentActivity {
 			}
 		} else if(fragmentList.size() > 1) {
 			removeFragment(position);
-			/*fragment = fragmentList.get(position - 1);
-			fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
-			fragmentTransaction.commitNow();*/
 		}
 	}
 

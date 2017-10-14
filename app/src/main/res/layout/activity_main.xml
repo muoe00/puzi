@@ -22,11 +22,6 @@
       android:layout_gravity="center_vertical"
       android:layout_width="35dp"
       android:layout_height="37dp">
-      <Button
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/btn_level"
-        android:background="@null"/>
       <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -134,11 +129,9 @@
       android:orientation="vertical">
       <ImageView
         android:id="@+id/iv_advertise"
-        android:layout_width="48dp"
-        android:layout_height="49dp"
-        android:layout_gravity="center"
-        android:background="#00000000"
-        android:paddingBottom="7dp"/>
+        android:layout_width="24dp"
+        android:layout_height="22dp"
+        android:layout_gravity="center"/>
       <Button
         android:id="@+id/btn_advertise"
         android:layout_width="match_parent"
@@ -156,11 +149,9 @@
 
       <ImageView
         android:id="@+id/iv_channel"
-        android:layout_width="48dp"
-        android:layout_height="49dp"
-        android:layout_gravity="center"
-        android:background="#00000000"
-        android:paddingBottom="7dp"/>
+        android:layout_width="24dp"
+        android:layout_height="22dp"
+        android:layout_gravity="center"/>
 
       <Button
         android:id="@+id/btn_channel"
@@ -179,11 +170,9 @@
 
       <ImageView
         android:id="@+id/iv_store"
-        android:layout_width="48dp"
-        android:layout_height="49dp"
-        android:layout_gravity="center"
-        android:background="#00000000"
-        android:paddingBottom="7dp"/>
+        android:layout_width="24dp"
+        android:layout_height="22dp"
+        android:layout_gravity="center"/>
 
       <Button
         android:id="@+id/btn_store"
@@ -202,11 +191,9 @@
 
       <ImageView
         android:id="@+id/iv_setting"
-        android:layout_width="48dp"
-        android:layout_height="49dp"
-        android:layout_gravity="center"
-        android:background="#00000000"
-        android:paddingBottom="7dp"/>
+        android:layout_width="24dp"
+        android:layout_height="22dp"
+        android:layout_gravity="center"/>
 
       <Button
         android:id="@+id/btn_setting"

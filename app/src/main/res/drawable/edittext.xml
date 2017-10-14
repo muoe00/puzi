@@ -3,10 +3,8 @@
     <item android:state_pressed="true" android:state_enabled="true">
         <shape>
             <stroke
-                android:width="2dip" android:color="#8f975d"/>
-
+                android:width="1dip" android:color="#dadada"/>
             <corners android:radius="5dip"/>
-
             <padding
                 android:left="7dip"
                 android:right="7dip"
@@ -18,10 +16,8 @@
     <item android:state_focused="true" android:state_enabled="true">
         <shape>
             <stroke
-                android:width="2dip" android:color="#8f975d"/>
-
+                android:width="1dip" android:color="#dadada"/>
             <corners android:radius="5dip"/>
-
             <padding
                 android:left="7dip"
                 android:right="7dip"
@@ -33,7 +29,6 @@
     <item android:state_enabled="false">
         <shape>
             <corners android:radius="5dip"/>
-
             <padding
                 android:left="7dip"
                 android:right="7dip"
@@ -45,10 +40,8 @@
     <item android:state_enabled="true">
         <shape>
             <stroke
-                android:width="0.5dip" android:color="#898b75"/>
-
+                android:width="1dip" android:color="#dadada"/>
             <corners android:radius="5dip"/>
-
             <padding
                 android:left="7dip"
                 android:right="7dip"

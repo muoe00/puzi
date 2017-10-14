@@ -22,9 +22,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import com.joooonho.SelectableRoundedImageView;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import com.puzi.puzi.cache.Preference;
+import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
@@ -48,6 +50,8 @@ public class AdvertisementDetailActivity extends BaseActivity {
 
 	Unbinder unbinder;
 
+	@BindView(R.id.iv_companyPicture) public SelectableRoundedImageView companyPicture;
+	@BindView(R.id.tv_companyId) public TextView companyName;
 	@BindView(R.id.ll_web_dialog) public LinearLayout llDialog;
 	@BindView(R.id.tv_ad_state) public TextView tvState;
 	@BindView(R.id.progressbar) public ProgressBar progressBar;
@@ -101,6 +105,8 @@ public class AdvertisementDetailActivity extends BaseActivity {
 
 		channelId = receivedAdvertise.getChannelId();
 		url = receivedAdvertise.getLink();
+		BitmapUIL.load(receivedAdvertise.getCompanyInfoDTO().getPictureUrl(), companyPicture);
+		companyName.setText(receivedAdvertise.getCompanyInfoDTO().getCompanyAlias());
 
 		webView.setWebViewClient(new WebViewClient());
 		WebSettings webSettings = webView.getSettings();
