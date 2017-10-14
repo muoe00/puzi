@@ -1,16 +1,16 @@
 package com.puzi.puzi.ui.store.withdraw;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import com.puzi.puzi.R;
+import com.puzi.puzi.ui.base.BaseActivity;
 
 /**
  * Created by muoe0 on 2017-07-30.
  */
 
-public class WithdrawActivity extends Activity {
+public class WithdrawActivity extends BaseActivity {
 
 	private ImageButton btnBack;
 

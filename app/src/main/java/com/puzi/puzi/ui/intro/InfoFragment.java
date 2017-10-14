@@ -12,10 +12,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import butterknife.*;
 import com.puzi.puzi.R;
-import com.puzi.puzi.biz.user.AgeType;
-import com.puzi.puzi.biz.user.FavoriteType;
-import com.puzi.puzi.biz.user.GenderType;
-import com.puzi.puzi.biz.user.UserVO;
+import com.puzi.puzi.biz.user.*;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
@@ -54,7 +51,6 @@ public class InfoFragment extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		View view = inflater.inflate(R.layout.fragment_signup_info, container, false);
-
 		unbinder = ButterKnife.bind(this, view);
 
 		settingYears();
@@ -66,10 +62,10 @@ public class InfoFragment extends BaseFragment {
 		userVO = new UserVO();
 		userVO.setUserId(Preference.getProperty(getActivity(), "id"));
 		userVO.setPasswd(Preference.getProperty(getActivity(), "passwd"));
-		userVO.setRegisterType("N");
+		userVO.setRegisterType(RegisterType.N);
 		userVO.setEmail(Preference.getProperty(getActivity(), "email"));
 		userVO.setNotifyId("NoRegister");
-		userVO.setPhoneType("A");
+		userVO.setPhoneType(PhoneType.A);
 		userVO.setLevelType("BRONZE");
 
 		checkInfo();

@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,6 +25,8 @@ public class PointActivity extends BaseFragmentActivity {
 	private int tag = 0;
 
 	@BindView(R.id.ibtn_back) public ImageButton btnBack;
+	@BindView(R.id.iv_point_select) public ImageView ivPointBar;
+	@BindView(R.id.iv_level_select) public ImageView ivLevelBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,8 @@ public class PointActivity extends BaseFragmentActivity {
 		setContentView(R.layout.activity_point);
 
 		unbinder = ButterKnife.bind(this);
+		ivPointBar.setVisibility(View.VISIBLE);
+		ivLevelBar.setVisibility(View.INVISIBLE);
 
 		changedFragment(tag);
 	}
@@ -53,9 +58,13 @@ public class PointActivity extends BaseFragmentActivity {
 		switch(view.getId()) {
 			case R.id.btn_channelRecommend:
 				tag = PuziUtils.VIEW_POINT;
+				ivPointBar.setVisibility(View.VISIBLE);
+				ivLevelBar.setVisibility(View.INVISIBLE);
 				break;
 			case R.id.btn_point_level:
 				tag = PuziUtils.VIEW_LEVEL;
+				ivPointBar.setVisibility(View.INVISIBLE);
+				ivLevelBar.setVisibility(View.VISIBLE);
 				break;
 		}
 

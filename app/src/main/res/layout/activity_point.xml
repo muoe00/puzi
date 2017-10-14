@@ -136,7 +136,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/colorNavy"
-        android:id="@+id/iv_chrecommend_select"/>
+        android:id="@+id/iv_point_select"/>
 
     </FrameLayout>
 
@@ -164,7 +164,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/colorNavy"
-        android:id="@+id/iv_chfavorit_select"/>
+        android:id="@+id/iv_level_select"/>
 
     </FrameLayout>
 

@@ -1,16 +1,16 @@
 package com.puzi.puzi.ui.store.coupon;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import com.puzi.puzi.R;
+import com.puzi.puzi.ui.base.BaseActivity;
 
 /**
  * Created by muoe0 on 2017-08-06.
  */
 
-public class CouponActivity extends Activity {
+public class CouponActivity extends BaseActivity {
 
 	private ImageButton btnBack;
 
