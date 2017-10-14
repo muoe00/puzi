@@ -1,6 +1,7 @@
 package com.puzi.puzi.ui.company;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -128,21 +129,33 @@ public class CompanyActivity extends BaseFragmentActivity {
 				return false;
 			}
 		});
-		final int CHANGE_Y = 250;
+		final int CHANGE_Y_START = 200;
+		final int CHANGE_Y_END = 400;
 		svContainer.setOnScrollListener(new CusomScrollView.OnScrollListener() {
 			@Override
 			public void onScroll(int direction, float scrollY) {
 				if(svContainerState == SCROLL_STATE_FLING || svContainerState == SCROLL_STATE_IDLE){
-					if(scrollY >= CHANGE_Y) {
+					if(scrollY >= CHANGE_Y_END) {
 						// 상단바에 프로필 생성
 						titleCompanyPicture.setVisibility(View.VISIBLE);
 						titleCompanyName.setVisibility(View.VISIBLE);
 						llTitleBottomBar.setVisibility(View.VISIBLE);
-					} else {
+						titleCompanyPicture.getDrawable().setAlpha(255);
+						titleCompanyName.setTextColor(Color.argb(255, 51, 51, 51));
+					} else if(scrollY < CHANGE_Y_START) {
 						// 상단바에 프로필 제거
 						titleCompanyPicture.setVisibility(View.INVISIBLE);
 						titleCompanyName.setVisibility(View.INVISIBLE);
 						llTitleBottomBar.setVisibility(View.INVISIBLE);
+						titleCompanyPicture.getDrawable().setAlpha(0);
+						titleCompanyName.setTextColor(Color.argb(0, 51, 51, 51));
+					} else {
+						titleCompanyPicture.setVisibility(View.VISIBLE);
+						titleCompanyName.setVisibility(View.VISIBLE);
+						llTitleBottomBar.setVisibility(View.VISIBLE);
+						int alphaColor = (int) (scrollY - CHANGE_Y_START) / 2;
+						titleCompanyPicture.getDrawable().setAlpha(alphaColor);
+						titleCompanyName.setTextColor(Color.argb(alphaColor, 51, 51, 51));
 					}
 				}
 			}
