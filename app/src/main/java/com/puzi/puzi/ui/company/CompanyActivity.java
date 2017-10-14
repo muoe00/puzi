@@ -3,6 +3,9 @@ package com.puzi.puzi.ui.company;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +22,7 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.CompanyNetworkService;
 import com.puzi.puzi.network.service.SettingNetworkService;
+import com.puzi.puzi.ui.CusomScrollView;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.common.DialogButtonCallback;
 import com.puzi.puzi.ui.common.OneButtonDialog;
@@ -29,6 +33,10 @@ import java.util.List;
 
 public class CompanyActivity extends BaseFragmentActivity {
 
+	private static final int SCROLL_STATE_FLING = 0;
+	private static final int SCROLL_STATE_TOUCH_SCROLL = 1;
+	private static final int SCROLL_STATE_IDLE = 2;
+
 	Unbinder unbinder;
 
 	@BindView(R.id.btn_block) public ImageButton btnBlock;
@@ -37,6 +45,10 @@ public class CompanyActivity extends BaseFragmentActivity {
 	@BindView(R.id.tv_companyComment) public TextView companyComment;
 	@BindView(R.id.lv_profile_channel_list) public ListView lvChannelList;
 	@BindView(R.id.ll_company_container) public LinearLayout llCompanyContainer;
+	@BindView(R.id.sv_container) public CusomScrollView svContainer;
+	@BindView(R.id.iv_title_companyProfile_picture) public SelectableRoundedImageView titleCompanyPicture;
+	@BindView(R.id.tv_title_companyName) public TextView titleCompanyName;
+	@BindView(R.id.ll_title_bottom_bar) public LinearLayout llTitleBottomBar;
 
 	private CompanyChannelAdapter companyChannelAdapter;
 
@@ -45,13 +57,13 @@ public class CompanyActivity extends BaseFragmentActivity {
 	private CompanyVO companyVO;
 	private boolean isBlock = false;
 	private boolean more = false;
-	private boolean lastestScrollFlag = false;
 	private int totalCount = 0;
+	private int svContainerState = -1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_profile);
+		setContentView(R.layout.activity_company);
 
 		unbinder = ButterKnife.bind(this);
 
@@ -67,9 +79,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 			Log.i(PuziUtils.INFO, "companyId : " + companyId);
 			getCompany();
 		} else {
-			BitmapUIL.load(companyVO.getPictureUrl(), companyPicture);
-			companyName.setText(companyVO.getCompanyAlias());
-			companyComment.setText(companyVO.getComment());
+			setCompanyInfo();
 		}
 
 		isBlock = companyVO.getBlocked();
@@ -80,7 +90,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 			// btnBlock.setBackgroundResource();
 		}
 
-		getChannelList();
+		getChannelList(false);
 	}
 
 	private void initAdapter() {
@@ -89,21 +99,52 @@ public class CompanyActivity extends BaseFragmentActivity {
 	}
 
 	private void initScrollAction() {
-		lvChannelList.setOnScrollListener(new AbsListView.OnScrollListener() {
-
+		svContainer.setOnEndedScrolledListener(new CusomScrollView.OnEndedScrolledListener() {
 			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-				if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastestScrollFlag) {
-					if(more) {
-						pagingIndex = pagingIndex + 1;
-						getChannelList();
-					}
+			public void onEnded() {
+				if(more) {
+					pagingIndex = pagingIndex + 1;
+					getChannelList(true);
 				}
 			}
+		});
+		svContainer.setOnTouchListener(new View.OnTouchListener() {
 
 			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-				lastestScrollFlag = (totalItemCount > 0) && firstVisibleItem + visibleItemCount >= totalItemCount;
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction()) {
+					case MotionEvent.ACTION_SCROLL:
+					case MotionEvent.ACTION_MOVE:
+						svContainerState = SCROLL_STATE_FLING;
+						break;
+					case MotionEvent.ACTION_DOWN:
+						svContainerState = SCROLL_STATE_TOUCH_SCROLL;
+						break;
+					case MotionEvent.ACTION_CANCEL:
+					case MotionEvent.ACTION_UP:
+						svContainerState = SCROLL_STATE_IDLE;
+						break;
+				}
+				return false;
+			}
+		});
+		final int CHANGE_Y = 250;
+		svContainer.setOnScrollListener(new CusomScrollView.OnScrollListener() {
+			@Override
+			public void onScroll(int direction, float scrollY) {
+				if(svContainerState == SCROLL_STATE_FLING || svContainerState == SCROLL_STATE_IDLE){
+					if(scrollY >= CHANGE_Y) {
+						// 상단바에 프로필 생성
+						titleCompanyPicture.setVisibility(View.VISIBLE);
+						titleCompanyName.setVisibility(View.VISIBLE);
+						llTitleBottomBar.setVisibility(View.VISIBLE);
+					} else {
+						// 상단바에 프로필 제거
+						titleCompanyPicture.setVisibility(View.INVISIBLE);
+						titleCompanyName.setVisibility(View.INVISIBLE);
+						llTitleBottomBar.setVisibility(View.INVISIBLE);
+					}
+				}
 			}
 		});
 	}
@@ -121,10 +162,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 				switch(responseVO.getResultType()){
 					case SUCCESS:
 						companyVO = responseVO.getValue("companyInfoDTO", CompanyVO.class);
-
-						BitmapUIL.load(companyVO.getPictureUrl(), companyPicture);
-						companyName.setText(companyVO.getCompanyAlias());
-						companyComment.setText(companyVO.getComment());
+						setCompanyInfo();
 						break;
 
 					default:
@@ -135,8 +173,25 @@ public class CompanyActivity extends BaseFragmentActivity {
 		});
 	}
 
-	private void getChannelList() {
+	private void setCompanyInfo() {
+		BitmapUIL.load(companyVO.getPictureUrl(), companyPicture);
+		companyName.setText(companyVO.getCompanyAlias());
+		companyComment.setText(companyVO.getComment());
+		BitmapUIL.load(companyVO.getPictureUrl(), titleCompanyPicture);
+		titleCompanyName.setText(companyVO.getCompanyAlias());
+	}
+
+	private void getChannelList(final boolean scrollToBottom) {
 		companyChannelAdapter.startProgress();
+
+		if(scrollToBottom) {
+			svContainer.post(new Runnable() {
+				@Override
+				public void run() {
+					svContainer.fullScroll(View.FOCUS_DOWN);
+				}
+			});
+		}
 
 		CompanyNetworkService companyNetworkService = RetrofitManager.create(CompanyNetworkService.class);
 		String token = Preference.getProperty(CompanyActivity.this, "token");
@@ -152,12 +207,22 @@ public class CompanyActivity extends BaseFragmentActivity {
 				if(responseVO.getResultType().isSuccess()) {
 					List<ChannelVO> newChannelList = responseVO.getList("channelDTOList", ChannelVO.class);
 					companyChannelAdapter.addList(newChannelList);
+					setListViewHeightBasedOnChildren(lvChannelList);
 
 					totalCount = responseVO.getInteger("totalCount");
 					if(totalCount == companyChannelAdapter.getCount()) {
 						more = false;
 					} else {
 						more = true;
+					}
+
+					if(!scrollToBottom) {
+						svContainer.post(new Runnable() {
+							@Override
+							public void run() {
+								svContainer.fullScroll(View.FOCUS_UP);
+							}
+						});
 					}
 				}
 			}
@@ -221,6 +286,32 @@ public class CompanyActivity extends BaseFragmentActivity {
 	public void onBackPressed() {
 		super.onBackPressed();
 		doAnimationGoLeft();
+	}
+
+	/**
+	 * 스크롤 뷰 안에 리스트뷰를 넣을 때 height문제로 인해서
+	 * notifyDataSetChanged()를 호출 할 때 이 메소드를 같이 호출해 줘야 한다.
+	 * @param listView
+	 */
+	private void setListViewHeightBasedOnChildren(ListView listView) {
+		ListAdapter listAdapter = listView.getAdapter();
+		if (listAdapter == null) {
+			return;
+		}
+
+		int totalHeight = 0;
+		int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+
+		for (int i = 0; i < listAdapter.getCount(); i++) {
+			View listItem = listAdapter.getView(i, null, listView);
+			listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+			totalHeight += listItem.getMeasuredHeight();
+		}
+
+		ViewGroup.LayoutParams params = listView.getLayoutParams();
+		params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+		listView.setLayoutParams(params);
+		listView.requestLayout();
 	}
 
 }
