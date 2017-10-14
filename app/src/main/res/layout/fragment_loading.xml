@@ -5,37 +5,32 @@
               android:background="@color/colorWhite"
               android:orientation="vertical" >
 
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_weight="1"
-    android:layout_height="0dp"
-    android:orientation="vertical" >
-  </LinearLayout>
-
   <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="100dp" >
+    android:layout_marginTop="100dp"
+    android:layout_marginLeft="130dp"
+    android:layout_marginRight="130dp">
 
     <ImageView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_width="108dp"
+      android:layout_height="144dp"
       android:layout_alignParentTop="true"
       android:layout_centerHorizontal="true"
-      android:src="@drawable/cashspace_bi" />
+      android:src="@drawable/splash_logo" />
   </RelativeLayout>
 
   <LinearLayout
+    android:layout_marginTop="150dp"
     android:layout_width="match_parent"
-    android:layout_weight="1"
-    android:layout_height="0dp"
-    android:orientation="vertical" >
-  </LinearLayout>
-
-  <ImageView
-    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginBottom="30dp" />
+    android:orientation="vertical" >
+
+    <ImageView
+      android:layout_width="80dp"
+      android:layout_height="50dp"
+      android:src="@drawable/splash_typo"
+      android:layout_gravity="center_horizontal" />
+  </LinearLayout>
 
 </LinearLayout>
