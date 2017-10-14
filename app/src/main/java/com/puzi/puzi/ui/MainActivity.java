@@ -70,10 +70,10 @@ public class MainActivity extends BaseFragmentActivity {
 		viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
 		viewPager.setCurrentItem(FRAGMENT_ADVERTISE);
 
-		ivAdvertise.setBackgroundResource(R.drawable.home_selected);
-		ivChannel.setBackgroundResource(R.drawable.channel);
-		ivStore.setBackgroundResource(R.drawable.store);
-		ivSetting.setBackgroundResource(R.drawable.gear);
+		ivAdvertise.setImageResource(R.drawable.home_on);
+		ivChannel.setImageResource(R.drawable.channel_off);
+		ivStore.setImageResource(R.drawable.store_off);
+		ivSetting.setImageResource(R.drawable.setting_off);
 
 		btnAdvertise.setTag(FRAGMENT_ADVERTISE);
 		btnChannel.setTag(FRAGMENT_CHANNEL);
@@ -202,30 +202,30 @@ public class MainActivity extends BaseFragmentActivity {
 	private void changeBottomButton(int id){
 		switch (id) {
 			case FRAGMENT_ADVERTISE:
-				ivAdvertise.setBackgroundResource(R.drawable.home_selected);
-				ivChannel.setBackgroundResource(R.drawable.channel);
-				ivStore.setBackgroundResource(R.drawable.store);
-				ivSetting.setBackgroundResource(R.drawable.gear);
+				ivAdvertise.setImageResource(R.drawable.home_on);
+				ivChannel.setImageResource(R.drawable.channel_off);
+				ivStore.setImageResource(R.drawable.store_off);
+				ivSetting.setImageResource(R.drawable.setting_off);
 				ibtnRightButton.setImageResource(R.drawable.add_friend);
 				return;
 			case FRAGMENT_CHANNEL:
-				ivAdvertise.setBackgroundResource(R.drawable.home);
-				ivChannel.setBackgroundResource(R.drawable.channel_selected);
-				ivStore.setBackgroundResource(R.drawable.store);
-				ivSetting.setBackgroundResource(R.drawable.gear);
+				ivAdvertise.setImageResource(R.drawable.home_off);
+				ivChannel.setImageResource(R.drawable.channel_on);
+				ivStore.setImageResource(R.drawable.store_off);
+				ivSetting.setImageResource(R.drawable.setting_off);
 				ibtnRightButton.setImageResource(R.drawable.filter);
 				return;
 			case FRAGMENT_STORE:
-				ivAdvertise.setBackgroundResource(R.drawable.home);
-				ivChannel.setBackgroundResource(R.drawable.channel);
-				ivStore.setBackgroundResource(R.drawable.store_selected);
-				ivSetting.setBackgroundResource(R.drawable.gear);
+				ivAdvertise.setImageResource(R.drawable.home_off);
+				ivChannel.setImageResource(R.drawable.channel_off);
+				ivStore.setImageResource(R.drawable.store_selected);
+				ivSetting.setImageResource(R.drawable.setting_off);
 				return;
 			case FRAGMENT_SETTING:
-				ivAdvertise.setBackgroundResource(R.drawable.home);
-				ivChannel.setBackgroundResource(R.drawable.channel);
-				ivStore.setBackgroundResource(R.drawable.store);
-				ivSetting.setBackgroundResource(R.drawable.gear);
+				ivAdvertise.setImageResource(R.drawable.home_off);
+				ivChannel.setImageResource(R.drawable.channel_off);
+				ivStore.setImageResource(R.drawable.store_off);
+				ivSetting.setImageResource(R.drawable.setting_on);
 				return;
 		}
 
