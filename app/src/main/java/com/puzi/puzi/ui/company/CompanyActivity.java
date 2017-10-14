@@ -3,9 +3,6 @@ package com.puzi.puzi.ui.company;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.*;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,12 +36,13 @@ public class CompanyActivity extends BaseFragmentActivity {
 	@BindView(R.id.tv_companyName) public TextView companyName;
 	@BindView(R.id.tv_companyComment) public TextView companyComment;
 	@BindView(R.id.lv_profile_channel_list) public ListView lvChannelList;
-	@BindView(R.id.ll_company_container) public ListView llCompanyContainer;
+	@BindView(R.id.ll_company_container) public LinearLayout llCompanyContainer;
 
 	private CompanyChannelAdapter companyChannelAdapter;
 
 	private int companyId = 0;
 	private int pagingIndex = 1;
+	private CompanyVO companyVO;
 	private boolean isBlock = false;
 	private boolean more = false;
 	private boolean lastestScrollFlag = false;
@@ -61,7 +59,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 		initAdapter();
 
 		Intent intent = getIntent();
-		CompanyVO companyVO = (CompanyVO) intent.getSerializableExtra("company");
+		companyVO = (CompanyVO) intent.getSerializableExtra("company");
 		Log.i(PuziUtils.INFO, "companyVO : " + companyVO.toString());
 
 		if(companyVO == null) {
@@ -88,18 +86,6 @@ public class CompanyActivity extends BaseFragmentActivity {
 	private void initAdapter() {
 		companyChannelAdapter = new CompanyChannelAdapter(this);
 		lvChannelList.setAdapter(companyChannelAdapter);
-//		lvChannelList.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-//			@Override
-//			public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//				if(scrollY > 100) { // 채널확대
-//					llCompanyContainer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0));
-//				} else if(scrollY > 5) { // 줄이기
-//					llCompanyContainer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, scrollY));
-//				} else { // 기본
-//					llCompanyContainer.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 100));
-//				}
-//			}
-//		});
 	}
 
 	private void initScrollAction() {
@@ -134,7 +120,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 
 				switch(responseVO.getResultType()){
 					case SUCCESS:
-						CompanyVO companyVO = responseVO.getValue("companyInfoDTO", CompanyVO.class);
+						companyVO = responseVO.getValue("companyInfoDTO", CompanyVO.class);
 
 						BitmapUIL.load(companyVO.getPictureUrl(), companyPicture);
 						companyName.setText(companyVO.getCompanyAlias());
@@ -155,7 +141,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 		CompanyNetworkService companyNetworkService = RetrofitManager.create(CompanyNetworkService.class);
 		String token = Preference.getProperty(CompanyActivity.this, "token");
 
-		Call<ResponseVO> call = companyNetworkService.channelList(token, companyId, pagingIndex);
+		Call<ResponseVO> call = companyNetworkService.channelList(token, companyVO.getCompanyId(), pagingIndex);
 		call.enqueue(new CustomCallback<ResponseVO>(this) {
 
 			@Override
