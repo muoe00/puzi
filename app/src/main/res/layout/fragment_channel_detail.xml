@@ -66,10 +66,11 @@
       <ImageButton
         android:layout_width="match_parent"
         android:layout_height="360dp"
-        android:src="@drawable/puzi_bi_02"
+        android:src="@drawable/puzi_bi"
         android:background="#00000000"
         android:scaleType="centerCrop"
-        android:id="@+id/ibtn_chanenl_detail_picture" android:elevation="0dp"/>
+        android:id="@+id/ibtn_chanenl_detail_picture"
+        android:elevation="0dp"/>
 
       <!-- 평가 -->
       <LinearLayout

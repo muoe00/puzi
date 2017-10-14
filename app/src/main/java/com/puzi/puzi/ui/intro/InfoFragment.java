@@ -35,13 +35,21 @@ public class InfoFragment extends BaseFragment {
 
 	private Unbinder unbinder;
 
+	@BindView(R.id.btn_info_beauty) public Button btnBeauty;
+	@BindView(R.id.btn_info_shopping) public Button btnShop;
+	@BindView(R.id.btn_info_game) public Button btnGame;
+	@BindView(R.id.btn_info_eat) public Button btnEat;
+	@BindView(R.id.btn_info_tour) public Button btnTour;
+	@BindView(R.id.btn_info_finance) public Button btnFinance;
+	@BindView(R.id.btn_info_culture) public Button btnCulture;
+	@BindView(R.id.btn_signup_all) public ImageButton btnConfirm;
 	@BindView(R.id.rbtn_male) public RadioButton rbtnMale;
 	@BindView(R.id.rbtn_female) public RadioButton rbtnFemale;
 	@BindView(R.id.sp_age) public Spinner spAge;
 	@BindView(R.id.edit_recommend) public EditText edtiRecommend;
 	@BindView(R.id.ibtn_back) public ImageView ibtnBack;
 
-	private boolean isClause = false;
+	private boolean isConfirm = false;
 	private UserVO userVO;
 	private AlertDialog.Builder alert_confirm;
 	private ArrayList<String> favoritesList = new ArrayList<String>();
@@ -105,7 +113,7 @@ public class InfoFragment extends BaseFragment {
 
 						Intent intent = new Intent(getActivity(), MainActivity.class);
 						startActivity(intent);
-
+						getActivity().finish();
 						getActivity().getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
 						break;
@@ -169,25 +177,25 @@ public class InfoFragment extends BaseFragment {
 	public void checkFavorites(View view) {
 		switch (view.getId()) {
 			case R.id.btn_info_beauty:
-				checkList(FavoriteType.BEAUTY);
+				checkList(FavoriteType.BEAUTY.getComment(), btnBeauty);
 				break;
 			case R.id.btn_info_shopping:
-				checkList(FavoriteType.SHOPPING);
+				checkList(FavoriteType.SHOPPING.getComment(), btnShop);
 				break;
 			case R.id.btn_info_game:
-				checkList(FavoriteType.GAME);
+				checkList(FavoriteType.GAME.getComment(), btnGame);
 				break;
 			case R.id.btn_info_eat:
-				checkList(FavoriteType.EAT);
+				checkList(FavoriteType.EAT.getComment(), btnEat);
 				break;
 			case R.id.btn_info_tour:
-				checkList(FavoriteType.TOUR);
+				checkList(FavoriteType.TOUR.getComment(), btnTour);
 				break;
 			case R.id.btn_info_finance:
-				checkList(FavoriteType.FINANCE);
+				checkList(FavoriteType.FINANCE.getComment(), btnFinance);
 				break;
 			case R.id.btn_info_culture:
-				checkList(FavoriteType.CULTURE);
+				checkList(FavoriteType.CULTURE.getComment(), btnCulture);
 				break;
 			default:
 				break;
@@ -196,15 +204,19 @@ public class InfoFragment extends BaseFragment {
 		userVO.setFavoriteTypeList(favoritesList);
 	}
 
-	public void checkList(FavoriteType category) {
+	public void checkList(String category, Button btn) {
 		if(isFavorites(category)) {
 			favoritesList.remove(category);
+			btn.setBackgroundResource(R.drawable.button_favorite_off);
 		} else {
 			favoritesList.add(String.valueOf(category));
+			btn.setBackgroundResource(R.drawable.button_favorite_on);
 		}
+
+		Log.i("INFO", "favoritesList : " + favoritesList.toString());
 	}
 
-	public boolean isFavorites(FavoriteType item) {
+	public boolean isFavorites(String item) {
 		if(favoritesList.isEmpty()) {
 			return false;
 		} else {
@@ -217,48 +229,26 @@ public class InfoFragment extends BaseFragment {
 		}
 	}
 
-	@OnClick({R.id.btn_signup_service, R.id.btn_signup_personal, R.id.btn_signup_gps, R.id.btn_signup_all})
+	@OnClick(R.id.btn_signup_all)
+	public void checkConfirm() {
+		if(isConfirm) {
+			isConfirm = false;
+			btnConfirm.setBackgroundResource(R.drawable.btn_confirm_off);
+		} else if (!isConfirm) {
+			isConfirm = true;
+			btnConfirm.setBackgroundResource(R.drawable.btn_confirm_on);
+		}
+	}
+
+	@OnClick({R.id.btn_signup_service, R.id.btn_signup_personal, R.id.btn_signup_gps})
 	public void checkClause(View view) {
-
-		boolean isService = false, isPersonal = false, isGps = false;
-
 		switch (view.getId()) {
 			case R.id.btn_signup_service:
-				if(isService) {
-					isService = false;
-				} else {
-					isService = true;
-				}
 				break;
 			case R.id.btn_signup_personal:
-				if(isPersonal) {
-					isPersonal = false;
-				} else {
-					isPersonal = true;
-				}
 				break;
 			case R.id.btn_signup_gps:
-				if(isGps) {
-					isGps = false;
-				} else {
-					isGps = true;
-				}
 				break;
-			case R.id.btn_signup_all:
-				if(isClause) {
-					isClause = false;
-				} else {
-					isClause = true;
-				}
-				break;
-			default:
-				break;
-		}
-
-		if(!isClause) {
-			if(isService && isPersonal && isGps) {
-				isClause = true;
-			}
 		}
 	}
 
@@ -283,7 +273,7 @@ public class InfoFragment extends BaseFragment {
 			} else {
 				Toast.makeText(getContext(), "관심분야를 3가지 이상 선택하세요", Toast.LENGTH_SHORT).show();
 			}
-		} else if(!isClause) {
+		} else if(!isConfirm) {
 			Toast.makeText(getContext(), "약관에 동의해주세요", Toast.LENGTH_SHORT).show();
 		} else {
 			Log.i("INFO", "signup check complete.");

@@ -7,4 +7,8 @@
 
   <string name="info_age">출생 년도를 선택하세요</string>
   <string name="title_activity_company">CompanyActivity</string>
+
+  <string name="confirm_service"><u>서비스 이용 약관</u></string>
+  <string name="confirm_personal"><u>개인정보 취급 방침</u></string>
+  <string name="confirm_gps"><u>위치기반 서비스 이용약관</u></string>
 </resources>
