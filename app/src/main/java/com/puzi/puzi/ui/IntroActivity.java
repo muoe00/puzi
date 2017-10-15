@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.widget.Toast;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.puzi.puzi.R;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
@@ -38,6 +39,10 @@ public class IntroActivity extends BaseFragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_splash);
+
+		FirebaseInstanceId.getInstance().getToken();
+		String tokenFCM = FirebaseInstanceId.getInstance().getToken();
+		Log.i(PuziUtils.INFO, "FCM_Token : " + tokenFCM);
 
 		final String autoId = Preference.getProperty(this, "id");
 		final String autoPw = Preference.getProperty(this, "passwd");
