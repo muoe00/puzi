@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,7 +44,7 @@ public class InfoFragment extends BaseFragment {
 	@BindView(R.id.btn_info_tour) public Button btnTour;
 	@BindView(R.id.btn_info_finance) public Button btnFinance;
 	@BindView(R.id.btn_info_culture) public Button btnCulture;
-	@BindView(R.id.btn_signup_all) public ImageButton btnConfirm;
+	@BindView(R.id.iv_signup_all) public ImageView ivConfirm;
 	@BindView(R.id.rbtn_male) public RadioButton rbtnMale;
 	@BindView(R.id.rbtn_female) public RadioButton rbtnFemale;
 	@BindView(R.id.sp_age) public Spinner spAge;
@@ -73,7 +74,7 @@ public class InfoFragment extends BaseFragment {
 		userVO.setPasswd(Preference.getProperty(getActivity(), "passwd"));
 		userVO.setRegisterType(RegisterType.N);
 		userVO.setEmail(Preference.getProperty(getActivity(), "email"));
-		userVO.setNotifyId("NoRegister");
+		userVO.setNotifyId(Preference.getProperty(getActivity(), "tokenFCM"));
 		userVO.setPhoneType(PhoneType.A);
 		userVO.setLevelType(LevelType.BRONZE);
 
@@ -207,9 +208,11 @@ public class InfoFragment extends BaseFragment {
 		if(isFavorites(category)) {
 			favoritesList.remove(category);
 			btn.setBackgroundResource(R.drawable.button_favorite_off);
+			btn.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextGray));
 		} else {
 			favoritesList.add(String.valueOf(category));
 			btn.setBackgroundResource(R.drawable.button_favorite_on);
+			btn.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPuzi));
 		}
 
 		Log.i("INFO", "favoritesList : " + favoritesList.toString());
@@ -232,10 +235,10 @@ public class InfoFragment extends BaseFragment {
 	public void checkConfirm() {
 		if(isConfirm) {
 			isConfirm = false;
-			btnConfirm.setBackgroundResource(R.drawable.btn_confirm_off);
+			ivConfirm.setImageResource(R.drawable.radio_off);
 		} else if (!isConfirm) {
 			isConfirm = true;
-			btnConfirm.setBackgroundResource(R.drawable.btn_confirm_on);
+			ivConfirm.setImageResource(R.drawable.radio_on);
 		}
 	}
 

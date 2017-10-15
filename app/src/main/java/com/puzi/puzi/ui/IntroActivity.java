@@ -44,6 +44,8 @@ public class IntroActivity extends BaseFragmentActivity {
 		String tokenFCM = FirebaseInstanceId.getInstance().getToken();
 		Log.i(PuziUtils.INFO, "FCM_Token : " + tokenFCM);
 
+		Preference.addProperty(IntroActivity.this, "tokenFCM", tokenFCM);
+
 		final String autoId = Preference.getProperty(this, "id");
 		final String autoPw = Preference.getProperty(this, "passwd");
 
@@ -51,7 +53,7 @@ public class IntroActivity extends BaseFragmentActivity {
 		if(autoId != null && autoPw != null) {
 			UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
 
-			Call<ResponseVO> call = userNetworkService.login(autoId, EncryptUtils.sha256(autoPw), "NoRegister", "A", "");
+			Call<ResponseVO> call = userNetworkService.login(autoId, EncryptUtils.sha256(autoPw), tokenFCM, "A", "");
 			call.enqueue(new CustomCallback<ResponseVO>(this) {
 				@Override
 				public void onSuccess(ResponseVO responseVO) {

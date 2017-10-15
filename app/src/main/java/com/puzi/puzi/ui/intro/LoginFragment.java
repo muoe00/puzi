@@ -85,7 +85,7 @@ public class LoginFragment extends BaseFragment {
 			ProgressDialog.show(getActivity());
 
 			UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
-			String notifyId = "NoRegister";
+			String notifyId = Preference.getProperty(getActivity(), "tokenFCM");
 			String phoneType = "A";
 			String phoneKey = "ABC";
 

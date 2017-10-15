@@ -157,18 +157,18 @@
             android:id="@+id/btn_info_beauty"
             android:text="뷰티"
             android:textSize="16sp"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorTextGray"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="15dp"
             android:layout_width="140dp"
-            android:layout_height="54dp"/>
+            android:layout_height="60dp"/>
 
           <Button
             android:background="@drawable/button_favorite_off"
             android:id="@+id/btn_info_shopping"
             android:text="쇼핑"
             android:textSize="16sp"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorTextGray"
             android:layout_marginLeft="8dp"
             android:layout_marginBottom="15dp"
             android:layout_width="140dp"
@@ -179,7 +179,7 @@
             android:id="@+id/btn_info_game"
             android:text="게임"
             android:textSize="16sp"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorTextGray"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="15dp"
             android:layout_width="140dp"
@@ -190,7 +190,7 @@
             android:id="@+id/btn_info_eat"
             android:text="외식"
             android:textSize="16sp"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorTextGray"
             android:layout_marginLeft="8dp"
             android:layout_marginBottom="15dp"
             android:layout_width="140dp"
@@ -201,7 +201,7 @@
             android:id="@+id/btn_info_tour"
             android:text="여행\n(항공,호텔)"
             android:textSize="16sp"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorTextGray"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="15dp"
             android:layout_width="140dp"
@@ -212,9 +212,8 @@
             android:id="@+id/btn_info_finance"
             android:text="금융(보험,제테크)"
             android:textSize="16sp"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorTextGray"
             android:layout_marginLeft="8dp"
-            android:layout_marginBottom="15dp"
             android:layout_width="140dp"
             android:layout_height="60dp"/>
 
@@ -223,9 +222,10 @@
             android:id="@+id/btn_info_culture"
             android:text="문화\n(콘서트,공연)"
             android:textSize="16sp"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorTextGray"
             android:layout_width="140dp"
-            android:layout_height="60dp"/>
+            android:layout_height="60dp"
+            android:layout_marginBottom="15dp"/>
 
         </GridLayout>
 
@@ -296,12 +296,6 @@
             android:textColor="@color/colorBlack"
             android:text="약관동의"/>
 
-          <ImageButton
-            android:background="@drawable/btn_confirm_off"
-            android:layout_width="140dp"
-            android:layout_height="54dp"
-            android:id="@+id/btn_signup_all"/>
-
         </LinearLayout>
 
         <LinearLayout
@@ -341,6 +335,32 @@
             android:id="@+id/btn_signup_gps"
             android:layout_weight="1"
             android:background="@null"/>
+          
+          <FrameLayout
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+            <ImageView
+              android:src="@drawable/radio_off"
+              android:layout_width="30dp"
+              android:layout_height="30dp"
+              android:id="@+id/iv_signup_all"/>
+            <TextView
+              android:layout_marginLeft="42dp"
+              android:gravity="center_vertical"
+              android:text="약관 전체 동의"
+              android:textSize="16sp"
+              android:textColor="@color/colorTextGray"
+              android:layout_width="100dp"
+              android:layout_height="match_parent"/>
+            <Button
+              android:background="@null"
+              android:id="@+id/btn_signup_all"
+              android:layout_width="130dp"
+              android:layout_height="match_parent"/>
+          </FrameLayout>
+
         </LinearLayout>
 
       </LinearLayout>

@@ -96,6 +96,11 @@ public class AdvertisementFragment extends BaseFragment {
 
 						break;
 
+					case NO_AUTH:
+						PuziUtils.renewalToken(getActivity());
+
+						break;
+
 					default:
 						Log.i("INFO", "advertisement getAdvertiseList failed.");
 						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();

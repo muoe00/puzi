@@ -243,6 +243,7 @@ public class MainActivity extends BaseFragmentActivity {
 			case RESULT_OK:
 				List<ChannelCategoryType> categoryTypeList =
 					SerializeUtils.convertToType((List<String>) data.getSerializableExtra("categoryTypeList"));
+
 				if(categoryTypeList != null && categoryTypeList.size() != 0 && viewPager.getCurrentItem() == FRAGMENT_CHANNEL) {
 					for (Fragment fragment : getSupportFragmentManager().getFragments()) {
 						if (fragment.isVisible()) {

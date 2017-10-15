@@ -226,7 +226,7 @@ public class AdvertisementDetailActivity extends BaseActivity {
 
 		AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
 		String token = Preference.getProperty(AdvertisementDetailActivity.this, "token");
-		Call<ResponseVO> call = advertisementNetworkService.pointSave(token, receivedAdvertise.getCmpnId(), answer);
+		Call<ResponseVO> call = advertisementNetworkService.pointSave(token, receivedAdvertise.getReceivedAdvertiseId(), answer);
 		call.enqueue(new CustomCallback<ResponseVO>(AdvertisementDetailActivity.this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
@@ -280,9 +280,13 @@ public class AdvertisementDetailActivity extends BaseActivity {
 
 	@OnClick(R.id.btn_channel_web)
 	public void changedChannel() {
-		Intent intent = new Intent(AdvertisementDetailActivity.this, ChannelDetailActivity.class);
-		intent.putExtra("channelId", channelId);
-		startActivity(intent);
+		if(channelId != 0) {
+			Intent intent = new Intent(AdvertisementDetailActivity.this, ChannelDetailActivity.class);
+			intent.putExtra("channelId", channelId);
+			startActivity(intent);
+		} else {
+			Toast.makeText(this, "해당하는 채널이 없습니다.", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	@OnClick(R.id.ll_ad_company)
