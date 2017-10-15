@@ -28,7 +28,7 @@ import java.util.List;
  * Created by muoe0 on 2017-07-08.
  */
 
-public class AdvertisementFragment extends BaseFragment implements AbsListView.OnScrollListener {
+public class AdvertisementFragment extends BaseFragment {
 
 	Unbinder unbinder;
 
@@ -37,11 +37,8 @@ public class AdvertisementFragment extends BaseFragment implements AbsListView.O
 	private View view = null;
 	private boolean more = false;
 	private int pagingIndex = 1;
-	private boolean lastVisible = false;
+	boolean lastestScrollFlag = false;
 	private AdvertisementListAdapter advertiseListAdapter;
-	private AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
-
-	private static final String TAG = "AdvertisementFragment";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -52,23 +49,22 @@ public class AdvertisementFragment extends BaseFragment implements AbsListView.O
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_advertisement, container, false);
-
 		unbinder = ButterKnife.bind(this, view);
-		advertiseListAdapter = new AdvertisementListAdapter(view.getContext());
-		lvAd.setAdapter(advertiseListAdapter);
 
-		getAdvertiseList(view);
-		lvAd.setOnScrollListener(this);
+		initAdapter();
+		getAdvertiseList();
+		initScrollAction();
 
 		return view;
 	}
 
-	public void getAdvertiseList(final View view) {
-
+	public void getAdvertiseList() {
 		advertiseListAdapter.startProgress();
 		lvAd.setSelection(advertiseListAdapter.getCount() - 1);
 
 		String token = Preference.getProperty(getActivity(), "token");
+
+		final AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
 
 		Call<ResponseVO> callList = advertisementNetworkService.adList(token, pagingIndex);
 		callList.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
@@ -81,6 +77,7 @@ public class AdvertisementFragment extends BaseFragment implements AbsListView.O
 					case SUCCESS:
 						List<ReceivedAdvertiseVO> advertiseList = responseVO.getList("receivedAdvertiseDTOList", ReceivedAdvertiseVO.class);
 						Log.i(PuziUtils.INFO, "Advertise main / advertiseList : " + advertiseList.toString());
+						Log.i(PuziUtils.INFO, "advertiseList totalCount : " + responseVO.getInteger("totalCount"));
 
 						if(advertiseList.size() == 0) {
 							advertiseListAdapter.empty();
@@ -91,7 +88,7 @@ public class AdvertisementFragment extends BaseFragment implements AbsListView.O
 						advertiseListAdapter.addAdvertiseList(advertiseList);
 						advertiseListAdapter.notifyDataSetChanged();
 
-						if(advertiseListAdapter.getCount() == advertiseList.size()) {
+						if(advertiseListAdapter.getCount() == responseVO.getInteger("totalCount")) {
 							more = false;
 							return;
 						}
@@ -102,28 +99,40 @@ public class AdvertisementFragment extends BaseFragment implements AbsListView.O
 					default:
 						Log.i("INFO", "advertisement getAdvertiseList failed.");
 						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
+						break;
 				}
 			}
 		});
 	}
 
-	@Override
-	public void onScrollStateChanged(AbsListView view, int scrollState) {
-		if((scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) && lastVisible) {
-			if(pagingIndex < 10) {
-				pagingIndex++;
-				getAdvertiseList(view);
+	private void initScrollAction() {
+		lvAd.setOnScrollListener(new AbsListView.OnScrollListener() {
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				Log.i(PuziUtils.INFO, "scrollState : " + scrollState + ", more : " + more);
+
+				if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastestScrollFlag) {
+					if(more) {
+						pagingIndex = pagingIndex + 1;
+						getAdvertiseList();
+					}
+				}
 			}
-			Log.i(PuziUtils.INFO, "pagingIndex : " + pagingIndex);
-		}
+
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+				lastestScrollFlag = (totalItemCount > 0) && firstVisibleItem + visibleItemCount >= totalItemCount;
+			}
+		});
 	}
 
-	@Override
-	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		lastVisible = (totalItemCount > 0) && firstVisibleItem + visibleItemCount >= totalItemCount;
+	private void initAdapter() {
+		advertiseListAdapter = new AdvertisementListAdapter(getActivity());
+		lvAd.setAdapter(advertiseListAdapter);
 	}
 
 	public void refresh(int adId, boolean saved) {
+		pagingIndex = 1;
 		advertiseListAdapter.changeSaved(adId, saved);
 	}
 

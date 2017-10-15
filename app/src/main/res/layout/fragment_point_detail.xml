@@ -2,53 +2,66 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="60dp">
+              android:layout_height="wrap_content">
 
   <LinearLayout
-    android:gravity="center_vertical"
-    android:orientation="vertical"
-    android:layout_width="250dp"
-    android:layout_height="60dp">
-
-    <TextView
-      android:id="@+id/tv_point_type"
-      android:gravity="center_vertical"
-      android:text="가입 축하 포인트 적립"
-      android:textSize="15sp"
-      android:layout_width="match_parent"
-      android:layout_height="30dp"/>
-
-    <TextView
-      android:id="@+id/tv_point_at"
-      android:gravity="center_vertical"
-      android:text="2017-10-03 20:00"
-      android:textSize="12sp"
-      android:layout_width="match_parent"
-      android:layout_height="20dp"/>
-
-  </LinearLayout>
-
-  <LinearLayout
+    android:paddingTop="11dp"
+    android:paddingBottom="13dp"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="60dp">
+    android:layout_height="72dp">
 
-    <TextView
-      android:id="@+id/tv_point"
-      android:layout_gravity="center_vertical"
+    <LinearLayout
       android:gravity="center_vertical"
-      android:textColor="@color/colorPuzi"
-      android:layout_width="100dp"
-      android:layout_height="35dp"/>
+      android:orientation="vertical"
+      android:layout_marginLeft="16dp"
+      android:layout_width="245dp"
+      android:layout_height="match_parent">
 
-    <TextView
-      android:layout_gravity="center_vertical"
-      android:gravity="center_vertical"
-      android:text="P"
-      android:textStyle="bold"
-      android:textColor="@color/colorYellow"
-      android:layout_width="25dp"
-      android:layout_height="25dp"/>
+      <TextView
+        android:id="@+id/tv_point_type"
+        android:gravity="center_vertical"
+        android:text="가입 축하 포인트 적립"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="29dp"/>
+
+      <TextView
+        android:id="@+id/tv_point_at"
+        android:gravity="center_vertical"
+        android:text="2017-10-03 20:00"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="19dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+      android:orientation="horizontal"
+      android:layout_marginRight="16dp"
+      android:gravity="center_vertical|right"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <TextView
+        android:id="@+id/tv_point"
+        android:layout_gravity="center_vertical"
+        android:textSize="20sp"
+        android:textColor="@color/colorPuzi"
+        android:layout_marginRight="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"/>
+
+      <TextView
+        android:layout_gravity="center_vertical"
+        android:text="P"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPuzi"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"/>
+
+    </LinearLayout>
 
   </LinearLayout>
 

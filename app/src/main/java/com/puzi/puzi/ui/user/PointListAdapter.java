@@ -1,6 +1,7 @@
 package com.puzi.puzi.ui.user;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.puzi.puzi.R;
 import com.puzi.puzi.biz.user.point.history.PointHistoryVO;
 import lombok.Getter;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,9 +139,20 @@ public class PointListAdapter extends BaseAdapter {
 			case VIEW_POINT:
 				final PointHistoryVO pointHistoryVO = (PointHistoryVO) getItem(position);
 
+				NumberFormat numberFormat = NumberFormat.getInstance();
+				String point = numberFormat.format(pointHistoryVO.getPoint());
+
+				if (pointHistoryVO.isSaved() == true) {
+					viewHolder.tvPoint.setText(point);
+					viewHolder.tvPoint.setTextColor(ContextCompat.getColor(context, R.color.colorPuzi));
+				} else if (pointHistoryVO.isSaved() == false) {
+					viewHolder.tvPoint.setText("-" + point);
+					viewHolder.tvPoint.setTextColor(ContextCompat.getColor(context, R.color.colorTextGray));
+				}
+
 				viewHolder.tvType.setText(pointHistoryVO.getPointType().getComment());
 				viewHolder.tvTime.setText(pointHistoryVO.getCreatedAt());
-				viewHolder.tvPoint.setText(pointHistoryVO.getPoint());
+
 
 				break;
 		}

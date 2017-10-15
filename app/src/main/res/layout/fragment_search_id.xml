@@ -19,7 +19,7 @@
       android:layout_height="match_parent"
       android:background="@null"
       android:src="@drawable/back"
-      android:id="@+id/ibtn_back"/>
+      android:id="@+id/ibtn_back_serch_id"/>
     <TextView
       android:text="아이디 찾기"
       android:textColor="@color/colorBlack"

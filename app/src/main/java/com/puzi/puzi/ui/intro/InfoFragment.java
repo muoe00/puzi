@@ -19,6 +19,7 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.MainActivity;
+import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.utils.EncryptUtils;
 import retrofit2.Call;
@@ -74,7 +75,7 @@ public class InfoFragment extends BaseFragment {
 		userVO.setEmail(Preference.getProperty(getActivity(), "email"));
 		userVO.setNotifyId("NoRegister");
 		userVO.setPhoneType(PhoneType.A);
-		userVO.setLevelType("BRONZE");
+		userVO.setLevelType(LevelType.BRONZE);
 
 		checkInfo();
 
@@ -83,22 +84,20 @@ public class InfoFragment extends BaseFragment {
 
 	@OnClick(R.id.btn_signup_ok)
 	public void signup() {
-
 		isChecked();
+		ProgressDialog.show(getActivity());
 
 		Log.i("INFO", "User VO : " + userVO.toString());
-
 		UserNetworkService userService = RetrofitManager.create(UserNetworkService.class);
 
 		Call<ResponseVO> call = userService.signup(userVO.getUserId(), EncryptUtils.sha256(userVO.getPasswd()), userVO.getRegisterType()
 			, userVO.getEmail(), userVO.getNotifyId(), userVO.getGenderType(), userVO.getAge(), userVO.getFavoriteTypeList()
 			, userVO.getRecommendId(), userVO.getPhoneType(), userVO.getPhoneKey());
-
 		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-
 				Log.i("INFO", "signup responseVO : " + responseVO.toString());
+				ProgressDialog.dismiss();
 
 				switch(responseVO.getResultType()){
 					case SUCCESS:

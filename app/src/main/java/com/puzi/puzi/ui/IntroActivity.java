@@ -97,6 +97,7 @@ public class IntroActivity extends BaseFragmentActivity {
 		} else {
 			fragmentList.add(fragment);
 			fragmentTransaction = fragmentManager.beginTransaction();
+			fragmentTransaction.setCustomAnimations(R.anim.rightin, R.anim.shrink_back, R.anim.rightin, R.anim.shrink_back);
 			fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
 			fragmentTransaction.addToBackStack(null);
 			fragmentTransaction.commitAllowingStateLoss();
@@ -108,6 +109,7 @@ public class IntroActivity extends BaseFragmentActivity {
 		fragmentList.remove(position);
 		fragment = fragmentList.get(position - 1);
 		fragmentTransaction = fragmentManager.beginTransaction();
+		fragmentTransaction.setCustomAnimations(R.anim.leftin, R.anim.rightout, R.anim.leftin, R.anim.rightout);
 		fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
 		fragmentTransaction.commitAllowingStateLoss();
 		Log.i(PuziUtils.INFO, "fragment list size : " + fragmentList.size());

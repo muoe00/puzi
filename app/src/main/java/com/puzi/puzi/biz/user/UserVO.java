@@ -36,8 +36,8 @@ public class UserVO implements Serializable {
 		return levelType;
 	}
 
-	public void setLevelType(String levelType) {
-		this.levelType = levelType;
+	public void setLevelType(LevelType levelType) {
+		this.levelType = String.valueOf(levelType);
 	}
 
 	private String levelType;				// 등급

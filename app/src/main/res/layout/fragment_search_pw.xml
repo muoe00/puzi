@@ -19,7 +19,7 @@
       android:layout_height="match_parent"
       android:background="@null"
       android:src="@drawable/back"
-      android:id="@+id/ibtn_back"/>
+      android:id="@+id/ibtn_back_serch_pw"/>
     <TextView
       android:text="비밀번호 찾기"
       android:textColor="@color/colorBlack"

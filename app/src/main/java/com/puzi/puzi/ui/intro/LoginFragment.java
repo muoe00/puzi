@@ -154,6 +154,7 @@ public class LoginFragment extends BaseFragment {
 	@OnClick(R.id.rl_login)
 	public void layoutClick() {
 		closeInputKeyboard(etId);
+		closeInputKeyboard(etPwd);
 	}
 
 	@OnEditorAction(R.id.edit_login_pw)
