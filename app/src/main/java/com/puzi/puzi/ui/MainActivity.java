@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.R.attr.resource;
+import static com.google.common.collect.Lists.newArrayList;
 
 public class MainActivity extends BaseFragmentActivity {
 
@@ -258,11 +259,12 @@ public class MainActivity extends BaseFragmentActivity {
 					for (Fragment fragment : getSupportFragmentManager().getFragments()) {
 						if (fragment.isVisible()) {
 							if(fragment instanceof ChannelFragment){
+								ChannelFragment channelFragment = (ChannelFragment) fragment;
 								if(categoryTypeList != null && categoryTypeList.size() != 0) {
-									ChannelFragment channelFragment = (ChannelFragment) fragment;
 									channelFragment.refresh(categoryTypeList);
 									ibtnRightButton.setImageResource(R.drawable.filter);
 								} else {
+									channelFragment.refresh(newArrayList(ChannelCategoryType.values()));
 									ibtnRightButton.setImageResource(R.drawable.filter_on);
 								}
 							}
