@@ -5,12 +5,15 @@
               android:layout_height="match_parent">
 
   <TextView
-    android:layout_width="74dp"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="32dp"
     android:layout_marginRight="8dp"
     android:textColor="#9b9b9b"
     android:textSize="16sp"
+    android:paddingLeft="18dp"
+    android:paddingRight="17dp"
     android:gravity="center"
+    android:background="@drawable/button_filter"
     android:layout_gravity="center_vertical"
     android:id="@+id/tv_item_channel_filter_name"/>
 </LinearLayout>

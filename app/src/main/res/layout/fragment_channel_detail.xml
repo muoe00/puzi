@@ -66,7 +66,7 @@
       <ImageButton
         android:layout_width="match_parent"
         android:layout_height="360dp"
-        android:src="@drawable/puzi_bi"
+        android:src="@drawable/default_img"
         android:background="#00000000"
         android:scaleType="centerCrop"
         android:id="@+id/ibtn_chanenl_detail_picture"
@@ -207,7 +207,7 @@
     android:layout_gravity="bottom"
     android:background="#ffffff"
     android:layout_width="match_parent"
-    android:layout_height="68dp">
+    android:layout_height="67dp">
 
     <LinearLayout
       android:background="#d8d8d8"
@@ -217,17 +217,23 @@
     <LinearLayout
       android:orientation="horizontal"
       android:layout_gravity="bottom"
+      android:paddingTop="8dp"
+      android:paddingBottom="8dp"
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_height="66dp">
 
       <EditText
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:inputType="text"
         android:layout_marginLeft="16dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:ems="10"
-        android:background="#ffffff"
+        android:background="@drawable/channel_detail_inputbox"
         android:textSize="16sp"
         android:textColor="#333333"
         android:id="@+id/et_channel_detail_write_reply"
@@ -238,13 +244,11 @@
         android:text="입력"
         android:paddingLeft="12dp"
         android:paddingRight="16dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:id="@+id/btn_channel_detail_write"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="#333333"
         android:background="#00000000"/>
 
