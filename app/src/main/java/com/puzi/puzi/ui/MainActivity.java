@@ -1,12 +1,18 @@
 package com.puzi.puzi.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
 import butterknife.*;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelCategoryType;
 import com.puzi.puzi.biz.user.UserVO;
@@ -22,11 +28,15 @@ import com.puzi.puzi.ui.channel.ChannelFragment;
 import com.puzi.puzi.ui.user.PointActivity;
 import com.puzi.puzi.ui.user.RecommendActivity;
 import com.puzi.puzi.utils.PuziUtils;
-import com.puzi.puzi.utils.SerializeUtils;
 import retrofit2.Call;
 
+import java.lang.reflect.Type;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
+
+import static android.R.attr.resource;
+import static com.google.common.collect.Lists.newArrayList;
 
 public class MainActivity extends BaseFragmentActivity {
 
@@ -144,7 +154,7 @@ public class MainActivity extends BaseFragmentActivity {
 								}
 							}
 						}
-						intent.putStringArrayListExtra("categoryTypeList", SerializeUtils.convertToString(categoryTypeList));
+						intent.putExtra("categoryTypeListJson", new Gson().toJson(categoryTypeList));
 						startActivityForResult(intent, 0);
 						doAnimationGoRight();
 						return;
@@ -213,7 +223,7 @@ public class MainActivity extends BaseFragmentActivity {
 				ivChannel.setImageResource(R.drawable.channel_on);
 				ivStore.setImageResource(R.drawable.store_off);
 				ivSetting.setImageResource(R.drawable.setting_off);
-				ibtnRightButton.setImageResource(R.drawable.filter);
+				ibtnRightButton.setImageResource(R.drawable.filter_on);
 				return;
 			case FRAGMENT_STORE:
 				ivAdvertise.setImageResource(R.drawable.home_off);
@@ -241,15 +251,22 @@ public class MainActivity extends BaseFragmentActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 			case RESULT_OK:
+				Type listType = new TypeToken<ArrayList<ChannelCategoryType>>(){}.getType();
 				List<ChannelCategoryType> categoryTypeList =
-					SerializeUtils.convertToType((List<String>) data.getSerializableExtra("categoryTypeList"));
+					new Gson().fromJson(data.getStringExtra("categoryTypeListJson"), listType);
 
-				if(categoryTypeList != null && categoryTypeList.size() != 0 && viewPager.getCurrentItem() == FRAGMENT_CHANNEL) {
+				if(viewPager.getCurrentItem() == FRAGMENT_CHANNEL) {
 					for (Fragment fragment : getSupportFragmentManager().getFragments()) {
 						if (fragment.isVisible()) {
 							if(fragment instanceof ChannelFragment){
 								ChannelFragment channelFragment = (ChannelFragment) fragment;
-								channelFragment.refresh(categoryTypeList);
+								if(categoryTypeList != null && categoryTypeList.size() != 0) {
+									channelFragment.refresh(categoryTypeList);
+									ibtnRightButton.setImageResource(R.drawable.filter);
+								} else {
+									channelFragment.refresh(newArrayList(ChannelCategoryType.values()));
+									ibtnRightButton.setImageResource(R.drawable.filter_on);
+								}
 							}
 						}
 					}
@@ -290,4 +307,12 @@ public class MainActivity extends BaseFragmentActivity {
 			getSupportFragmentManager().popBackStack();
 		}
 	}
+
+	private float convertPixelsToDp(float px, Context context){
+		Resources resources = context.getResources();
+		DisplayMetrics metrics = resources.getDisplayMetrics();
+		float dp = px / (metrics.densityDpi / 160f);
+		return dp;
+	}
+
 }

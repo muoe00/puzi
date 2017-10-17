@@ -7,18 +7,14 @@
               android:orientation="vertical" >
 
   <LinearLayout
-    android:layout_marginLeft="14dp"
-    android:layout_marginRight="14dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
     android:orientation="horizontal"
     android:gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="45dp">
+    android:layout_height="50dp">
 
     <FrameLayout
       android:id="@+id/fl_revel"
-      android:layout_marginTop="2dp"
+      android:layout_marginLeft="17dp"
       android:layout_gravity="center_vertical"
       android:layout_width="35dp"
       android:layout_height="37dp">
@@ -92,8 +88,8 @@
       android:gravity="right"
       android:src="@drawable/add_friend"
       android:background="?android:attr/selectableItemBackground"
-      android:layout_width="32dp"
-      android:layout_height="20dp"
+      android:layout_width="55dp"
+      android:layout_height="50dp"
       android:id="@+id/ibtn_right_button"/>
 
   </LinearLayout>

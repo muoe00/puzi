@@ -276,6 +276,7 @@ public class ChannelDetailActivity extends BaseActivity {
 		Intent intent = new Intent(this, AdvertisementDetailActivity.class);
 		intent.putExtra("advertise", receivedAdvertiseVO);
 		startActivity(intent);
+		doAnimationGoRight();
 	}
 
 	@OnClick(R.id.btn_channel_detail_write)
