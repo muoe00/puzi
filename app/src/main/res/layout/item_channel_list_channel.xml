@@ -16,11 +16,13 @@
 
     <LinearLayout
       android:orientation="vertical"
-      android:layout_marginLeft="16dp"
-      android:layout_marginRight="7.5dp"
-      android:layout_width="0dp"
-      android:layout_weight="1"
-      android:background="@color/colorWhite"
+      android:layout_marginLeft="9dp"
+      android:layout_marginRight="0.5dp"
+      android:layout_width="170dp"
+      android:paddingLeft="7dp"
+      android:paddingRight="7dp"
+      android:paddingBottom="10dp"
+      android:background="@drawable/shadow_ch"
       android:layout_height="match_parent">
 
       <com.joooonho.SelectableRoundedImageView
@@ -122,11 +124,13 @@
 
     <LinearLayout
       android:orientation="vertical"
-      android:layout_marginRight="16dp"
-      android:layout_marginLeft="7.5dp"
-      android:background="@color/colorWhite"
-      android:layout_weight="1"
-      android:layout_width="0dp"
+      android:layout_marginRight="9dp"
+      android:layout_marginLeft="0.5dp"
+      android:paddingLeft="7dp"
+      android:paddingRight="7dp"
+      android:paddingBottom="10dp"
+      android:background="@drawable/shadow_ch"
+      android:layout_width="170dp"
       android:layout_height="match_parent" >
 
       <com.joooonho.SelectableRoundedImageView

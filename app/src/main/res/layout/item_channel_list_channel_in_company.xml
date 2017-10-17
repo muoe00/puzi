@@ -16,11 +16,13 @@
 
     <LinearLayout
       android:orientation="vertical"
-      android:layout_marginLeft="16dp"
-      android:layout_marginRight="7.5dp"
-      android:layout_width="0dp"
-      android:layout_weight="1"
-      android:background="@color/colorWhite"
+      android:layout_marginRight="9dp"
+      android:layout_marginLeft="0.5dp"
+      android:paddingLeft="7dp"
+      android:paddingRight="7dp"
+      android:paddingBottom="10dp"
+      android:background="@drawable/shadow_ch"
+      android:layout_width="170dp"
       android:layout_height="match_parent">
 
       <com.joooonho.SelectableRoundedImageView
@@ -46,12 +48,15 @@
         android:ellipsize="end"
         android:background="#00000000"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:id="@+id/tv_item_channel_title_1" android:layout_weight="1"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_item_channel_title_1"
+        android:layout_weight="1"/>
       <LinearLayout
         android:paddingBottom="5dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
         <com.joooonho.SelectableRoundedImageView
           xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -122,11 +127,13 @@
 
     <LinearLayout
       android:orientation="vertical"
-      android:layout_marginRight="16dp"
-      android:layout_marginLeft="7.5dp"
-      android:background="@color/colorWhite"
-      android:layout_weight="1"
-      android:layout_width="0dp"
+      android:layout_marginRight="9dp"
+      android:layout_marginLeft="0.5dp"
+      android:paddingLeft="7dp"
+      android:paddingRight="7dp"
+      android:paddingBottom="10dp"
+      android:background="@drawable/shadow_ch"
+      android:layout_width="170dp"
       android:layout_height="match_parent" >
 
       <com.joooonho.SelectableRoundedImageView
@@ -152,13 +159,16 @@
         android:ellipsize="end"
         android:background="#00000000"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:id="@+id/tv_item_channel_title_2" android:layout_weight="1"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_item_channel_title_2"
+        android:layout_weight="1"/>
 
       <LinearLayout
         android:paddingBottom="5dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
         <com.joooonho.SelectableRoundedImageView
           xmlns:app="http://schemas.android.com/apk/res-auto"

@@ -4,30 +4,34 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-  <RelativeLayout
+  <FrameLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="100dp">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ImageView
-      android:layout_width="110dp"
-      android:layout_height="150dp"
-      android:layout_alignParentTop="true"
-      android:layout_centerHorizontal="true"
-      android:src="@drawable/splash_logo" />
-  </RelativeLayout>
+      android:src="@drawable/bg"
+      android:scaleType="fitXY"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
 
-  <LinearLayout
-    android:layout_marginTop="180dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    <LinearLayout
+      android:layout_gravity="center"
+      android:layout_width="157dp"
+      android:layout_height="279dp">
+      <ImageView
+        android:src="@drawable/splash_logo"
+        android:layout_gravity="center|top"
+        android:layout_width="157dp"
+        android:layout_height="135dp"/>
+    </LinearLayout>
 
     <ImageView
-      android:layout_width="80dp"
-      android:layout_height="50dp"
-      android:src="@drawable/splash_typo"
-      android:layout_gravity="center_horizontal" />
-  </LinearLayout>
+      android:src="@drawable/text"
+      android:layout_marginBottom="60dp"
+      android:layout_gravity="bottom|center"
+      android:layout_width="265dp"
+      android:layout_height="70dp"/>
+  </FrameLayout>
 
 </LinearLayout>

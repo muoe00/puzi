@@ -67,6 +67,7 @@
           android:layout_height="64dp"
           android:textSize="15sp"
           android:id="@+id/edt_signup_id"
+          android:inputType="textUri"
           android:hint="아이디를 입력하세요."
           android:textColorHint="#6D6D6D"
           android:maxLength="15"
