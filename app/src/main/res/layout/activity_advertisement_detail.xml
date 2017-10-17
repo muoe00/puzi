@@ -195,6 +195,7 @@
       <TextView
         android:id="@+id/tv_ad_state"
         android:gravity="center"
+        android:layout_marginRight="37dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

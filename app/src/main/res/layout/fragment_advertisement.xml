@@ -11,7 +11,6 @@
     android:layout_gravity="center"
     android:background="@color/colorWhite"
     android:orientation="vertical"
-    android:layout_marginTop="2dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -21,7 +20,7 @@
       android:id="@+id/lv_advertise"
       android:background="@color/colorWhite"
       android:divider="@color/colorWhite"
-      android:dividerHeight="16dp"
+      android:dividerHeight="10dp"
       android:columnWidth="240dp"/>
 
   </LinearLayout>

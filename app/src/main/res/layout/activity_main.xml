@@ -40,7 +40,7 @@
         android:layout_gravity="center_vertical"
         android:id="@+id/fl_point"
         android:layout_width="wrap_content"
-        android:layout_height="38dp">
+        android:layout_height="match_parent">
         <Button
           android:layout_width="match_parent"
           android:layout_height="match_parent"
@@ -62,9 +62,11 @@
       <ImageView
         android:layout_marginLeft="10dp"
         android:layout_gravity="center_vertical"
-        android:background="@drawable/rectangle_2"
+        android:src="@drawable/rectangle_2"
         android:layout_width="13.3dp"
-        android:layout_height="13.3dp"
+        android:layout_height="match_parent"
+        android:paddingTop="15.85dp"
+        android:paddingBottom="15.85dp"
         android:id="@+id/iv_todaypoint"
         android:layout_alignBottom="@+id/fl_point"
         android:layout_toRightOf="@+id/fl_point"
@@ -72,10 +74,11 @@
 
       <TextView
         android:layout_marginLeft="5dp"
+        android:gravity="center"
         android:layout_gravity="center_vertical"
         android:id="@+id/tv_todaypoint"
         android:layout_width="wrap_content"
-        android:layout_height="19dp"
+        android:layout_height="match_parent"
         android:text="0"
         android:textColor="#999999"
         android:layout_alignBottom="@+id/iv_todaypoint"

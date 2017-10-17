@@ -120,6 +120,7 @@ public class AdvertisementFragment extends BaseFragment {
 					if(more) {
 						pagingIndex = pagingIndex + 1;
 						getAdvertiseList();
+						advertiseListAdapter.notifyDataSetChanged();
 					}
 				}
 			}
@@ -139,6 +140,7 @@ public class AdvertisementFragment extends BaseFragment {
 	public void refresh(int adId, boolean saved) {
 		pagingIndex = 1;
 		advertiseListAdapter.changeSaved(adId, saved);
+		advertiseListAdapter.notifyDataSetChanged();
 	}
 
 	@Override
