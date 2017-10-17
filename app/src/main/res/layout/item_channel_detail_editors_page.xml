@@ -19,17 +19,19 @@
 
   <TextView
     android:text="title"
-    android:layout_width="match_parent"
+    android:layout_width="176dp"
     android:layout_height="wrap_content"
     android:layout_marginLeft="8dp"
     android:layout_marginTop="8dp"
+    android:maxLines="1"
+    android:ellipsize="end"
     android:textSize="16sp"
     android:textColor="#35343d"
     android:id="@+id/tv_item_channel_detail_editors_page_title"/>
 
   <TextView
     android:text="name"
-    android:layout_width="match_parent"
+    android:layout_width="176dp"
     android:layout_height="wrap_content"
     android:layout_marginLeft="8dp"
     android:textSize="12sp"
