@@ -2,24 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
-              android:layout_width="343dp"
-              android:layout_height="240dp"
-              android:background="@color/colorWhite">
+              android:layout_width="328dp"
+              android:layout_height="224dp"
+              android:background="@null"
+              android:gravity="center">
 
   <FrameLayout
+    android:layout_marginTop="16dp"
+    android:paddingLeft="7dp"
+    android:paddingRight="7dp"
+    android:paddingBottom="10dp"
+    android:background="@drawable/shadow_ad"
+    android:layout_gravity="center"
     android:orientation="vertical"
-    android:layout_width="343dp"
-    android:layout_height="240dp">
+    android:layout_width="328dp"
+    android:layout_height="224dp">
 
     <com.joooonho.SelectableRoundedImageView
       xmlns:app="http://schemas.android.com/apk/res-auto"
-      app:sriv_right_top_corner_radius="5dp"
-      app:sriv_left_top_corner_radius="5dp"
+      app:sriv_right_top_corner_radius="8dp"
+      app:sriv_left_top_corner_radius="8dp"
+      app:sriv_right_bottom_corner_radius="2dp"
+      app:sriv_left_bottom_corner_radius="2dp"
       app:sriv_oval="false"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:scaleType="centerCrop"
-      android:layout_weight="0.74"
       android:id="@+id/iv_home_advertise"
       android:background="#00000000"/>
 
@@ -58,14 +66,14 @@
         android:orientation="vertical"
         android:layout_marginLeft="9dp"
         android:layout_gravity="center_vertical"
-        android:layout_width="250dp"
+        android:layout_width="220dp"
         android:layout_height="40dp">
 
         <TextView
           android:textSize="20sp"
           android:textColor="#333333"
-          android:text="광고 타이틀 자리입니다."
-          android:layout_width="250dp"
+          android:text="광고 타이틀 자리입니다"
+          android:layout_width="match_parent"
           android:layout_height="25dp"
           android:id="@+id/tv_advertise"/>
 
@@ -73,7 +81,8 @@
           android:textSize="12sp"
           android:textColor="#9B9B9B"
           android:text="company"
-          android:layout_width="250dp"
+          android:paddingTop="1dp"
+          android:layout_width="match_parent"
           android:layout_height="15dp"
           android:id="@+id/tv_companyId"/>
 
@@ -85,6 +94,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:id="@+id/iv_advertiseNew"/>
+
     </LinearLayout>
 
   </FrameLayout>

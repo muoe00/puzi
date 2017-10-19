@@ -1,12 +1,18 @@
 package com.puzi.puzi.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
 import butterknife.*;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelCategoryType;
 import com.puzi.puzi.biz.user.UserVO;
@@ -22,17 +28,22 @@ import com.puzi.puzi.ui.channel.ChannelFragment;
 import com.puzi.puzi.ui.user.PointActivity;
 import com.puzi.puzi.ui.user.RecommendActivity;
 import com.puzi.puzi.utils.PuziUtils;
-import com.puzi.puzi.utils.SerializeUtils;
 import retrofit2.Call;
 
+import java.lang.reflect.Type;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
+
+import static android.R.attr.resource;
+import static com.google.common.collect.Lists.newArrayList;
 
 public class MainActivity extends BaseFragmentActivity {
 
 	Unbinder unbinder;
 
 	@BindView(R.id.tv_point) public TextView tvPoint;
+	@BindView(R.id.tv_todaypoint) public TextView tvTodayPoint;
 	@BindView(R.id.vp_main) public CustomViewPager viewPager;
 	@BindView(R.id.main_fragment_container) public LinearLayout llMain;
 	@BindView(R.id.iv_advertise) public ImageView ivAdvertise;
@@ -64,16 +75,15 @@ public class MainActivity extends BaseFragmentActivity {
 		setContentView(R.layout.activity_main);
 
 		unbinder = ButterKnife.bind(this);
-
 		getUser();
 
 		viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
 		viewPager.setCurrentItem(FRAGMENT_ADVERTISE);
 
-		ivAdvertise.setBackgroundResource(R.drawable.home_selected);
-		ivChannel.setBackgroundResource(R.drawable.channel);
-		ivStore.setBackgroundResource(R.drawable.store);
-		ivSetting.setBackgroundResource(R.drawable.gear);
+		ivAdvertise.setImageResource(R.drawable.home_on);
+		ivChannel.setImageResource(R.drawable.channel_off);
+		ivStore.setImageResource(R.drawable.store_off);
+		ivSetting.setImageResource(R.drawable.setting_off);
 
 		btnAdvertise.setTag(FRAGMENT_ADVERTISE);
 		btnChannel.setTag(FRAGMENT_CHANNEL);
@@ -81,7 +91,6 @@ public class MainActivity extends BaseFragmentActivity {
 		btnSetting.setTag(FRAGMENT_SETTING);
 
 		btnAdvertise.setSelected(true);
-
 	}
 
 	public void getUser() {
@@ -102,10 +111,15 @@ public class MainActivity extends BaseFragmentActivity {
 						userVO = responseVO.getValue("userInfoDTO", UserVO.class);
 						Log.i("INFO", "HomeFragment main / userVO : " + userVO.toString());
 
-						int point = userVO.getPoint();
 						NumberFormat numberFormat = NumberFormat.getInstance();
-						String result = numberFormat.format(point);
-						tvPoint.setText(result);
+
+						int point = userVO.getPoint();
+						String resultPoint = numberFormat.format(point);
+						tvPoint.setText(resultPoint);
+
+						int todayPoint = userVO.getTodayPoint();
+						String resultTodayPoint = numberFormat.format(todayPoint);
+						tvTodayPoint.setText(resultTodayPoint);
 						break;
 
 					default:
@@ -140,7 +154,7 @@ public class MainActivity extends BaseFragmentActivity {
 								}
 							}
 						}
-						intent.putStringArrayListExtra("categoryTypeList", SerializeUtils.convertToString(categoryTypeList));
+						intent.putExtra("categoryTypeListJson", new Gson().toJson(categoryTypeList));
 						startActivityForResult(intent, 0);
 						doAnimationGoRight();
 						return;
@@ -198,30 +212,30 @@ public class MainActivity extends BaseFragmentActivity {
 	private void changeBottomButton(int id){
 		switch (id) {
 			case FRAGMENT_ADVERTISE:
-				ivAdvertise.setBackgroundResource(R.drawable.home_selected);
-				ivChannel.setBackgroundResource(R.drawable.channel);
-				ivStore.setBackgroundResource(R.drawable.store);
-				ivSetting.setBackgroundResource(R.drawable.gear);
+				ivAdvertise.setImageResource(R.drawable.home_on);
+				ivChannel.setImageResource(R.drawable.channel_off);
+				ivStore.setImageResource(R.drawable.store_off);
+				ivSetting.setImageResource(R.drawable.setting_off);
 				ibtnRightButton.setImageResource(R.drawable.add_friend);
 				return;
 			case FRAGMENT_CHANNEL:
-				ivAdvertise.setBackgroundResource(R.drawable.home);
-				ivChannel.setBackgroundResource(R.drawable.channel_selected);
-				ivStore.setBackgroundResource(R.drawable.store);
-				ivSetting.setBackgroundResource(R.drawable.gear);
-				ibtnRightButton.setImageResource(R.drawable.filter);
+				ivAdvertise.setImageResource(R.drawable.home_off);
+				ivChannel.setImageResource(R.drawable.channel_on);
+				ivStore.setImageResource(R.drawable.store_off);
+				ivSetting.setImageResource(R.drawable.setting_off);
+				ibtnRightButton.setImageResource(R.drawable.filter_on);
 				return;
 			case FRAGMENT_STORE:
-				ivAdvertise.setBackgroundResource(R.drawable.home);
-				ivChannel.setBackgroundResource(R.drawable.channel);
-				ivStore.setBackgroundResource(R.drawable.store_selected);
-				ivSetting.setBackgroundResource(R.drawable.gear);
+				ivAdvertise.setImageResource(R.drawable.home_off);
+				ivChannel.setImageResource(R.drawable.channel_off);
+				ivStore.setImageResource(R.drawable.store_selected);
+				ivSetting.setImageResource(R.drawable.setting_off);
 				return;
 			case FRAGMENT_SETTING:
-				ivAdvertise.setBackgroundResource(R.drawable.home);
-				ivChannel.setBackgroundResource(R.drawable.channel);
-				ivStore.setBackgroundResource(R.drawable.store);
-				ivSetting.setBackgroundResource(R.drawable.gear);
+				ivAdvertise.setImageResource(R.drawable.home_off);
+				ivChannel.setImageResource(R.drawable.channel_off);
+				ivStore.setImageResource(R.drawable.store_off);
+				ivSetting.setImageResource(R.drawable.setting_on);
 				return;
 		}
 
@@ -238,14 +252,22 @@ public class MainActivity extends BaseFragmentActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 			case RESULT_OK:
+				Type listType = new TypeToken<ArrayList<ChannelCategoryType>>(){}.getType();
 				List<ChannelCategoryType> categoryTypeList =
-					SerializeUtils.convertToType((List<String>) data.getSerializableExtra("categoryTypeList"));
-				if(categoryTypeList != null && categoryTypeList.size() != 0 && viewPager.getCurrentItem() == FRAGMENT_CHANNEL) {
+					new Gson().fromJson(data.getStringExtra("categoryTypeListJson"), listType);
+
+				if(viewPager.getCurrentItem() == FRAGMENT_CHANNEL) {
 					for (Fragment fragment : getSupportFragmentManager().getFragments()) {
 						if (fragment.isVisible()) {
 							if(fragment instanceof ChannelFragment){
 								ChannelFragment channelFragment = (ChannelFragment) fragment;
-								channelFragment.refresh(categoryTypeList);
+								if(categoryTypeList != null && categoryTypeList.size() != 0) {
+									channelFragment.refresh(categoryTypeList);
+									ibtnRightButton.setImageResource(R.drawable.filter);
+								} else {
+									channelFragment.refresh(newArrayList(ChannelCategoryType.values()));
+									ibtnRightButton.setImageResource(R.drawable.filter_on);
+								}
 							}
 						}
 					}
@@ -286,4 +308,12 @@ public class MainActivity extends BaseFragmentActivity {
 			getSupportFragmentManager().popBackStack();
 		}
 	}
+
+	private float convertPixelsToDp(float px, Context context){
+		Resources resources = context.getResources();
+		DisplayMetrics metrics = resources.getDisplayMetrics();
+		float dp = px / (metrics.densityDpi / 160f);
+		return dp;
+	}
+
 }

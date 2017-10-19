@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.widget.Toast;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.puzi.puzi.R;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
@@ -37,8 +38,13 @@ public class IntroActivity extends BaseFragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setTheme(R.style.AppTheme);
-		setContentView(R.layout.activity_intro);
+		setContentView(R.layout.layout_splash);
+
+		FirebaseInstanceId.getInstance().getToken();
+		String tokenFCM = FirebaseInstanceId.getInstance().getToken();
+		Log.i(PuziUtils.INFO, "FCM_Token : " + tokenFCM);
+
+		Preference.addProperty(IntroActivity.this, "tokenFCM", tokenFCM);
 
 		final String autoId = Preference.getProperty(this, "id");
 		final String autoPw = Preference.getProperty(this, "passwd");
@@ -47,7 +53,7 @@ public class IntroActivity extends BaseFragmentActivity {
 		if(autoId != null && autoPw != null) {
 			UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
 
-			Call<ResponseVO> call = userNetworkService.login(autoId, EncryptUtils.sha256(autoPw), "NoRegister", "A", "");
+			Call<ResponseVO> call = userNetworkService.login(autoId, EncryptUtils.sha256(autoPw), tokenFCM, "A", "");
 			call.enqueue(new CustomCallback<ResponseVO>(this) {
 				@Override
 				public void onSuccess(ResponseVO responseVO) {
@@ -84,6 +90,7 @@ public class IntroActivity extends BaseFragmentActivity {
 					finish();
 				}
 				else {
+					setContentView(R.layout.activity_intro);
 					fragment = new LoginFragment();
 					addFragment(fragment);
 				}
@@ -97,6 +104,7 @@ public class IntroActivity extends BaseFragmentActivity {
 		} else {
 			fragmentList.add(fragment);
 			fragmentTransaction = fragmentManager.beginTransaction();
+			fragmentTransaction.setCustomAnimations(R.anim.rightin, R.anim.shrink_back, R.anim.rightin, R.anim.shrink_back);
 			fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
 			fragmentTransaction.addToBackStack(null);
 			fragmentTransaction.commitAllowingStateLoss();
@@ -108,6 +116,7 @@ public class IntroActivity extends BaseFragmentActivity {
 		fragmentList.remove(position);
 		fragment = fragmentList.get(position - 1);
 		fragmentTransaction = fragmentManager.beginTransaction();
+		fragmentTransaction.setCustomAnimations(R.anim.leftin, R.anim.rightout, R.anim.leftin, R.anim.rightout);
 		fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
 		fragmentTransaction.commitAllowingStateLoss();
 		Log.i(PuziUtils.INFO, "fragment list size : " + fragmentList.size());
@@ -127,9 +136,6 @@ public class IntroActivity extends BaseFragmentActivity {
 			}
 		} else if(fragmentList.size() > 1) {
 			removeFragment(position);
-			/*fragment = fragmentList.get(position - 1);
-			fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
-			fragmentTransaction.commitNow();*/
 		}
 	}
 

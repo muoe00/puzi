@@ -31,7 +31,6 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.AdvertisementNetworkService;
-import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.base.BaseActivity;
 import com.puzi.puzi.ui.channel.ChannelDetailActivity;
 import com.puzi.puzi.ui.company.CompanyActivity;
@@ -76,8 +75,7 @@ public class AdvertisementDetailActivity extends BaseActivity {
 		unbinder = ButterKnife.bind(this);
 		startTime = System.currentTimeMillis();
 
-		Intent intent = getIntent();
-		receivedAdvertise = (ReceivedAdvertiseVO) intent.getExtras().getSerializable("advertise");
+		receivedAdvertise = (ReceivedAdvertiseVO) getIntent().getExtras().getSerializable("advertise");
 
 		Log.i(PuziUtils.INFO, "detail.getSaved() : " + receivedAdvertise.getSaved());
 		Log.i(PuziUtils.INFO, "detail.getToday() : " + receivedAdvertise.getToday());
@@ -227,10 +225,8 @@ public class AdvertisementDetailActivity extends BaseActivity {
 		}
 
 		AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
-
 		String token = Preference.getProperty(AdvertisementDetailActivity.this, "token");
-
-		Call<ResponseVO> call = advertisementNetworkService.pointSave(token, receivedAdvertise.getCmpnId(), answer);
+		Call<ResponseVO> call = advertisementNetworkService.pointSave(token, receivedAdvertise.getReceivedAdvertiseId(), answer);
 		call.enqueue(new CustomCallback<ResponseVO>(AdvertisementDetailActivity.this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
@@ -269,10 +265,6 @@ public class AdvertisementDetailActivity extends BaseActivity {
 		// TODO: Network (cmpnId, touchCount, stayTime, isChanged)
 		Log.i(PuziUtils.INFO, "touchCount : " + touchCount + ", stayTime : " + stayTime + ", isChanged : " + isChanged);
 
-		Intent intent = new Intent(AdvertisementDetailActivity.this, MainActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(intent);
-
 		finish();
 		doAnimationGoLeft();
 	}
@@ -288,9 +280,13 @@ public class AdvertisementDetailActivity extends BaseActivity {
 
 	@OnClick(R.id.btn_channel_web)
 	public void changedChannel() {
-		Intent intent = new Intent(AdvertisementDetailActivity.this, ChannelDetailActivity.class);
-		intent.putExtra("channelId", channelId);
-		startActivity(intent);
+		if(channelId != 0) {
+			Intent intent = new Intent(AdvertisementDetailActivity.this, ChannelDetailActivity.class);
+			intent.putExtra("channelId", channelId);
+			startActivity(intent);
+		} else {
+			Toast.makeText(this, "해당하는 채널이 없습니다.", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	@OnClick(R.id.ll_ad_company)

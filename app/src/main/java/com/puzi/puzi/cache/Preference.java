@@ -17,6 +17,12 @@ public class Preference {
 		editor.commit();
 	}
 
+	public static void removeProperty(Activity activity, String key) {
+		SharedPreferences.Editor editor = getEditor(activity);
+		editor.remove(key);
+		editor.commit();
+	}
+
 	public static String getProperty(Activity activity, String key) {
 		SharedPreferences sharedPreference = getSharedPreferences(activity);
 		return sharedPreference.getString(key, null);

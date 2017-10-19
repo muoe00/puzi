@@ -20,6 +20,7 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.IntroActivity;
+import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.utils.ValidationUtils;
 import retrofit2.Call;
@@ -32,6 +33,7 @@ public class SignupFragment extends BaseFragment {
 
 	private Unbinder unbinder;
 	private String id, email, pw, rePw;
+	private View progressView;
 
 	@BindView(R.id.edt_signup_id) public EditText ethId;
 	@BindView(R.id.edt_signup_email) public EditText ethEmail;
@@ -41,7 +43,6 @@ public class SignupFragment extends BaseFragment {
 	@BindView(R.id.ibtn_back) public ImageButton ibtnBack;
 
 	public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState){
-
 		View view = inflater.inflate(R.layout.fragment_signup, container, false);
 		unbinder = ButterKnife.bind(this, view);
 
@@ -49,6 +50,7 @@ public class SignupFragment extends BaseFragment {
 	}
 
 	public void idCheck() {
+		ProgressDialog.show(getActivity());
 
 		UserNetworkService userService = RetrofitManager.create(UserNetworkService.class);
 
@@ -57,6 +59,8 @@ public class SignupFragment extends BaseFragment {
 
 			@Override
 			public void onSuccess(ResponseVO response) {
+				ProgressDialog.dismiss();
+
 				if (response.getResultCode() == 1000) {
 					Preference.addProperty(getActivity(), "id", id);
 					Preference.addProperty(getActivity(), "passwd", pw);
@@ -112,16 +116,14 @@ public class SignupFragment extends BaseFragment {
 
 		IntroActivity introActivity = (IntroActivity) getActivity();
 		introActivity.addFragment(infoFragment);
-
-		/*FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.replace(R.id.intro_fragment_container, infoFragment);
-		fragmentTransaction.commitNow();*/
 	}
 
 	@OnClick(R.id.ll_signup)
 	public void layoutClick() {
 		closeInputKeyboard(ethId);
+		closeInputKeyboard(ethEmail);
+		closeInputKeyboard(ethPw);
+		closeInputKeyboard(ethRePw);
 	}
 
 	@Override
@@ -133,6 +135,6 @@ public class SignupFragment extends BaseFragment {
 	@OnClick(R.id.ibtn_back)
 	public void back() {
 		getActivity().onBackPressed();
-		doAnimationGoLeft();
+		layoutClick();
 	}
 }

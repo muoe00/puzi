@@ -1,6 +1,5 @@
 package com.puzi.puzi.ui.setting;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +12,7 @@ import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.SettingNetworkService;
+import com.puzi.puzi.ui.base.BaseActivity;
 import retrofit2.Call;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
  * Created by muoe0 on 2017-07-08.
  */
 
-public class SettingDetailActivity extends Activity {
+public class SettingDetailActivity extends BaseActivity {
 
 	private List<NoticeVO> noticeVO;
 	private ImageButton btnBack;

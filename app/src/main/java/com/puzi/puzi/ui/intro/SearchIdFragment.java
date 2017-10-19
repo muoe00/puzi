@@ -18,7 +18,9 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.IntroActivity;
+import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragment;
+import com.puzi.puzi.utils.ValidationUtils;
 import retrofit2.Call;
 
 /**
@@ -28,44 +30,68 @@ import retrofit2.Call;
 public class SearchIdFragment extends BaseFragment {
 
 	private Unbinder unbinder;
+	// private View progressView;
 
 	@BindView(R.id.edit_search_email) public EditText editEmail;
 	@BindView(R.id.btn_srchid) public Button btnSearch;
 	@BindView(R.id.btn_srch_signup) public Button btnSignup;
-	@BindView(R.id.ibtn_back) public ImageButton ibtnBack;
-
-	private static final String TAG = "SearchId";
+	@BindView(R.id.ibtn_back_serch_id) public ImageButton ibtnBack;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View view = inflater.inflate(R.layout.fragment_search_id, container, false);
-
 		unbinder = ButterKnife.bind(this, view);
 
 		return view;
 	}
 
+	/*public void startProgress() {
+		LinearLayout.LayoutParams paramlinear = new LinearLayout.LayoutParams(
+			LinearLayout.LayoutParams.MATCH_PARENT,
+			LinearLayout.LayoutParams.MATCH_PARENT
+		);
+
+		LayoutInflater layoutInflater = getActivity().getLayoutInflater();
+		progressView = (View) layoutInflater.inflate(R.layout.layout_progress, null);
+		getActivity().addContentView(progressView, paramlinear);
+	}
+
+	public void stopProgress() {
+		((ViewManager) progressView.getParent()).removeView(progressView);
+	}*/
+
 	@OnClick(R.id.btn_srchid)
 	public void searchId(){
 
+		ProgressDialog.show(getActivity());
+
 		if(editEmail.getText() != null) {
 			String email = editEmail.getText().toString();
+			if(ValidationUtils.checkEmail(email)) {
+				UserNetworkService userNetworkService  = RetrofitManager.create(UserNetworkService.class);
 
-			UserNetworkService userNetworkService  = RetrofitManager.create(UserNetworkService.class);
+				Call<ResponseVO> call = userNetworkService.searchid(email);
+				call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+					@Override
+					public void onSuccess(ResponseVO responseVO) {
 
-			Call<ResponseVO> call = userNetworkService.searchid(email);
-			call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
-				@Override
-				public void onSuccess(ResponseVO responseVO) {
-					switch(responseVO.getResultType()){
-						case SUCCESS:
-							Toast.makeText(getContext(), "이메일을 전송하였습니다", Toast.LENGTH_SHORT).show();
-							break;
-						case NOT_FOUND_USER:
-							Toast.makeText(getContext(), "등록되지 않은 사용자입니다", Toast.LENGTH_SHORT).show();
-							break;
+						ProgressDialog.dismiss();
+
+						switch(responseVO.getResultType()){
+							case SUCCESS:
+								Toast.makeText(getContext(), "이메일을 전송하였습니다", Toast.LENGTH_SHORT).show();
+								break;
+							case NOT_FOUND_USER:
+								Toast.makeText(getContext(), "등록되지 않은 사용자입니다", Toast.LENGTH_SHORT).show();
+								break;
+							case WRONG_PARAMS:
+								Toast.makeText(getContext(), "정확한 아이디와 이메일 주소를 입력하세요", Toast.LENGTH_SHORT).show();
+								break;
+						}
 					}
-				}
-			});
+				});
+			} else {
+				Toast.makeText(getContext(), "정확한 이메일 주소를 입력하세요", Toast.LENGTH_SHORT).show();
+			}
 		} else {
 			Toast.makeText(getContext(), "이메일 주소를 입력하세요", Toast.LENGTH_SHORT).show();
 		}
@@ -83,10 +109,10 @@ public class SearchIdFragment extends BaseFragment {
 		closeInputKeyboard(editEmail);
 	}
 
-	@OnClick(R.id.ibtn_back)
+	@OnClick(R.id.ibtn_back_serch_id)
 	public void back() {
 		getActivity().onBackPressed();
-		doAnimationGoLeft();
+		layoutClick();
 	}
 }
 

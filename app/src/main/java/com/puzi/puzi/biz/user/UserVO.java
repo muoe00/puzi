@@ -36,8 +36,8 @@ public class UserVO implements Serializable {
 		return levelType;
 	}
 
-	public void setLevelType(String levelType) {
-		this.levelType = levelType;
+	public void setLevelType(LevelType levelType) {
+		this.levelType = String.valueOf(levelType);
 	}
 
 	private String levelType;				// 등급
@@ -62,8 +62,8 @@ public class UserVO implements Serializable {
 		return registerType;
 	}
 
-	public void setRegisterType(String registerType) {
-		this.registerType = registerType;
+	public void setRegisterType(RegisterType registerType) {
+		this.registerType = String.valueOf(registerType);
 	}
 
 	public String getEmail() {
@@ -174,8 +174,8 @@ public class UserVO implements Serializable {
 		return phoneType;
 	}
 
-	public void setPhoneType(String phoneType) {
-		this.phoneType = phoneType;
+	public void setPhoneType(PhoneType phoneType) {
+		this.phoneType = String.valueOf(phoneType);
 	}
 
 	public Boolean getSpendFlag() {

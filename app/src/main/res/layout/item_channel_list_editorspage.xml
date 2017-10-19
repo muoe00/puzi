@@ -6,11 +6,15 @@
 
   <LinearLayout
     android:orientation="horizontal"
-    android:background="@color/colorWhite"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:layout_width="match_parent"
-    android:layout_height="96dp">
+    android:background="@drawable/shadow_editor"
+    android:layout_marginLeft="9dp"
+    android:layout_marginRight="9dp"
+    android:paddingLeft="7dp"
+    android:paddingRight="7dp"
+    android:paddingBottom="11dp"
+    android:paddingTop="5dp"
+    android:layout_width="342dp"
+    android:layout_height="112dp">
 
     <com.joooonho.SelectableRoundedImageView
       xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -32,12 +36,12 @@
         android:text="title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLines="1"
+        android:maxLines="2"
         android:ellipsize="end"
         android:typeface="sans"
         android:textSize="16sp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="13dp"
         android:textColor="#35343d"
         android:id="@+id/tv_item_channel_editor_title"/>
 

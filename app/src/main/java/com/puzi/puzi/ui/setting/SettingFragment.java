@@ -2,18 +2,18 @@ package com.puzi.puzi.ui.setting;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import com.puzi.puzi.R;
+import com.puzi.puzi.ui.base.BaseFragment;
 
 /**
  * Created by muoe0 on 2017-07-08.
  */
 
-public class SettingFragment extends Fragment implements View.OnClickListener{
+public class SettingFragment extends BaseFragment implements View.OnClickListener{
 
 	public static final int NOTICE = 0;
 	public static final int VERSION = 1;

@@ -28,11 +28,11 @@ import java.util.List;
  * Created by muoe0 on 2017-10-04.
  */
 
-public class PointContentsFragment extends BaseFragment implements AbsListView.OnScrollListener {
+public class PointContentsFragment extends BaseFragment {
 
 	private int tag = 0, pagingIndex = 1;
 	private boolean more = false;
-	private boolean lastVisible = false;
+	boolean lastestScrollFlag = false;
 	private PointListAdapter pointListAdapter;
 	private PointViewHolder pointViewHolder = null;
 	private LevelViewHolder levelViewHolder = null;
@@ -51,7 +51,7 @@ public class PointContentsFragment extends BaseFragment implements AbsListView.O
 				pointViewHolder = new PointViewHolder(view);
 				pointListAdapter = new PointListAdapter(getContext());
 				pointViewHolder.lvPoint.setAdapter(pointListAdapter);
-				pointViewHolder.lvPoint.setOnScrollListener(this);
+				initScrollAction();
 				pointList(pointViewHolder);
 				break;
 			case PuziUtils.VIEW_LEVEL:
@@ -70,9 +70,7 @@ public class PointContentsFragment extends BaseFragment implements AbsListView.O
 		pointViewHolder.lvPoint.setSelection(pointListAdapter.getCount() - 1);
 
 		AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
-
 		String token = Preference.getProperty(getActivity(), "token");
-
 		Call<ResponseVO> call = advertisementNetworkService.pointHistory(token, pagingIndex);
 		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
 			@Override
@@ -80,7 +78,7 @@ public class PointContentsFragment extends BaseFragment implements AbsListView.O
 				pointListAdapter.stopProgress();
 				switch(responseVO.getResultType()){
 					case SUCCESS:
-						List<PointHistoryVO> pointHistoryVOs = responseVO.getList("pointHistoryList", PointHistoryVO.class);
+						List<PointHistoryVO> pointHistoryVOs = responseVO.getList("pointHistorieDTOList", PointHistoryVO.class);
 						Log.i(PuziUtils.INFO, "point / pointHistoryVOs : " + pointHistoryVOs.toString());
 
 						if(pointHistoryVOs.size() == 0) {
@@ -92,7 +90,7 @@ public class PointContentsFragment extends BaseFragment implements AbsListView.O
 						pointListAdapter.addPointList(pointHistoryVOs);
 						pointListAdapter.notifyDataSetChanged();
 
-						if(pointListAdapter.getCount() == pointHistoryVOs.size()) {
+						if(pointListAdapter.getCount() == responseVO.getInteger("totalCount")) {
 							more = false;
 							return;
 						}
@@ -114,20 +112,25 @@ public class PointContentsFragment extends BaseFragment implements AbsListView.O
 
 	}
 
-	@Override
-	public void onScrollStateChanged(AbsListView view, int scrollState) {
-		if((scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) && lastVisible) {
-			if(pagingIndex < 10) {
-				pagingIndex++;
-				pointList(pointViewHolder);
-			}
-			Log.i(PuziUtils.INFO, "pagingIndex : " + pagingIndex);
-		}
-	}
+	private void initScrollAction() {
+		pointViewHolder.lvPoint.setOnScrollListener(new AbsListView.OnScrollListener() {
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				Log.i(PuziUtils.INFO, "scrollState : " + scrollState + ", more : " + more);
 
-	@Override
-	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		lastVisible = (totalItemCount > 0) && firstVisibleItem + visibleItemCount >= totalItemCount;
+				if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastestScrollFlag) {
+					if(more) {
+						pagingIndex = pagingIndex + 1;
+						pointList(pointViewHolder);
+					}
+				}
+			}
+
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+				lastestScrollFlag = (totalItemCount > 0) && firstVisibleItem + visibleItemCount >= totalItemCount;
+			}
+		});
 	}
 
 	public class PointViewHolder {

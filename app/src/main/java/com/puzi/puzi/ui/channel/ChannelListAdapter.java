@@ -17,6 +17,7 @@ import com.puzi.puzi.biz.channel.ChannelEditorsPageVO;
 import com.puzi.puzi.biz.channel.ChannelVO;
 import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
+import com.puzi.puzi.ui.company.CompanyActivity;
 import com.puzi.puzi.utils.UIUtils;
 
 import java.util.ArrayList;
@@ -164,6 +165,16 @@ public class ChannelListAdapter extends BaseAdapter {
 				BitmapUIL.load(firstChannel.getPictureUrl(), channelHolder.ibtnImage1);
 				channelHolder.btnTitle1.setText(firstChannel.getTitle());
 				BitmapUIL.load(firstChannel.getCompanyInfoDTO().getPictureUrl(), channelHolder.ibtnCompany1);
+				channelHolder.ibtnCompany1.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(activity, CompanyActivity.class);
+						intent.putExtra("company", firstChannel.getCompanyInfoDTO());
+						activity.startActivity(intent);
+						activity.doAnimationGoRight();
+					}
+				});
 				channelHolder.tvScore1.setText(firstChannel.getAverageScore() + "/5");
 
 				View.OnClickListener listener1 = new View.OnClickListener() {
@@ -186,6 +197,16 @@ public class ChannelListAdapter extends BaseAdapter {
 					BitmapUIL.load(secondChannel.getPictureUrl(), channelHolder.ibtnImage2);
 					channelHolder.btnTitle2.setText(secondChannel.getTitle());
 					BitmapUIL.load(secondChannel.getCompanyInfoDTO().getPictureUrl(), channelHolder.ibtnCompany2);
+					channelHolder.ibtnCompany2.setOnClickListener(new View.OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							Intent intent = new Intent(activity, CompanyActivity.class);
+							intent.putExtra("company", secondChannel.getCompanyInfoDTO());
+							activity.startActivity(intent);
+							activity.doAnimationGoRight();
+						}
+					});
 					channelHolder.tvScore2.setText(secondChannel.getAverageScore() + "/5");
 
 					View.OnClickListener listener2 = new View.OnClickListener() {

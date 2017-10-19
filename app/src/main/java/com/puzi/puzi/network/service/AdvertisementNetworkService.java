@@ -18,7 +18,7 @@ public interface AdvertisementNetworkService {
 	@FormUrlEncoded
 	@POST("/advertise/point/save")
 	Call<ResponseVO> pointSave(@Header("token") String token,
-		@Field("cmpnId") int cmpnId,
+		@Field("receivedAdvertiseId") int receivedAdvertiseId,
 		@Field("answer") String answer);
 
 	@GET("/v2/advertise/point/history")

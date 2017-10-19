@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
              android:layout_height="match_parent"
+             android:background="@drawable/channel_item_background"
              android:orientation="vertical" >
 
   <LinearLayout
@@ -15,17 +16,18 @@
       android:id="@+id/dialog_edittext_tvTitle"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:padding="15dp"
+      android:layout_marginTop="38dp"
+      android:layout_marginBottom="19dp"
       android:gravity="center"
       android:text="별점주기"
-      android:textSize="18sp"
-      android:textColor="#9b9b9b"/>
+      android:textSize="20sp"
+      android:textColor="#333333"/>
 
     <LinearLayout
       android:orientation="horizontal"
       android:layout_gravity="center_horizontal"
       android:layout_width="wrap_content"
-      android:layout_height="40dp">
+      android:layout_height="20dp">
 
       <ImageButton
         android:layout_gravity="center_vertical"
@@ -78,34 +80,32 @@
 
     </LinearLayout>
 
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:background="#dfdfdf"/>
-
     <TextView
       android:id="@+id/dialog_edittext_tvTitle"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:gravity="center"
-      android:padding="15dp"
+      android:layout_marginTop="22dp"
+      android:layout_marginBottom="18dp"
       android:text="평가입력"
-      android:textSize="18sp"
-      android:textColor="#9b9b9b"/>
+      android:textSize="20sp"
+      android:textColor="#333333"/>
 
     <EditText
       android:id="@+id/et_dialog_channel_evaluate_comment"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:paddingTop="25dp"
-      android:paddingBottom="25dp"
+      android:paddingBottom="24dp"
+      android:paddingTop="24dp"
       android:paddingLeft="15dp"
       android:paddingRight="15dp"
-      android:layout_margin="20dp"
-      android:background="#ffffff"
+      android:layout_marginRight="20dp"
+      android:layout_marginLeft="20dp"
+      android:background="@drawable/channel_detail_evaluate_box"
       android:ems="10"
       android:lines="5"
       android:gravity="top|left"
+      android:textSize="16dp"
       android:hint="평가를 5자이상 작성해주세요."
       android:inputType="textMultiLine">
 
@@ -114,37 +114,32 @@
 
     <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:background="#dfdfdf"/>
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="50dp"
+      android:layout_height="37dp"
+      android:layout_marginBottom="40dp"
+      android:layout_marginTop="24dp"
       android:layout_gravity="center"
       android:orientation="horizontal">
-
-      <Button
-        android:id="@+id/dialog_edittext_btnCancel"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@drawable/dialog_basic_button"
-        android:text="취소"
-        android:textColor="#333333"/>
-
-      <LinearLayout
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:background="#dfdfdf"/>
 
       <Button
         android:id="@+id/btn_dialog_channel_evaluate_confirm"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_weight="1"
-        android:background="@drawable/dialog_basic_button"
+        android:background="@drawable/button_puzi"
         android:text="저장"
-        android:textColor="#ff2470"/>
+        android:textColor="@color/colorWhite"/>
+
+      <Button
+        android:id="@+id/dialog_edittext_btnCancel"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_favorite_on"
+        android:text="취소"
+        android:textColor="@color/colorPuzi"/>
 
     </LinearLayout>
   </LinearLayout>

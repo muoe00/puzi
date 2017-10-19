@@ -8,101 +8,103 @@
               android:weightSum="1">
 
   <FrameLayout
-    android:id="@+id/fl_setting"
+    android:id="@+id/fl_signup"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="45dp">
+    android:layout_height="54dp">
 
     <ImageButton
+      android:padding="16dp"
       android:layout_gravity="left|center"
       android:layout_width="50dp"
       android:layout_height="match_parent"
       android:background="@null"
-      android:src="@drawable/back_chevron"
-      android:id="@+id/ibtn_back"/>
+      android:src="@drawable/back"
+      android:id="@+id/ibtn_back_point"/>
   </FrameLayout>
 
   <LinearLayout
-    android:id="@+id/ll_point_info"
     android:orientation="vertical"
-    android:gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:weightSum="1">
+    android:layout_height="130dp">
 
-    <RelativeLayout
-      android:layout_marginTop="10dp"
-      android:layout_marginBottom="10dp"
-      android:id="@+id/rl_point"
+    <LinearLayout
+      android:id="@+id/ll_point_info"
+      android:orientation="vertical"
       android:gravity="center"
+      android:layout_marginTop="35dp"
       android:layout_width="match_parent"
-      android:layout_height="55dp">
+      android:layout_height="40dp"
+      android:weightSum="1">
 
-      <ImageView
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:src="@mipmap/level"
-        android:id="@+id/iv_rankImage"/>
+      <RelativeLayout
+        android:id="@+id/rl_point"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
 
-      <FrameLayout
-        android:id="@+id/fl_point"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="42dp"
-        android:layout_toRightOf="@+id/iv_rankImage">
+        <ImageView
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:src="@mipmap/level"
+          android:id="@+id/iv_rankImage"/>
 
         <TextView
           android:gravity="center"
-          android:textSize="38sp"
-          android:textStyle="bold"
+          android:textSize="32sp"
+          android:textColor="@color/colorBlack"
           android:text="100,000"
+          android:layout_marginRight="10dp"
+          android:layout_marginLeft="10dp"
           android:layout_width="wrap_content"
-          android:layout_height="match_parent"
+          android:layout_height="38dp"
           android:id="@+id/tv_point"
-          android:layout_alignParentTop="true"/>
-      </FrameLayout>
+          android:layout_alignParentTop="true"
+          android:layout_toRightOf="@+id/iv_rankImage"/>
 
-    </RelativeLayout>
+      </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+      android:id="@+id/ll_point_today"
+      android:layout_width="match_parent"
+      android:layout_height="24dp"
+      android:layout_marginTop="2dp"
+      android:orientation="horizontal"
+      android:gravity="center">
+
+      <ImageView
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/rectangle_2"
+        android:layout_width="13.3dp"
+        android:layout_height="13.3dp"
+        android:id="@+id/iv_todaypoint"
+        android:layout_alignBottom="@+id/fl_point"
+        android:layout_toRightOf="@+id/fl_point"
+        android:layout_toEndOf="@+id/fl_point"/>
+
+      <View
+        android:layout_width="5dp"
+        android:layout_height="0dp"/>
+
+      <TextView
+        android:text="1000"
+        android:id="@+id/tv_point_today"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:textSize="16sp"
+        android:textColor="@color/colorTextGray"/>
+
+    </LinearLayout>
 
   </LinearLayout>
 
   <LinearLayout
-    android:id="@+id/ll_point_today"
+    android:background="#DADADA"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
-    android:layout_marginBottom="10dp"
-    android:orientation="horizontal"
-    android:gravity="center">
-
-    <ImageView
-      android:layout_marginLeft="10dp"
-      android:layout_gravity="center_vertical"
-      android:background="@drawable/rectangle_2"
-      android:layout_width="13.3dp"
-      android:layout_height="13.3dp"
-      android:id="@+id/iv_todaypoint"
-      android:layout_alignBottom="@+id/fl_point"
-      android:layout_toRightOf="@+id/fl_point"
-      android:layout_toEndOf="@+id/fl_point"/>
-
-    <View
-      android:layout_width="5dp"
-      android:layout_height="0dp"/>
-
-    <TextView
-      android:text="1000"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textSize="16sp"
-      android:textColor="#555555"/>
-
-  </LinearLayout>
-
-  <LinearLayout
-    android:background="#3b3b3b"
-    android:layout_width="match_parent"
-    android:layout_height="0.5dp">
+    android:layout_height="1dp">
 
   </LinearLayout>
 
@@ -110,7 +112,7 @@
     android:id="@+id/ll_point_tab"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="48dp">
 
     <FrameLayout
       android:id="@+id/fl_channelRecommend"
@@ -121,11 +123,13 @@
 
       <TextView
         android:text="적립금"
-        android:textSize="12sp"
+        android:textColor="@color/colorPuzi"
+        android:textSize="20sp"
         android:gravity="center"
+        android:paddingBottom="4dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/tv_channelRecommend"/>
+        android:id="@+id/tv_point_history"/>
       <Button
         android:id="@+id/btn_channelRecommend"
         android:layout_width="match_parent"
@@ -134,9 +138,9 @@
       <ImageView
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/colorNavy"
-        android:id="@+id/iv_chrecommend_select"/>
+        android:layout_height="4dp"
+        android:background="@color/colorPuzi"
+        android:id="@+id/iv_point_select"/>
 
     </FrameLayout>
 
@@ -149,11 +153,13 @@
 
       <TextView
         android:text="등급"
-        android:textSize="12sp"
+        android:textColor="#6D6D6D"
+        android:textSize="20sp"
         android:gravity="center"
+        android:paddingBottom="4dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/tv_channelFavorit"/>
+        android:id="@+id/tv_point_level"/>
       <Button
         android:id="@+id/btn_point_level"
         android:layout_width="match_parent"
@@ -162,18 +168,18 @@
       <ImageView
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/colorNavy"
-        android:id="@+id/iv_chfavorit_select"/>
+        android:layout_height="4dp"
+        android:background="@color/colorPuzi"
+        android:id="@+id/iv_level_select"/>
 
     </FrameLayout>
 
   </LinearLayout>
 
   <LinearLayout
-    android:background="#3b3b3b"
+    android:background="#DADADA"
     android:layout_width="match_parent"
-    android:layout_height="0.5dp">
+    android:layout_height="1dp">
 
   </LinearLayout>
 

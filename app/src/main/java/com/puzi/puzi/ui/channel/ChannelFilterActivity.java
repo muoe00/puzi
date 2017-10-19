@@ -7,16 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelCategoryType;
 import com.puzi.puzi.ui.base.BaseActivity;
-import com.puzi.puzi.utils.SerializeUtils;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -58,6 +60,8 @@ public class ChannelFilterActivity extends BaseActivity {
 	@BindView(R.id.btn_channel_filter_finance)
 	Button btnFinance;
 
+	private Gson gson = new Gson();
+
 	private List<ChannelCategoryType> categoryTypeList = newArrayList();
 
 	@Override
@@ -67,8 +71,14 @@ public class ChannelFilterActivity extends BaseActivity {
 
 		unbinder = ButterKnife.bind(this);
 
-		List<ChannelCategoryType> categoryTypeList = SerializeUtils.convertToType((List<String>) getIntent().getSerializableExtra("categoryTypeList"));
-		if(categoryTypeList != null && categoryTypeList.size() != 0) {
+		String categoryTypeListJson = getIntent().getStringExtra("categoryTypeListJson");
+		if(categoryTypeListJson != null) {
+			Type listType = new TypeToken<ArrayList<ChannelCategoryType>>(){}.getType();
+			List<ChannelCategoryType> categoryTypeList = gson.fromJson(categoryTypeListJson, listType);
+			if(categoryTypeList.size() == 0 || categoryTypeList.size() == ChannelCategoryType.values().length) {
+				return;
+			}
+
 			for(ChannelCategoryType categoryType : categoryTypeList) {
 				setByCategoryType(categoryType);
 			}
@@ -151,23 +161,20 @@ public class ChannelFilterActivity extends BaseActivity {
 		setCategoryType(ChannelCategoryType.FINANCE, v);
 	}
 
-	@OnClick(R.id.btn_channel_filter_all)
+	@OnClick(R.id.ibtn_channel_filter_all)
 	public void filterAll() {
 		categoryTypeList.clear();
-		for(ChannelCategoryType categoryType : ChannelCategoryType.values()) {
-			setByCategoryType(categoryType);
-		}
+		filterConfirm();
 	}
 
 	@OnClick(R.id.btn_channel_filter_confirm)
 	public void filterConfirm() {
-		if(categoryTypeList.size() == 0) {
-			Toast.makeText(this, "한개 이상 카테고리를 선택해야 합니다.", Toast.LENGTH_SHORT).show();
-			return;
+		Intent intent = new Intent();
+
+		if(categoryTypeList.size() != 0 || categoryTypeList.size() != ChannelCategoryType.values().length) {
+			intent.putExtra("categoryTypeListJson", gson.toJson(categoryTypeList));
 		}
 
-		Intent intent = new Intent();
-		intent.putStringArrayListExtra("categoryTypeList", SerializeUtils.convertToString(categoryTypeList));
 		setResult(Activity.RESULT_OK, intent);
 		finish();
 		doAnimationGoLeft();
@@ -221,34 +228,37 @@ public class ChannelFilterActivity extends BaseActivity {
 		if(categoryTypeList.contains(categoryType)) {
 			categoryTypeList.remove(categoryType);
 			if(categoryType.isButtonType()) {
-				offButton(view);
+				offButton((Button) view);
 			} else {
 				offCircleIcon((ImageButton) view);
 			}
 		} else {
 			categoryTypeList.add(categoryType);
 			if(categoryType.isButtonType()) {
-				onButton(view);
+				onButton((Button) view);
 			} else {
 				onCircleIcon((ImageButton) view);
 			}
 		}
 	}
 
-	private void onButton(View view) {
-		view.setBackgroundColor(Color.parseColor("#ff2470"));
+	private void onButton(Button view) {
+		view.setBackgroundResource(R.drawable.button_favorite_on);
+		view.setTextColor(Color.parseColor("#ff2470"));
+
 	}
 
-	private void offButton(View view) {
-		view.setBackgroundColor(Color.parseColor("#ffffff"));
+	private void offButton(Button view) {
+		view.setBackgroundResource(R.drawable.button_favorite_off);
+		view.setTextColor(Color.parseColor("#dadada"));
 	}
 
 	private void onCircleIcon(ImageButton view) {
-		view.setImageResource(R.drawable.oval_4);
+		view.setImageResource(R.drawable.radio_on);
 	}
 
 	private void offCircleIcon(ImageButton view) {
-		view.setImageResource(R.drawable.oval_4_copy_2);
+		view.setImageResource(R.drawable.radio_off);
 	}
 
 }

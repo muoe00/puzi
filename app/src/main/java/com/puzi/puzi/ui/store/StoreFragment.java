@@ -1,7 +1,6 @@
 package com.puzi.puzi.ui.store;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import com.puzi.puzi.biz.store.StoreVO;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.StoreNetworkService;
+import com.puzi.puzi.ui.base.BaseFragment;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.Map;
  * Created by muoe0 on 2017-07-08.
  */
 
-public class StoreFragment extends Fragment implements View.OnClickListener {
+public class StoreFragment extends BaseFragment implements View.OnClickListener {
 
 	public static final int STORE = 0;
 	public static final int COUPON = 1;

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,16 +13,14 @@ import android.view.ViewGroup;
 import android.widget.*;
 import butterknife.*;
 import com.puzi.puzi.R;
-import com.puzi.puzi.biz.user.AgeType;
-import com.puzi.puzi.biz.user.FavoriteType;
-import com.puzi.puzi.biz.user.GenderType;
-import com.puzi.puzi.biz.user.UserVO;
+import com.puzi.puzi.biz.user.*;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.MainActivity;
+import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.utils.EncryptUtils;
 import retrofit2.Call;
@@ -38,13 +37,21 @@ public class InfoFragment extends BaseFragment {
 
 	private Unbinder unbinder;
 
+	@BindView(R.id.btn_info_beauty) public Button btnBeauty;
+	@BindView(R.id.btn_info_shopping) public Button btnShop;
+	@BindView(R.id.btn_info_game) public Button btnGame;
+	@BindView(R.id.btn_info_eat) public Button btnEat;
+	@BindView(R.id.btn_info_tour) public Button btnTour;
+	@BindView(R.id.btn_info_finance) public Button btnFinance;
+	@BindView(R.id.btn_info_culture) public Button btnCulture;
+	@BindView(R.id.iv_signup_all) public ImageView ivConfirm;
 	@BindView(R.id.rbtn_male) public RadioButton rbtnMale;
 	@BindView(R.id.rbtn_female) public RadioButton rbtnFemale;
 	@BindView(R.id.sp_age) public Spinner spAge;
 	@BindView(R.id.edit_recommend) public EditText edtiRecommend;
 	@BindView(R.id.ibtn_back) public ImageView ibtnBack;
 
-	private boolean isClause = false;
+	private boolean isConfirm = false;
 	private UserVO userVO;
 	private AlertDialog.Builder alert_confirm;
 	private ArrayList<String> favoritesList = new ArrayList<String>();
@@ -54,7 +61,6 @@ public class InfoFragment extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		View view = inflater.inflate(R.layout.fragment_signup_info, container, false);
-
 		unbinder = ButterKnife.bind(this, view);
 
 		settingYears();
@@ -66,11 +72,11 @@ public class InfoFragment extends BaseFragment {
 		userVO = new UserVO();
 		userVO.setUserId(Preference.getProperty(getActivity(), "id"));
 		userVO.setPasswd(Preference.getProperty(getActivity(), "passwd"));
-		userVO.setRegisterType("N");
+		userVO.setRegisterType(RegisterType.N);
 		userVO.setEmail(Preference.getProperty(getActivity(), "email"));
-		userVO.setNotifyId("NoRegister");
-		userVO.setPhoneType("A");
-		userVO.setLevelType("BRONZE");
+		userVO.setNotifyId(Preference.getProperty(getActivity(), "tokenFCM"));
+		userVO.setPhoneType(PhoneType.A);
+		userVO.setLevelType(LevelType.BRONZE);
 
 		checkInfo();
 
@@ -79,22 +85,20 @@ public class InfoFragment extends BaseFragment {
 
 	@OnClick(R.id.btn_signup_ok)
 	public void signup() {
-
 		isChecked();
+		ProgressDialog.show(getActivity());
 
 		Log.i("INFO", "User VO : " + userVO.toString());
-
 		UserNetworkService userService = RetrofitManager.create(UserNetworkService.class);
 
 		Call<ResponseVO> call = userService.signup(userVO.getUserId(), EncryptUtils.sha256(userVO.getPasswd()), userVO.getRegisterType()
 			, userVO.getEmail(), userVO.getNotifyId(), userVO.getGenderType(), userVO.getAge(), userVO.getFavoriteTypeList()
 			, userVO.getRecommendId(), userVO.getPhoneType(), userVO.getPhoneKey());
-
 		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-
 				Log.i("INFO", "signup responseVO : " + responseVO.toString());
+				ProgressDialog.dismiss();
 
 				switch(responseVO.getResultType()){
 					case SUCCESS:
@@ -109,7 +113,7 @@ public class InfoFragment extends BaseFragment {
 
 						Intent intent = new Intent(getActivity(), MainActivity.class);
 						startActivity(intent);
-
+						getActivity().finish();
 						getActivity().getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
 						break;
@@ -173,25 +177,25 @@ public class InfoFragment extends BaseFragment {
 	public void checkFavorites(View view) {
 		switch (view.getId()) {
 			case R.id.btn_info_beauty:
-				checkList(FavoriteType.BEAUTY);
+				checkList(FavoriteType.BEAUTY.getComment(), btnBeauty);
 				break;
 			case R.id.btn_info_shopping:
-				checkList(FavoriteType.SHOPPING);
+				checkList(FavoriteType.SHOPPING.getComment(), btnShop);
 				break;
 			case R.id.btn_info_game:
-				checkList(FavoriteType.GAME);
+				checkList(FavoriteType.GAME.getComment(), btnGame);
 				break;
 			case R.id.btn_info_eat:
-				checkList(FavoriteType.EAT);
+				checkList(FavoriteType.EAT.getComment(), btnEat);
 				break;
 			case R.id.btn_info_tour:
-				checkList(FavoriteType.TOUR);
+				checkList(FavoriteType.TOUR.getComment(), btnTour);
 				break;
 			case R.id.btn_info_finance:
-				checkList(FavoriteType.FINANCE);
+				checkList(FavoriteType.FINANCE.getComment(), btnFinance);
 				break;
 			case R.id.btn_info_culture:
-				checkList(FavoriteType.CULTURE);
+				checkList(FavoriteType.CULTURE.getComment(), btnCulture);
 				break;
 			default:
 				break;
@@ -200,15 +204,21 @@ public class InfoFragment extends BaseFragment {
 		userVO.setFavoriteTypeList(favoritesList);
 	}
 
-	public void checkList(FavoriteType category) {
+	public void checkList(String category, Button btn) {
 		if(isFavorites(category)) {
 			favoritesList.remove(category);
+			btn.setBackgroundResource(R.drawable.button_favorite_off);
+			btn.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextGray));
 		} else {
 			favoritesList.add(String.valueOf(category));
+			btn.setBackgroundResource(R.drawable.button_favorite_on);
+			btn.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPuzi));
 		}
+
+		Log.i("INFO", "favoritesList : " + favoritesList.toString());
 	}
 
-	public boolean isFavorites(FavoriteType item) {
+	public boolean isFavorites(String item) {
 		if(favoritesList.isEmpty()) {
 			return false;
 		} else {
@@ -221,48 +231,26 @@ public class InfoFragment extends BaseFragment {
 		}
 	}
 
-	@OnClick({R.id.btn_signup_service, R.id.btn_signup_personal, R.id.btn_signup_gps, R.id.btn_signup_all})
+	@OnClick(R.id.btn_signup_all)
+	public void checkConfirm() {
+		if(isConfirm) {
+			isConfirm = false;
+			ivConfirm.setImageResource(R.drawable.radio_off);
+		} else if (!isConfirm) {
+			isConfirm = true;
+			ivConfirm.setImageResource(R.drawable.radio_on);
+		}
+	}
+
+	@OnClick({R.id.btn_signup_service, R.id.btn_signup_personal, R.id.btn_signup_gps})
 	public void checkClause(View view) {
-
-		boolean isService = false, isPersonal = false, isGps = false;
-
 		switch (view.getId()) {
 			case R.id.btn_signup_service:
-				if(isService) {
-					isService = false;
-				} else {
-					isService = true;
-				}
 				break;
 			case R.id.btn_signup_personal:
-				if(isPersonal) {
-					isPersonal = false;
-				} else {
-					isPersonal = true;
-				}
 				break;
 			case R.id.btn_signup_gps:
-				if(isGps) {
-					isGps = false;
-				} else {
-					isGps = true;
-				}
 				break;
-			case R.id.btn_signup_all:
-				if(isClause) {
-					isClause = false;
-				} else {
-					isClause = true;
-				}
-				break;
-			default:
-				break;
-		}
-
-		if(!isClause) {
-			if(isService && isPersonal && isGps) {
-				isClause = true;
-			}
 		}
 	}
 
@@ -287,7 +275,7 @@ public class InfoFragment extends BaseFragment {
 			} else {
 				Toast.makeText(getContext(), "관심분야를 3가지 이상 선택하세요", Toast.LENGTH_SHORT).show();
 			}
-		} else if(!isClause) {
+		} else if(!isConfirm) {
 			Toast.makeText(getContext(), "약관에 동의해주세요", Toast.LENGTH_SHORT).show();
 		} else {
 			Log.i("INFO", "signup check complete.");

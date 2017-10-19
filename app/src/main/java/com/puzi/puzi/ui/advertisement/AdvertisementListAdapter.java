@@ -161,9 +161,9 @@ public class AdvertisementListAdapter extends BaseAdapter {
 				Log.i(PuziUtils.INFO, "adapter.getToday() : " + receivedAdvertise.getToday());
 
 				if(receivedAdvertise.getSaved() && receivedAdvertise.getToday()) {
-					viewHolder.ivNew.setBackgroundResource(R.drawable.check);
+					viewHolder.ivNew.setImageResource(R.drawable.check);
 				} else if(!receivedAdvertise.getSaved() && receivedAdvertise.getToday()) {
-					viewHolder.ivNew.setBackgroundResource(R.drawable.new_);
+					viewHolder.ivNew.setImageResource(R.drawable.new_);
 				} else {
 					viewHolder.ivNew.setVisibility(View.GONE);
 				}
