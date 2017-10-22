@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "742324361561",
+    "firebase_url": "https://kr-puzi.firebaseio.com",
+    "project_id": "kr-puzi",
+    "storage_bucket": "kr-puzi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:742324361561:android:6685ac994a700bed",
+        "android_client_info": {
+          "package_name": "kr.puzi.puzi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "742324361561-57l9cvqlkgep5nelqnkngvl9l6tpl41m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANu9cRdlDDKMhB7Nx9wxwhq01NyZ0fwqA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
