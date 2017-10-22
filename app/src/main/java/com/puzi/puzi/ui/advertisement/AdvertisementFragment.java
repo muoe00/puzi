@@ -56,6 +56,7 @@ public class AdvertisementFragment extends BaseFragment implements AbsListView.O
 		unbinder = ButterKnife.bind(this, view);
 		advertiseListAdapter = new AdvertisementListAdapter(view.getContext());
 		lvAd.setAdapter(advertiseListAdapter);
+		lvAd.setItemsCanFocus(true);
 
 		getAdvertiseList(view);
 		lvAd.setOnScrollListener(this);
@@ -113,6 +114,7 @@ public class AdvertisementFragment extends BaseFragment implements AbsListView.O
 			if(pagingIndex < 10) {
 				pagingIndex++;
 				getAdvertiseList(view);
+				advertiseListAdapter.notifyDataSetChanged();
 			}
 			Log.i(PuziUtils.INFO, "pagingIndex : " + pagingIndex);
 		}

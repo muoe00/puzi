@@ -65,7 +65,11 @@
           android:textSize="20sp"
           android:textColor="#333333"
           android:text="광고 타이틀 자리입니다."
-          android:layout_width="250dp"
+          android:maxLines="1"
+          android:focusableInTouchMode="true"
+          android:focusable="true"
+          android:ellipsize="marquee"
+          android:layout_width="wrap_content"
           android:layout_height="25dp"
           android:id="@+id/tv_advertise"/>
 

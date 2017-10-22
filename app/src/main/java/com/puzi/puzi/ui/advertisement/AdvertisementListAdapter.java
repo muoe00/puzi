@@ -154,6 +154,7 @@ public class AdvertisementListAdapter extends BaseAdapter {
 
 				final CompanyVO company = receivedAdvertise.getCompanyInfoDTO();
 
+				viewHolder.tvAd.setFocusable(true);
 				viewHolder.tvAd.setText(receivedAdvertise.getSendComment());
 				viewHolder.tvComp.setText(company.getCompanyAlias());
 

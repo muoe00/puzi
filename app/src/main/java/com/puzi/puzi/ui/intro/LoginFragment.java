@@ -66,7 +66,7 @@ public class LoginFragment extends BaseFragment {
 			String errorNoid = getActivity().getResources().getString(R.string.login_error_noid);
 			Toast.makeText(getActivity(), errorNoid, Toast.LENGTH_SHORT).show();
 			return false;
-		} else if(pwd == null || pwd.length() < 6){
+		} else if(pwd == null || pwd.length() < 8){
 			String errorNopwd = getActivity().getResources().getString(R.string.login_error_nopwd);
 			Toast.makeText(getActivity(), errorNopwd, Toast.LENGTH_SHORT).show();
 			return false;

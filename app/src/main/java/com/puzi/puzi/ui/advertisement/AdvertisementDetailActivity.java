@@ -230,7 +230,7 @@ public class AdvertisementDetailActivity extends BaseActivity {
 
 		String token = Preference.getProperty(AdvertisementDetailActivity.this, "token");
 
-		Call<ResponseVO> call = advertisementNetworkService.pointSave(token, receivedAdvertise.getCmpnId(), answer);
+		Call<ResponseVO> call = advertisementNetworkService.pointSave(token, receivedAdvertise.getReceivedAdvertiseId(), answer);
 		call.enqueue(new CustomCallback<ResponseVO>(AdvertisementDetailActivity.this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
