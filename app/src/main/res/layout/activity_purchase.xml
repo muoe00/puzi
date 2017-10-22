@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <FrameLayout
+        android:id="@+id/fl_signup"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="54dp">
+
+        <ImageButton
+            android:padding="16dp"
+            android:layout_gravity="left|center"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:src="@drawable/back"
+            android:id="@+id/ibtn_back_point"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/brandTv"
+            android:textSize="20dp"
+            android:textStyle="normal"
+            android:text="BRAND NAME"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_title_bottom_bar"
+        android:background="#dadada"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="1dp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/infoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="54dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:orientation="horizontal">
+
+                    <com.joooonho.SelectableRoundedImageView
+                        android:id="@+id/brandIv"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:sriv_left_bottom_corner_radius="20dp"
+                        app:sriv_left_top_corner_radius="20dp"
+                        app:sriv_right_bottom_corner_radius="20dp"
+                        app:sriv_right_top_corner_radius="20dp" />
+
+                    <TextView
+                        android:id="@+id/brandTv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:text="BRAND NAME"
+                        android:textSize="15dp"
+                        android:textStyle="normal" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/goodsIv"
+                    android:layout_width="244dp"
+                    android:layout_height="280dp"
+                    android:layout_gravity="center|top"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:id="@+id/goodsNameTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:textColor="#333333"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/goodsPriceTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="7dp"
+                    android:textColor="#333333"
+                    android:textSize="32dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:background="#fafafa"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="11dp"
+                        android:background="#fafafa"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="10dp"
+                            android:text="유효기간"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/expiryDayTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="10dp"
+                            android:textSize="16dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="11dp"
+                        android:background="#fafafa"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="10dp"
+                            android:text="상품설명"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/commentTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="10dp"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="11dp"
+                        android:background="#fafafa"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="10dp"
+                            android:text="사용처"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/usageTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="10dp"
+                            android:textSize="16dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/purchaseBtn"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_gravity="bottom"
+            android:background="#ff2470"
+            android:text="구매하기"
+            android:textColor="#FFFFFF"
+            android:textSize="16dp" />
+    </FrameLayout>
+</LinearLayout>

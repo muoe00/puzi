@@ -1,5 +1,7 @@
 package com.puzi.puzi.biz.store;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 /**
@@ -7,7 +9,7 @@ import lombok.Data;
  */
 
 @Data
-public class StoreItemVO {
+public class StoreItemVO implements Serializable {
 	private int storeId;
 	private int storeItemId;
 	private String name;

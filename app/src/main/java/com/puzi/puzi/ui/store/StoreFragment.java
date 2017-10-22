@@ -1,5 +1,6 @@
 package com.puzi.puzi.ui.store;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,12 +8,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import com.puzi.puzi.R;
+import com.puzi.puzi.biz.store.StoreItemVO;
 import com.puzi.puzi.biz.store.StoreVO;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.StoreNetworkService;
 import com.puzi.puzi.ui.base.BaseFragment;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +65,22 @@ public class StoreFragment extends BaseFragment implements View.OnClickListener 
 				index = STORE;
 				type = "STORE";
 				getStoreList(view);
+
+				// 임시
+
+				StoreItemVO storeItemVO = new StoreItemVO();
+				storeItemVO.setComment("시원한 음료");
+				storeItemVO.setName("오라클 자바칩 푸라푸치노 size Tall");
+				storeItemVO.setExpiryDay(60);
+				storeItemVO.setPictureUrl("http://cafefiles.naver.net/20130417_33/cutie8318_1366126629671VD0WV_JPEG/20130416092629418.jpg");
+				storeItemVO.setPrice(4000);
+				storeItemVO.setStoreId(1);
+				storeItemVO.setStoreItemId(0);
+				Intent intent = new Intent(getActivity(), PurchaseActivity.class);
+				intent.putExtra("storeItem", storeItemVO);
+				intent.putExtra("brandName", "스타벅스");
+				intent.putExtra("brandImage", "http://imgnews.naver.com/image/032/2017/09/08/0002817110_001_20170908191923686.jpg");
+				startActivity(intent);
 			}
 		});
 		btnCoupon.setOnClickListener(new View.OnClickListener() {

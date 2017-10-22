@@ -2,53 +2,53 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
 android {
-	compileSdkVersion 25
-	buildToolsVersion "25.0.2"
-	defaultConfig {
-		applicationId 'kr.puzi.puzi'
-		minSdkVersion 16
-		targetSdkVersion 25
-		versionCode 1
-		versionName "1.0"
-		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-	}
-	buildTypes {
-		release {
-			minifyEnabled false
-			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-		}
-	}
-	productFlavors {
-	}
-	aaptOptions.cruncherEnabled = false
-	aaptOptions.useNewCruncher = false
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId 'kr.puzi.puzi'
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+    }
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
 }
 
 dependencies {
-	compile fileTree(include: ['*.jar'], dir: 'libs')
-	androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-		exclude group: 'com.android.support', module: 'support-annotations'
-	})
-	compile 'com.google.collections:google-collections:1.0'
-	compile 'com.google.code.gson:gson:2.7'
-	compile 'com.google.firebase:firebase-core:10.0.1'
-	compile 'com.google.firebase:firebase-messaging:10.0.1'
-	compile 'com.android.support:appcompat-v7:25.1.1'
-	compile 'com.android.support:support-v4:25.1.1'
-	compile 'com.android.support:design:25.1.1'
-	compile 'com.android.support.constraint:constraint-layout:1.0.2'
-	compile 'com.squareup.retrofit2:retrofit:2.2.0'
-	compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-	compile 'com.squareup.okhttp3:okhttp:3.3.1'
-	compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
-	compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-	compile 'com.jakewharton:butterknife:8.2.0'
-	compile 'com.joooonho:selectableroundedimageview:1.0.1'
-	compile 'com.balysv:material-ripple:1.0.2'
-	apt 'com.jakewharton:butterknife-compiler:8.2.0'
-	testCompile 'junit:junit:4.12'
-	provided 'org.projectlombok:lombok:1.12.6'
-	compile 'com.android.support:cardview-v7:25.1.1'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.google.collections:google-collections:1.0'
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.google.firebase:firebase-core:10.0.1'
+    compile 'com.google.firebase:firebase-messaging:10.0.1'
+    compile 'com.android.support:appcompat-v7:25.1.1'
+    compile 'com.android.support:support-v4:25.1.1'
+    compile 'com.android.support:design:25.1.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.okhttp3:okhttp:3.3.1'
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    compile 'com.jakewharton:butterknife:8.2.0'
+    compile 'com.joooonho:selectableroundedimageview:1.0.1'
+    compile 'com.balysv:material-ripple:1.0.2'
+    compile 'com.android.support:cardview-v7:25.1.1'
+    testCompile 'junit:junit:4.12'
+    apt 'com.jakewharton:butterknife-compiler:8.2.0'
+    provided 'org.projectlombok:lombok:1.12.6'
 }
 
 apply plugin: 'com.google.gms.google-services'
