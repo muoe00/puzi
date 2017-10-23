@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.ui.base.BaseFragment;
 
@@ -13,7 +15,7 @@ import com.puzi.puzi.ui.base.BaseFragment;
  * Created by muoe0 on 2017-07-08.
  */
 
-public class SettingFragment extends BaseFragment implements View.OnClickListener{
+public class SettingFragment extends BaseFragment {
 
 	public static final int NOTICE = 0;
 	public static final int VERSION = 1;
@@ -22,10 +24,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 	public static final int BLOCK = 4;
 	public static final int CUSTOMER  = 5;
 
-	private Button btnNotice, btnVersion, btnUser, btnAlarm, btnBlock, btnCustomer;
-
-	public SettingFragment() {
-	}
+	Unbinder unbinder;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -33,33 +32,15 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 		super.onCreate(savedInstanceState);
 	}
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-	{
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_setting, container, false);
-
-		initComponent(view);
+		unbinder = ButterKnife.bind(this, view);
 
 		return view;
 	}
 
-	private void initComponent(View view) {
-
-		btnNotice = (Button) view.findViewById(R.id.btn_setting_notice);
-		btnVersion = (Button) view.findViewById(R.id.btn_setting_version);
-		btnUser = (Button) view.findViewById(R.id.btn_setting_user);
-		btnAlarm = (Button) view.findViewById(R.id.btn_setting_alarm);
-		btnBlock = (Button) view.findViewById(R.id.btn_setting_block);
-		btnCustomer = (Button) view.findViewById(R.id.btn_setting_customer);
-
-		btnNotice.setOnClickListener(this);
-		btnVersion.setOnClickListener(this);
-		btnUser.setOnClickListener(this);
-		btnAlarm.setOnClickListener(this);
-		btnBlock.setOnClickListener(this);
-		btnCustomer.setOnClickListener(this);
-	}
-
-	@Override
+	@OnClick({R.id.btn_setting_notice, R.id.btn_setting_version, R.id.btn_setting_user,
+		R.id.btn_setting_alarm, R.id.btn_setting_block, R.id.btn_setting_customer})
 	public void onClick(View v) {
 
 		Intent intent = new Intent(getActivity(), SettingDetailActivity.class);
@@ -87,6 +68,13 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 				break;
 		}
 
+		doAnimationGoRight();
 		startActivity(intent);
+	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		unbinder.unbind();
 	}
 }
