@@ -1,8 +1,9 @@
 package com.puzi.puzi.ui.store.coupon;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.ui.base.BaseActivity;
 
@@ -12,7 +13,7 @@ import com.puzi.puzi.ui.base.BaseActivity;
 
 public class CouponActivity extends BaseActivity {
 
-	private ImageButton btnBack;
+	Unbinder unbinder;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +21,12 @@ public class CouponActivity extends BaseActivity {
 
 		setContentView(R.layout.activity_store_coupon);
 
-		btnBack = (ImageButton) findViewById(R.id.ibtn_back);
-		btnBack.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
+		unbinder = ButterKnife.bind(this);
+
+	}
+
+	@OnClick(R.id.ibtn_back)
+	public void back() {
+		finish();
 	}
 }

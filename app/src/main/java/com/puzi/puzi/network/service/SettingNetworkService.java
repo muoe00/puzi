@@ -10,20 +10,20 @@ import retrofit2.http.*;
 
 public interface SettingNetworkService {
 
-	@GET("/setting/notice/list")
+	@GET("/v2/setting/notice/list")
 	Call<ResponseVO> list(@Header("token") String token,
 		@Query("pagingIndex") int pagingIndex);
 
 	@FormUrlEncoded
-	@POST("/setting/update")
-	Call<ResponseVO> update(@Header("token") String token,
-		@Field("email") String email,
-		@Field("favorites") String favorites);
+	@POST("/setting/update/favorites")
+	Call<ResponseVO> updateFavorites(@Header("token") String token,
+		@Field("favoriteTypeList") String favoriteTypeList);
 
 	@FormUrlEncoded
-	@POST("/setting/update/passwd")
-	Call<ResponseVO> updatePasswd(@Header("token") String token,
-		@Header("passwd") String passwd);
+	@POST("/setting/update/account")
+	Call<ResponseVO> updateAccount(@Header("token") String token,
+		@Header("passwd") String passwd,
+		@Field("email") String email);
 
 	@FormUrlEncoded
 	@POST("/setting/reject/alarm")
@@ -37,6 +37,11 @@ public interface SettingNetworkService {
 	Call<ResponseVO> company(@Header("token") String token,
 		@Field("add") boolean add,
 		@Field("companyId") int companyId);
+
+	@FormUrlEncoded
+	@POST("/v2/setting/reject/company/list")
+	Call<ResponseVO> companyList(@Header("token") String token,
+		@Field("pagingIndex") int pagingIndex);
 
 	@FormUrlEncoded
 	@POST("/setting/center/ask")
