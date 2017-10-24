@@ -45,11 +45,12 @@ public class SearchPwFragment extends BaseFragment {
 
 	@OnClick(R.id.btn_srchpw)
 	public void searchPw(){
-		ProgressDialog.show(getActivity());
 
 		if(editId.getText() != null && editEmail.getText() != null) {
 			String email = editEmail.getText().toString();
 			if(ValidationUtils.checkEmail(email)) {
+				ProgressDialog.show(getActivity());
+
 				String id = editId.getText().toString();
 				UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
 

@@ -1,5 +1,7 @@
 package com.puzi.puzi.utils;
 
+import android.app.Activity;
+import android.os.Build;
 import android.widget.ImageView;
 import com.puzi.puzi.R;
 
@@ -8,6 +10,12 @@ import com.puzi.puzi.R;
  */
 
 public class UIUtils {
+
+	public static void setStatusBarColor(Activity activity) {
+		if (Build.VERSION.SDK_INT >= 21) {
+			activity.getWindow().setStatusBarColor(activity.getResources().getColor(R.color.colorPrimaryDark));
+		}
+	}
 
 	public static void setEvaluateStarScoreImageNone(ImageView star1, ImageView star2, ImageView star3, ImageView star4,
 		ImageView star5) {

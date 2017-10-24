@@ -19,9 +19,7 @@
       android:layout_height="match_parent"
       android:id="@+id/lv_advertise"
       android:background="@color/colorWhite"
-      android:divider="@color/colorWhite"
-      android:dividerHeight="10dp"
-      android:columnWidth="240dp"/>
+      android:divider="@color/colorWhite"/>
 
   </LinearLayout>
 

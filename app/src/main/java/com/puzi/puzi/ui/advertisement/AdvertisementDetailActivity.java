@@ -226,6 +226,7 @@ public class AdvertisementDetailActivity extends BaseActivity {
 
 		AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
 		String token = Preference.getProperty(AdvertisementDetailActivity.this, "token");
+
 		Call<ResponseVO> call = advertisementNetworkService.pointSave(token, receivedAdvertise.getReceivedAdvertiseId(), answer);
 		call.enqueue(new CustomCallback<ResponseVO>(AdvertisementDetailActivity.this) {
 			@Override
@@ -255,7 +256,6 @@ public class AdvertisementDetailActivity extends BaseActivity {
 
 	@OnClick(R.id.btn_back_web)
 	public void back() {
-
 		long endTime = startTime = System.currentTimeMillis();
 		long stayTime = (long)((endTime - startTime)/1000.0);
 

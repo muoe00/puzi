@@ -1,5 +1,6 @@
 package com.puzi.puzi.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,11 +26,14 @@ import retrofit2.Call;
 
 import java.util.ArrayList;
 
+import static com.puzi.puzi.utils.UIUtils.setStatusBarColor;
+
 public class IntroActivity extends BaseFragmentActivity {
 
 	private long backKeyPressedTime;
 	public boolean AUTO_LOGIN = false;
 
+	private Activity activity;
 	private ArrayList<BaseFragment> fragmentList = new ArrayList<BaseFragment>();
 	private BaseFragment fragment;
 	private FragmentManager fragmentManager = getSupportFragmentManager();
@@ -39,6 +43,8 @@ public class IntroActivity extends BaseFragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_splash);
+		activity = this;
+		setStatusBarColor(activity);
 
 		FirebaseInstanceId.getInstance().getToken();
 		String tokenFCM = FirebaseInstanceId.getInstance().getToken();

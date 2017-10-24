@@ -1,6 +1,6 @@
 package com.puzi.puzi.ui.advertisement;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,21 +35,16 @@ public class AdvertisementListAdapter extends BaseAdapter {
 	private static final int VIEW_EMPTY = 1;
 	private static final int VIEW_PROGRESS = 2;
 
-	private Context context = null;
+	private Activity activity;
 	private LayoutInflater inflater;
 	private List<ReceivedAdvertiseVO> list = new ArrayList();
 	@Getter
 	private boolean progressed = false;
 	private boolean empty = false;
 
-	public AdvertisementListAdapter(Context context) {
-		this.context = context;
-		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	}
-
-	public void addAdvertiseFirst(ReceivedAdvertiseVO advertiseVO) {
-		empty = false;
-		list.add(0, advertiseVO);
+	public AdvertisementListAdapter(Activity activity) {
+		this.activity = activity;
+		this.inflater = activity.getLayoutInflater();
 	}
 
 	public void addAdvertiseList(List<ReceivedAdvertiseVO> advertiseVOList) {
@@ -161,8 +156,10 @@ public class AdvertisementListAdapter extends BaseAdapter {
 				Log.i(PuziUtils.INFO, "adapter.getToday() : " + receivedAdvertise.getToday());
 
 				if(receivedAdvertise.getSaved() && receivedAdvertise.getToday()) {
-					viewHolder.ivNew.setImageResource(R.drawable.check);
+					viewHolder.ivNew.setVisibility(View.VISIBLE);
+					viewHolder.ivNew.setImageResource(R.drawable.old);
 				} else if(!receivedAdvertise.getSaved() && receivedAdvertise.getToday()) {
+					viewHolder.ivNew.setVisibility(View.VISIBLE);
 					viewHolder.ivNew.setImageResource(R.drawable.new_);
 				} else {
 					viewHolder.ivNew.setVisibility(View.GONE);
@@ -188,19 +185,19 @@ public class AdvertisementListAdapter extends BaseAdapter {
 	}
 
 	public void changedDetail(ReceivedAdvertiseVO receivedAdvertise) {
-		Intent intent = new Intent(context, AdvertisementDetailActivity.class);
+		Intent intent = new Intent(activity, AdvertisementDetailActivity.class);
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("advertise", receivedAdvertise);
 		intent.putExtras(bundle);
-		context.startActivity(intent);
+		activity.startActivity(intent);
 	}
 
 	public void changedCompany(CompanyVO company) {
-		Intent intent = new Intent(context, CompanyActivity.class);
+		Intent intent = new Intent(activity, CompanyActivity.class);
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("company", company);
 		intent.putExtras(bundle);
-		context.startActivity(intent);
+		activity.startActivity(intent);
 	}
 
 	public void changeSaved(int adId, boolean saved) {
