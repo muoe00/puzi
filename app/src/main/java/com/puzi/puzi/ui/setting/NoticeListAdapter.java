@@ -1,25 +1,16 @@
 package com.puzi.puzi.ui.setting;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.joooonho.SelectableRoundedImageView;
 import com.puzi.puzi.R;
-import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
-import com.puzi.puzi.biz.company.CompanyVO;
-import com.puzi.puzi.image.BitmapUIL;
-import com.puzi.puzi.ui.advertisement.AdvertisementDetailActivity;
-import com.puzi.puzi.ui.company.CompanyActivity;
+import com.puzi.puzi.biz.notice.NoticeVO;
 import com.puzi.puzi.utils.PuziUtils;
 import lombok.Getter;
 
@@ -30,7 +21,7 @@ import java.util.List;
  * Created by 170605 on 2017-10-23.
  */
 
-public class NoticeListAdapter extends BaseAdapter {
+public class NoticeListAdapter extends AnimatedExpandableListView.AnimatedExpandableListAdapter {
 
 	private static final int VIEW_NOTICE = 0;
 	private static final int VIEW_EMPTY = 1;
@@ -38,7 +29,7 @@ public class NoticeListAdapter extends BaseAdapter {
 
 	private Context context = null;
 	private LayoutInflater inflater;
-	private List<ReceivedAdvertiseVO> list = new ArrayList();
+	private List<NoticeVO> list = new ArrayList();
 	@Getter
 	private boolean progressed = false;
 	private boolean empty = false;
@@ -48,11 +39,11 @@ public class NoticeListAdapter extends BaseAdapter {
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
-	public void addNoticeList(List<ReceivedAdvertiseVO> advertiseVOList) {
-		if(empty && advertiseVOList.size() > 0) {
+	public void addNoticeList(List<NoticeVO> noticeVOs) {
+		if(empty && noticeVOs.size() > 0) {
 			empty = false;
 		}
-		list.addAll(advertiseVOList);
+		list.addAll(noticeVOs);
 	}
 
 	public void empty() {
@@ -70,7 +61,7 @@ public class NoticeListAdapter extends BaseAdapter {
 			return VIEW_EMPTY;
 		}
 		if(progressed) {
-			if(getCount() - 1 == position) {
+			if(getGroupCount() - 1 == position) {
 				return VIEW_PROGRESS;
 			}
 		}
@@ -92,7 +83,7 @@ public class NoticeListAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public int getCount() {
+	public int getGroupCount() {
 		if(empty) {
 			return 1;
 		}
@@ -103,32 +94,31 @@ public class NoticeListAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
-		return list.get(position);
+	public long getGroupId(int groupPosition) {
+		return groupPosition;
 	}
 
 	@Override
-	public long getItemId(int position) {
-		return position;
+	public Object getGroup(int groupPosition) {
+		return list.get(groupPosition);
 	}
 
 	@Override
-	public View getView(final int position, View convertView, ViewGroup parent) {
-
+	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 		View v = convertView;
-		ViewHolder viewHolder = null;
-		int viewType = getItemViewType(position);
+		ParentViewHolder viewHolder = null;
+		int viewType = getItemViewType(groupPosition);
 
 		if(v == null) {
 			switch(viewType) {
 				case VIEW_NOTICE:
-					v = inflater.inflate(R.layout.fragment_advertisement_item, null);
-					viewHolder = new ViewHolder(v);
+					v = inflater.inflate(R.layout.fragment_setting_notice_item_parent, null);
+					viewHolder = new ParentViewHolder(v);
 					v.setTag(viewHolder);
 					break;
 
 				case VIEW_EMPTY:
-					v = inflater.inflate(R.layout.item_list_empty_advertise, null);
+					v = inflater.inflate(R.layout.item_list_empty_notice, null);
 					break;
 
 				case VIEW_PROGRESS:
@@ -136,19 +126,12 @@ public class NoticeListAdapter extends BaseAdapter {
 					break;
 			}
 		} else {
-			viewHolder = (ViewHolder) v.getTag();
+			viewHolder = (ParentViewHolder) v.getTag();
 		}
 
 		switch(viewType) {
 			case VIEW_NOTICE:
-				final ReceivedAdvertiseVO receivedAdvertise = (ReceivedAdvertiseVO) getItem(position);
-
-				Log.i("INFO", "URL Company : " + receivedAdvertise.getLinkPreviewUrl());
-
-				BitmapUIL.load(receivedAdvertise.getLinkPreviewUrl(), viewHolder.ivAd);
-				BitmapUIL.load(receivedAdvertise.getCompanyInfoDTO().getPictureUrl(), viewHolder.ivComp);
-
-				final CompanyVO company = receivedAdvertise.getCompanyInfoDTO();
+				final NoticeVO receivedAdvertise = (NoticeVO) getGroup(groupPosition);
 
 				viewHolder.tvAd.setText(receivedAdvertise.getSendComment());
 				viewHolder.tvComp.setText(company.getCompanyAlias());
@@ -156,67 +139,92 @@ public class NoticeListAdapter extends BaseAdapter {
 				Log.i(PuziUtils.INFO, "adapter.getSaved() : " + receivedAdvertise.getSaved());
 				Log.i(PuziUtils.INFO, "adapter.getToday() : " + receivedAdvertise.getToday());
 
-				if(receivedAdvertise.getSaved() && receivedAdvertise.getToday()) {
-					viewHolder.ivNew.setImageResource(R.drawable.check);
-				} else if(!receivedAdvertise.getSaved() && receivedAdvertise.getToday()) {
-					viewHolder.ivNew.setImageResource(R.drawable.new_);
-				} else {
-					viewHolder.ivNew.setVisibility(View.GONE);
-				}
-
-				viewHolder.btnAd.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						changedDetail(receivedAdvertise);
-					}
-				});
-
-				viewHolder.ivComp.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						changedCompany(company);
-					}
-				});
 				break;
 		}
 
 		return v;
 	}
 
-	public void changedDetail(ReceivedAdvertiseVO receivedAdvertise) {
-		Intent intent = new Intent(context, AdvertisementDetailActivity.class);
-		Bundle bundle = new Bundle();
-		bundle.putSerializable("advertise", receivedAdvertise);
-		intent.putExtras(bundle);
-		context.startActivity(intent);
+	@Override
+	public int getRealChildrenCount(int groupPosition) {
+		return 1;
 	}
 
-	public void changedCompany(CompanyVO company) {
-		Intent intent = new Intent(context, CompanyActivity.class);
-		Bundle bundle = new Bundle();
-		bundle.putSerializable("company", company);
-		intent.putExtras(bundle);
-		context.startActivity(intent);
+	@Override
+	public Object getChild(int groupPosition, int childPosition) {
+		return list.get(groupPosition);
 	}
 
-	public void changeSaved(int adId, boolean saved) {
-		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getReceivedAdvertiseId() == adId) {
-				list.get(i).setSaved(saved);
+	@Override
+	public long getChildId(int groupPosition, int childPosition) {
+		return childPosition;
+	}
+
+	@Override
+	public boolean isChildSelectable(int groupPosition, int childPosition) {
+		return true;
+	}
+
+	@Override
+	public boolean hasStableIds() {
+		return true;
+	}
+
+	@Override
+	public View getRealChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+		View v = convertView;
+		ChildViewHolder viewHolder = null;
+		int viewType = getItemViewType(childPosition);
+
+		if(v == null) {
+			switch(viewType) {
+				case VIEW_NOTICE:
+					v = inflater.inflate(R.layout.fragment_setting_notice_item_child, null);
+					viewHolder = new ChildViewHolder(v);
+					v.setTag(viewHolder);
+					break;
+
+				case VIEW_EMPTY:
+					v = inflater.inflate(R.layout.item_list_empty_notice, null);
+					break;
+
+				case VIEW_PROGRESS:
+					v = inflater.inflate(R.layout.item_list_progressbar, null);
+					break;
 			}
+		} else {
+			viewHolder = (ChildViewHolder) v.getTag();
 		}
-		notifyDataSetChanged();
+
+		switch(viewType) {
+			case VIEW_NOTICE:
+				final NoticeVO receivedAdvertise = (NoticeVO) getGroup(childPosition);
+
+				viewHolder.tvAd.setText(receivedAdvertise.getSendComment());
+
+				Log.i(PuziUtils.INFO, "adapter.getSaved() : " + receivedAdvertise.getSaved());
+
+				break;
+		}
+
+		return v;
 	}
 
-	public class ViewHolder {
-		@BindView(R.id.btn_advertiseWv) public Button btnAd;
-		@BindView(R.id.iv_home_advertise) public SelectableRoundedImageView ivAd;
-		@BindView(R.id.iv_companyPicture) public SelectableRoundedImageView ivComp;
-		@BindView(R.id.iv_advertiseNew) public ImageView ivNew;
-		@BindView(R.id.tv_advertise) public TextView tvAd;
-		@BindView(R.id.tv_companyId) public TextView tvComp;
+	public class ParentViewHolder {
 
-		public ViewHolder(View view) {
+		@BindView(R.id.iv_setting_notice) public ImageView ivNotice;
+		@BindView(R.id.tv_setting_notice) public TextView tvNotice;
+
+		public ParentViewHolder(View view) {
+			ButterKnife.bind(this, view);
+		}
+	}
+
+	public class ChildViewHolder {
+
+		@BindView(R.id.tv_setting_notice_content) public TextView tvContent;
+
+		public ChildViewHolder(View view) {
 			ButterKnife.bind(this, view);
 		}
 	}

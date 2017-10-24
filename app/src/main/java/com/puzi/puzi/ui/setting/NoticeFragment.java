@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.Toast;
 import butterknife.BindView;
@@ -32,7 +33,7 @@ public class NoticeFragment extends BaseFragment {
 
 	Unbinder unbinder;
 
-	@BindView(R.id.lv_notice) ListView lvNotice;
+	@BindView(R.id.lv_notice) AnimatedExpandableListView lvNotice;
 
 	private int pagingIndex = 1;
 	private boolean more = false;
@@ -53,6 +54,18 @@ public class NoticeFragment extends BaseFragment {
 		initAdapter();
 		getNoticeList();
 		initScrollAction();
+
+		lvNotice.setOnGroupClickListener(new AnimatedExpandableListView.OnGroupClickListener() {
+			@Override
+			public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+				if (lvNotice.isGroupExpanded(groupPosition)) {
+					lvNotice.collapseGroupWithAnimation(groupPosition);
+				} else {
+					lvNotice.expandGroupWithAnimation(groupPosition);
+				}
+				return true;
+			}
+		});
 
 		return view;
 	}
