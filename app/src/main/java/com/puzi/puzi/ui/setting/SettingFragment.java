@@ -2,14 +2,23 @@ package com.puzi.puzi.ui.setting;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
+import com.puzi.puzi.cache.Preference;
+import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.ResponseVO;
+import com.puzi.puzi.network.RetrofitManager;
+import com.puzi.puzi.network.service.AdvertisementNetworkService;
 import com.puzi.puzi.ui.base.BaseFragment;
+import retrofit2.Call;
 
 /**
  * Created by muoe0 on 2017-07-08.
@@ -26,6 +35,8 @@ public class SettingFragment extends BaseFragment {
 
 	Unbinder unbinder;
 
+	@BindView(R.id.tv_setting_versionNum) TextView tvVersion;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -35,6 +46,8 @@ public class SettingFragment extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_setting, container, false);
 		unbinder = ButterKnife.bind(this, view);
+
+		getVersion();
 
 		return view;
 	}
@@ -48,9 +61,6 @@ public class SettingFragment extends BaseFragment {
 		switch (v.getId()) {
 			case R.id.btn_setting_notice :
 				intent.putExtra("TAG", NOTICE);
-				break;
-			case R.id.btn_setting_version :
-				intent.putExtra("TAG", VERSION);
 				break;
 			case R.id.btn_setting_user :
 				intent.putExtra("TAG", USER);
@@ -70,6 +80,31 @@ public class SettingFragment extends BaseFragment {
 
 		doAnimationGoRight();
 		startActivity(intent);
+	}
+
+	public void getVersion() {
+		String token = Preference.getProperty(getActivity(), "token");
+
+		final AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
+
+		Call<ResponseVO> callList = advertisementNetworkService.main(token);
+		callList.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+			@Override
+			public void onSuccess(ResponseVO responseVO) {
+
+				switch(responseVO.getResultType()){
+					case SUCCESS:
+						String version = responseVO.getString("version");
+						tvVersion.setText(version);
+
+						break;
+
+					default:
+						Log.i("INFO", "advertisement getAdvertiseList failed.");
+						break;
+				}
+			}
+		});
 	}
 
 	@Override

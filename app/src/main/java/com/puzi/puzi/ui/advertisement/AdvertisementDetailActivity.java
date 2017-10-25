@@ -145,16 +145,16 @@ public class AdvertisementDetailActivity extends BaseActivity {
 		protected void onPreExecute() {
 			isCanceled = false;
 			progressBar.setProgress(0);
-			progressBar.setMax(50);
+			progressBar.setMax(500);
 			progressBar.setVisibility(View.VISIBLE);
 		}
 
 		@Override
 		protected Integer doInBackground(Integer... params) {
-			for(int i = 1 ; i <= 50 && ! isCanceled ; i++) {
+			for(int i = 1 ; i <= 500 && ! isCanceled ; i++) {
 				try {
 					publishProgress(i);
-					Thread.sleep(100);
+					Thread.sleep(10);
 				}
 				catch(InterruptedException e) {
 					e.printStackTrace();

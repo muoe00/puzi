@@ -137,7 +137,7 @@ public class AdvertisementFragment extends BaseFragment {
 		lvAd.setAdapter(advertiseListAdapter);
 	}
 
-	public void refresh(int adId, boolean saved) {
+	public synchronized void refresh(int adId, boolean saved) {
 		pagingIndex = 1;
 		advertiseListAdapter.changeSaved(adId, saved);
 		advertiseListAdapter.notifyDataSetChanged();
