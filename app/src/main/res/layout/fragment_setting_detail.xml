@@ -6,36 +6,34 @@
               android:layout_height="match_parent">
 
   <FrameLayout
-    android:id="@+id/fl_setting"
+    android:id="@+id/fl_signup"
     android:orientation="horizontal"
-    android:background="#EAEAEA"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="54dp">
 
     <ImageButton
+      android:padding="16dp"
       android:layout_gravity="left|center"
-      android:layout_width="wrap_content"
+      android:layout_width="50dp"
       android:layout_height="match_parent"
-      app:srcCompat="@drawable/back"
-      android:id="@+id/ibtn_back"/>
+      android:background="@null"
+      android:src="@drawable/back"
+      android:id="@+id/ibtn_back_setting"/>
+
     <TextView
-      android:text="TextView"
-      android:gravity="center"
+      android:textSize="20sp"
+      android:textColor="#333333"
       android:id="@+id/tv_setting_title"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
+      android:layout_gravity="center"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
   </FrameLayout>
 
   <LinearLayout
     android:id="@+id/ll_setting_content"
-    android:layout_margin="5dp"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
 
   </LinearLayout>
 </LinearLayout>

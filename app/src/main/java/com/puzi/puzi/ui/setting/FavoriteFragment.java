@@ -28,7 +28,7 @@ import java.util.ArrayList;
  * Created by 170605 on 2017-10-23.
  */
 
-public class CustomerFragment extends BaseFragment {
+public class FavoriteFragment extends BaseFragment {
 
 	Unbinder unbinder;
 
@@ -40,7 +40,7 @@ public class CustomerFragment extends BaseFragment {
 	@BindView(R.id.btn_setting_finance) public Button btnFinance;
 	@BindView(R.id.btn_setting_culture) public Button btnCulture;
 
-	private ArrayList<String> favoritesList = new ArrayList<String>()
+	private ArrayList<String> favoritesList = new ArrayList<String>();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,36 +51,36 @@ public class CustomerFragment extends BaseFragment {
 		return view;
 	}
 
-	@OnClick({R.id.btn_info_beauty, R.id.btn_info_shopping, R.id.btn_info_game, R.id.btn_info_eat,
-		R.id.btn_info_tour, R.id.btn_info_finance, R.id.btn_info_culture})
+	@OnClick({R.id.btn_setting_beauty, R.id.btn_setting_shopping, R.id.btn_setting_game, R.id.btn_setting_eat,
+		R.id.btn_setting_tour, R.id.btn_setting_finance, R.id.btn_setting_culture})
 	public void checkFavorites(View view) {
 		switch (view.getId()) {
-			case R.id.btn_info_beauty:
+			case R.id.btn_setting_beauty:
 				checkList(FavoriteType.BEAUTY.getComment(), btnBeauty);
 				break;
-			case R.id.btn_info_shopping:
+			case R.id.btn_setting_shopping:
 				checkList(FavoriteType.SHOPPING.getComment(), btnShop);
 				break;
-			case R.id.btn_info_game:
+			case R.id.btn_setting_game:
 				checkList(FavoriteType.GAME.getComment(), btnGame);
 				break;
-			case R.id.btn_info_eat:
+			case R.id.btn_setting_eat:
 				checkList(FavoriteType.EAT.getComment(), btnEat);
 				break;
-			case R.id.btn_info_tour:
+			case R.id.btn_setting_tour:
 				checkList(FavoriteType.TOUR.getComment(), btnTour);
 				break;
-			case R.id.btn_info_finance:
+			case R.id.btn_setting_finance:
 				checkList(FavoriteType.FINANCE.getComment(), btnFinance);
 				break;
-			case R.id.btn_info_culture:
+			case R.id.btn_setting_culture:
 				checkList(FavoriteType.CULTURE.getComment(), btnCulture);
 				break;
 			default:
 				break;
 		}
 
-		userVO.setFavoriteTypeList(favoritesList);
+		// userVO.setFavoriteTypeList(favoritesList);
 	}
 
 	public void checkList(String category, Button btn) {

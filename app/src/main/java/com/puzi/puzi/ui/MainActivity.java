@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.*;
 import butterknife.*;
 import com.google.gson.Gson;
@@ -35,7 +34,6 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.resource;
 import static com.google.common.collect.Lists.newArrayList;
 
 public class MainActivity extends BaseFragmentActivity {
@@ -45,7 +43,7 @@ public class MainActivity extends BaseFragmentActivity {
 	@BindView(R.id.tv_point) public TextView tvPoint;
 	@BindView(R.id.tv_todaypoint) public TextView tvTodayPoint;
 	@BindView(R.id.vp_main) public CustomViewPager viewPager;
-	@BindView(R.id.main_fragment_container) public LinearLayout llMain;
+	@BindView(R.id.main_fragment_container) public LinearLayout llMainBar;
 	@BindView(R.id.iv_advertise) public ImageView ivAdvertise;
 	@BindView(R.id.iv_channel) public ImageView ivChannel;
 	@BindView(R.id.iv_store) public ImageView ivStore;
@@ -59,6 +57,8 @@ public class MainActivity extends BaseFragmentActivity {
 	@BindView(R.id.btn_store) public Button btnStore;
 	@BindView(R.id.btn_setting) public Button btnSetting;
 	@BindView(R.id.ibtn_right_button) public ImageButton ibtnRightButton;
+	@BindView(R.id.ll_main_bar) public LinearLayout llMain;
+	@BindView(R.id.ll_main_setting) public LinearLayout llMainSetting;
 
 	public static final int FRAGMENT_ADVERTISE = 0;
 	public static final int FRAGMENT_CHANNEL = 1;
@@ -94,9 +94,6 @@ public class MainActivity extends BaseFragmentActivity {
 	}
 
 	public void getUser() {
-
-		Log.i("INFO", "getUser");
-
 		final UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
 
 		String token = Preference.getProperty(MainActivity.this, "token");
@@ -174,10 +171,10 @@ public class MainActivity extends BaseFragmentActivity {
 
 		while(index < 4) {
 			if(position == index) {
-				llMain.findViewWithTag(index).setSelected(true);
+				llMainBar.findViewWithTag(index).setSelected(true);
 			}
 			else {
-				llMain.findViewWithTag(index).setSelected(false);
+				llMainBar.findViewWithTag(index).setSelected(false);
 			}
 			index++;
 		}
@@ -194,10 +191,10 @@ public class MainActivity extends BaseFragmentActivity {
 
 		while(index < 4) {
 			if(tag == index) {
-				llMain.findViewWithTag(index).setSelected(true);
+				llMainBar.findViewWithTag(index).setSelected(true);
 			}
 			else {
-				llMain.findViewWithTag(index).setSelected(false);
+				llMainBar.findViewWithTag(index).setSelected(false);
 			}
 			index++;
 		}
@@ -212,6 +209,8 @@ public class MainActivity extends BaseFragmentActivity {
 	private void changeBottomButton(int id){
 		switch (id) {
 			case FRAGMENT_ADVERTISE:
+				llMain.setVisibility(View.VISIBLE);
+				llMainSetting.setVisibility(View.GONE);
 				ivAdvertise.setImageResource(R.drawable.home_on);
 				ivChannel.setImageResource(R.drawable.channel_off);
 				ivStore.setImageResource(R.drawable.store_off);
@@ -219,6 +218,8 @@ public class MainActivity extends BaseFragmentActivity {
 				ibtnRightButton.setImageResource(R.drawable.add_friend);
 				return;
 			case FRAGMENT_CHANNEL:
+				llMain.setVisibility(View.VISIBLE);
+				llMainSetting.setVisibility(View.GONE);
 				ivAdvertise.setImageResource(R.drawable.home_off);
 				ivChannel.setImageResource(R.drawable.channel_on);
 				ivStore.setImageResource(R.drawable.store_off);
@@ -226,12 +227,16 @@ public class MainActivity extends BaseFragmentActivity {
 				ibtnRightButton.setImageResource(R.drawable.filter_on);
 				return;
 			case FRAGMENT_STORE:
+				llMain.setVisibility(View.VISIBLE);
+				llMainSetting.setVisibility(View.GONE);
 				ivAdvertise.setImageResource(R.drawable.home_off);
 				ivChannel.setImageResource(R.drawable.channel_off);
 				ivStore.setImageResource(R.drawable.store_selected);
 				ivSetting.setImageResource(R.drawable.setting_off);
 				return;
 			case FRAGMENT_SETTING:
+				llMain.setVisibility(View.GONE);
+				llMainSetting.setVisibility(View.VISIBLE);
 				ivAdvertise.setImageResource(R.drawable.home_off);
 				ivChannel.setImageResource(R.drawable.channel_off);
 				ivStore.setImageResource(R.drawable.store_off);

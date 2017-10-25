@@ -1,6 +1,6 @@
 package com.puzi.puzi.ui.setting;
 
-import android.content.Context;
+import android.app.Activity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +11,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.notice.NoticeVO;
-import com.puzi.puzi.utils.PuziUtils;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -27,16 +26,16 @@ public class NoticeListAdapter extends AnimatedExpandableListView.AnimatedExpand
 	private static final int VIEW_EMPTY = 1;
 	private static final int VIEW_PROGRESS = 2;
 
-	private Context context = null;
+	private Activity activity = null;
 	private LayoutInflater inflater;
 	private List<NoticeVO> list = new ArrayList();
 	@Getter
 	private boolean progressed = false;
 	private boolean empty = false;
 
-	public NoticeListAdapter(Context context) {
-		this.context = context;
-		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	public NoticeListAdapter(Activity activity) {
+		this.activity = activity;
+		this.inflater = activity.getLayoutInflater();
 	}
 
 	public void addNoticeList(List<NoticeVO> noticeVOs) {
@@ -131,13 +130,11 @@ public class NoticeListAdapter extends AnimatedExpandableListView.AnimatedExpand
 
 		switch(viewType) {
 			case VIEW_NOTICE:
-				final NoticeVO receivedAdvertise = (NoticeVO) getGroup(groupPosition);
+				final NoticeVO noticeVO = (NoticeVO) getGroup(groupPosition);
 
-				viewHolder.tvAd.setText(receivedAdvertise.getSendComment());
-				viewHolder.tvComp.setText(company.getCompanyAlias());
+				Log.i("INFO", "noticeVO.getTitle() : " + noticeVO.getTitle());
 
-				Log.i(PuziUtils.INFO, "adapter.getSaved() : " + receivedAdvertise.getSaved());
-				Log.i(PuziUtils.INFO, "adapter.getToday() : " + receivedAdvertise.getToday());
+				viewHolder.tvNotice.setText(noticeVO.getTitle());
 
 				break;
 		}
@@ -198,11 +195,9 @@ public class NoticeListAdapter extends AnimatedExpandableListView.AnimatedExpand
 
 		switch(viewType) {
 			case VIEW_NOTICE:
-				final NoticeVO receivedAdvertise = (NoticeVO) getGroup(childPosition);
+				final NoticeVO noticeVO = (NoticeVO) getGroup(childPosition);
 
-				viewHolder.tvAd.setText(receivedAdvertise.getSendComment());
-
-				Log.i(PuziUtils.INFO, "adapter.getSaved() : " + receivedAdvertise.getSaved());
+				viewHolder.tvContent.setText(noticeVO.getComment());
 
 				break;
 		}

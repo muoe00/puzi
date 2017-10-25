@@ -27,8 +27,8 @@ import retrofit2.Call;
 public class SettingFragment extends BaseFragment {
 
 	public static final int NOTICE = 0;
-	public static final int VERSION = 1;
-	public static final int USER = 2;
+	public static final int USER = 1;
+	public static final int FAVORITE = 2;
 	public static final int ALARM  = 3;
 	public static final int BLOCK = 4;
 	public static final int CUSTOMER  = 5;
@@ -52,7 +52,7 @@ public class SettingFragment extends BaseFragment {
 		return view;
 	}
 
-	@OnClick({R.id.btn_setting_notice, R.id.btn_setting_version, R.id.btn_setting_user,
+	@OnClick({R.id.btn_setting_notice, R.id.btn_setting_favorite, R.id.btn_setting_user,
 		R.id.btn_setting_alarm, R.id.btn_setting_block, R.id.btn_setting_customer})
 	public void onClick(View v) {
 
@@ -64,6 +64,9 @@ public class SettingFragment extends BaseFragment {
 				break;
 			case R.id.btn_setting_user :
 				intent.putExtra("TAG", USER);
+				break;
+			case R.id.btn_setting_favorite :
+				intent.putExtra("TAG", FAVORITE);
 				break;
 			case R.id.btn_setting_alarm :
 				intent.putExtra("TAG", ALARM);

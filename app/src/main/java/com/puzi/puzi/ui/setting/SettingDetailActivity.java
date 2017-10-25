@@ -1,7 +1,9 @@
 package com.puzi.puzi.ui.setting;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +24,9 @@ public class SettingDetailActivity extends BaseFragmentActivity {
 	@BindView(R.id.tv_setting_title) TextView tvTitle;
 
 	private int tag;
+	private BaseFragment fragment;
+	private FragmentManager fragmentManager = getSupportFragmentManager();
+	private FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +37,7 @@ public class SettingDetailActivity extends BaseFragmentActivity {
 
 		tag = getIntent().getExtras().getInt("TAG");
 
-		BaseFragment fragment = null;
+		Log.i("INFO", "tag : " + tag);
 
 		switch (tag) {
 			case 0:
@@ -40,11 +45,12 @@ public class SettingDetailActivity extends BaseFragmentActivity {
 				fragment = new NoticeFragment();
 				break;
 			case 1:
-				tvTitle.setText("버전정보");
+				tvTitle.setText("계정 설정");
+				fragment = new UserFragment();
 				break;
 			case 2:
-				tvTitle.setText("계정/관심사 설정");
-				fragment = new UserFragment();
+				tvTitle.setText("관심사 설정");
+				fragment = new FavoriteFragment();
 				break;
 			case 3:
 				tvTitle.setText("알람 시간 제한 설정");
@@ -56,21 +62,20 @@ public class SettingDetailActivity extends BaseFragmentActivity {
 				break;
 			case 5:
 				tvTitle.setText("고객센터");
-				fragment = new CustomerFragment();
+				fragment = new FavoriteFragment();
 				break;
 		}
 
-		changeView(fragment);
+		changeView();
 	}
 
-	public void changeView(BaseFragment fragment) {
-		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+	public void changeView() {
+		fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.replace(R.id.ll_setting_content, fragment);
-		fragmentTransaction.addToBackStack(null);
-		fragmentTransaction.commitAllowingStateLoss();
+		fragmentTransaction.commit();
 	}
 
-	@OnClick(R.id.ibtn_back)
+	@OnClick(R.id.ibtn_back_setting)
 	public void back() {
 		finish();
 	}

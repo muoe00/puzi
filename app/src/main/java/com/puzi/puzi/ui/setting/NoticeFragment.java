@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,6 +34,7 @@ public class NoticeFragment extends BaseFragment {
 
 	@BindView(R.id.lv_notice) AnimatedExpandableListView lvNotice;
 
+	private View view = null;
 	private int pagingIndex = 1;
 	private boolean more = false;
 	private boolean lastestScrollFlag = false;
@@ -48,7 +48,7 @@ public class NoticeFragment extends BaseFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_setting_notice, container, false);
+		view = inflater.inflate(R.layout.fragment_setting_notice, container, false);
 		unbinder = ButterKnife.bind(this, view);
 
 		initAdapter();
@@ -72,7 +72,7 @@ public class NoticeFragment extends BaseFragment {
 
 	public void getNoticeList() {
 		noticeListAdapter.startProgress();
-		lvNotice.setSelection(noticeListAdapter.getCount() - 1);
+		lvNotice.setSelection(noticeListAdapter.getGroupCount() - 1);
 
 		String token = Preference.getProperty(getActivity(), "token");
 
@@ -100,7 +100,7 @@ public class NoticeFragment extends BaseFragment {
 						noticeListAdapter.addNoticeList(noticeList);
 						noticeListAdapter.notifyDataSetChanged();
 
-						if(noticeListAdapter.getCount() == responseVO.getInteger("totalCount")) {
+						if(noticeListAdapter.getGroupCount() == responseVO.getInteger("totalCount")) {
 							more = false;
 							return;
 						}

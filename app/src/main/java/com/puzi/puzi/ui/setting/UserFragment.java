@@ -33,6 +33,7 @@ public class UserFragment extends BaseFragment {
 	@BindView(R.id.edt_setting_pw) public EditText editPw;
 	@BindView(R.id.edt_setting_repw) public EditText editRePw;
 
+	private View view = null;
 	private String modEmail;
 	private String modPasswd;
 
@@ -44,7 +45,7 @@ public class UserFragment extends BaseFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_setting, container, false);
+		view = inflater.inflate(R.layout.fragment_setting_user, container, false);
 		unbinder = ButterKnife.bind(this, view);
 
 		return view;
