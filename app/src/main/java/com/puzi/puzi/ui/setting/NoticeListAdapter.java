@@ -171,7 +171,7 @@ public class NoticeListAdapter extends AnimatedExpandableListView.AnimatedExpand
 	public View getRealChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 		View v = convertView;
 		ChildViewHolder viewHolder = null;
-		int viewType = getItemViewType(childPosition);
+		int viewType = getItemViewType(groupPosition);
 
 		if(v == null) {
 			switch(viewType) {
@@ -195,7 +195,7 @@ public class NoticeListAdapter extends AnimatedExpandableListView.AnimatedExpand
 
 		switch(viewType) {
 			case VIEW_NOTICE:
-				final NoticeVO noticeVO = (NoticeVO) getGroup(childPosition);
+				final NoticeVO noticeVO = (NoticeVO) getGroup(groupPosition);
 
 				viewHolder.tvContent.setText(noticeVO.getComment());
 

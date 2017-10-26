@@ -4,6 +4,8 @@ import com.puzi.puzi.network.ResponseVO;
 import retrofit2.Call;
 import retrofit2.http.*;
 
+import java.util.List;
+
 /**
  * Created by muoe0 on 2017-07-09.
  */
@@ -17,7 +19,7 @@ public interface SettingNetworkService {
 	@FormUrlEncoded
 	@POST("/setting/update/favorites")
 	Call<ResponseVO> updateFavorites(@Header("token") String token,
-		@Field("favoriteTypeList") String favoriteTypeList);
+		@Field("favoriteTypeList") List<String> favoriteTypeList);
 
 	@FormUrlEncoded
 	@POST("/setting/update/account")

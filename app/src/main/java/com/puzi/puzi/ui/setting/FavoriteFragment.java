@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -45,7 +46,7 @@ public class FavoriteFragment extends BaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		View view = inflater.inflate(R.layout.fragment_setting_notice_favorites, container, false);
+		View view = inflater.inflate(R.layout.fragment_setting_favorites, container, false);
 		unbinder = ButterKnife.bind(this, view);
 
 		return view;
@@ -79,8 +80,6 @@ public class FavoriteFragment extends BaseFragment {
 			default:
 				break;
 		}
-
-		// userVO.setFavoriteTypeList(favoritesList);
 	}
 
 	public void checkList(String category, Button btn) {
@@ -110,13 +109,26 @@ public class FavoriteFragment extends BaseFragment {
 		}
 	}
 
-	public void requestModification(String favoriteTypeList) {
+	@OnClick(R.id.btn_setting_user_modify)
+	public void modifyInformation() {
+		if(favoritesList.size() < 3) {
+			if(favoritesList.isEmpty()) {
+				Toast.makeText(getContext(), "관심분야를 선택하세요", Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(getContext(), "관심분야를 3가지 이상 선택하세요", Toast.LENGTH_SHORT).show();
+			}
+		} else {
+			requestModification();
+		}
+	}
+
+	public void requestModification() {
 
 		String token = Preference.getProperty(getActivity(), "token");
 
 		ProgressDialog.show(getActivity());
 		SettingNetworkService settingNetworkService  = RetrofitManager.create(SettingNetworkService.class);
-		Call<ResponseVO> call = settingNetworkService.updateFavorites(token, favoriteTypeList);
+		Call<ResponseVO> call = settingNetworkService.updateFavorites(token, favoritesList);
 		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {

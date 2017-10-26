@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+
+      <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#efefef">
+      </LinearLayout>
+
+      <FrameLayout
+        android:id="@+id/fl_setting_cs_using"
+        android:layout_below="@id/ll_fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+          android:layout_marginLeft="16dp"
+          android:text="사용문의"
+          android:textColor="#333333"
+          android:textSize="16sp"
+          android:layout_gravity="center_vertical|left"
+          android:layout_centerVertical="true"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/tv_setting_notice"
+          android:layout_weight="0.6"/>
+
+        <ImageView
+          android:layout_marginRight="16dp"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:layout_gravity="center_vertical|right"
+          android:background="@mipmap/next"
+          android:id="@+id/iv_setting_cs_using"/>
+
+        <Button
+          android:background="@null"
+          android:onClick="onClick"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/btn_setting_cs_using"/>
+      </FrameLayout>
+
+      <LinearLayout
+        android:id="@+id/ll_bar"
+        android:layout_below="@+id/fl_setting_cs_using"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dadada"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+      </LinearLayout>
+
+      <FrameLayout
+        android:id="@+id/fl_setting_cs_ad"
+        android:layout_below="@id/ll_bar"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:background="@color/colorWhite"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+          android:layout_marginLeft="16dp"
+          android:text="광고문의"
+          android:textColor="#333333"
+          android:textSize="16sp"
+          android:layout_gravity="center_vertical|left"
+          android:layout_centerVertical="true"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/tv_setting_version"/>
+
+        <ImageView
+          android:layout_marginRight="16dp"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:layout_gravity="center_vertical|right"
+          android:background="@mipmap/next"
+          android:id="@+id/iv_setting_cs_ad"/>
+
+        <Button
+          android:background="@null"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/btn_setting_cs_ad"
+          android:layout_weight="1"/>
+      </FrameLayout>
+
+      <LinearLayout
+        android:id="@+id/ll_fl_container2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#efefef"
+        android:layout_below="@+id/fl_setting_cs_ad"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+      </LinearLayout>
+
+      <FrameLayout
+        android:id="@+id/fl_setting_cs_service"
+        android:layout_below="@+id/ll_fl_container2"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:background="@color/colorWhite"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+          android:layout_marginLeft="16dp"
+          android:text="서비스 이용약관"
+          android:textSize="16sp"
+          android:textColor="#333333"
+          android:layout_centerVertical="true"
+          android:layout_gravity="center_vertical|left"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/tv_setting_cs_service"/>
+
+        <ImageView
+          android:layout_marginRight="16dp"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:background="@mipmap/next"
+          android:id="@+id/iv_setting_cs_service"
+          android:layout_gravity="center_vertical|right"
+          android:layout_centerVertical="true"
+          android:layout_alignParentRight="true"
+          android:layout_alignParentEnd="true"/>
+
+        <Button
+          android:background="@null"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/btn_setting_cs_service"
+          android:layout_weight="1"/>
+      </FrameLayout>
+
+      <LinearLayout
+        android:id="@+id/ll_bar5"
+        android:layout_below="@+id/fl_setting_cs_service"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dadada"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+      </LinearLayout>
+
+      <FrameLayout
+        android:id="@+id/fl_setting_cs_user"
+        android:layout_below="@+id/ll_bar5"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:background="@color/colorWhite"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+          android:layout_marginLeft="16dp"
+          android:text="개인정보 취급방침"
+          android:textSize="16sp"
+          android:textColor="#333333"
+          android:layout_gravity="center_vertical|left"
+          android:layout_centerVertical="true"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/tv_setting_cs_user"/>
+
+        <ImageView
+          android:layout_marginRight="16dp"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:background="@mipmap/next"
+          android:layout_gravity="center_vertical|right"
+          android:id="@+id/iv_setting_cs_user"
+          android:layout_centerVertical="true"
+          android:layout_alignParentRight="true"
+          android:layout_alignParentEnd="true"/>
+
+        <Button
+          android:background="@null"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/btn_setting_cs_user"
+          android:layout_weight="1"/>
+      </FrameLayout>
+
+      <LinearLayout
+        android:id="@+id/ll_bar3"
+        android:layout_below="@+id/fl_setting_cs_user"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dadada"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+      </LinearLayout>
+
+      <FrameLayout
+        android:id="@+id/fl_setting_gps"
+        android:layout_below="@+id/ll_bar3"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:background="@color/colorWhite"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+          android:layout_marginLeft="16dp"
+          android:text="위치기반 서비스 이용약관"
+          android:textSize="16sp"
+          android:textColor="#333333"
+          android:layout_gravity="center_vertical|left"
+          android:layout_centerVertical="true"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/tv_setting_cs_gps"/>
+
+        <ImageView
+          android:layout_marginRight="16dp"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:background="@mipmap/next"
+          android:layout_gravity="center_vertical|right"
+          android:id="@+id/iv_setting_cs_gps"
+          android:layout_centerVertical="true"
+          android:layout_alignParentRight="true"
+          android:layout_alignParentEnd="true"/>
+
+        <Button
+          android:background="@null"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/btn_setting_cs_gps"
+          android:layout_weight="1"/>
+      </FrameLayout>
+
+      <LinearLayout
+        android:id="@+id/ll_bar4"
+        android:layout_below="@+id/fl_setting_gps"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dadada"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+      </LinearLayout>
+
+      <FrameLayout
+        android:id="@+id/fl_setting_cs_open"
+        android:layout_below="@+id/ll_bar4"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:background="@color/colorWhite"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+          android:layout_marginLeft="16dp"
+          android:text="오픈소스 라이브러리"
+          android:textSize="16sp"
+          android:textColor="#333333"
+          android:layout_centerVertical="true"
+          android:layout_gravity="center_vertical|left"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/tv_setting_cs_open"/>
+
+        <ImageView
+          android:layout_marginRight="16dp"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:background="@mipmap/next"
+          android:id="@+id/iv_setting_cs_open"
+          android:layout_gravity="center_vertical|right"
+          android:layout_centerVertical="true"
+          android:layout_alignParentRight="true"
+          android:layout_alignParentEnd="true"/>
+
+        <Button
+          android:background="@null"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/btn_setting_cs_open"
+          android:layout_weight="1"/>
+      </FrameLayout>
+
+      <LinearLayout
+        android:id="@+id/ll_fl_container3"
+        android:layout_below="@+id/fl_setting_cs_open"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#efefef">
+      </LinearLayout>
+
+      <FrameLayout
+        android:id="@+id/fl_setting_cs_leave"
+        android:layout_below="@+id/ll_fl_container3"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:background="@color/colorWhite"
+        android:layout_marginBottom="5dp">
+        <TextView
+          android:layout_marginLeft="16dp"
+          android:text="회원탈퇴"
+          android:textColor="#333333"
+          android:textSize="16sp"
+          android:layout_centerVertical="true"
+          android:layout_gravity="center_vertical|left"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/tv_setting_cs_leave"/>
+
+        <ImageView
+          android:layout_marginRight="16dp"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:background="@mipmap/next"
+          android:id="@+id/iv_setting_cs_leave"
+          android:layout_gravity="center_vertical|right"
+          android:layout_centerVertical="true"
+          android:layout_alignParentRight="true"
+          android:layout_alignParentEnd="true"/>
+
+        <Button
+          android:background="@null"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/btn_setting_cs_leave"
+          android:layout_weight="1"/>
+      </FrameLayout>
+
+      <LinearLayout
+        android:id="@+id/ll_fl_container4"
+        android:layout_below="@+id/fl_setting_cs_leave"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#efefef">
+      </LinearLayout>
+
+    </LinearLayout>
+
+  </ScrollView>
+
+</LinearLayout>
