@@ -32,8 +32,11 @@ public class CouponActivity extends BaseActivity {
 
 	Unbinder unbinder;
 
+	private boolean more = false;
+	private int pagingIndex = 1;
+	boolean lastestScrollFlag = false;
 	private List<PurchaseHistoryVO> list = new ArrayList();
-	private CouponListAdapter usedListAdapter;
+	private CouponListAdapter couponListAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +45,11 @@ public class CouponActivity extends BaseActivity {
 
 		unbinder = ButterKnife.bind(this);
 
-
-
 	}
 
 	public void getCouponList() {
-		usedListAdapter.startProgress();
-		lvAd.setSelection(usedListAdapter.getCount() - 1);
+		couponListAdapter.startProgress();
+		lvAd.setSelection(couponListAdapter.getCount() - 1);
 
 		String token = Preference.getProperty(getActivity(), "token");
 
@@ -59,24 +60,24 @@ public class CouponActivity extends BaseActivity {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				Log.i("INFO", "advertise responseVO : " + responseVO.toString());
-				advertiseListAdapter.stopProgress();
+				couponListAdapter.stopProgress();
 
 				switch(responseVO.getResultType()){
 					case SUCCESS:
-						List<ReceivedAdvertiseVO> advertiseList = responseVO.getList("receivedAdvertiseDTOList", ReceivedAdvertiseVO.class);
-						Log.i(PuziUtils.INFO, "Advertise main / advertiseList : " + advertiseList.toString());
-						Log.i(PuziUtils.INFO, "advertiseList totalCount : " + responseVO.getInteger("totalCount"));
+						List<PurchaseHistoryVO> purchaseHistoryVOS = responseVO.getList("PurchaseHistoryDTO", PurchaseHistoryVO.class);
+						Log.i(PuziUtils.INFO, "purchaseHistoryVOS : " + purchaseHistoryVOS.toString());
+						Log.i(PuziUtils.INFO, "purchaseHistory totalCount : " + responseVO.getInteger("totalCount"));
 
-						if(advertiseList.size() == 0) {
-							advertiseListAdapter.empty();
+						if(purchaseHistoryVOS.size() == 0) {
+							couponListAdapter.empty();
 							more = false;
 							return;
 						}
 
-						advertiseListAdapter.addAdvertiseList(advertiseList);
-						advertiseListAdapter.notifyDataSetChanged();
+						couponListAdapter.addAdvertiseList(purchaseHistoryVOS);
+						couponListAdapter.notifyDataSetChanged();
 
-						if(advertiseListAdapter.getCount() == responseVO.getInteger("totalCount")) {
+						if(couponListAdapter.getCount() == responseVO.getInteger("totalCount")) {
 							more = false;
 							return;
 						}
@@ -90,8 +91,8 @@ public class CouponActivity extends BaseActivity {
 						break;
 
 					default:
-						Log.i("INFO", "advertisement getAdvertiseList failed.");
-						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
+						Log.i("INFO", "getCouponList failed.");
+						Toast.makeText(this, responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
 						break;
 				}
 			}
@@ -118,17 +119,12 @@ public class CouponActivity extends BaseActivity {
 	}
 
 	private void initAdapter() {
-		// 필터
-		channelFilterAdapter = new ChannelFilterAdapter(getActivity());
-		hlvChannelFilter.setAdapter(channelFilterAdapter);
-		// 리스트
-		channelListAdapter = new ChannelListAdapter(getActivity());
-		lvChannel.setAdapter(channelListAdapter);
+		couponListAdapter = new CouponListAdapter(getActivity());
+		hlvChannelFilter.setAdapter(couponListAdapter);
 	}
 
 	@Override
 	public void onDestroyView() {
-		super.onDestroyView();
 		unbinder.unbind();
 	}
 
