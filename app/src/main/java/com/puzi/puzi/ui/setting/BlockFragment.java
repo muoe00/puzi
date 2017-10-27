@@ -30,4 +30,10 @@ public class BlockFragment extends BaseFragment {
 
 		return view;
 	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		unbinder.unbind();
+	}
 }

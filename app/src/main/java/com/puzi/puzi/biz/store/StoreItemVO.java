@@ -8,6 +8,7 @@ import lombok.Data;
 
 @Data
 public class StoreItemVO {
+
 	private int storeId;
 	private int storeItemId;
 	private String name;

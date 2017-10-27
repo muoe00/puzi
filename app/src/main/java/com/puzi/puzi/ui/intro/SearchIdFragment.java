@@ -44,21 +44,6 @@ public class SearchIdFragment extends BaseFragment {
 		return view;
 	}
 
-	/*public void startProgress() {
-		LinearLayout.LayoutParams paramlinear = new LinearLayout.LayoutParams(
-			LinearLayout.LayoutParams.MATCH_PARENT,
-			LinearLayout.LayoutParams.MATCH_PARENT
-		);
-
-		LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-		progressView = (View) layoutInflater.inflate(R.layout.layout_progress, null);
-		getActivity().addContentView(progressView, paramlinear);
-	}
-
-	public void stopProgress() {
-		((ViewManager) progressView.getParent()).removeView(progressView);
-	}*/
-
 	@OnClick(R.id.btn_srchid)
 	public void searchId(){
 

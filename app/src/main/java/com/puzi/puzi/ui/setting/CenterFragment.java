@@ -1,0 +1,101 @@
+package com.puzi.puzi.ui.setting;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+import com.puzi.puzi.R;
+import com.puzi.puzi.ui.base.BaseFragment;
+import com.puzi.puzi.ui.intro.InfoFragment;
+
+/**
+ * Created by 170605 on 2017-10-26.
+ */
+
+public class CenterFragment extends BaseFragment {
+
+	Unbinder unbinder;
+
+	private View view = null;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		view = inflater.inflate(R.layout.fragment_setting_user, container, false);
+		unbinder = ButterKnife.bind(this, view);
+
+		return view;
+	}
+
+	@OnClick({R.id.btn_setting_cs_using, R.id.btn_setting_cs_ad, R.id.btn_setting_cs_service,
+		R.id.btn_setting_cs_user, R.id.btn_setting_cs_gps, R.id.btn_setting_cs_open, R.id.btn_setting_cs_leave})
+	public void onClick(View v) {
+		Bundle bundle = new Bundle(1);
+
+		switch (v.getId()) {
+			case R.id.btn_setting_cs_using :
+				BaseFragment fragment = new AskFragment();
+				bundle.putString("key", "USER");
+				fragment.setArguments(bundle);
+				changedFragment("사용문의");
+				break;
+			case R.id.btn_setting_cs_ad :
+				BaseFragment fragment = new AskFragment();
+				bundle.putString("key", "ADVERTISER");
+				fragment.setArguments(bundle);
+				changedFragment("광고문의");
+				break;
+			case R.id.btn_setting_cs_service :
+				BaseFragment fragment = new TermsFragment();
+				bundle.putString("key", "service");
+				fragment.setArguments(bundle);
+				changedFragment("서비스 이용약관");
+				break;
+			case R.id.btn_setting_cs_user :
+				BaseFragment fragment = new TermsFragment();
+				bundle.putString("key", "user");
+				fragment.setArguments(bundle);
+				changedFragment("개인정보 취급방침");
+				break;
+			case R.id.btn_setting_cs_gps :
+				BaseFragment fragment = new TermsFragment();
+				bundle.putString("key", "gps");
+				fragment.setArguments(bundle);
+				changedFragment("위치기반 서비스 이용약관");
+				break;
+			case R.id.btn_setting_cs_open :
+				BaseFragment fragment = new InfoFragment();
+				changedFragment("오픈소스 라이브러리");
+				break;
+			case R.id.btn_setting_cs_leave :
+				BaseFragment fragment = new OutFragment();
+				changedFragment("회원탈퇴");
+				break;
+			default:
+				break;
+		}
+
+		doAnimationGoRight();
+	}
+
+	public void changedFragment(String title) {
+		SettingDetailActivity settingActivity = (SettingDetailActivity) getActivity();
+
+		settingActivity.setTitle(title);
+		settingActivity.addFragment(fragment);
+	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		unbinder.unbind();
+	}
+}

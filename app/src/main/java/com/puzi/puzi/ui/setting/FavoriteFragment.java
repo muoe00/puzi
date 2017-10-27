@@ -137,4 +137,10 @@ public class FavoriteFragment extends BaseFragment {
 			}
 		});
 	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		unbinder.unbind();
+	}
 }
