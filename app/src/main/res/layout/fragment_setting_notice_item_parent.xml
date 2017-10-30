@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="53.3dp">
 
   <FrameLayout
     android:id="@+id/fl_setting_notice"
-    android:layout_below="@id/ll_fl_container"
     android:layout_width="match_parent"
-    android:layout_height="53dp"
-    android:layout_marginBottom="5dp">
+    android:layout_height="53.3dp">
 
     <TextView
       android:layout_marginLeft="16dp"
@@ -19,16 +18,14 @@
       android:layout_centerVertical="true"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:id="@+id/tv_setting_notice"
-      android:layout_weight="0.6"/>
+      android:id="@+id/tv_setting_notice_parent"/>
 
     <ImageView
       android:layout_marginRight="16dp"
       android:layout_width="12.5dp"
       android:layout_height="21dp"
       android:layout_gravity="center_vertical|right"
-      android:id="@+id/iv_setting_notice"/>
+      android:src="@drawable/back_chevron_copy"
+      android:id="@+id/iv_setting_notice_parent"/>
   </FrameLayout>
-
-
 </LinearLayout>

@@ -1,45 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/ll_signup"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-
-  <FrameLayout
-    android:id="@+id/fl_signup"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="54dp">
-
-    <ImageButton
-      android:padding="16dp"
-      android:layout_gravity="left|center"
-      android:layout_width="50dp"
-      android:layout_height="match_parent"
-      android:background="@null"
-      android:src="@drawable/back"
-      android:id="@+id/ibtn_back"/>
-    <TextView
-      android:text="회원가입"
-      android:textColor="@color/colorBlack"
-      android:textSize="20sp"
-      android:gravity="center"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
-  </FrameLayout>
-
-  <LinearLayout
-    android:background="#DADADA"
-    android:layout_width="match_parent"
-    android:layout_height="1dp">
-
-  </LinearLayout>
 
   <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
+      android:id="@+id/ll_cs_ask"
       android:orientation="vertical"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
@@ -58,32 +28,16 @@
           android:layout_marginBottom="8dp"
           android:textSize="16sp"
           android:textColor="@color/colorBlack"
-          android:text="아이디"
+          android:text="문의 유형"
           android:gravity="left" />
 
-        <EditText
-          android:background="@drawable/edittext"
+        <Spinner
+          android:id="@+id/sp_ask_type"
+          android:prompt="@string/ask_type"
           android:layout_width="match_parent"
-          android:layout_height="64dp"
-          android:textSize="15sp"
-          android:id="@+id/edt_signup_id"
-          android:inputType="textUri"
-          android:hint="아이디를 입력하세요."
-          android:textColorHint="#6D6D6D"
-          android:maxLength="15"
-          android:maxLines="1"
-          android:paddingBottom="15dp"
-          android:paddingTop="15dp"
-          android:paddingLeft="15dp"/>
+          android:layout_height="54dp">
 
-        <TextView
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginTop="5dp"
-          android:textSize="12sp"
-          android:textColor="#333333"
-          android:text="6-15자 사이로 입력해주세요"
-          android:gravity="left" />
+        </Spinner>
 
       </LinearLayout>
 
@@ -109,9 +63,9 @@
           android:layout_width="match_parent"
           android:layout_height="64dp"
           android:textSize="15sp"
-          android:id="@+id/edt_signup_email"
+          android:id="@+id/edt_cs_user_email"
           android:textColorHint="#6D6D6D"
-          android:hint="이메일 주소를 입력하세요."
+          android:hint="답변 받을 이메일 주소를 입력하세요."
           android:ems="15"
           android:maxLines="1"
           android:inputType="textEmailAddress"
@@ -131,11 +85,11 @@
 
         <TextView
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="24dp"
           android:layout_marginBottom="8dp"
           android:textSize="16sp"
           android:textColor="@color/colorBlack"
-          android:text="비밀번호"
+          android:text="제목"
           android:gravity="left" />
 
         <EditText
@@ -143,40 +97,46 @@
           android:layout_width="match_parent"
           android:layout_height="64dp"
           android:textSize="15sp"
-          android:id="@+id/edt_signup_pw"
+          android:id="@+id/edt_cs_user_title"
+          android:hint="제목을 입력하세요."
           android:textColorHint="#6D6D6D"
-          android:hint="비밀번호를 입력하세요"
+          android:maxLength="15"
+          android:maxLines="1"
           android:paddingBottom="15dp"
           android:paddingTop="15dp"
-          android:paddingLeft="15dp"
-          android:inputType="textPassword"
-          android:ems="15"
-          android:maxLines="1"/>
+          android:paddingLeft="15dp"/>
 
-        <EditText
-          android:background="@drawable/edittext"
-          android:layout_width="match_parent"
-          android:layout_height="64dp"
-          android:textSize="15sp"
-          android:id="@+id/edt_signup_repw"
-          android:textColorHint="#6D6D6D"
-          android:hint="비밀번호를 다시 입력하세요"
-          android:paddingBottom="15dp"
-          android:paddingTop="15dp"
-          android:paddingLeft="15dp"
-          android:layout_marginTop="8dp"
-          android:inputType="textPassword"
-          android:ems="15"
-          android:maxLines="1"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp">
 
         <TextView
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginTop="5dp"
-          android:textSize="12sp"
-          android:textColor="#333333"
-          android:text="8-15자 이내,\n숫자, 영문 대소문자, 특수문자 중 3개 이상 조합해주세요."
+          android:layout_height="24dp"
+          android:layout_marginBottom="8dp"
+          android:textSize="16sp"
+          android:textColor="@color/colorBlack"
+          android:text="내용"
           android:gravity="left" />
+
+        <EditText
+          android:background="@drawable/edittext"
+          android:layout_width="match_parent"
+          android:layout_height="320dp"
+          android:textSize="15sp"
+          android:id="@+id/edt_cs_user_content"
+          android:hint="내용을 입력하세요."
+          android:gravity="top"
+          android:textColorHint="#6D6D6D"
+          android:paddingBottom="15dp"
+          android:paddingTop="15dp"
+          android:paddingLeft="15dp"/>
 
       </LinearLayout>
 
@@ -193,10 +153,10 @@
         <Button
           android:layout_width="match_parent"
           android:layout_height="54dp"
-          android:id="@+id/btn_signup_next"
+          android:id="@+id/btn_ask"
           android:background="@drawable/button_search"
           android:textSize="16sp"
-          android:text="다음 단계"
+          android:text="문의하기"
           android:textColor="@color/colorWhite"/>
 
       </LinearLayout>

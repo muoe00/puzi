@@ -24,8 +24,7 @@
         android:id="@+id/fl_setting_cs_using"
         android:layout_below="@id/ll_fl_container"
         android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:layout_marginBottom="5dp">
+        android:layout_height="53dp">
 
         <TextView
           android:layout_marginLeft="16dp"
@@ -41,10 +40,10 @@
 
         <ImageView
           android:layout_marginRight="16dp"
-          android:layout_width="30dp"
-          android:layout_height="30dp"
+          android:layout_width="12.5dp"
+          android:layout_height="21dp"
           android:layout_gravity="center_vertical|right"
-          android:background="@mipmap/next"
+          android:src="@drawable/back_chevron_copy"
           android:id="@+id/iv_setting_cs_using"/>
 
         <Button
@@ -71,8 +70,7 @@
         android:layout_below="@id/ll_bar"
         android:layout_width="match_parent"
         android:layout_height="53dp"
-        android:background="@color/colorWhite"
-        android:layout_marginBottom="5dp">
+        android:background="@color/colorWhite">
 
         <TextView
           android:layout_marginLeft="16dp"
@@ -87,10 +85,10 @@
 
         <ImageView
           android:layout_marginRight="16dp"
-          android:layout_width="30dp"
-          android:layout_height="30dp"
+          android:layout_width="12.5dp"
+          android:layout_height="21dp"
           android:layout_gravity="center_vertical|right"
-          android:background="@mipmap/next"
+          android:src="@drawable/back_chevron_copy"
           android:id="@+id/iv_setting_cs_ad"/>
 
         <Button
@@ -117,8 +115,7 @@
         android:layout_below="@+id/ll_fl_container2"
         android:layout_width="match_parent"
         android:layout_height="53dp"
-        android:background="@color/colorWhite"
-        android:layout_marginBottom="5dp">
+        android:background="@color/colorWhite">
 
         <TextView
           android:layout_marginLeft="16dp"
@@ -133,11 +130,11 @@
 
         <ImageView
           android:layout_marginRight="16dp"
-          android:layout_width="30dp"
-          android:layout_height="30dp"
-          android:background="@mipmap/next"
-          android:id="@+id/iv_setting_cs_service"
+          android:layout_width="12.5dp"
+          android:layout_height="21dp"
           android:layout_gravity="center_vertical|right"
+          android:src="@drawable/back_chevron_copy"
+          android:id="@+id/iv_setting_cs_service"
           android:layout_centerVertical="true"
           android:layout_alignParentRight="true"
           android:layout_alignParentEnd="true"/>
@@ -166,8 +163,7 @@
         android:layout_below="@+id/ll_bar5"
         android:layout_width="match_parent"
         android:layout_height="53dp"
-        android:background="@color/colorWhite"
-        android:layout_marginBottom="5dp">
+        android:background="@color/colorWhite">
 
         <TextView
           android:layout_marginLeft="16dp"
@@ -182,10 +178,10 @@
 
         <ImageView
           android:layout_marginRight="16dp"
-          android:layout_width="30dp"
-          android:layout_height="30dp"
-          android:background="@mipmap/next"
+          android:layout_width="12.5dp"
+          android:layout_height="21dp"
           android:layout_gravity="center_vertical|right"
+          android:src="@drawable/back_chevron_copy"
           android:id="@+id/iv_setting_cs_user"
           android:layout_centerVertical="true"
           android:layout_alignParentRight="true"
@@ -215,8 +211,7 @@
         android:layout_below="@+id/ll_bar3"
         android:layout_width="match_parent"
         android:layout_height="53dp"
-        android:background="@color/colorWhite"
-        android:layout_marginBottom="5dp">
+        android:background="@color/colorWhite">
 
         <TextView
           android:layout_marginLeft="16dp"
@@ -231,9 +226,9 @@
 
         <ImageView
           android:layout_marginRight="16dp"
-          android:layout_width="30dp"
-          android:layout_height="30dp"
-          android:background="@mipmap/next"
+          android:layout_width="12.5dp"
+          android:layout_height="21dp"
+          android:src="@drawable/back_chevron_copy"
           android:layout_gravity="center_vertical|right"
           android:id="@+id/iv_setting_cs_gps"
           android:layout_centerVertical="true"
@@ -264,8 +259,7 @@
         android:layout_below="@+id/ll_bar4"
         android:layout_width="match_parent"
         android:layout_height="53dp"
-        android:background="@color/colorWhite"
-        android:layout_marginBottom="5dp">
+        android:background="@color/colorWhite">
 
         <TextView
           android:layout_marginLeft="16dp"
@@ -280,9 +274,9 @@
 
         <ImageView
           android:layout_marginRight="16dp"
-          android:layout_width="30dp"
-          android:layout_height="30dp"
-          android:background="@mipmap/next"
+          android:layout_width="12.5dp"
+          android:layout_height="21dp"
+          android:src="@drawable/back_chevron_copy"
           android:id="@+id/iv_setting_cs_open"
           android:layout_gravity="center_vertical|right"
           android:layout_centerVertical="true"
@@ -311,8 +305,7 @@
         android:layout_below="@+id/ll_fl_container3"
         android:layout_width="match_parent"
         android:layout_height="53dp"
-        android:background="@color/colorWhite"
-        android:layout_marginBottom="5dp">
+        android:background="@color/colorWhite">
         <TextView
           android:layout_marginLeft="16dp"
           android:text="회원탈퇴"
@@ -326,9 +319,9 @@
 
         <ImageView
           android:layout_marginRight="16dp"
-          android:layout_width="30dp"
-          android:layout_height="30dp"
-          android:background="@mipmap/next"
+          android:layout_width="12.5dp"
+          android:layout_height="21dp"
+          android:src="@drawable/back_chevron_copy"
           android:id="@+id/iv_setting_cs_leave"
           android:layout_gravity="center_vertical|right"
           android:layout_centerVertical="true"
@@ -344,11 +337,9 @@
       </FrameLayout>
 
       <LinearLayout
-        android:id="@+id/ll_fl_container4"
-        android:layout_below="@+id/fl_setting_cs_leave"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="40dp"
         android:background="#efefef">
       </LinearLayout>
 

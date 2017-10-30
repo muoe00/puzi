@@ -86,6 +86,7 @@ public class SettingFragment extends BaseFragment {
 	}
 
 	public void getVersion() {
+		Log.i("INFO", "getVersion");
 		String token = Preference.getProperty(getActivity(), "token");
 
 		final AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
@@ -98,12 +99,13 @@ public class SettingFragment extends BaseFragment {
 				switch(responseVO.getResultType()){
 					case SUCCESS:
 						String version = responseVO.getString("version");
+						Log.i("INFO", "version : " + version);
 						tvVersion.setText(version);
 
 						break;
 
 					default:
-						Log.i("INFO", "advertisement getAdvertiseList failed.");
+						Log.i("INFO", "getVersion failed.");
 						break;
 				}
 			}

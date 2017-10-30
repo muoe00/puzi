@@ -12,7 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
-import com.puzi.puzi.biz.notice.NoticeVO;
+import com.puzi.puzi.biz.setting.NoticeVO;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
@@ -63,6 +63,7 @@ public class NoticeFragment extends BaseFragment {
 				} else {
 					lvNotice.expandGroupWithAnimation(groupPosition);
 				}
+				noticeListAdapter.notifyDataSetChanged();
 				return true;
 			}
 		});

@@ -4,8 +4,75 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-  <TextView
+  <LinearLayout
+    android:id="@+id/ll_out_point"
+    android:orientation="horizontal"
+    android:gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="120dp"
+    android:weightSum="1">
+
+    <ImageView
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:src="@mipmap/level"
+      android:id="@+id/iv_out_level"/>
+
+    <TextView
+      android:gravity="center"
+      android:textSize="32sp"
+      android:textColor="@color/colorBlack"
+      android:text="100,000"
+      android:layout_marginRight="10dp"
+      android:layout_marginLeft="10dp"
+      android:layout_width="wrap_content"
+      android:layout_height="38dp"
+      android:id="@+id/tv_out_point"
+      android:layout_alignParentTop="true"/>
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:background="#DADADA"
+    android:layout_width="match_parent"
+    android:layout_height="1dp">
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/ll_out"
+    android:gravity="center|top"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <ImageView
+      android:layout_marginTop="30dp"
+      android:layout_width="80dp"
+      android:layout_height="80dp"/>
+
+    <TextView
+      android:layout_marginTop="18dp"
+      android:text="푸지 앱 탈퇴하시면 고객님의\n앱 이용내역(포인트 포함)이"
+      android:textSize="20sp"
+      android:gravity="center"
+      android:layout_width="224dp"
+      android:layout_height="wrap_content"/>
+
+    <TextView
+      android:text="모두 삭제됩니다"
+      android:textSize="20sp"
+      android:gravity="center"
+      android:layout_width="224dp"
+      android:layout_height="wrap_content"/>
+    
+    <Button
+      android:id="@+id/btn_out"
+      android:layout_marginTop="51dp"
+      android:layout_width="295dp"
+      android:layout_height="54dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -1,7 +1,7 @@
 package com.puzi.puzi.network.service;
 
 import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
-import com.puzi.puzi.biz.notice.NoticeVO;
+import com.puzi.puzi.biz.setting.NoticeVO;
 import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.biz.user.point.history.PointHistoryVO;
 import com.puzi.puzi.network.ResponseVO;

@@ -66,7 +66,7 @@ public class SettingDetailActivity extends BaseFragmentActivity {
 				break;
 			case 5:
 				setTitle("고객센터");
-				fragment = new FavoriteFragment();
+				fragment = new CenterFragment();
 				break;
 		}
 
@@ -79,6 +79,7 @@ public class SettingDetailActivity extends BaseFragmentActivity {
 
 	public void changeView() {
 		addFragment(fragment);
+		doAnimationGoRight();
 		fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.replace(R.id.ll_setting_content, fragment);
 		fragmentTransaction.commit();
@@ -89,9 +90,10 @@ public class SettingDetailActivity extends BaseFragmentActivity {
 			return;
 		} else {
 			fragmentList.add(fragment);
+			Log.i("INFO", "addFragment");
 			fragmentTransaction = fragmentManager.beginTransaction();
 			fragmentTransaction.setCustomAnimations(R.anim.rightin, R.anim.shrink_back, R.anim.rightin, R.anim.shrink_back);
-			fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
+			fragmentTransaction.replace(R.id.ll_setting_content, fragment);
 			fragmentTransaction.addToBackStack(null);
 			fragmentTransaction.commitAllowingStateLoss();
 			Log.i(PuziUtils.INFO, "fragment list size : " + fragmentList.size());
@@ -103,7 +105,7 @@ public class SettingDetailActivity extends BaseFragmentActivity {
 		fragment = fragmentList.get(position - 1);
 		fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.setCustomAnimations(R.anim.leftin, R.anim.rightout, R.anim.leftin, R.anim.rightout);
-		fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
+		fragmentTransaction.replace(R.id.ll_setting_content, fragment);
 		fragmentTransaction.commitAllowingStateLoss();
 		Log.i(PuziUtils.INFO, "fragment list size : " + fragmentList.size());
 	}
@@ -113,6 +115,7 @@ public class SettingDetailActivity extends BaseFragmentActivity {
 
 		if(fragmentList.size() == 1) {
 			finish();
+			doAnimationGoLeft();
 		} else if(fragmentList.size() > 1) {
 			removeFragment(position);
 		}

@@ -1,10 +1,12 @@
 package com.puzi.puzi.ui.setting;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,6 +20,7 @@ import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.SettingNetworkService;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragment;
+import com.puzi.puzi.utils.PuziUtils;
 import com.puzi.puzi.utils.ValidationUtils;
 import retrofit2.Call;
 
@@ -32,6 +35,7 @@ public class UserFragment extends BaseFragment {
 	@BindView(R.id.edt_setting_email) public EditText editEmail;
 	@BindView(R.id.edt_setting_pw) public EditText editPw;
 	@BindView(R.id.edt_setting_repw) public EditText editRePw;
+	@BindView(R.id.ll_setting_user) public LinearLayout linearLayout;
 
 	private View view = null;
 	private String modEmail;
@@ -98,14 +102,34 @@ public class UserFragment extends BaseFragment {
 
 		ProgressDialog.show(getActivity());
 		SettingNetworkService settingNetworkService  = RetrofitManager.create(SettingNetworkService.class);
-		Call<ResponseVO> call = settingNetworkService.updateAccount(token, email, passwd);
+		Call<ResponseVO> call = settingNetworkService.updateAccount(token, passwd, email);
 		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				ProgressDialog.dismiss();
+				switch(responseVO.getResultType()){
+					case SUCCESS:
+						Log.i("INFO", "advertisement getAdvertiseList success.");
+						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
+						break;
 
+					case NO_AUTH:
+						PuziUtils.renewalToken(getActivity());
+						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
+						break;
+
+					default:
+						Log.i("INFO", "advertisement getAdvertiseList failed.");
+						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
+						break;
+				}
 			}
 		});
+	}
+
+	@OnClick(R.id.ll_setting_user)
+	public void layoutClick() {
+		closeInputKeyboard(editEmail);
 	}
 
 	@Override

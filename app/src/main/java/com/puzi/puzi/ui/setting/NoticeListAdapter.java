@@ -10,7 +10,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.puzi.puzi.R;
-import com.puzi.puzi.biz.notice.NoticeVO;
+import com.puzi.puzi.biz.setting.NoticeVO;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -103,17 +103,22 @@ public class NoticeListAdapter extends AnimatedExpandableListView.AnimatedExpand
 	}
 
 	@Override
-	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-		View v = convertView;
-		ParentViewHolder viewHolder = null;
+	public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+
+		View v = null;
+		ParentViewHolder parentViewHolder = null;
 		int viewType = getItemViewType(groupPosition);
+		Log.i("INFO", "groupPosition" + groupPosition);
 
 		if(v == null) {
+			v = convertView;
+
 			switch(viewType) {
 				case VIEW_NOTICE:
+					Log.i("INFO", "parentViewHolder v == null");
 					v = inflater.inflate(R.layout.fragment_setting_notice_item_parent, null);
-					viewHolder = new ParentViewHolder(v);
-					v.setTag(viewHolder);
+					parentViewHolder = new ParentViewHolder(v);
+					v.setTag(parentViewHolder);
 					break;
 
 				case VIEW_EMPTY:
@@ -125,7 +130,7 @@ public class NoticeListAdapter extends AnimatedExpandableListView.AnimatedExpand
 					break;
 			}
 		} else {
-			viewHolder = (ParentViewHolder) v.getTag();
+			parentViewHolder = (ParentViewHolder) v.getTag();
 		}
 
 		switch(viewType) {
@@ -134,8 +139,18 @@ public class NoticeListAdapter extends AnimatedExpandableListView.AnimatedExpand
 
 				Log.i("INFO", "noticeVO.getTitle() : " + noticeVO.getTitle());
 
-				viewHolder.tvNotice.setText(noticeVO.getTitle());
+				if(parentViewHolder == null) {
+					Log.i("INFO", "parentViewHolder");
+				} else if (parentViewHolder.tvNotice == null) {
+					Log.i("INFO", "parentViewHolder.tvNotice");
+				}
+				parentViewHolder.tvNotice.setText(noticeVO.getTitle().toString());
 
+				if(isExpanded) {
+					parentViewHolder.ivNotice.setImageResource(R.drawable.back_chevron_copy_click);
+				} else {
+					parentViewHolder.ivNotice.setImageResource(R.drawable.back_chevron_copy);
+				}
 				break;
 		}
 
@@ -170,36 +185,22 @@ public class NoticeListAdapter extends AnimatedExpandableListView.AnimatedExpand
 	@Override
 	public View getRealChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 		View v = convertView;
-		ChildViewHolder viewHolder = null;
+		ChildViewHolder childViewHolder = null;
 		int viewType = getItemViewType(groupPosition);
 
 		if(v == null) {
 			switch(viewType) {
 				case VIEW_NOTICE:
+					Log.i("INFO", "getRealChildView");
 					v = inflater.inflate(R.layout.fragment_setting_notice_item_child, null);
-					viewHolder = new ChildViewHolder(v);
-					v.setTag(viewHolder);
-					break;
-
-				case VIEW_EMPTY:
-					v = inflater.inflate(R.layout.item_list_empty_notice, null);
-					break;
-
-				case VIEW_PROGRESS:
-					v = inflater.inflate(R.layout.item_list_progressbar, null);
+					childViewHolder = new ChildViewHolder(v);
+					final NoticeVO noticeVO = (NoticeVO) getGroup(groupPosition);
+					childViewHolder.tvContent.setText(noticeVO.getComment());
+					v.setTag(childViewHolder);
 					break;
 			}
 		} else {
-			viewHolder = (ChildViewHolder) v.getTag();
-		}
-
-		switch(viewType) {
-			case VIEW_NOTICE:
-				final NoticeVO noticeVO = (NoticeVO) getGroup(groupPosition);
-
-				viewHolder.tvContent.setText(noticeVO.getComment());
-
-				break;
+			childViewHolder = (ChildViewHolder) v.getTag();
 		}
 
 		return v;
@@ -207,8 +208,8 @@ public class NoticeListAdapter extends AnimatedExpandableListView.AnimatedExpand
 
 	public class ParentViewHolder {
 
-		@BindView(R.id.iv_setting_notice) public ImageView ivNotice;
-		@BindView(R.id.tv_setting_notice) public TextView tvNotice;
+		@BindView(R.id.iv_setting_notice_parent) public ImageView ivNotice;
+		@BindView(R.id.tv_setting_notice_parent) public TextView tvNotice;
 
 		public ParentViewHolder(View view) {
 			ButterKnife.bind(this, view);
