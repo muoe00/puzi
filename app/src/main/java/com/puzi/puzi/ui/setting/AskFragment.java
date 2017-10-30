@@ -7,10 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
-import butterknife.OnClick;
 import butterknife.Unbinder;
-import com.puzi.puzi.biz.notice.NoticeVO;
+import com.puzi.puzi.R;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
@@ -20,8 +18,6 @@ import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
-
-import java.util.List;
 
 /**
  * Created by 170605 on 2017-10-27.
@@ -51,7 +47,7 @@ public class AskFragment extends BaseFragment {
 		return view;
 	}
 
-	@OnClick()
+//	@OnClick()
 	public void sendAsk() {
 		if(askType != null) {
 			if(title != null) {

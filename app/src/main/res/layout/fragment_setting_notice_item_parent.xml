@@ -27,7 +27,6 @@
       android:layout_width="12.5dp"
       android:layout_height="21dp"
       android:layout_gravity="center_vertical|right"
-      android:src="@drawable/back_chevron_copy"
       android:id="@+id/iv_setting_notice"/>
   </FrameLayout>
 

@@ -164,8 +164,8 @@ public class ChannelListAdapter extends BaseAdapter {
 				final ChannelVO firstChannel = channelList.get(0);
 				BitmapUIL.load(firstChannel.getPictureUrl(), channelHolder.ibtnImage1);
 				channelHolder.btnTitle1.setText(firstChannel.getTitle());
-				BitmapUIL.load(firstChannel.getCompanyInfoDTO().getPictureUrl(), channelHolder.ibtnCompany1);
-				channelHolder.ibtnCompany1.setOnClickListener(new View.OnClickListener() {
+				channelHolder.btnCompanyName1.setText(firstChannel.getCompanyInfoDTO().getCompanyAlias());
+				channelHolder.btnCompanyName1.setOnClickListener(new View.OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
@@ -196,8 +196,8 @@ public class ChannelListAdapter extends BaseAdapter {
 					final ChannelVO secondChannel = channelList.get(1);
 					BitmapUIL.load(secondChannel.getPictureUrl(), channelHolder.ibtnImage2);
 					channelHolder.btnTitle2.setText(secondChannel.getTitle());
-					BitmapUIL.load(secondChannel.getCompanyInfoDTO().getPictureUrl(), channelHolder.ibtnCompany2);
-					channelHolder.ibtnCompany2.setOnClickListener(new View.OnClickListener() {
+					channelHolder.btnCompanyName2.setText(secondChannel.getCompanyInfoDTO().getCompanyAlias());
+					channelHolder.btnCompanyName2.setOnClickListener(new View.OnClickListener() {
 
 						@Override
 						public void onClick(View v) {
@@ -243,8 +243,8 @@ public class ChannelListAdapter extends BaseAdapter {
 		@BindView(R.id.ibtn_item_channel_image_2) public SelectableRoundedImageView ibtnImage2;
 		@BindView(R.id.tv_item_channel_title_1) public Button btnTitle1;
 		@BindView(R.id.tv_item_channel_title_2) public Button btnTitle2;
-		@BindView(R.id.ibtn_item_channel_company_image_1) public SelectableRoundedImageView ibtnCompany1;
-		@BindView(R.id.ibtn_item_channel_company_image_2) public SelectableRoundedImageView ibtnCompany2;
+		@BindView(R.id.tv_item_channel_company_name_1) public Button btnCompanyName1;
+		@BindView(R.id.tv_item_channel_company_name_2) public Button btnCompanyName2;
 		@BindView(R.id.tv_item_channel_score_1) public TextView tvScore1;
 		@BindView(R.id.tv_item_channel_score_2) public TextView tvScore2;
 		@BindView(R.id.iv_item_channel_company_star_1) public ImageView ivStar1;
