@@ -1,62 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
   <LinearLayout
+    android:layout_weight="1"
+    android:layout_width="0dp"
+    android:layout_height="93dp"/>
+
+  <FrameLayout
     android:orientation="horizontal"
-    android:background="@drawable/shadow_editor"
-    android:layout_marginLeft="9dp"
-    android:layout_marginRight="9dp"
-    android:paddingLeft="7dp"
-    android:paddingRight="7dp"
-    android:paddingBottom="11dp"
-    android:paddingTop="5dp"
-    android:layout_width="342dp"
-    android:layout_height="112dp">
+    android:layout_width="328dp"
+    android:layout_height="93dp">
 
     <com.joooonho.SelectableRoundedImageView
-      xmlns:app="http://schemas.android.com/apk/res-auto"
       app:sriv_left_top_corner_radius="8dp"
       app:sriv_left_bottom_corner_radius="8dp"
-      android:layout_width="160dp"
+      app:sriv_right_top_corner_radius="8dp"
+      app:sriv_right_bottom_corner_radius="8dp"
+      android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:scaleType="centerCrop"
       android:background="#00000000"
       android:id="@+id/iv_item_channel_editor_image"/>
-
+    <LinearLayout
+      android:id="@+id/iv_item_channel_editor_translucent"
+      android:background="@drawable/editorspage_translucent"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
     <LinearLayout
       android:orientation="vertical"
       android:layout_weight="1"
-      android:layout_width="0dp"
+      android:layout_width="match_parent"
       android:layout_height="match_parent">
 
       <TextView
         android:text="title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:maxLines="2"
         android:ellipsize="end"
         android:typeface="sans"
-        android:textSize="16sp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="13dp"
-        android:textColor="#35343d"
+        android:textSize="15sp"
+        android:textColor="#ffffff"
+        android:gravity="center_horizontal"
+        android:layout_marginRight="70dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10.6dp"
         android:id="@+id/tv_item_channel_editor_title"/>
 
       <TextView
         android:text="name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
         android:typeface="sans"
-        android:textSize="12sp"
-        android:textColor="#9b9b9b"
+        android:textStyle="normal"
+        android:textColor="#ffffff"
+        android:textSize="10sp"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="sans-serif-light"
         android:id="@+id/tv_item_channel_editor_name"/>
 
     </LinearLayout>
 
-  </LinearLayout>
+  </FrameLayout>
+
+  <LinearLayout
+    android:layout_weight="1"
+    android:layout_width="0dp"
+    android:layout_height="93dp"/>
 
 </LinearLayout>
