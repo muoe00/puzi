@@ -50,6 +50,7 @@ public interface SettingNetworkService {
 	Call<ResponseVO> ask(@Header("token") String token,
 		@Field("userType") String userType,
 		@Field("askType") String askType,
+		@Field("email") String email,
 		@Field("title") String title,
 		@Field("comment") String comment);
 

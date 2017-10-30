@@ -20,6 +20,8 @@ public class CenterFragment extends BaseFragment {
 	Unbinder unbinder;
 
 	private View view = null;
+	private BaseFragment fragment;
+	private SettingDetailActivity settingActivity;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -29,8 +31,11 @@ public class CenterFragment extends BaseFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.fragment_setting_user, container, false);
+		view = inflater.inflate(R.layout.fragment_setting_cs, container, false);
 		unbinder = ButterKnife.bind(this, view);
+
+		settingActivity = (SettingDetailActivity) getActivity();
+		settingActivity.setTitle("고객센터");
 
 		return view;
 	}
@@ -42,41 +47,41 @@ public class CenterFragment extends BaseFragment {
 
 		switch (v.getId()) {
 			case R.id.btn_setting_cs_using :
-				BaseFragment fragment = new AskFragment();
+				fragment = new AskFragment();
 				bundle.putString("key", "USER");
 				fragment.setArguments(bundle);
 				changedFragment("사용문의");
 				break;
 			case R.id.btn_setting_cs_ad :
-				BaseFragment fragment = new AskFragment();
+				fragment = new AskFragment();
 				bundle.putString("key", "ADVERTISER");
 				fragment.setArguments(bundle);
 				changedFragment("광고문의");
 				break;
 			case R.id.btn_setting_cs_service :
-				BaseFragment fragment = new TermsFragment();
+				fragment = new TermsFragment();
 				bundle.putString("key", "service");
 				fragment.setArguments(bundle);
 				changedFragment("서비스 이용약관");
 				break;
 			case R.id.btn_setting_cs_user :
-				BaseFragment fragment = new TermsFragment();
+				fragment = new TermsFragment();
 				bundle.putString("key", "user");
 				fragment.setArguments(bundle);
 				changedFragment("개인정보 취급방침");
 				break;
 			case R.id.btn_setting_cs_gps :
-				BaseFragment fragment = new TermsFragment();
+				fragment = new TermsFragment();
 				bundle.putString("key", "gps");
 				fragment.setArguments(bundle);
 				changedFragment("위치기반 서비스 이용약관");
 				break;
 			case R.id.btn_setting_cs_open :
-				BaseFragment fragment = new InfoFragment();
+				fragment = new InfoFragment();
 				changedFragment("오픈소스 라이브러리");
 				break;
 			case R.id.btn_setting_cs_leave :
-				BaseFragment fragment = new OutFragment();
+				fragment = new OutFragment();
 				changedFragment("회원탈퇴");
 				break;
 			default:
@@ -87,7 +92,7 @@ public class CenterFragment extends BaseFragment {
 	}
 
 	public void changedFragment(String title) {
-		SettingDetailActivity settingActivity = (SettingDetailActivity) getActivity();
+		settingActivity = (SettingDetailActivity) getActivity();
 
 		settingActivity.setTitle(title);
 		settingActivity.addFragment(fragment);

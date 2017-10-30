@@ -46,10 +46,10 @@
 
         <ImageView
           android:layout_marginRight="16dp"
-          android:layout_width="30dp"
-          android:layout_height="30dp"
+          android:layout_width="12.5dp"
+          android:layout_height="21dp"
           android:layout_gravity="center_vertical|right"
-          android:background="@mipmap/next"
+          android:src="@drawable/back_chevron_copy"
           android:id="@+id/iv_setting_notice"/>
 
         <Button
@@ -102,12 +102,6 @@
           android:layout_height="wrap_content"
           android:id="@+id/tv_setting_versionNum"/>
 
-        <Button
-          android:background="@null"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:id="@+id/btn_setting_version"
-          android:layout_weight="1"/>
       </FrameLayout>
 
       <LinearLayout
@@ -142,9 +136,9 @@
 
         <ImageView
           android:layout_marginRight="16dp"
-          android:layout_width="30dp"
-          android:layout_height="30dp"
-          android:background="@mipmap/next"
+          android:layout_width="12.5dp"
+          android:layout_height="21dp"
+          android:src="@drawable/back_chevron_copy"
           android:id="@+id/iv_setting_user"
           android:layout_gravity="center_vertical|right"
           android:layout_centerVertical="true"
@@ -191,9 +185,9 @@
 
         <ImageView
           android:layout_marginRight="16dp"
-          android:layout_width="30dp"
-          android:layout_height="30dp"
-          android:background="@mipmap/next"
+          android:layout_width="12.5dp"
+          android:layout_height="21dp"
+          android:src="@drawable/back_chevron_copy"
           android:layout_gravity="center_vertical|right"
           android:id="@+id/iv_setting_alarm"
           android:layout_centerVertical="true"
@@ -240,9 +234,9 @@
 
         <ImageView
           android:layout_marginRight="16dp"
-          android:layout_width="30dp"
-          android:layout_height="30dp"
-          android:background="@mipmap/next"
+          android:layout_width="12.5dp"
+          android:layout_height="21dp"
+          android:src="@drawable/back_chevron_copy"
           android:layout_gravity="center_vertical|right"
           android:id="@+id/iv_setting_alarm"
           android:layout_centerVertical="true"
@@ -289,9 +283,9 @@
 
         <ImageView
           android:layout_marginRight="16dp"
-          android:layout_width="30dp"
-          android:layout_height="30dp"
-          android:background="@mipmap/next"
+          android:layout_width="12.5dp"
+          android:layout_height="21dp"
+          android:src="@drawable/back_chevron_copy"
           android:id="@+id/iv_setting_block"
           android:layout_gravity="center_vertical|right"
           android:layout_centerVertical="true"
@@ -335,9 +329,9 @@
 
         <ImageView
           android:layout_marginRight="16dp"
-          android:layout_width="30dp"
-          android:layout_height="30dp"
-          android:background="@mipmap/next"
+          android:layout_width="12.5dp"
+          android:layout_height="21dp"
+          android:src="@drawable/back_chevron_copy"
           android:id="@+id/iv_setting_customer"
           android:layout_gravity="center_vertical|right"
           android:layout_centerVertical="true"
@@ -353,11 +347,10 @@
       </FrameLayout>
 
       <LinearLayout
-        android:id="@+id/ll_fl_container4"
-        android:layout_below="@+id/fl_setting_customer"
+        android:id="@+id/ll_fl_container_"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="40dp"
         android:background="#efefef">
       </LinearLayout>
 

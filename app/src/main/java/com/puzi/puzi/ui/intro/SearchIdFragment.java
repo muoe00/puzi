@@ -30,7 +30,6 @@ import retrofit2.Call;
 public class SearchIdFragment extends BaseFragment {
 
 	private Unbinder unbinder;
-	// private View progressView;
 
 	@BindView(R.id.edit_search_email) public EditText editEmail;
 	@BindView(R.id.btn_srchid) public Button btnSearch;
@@ -40,13 +39,11 @@ public class SearchIdFragment extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View view = inflater.inflate(R.layout.fragment_search_id, container, false);
 		unbinder = ButterKnife.bind(this, view);
-
 		return view;
 	}
 
 	@OnClick(R.id.btn_srchid)
 	public void searchId(){
-
 		ProgressDialog.show(getActivity());
 
 		if(editEmail.getText() != null) {
@@ -58,7 +55,6 @@ public class SearchIdFragment extends BaseFragment {
 				call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
 					@Override
 					public void onSuccess(ResponseVO responseVO) {
-
 						ProgressDialog.dismiss();
 
 						switch(responseVO.getResultType()){

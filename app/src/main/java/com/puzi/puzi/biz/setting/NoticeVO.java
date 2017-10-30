@@ -1,4 +1,4 @@
-package com.puzi.puzi.biz.notice;
+package com.puzi.puzi.biz.setting;
 
 import lombok.Data;
 

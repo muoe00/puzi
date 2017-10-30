@@ -5,6 +5,22 @@
               android:layout_height="match_parent">
 
   <FrameLayout
+    android:id="@+id/fl_signup"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="54dp">
+
+    <ImageButton
+      android:padding="16dp"
+      android:layout_gravity="left|center"
+      android:layout_width="50dp"
+      android:layout_height="match_parent"
+      android:background="@null"
+      android:src="@drawable/back"
+      android:id="@+id/ibtn_back_point"/>
+  </FrameLayout>
+
+  <FrameLayout
     android:id="@+id/fl_level"
     android:orientation="horizontal"
     android:background="#EAEAEA"

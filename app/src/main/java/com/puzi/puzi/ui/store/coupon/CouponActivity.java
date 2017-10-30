@@ -1,25 +1,12 @@
 package com.puzi.puzi.ui.store.coupon;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.AbsListView;
-import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
-import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import com.puzi.puzi.biz.store.PurchaseHistoryVO;
-import com.puzi.puzi.cache.Preference;
-import com.puzi.puzi.network.CustomCallback;
-import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
-import com.puzi.puzi.network.service.StoreNetworkService;
 import com.puzi.puzi.ui.base.BaseActivity;
-import com.puzi.puzi.ui.channel.ChannelFilterAdapter;
-import com.puzi.puzi.ui.channel.ChannelListAdapter;
-import com.puzi.puzi.utils.PuziUtils;
-import retrofit2.Call;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +33,7 @@ public class CouponActivity extends BaseActivity {
 		unbinder = ButterKnife.bind(this);
 
 	}
+/*
 
 	public void getCouponList() {
 		couponListAdapter.startProgress();
@@ -62,13 +50,13 @@ public class CouponActivity extends BaseActivity {
 				Log.i("INFO", "advertise responseVO : " + responseVO.toString());
 				couponListAdapter.stopProgress();
 
-				switch(responseVO.getResultType()){
+				switch (responseVO.getResultType()) {
 					case SUCCESS:
 						List<PurchaseHistoryVO> purchaseHistoryVOS = responseVO.getList("PurchaseHistoryDTO", PurchaseHistoryVO.class);
 						Log.i(PuziUtils.INFO, "purchaseHistoryVOS : " + purchaseHistoryVOS.toString());
 						Log.i(PuziUtils.INFO, "purchaseHistory totalCount : " + responseVO.getInteger("totalCount"));
 
-						if(purchaseHistoryVOS.size() == 0) {
+						if (purchaseHistoryVOS.size() == 0) {
 							couponListAdapter.empty();
 							more = false;
 							return;
@@ -77,7 +65,7 @@ public class CouponActivity extends BaseActivity {
 						couponListAdapter.addAdvertiseList(purchaseHistoryVOS);
 						couponListAdapter.notifyDataSetChanged();
 
-						if(couponListAdapter.getCount() == responseVO.getInteger("totalCount")) {
+						if (couponListAdapter.getCount() == responseVO.getInteger("totalCount")) {
 							more = false;
 							return;
 						}
@@ -97,6 +85,7 @@ public class CouponActivity extends BaseActivity {
 				}
 			}
 		});
+	}
 
 	private void initScrollAction() {
 		lvChannel.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -122,11 +111,7 @@ public class CouponActivity extends BaseActivity {
 		couponListAdapter = new CouponListAdapter(getActivity());
 		hlvChannelFilter.setAdapter(couponListAdapter);
 	}
-
-	@Override
-	public void onDestroyView() {
-		unbinder.unbind();
-	}
+*/
 
 	@OnClick(R.id.ibtn_back)
 	public void back() {
