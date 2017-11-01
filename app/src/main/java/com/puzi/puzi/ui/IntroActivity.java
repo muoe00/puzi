@@ -141,7 +141,7 @@ public class IntroActivity extends BaseFragmentActivity {
 		@Override
 		public void onSessionOpenFailed(KakaoException exception) {
 			if(exception != null) {
-				Log.d("TAG" , exception.getMessage());
+				Log.i("TAG" , exception.getMessage());
 			}
 		}
 	}
@@ -158,13 +158,13 @@ public class IntroActivity extends BaseFragmentActivity {
 				if (ErrorCode == ClientErrorCode) {
 					Toast.makeText(getApplicationContext(), "카카오톡 서버의 네트워크가 불안정합니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
 				} else {
-					Log.d("TAG" , "오류로 카카오로그인 실패 ");
+					Log.i("TAG" , "오류로 카카오로그인 실패 ");
 				}
 			}
 
 			@Override
 			public void onSessionClosed(ErrorResult errorResult) {
-				Log.d("TAG" , "오류로 카카오로그인 실패 ");
+				Log.i("TAG" , "오류로 카카오로그인 실패 ");
 			}
 
 			@Override
@@ -187,7 +187,7 @@ public class IntroActivity extends BaseFragmentActivity {
 				md = MessageDigest.getInstance("SHA");
 				md.update(signature.toByteArray());
 				String something = new String(Base64.encode(md.digest(), 0));
-				Log.d("Hash key", something);
+				Log.i("Hash key", something);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
