@@ -5,7 +5,7 @@
               android:layout_height="match_parent">
 
   <FrameLayout
-    android:id="@+id/fl_signup"
+    android:id="@+id/fl_level"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="54dp">
@@ -18,20 +18,6 @@
       android:background="@null"
       android:src="@drawable/back"
       android:id="@+id/ibtn_back_point"/>
-  </FrameLayout>
-
-  <FrameLayout
-    android:id="@+id/fl_level"
-    android:orientation="horizontal"
-    android:background="#EAEAEA"
-    android:layout_width="match_parent"
-    android:layout_height="55dp">
-
-    <ImageButton
-      android:layout_gravity="left|center"
-      android:layout_width="50dp"
-      android:layout_height="match_parent"
-      android:id="@+id/ibtn_back"/>
 
     <TextView
       android:text="쿠폰함"
@@ -40,6 +26,19 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:id="@+id/tv_setting_title"/>
-  </FrameLayout>
 
+  </FrameLayout>
+  
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+      android:id="@+id/lv_coupon"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+    </ListView>
+
+  </LinearLayout>
 </LinearLayout>
