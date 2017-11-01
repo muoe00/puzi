@@ -177,25 +177,25 @@ public class InfoFragment extends BaseFragment {
 	public void checkFavorites(View view) {
 		switch (view.getId()) {
 			case R.id.btn_info_beauty:
-				checkList(FavoriteType.BEAUTY.getComment(), btnBeauty);
+				checkList(FavoriteType.BEAUTY.name(), btnBeauty);
 				break;
 			case R.id.btn_info_shopping:
-				checkList(FavoriteType.SHOPPING.getComment(), btnShop);
+				checkList(FavoriteType.SHOPPING.name(), btnShop);
 				break;
 			case R.id.btn_info_game:
-				checkList(FavoriteType.GAME.getComment(), btnGame);
+				checkList(FavoriteType.GAME.name(), btnGame);
 				break;
 			case R.id.btn_info_eat:
-				checkList(FavoriteType.EAT.getComment(), btnEat);
+				checkList(FavoriteType.EAT.name(), btnEat);
 				break;
 			case R.id.btn_info_tour:
-				checkList(FavoriteType.TOUR.getComment(), btnTour);
+				checkList(FavoriteType.TOUR.name(), btnTour);
 				break;
 			case R.id.btn_info_finance:
-				checkList(FavoriteType.FINANCE.getComment(), btnFinance);
+				checkList(FavoriteType.FINANCE.name(), btnFinance);
 				break;
 			case R.id.btn_info_culture:
-				checkList(FavoriteType.CULTURE.getComment(), btnCulture);
+				checkList(FavoriteType.CULTURE.name(), btnCulture);
 				break;
 			default:
 				break;

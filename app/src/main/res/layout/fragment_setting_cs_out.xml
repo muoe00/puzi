@@ -51,13 +51,6 @@
   </LinearLayout>
 
   <LinearLayout
-    android:background="#DADADA"
-    android:layout_width="match_parent"
-    android:layout_height="1dp">
-
-  </LinearLayout>
-
-  <LinearLayout
     android:id="@+id/ll_out"
     android:gravity="center|top"
     android:orientation="vertical"
@@ -66,6 +59,7 @@
     android:weightSum="1">
 
     <ImageView
+      android:src="@drawable/secession_icon"
       android:layout_marginTop="35dp"
       android:layout_width="80dp"
       android:layout_height="80dp"/>
@@ -76,7 +70,7 @@
       android:textSize="20sp"
       android:textColor="#333333"
       android:gravity="center"
-      android:layout_width="224dp"
+      android:layout_width="235dp"
       android:layout_height="wrap_content"/>
 
     <TextView
@@ -84,9 +78,9 @@
       android:textSize="20sp"
       android:textColor="#f13d3a"
       android:gravity="center"
-      android:layout_width="224dp"
+      android:layout_width="235dp"
       android:layout_height="wrap_content"/>
-    
+
     <Button
       android:id="@+id/btn_out"
       android:background="@drawable/btn_out"
@@ -94,6 +88,12 @@
       android:layout_width="295dp"
       android:layout_height="54dp"/>
 
-    </LinearLayout>
+  </LinearLayout>
+  <LinearLayout
+    android:background="#DADADA"
+    android:layout_width="match_parent"
+    android:layout_height="1dp">
+
+  </LinearLayout>
 
 </LinearLayout>

@@ -24,6 +24,7 @@ import com.puzi.puzi.ui.advertisement.AdvertisementFragment;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.channel.ChannelFilterActivity;
 import com.puzi.puzi.ui.channel.ChannelFragment;
+import com.puzi.puzi.ui.store.coupon.CouponActivity;
 import com.puzi.puzi.ui.user.PointActivity;
 import com.puzi.puzi.ui.user.RecommendActivity;
 import com.puzi.puzi.utils.PuziUtils;
@@ -155,6 +156,10 @@ public class MainActivity extends BaseFragmentActivity {
 						startActivityForResult(intent, 0);
 						doAnimationGoRight();
 						return;
+
+					case FRAGMENT_STORE:
+						intent = new Intent(MainActivity.this, CouponActivity.class);
+						break;
 				}
 				break;
 			default:

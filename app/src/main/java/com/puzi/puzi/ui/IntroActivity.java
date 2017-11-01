@@ -2,14 +2,25 @@ package com.puzi.puzi.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.kakao.auth.AuthType;
+import com.kakao.auth.ISessionCallback;
+import com.kakao.network.ErrorResult;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.MeResponseCallback;
+import com.kakao.usermgmt.response.model.UserProfile;
+import com.kakao.util.exception.KakaoException;
 import com.puzi.puzi.R;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
@@ -24,11 +35,14 @@ import com.puzi.puzi.utils.EncryptUtils;
 import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
+import java.security.MessageDigest;
 import java.util.ArrayList;
 
 import static com.puzi.puzi.utils.UIUtils.setStatusBarColor;
 
 public class IntroActivity extends BaseFragmentActivity {
+
+	private SessionCallback mKakaocallback;
 
 	private long backKeyPressedTime;
 	public boolean AUTO_LOGIN = false;
@@ -46,6 +60,8 @@ public class IntroActivity extends BaseFragmentActivity {
 		activity = this;
 		setStatusBarColor(activity);
 
+		getAppKeyHash();
+
 		FirebaseInstanceId.getInstance().getToken();
 		String tokenFCM = FirebaseInstanceId.getInstance().getToken();
 		Log.i(PuziUtils.INFO, "FCM_Token : " + tokenFCM);
@@ -54,6 +70,8 @@ public class IntroActivity extends BaseFragmentActivity {
 
 		final String autoId = Preference.getProperty(this, "id");
 		final String autoPw = Preference.getProperty(this, "passwd");
+
+		// 카카오 로그인 추가
 
 		// 메인 화면으로 갈지(자동로그인 성공), 로그인 화면으로 갈지(자동로그인 실패) 결정 (변수 : auto_login)
 		if(autoId != null && autoPw != null) {
@@ -102,6 +120,79 @@ public class IntroActivity extends BaseFragmentActivity {
 				}
 			}
 		}.sendEmptyMessageDelayed(0, 1000);
+	}
+
+	public void isKakaoLogin() {
+		// 카카오 세션을 오픈한다
+		mKakaocallback = new SessionCallback();
+		com.kakao.auth.Session.getCurrentSession().addCallback(mKakaocallback);
+		com.kakao.auth.Session.getCurrentSession().checkAndImplicitOpen();
+		com.kakao.auth.Session.getCurrentSession().open(AuthType.KAKAO_TALK_EXCLUDE_NATIVE_LOGIN, IntroActivity.this);
+	}
+
+	private class SessionCallback implements ISessionCallback {
+		@Override
+		public void onSessionOpened() {
+			Log.d("TAG" , "세션 오픈됨");
+			// 사용자 정보를 가져옴, 회원가입 미가입시 자동가입 시킴
+			KakaorequestMe();
+		}
+
+		@Override
+		public void onSessionOpenFailed(KakaoException exception) {
+			if(exception != null) {
+				Log.i("TAG" , exception.getMessage());
+			}
+		}
+	}
+	/**
+	 * 사용자의 상태를 알아 보기 위해 me API 호출을 한다.
+	 */
+	protected void KakaorequestMe() {
+		UserManagement.requestMe(new MeResponseCallback() {
+			@Override
+			public void onFailure(ErrorResult errorResult) {
+				int ErrorCode = errorResult.getErrorCode();
+				int ClientErrorCode = -777;
+
+				if (ErrorCode == ClientErrorCode) {
+					Toast.makeText(getApplicationContext(), "카카오톡 서버의 네트워크가 불안정합니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+				} else {
+					Log.i("TAG" , "오류로 카카오로그인 실패 ");
+				}
+			}
+
+			@Override
+			public void onSessionClosed(ErrorResult errorResult) {
+				Log.i("TAG" , "오류로 카카오로그인 실패 ");
+			}
+
+			@Override
+			public void onSuccess(UserProfile userProfile) {
+				// 푸지 회원인지 확인 후 로그인 (checkKakao)
+			}
+
+			@Override
+			public void onNotSignedUp() {
+				// 카톡 회원이 아닐 경우
+			}
+		});
+	}
+
+	private void getAppKeyHash() {
+		try {
+			PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+			for (Signature signature : info.signatures) {
+				MessageDigest md;
+				md = MessageDigest.getInstance("SHA");
+				md.update(signature.toByteArray());
+				String something = new String(Base64.encode(md.digest(), 0));
+				Log.i("Hash key", something);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			Log.e("name not found", e.toString());
+		}
 	}
 
 	public void addFragment(BaseFragment fragment) {

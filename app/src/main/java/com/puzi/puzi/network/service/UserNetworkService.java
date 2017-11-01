@@ -15,6 +15,9 @@ public interface UserNetworkService {
 	@GET("/guest/check")
 	Call<ResponseVO> check(@Query("userId") String userId);
 
+	@GET("/guest/check/kakao")
+	Call<ResponseVO> checkKakao(@Query("uuid") String uuid);
+
 	@FormUrlEncoded
 	@POST("/guest/signup")
 	Call<ResponseVO> signup(@Header("userId") String userId,
