@@ -1,15 +1,30 @@
 package com.puzi.puzi.ui.store.coupon;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.AbsListView;
+import android.widget.ListView;
+import android.widget.Toast;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
+import com.puzi.puzi.biz.store.CouponVO;
 import com.puzi.puzi.biz.store.PurchaseHistoryVO;
+import com.puzi.puzi.cache.Preference;
+import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.ResponseVO;
+import com.puzi.puzi.network.RetrofitManager;
+import com.puzi.puzi.network.service.StoreNetworkService;
 import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.utils.PuziUtils;
+import retrofit2.Call;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by muoe0 on 2017-08-06.
@@ -19,11 +34,20 @@ public class CouponActivity extends BaseActivity {
 
 	Unbinder unbinder;
 
+	@BindView(R.id.lv_coupon) ListView lvCoupon;
+
 	private boolean more = false;
 	private int pagingIndex = 1;
 	boolean lastestScrollFlag = false;
 	private List<PurchaseHistoryVO> list = new ArrayList();
 	private CouponListAdapter couponListAdapter;
+
+	public Map<String, CouponVO> createItem(String category, CouponVO couponVO) {
+		Map<String, CouponVO> item = new HashMap<String, CouponVO>();
+		item.put(category, couponVO);
+
+		return item;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +57,12 @@ public class CouponActivity extends BaseActivity {
 		unbinder = ButterKnife.bind(this);
 
 	}
-/*
+
+
 
 	public void getCouponList() {
 		couponListAdapter.startProgress();
-		lvAd.setSelection(couponListAdapter.getCount() - 1);
+		lvCoupon.setSelection(couponListAdapter.getCount() - 1);
 
 		String token = Preference.getProperty(getActivity(), "token");
 
@@ -47,7 +72,7 @@ public class CouponActivity extends BaseActivity {
 		callList.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-				Log.i("INFO", "advertise responseVO : " + responseVO.toString());
+				Log.i("INFO", "coupon responseVO : " + responseVO.toString());
 				couponListAdapter.stopProgress();
 
 				switch (responseVO.getResultType()) {
@@ -88,14 +113,14 @@ public class CouponActivity extends BaseActivity {
 	}
 
 	private void initScrollAction() {
-		lvChannel.setOnScrollListener(new AbsListView.OnScrollListener() {
+		lvCoupon.setOnScrollListener(new AbsListView.OnScrollListener() {
 
 			@Override
 			public void onScrollStateChanged(AbsListView view, int scrollState) {
 				if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastestScrollFlag) {
 					if(more) {
 						pagingIndex = pagingIndex + 1;
-						getChannelWithEditorsPageList();
+						getCouponList();
 					}
 				}
 			}
@@ -109,9 +134,8 @@ public class CouponActivity extends BaseActivity {
 
 	private void initAdapter() {
 		couponListAdapter = new CouponListAdapter(getActivity());
-		hlvChannelFilter.setAdapter(couponListAdapter);
+		lvCoupon.setAdapter(couponListAdapter);
 	}
-*/
 
 	@OnClick(R.id.ibtn_back)
 	public void back() {
