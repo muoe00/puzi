@@ -141,7 +141,7 @@ public class ChannelDetailActivity extends BaseActivity {
 		tvComment.setText(channelVO.getComment());
 		tvEvaluateAverage.setText(channelVO.getAverageScore() + " / 5");
 		UIUtils.setEvaluateStarScoreImage(channelVO.getAverageScore(),
-			ivEvaluateStar1, ivEvaluateStar2, ivEvaluateStar3, ivEvaluateStar4, ivEvaluateStar5);
+			ivEvaluateStar1, ivEvaluateStar2, ivEvaluateStar3, ivEvaluateStar4, ivEvaluateStar5, R.drawable.star_big, R.drawable.star_big_copy_4);
 	}
 
 	private void initScrollAction() {

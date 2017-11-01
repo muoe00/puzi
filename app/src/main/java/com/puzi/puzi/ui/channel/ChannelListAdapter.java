@@ -190,7 +190,7 @@ public class ChannelListAdapter extends BaseAdapter {
 				channelHolder.ibtnImage1.setOnClickListener(listener1);
 				channelHolder.btnTitle1.setOnClickListener(listener1);
 				UIUtils.setEvaluateStarScoreImage(firstChannel.getAverageScore(), channelHolder.ivStar1, channelHolder.ivStar2, channelHolder.ivStar3,
-					channelHolder.ivStar4, channelHolder.ivStar5, R.drawable.oval_2_copy_3, R.drawable.oval_2_copy_7);
+					channelHolder.ivStar4, channelHolder.ivStar5, R.drawable.star, R.drawable.star_copy_4);
 
 				if(channelList.size() > 1) {
 					final ChannelVO secondChannel = channelList.get(1);
@@ -222,7 +222,7 @@ public class ChannelListAdapter extends BaseAdapter {
 					channelHolder.ibtnImage2.setOnClickListener(listener2);
 					channelHolder.btnTitle2.setOnClickListener(listener2);
 					UIUtils.setEvaluateStarScoreImage(secondChannel.getAverageScore(), channelHolder.ivStar21, channelHolder.ivStar22, channelHolder.ivStar23,
-						channelHolder.ivStar24, channelHolder.ivStar25, R.drawable.oval_2_copy_3, R.drawable.oval_2_copy_7);
+						channelHolder.ivStar24, channelHolder.ivStar25, R.drawable.star, R.drawable.star_copy_4);
 				}
 
 				break;

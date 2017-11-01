@@ -19,9 +19,10 @@
       android:layout_marginTop="38dp"
       android:layout_marginBottom="19dp"
       android:gravity="center"
-      android:text="별점주기"
       android:textSize="20sp"
-      android:textColor="#333333"/>
+      android:textColor="#333333"
+      android:lineSpacingExtra="-1sp"
+      android:text="별점주기"/>
 
     <LinearLayout
       android:orientation="horizontal"
@@ -35,7 +36,7 @@
         android:padding="5dp"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/oval_4_copy_2"
+        android:src="@drawable/star_big_copy_4"
         android:id="@+id/dialog_channel_evaluate_star_1"/>
 
       <ImageButton
@@ -45,7 +46,7 @@
         android:padding="5dp"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/oval_4_copy_2"
+        android:src="@drawable/star_big_copy_4"
         android:id="@+id/dialog_channel_evaluate_star_2"/>
 
       <ImageButton
@@ -55,7 +56,7 @@
         android:padding="5dp"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/oval_4_copy_2"
+        android:src="@drawable/star_big_copy_4"
         android:id="@+id/dialog_channel_evaluate_star_3"/>
 
       <ImageButton
@@ -65,7 +66,7 @@
         android:padding="5dp"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/oval_4_copy_2"
+        android:src="@drawable/star_big_copy_4"
         android:id="@+id/dialog_channel_evaluate_star_4"/>
 
       <ImageButton
@@ -75,7 +76,7 @@
         android:padding="5dp"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/oval_4_copy_2"
+        android:src="@drawable/star_big_copy_4"
         android:id="@+id/dialog_channel_evaluate_star_5"/>
 
     </LinearLayout>
@@ -87,9 +88,10 @@
       android:gravity="center"
       android:layout_marginTop="22dp"
       android:layout_marginBottom="18dp"
-      android:text="평가입력"
       android:textSize="20sp"
-      android:textColor="#333333"/>
+      android:textColor="#333333"
+      android:lineSpacingExtra="-1sp"
+      android:text="평가입력"/>
 
     <EditText
       android:id="@+id/et_dialog_channel_evaluate_comment"
@@ -114,11 +116,21 @@
 
     <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="37dp"
+      android:layout_height="50dp"
       android:layout_marginBottom="40dp"
       android:layout_marginTop="24dp"
       android:layout_gravity="center"
       android:orientation="horizontal">
+
+      <Button
+        android:id="@+id/dialog_edittext_btnCancel"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_favorite_on"
+        android:text="취소"
+        android:textColor="@color/colorPuzi"/>
 
       <Button
         android:id="@+id/btn_dialog_channel_evaluate_confirm"
@@ -130,16 +142,6 @@
         android:background="@drawable/button_puzi"
         android:text="저장"
         android:textColor="@color/colorWhite"/>
-
-      <Button
-        android:id="@+id/dialog_edittext_btnCancel"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginRight="20dp"
-        android:layout_weight="1"
-        android:background="@drawable/button_favorite_on"
-        android:text="취소"
-        android:textColor="@color/colorPuzi"/>
 
     </LinearLayout>
   </LinearLayout>

@@ -126,7 +126,7 @@ public class CompanyChannelAdapter extends BaseAdapter {
 		if(v == null) {
 			switch(viewType) {
 				case VIEW_CHANNEL:
-					v = inflater.inflate(R.layout.item_channel_list_channel, null);
+					v = inflater.inflate(R.layout.item_channel_list_channel_in_company, null);
 					viewHolder = new ViewHolder(v);
 					v.setTag(viewHolder);
 					break;
@@ -149,17 +149,6 @@ public class CompanyChannelAdapter extends BaseAdapter {
 				final ChannelVO firstChannel = channelList.get(0);
 				BitmapUIL.load(firstChannel.getPictureUrl(), viewHolder.ibtnImage1);
 				viewHolder.btnTitle1.setText(firstChannel.getTitle());
-				BitmapUIL.load(firstChannel.getCompanyInfoDTO().getPictureUrl(), viewHolder.ibtnCompany1);
-				viewHolder.ibtnCompany1.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						Intent intent = new Intent(activity, CompanyActivity.class);
-						intent.putExtra("company", firstChannel.getCompanyInfoDTO());
-						activity.startActivity(intent);
-						activity.doAnimationGoRight();
-					}
-				});
 				viewHolder.tvScore1.setText(firstChannel.getAverageScore() + "/5");
 
 				View.OnClickListener listener1 = new View.OnClickListener() {
@@ -175,23 +164,12 @@ public class CompanyChannelAdapter extends BaseAdapter {
 				viewHolder.ibtnImage1.setOnClickListener(listener1);
 				viewHolder.btnTitle1.setOnClickListener(listener1);
 				UIUtils.setEvaluateStarScoreImage(firstChannel.getAverageScore(), viewHolder.ivStar1, viewHolder.ivStar2, viewHolder.ivStar3,
-					viewHolder.ivStar4, viewHolder.ivStar5, R.drawable.oval_2_copy_3, R.drawable.oval_2_copy_7);
+					viewHolder.ivStar4, viewHolder.ivStar5, R.drawable.star, R.drawable.star_copy_4);
 
 				if(channelList.size() > 1) {
 					final ChannelVO secondChannel = channelList.get(1);
 					BitmapUIL.load(secondChannel.getPictureUrl(), viewHolder.ibtnImage2);
 					viewHolder.btnTitle2.setText(secondChannel.getTitle());
-					BitmapUIL.load(secondChannel.getCompanyInfoDTO().getPictureUrl(), viewHolder.ibtnCompany2);
-					viewHolder.ibtnCompany2.setOnClickListener(new View.OnClickListener() {
-
-						@Override
-						public void onClick(View v) {
-							Intent intent = new Intent(activity, CompanyActivity.class);
-							intent.putExtra("company", secondChannel.getCompanyInfoDTO());
-							activity.startActivity(intent);
-							activity.doAnimationGoRight();
-						}
-					});
 					viewHolder.tvScore2.setText(secondChannel.getAverageScore() + "/5");
 
 					View.OnClickListener listener2 = new View.OnClickListener() {
@@ -207,7 +185,7 @@ public class CompanyChannelAdapter extends BaseAdapter {
 					viewHolder.ibtnImage2.setOnClickListener(listener2);
 					viewHolder.btnTitle2.setOnClickListener(listener2);
 					UIUtils.setEvaluateStarScoreImage(secondChannel.getAverageScore(), viewHolder.ivStar21, viewHolder.ivStar22, viewHolder.ivStar23,
-						viewHolder.ivStar24, viewHolder.ivStar25, R.drawable.oval_2_copy_3, R.drawable.oval_2_copy_7);
+						viewHolder.ivStar24, viewHolder.ivStar25, R.drawable.star, R.drawable.star_copy_4);
 				}
 				break;
 		}
@@ -220,8 +198,6 @@ public class CompanyChannelAdapter extends BaseAdapter {
 		@BindView(R.id.ibtn_item_channel_image_2) public SelectableRoundedImageView ibtnImage2;
 		@BindView(R.id.tv_item_channel_title_1) public Button btnTitle1;
 		@BindView(R.id.tv_item_channel_title_2) public Button btnTitle2;
-		@BindView(R.id.ibtn_item_channel_company_image_1) public SelectableRoundedImageView ibtnCompany1;
-		@BindView(R.id.ibtn_item_channel_company_image_2) public SelectableRoundedImageView ibtnCompany2;
 		@BindView(R.id.tv_item_channel_score_1) public TextView tvScore1;
 		@BindView(R.id.tv_item_channel_score_2) public TextView tvScore2;
 		@BindView(R.id.iv_item_channel_company_star_1) public ImageView ivStar1;

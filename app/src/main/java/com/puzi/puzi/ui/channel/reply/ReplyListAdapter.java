@@ -206,11 +206,15 @@ public class ReplyListAdapter extends BaseAdapter {
 			if(on) {
 				viewHolder.ivRecommend.setImageResource(R.drawable.thumbs_up_copy);
 				viewHolder.tvRecommend.setTextColor(Color.parseColor("#ff2470"));
+				viewHolder.btnRecommend.setBackgroundResource(R.drawable.button_reply_on);
+				viewHolder.btnReverse.setBackgroundResource(R.drawable.button_reply_off);
 				viewHolder.btnRecommend.setEnabled(false);
 				viewHolder.btnReverse.setEnabled(false);
 			} else {
 				viewHolder.ivRecommend.setImageResource(R.drawable.thumbs_up);
 				viewHolder.tvRecommend.setTextColor(Color.parseColor("#9b9b9b"));
+				viewHolder.btnRecommend.setBackgroundResource(R.drawable.button_reply_off);
+				viewHolder.btnReverse.setBackgroundResource(R.drawable.button_reply_off);
 				viewHolder.btnRecommend.setOnClickListener(recommendListener(viewHolder, channelReplyVO));
 				viewHolder.btnRecommend.setEnabled(true);
 			}
@@ -218,11 +222,15 @@ public class ReplyListAdapter extends BaseAdapter {
 			if(on) {
 				viewHolder.ivReverse.setImageResource(R.drawable.thumbs_down);
 				viewHolder.tvReverse.setTextColor(Color.parseColor("#ff2470"));
+				viewHolder.btnRecommend.setBackgroundResource(R.drawable.button_reply_off);
+				viewHolder.btnReverse.setBackgroundResource(R.drawable.button_reply_on);
 				viewHolder.btnReverse.setEnabled(false);
 				viewHolder.btnRecommend.setEnabled(false);
 			} else {
 				viewHolder.ivReverse.setImageResource(R.drawable.thumbs_down_copy);
 				viewHolder.tvReverse.setTextColor(Color.parseColor("#9b9b9b"));
+				viewHolder.btnRecommend.setBackgroundResource(R.drawable.button_reply_off);
+				viewHolder.btnReverse.setBackgroundResource(R.drawable.button_reply_off);
 				viewHolder.btnReverse.setOnClickListener(reverseListener(viewHolder, channelReplyVO));
 				viewHolder.btnReverse.setEnabled(true);
 			}

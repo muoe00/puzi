@@ -1,72 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-
-  <TextView
-    android:text="title"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="16dp"
-    android:layout_marginTop="13dp"
-    android:textSize="16sp"
-    android:textColor="#35343d"
-    android:textStyle="bold"
-    android:id="@+id/tv_channel_detail_reply_id"/>
-
-  <TextView
-    android:text="comment"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textSize="16sp"
-    android:textColor="#333333"
-    android:layout_marginLeft="16dp"
-    android:layout_marginTop="10dp"
-    android:id="@+id/tv_channel_detail_reply_comment"/>
 
   <LinearLayout
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+
+    <TextView
+      android:text="title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="16dp"
+      android:layout_marginTop="17.5dp"
+      android:textSize="16sp"
+      android:fontFamily="sans-serif"
+      android:textStyle="bold"
+      android:textColor="#35343d"
+      android:lineSpacingExtra="0sp"
+      android:id="@+id/tv_channel_detail_reply_id"/>
 
     <LinearLayout
+      android:layout_weight="1"
       android:layout_width="0dp"
-      android:layout_height="match_parent"
-      android:layout_weight="1"/>
+      android:layout_height="wrap_content"/>
 
     <!-- 추천 -->
     <FrameLayout
       android:layout_width="wrap_content"
-      android:layout_height="match_parent">
+      android:layout_height="20dp"
+      android:layout_marginRight="5dp"
+      android:layout_marginTop="17.5dp">
 
       <LinearLayout
         android:orientation="horizontal"
-        android:layout_marginRight="40dp"
         android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="46dp">
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
         <ImageView
-          android:layout_width="15dp"
-          android:layout_height="16dp"
-          android:layout_marginLeft="1dp"
-          android:layout_marginRight="8dp"
+          android:layout_width="11dp"
+          android:layout_height="11.7dp"
+          android:layout_marginLeft="8dp"
+          android:layout_marginRight="7dp"
           android:src="@drawable/thumbs_up"
           android:id="@+id/iv_channel_detail_reply_recommend"/>
 
         <TextView
           android:text="0"
-          android:layout_width="match_parent"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:textSize="10sp"
+          android:textColor="#dadada"
+          android:layout_marginRight="7dp"
+          android:lineSpacingExtra="0sp"
           android:id="@+id/tv_channel_detail_reply_recommend"/>
 
       </LinearLayout>
 
       <Button
-        android:layout_width="match_parent"
+        android:layout_width="45dp"
         android:layout_height="match_parent"
-        android:background="#00000000"
+        android:background="@drawable/button_reply_off"
         android:id="@+id/btn_channel_detail_reply_recommend"/>
 
     </FrameLayout>
@@ -74,19 +72,21 @@
     <!-- 반대 -->
     <FrameLayout
       android:layout_width="wrap_content"
-      android:layout_height="match_parent">
+      android:layout_height="20dp"
+      android:layout_marginRight="16dp"
+      android:layout_marginTop="17.5dp">
 
       <LinearLayout
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="46dp">
+        android:layout_height="match_parent">
 
         <ImageView
-          android:layout_width="15dp"
-          android:layout_height="16dp"
-          android:layout_marginLeft="1dp"
-          android:layout_marginRight="8dp"
+          android:layout_width="11dp"
+          android:layout_height="11.7dp"
+          android:layout_marginLeft="8dp"
+          android:layout_marginRight="7dp"
           android:src="@drawable/thumbs_up"
           android:id="@+id/iv_channel_detail_reply_reverse"/>
 
@@ -94,18 +94,35 @@
           android:text="0"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginRight="17dp"
+          android:textSize="10sp"
+          android:textColor="#dadada"
+          android:layout_marginRight="7dp"
+          android:lineSpacingExtra="0sp"
           android:id="@+id/tv_channel_detail_reply_reverse"/>
 
       </LinearLayout>
 
       <Button
-        android:layout_width="match_parent"
+        android:layout_width="45dp"
         android:layout_height="match_parent"
-        android:background="#00000000"
+        android:background="@drawable/button_reply_off"
         android:id="@+id/btn_channel_detail_reply_reverse"/>
 
     </FrameLayout>
 
   </LinearLayout>
+
+  <TextView
+    android:text="comment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="15sp"
+    android:textColor="#333333"
+    android:lineSpacingExtra="9sp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="11dp"
+    android:id="@+id/tv_channel_detail_reply_comment"/>
+
 </LinearLayout>
