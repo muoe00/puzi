@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.AbsListView;
 import android.widget.ListView;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -18,7 +17,6 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.StoreNetworkService;
 import com.puzi.puzi.ui.base.BaseActivity;
-import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
 import java.util.ArrayList;
@@ -75,7 +73,7 @@ public class CouponActivity extends BaseActivity {
 				Log.i("INFO", "coupon responseVO : " + responseVO.toString());
 				couponListAdapter.stopProgress();
 
-				switch (responseVO.getResultType()) {
+				/*switch (responseVO.getResultType()) {
 					case SUCCESS:
 						List<PurchaseHistoryVO> purchaseHistoryVOS = responseVO.getList("PurchaseHistoryDTO", PurchaseHistoryVO.class);
 						Log.i(PuziUtils.INFO, "purchaseHistoryVOS : " + purchaseHistoryVOS.toString());
@@ -107,7 +105,7 @@ public class CouponActivity extends BaseActivity {
 						Log.i("INFO", "getCouponList failed.");
 						Toast.makeText(this, responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
 						break;
-				}
+				}*/
 			}
 		});
 	}

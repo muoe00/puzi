@@ -6,29 +6,47 @@
 
   <LinearLayout
     android:id="@+id/ll_out_point"
-    android:orientation="horizontal"
-    android:gravity="center"
+    android:orientation="vertical"
+    android:gravity="top"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="100dp"
     android:weightSum="1">
 
-    <ImageView
-      android:layout_width="40dp"
-      android:layout_height="40dp"
-      android:src="@mipmap/level"
-      android:id="@+id/iv_out_level"/>
-
     <TextView
-      android:gravity="center"
-      android:textSize="32sp"
-      android:textColor="@color/colorBlack"
-      android:text="100,000"
-      android:layout_marginRight="10dp"
-      android:layout_marginLeft="10dp"
+      android:layout_marginTop="11dp"
+      android:layout_gravity="center"
+      android:text="포인트"
+      android:textSize="16sp"
+      android:textColor="#6d6d6d"
       android:layout_width="wrap_content"
-      android:layout_height="38dp"
-      android:id="@+id/tv_out_point"
-      android:layout_alignParentTop="true"/>
+      android:layout_height="24dp"/>
+    
+    <LinearLayout
+      android:layout_marginTop="1dp"
+      android:gravity="center"
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="40dp">
+
+      <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/level"
+        android:id="@+id/iv_out_level"/>
+
+      <TextView
+        android:gravity="center"
+        android:textSize="32sp"
+        android:textColor="@color/colorBlack"
+        android:text="100,000"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:id="@+id/tv_out_point"
+        android:layout_alignParentTop="true"/>
+
+    </LinearLayout>
 
   </LinearLayout>
 
@@ -48,14 +66,15 @@
     android:weightSum="1">
 
     <ImageView
-      android:layout_marginTop="30dp"
+      android:layout_marginTop="35dp"
       android:layout_width="80dp"
       android:layout_height="80dp"/>
 
     <TextView
-      android:layout_marginTop="18dp"
+      android:layout_marginTop="13dp"
       android:text="푸지 앱 탈퇴하시면 고객님의\n앱 이용내역(포인트 포함)이"
       android:textSize="20sp"
+      android:textColor="#333333"
       android:gravity="center"
       android:layout_width="224dp"
       android:layout_height="wrap_content"/>
@@ -63,13 +82,15 @@
     <TextView
       android:text="모두 삭제됩니다"
       android:textSize="20sp"
+      android:textColor="#f13d3a"
       android:gravity="center"
       android:layout_width="224dp"
       android:layout_height="wrap_content"/>
     
     <Button
       android:id="@+id/btn_out"
-      android:layout_marginTop="51dp"
+      android:background="@drawable/btn_out"
+      android:layout_marginTop="41dp"
       android:layout_width="295dp"
       android:layout_height="54dp"/>
 
