@@ -53,8 +53,6 @@ public class OutFragment extends BaseFragment {
 
 		final SettingNetworkService settingNetworkService = RetrofitManager.create(SettingNetworkService.class);
 
-		ProgressDialog.show(getActivity());
-
 		Call<ResponseVO> callList = settingNetworkService.out(token);
 		callList.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
 			@Override

@@ -148,7 +148,8 @@ public class LoginFragment extends BaseFragment {
 
 	@OnClick(R.id.kakao_login_btn)
 	public void kakaoLogin() {
-
+		IntroActivity introActivity = (IntroActivity) getActivity();
+		introActivity.isKakaoLogin();
 	}
 
 	@OnClick(R.id.rl_login)

@@ -54,7 +54,6 @@ public interface SettingNetworkService {
 		@Field("title") String title,
 		@Field("comment") String comment);
 
-	@FormUrlEncoded
 	@POST("/setting/center/out")
 	Call<ResponseVO> out(@Header("token") String token);
 

@@ -2,14 +2,23 @@ package com.puzi.puzi.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.kakao.auth.AuthType;
+import com.kakao.network.ErrorResult;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.MeResponseCallback;
+import com.kakao.usermgmt.response.model.UserProfile;
 import com.puzi.puzi.R;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
@@ -19,16 +28,20 @@ import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
+import com.puzi.puzi.ui.intro.KakaoSessionCallback;
 import com.puzi.puzi.ui.intro.LoginFragment;
 import com.puzi.puzi.utils.EncryptUtils;
 import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
+import java.security.MessageDigest;
 import java.util.ArrayList;
 
 import static com.puzi.puzi.utils.UIUtils.setStatusBarColor;
 
 public class IntroActivity extends BaseFragmentActivity {
+
+	private KakaoSessionCallback mKakaocallback;
 
 	private long backKeyPressedTime;
 	public boolean AUTO_LOGIN = false;
@@ -45,6 +58,8 @@ public class IntroActivity extends BaseFragmentActivity {
 		setContentView(R.layout.layout_splash);
 		activity = this;
 		setStatusBarColor(activity);
+
+		getAppKeyHash();
 
 		FirebaseInstanceId.getInstance().getToken();
 		String tokenFCM = FirebaseInstanceId.getInstance().getToken();
@@ -102,6 +117,61 @@ public class IntroActivity extends BaseFragmentActivity {
 				}
 			}
 		}.sendEmptyMessageDelayed(0, 1000);
+	}
+
+	public void isKakaoLogin() {
+		mKakaocallback = new KakaoSessionCallback();
+		com.kakao.auth.Session.getCurrentSession().addCallback(mKakaocallback);
+		com.kakao.auth.Session.getCurrentSession().checkAndImplicitOpen();
+		com.kakao.auth.Session.getCurrentSession().open(AuthType.KAKAO_TALK_EXCLUDE_NATIVE_LOGIN, IntroActivity.this);
+	}
+
+	protected void KakaorequestMe() {
+		UserManagement.requestMe(new MeResponseCallback() {
+			@Override
+			public void onFailure(ErrorResult errorResult) {
+				int ErrorCode = errorResult.getErrorCode();
+				int ClientErrorCode = -777;
+
+				if (ErrorCode == ClientErrorCode) {
+					Toast.makeText(getApplicationContext(), "카카오톡 서버의 네트워크가 불안정합니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+				} else {
+					Log.d("INFO" , "오류로 카카오로그인 실패 ");
+				}
+			}
+
+			@Override
+			public void onSessionClosed(ErrorResult errorResult) {
+				Log.d("INFO" , "오류로 카카오로그인 실패 ");
+			}
+
+			@Override
+			public void onSuccess(UserProfile userProfile) {
+
+
+			}
+
+			@Override
+			public void onNotSignedUp() {
+
+			}
+		});
+	}
+
+	private void getAppKeyHash() {
+		try {
+			PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+			for (Signature signature : info.signatures) {
+				MessageDigest md;
+				md = MessageDigest.getInstance("SHA");
+				md.update(signature.toByteArray());
+				String something = new String(Base64.encode(md.digest(), 0));
+				Log.d("Hash key", something);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			Log.e("name not found", e.toString());
+		}
 	}
 
 	public void addFragment(BaseFragment fragment) {

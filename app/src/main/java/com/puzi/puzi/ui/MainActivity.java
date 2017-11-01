@@ -24,6 +24,7 @@ import com.puzi.puzi.ui.advertisement.AdvertisementFragment;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.channel.ChannelFilterActivity;
 import com.puzi.puzi.ui.channel.ChannelFragment;
+import com.puzi.puzi.ui.store.coupon.CouponActivity;
 import com.puzi.puzi.ui.user.PointActivity;
 import com.puzi.puzi.ui.user.RecommendActivity;
 import com.puzi.puzi.utils.PuziUtils;
@@ -155,6 +156,10 @@ public class MainActivity extends BaseFragmentActivity {
 						startActivityForResult(intent, 0);
 						doAnimationGoRight();
 						return;
+
+					case FRAGMENT_STORE:
+						intent = new Intent(MainActivity.this, CouponActivity.class);
+						break;
 				}
 				break;
 			default:
@@ -233,6 +238,7 @@ public class MainActivity extends BaseFragmentActivity {
 				ivChannel.setImageResource(R.drawable.channel_off);
 				ivStore.setImageResource(R.drawable.store_selected);
 				ivSetting.setImageResource(R.drawable.setting_off);
+				ibtnRightButton.setImageResource(R.drawable.coupon_archive);
 				return;
 			case FRAGMENT_SETTING:
 				llMain.setVisibility(View.GONE);

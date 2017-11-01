@@ -1,29 +1,41 @@
 package com.puzi.puzi;
 
-/**
- * Copyright(c) 2014 Chatspit, Inc. All rights reserved.
- * 
- * Author      : Lee Jung Hoon
- * Date         : 2014.03.18
- * Description   :
-**/
-
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import com.kakao.auth.KakaoSDK;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.puzi.puzi.ui.intro.KakaoSDKAdapter;
 
 public class PuziApplication extends Application {
+
+	private static PuziApplication instance = null;
+	private static volatile Activity currentActivity = null;
+
+	public static PuziApplication getInstance() {
+		return instance;
+	}
 	
 	@Override
 	public void onCreate() {
 		super.onCreate();
 
+		PuziApplication.instance = this;
+		KakaoSDK.init(new KakaoSDKAdapter());
+
 		initImageLoader(getApplicationContext());
 	}
 
+	public static Activity getCurrentActivity() {
+		return currentActivity;
+	}
+
+	public static void setCurrentActivity(Activity activity) {
+		PuziApplication.currentActivity = activity;
+	}
 
 	public static void initImageLoader(Context context) {
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
@@ -36,5 +48,11 @@ public class PuziApplication extends Application {
 				.writeDebugLogs()
 				.build();
 		ImageLoader.getInstance().init(config);
+	}
+
+	@Override
+	public void onTerminate() {
+		super.onTerminate();
+		instance = null;
 	}
 }
