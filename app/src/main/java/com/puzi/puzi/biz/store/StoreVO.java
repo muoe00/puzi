@@ -12,5 +12,14 @@ public class StoreVO {
 	private int storeId;
 	private String name;
 	private String pictureUrl;
-	private String storeType;
+	private StoreType storeType;
+
+	public static StoreVO createWithdraw() {
+		StoreVO storeVO = new StoreVO();
+		storeVO.setStoreId(0);
+		storeVO.setName("출금하기");
+		storeVO.setPictureUrl(null);
+		storeVO.setStoreType(StoreType.WITHDRAW);
+		return storeVO;
+	}
 }

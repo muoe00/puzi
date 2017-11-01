@@ -125,8 +125,9 @@
       <Button
         android:id="@+id/dialog_edittext_btnCancel"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@drawable/button_favorite_on"
         android:text="취소"
@@ -136,7 +137,6 @@
         android:id="@+id/btn_dialog_channel_evaluate_confirm"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_weight="1"
         android:background="@drawable/button_puzi"

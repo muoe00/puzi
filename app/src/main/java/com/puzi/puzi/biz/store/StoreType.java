@@ -17,8 +17,13 @@ public enum StoreType {
 	EAT_OUT("외식"),
 	CAR_REFUEL("주유권"),
 	CAFE("카페"),
-	COSMETICS("화장품");
+	COSMETICS("화장품"),
+	WITHDRAW("출금");
 
 	@Getter
 	private String comment;
+
+	public boolean isWithdraw() {
+		return this == WITHDRAW;
+	}
 }

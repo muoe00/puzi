@@ -76,6 +76,13 @@ public class ChannelDetailActivity extends BaseActivity {
 	ImageView ivEvaluateStar5;
 	@BindView(R.id.hlv_channel_detail_editors_page)
 	HorizontalListView hlvEditorsPage;
+	@BindView(R.id.btn_channel_detail_evaluate)
+	ImageButton btnEvaluate;
+	@BindView(R.id.tv_channel_detail_myScore)
+	TextView tvMyScore;
+	@BindView(R.id.ll_channel_detail_myScore_container)
+	LinearLayout llMyScoreContainer;
+
 
 	private EditorsPageAdapter editorsPageAdapter;
 	private ReplyListAdapter replyListAdapter;
@@ -142,6 +149,15 @@ public class ChannelDetailActivity extends BaseActivity {
 		tvEvaluateAverage.setText(channelVO.getAverageScore() + " / 5");
 		UIUtils.setEvaluateStarScoreImage(channelVO.getAverageScore(),
 			ivEvaluateStar1, ivEvaluateStar2, ivEvaluateStar3, ivEvaluateStar4, ivEvaluateStar5, R.drawable.star_big, R.drawable.star_big_copy_4);
+		if(channelVO.isScored()) {
+			showMyEvaluate(channelVO.getMyScore());
+		}
+	}
+
+	private void showMyEvaluate(int myScore) {
+		btnEvaluate.setVisibility(View.GONE);
+		tvMyScore.setText(myScore + "");
+		llMyScoreContainer.setVisibility(View.VISIBLE);
 	}
 
 	private void initScrollAction() {
@@ -251,15 +267,12 @@ public class ChannelDetailActivity extends BaseActivity {
 
 	@OnClick(R.id.btn_channel_detail_evaluate)
 	public void evaluate() {
-		if(channelVO.isScored()){
-			Toast.makeText(this, "이미 평가하셨습니다.", Toast.LENGTH_SHORT).show();
-			return;
-		}
 		ChannelEvaluateDialog.load(this, channelVO.getChannelId(), new EvaluateListener() {
 
 			@Override
-			public void success() {
+			public void success(int score) {
 				channelVO.setScored(true);
+				showMyEvaluate(score);
 			}
 		});
 	}
@@ -352,7 +365,7 @@ public class ChannelDetailActivity extends BaseActivity {
 	}
 
 	public interface EvaluateListener {
-		public void success();
+		public void success(int myScore);
 	}
 
 }

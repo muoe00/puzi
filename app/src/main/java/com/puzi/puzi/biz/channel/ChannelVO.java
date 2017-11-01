@@ -20,6 +20,7 @@ public class ChannelVO implements Serializable {
 	private int averageScore;
 	private int replyCount;
 	private boolean scored;
+	private int myScore;
 	private String createdAt;
 	private CompanyVO companyInfoDTO;
 }

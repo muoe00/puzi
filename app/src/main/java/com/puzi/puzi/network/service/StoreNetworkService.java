@@ -10,15 +10,15 @@ import retrofit2.http.*;
 
 public interface StoreNetworkService {
 
-	@GET("/store/brand/list")
+	@GET("/v2/store/brand/list")
 	Call<ResponseVO> brandList(@Header("token") String token);
 
-	@GET("/store/item/list")
+	@GET("/v2/store/item/list")
 	Call<ResponseVO> itemList(@Header("token") String token,
 		@Query("storeId") int storeId,
 		@Query("pagingIndex") int pagingIndex);
 
-	@GET("/store/item/detail")
+	@GET("/v2/store/item/detail")
 	Call<ResponseVO> itemDetail(@Header("token") String token,
 		@Query("storeId") int storeId,
 		@Query("storeItemId") int storeItemId);
@@ -30,7 +30,7 @@ public interface StoreNetworkService {
 		@Field("storeItemId") int storeItemId,
 		@Field("quantity") int quantity);
 
-	@GET("/store/purchase/history")
+	@GET("/v2/store/purchase/history")
 	Call<ResponseVO> purchaseHistory(@Header("token") String token,
 		@Query("pagingIndex") int pagingIndex);
 

@@ -87,7 +87,7 @@ public class ChannelEvaluateDialog {
 
 							if(responseVO.getResultType().isSuccess()){
 								Toast.makeText(activity, "평가를 작성해주셔서 감사합니다.", Toast.LENGTH_SHORT).show();
-								listener.success();
+								listener.success(score);
 								close();
 							} else {
 								Toast.makeText(activity, responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();

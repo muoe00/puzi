@@ -6,80 +6,12 @@
               android:orientation="vertical" >
 
   <LinearLayout
-    android:id="@+id/store_fragment_container"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="50dp">
-
-    <FrameLayout
-      android:id="@+id/fl_store_coupon"
-      android:layout_width="0dp"
-      android:layout_height="match_parent"
-      android:layout_weight="1"
-      android:orientation="vertical">
-
-      <TextView
-        android:text="스토어"
-        android:textColor="@color/colorPuzi"
-        android:textSize="12sp"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/tv_store_list"/>
-      <Button
-        android:id="@+id/btn_store_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#00000000"/>
-
-    </FrameLayout>
-
-    <LinearLayout
-      android:layout_gravity="center"
-      android:layout_width="2dp"
-      android:layout_height="24dp"
-      android:background="#d8d8d8">
-    </LinearLayout>
-
-    <FrameLayout
-      android:id="@+id/fl_channelFavorit"
-      android:layout_width="0dp"
-      android:layout_height="match_parent"
-      android:layout_weight="1"
-      android:orientation="vertical">
-
-      <TextView
-        android:text="쿠폰함"
-        android:textSize="12sp"
-        android:gravity="center"
-        android:textColor="@color/colorPuzi"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/tv_coupon"/>
-      <Button
-        android:id="@+id/btn_coupon"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#00000000"/>
-
-    </FrameLayout>
-
-  </LinearLayout>
-  <LinearLayout
-    android:id="@+id/store_fragment_line"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:background="#dddddd"
-    android:layout_height="0.1dp">
-  </LinearLayout>
-
-  <LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ListView
-      android:id="@+id/lv_store"
+      android:id="@+id/lv_store_brand"
       android:layout_marginTop="10dp"
       android:layout_width="match_parent"
       android:layout_height="match_parent"

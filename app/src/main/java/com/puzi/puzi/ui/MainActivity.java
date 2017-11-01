@@ -233,6 +233,7 @@ public class MainActivity extends BaseFragmentActivity {
 				ivChannel.setImageResource(R.drawable.channel_off);
 				ivStore.setImageResource(R.drawable.store_selected);
 				ivSetting.setImageResource(R.drawable.setting_off);
+				ibtnRightButton.setImageResource(R.drawable.coupon_archive);
 				return;
 			case FRAGMENT_SETTING:
 				llMain.setVisibility(View.GONE);

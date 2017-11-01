@@ -1,17 +1,27 @@
 package com.puzi.puzi.ui.store;
 
-import android.content.Context;
-import android.util.Log;
+import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import com.google.gson.Gson;
 import com.puzi.puzi.R;
+import com.puzi.puzi.biz.store.StoreType;
 import com.puzi.puzi.biz.store.StoreVO;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Maps.newHashMap;
 
 /**
  * Created by muoe0 on 2017-08-06.
@@ -19,48 +29,47 @@ import java.util.*;
 
 public class StoreListAdapter extends BaseAdapter {
 
-	private final static String MOVIE = "영화",
-		CONVENIENCE_STORE = "편의점",
-		BAKERY = "베이커리",
-		GIFT_CARD = "상품권",
-		EAT_OUT = "외식",
-		CAR_REFUEL = "주유권",
-		CAFE = "카페",
-		COSMETICS = "화장품";
-	private TextView tvCategory;
-	private GridView gvBrand;
-	private StoreGridAdapter storeGridAdapter;
 	private LayoutInflater inflater;
-	private Context context;
-	private Map<String, List<StoreVO>> storeMap;
-	private List<StoreVO> storeList;
-	private List<String> categoryList = new ArrayList<String>();
+	private BaseFragmentActivity activity;
+	private List<StoreType> storeTypeList = newArrayList();
+	private Map<StoreType, StoreGroupAdapter> storeMap = newHashMap();
 
-	public StoreListAdapter(Context context, Map<String, List<StoreVO>> map) {
-		this.context = context;
-		this.storeMap = map;
-
-		Iterator<String> iterator = storeMap.keySet().iterator();
-		while(iterator.hasNext()) {
-			this.categoryList.add(iterator.next());
-		}
-
-		Log.i("DEBUG", "StoreListAdapter storeMap size : " + storeMap.size());
+	public StoreListAdapter(Activity activity) {
+		this.activity = (BaseFragmentActivity) activity;
+		this.inflater = activity.getLayoutInflater();
 	}
 
-	public void initComponents(View view) {
-		tvCategory = (TextView) view.findViewById(R.id.tv_store_category);
-		gvBrand = (GridView) view.findViewById(R.id.gv_storeBrand);
+	public void addList(List<StoreVO> storeList) {
+		for(StoreVO storeVO : storeList) {
+			if(storeMap.containsKey(storeVO.getStoreType())) {
+				StoreGroupAdapter adapter = storeMap.get(storeVO.getStoreType());
+				adapter.add(storeVO);
+			} else {
+				StoreGroupAdapter adapter = new StoreGroupAdapter(activity);
+				adapter.add(storeVO);
+				storeMap.put(storeVO.getStoreType(), adapter);
+
+				storeTypeList.add(storeVO.getStoreType());
+			}
+		}
+		addWithdraw();
+	}
+
+	private void addWithdraw() {
+		StoreGroupAdapter adapter = new StoreGroupAdapter(activity);
+		adapter.add(StoreVO.createWithdraw());
+		storeMap.put(StoreType.WITHDRAW, adapter);
+		storeTypeList.add(StoreType.WITHDRAW);
 	}
 
 	@Override
 	public int getCount() {
-		return storeMap.size();
+		return storeTypeList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return storeMap.get(position);
+		return storeTypeList.get(position);
 	}
 
 	@Override
@@ -70,23 +79,45 @@ public class StoreListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if(convertView == null) {
-			inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.fragment_store_list, parent, false);
+
+		View v = convertView;
+		ViewHolder viewHolder = null;
+
+		final StoreType storeType = (StoreType) getItem(position);
+
+		if(v == null) {
+			v = inflater.inflate(R.layout.item_store_brand_group, null);
+			viewHolder = new ViewHolder(v);
+			v.setTag(viewHolder);
+		} else {
+			viewHolder = (ViewHolder) v.getTag();
 		}
 
-		initComponents(convertView);
+		viewHolder.tvTitle.setText(storeType.getComment());
+		viewHolder.gvGroup.setAdapter(storeMap.get(storeType));
+		viewHolder.gvGroup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-		storeList = storeMap.get(categoryList.get(position));
-		String type = storeList.get(0).getStoreType().toString();
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				StoreVO storeVO = (StoreVO) storeMap.get(storeType).getItem(position);
+				Intent intent = new Intent(activity, StoreItemActivity.class);
+				intent.putExtra("storeVOJson", new Gson().toJson(storeVO));
+				activity.startActivity(intent);
+				activity.doAnimationGoRight();
+			}
+		});
 
-		tvCategory.setText(type);
-
-		Log.i("DEBUG", "StoreListAdapter storeList : " + storeList.toString());
-
-		storeGridAdapter = new StoreGridAdapter(convertView.getContext(), storeList);
-		gvBrand.setAdapter(storeGridAdapter);
-
-		return convertView;
+		return v;
 	}
+
+	public class ViewHolder {
+		@BindView(R.id.tv_store_brand_group_title) public TextView tvTitle;
+		@BindView(R.id.gv_store_brand_group) public GridView gvGroup;
+
+		public ViewHolder(View view) {
+			ButterKnife.bind(this, view);
+		}
+	}
+
+
 }
