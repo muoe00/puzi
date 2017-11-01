@@ -57,9 +57,6 @@ public class CouponListAdapter extends BaseAdapter {
 				return VIEW_PROGRESS;
 			}
 		}
-
-
-
 		return VIEW_COUPON;
 	}
 
