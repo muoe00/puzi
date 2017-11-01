@@ -264,6 +264,8 @@
           android:maxLines="1"
           android:id="@+id/edit_recommend"
           android:hint="추천인 아이디를 입력해주세요"
+          android:ems="10"
+          android:inputType="textUri"
           android:background="@drawable/edittext"
           android:paddingBottom="15dp"
           android:paddingTop="15dp"

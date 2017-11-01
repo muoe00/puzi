@@ -15,10 +15,12 @@ import android.util.Log;
 import android.widget.Toast;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.kakao.auth.AuthType;
+import com.kakao.auth.ISessionCallback;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
+import com.kakao.util.exception.KakaoException;
 import com.puzi.puzi.R;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
@@ -28,7 +30,6 @@ import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
-import com.puzi.puzi.ui.intro.KakaoSessionCallback;
 import com.puzi.puzi.ui.intro.LoginFragment;
 import com.puzi.puzi.utils.EncryptUtils;
 import com.puzi.puzi.utils.PuziUtils;
@@ -41,7 +42,7 @@ import static com.puzi.puzi.utils.UIUtils.setStatusBarColor;
 
 public class IntroActivity extends BaseFragmentActivity {
 
-	private KakaoSessionCallback mKakaocallback;
+	private SessionCallback mKakaocallback;
 
 	private long backKeyPressedTime;
 	public boolean AUTO_LOGIN = false;
@@ -69,6 +70,8 @@ public class IntroActivity extends BaseFragmentActivity {
 
 		final String autoId = Preference.getProperty(this, "id");
 		final String autoPw = Preference.getProperty(this, "passwd");
+
+		// 카카오 로그인 추가
 
 		// 메인 화면으로 갈지(자동로그인 성공), 로그인 화면으로 갈지(자동로그인 실패) 결정 (변수 : auto_login)
 		if(autoId != null && autoPw != null) {
@@ -120,12 +123,31 @@ public class IntroActivity extends BaseFragmentActivity {
 	}
 
 	public void isKakaoLogin() {
-		mKakaocallback = new KakaoSessionCallback();
+		// 카카오 세션을 오픈한다
+		mKakaocallback = new SessionCallback();
 		com.kakao.auth.Session.getCurrentSession().addCallback(mKakaocallback);
 		com.kakao.auth.Session.getCurrentSession().checkAndImplicitOpen();
 		com.kakao.auth.Session.getCurrentSession().open(AuthType.KAKAO_TALK_EXCLUDE_NATIVE_LOGIN, IntroActivity.this);
 	}
 
+	private class SessionCallback implements ISessionCallback {
+		@Override
+		public void onSessionOpened() {
+			Log.d("TAG" , "세션 오픈됨");
+			// 사용자 정보를 가져옴, 회원가입 미가입시 자동가입 시킴
+			KakaorequestMe();
+		}
+
+		@Override
+		public void onSessionOpenFailed(KakaoException exception) {
+			if(exception != null) {
+				Log.d("TAG" , exception.getMessage());
+			}
+		}
+	}
+	/**
+	 * 사용자의 상태를 알아 보기 위해 me API 호출을 한다.
+	 */
 	protected void KakaorequestMe() {
 		UserManagement.requestMe(new MeResponseCallback() {
 			@Override
@@ -136,24 +158,23 @@ public class IntroActivity extends BaseFragmentActivity {
 				if (ErrorCode == ClientErrorCode) {
 					Toast.makeText(getApplicationContext(), "카카오톡 서버의 네트워크가 불안정합니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
 				} else {
-					Log.d("INFO" , "오류로 카카오로그인 실패 ");
+					Log.d("TAG" , "오류로 카카오로그인 실패 ");
 				}
 			}
 
 			@Override
 			public void onSessionClosed(ErrorResult errorResult) {
-				Log.d("INFO" , "오류로 카카오로그인 실패 ");
+				Log.d("TAG" , "오류로 카카오로그인 실패 ");
 			}
 
 			@Override
 			public void onSuccess(UserProfile userProfile) {
-
-
+				// 푸지 회원인지 확인 후 로그인 (checkKakao)
 			}
 
 			@Override
 			public void onNotSignedUp() {
-
+				// 카톡 회원이 아닐 경우
 			}
 		});
 	}
