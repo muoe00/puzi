@@ -4,6 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+  <!-- 댓글입력창 -->
   <ScrollView
     android:id="@+id/sv_channel_detail"
     android:layout_marginTop="5dp"
@@ -56,7 +57,9 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:textSize="16sp"
-          android:textColor="#9b9b9b"
+          android:fontFamily="sans-serif"
+          android:textStyle="normal"
+          android:textColor="#6d6d6d"
           android:layout_gravity="center_vertical"
           android:id="@+id/tv_channel_detail_company_name"/>
 
@@ -65,7 +68,7 @@
       <!-- 광고이미지 -->
       <ImageButton
         android:layout_width="match_parent"
-        android:layout_height="360dp"
+        android:layout_height="248dp"
         android:src="@drawable/default_img"
         android:background="#00000000"
         android:scaleType="centerCrop"
@@ -75,74 +78,74 @@
       <!-- 평가 -->
       <LinearLayout
         android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="11dp"
         android:layout_width="match_parent"
-        android:layout_height="52dp">
-
-        <Button
-          android:text="별점주기"
-          android:textColor="#9b9b9b"
-          android:background="#00000000"
-          android:textSize="16sp"
-          android:layout_gravity="center_vertical"
-          android:paddingLeft="16dp"
-          android:paddingRight="16dp"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:id="@+id/btn_channel_detail_evaluate"/>
+        android:layout_height="wrap_content">
 
         <ImageView
+          android:layout_marginLeft="16.6dp"
           android:layout_width="20dp"
           android:layout_height="20dp"
-          android:src="@drawable/oval_4"
+          android:src="@drawable/star_big"
           android:layout_gravity="center_vertical"
           android:id="@+id/iv_evaluate_star_1"/>
 
         <ImageView
-          android:layout_marginLeft="16dp"
+          android:layout_marginLeft="4dp"
           android:layout_width="20dp"
           android:layout_height="20dp"
-          android:src="@drawable/oval_4"
+          android:src="@drawable/star_big"
           android:layout_gravity="center_vertical"
           android:id="@+id/iv_evaluate_star_2"/>
 
         <ImageView
-          android:layout_marginLeft="16dp"
+          android:layout_marginLeft="4dp"
           android:layout_width="20dp"
           android:layout_height="20dp"
-          android:src="@drawable/oval_4"
+          android:src="@drawable/star_big"
           android:layout_gravity="center_vertical"
           android:id="@+id/iv_evaluate_star_3"/>
 
         <ImageView
-          android:layout_marginLeft="16dp"
+          android:layout_marginLeft="4dp"
           android:layout_width="20dp"
           android:layout_height="20dp"
-          android:src="@drawable/oval_4"
+          android:src="@drawable/star_big"
           android:layout_gravity="center_vertical"
           android:id="@+id/iv_evaluate_star_4"/>
 
         <ImageView
-          android:layout_marginLeft="16dp"
+          android:layout_marginLeft="4dp"
           android:layout_width="20dp"
           android:layout_height="20dp"
-          android:src="@drawable/oval_4"
+          android:src="@drawable/star_big"
           android:layout_gravity="center_vertical"
           android:id="@+id/iv_evaluate_star_5"/>
 
-        <LinearLayout
-          android:layout_weight="1"
-          android:layout_width="0dp"
-          android:layout_height="match_parent"/>
-
         <TextView
           android:text="0/5"
-          android:layout_marginRight="16dp"
+          android:layout_marginLeft="6.3dp"
           android:layout_gravity="center_vertical"
           android:layout_width="wrap_content"
           android:textColor="#333333"
           android:textSize="12sp"
           android:layout_height="wrap_content"
           android:id="@+id/tv_channel_detail_evaluate_average"/>
+
+        <LinearLayout
+          android:layout_weight="1"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"/>
+
+        <ImageButton
+          android:background="#00000000"
+          android:layout_gravity="center_vertical"
+          android:layout_width="86dp"
+          android:layout_height="26dp"
+          android:src="@drawable/rating_btn"
+          android:layout_marginRight="16dp"
+          android:id="@+id/btn_channel_detail_evaluate"/>
 
       </LinearLayout>
 
@@ -153,9 +156,16 @@
         android:paddingRight="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="13dp"
         android:textSize="16sp"
         android:textColor="#333333"
+        android:lineSpacingExtra="6sp"
         android:id="@+id/tv_channel_detail_comment"/>
+
+      <LinearLayout
+        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
 
       <!-- 에디터스페이지 가로스크롤 -->
       <com.puzi.puzi.ui.HorizontalListView
@@ -168,13 +178,20 @@
         android:layout_marginBottom="20dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        widget:dividerWidth="1dp" />
+        widget:dividerWidth="1dp"/>
+
+      <LinearLayout
+        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
 
       <!-- 댓글 타이틀 -->
       <TextView
+        android:layout_marginTop="20dp"
         android:text="댓글"
-        android:textSize="16sp"
+        android:textSize="17sp"
         android:textColor="#35343d"
+        android:lineSpacingExtra="-1sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -192,6 +209,8 @@
         android:choiceMode="none"
         android:clickable="false"
         android:focusable="false"
+        android:divider="#dadada"
+        android:dividerHeight="0.5dp"
         android:focusableInTouchMode="false"
         android:longClickable="false"
         android:layout_width="match_parent"
@@ -200,14 +219,12 @@
     </LinearLayout>
 
   </ScrollView>
-
-  <!-- 댓글입력창 -->
   <LinearLayout
     android:orientation="vertical"
     android:layout_gravity="bottom"
     android:background="#ffffff"
     android:layout_width="match_parent"
-    android:layout_height="67dp">
+    android:layout_height="wrap_content">
 
     <LinearLayout
       android:background="#d8d8d8"
@@ -217,38 +234,41 @@
     <LinearLayout
       android:orientation="horizontal"
       android:layout_gravity="bottom"
-      android:paddingTop="8dp"
-      android:paddingBottom="8dp"
       android:layout_width="match_parent"
-      android:layout_height="66dp">
+      android:paddingTop="13dp"
+      android:paddingBottom="16dp"
+      android:background="#ffffff"
+      android:layout_height="wrap_content">
 
       <EditText
+        android:layout_weight="1"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:inputType="text"
-        android:layout_marginLeft="16dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_marginStart="16dp"
         android:ems="10"
         android:background="@drawable/channel_detail_inputbox"
         android:textSize="16sp"
         android:textColor="#333333"
+        android:isScrollContainer="true"
+        android:maxHeight="100dp"
+        android:inputType="textMultiLine"
         android:id="@+id/et_channel_detail_write_reply"
-        android:hint="의견을 입력하세요"
-        android:layout_weight="1"/>
+        android:hint="의견을 입력하세요"/>
 
       <Button
-        android:text="입력"
-        android:paddingLeft="12dp"
-        android:paddingRight="16dp"
+        android:text="게시"
+        android:paddingLeft="17dp"
+        android:paddingRight="14dp"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:id="@+id/btn_channel_detail_write"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textColor="#333333"
         android:background="#00000000"/>
 

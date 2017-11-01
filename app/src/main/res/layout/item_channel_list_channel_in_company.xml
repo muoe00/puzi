@@ -10,112 +10,96 @@
   <LinearLayout
     android:orientation="horizontal"
     android:padding="0dp"
-    android:layout_marginTop="16dp"
+    android:layout_marginTop="7dp"
+    android:layout_marginBottom="7dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
+      android:layout_weight="1"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"/>
+
+    <LinearLayout
       android:orientation="vertical"
-      android:layout_marginRight="9dp"
-      android:layout_marginLeft="0.5dp"
-      android:paddingLeft="7dp"
-      android:paddingRight="7dp"
-      android:paddingBottom="10dp"
-      android:background="@drawable/shadow_ch"
-      android:layout_width="170dp"
+      android:layout_width="156dp"
       android:layout_height="match_parent">
 
       <com.joooonho.SelectableRoundedImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:sriv_right_top_corner_radius="5dp"
+        app:sriv_right_bottom_corner_radius="5dp"
         app:sriv_left_top_corner_radius="5dp"
+        app:sriv_left_bottom_corner_radius="5dp"
         app:sriv_oval="false"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="106dp"
         android:scaleType="centerCrop"
         android:id="@+id/ibtn_item_channel_image_1"
         android:background="#00000000"/>
 
       <Button
         android:text="title"
-        android:textSize="16sp"
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="5dp"
+        android:textSize="15sp"
+        android:textColor="#333333"
+        android:layout_marginTop="3dp"
         android:typeface="sans"
         android:maxLines="2"
         android:ellipsize="end"
         android:background="#00000000"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_item_channel_title_1"
-        android:layout_weight="1"/>
+        android:layout_height="36dp"
+        android:gravity="left"
+        android:id="@+id/tv_item_channel_title_1"/>
+
       <LinearLayout
-        android:paddingBottom="5dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
-
-        <com.joooonho.SelectableRoundedImageView
-          xmlns:app="http://schemas.android.com/apk/res-auto"
-          app:sriv_right_top_corner_radius="12dp"
-          app:sriv_left_top_corner_radius="12dp"
-          app:sriv_left_bottom_corner_radius="12dp"
-          app:sriv_right_bottom_corner_radius="12dp"
-          android:layout_width="24dp"
-          android:layout_height="24dp"
-          android:layout_marginTop="5dp"
-          android:layout_marginLeft="8dp"
-          android:layout_marginBottom="8dp"
-          android:layout_marginRight="9dp"
-          android:background="#00000000"
-          android:src="@drawable/active_icon"
-          android:id="@+id/ibtn_item_channel_company_image_1"
-          android:scaleType="centerCrop"/>
 
         <ImageView
           android:layout_gravity="center_vertical"
           android:layout_width="8dp"
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
-          android:src="@drawable/oval_2_copy_3"
+          android:src="@drawable/star"
           android:id="@+id/iv_item_channel_company_star_1"/>
         <ImageView
           android:layout_gravity="center_vertical"
           android:layout_width="8dp"
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
-          android:src="@drawable/oval_2_copy_3"
+          android:src="@drawable/star"
           android:id="@+id/iv_item_channel_company_star_2"/>
         <ImageView
           android:layout_gravity="center_vertical"
           android:layout_width="8dp"
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
-          android:src="@drawable/oval_2_copy_3"
+          android:src="@drawable/star"
           android:id="@+id/iv_item_channel_company_star_3"/>
         <ImageView
           android:layout_gravity="center_vertical"
           android:layout_width="8dp"
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
-          android:src="@drawable/oval_2_copy_3"
+          android:src="@drawable/star"
           android:id="@+id/iv_item_channel_company_star_4"/>
         <ImageView
           android:layout_gravity="center_vertical"
           android:layout_width="8dp"
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
-          android:src="@drawable/oval_2_copy_3"
+          android:src="@drawable/star"
           android:id="@+id/iv_item_channel_company_star_5"/>
 
         <TextView
           android:layout_gravity="center_vertical"
           android:text="5.0/5.0"
           android:textSize="12sp"
-          android:textColor="#9b9b9b"
+          android:textColor="#6d6d6d"
           android:typeface="sans"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -126,102 +110,81 @@
     </LinearLayout>
 
     <LinearLayout
+      android:layout_width="16dp"
+      android:layout_height="match_parent"/>
+
+    <LinearLayout
       android:orientation="vertical"
-      android:layout_marginRight="9dp"
-      android:layout_marginLeft="0.5dp"
-      android:paddingLeft="7dp"
-      android:paddingRight="7dp"
-      android:paddingBottom="10dp"
-      android:background="@drawable/shadow_ch"
-      android:layout_width="170dp"
-      android:layout_height="match_parent" >
+      android:layout_width="156dp"
+      android:layout_height="match_parent">
 
       <com.joooonho.SelectableRoundedImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:sriv_right_top_corner_radius="5dp"
+        app:sriv_right_bottom_corner_radius="5dp"
         app:sriv_left_top_corner_radius="5dp"
+        app:sriv_left_bottom_corner_radius="5dp"
         app:sriv_oval="false"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="106dp"
         android:scaleType="centerCrop"
         android:id="@+id/ibtn_item_channel_image_2"
         android:background="#00000000"/>
 
       <Button
         android:text="title"
-        android:textSize="16sp"
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="5dp"
+        android:textSize="15sp"
+        android:textColor="#333333"
+        android:layout_marginTop="3dp"
         android:typeface="sans"
-        android:maxLines="1"
+        android:maxLines="2"
         android:ellipsize="end"
         android:background="#00000000"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_item_channel_title_2"
-        android:layout_weight="1"/>
+        android:layout_height="36dp"
+        android:gravity="left"
+        android:id="@+id/tv_item_channel_title_2"/>
 
       <LinearLayout
-        android:paddingBottom="5dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
-
-        <com.joooonho.SelectableRoundedImageView
-          xmlns:app="http://schemas.android.com/apk/res-auto"
-          app:sriv_right_top_corner_radius="12dp"
-          app:sriv_left_top_corner_radius="12dp"
-          app:sriv_left_bottom_corner_radius="12dp"
-          app:sriv_right_bottom_corner_radius="12dp"
-          app:sriv_oval="false"
-          android:scaleType="centerCrop"
-          android:layout_width="24dp"
-          android:layout_height="24dp"
-          android:layout_marginTop="5dp"
-          android:layout_marginLeft="8dp"
-          android:layout_marginBottom="8dp"
-          android:layout_marginRight="9dp"
-          android:background="#00000000"
-          android:src="@drawable/active_icon"
-          android:id="@+id/ibtn_item_channel_company_image_2"/>
+        android:layout_height="wrap_content" android:layout_weight="1">
 
         <ImageView
           android:layout_gravity="center_vertical"
           android:layout_width="8dp"
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
-          android:src="@drawable/oval_2_copy_3"
+          android:src="@drawable/star"
           android:id="@+id/iv_item_channel_company_star2_1"/>
         <ImageView
           android:layout_gravity="center_vertical"
           android:layout_width="8dp"
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
-          android:src="@drawable/oval_2_copy_3"
+          android:src="@drawable/star"
           android:id="@+id/iv_item_channel_company_star2_2"/>
         <ImageView
           android:layout_gravity="center_vertical"
           android:layout_width="8dp"
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
-          android:src="@drawable/oval_2_copy_3"
+          android:src="@drawable/star"
           android:id="@+id/iv_item_channel_company_star2_3"/>
         <ImageView
           android:layout_gravity="center_vertical"
           android:layout_width="8dp"
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
-          android:src="@drawable/oval_2_copy_3"
+          android:src="@drawable/star"
           android:id="@+id/iv_item_channel_company_star2_4"/>
         <ImageView
           android:layout_gravity="center_vertical"
           android:layout_width="8dp"
           android:layout_height="8dp"
           android:layout_marginRight="4dp"
-          android:src="@drawable/oval_2_copy_3"
+          android:src="@drawable/star"
           android:id="@+id/iv_item_channel_company_star2_5"/>
 
         <TextView
@@ -237,6 +200,11 @@
       </LinearLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+      android:layout_weight="1"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"/>
 
   </LinearLayout>
 
