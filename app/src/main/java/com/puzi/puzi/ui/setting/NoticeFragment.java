@@ -133,7 +133,6 @@ public class NoticeFragment extends BaseFragment {
 					if(more) {
 						pagingIndex = pagingIndex + 1;
 						getNoticeList();
-						noticeListAdapter.notifyDataSetChanged();
 					}
 				}
 			}

@@ -26,7 +26,7 @@ public class PuziUtils {
 		activity.finish();
 	}
 
-	private static String GetDevicesUUID(Context mContext){
+	public static String getDevicesUUID(Context mContext){
 		final TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
 		final String tmDevice, tmSerial, androidId;
 		tmDevice = "" + tm.getDeviceId();

@@ -38,14 +38,17 @@ import retrofit2.Call;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 
+import static com.puzi.puzi.utils.PuziUtils.getDevicesUUID;
 import static com.puzi.puzi.utils.UIUtils.setStatusBarColor;
 
 public class IntroActivity extends BaseFragmentActivity {
 
 	private SessionCallback mKakaocallback;
 
+	private String tempId = null;
 	private long backKeyPressedTime;
-	public boolean AUTO_LOGIN = false;
+	private boolean AUTO_LOGIN = false;
+	private boolean isKakao = false;
 
 	private Activity activity;
 	private ArrayList<BaseFragment> fragmentList = new ArrayList<BaseFragment>();
@@ -61,17 +64,32 @@ public class IntroActivity extends BaseFragmentActivity {
 		setStatusBarColor(activity);
 
 		getAppKeyHash();
+		autoLogin();
 
+		new Handler(){
+			@Override
+			public void handleMessage(Message message){
+				if(AUTO_LOGIN) {
+					startActivity(new Intent(IntroActivity.this, MainActivity.class));
+					fragmentList.clear();
+					finish();
+				} else {
+					setContentView(R.layout.activity_intro);
+					fragment = new LoginFragment();
+					addFragment(fragment);
+				}
+			}
+		}.sendEmptyMessageDelayed(0, 1000);
+	}
+
+	public void autoLogin() {
 		FirebaseInstanceId.getInstance().getToken();
 		String tokenFCM = FirebaseInstanceId.getInstance().getToken();
 		Log.i(PuziUtils.INFO, "FCM_Token : " + tokenFCM);
-
 		Preference.addProperty(IntroActivity.this, "tokenFCM", tokenFCM);
 
 		final String autoId = Preference.getProperty(this, "id");
 		final String autoPw = Preference.getProperty(this, "passwd");
-
-		// 카카오 로그인 추가
 
 		// 메인 화면으로 갈지(자동로그인 성공), 로그인 화면으로 갈지(자동로그인 실패) 결정 (변수 : auto_login)
 		if(autoId != null && autoPw != null) {
@@ -96,7 +114,7 @@ public class IntroActivity extends BaseFragmentActivity {
 							}
 							break;
 						case LOGIN_FAIL:
-							AUTO_LOGIN = false;
+							isKakaoLogin();
 							break;
 						default:
 							break;
@@ -104,22 +122,6 @@ public class IntroActivity extends BaseFragmentActivity {
 				}
 			});
 		}
-
-		new Handler(){
-			@Override
-			public void handleMessage(Message message){
-				if(AUTO_LOGIN) {
-					startActivity(new Intent(IntroActivity.this, MainActivity.class));
-					fragmentList.clear();
-					finish();
-				}
-				else {
-					setContentView(R.layout.activity_intro);
-					fragment = new LoginFragment();
-					addFragment(fragment);
-				}
-			}
-		}.sendEmptyMessageDelayed(0, 1000);
 	}
 
 	public void isKakaoLogin() {
@@ -135,7 +137,7 @@ public class IntroActivity extends BaseFragmentActivity {
 		public void onSessionOpened() {
 			Log.d("TAG" , "세션 오픈됨");
 			// 사용자 정보를 가져옴, 회원가입 미가입시 자동가입 시킴
-			KakaorequestMe();
+			kakaoRequestMe();
 		}
 
 		@Override
@@ -145,10 +147,8 @@ public class IntroActivity extends BaseFragmentActivity {
 			}
 		}
 	}
-	/**
-	 * 사용자의 상태를 알아 보기 위해 me API 호출을 한다.
-	 */
-	protected void KakaorequestMe() {
+
+	protected void kakaoRequestMe() {
 		UserManagement.requestMe(new MeResponseCallback() {
 			@Override
 			public void onFailure(ErrorResult errorResult) {
@@ -169,12 +169,35 @@ public class IntroActivity extends BaseFragmentActivity {
 
 			@Override
 			public void onSuccess(UserProfile userProfile) {
-				// 푸지 회원인지 확인 후 로그인 (checkKakao)
+				checkUser();
+				if(tempId != null) {
+
+				} else {
+					AUTO_LOGIN = false;
+				}
 			}
 
 			@Override
 			public void onNotSignedUp() {
+				AUTO_LOGIN = false;
 				// 카톡 회원이 아닐 경우
+			}
+		});
+	}
+
+	public void checkUser() {
+		String uuid = getDevicesUUID(getApplicationContext());
+
+		final UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
+		Call<ResponseVO> call = userNetworkService.checkKakao(uuid);
+		call.enqueue(new CustomCallback<ResponseVO>(this) {
+			@Override
+			public void onSuccess(ResponseVO responseVO) {
+				isKakao = responseVO.getValue("registered", boolean.class);
+
+				if(isKakao) {
+					tempId = responseVO.getString("tempId");
+				}
 			}
 		});
 	}
