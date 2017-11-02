@@ -35,34 +35,18 @@
         android:layout_width="156dp"
         android:layout_height="200dp">
 
-        <FrameLayout
+        <com.joooonho.SelectableRoundedImageView
+          xmlns:app="http://schemas.android.com/apk/res-auto"
+          app:sriv_right_top_corner_radius="5dp"
+          app:sriv_right_bottom_corner_radius="5dp"
+          app:sriv_left_top_corner_radius="5dp"
+          app:sriv_left_bottom_corner_radius="5dp"
+          app:sriv_oval="false"
           android:layout_width="match_parent"
-          android:layout_height="104dp">
-
-          <com.joooonho.SelectableRoundedImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            app:sriv_right_top_corner_radius="5dp"
-            app:sriv_right_bottom_corner_radius="5dp"
-            app:sriv_left_top_corner_radius="5dp"
-            app:sriv_left_bottom_corner_radius="5dp"
-            app:sriv_oval="false"
-            android:layout_width="match_parent"
-            android:layout_height="104dp"
-            android:scaleType="centerCrop"
-            android:id="@+id/ibtn_coupon_1"
-            android:background="#00000000"/>
-
-          <ImageView
-            android:id="@+id/iv_coupon_used_1"
-            android:src="@drawable/conrirm_icon"
-            android:visibility="invisible"
-            android:layout_marginTop="1dp"
-            android:layout_marginRight="1dp"
-            android:layout_gravity="right"
-            android:layout_width="48dp"
-            android:layout_height="48dp"/>
-
-        </FrameLayout>
+          android:layout_height="104dp"
+          android:scaleType="centerCrop"
+          android:id="@+id/ibtn_coupon_1"
+          android:background="#00000000"/>
 
         <TextView
           android:text="title"
@@ -121,34 +105,18 @@
         android:layout_width="156dp"
         android:layout_height="200dp">
 
-        <FrameLayout
+        <com.joooonho.SelectableRoundedImageView
+          xmlns:app="http://schemas.android.com/apk/res-auto"
+          app:sriv_right_top_corner_radius="5dp"
+          app:sriv_right_bottom_corner_radius="5dp"
+          app:sriv_left_top_corner_radius="5dp"
+          app:sriv_left_bottom_corner_radius="5dp"
+          app:sriv_oval="false"
           android:layout_width="match_parent"
-          android:layout_height="104dp">
-
-          <com.joooonho.SelectableRoundedImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            app:sriv_right_top_corner_radius="5dp"
-            app:sriv_right_bottom_corner_radius="5dp"
-            app:sriv_left_top_corner_radius="5dp"
-            app:sriv_left_bottom_corner_radius="5dp"
-            app:sriv_oval="false"
-            android:layout_width="match_parent"
-            android:layout_height="104dp"
-            android:scaleType="centerCrop"
-            android:id="@+id/ibtn_coupon_2"
-            android:background="#00000000"/>
-
-          <ImageView
-            android:id="@+id/iv_coupon_used_2"
-            android:src="@drawable/conrirm_icon"
-            android:visibility="invisible"
-            android:layout_marginTop="1dp"
-            android:layout_marginRight="1dp"
-            android:layout_gravity="right"
-            android:layout_width="48dp"
-            android:layout_height="48dp"/>
-
-        </FrameLayout>
+          android:layout_height="104dp"
+          android:scaleType="centerCrop"
+          android:id="@+id/ibtn_coupon_2"
+          android:background="#00000000"/>
 
         <TextView
           android:text="title"

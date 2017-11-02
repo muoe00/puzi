@@ -45,6 +45,8 @@ public class IntroActivity extends BaseFragmentActivity {
 
 	private SessionCallback mKakaocallback;
 
+	private String tokenFCM = null;
+	private String uuid = null;
 	private String tempId = null;
 	private long backKeyPressedTime;
 	private boolean AUTO_LOGIN = false;
@@ -66,6 +68,11 @@ public class IntroActivity extends BaseFragmentActivity {
 		getAppKeyHash();
 		autoLogin();
 
+		FirebaseInstanceId.getInstance().getToken();
+		tokenFCM = FirebaseInstanceId.getInstance().getToken();
+		Log.i(PuziUtils.INFO, "FCM_Token : " + tokenFCM);
+		Preference.addProperty(IntroActivity.this, "tokenFCM", tokenFCM);
+
 		new Handler(){
 			@Override
 			public void handleMessage(Message message){
@@ -83,45 +90,47 @@ public class IntroActivity extends BaseFragmentActivity {
 	}
 
 	public void autoLogin() {
-		FirebaseInstanceId.getInstance().getToken();
-		String tokenFCM = FirebaseInstanceId.getInstance().getToken();
-		Log.i(PuziUtils.INFO, "FCM_Token : " + tokenFCM);
-		Preference.addProperty(IntroActivity.this, "tokenFCM", tokenFCM);
 
 		final String autoId = Preference.getProperty(this, "id");
 		final String autoPw = Preference.getProperty(this, "passwd");
 
 		// 메인 화면으로 갈지(자동로그인 성공), 로그인 화면으로 갈지(자동로그인 실패) 결정 (변수 : auto_login)
 		if(autoId != null && autoPw != null) {
-			UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
-
-			Call<ResponseVO> call = userNetworkService.login(autoId, EncryptUtils.sha256(autoPw), tokenFCM, "A", "");
-			call.enqueue(new CustomCallback<ResponseVO>(this) {
-				@Override
-				public void onSuccess(ResponseVO responseVO) {
-
-					ProgressDialog.dismiss();
-					ResultType resultCode = responseVO.getResultType();
-
-					switch(resultCode){
-						case SUCCESS:
-							Log.i("INFO", "AUTO LOGIN SUCCESS");
-							AUTO_LOGIN = true;
-							String token = responseVO.getString("token");
-							if(token != null) {
-								Log.i("INFO", "AUTO TOKEN : " + token);
-								Preference.addProperty(IntroActivity.this, "token", token);
-							}
-							break;
-						case LOGIN_FAIL:
-							isKakaoLogin();
-							break;
-						default:
-							break;
-					}
-				}
-			});
+			login(autoId, EncryptUtils.sha256(autoPw), tokenFCM, "");
 		}
+	}
+
+	public void login(final String id, final String pw, String notifyId, String phoneKey) {
+		UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
+
+		Call<ResponseVO> call = userNetworkService.login(id, pw, notifyId, "A", phoneKey);
+		call.enqueue(new CustomCallback<ResponseVO>(this) {
+			@Override
+			public void onSuccess(ResponseVO responseVO) {
+
+				ProgressDialog.dismiss();
+				ResultType resultCode = responseVO.getResultType();
+
+				switch(resultCode){
+					case SUCCESS:
+						Log.i("INFO", "AUTO LOGIN SUCCESS");
+						AUTO_LOGIN = true;
+						String token = responseVO.getString("token");
+						if(token != null) {
+							Log.i("INFO", "AUTO TOKEN : " + token);
+							Preference.addProperty(getActivity(), "id", id);
+							Preference.addProperty(getActivity(), "passwd", pw);
+							Preference.addProperty(getActivity(), "token", token);
+						}
+						break;
+					case LOGIN_FAIL:
+						isKakaoLogin();
+						break;
+					default:
+						break;
+				}
+			}
+		});
 	}
 
 	public void isKakaoLogin() {
@@ -171,7 +180,7 @@ public class IntroActivity extends BaseFragmentActivity {
 			public void onSuccess(UserProfile userProfile) {
 				checkUser();
 				if(tempId != null) {
-
+					login(tempId, uuid, tokenFCM, "");
 				} else {
 					AUTO_LOGIN = false;
 				}
@@ -186,7 +195,7 @@ public class IntroActivity extends BaseFragmentActivity {
 	}
 
 	public void checkUser() {
-		String uuid = getDevicesUUID(getApplicationContext());
+		uuid = getDevicesUUID(getApplicationContext());
 
 		final UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
 		Call<ResponseVO> call = userNetworkService.checkKakao(uuid);

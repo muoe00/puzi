@@ -1,8 +1,6 @@
 package com.puzi.puzi.ui.store.coupon;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,19 +17,13 @@ import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import com.puzi.puzi.biz.company.CompanyVO;
 import com.puzi.puzi.biz.store.PurchaseHistoryVO;
 import com.puzi.puzi.image.BitmapUIL;
-import com.puzi.puzi.ui.advertisement.AdvertisementDetailActivity;
-import com.puzi.puzi.ui.company.CompanyActivity;
 import com.puzi.puzi.utils.PuziUtils;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by 170605 on 2017-10-27.
- */
-
-public class CouponListAdapter extends BaseAdapter {
+public class UsedCouponListAdapter extends BaseAdapter {
 
 	private static final int VIEW_COUPON = 0;
 	private static final int VIEW_EMPTY = 1;
@@ -188,5 +180,4 @@ public class CouponListAdapter extends BaseAdapter {
 			ButterKnife.bind(this, view);
 		}
 	}
-
 }
