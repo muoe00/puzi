@@ -36,7 +36,7 @@ public class UsedCouponListAdapter extends BaseAdapter {
 	private boolean progressed = false;
 	private boolean empty = false;
 
-	public CouponListAdapter(Activity activity) {
+	public UsedCouponListAdapter(Activity activity) {
 		this.activity = activity;
 		this.inflater = activity.getLayoutInflater();
 	}
@@ -149,7 +149,7 @@ public class UsedCouponListAdapter extends BaseAdapter {
 				Log.i(PuziUtils.INFO, "adapter.getSaved() : " + receivedAdvertise.getSaved());
 				Log.i(PuziUtils.INFO, "adapter.getToday() : " + receivedAdvertise.getToday());
 
-				viewHolder.btnAd.setOnClickListener(new View.OnClickListener() {
+				/*viewHolder.btnAd.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						changedDetail(receivedAdvertise);
@@ -161,7 +161,7 @@ public class UsedCouponListAdapter extends BaseAdapter {
 					public void onClick(View v) {
 						changedCompany(company);
 					}
-				});
+				});*/
 				break;
 		}
 

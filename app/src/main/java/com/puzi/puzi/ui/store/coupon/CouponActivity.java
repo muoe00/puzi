@@ -1,31 +1,21 @@
 package com.puzi.puzi.ui.store.coupon;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.AbsListView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.store.PurchaseHistoryVO;
-import com.puzi.puzi.cache.Preference;
-import com.puzi.puzi.network.CustomCallback;
-import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
-import com.puzi.puzi.network.service.StoreNetworkService;
 import com.puzi.puzi.ui.base.BaseActivity;
-import com.puzi.puzi.utils.PuziUtils;
-import retrofit2.Call;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.firebase.analytics.FirebaseAnalytics.Param.COUPON;
-import static com.puzi.puzi.biz.store.CouponStatusType.*;
+import static com.puzi.puzi.biz.store.CouponStatusType.NOT_USE;
+import static com.puzi.puzi.biz.store.CouponStatusType.USED;
 
 /**
  * Created by muoe0 on 2017-08-06.
@@ -54,7 +44,7 @@ public class CouponActivity extends BaseActivity {
 		unbinder = ButterKnife.bind(this);
 
 		initAdapter();
-		getCouponList();
+		// getCouponList();
 		initScrollAction();
 
 	}
@@ -76,7 +66,7 @@ public class CouponActivity extends BaseActivity {
 		couponListAdapter.addList(usedCouponList);
 	}
 
-	public void getCouponList() {
+	/*public void getCouponList() {
 		couponListAdapter.startProgress();
 		usedCouponListAdapter.startProgress();
 		lvCoupon.setSelection(listAdapter.getCount() - 1);
@@ -130,7 +120,7 @@ public class CouponActivity extends BaseActivity {
 				}
 			}
 		});
-	}
+	} */
 
 	private void initScrollAction() {
 		lvCoupon.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -140,7 +130,7 @@ public class CouponActivity extends BaseActivity {
 				if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastestScrollFlag) {
 					if(more) {
 						pagingIndex = pagingIndex + 1;
-						getCouponList();
+						// getCouponList();
 					}
 				}
 			}
@@ -158,7 +148,7 @@ public class CouponActivity extends BaseActivity {
 
 		couponListAdapter = new CouponListAdapter(this);
 		usedCouponListAdapter = new CouponListAdapter(this);
-		listAdapter.addSection(NOT_USE.getCommnet(), couponListAdapter);
+		listAdapter.addSection(NOT_USE.getComment(), couponListAdapter);
 		listAdapter.addSection(USED.getComment(), usedCouponListAdapter);
 	}
 

@@ -1,8 +1,6 @@
 package com.puzi.puzi.ui.store.coupon;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +17,6 @@ import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import com.puzi.puzi.biz.company.CompanyVO;
 import com.puzi.puzi.biz.store.PurchaseHistoryVO;
 import com.puzi.puzi.image.BitmapUIL;
-import com.puzi.puzi.ui.advertisement.AdvertisementDetailActivity;
-import com.puzi.puzi.ui.company.CompanyActivity;
 import com.puzi.puzi.utils.PuziUtils;
 import lombok.Getter;
 
@@ -160,17 +156,17 @@ public class CouponListAdapter extends BaseAdapter {
 				viewHolder.btnAd.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						changedDetail(receivedAdvertise);
+						// changedDetail(receivedAdvertise);
 					}
 				});
 
-				viewHolder.ivComp.setOnClickListener(new View.OnClickListener() {
+				/*viewHolder.ivComp.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						changedCompany(company);
 					}
 				});
-				break;
+				*/break;
 		}
 
 		return v;
