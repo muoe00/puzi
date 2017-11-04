@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+  <LinearLayout
+    android:orientation="horizontal"
+    android:layout_margin="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="40dp">
+
+    <com.joooonho.SelectableRoundedImageView
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      app:sriv_right_top_corner_radius="20dp"
+      app:sriv_right_bottom_corner_radius="20dp"
+      app:sriv_left_top_corner_radius="20dp"
+      app:sriv_left_bottom_corner_radius="20dp"
+      android:scaleType="centerCrop"
+      app:sriv_oval="false"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:src="@drawable/active_icon"
+      android:background="#00000000"
+      android:id="@+id/ibtn_block_company_preview"/>
+
+
+    <TextView
+      android:text=""
+      android:layout_marginLeft="10dp"
+      android:layout_gravity="center_vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/tv_block_company_name"
+      android:layout_weight="1"/>
+
+    <ImageButton
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:src="@drawable/delete_btn_copy_3"
+      android:background="#00000000"
+      android:id="@+id/ibtn_block_company_remove"/>
+
+  </LinearLayout>
+
+</LinearLayout>

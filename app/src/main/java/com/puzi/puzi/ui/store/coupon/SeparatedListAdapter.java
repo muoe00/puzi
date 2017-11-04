@@ -81,22 +81,9 @@ public class SeparatedListAdapter extends BaseAdapter {
     public boolean isEnabled(int position) {
         return (getItemViewType(position) != TYPE_SECTION_HEADER);
     }
-    
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        int sectionnum = 0;
-        for(Object section : this.sections.keySet()) {
-            Adapter adapter = sections.get(section);
-            int size = adapter.getCount() + 1;
-            
-            // check if position inside this section 
-            if(position == 0) return headers.getView(sectionnum, convertView, parent); // this is where your header names will get bind. correctly. 
-            if(position < size) return adapter.getView(position - 1, convertView, parent);
-
-            // otherwise jump into next section
-            position -= size;
-            sectionnum++;
-        }
         return null;
     }
 
@@ -105,4 +92,6 @@ public class SeparatedListAdapter extends BaseAdapter {
         return position;
     }
 
+    public void empty() {
+    }
 }

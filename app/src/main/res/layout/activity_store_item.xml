@@ -12,7 +12,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:background="@color/colorWhite"
-    android:layout_height="50dp">
+    android:layout_height="54dp">
 
     <ImageButton
       android:paddingRight="17dp"
@@ -23,11 +23,11 @@
       android:layout_height="match_parent"
       android:background="#00000000"
       android:src="@drawable/back"
-      android:id="@+id/btn_back_profile"
+      android:id="@+id/btn_store_item_back"
       android:backgroundTint="#000000"/>
 
     <TextView
-      android:id="@+id/tv_title_companyName"
+      android:id="@+id/tv_store_item_title"
       android:gravity="center"
       android:layout_marginEnd="37dp"
       android:textSize="20sp"
@@ -46,7 +46,7 @@
   <LinearLayout
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="53dp">
+    android:layout_height="wrap_content">
 
     <ImageView
       android:layout_width="37dp"
@@ -54,7 +54,7 @@
       android:layout_marginStart="16dp"
       android:layout_marginTop="16dp"
       android:src="@drawable/button_puzi"
-      android:id="@+id/imageView"/>
+      android:id="@+id/iv_store_item_logo"/>
 
     <TextView
       android:text="TextView"
@@ -64,12 +64,24 @@
       android:layout_height="wrap_content"
       android:textSize="16sp"
       android:textColor="#333333"
-      android:id="@+id/textView6"/>
+      android:id="@+id/tv_store_item_name"/>
 
   </LinearLayout>
 
-  <ListView
+  <GridView
+    android:id="@+id/gv_store_item"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:numColumns="2"
+    android:scrollbars="none"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="wrap_content"/>
+
+  <ProgressBar
+    style="?android:attr/progressBarStyle"
+    android:layout_gravity="center_horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/tv_store_item_progressBar"/>
 
 </LinearLayout>

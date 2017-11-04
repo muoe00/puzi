@@ -36,14 +36,13 @@ public interface SettingNetworkService {
 
 	@FormUrlEncoded
 	@POST("/setting/reject/company")
-	Call<ResponseVO> company(@Header("token") String token,
+	Call<ResponseVO> blockCompany(@Header("token") String token,
 		@Field("add") boolean add,
 		@Field("companyId") int companyId);
 
-	@FormUrlEncoded
-	@POST("/v2/setting/reject/company/list")
-	Call<ResponseVO> companyList(@Header("token") String token,
-		@Field("pagingIndex") int pagingIndex);
+	@GET("/v2/setting/reject/company/list")
+	Call<ResponseVO> blockedCompanyList(@Header("token") String token,
+		@Query("pagingIndex") int pagingIndex);
 
 	@FormUrlEncoded
 	@POST("/setting/center/ask")

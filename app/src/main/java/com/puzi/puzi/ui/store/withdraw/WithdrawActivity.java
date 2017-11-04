@@ -9,7 +9,6 @@ import com.puzi.puzi.ui.base.BaseActivity;
 /**
  * Created by muoe0 on 2017-07-30.
  */
-
 public class WithdrawActivity extends BaseActivity {
 
 	private ImageButton btnBack;

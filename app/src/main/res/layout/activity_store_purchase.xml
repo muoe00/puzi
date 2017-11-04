@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+      android:layout_marginBottom="55dp"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- 상단바 -->
+        <LinearLayout
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:background="@color/colorWhite"
+          android:layout_height="54dp">
+
+          <ImageButton
+            android:paddingRight="17dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="12.5dp"
+            android:paddingBottom="12.5dp"
+            android:layout_width="37dp"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:src="@drawable/back"
+            android:id="@+id/btn_store_purchase_back"
+            android:backgroundTint="#000000"/>
+
+          <TextView
+            android:id="@+id/tv_store_purchase_title"
+            android:gravity="center"
+            android:layout_marginEnd="37dp"
+            android:textSize="20sp"
+            android:textColor="#333333"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:background="#dadada"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"/>
+
+        <LinearLayout
+          android:orientation="vertical"
+          android:background="@color/colorWhite"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+          <ImageView
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="27dp"
+            android:layout_marginBottom="19dp"
+            android:layout_width="165dp"
+            android:layout_height="226dp"
+            android:src="@mipmap/home"
+            android:id="@+id/iv_store_purchase_preview"/>
+
+          <LinearLayout
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="13dp"
+            android:background="#ff2470"
+            android:layout_width="100dp"
+            android:layout_height="3dp">
+          </LinearLayout>
+
+          <TextView
+            android:text="TextView"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="21sp"
+            android:textColor="#333333"
+            android:gravity="center_horizontal"
+            android:id="@+id/tv_store_purchase_name"/>
+
+          <TextView
+            android:text="TextView"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="17dp"
+            android:id="@+id/tv_store_purchase_price"/>
+
+          <Spinner
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginBottom="17dp"
+            android:id="@+id/sp_store_purchase_count"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:background="#fafafa"
+          android:layout_width="match_parent"
+          android:layout_height="10dp">
+        </LinearLayout>
+
+        <LinearLayout
+          android:orientation="vertical"
+          android:background="@color/colorWhite"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+          <LinearLayout
+            android:layout_marginTop="23dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+              android:text="상품설명"
+              android:layout_width="52dp"
+              android:layout_height="wrap_content"
+              android:layout_marginRight="13dp"
+              android:textSize="14sp"
+              android:textColor="#6d6d6d"
+              android:id="@+id/textView10"/>
+
+            <TextView
+              android:text="text"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:textSize="12sp"
+              android:textColor="#6d6d6d"
+              android:id="@+id/tv_store_purchase_comment"
+              android:layout_weight="1"/>
+
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_marginTop="14dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="23dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+              android:text="유효기간"
+              android:layout_width="52dp"
+              android:layout_height="wrap_content"
+              android:layout_marginRight="13dp"
+              android:textSize="14sp"
+              android:textColor="#6d6d6d"
+              android:id="@+id/textView10"/>
+
+            <TextView
+              android:text="TextView"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:textSize="12sp"
+              android:textColor="#6d6d6d"
+              android:id="@+id/tv_store_purchase_expiryDay"
+              android:layout_weight="1"/>
+
+          </LinearLayout>
+
+        </LinearLayout>
+
+      </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+      android:layout_gravity="bottom"
+      android:background="@color/colorPuzi"
+      android:text="구매하기"
+      android:layout_width="match_parent"
+      android:layout_height="55dp"
+      android:textSize="16sp"
+      android:textColor="#ffffff"
+      android:id="@+id/btn_store_purchase"/>
+
+  </FrameLayout>
+
+
+</LinearLayout>

@@ -14,7 +14,6 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
@@ -124,7 +123,7 @@ public class IntroActivity extends BaseFragmentActivity {
 						}
 						break;
 					case LOGIN_FAIL:
-						isKakaoLogin();
+//						isKakaoLogin();
 						break;
 					default:
 						break;
@@ -135,10 +134,10 @@ public class IntroActivity extends BaseFragmentActivity {
 
 	public void isKakaoLogin() {
 		// 카카오 세션을 오픈한다
-		mKakaocallback = new SessionCallback();
-		com.kakao.auth.Session.getCurrentSession().addCallback(mKakaocallback);
-		com.kakao.auth.Session.getCurrentSession().checkAndImplicitOpen();
-		com.kakao.auth.Session.getCurrentSession().open(AuthType.KAKAO_TALK_EXCLUDE_NATIVE_LOGIN, IntroActivity.this);
+//		mKakaocallback = new SessionCallback();
+//		com.kakao.auth.Session.getCurrentSession().addCallback(mKakaocallback);
+//		com.kakao.auth.Session.getCurrentSession().checkAndImplicitOpen();
+//		com.kakao.auth.Session.getCurrentSession().open(AuthType.KAKAO_TALK_EXCLUDE_NATIVE_LOGIN, IntroActivity.this);
 	}
 
 	private class SessionCallback implements ISessionCallback {

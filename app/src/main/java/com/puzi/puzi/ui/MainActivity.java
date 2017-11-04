@@ -28,6 +28,7 @@ import com.puzi.puzi.ui.store.coupon.CouponActivity;
 import com.puzi.puzi.ui.user.PointActivity;
 import com.puzi.puzi.ui.user.RecommendActivity;
 import com.puzi.puzi.utils.PuziUtils;
+import com.puzi.puzi.utils.TextUtils;
 import retrofit2.Call;
 
 import java.lang.reflect.Type;
@@ -109,15 +110,8 @@ public class MainActivity extends BaseFragmentActivity {
 						userVO = responseVO.getValue("userInfoDTO", UserVO.class);
 						Log.i("INFO", "HomeFragment main / userVO : " + userVO.toString());
 
-						NumberFormat numberFormat = NumberFormat.getInstance();
-
-						int point = userVO.getPoint();
-						String resultPoint = numberFormat.format(point);
-						tvPoint.setText(resultPoint);
-
-						int todayPoint = userVO.getTodayPoint();
-						String resultTodayPoint = numberFormat.format(todayPoint);
-						tvTodayPoint.setText(resultTodayPoint);
+						tvPoint.setText(TextUtils.addComma(userVO.getPoint()));
+						tvTodayPoint.setText(TextUtils.addComma(userVO.getTodayPoint()));
 						break;
 
 					default:

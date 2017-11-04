@@ -1,7 +1,6 @@
 package com.puzi.puzi.ui.store;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +62,6 @@ public class StoreFragment extends BaseFragment {
 			public void onSuccess(ResponseVO responseVO) {
 				if(responseVO.getResultType().isSuccess()) {
 					List<StoreVO> storeList = responseVO.getList("storeDTOList", StoreVO.class);
-					Log.i("TAG", "+++ storeDTOList : " + storeList.toString());
 					adapter.addList(storeList);
 					adapter.notifyDataSetChanged();
 				}

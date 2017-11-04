@@ -36,7 +36,7 @@ public class UsedCouponListAdapter extends BaseAdapter {
 	private boolean progressed = false;
 	private boolean empty = false;
 
-	public CouponListAdapter(Activity activity) {
+	public UsedCouponListAdapter(Activity activity) {
 		this.activity = activity;
 		this.inflater = activity.getLayoutInflater();
 	}
@@ -152,14 +152,14 @@ public class UsedCouponListAdapter extends BaseAdapter {
 				viewHolder.btnAd.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						changedDetail(receivedAdvertise);
+//						changedDetail(receivedAdvertise);
 					}
 				});
 
 				viewHolder.ivComp.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						changedCompany(company);
+//						changedCompany(company);
 					}
 				});
 				break;

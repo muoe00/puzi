@@ -12,6 +12,7 @@ import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
+import com.puzi.puzi.ui.setting.blockcompany.BlockCompanyFragment;
 import com.puzi.puzi.utils.PuziUtils;
 
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class SettingDetailActivity extends BaseFragmentActivity {
 				break;
 			case 4:
 				setTitle("수신 거부 관리");
-				fragment = new BlockFragment();
+				fragment = new BlockCompanyFragment();
 				break;
 			case 5:
 				setTitle("고객센터");

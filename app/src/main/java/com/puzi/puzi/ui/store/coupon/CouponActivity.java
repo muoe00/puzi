@@ -3,7 +3,6 @@ package com.puzi.puzi.ui.store.coupon;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.AbsListView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import butterknife.BindView;
@@ -24,8 +23,8 @@ import retrofit2.Call;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.firebase.analytics.FirebaseAnalytics.Param.COUPON;
-import static com.puzi.puzi.biz.store.CouponStatusType.*;
+import static com.puzi.puzi.biz.store.CouponStatusType.NOT_USE;
+import static com.puzi.puzi.biz.store.CouponStatusType.USED;
 
 /**
  * Created by muoe0 on 2017-08-06.
@@ -86,7 +85,7 @@ public class CouponActivity extends BaseActivity {
 		final StoreNetworkService storeNetworkService = RetrofitManager.create(StoreNetworkService.class);
 
 		Call<ResponseVO> callList = storeNetworkService.purchaseHistory(token, pagingIndex);
-		callList.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+		callList.enqueue(new CustomCallback<ResponseVO>(CouponActivity.this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				Log.i("INFO", "coupon responseVO : " + responseVO.toString());
@@ -125,7 +124,7 @@ public class CouponActivity extends BaseActivity {
 
 					default:
 						Log.i("INFO", "getCouponList failed.");
-						Toast.makeText(this, responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
+						Toast.makeText(CouponActivity.this, responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
 						break;
 				}
 			}
@@ -158,7 +157,7 @@ public class CouponActivity extends BaseActivity {
 
 		couponListAdapter = new CouponListAdapter(this);
 		usedCouponListAdapter = new CouponListAdapter(this);
-		listAdapter.addSection(NOT_USE.getCommnet(), couponListAdapter);
+		listAdapter.addSection(NOT_USE.getComment(), couponListAdapter);
 		listAdapter.addSection(USED.getComment(), usedCouponListAdapter);
 	}
 

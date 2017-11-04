@@ -247,7 +247,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 		SettingNetworkService settingNetworkService = RetrofitManager.create(SettingNetworkService.class);
 		String token = Preference.getProperty(CompanyActivity.this, "token");
 
-		Call<ResponseVO> call = settingNetworkService.company(token, isBlock, companyId);
+		Call<ResponseVO> call = settingNetworkService.blockCompany(token, isBlock, companyId);
 		call.enqueue(new CustomCallback<ResponseVO>(CompanyActivity.this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {

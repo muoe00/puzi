@@ -16,6 +16,7 @@ import com.puzi.puzi.R;
 import com.puzi.puzi.biz.store.StoreType;
 import com.puzi.puzi.biz.store.StoreVO;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
+import com.puzi.puzi.ui.store.item.StoreItemActivity;
 
 import java.util.List;
 import java.util.Map;
