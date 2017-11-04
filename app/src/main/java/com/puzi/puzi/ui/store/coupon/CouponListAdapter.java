@@ -156,17 +156,17 @@ public class CouponListAdapter extends BaseAdapter {
 				viewHolder.btnAd.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-//						changedDetail(receivedAdvertise);
+						// changedDetail(receivedAdvertise);
 					}
 				});
 
-				viewHolder.ivComp.setOnClickListener(new View.OnClickListener() {
+				/*viewHolder.ivComp.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-//						changedCompany(company);
+						changedCompany(company);
 					}
 				});
-				break;
+				*/break;
 		}
 
 		return v;
