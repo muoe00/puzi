@@ -142,14 +142,16 @@ public class WithdrawActivity extends BaseActivity {
 					@Override
 					public void onSuccess(ResponseVO responseVO) {
 
-						ProgressDialog.dismiss();
-
 						if (responseVO.getResultType().isSuccess()) {
 							WithdrawVO withdrawVO = new WithdrawVO();
 							withdrawVO.setCreatedAt(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 							withdrawVO.setMoney(money);
 							adapter.addOne(withdrawVO);
-							Preference.getMyInfo(WithdrawActivity.this).setPoint(Preference.getMyInfo(WithdrawActivity.this).getPoint() - money);
+
+							UserVO myInfo = Preference.getMyInfo(WithdrawActivity.this);
+							myInfo.setPoint(myInfo.getPoint() - money);
+							Preference.saveMyInfo(WithdrawActivity.this, myInfo);
+
 							Toast.makeText(WithdrawActivity.this, "출금요청이 완료되었습니다.", Toast.LENGTH_SHORT).show();
 						}
 					}

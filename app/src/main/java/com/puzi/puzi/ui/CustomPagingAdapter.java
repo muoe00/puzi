@@ -1,7 +1,6 @@
 package com.puzi.puzi.ui;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +34,7 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 	protected Activity activity;
 	protected int layoutResource;
 	protected ListView listView;
+	protected GridView gridView;
 	protected ScrollView scrollView;
 	protected ListHandler listHandler;
 	private boolean lastestScrollFlag = false;
@@ -66,8 +66,22 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 		init();
 	}
 
+	public CustomPagingAdapter(Activity activity, int layoutResource, GridView gridView, ScrollView scrollView, ListHandler listHandler) {
+		this.activity = activity;
+		this.inflater = activity.getLayoutInflater();
+		this.layoutResource = layoutResource;
+		this.gridView = gridView;
+		this.scrollView = scrollView;
+		this.listHandler =listHandler;
+		init();
+	}
+
 	protected void init() {
-		this.listView.setAdapter(this);
+		if(this.listView != null) {
+			this.listView.setAdapter(this);
+		} else {
+			this.gridView.setAdapter(this);
+		}
 
 		if(scrollView != null) {
 			scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
@@ -82,8 +96,25 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 					}
 				}
 			});
-		} else {
+		} else if (listView != null) {
 			listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+				@Override
+				public void onScrollStateChanged(AbsListView view, int scrollState) {
+					if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastestScrollFlag) {
+						if(more && !progressed) {
+							getList();
+						}
+					}
+				}
+
+				@Override
+				public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+					lastestScrollFlag = (totalItemCount > 0) && firstVisibleItem + visibleItemCount >= totalItemCount;
+				}
+			});
+		} else {
+			gridView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
 				@Override
 				public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -106,7 +137,6 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 		if((list == null || list.size() == 0) && this.list.size() == 0) {
 			empty = true;
 			notifyDataSetChanged();
-			Log.d("TAG", "+++ EMPTY");
 			return;
 		}
 		if(empty && list.size() > 0) {
@@ -178,8 +208,10 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 					scrollView.fullScroll(View.FOCUS_DOWN);
 				}
 			});
-		} else {
+		} else if(listView != null) {
 			listView.setSelection(getCount() - 1);
+		} else {
+			gridView.setSelection(getCount() - 1);
 		}
 	}
 
@@ -236,9 +268,6 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 		EmptyHolder emptyHolder = null;
 		int viewType = getItemViewType(position);
 
-		Log.d("CustomPagingAdapter", "+++ position : " + position);
-		Log.d("CustomPagingAdapter", "+++ viewType : " + viewType);
-
 		if(v == null) {
 			switch(viewType) {
 				case VIEW_LIST:
@@ -254,7 +283,12 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 					break;
 
 				case VIEW_PROGRESS:
-					v = inflater.inflate(R.layout.item_custom_adapter_progress, null);
+					if(listView != null) {
+						v = inflater.inflate(R.layout.item_custom_adapter_progress, null);
+					} else {
+						v = inflater.inflate(R.layout.item_empty, null);
+					}
+
 					break;
 			}
 		} else {
@@ -286,6 +320,11 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 
 	protected abstract Holder createHolder(View v);
 
+	public void clean() {
+		initPagingIndex();
+		list = newArrayList();
+	}
+
 	protected abstract class Holder {
 		public Holder(View view) {
 			ButterKnife.bind(this, view);
@@ -304,8 +343,12 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 	@Override
 	public void notifyDataSetChanged() {
 		super.notifyDataSetChanged();
-		if(scrollView != null) {
+		if(scrollView != null && listView != null) {
 			setListViewHeightBasedOnChildren();
+			return;
+		}
+		if(scrollView != null && gridView != null) {
+			setGridViewHeightBasedOnChildren();
 		}
 	}
 
@@ -329,6 +372,24 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 		params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
 		listView.setLayoutParams(params);
 		listView.requestLayout();
+	}
+
+	private void setGridViewHeightBasedOnChildren() {
+		ListAdapter listAdapter = this;
+
+		int totalHeight = 0;
+		int desiredWidth = View.MeasureSpec.makeMeasureSpec(gridView.getWidth(), View.MeasureSpec.AT_MOST);
+
+		for (int i = 0; i < listAdapter.getCount(); i++) {
+			View listItem = listAdapter.getView(i, null, gridView);
+			listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+			totalHeight += listItem.getMeasuredHeight();
+		}
+
+		ViewGroup.LayoutParams params = gridView.getLayoutParams();
+		params.height = totalHeight / 2;
+		gridView.setLayoutParams(params);
+		gridView.requestLayout();
 	}
 
 	public interface ListHandler {
