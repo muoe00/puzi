@@ -10,10 +10,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import butterknife.*;
 import com.puzi.puzi.R;
 import com.puzi.puzi.cache.Preference;
@@ -41,7 +38,7 @@ public class LoginFragment extends BaseFragment {
 	@BindView(R.id.login_et_id) public EditText etId;
 	@BindView(R.id.edit_login_pw) public EditText etPwd;
 	@BindView(R.id.login_btn) public Button btnLogin;
-	@BindView(R.id.kakao_login_btn) public Button btnKakao;
+	@BindView(R.id.ibtn_back_login) public ImageButton ibtnBack;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		View view = inflater.inflate(R.layout.fragment_login, container, false);
@@ -58,7 +55,6 @@ public class LoginFragment extends BaseFragment {
 		etId.startAnimation(animation1);
 		etPwd.startAnimation(animation2);
 		btnLogin.startAnimation(animation3);
-		btnKakao.startAnimation(animation3);
 	}
 
 	private boolean isValid(String id, String pwd) {
@@ -127,13 +123,10 @@ public class LoginFragment extends BaseFragment {
 		getActivity().finish();
 	}
 
-	@OnClick({R.id.btn_signup, R.id.btn_srch_id, R.id.btn_srch_pw})
+	@OnClick({R.id.btn_srch_id, R.id.btn_srch_pw})
 	public void changedFragment(View view) {
 		BaseFragment fragment = null;
 		switch (view.getId()) {
-			case R.id.btn_signup:
-				fragment = new SignupFragment();
-				break;
 			case R.id.btn_srch_id:
 				fragment = new SearchIdFragment();
 				break;
@@ -146,13 +139,7 @@ public class LoginFragment extends BaseFragment {
 		introActivity.addFragment(fragment);
 	}
 
-	@OnClick(R.id.kakao_login_btn)
-	public void kakaoLogin() {
-		IntroActivity introActivity = (IntroActivity) getActivity();
-		introActivity.isKakaoLogin();
-	}
-
-	@OnClick(R.id.rl_login)
+	@OnClick(R.id.ll_login)
 	public void layoutClick() {
 		closeInputKeyboard(etId);
 		closeInputKeyboard(etPwd);
@@ -164,6 +151,12 @@ public class LoginFragment extends BaseFragment {
 			login();
 		}
 		return false;
+	}
+
+	@OnClick(R.id.ibtn_back_login)
+	public void back() {
+		getActivity().onBackPressed();
+		layoutClick();
 	}
 
 	@Override

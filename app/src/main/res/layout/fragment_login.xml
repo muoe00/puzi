@@ -1,36 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:background="@null"
-              android:orientation="vertical" >
+              android:orientation="vertical">
 
-  <RelativeLayout
-    android:id="@+id/rl_login"
+  <FrameLayout
+    android:id="@+id/fl_signup"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="80dp">
+    android:layout_height="54dp">
 
-    <ImageView
-      android:layout_width="94dp"
-      android:layout_height="79dp"
-      android:id="@+id/ibtn_bi"
-      android:layout_alignParentTop="true"
-      android:layout_centerHorizontal="true"
-      android:layout_marginBottom="40dp"
-      android:layout_weight="0.20"
-      android:background="#00000000"
-      android:src="@drawable/puzi_bi"/>
+    <ImageButton
+      android:padding="16dp"
+      android:layout_gravity="left|center"
+      android:layout_width="50dp"
+      android:layout_height="match_parent"
+      android:background="@null"
+      android:src="@drawable/back"
+      android:id="@+id/ibtn_back_login"/>
+
+    <com.puzi.puzi.ui.customview.NotoTextView
+      app:fontWeight="medium"
+      android:text="로그인"
+      android:textSize="20sp"
+      android:textColor="#333333"
+      android:layout_gravity="center"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+  </FrameLayout>
+  
+  <LinearLayout
+    android:background="#DADADA"
+    android:layout_width="match_parent"
+    android:layout_height="1dp">
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:layout_marginTop="56dp"
+    android:id="@+id/ll_login"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <EditText
       android:background="@drawable/edittext"
       android:id="@+id/login_et_id"
       android:layout_width="match_parent"
-      android:layout_height="64dp"
+      android:layout_height="55dp"
       android:layout_below="@+id/ibtn_bi"
       android:layout_centerHorizontal="true"
-      android:layout_marginLeft="32dp"
-      android:layout_marginRight="32dp"
+      android:layout_marginLeft="30dp"
+      android:layout_marginRight="30dp"
       android:ems="10"
       android:maxLines="1"
       android:hint="아이디를 입력하세요"
@@ -46,9 +68,9 @@
       android:layout_height="64dp"
       android:layout_below="@+id/login_et_id"
       android:layout_centerHorizontal="true"
-      android:layout_marginLeft="32dp"
-      android:layout_marginRight="32dp"
-      android:layout_marginTop="14.5dp"
+      android:layout_marginLeft="30dp"
+      android:layout_marginRight="30dp"
+      android:layout_marginTop="8dp"
       android:ems="10"
       android:maxLines="1"
       android:hint="비밀번호를 입력하세요"
@@ -58,15 +80,15 @@
       android:textColor="@color/colorGray"
       android:textSize="13.5sp"/>
 
-    <Button
+    <com.puzi.puzi.ui.customview.NotoButton
       android:id="@+id/login_btn"
       android:layout_width="match_parent"
       android:layout_height="54dp"
       android:layout_below="@+id/edit_login_pw"
       android:layout_centerHorizontal="true"
-      android:layout_marginLeft="32dp"
-      android:layout_marginRight="32dp"
-      android:layout_marginTop="24dp"
+      android:layout_marginLeft="30dp"
+      android:layout_marginRight="30dp"
+      android:layout_marginTop="9dp"
       android:padding="0dp"
       android:ems="10"
       android:text="로그인"
@@ -74,41 +96,28 @@
       android:textColor="@color/colorWhite"
       android:background="@drawable/button_puzi"/>
 
-    <Button
-      android:id="@+id/kakao_login_btn"
-      android:layout_width="match_parent"
-      android:layout_height="54dp"
-      android:layout_below="@+id/login_btn"
-      android:textColor="@color/colorWhite"
-      android:background="@drawable/btn_kakao_login"
-      android:layout_marginLeft="32dp"
-      android:layout_marginRight="32dp"
-      android:layout_marginTop="8dp"
-      android:ems="10"
-      android:padding="0dp"/>
-
     <LinearLayout
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:layout_height="24dp"
-      android:layout_marginTop="35dp"
+      android:layout_marginTop="10dp"
       android:layout_marginLeft="32dp"
       android:layout_marginRight="32dp"
       android:orientation="horizontal"
-      android:gravity="center"
-      android:layout_below="@+id/kakao_login_btn">
+      android:layout_gravity="center">
 
-      <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+      <com.puzi.puzi.ui.customview.NotoButton
+        android:layout_width="79dp"
+        android:layout_height="match_parent"
         android:textSize="16sp"
         android:textColor="#6d6d6d"
         android:id="@+id/btn_srch_id"
         android:background="@null"
         android:ems="10"
-        android:text="아이디 찾기"
-        android:layout_weight="1"/>
+        android:text="아이디 찾기"/>
 
       <LinearLayout
+        android:layout_marginLeft="5.5dp"
+        android:layout_marginRight="5.5dp"
         android:layout_gravity="center"
         android:background="#DADADA"
         android:layout_width="1dp"
@@ -116,38 +125,17 @@
 
       </LinearLayout>
 
-      <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+      <com.puzi.puzi.ui.customview.NotoButton
+        android:layout_width="93dp"
+        android:layout_height="match_parent"
         android:textSize="16sp"
         android:textColor="#6d6d6d"
         android:id="@+id/btn_srch_pw"
         android:background="@null"
         android:ems="10"
-        android:text="비밀번호 찾기"
-        android:layout_weight="1"/>
-
-      <LinearLayout
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:background="#DADADA"
-        android:layout_width="1dp"
-        android:layout_height="16dp">
-
-      </LinearLayout>
-
-      <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="#6d6d6d"
-        android:id="@+id/btn_signup"
-        android:ems="10"
-        android:background="@null"
-        android:text="무료 회원가입"
-        android:layout_weight="1"/>
+        android:text="비밀번호 찾기"/>
 
     </LinearLayout>
-  </RelativeLayout>
+  </LinearLayout>
 
 </LinearLayout>

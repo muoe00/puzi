@@ -81,7 +81,7 @@ public class IntroActivity extends BaseFragmentActivity {
 					finish();
 				} else {
 					setContentView(R.layout.activity_intro);
-					fragment = new LoginFragment();
+					fragment = new IntroFragment();
 					addFragment(fragment);
 				}
 			}

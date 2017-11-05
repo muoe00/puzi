@@ -26,34 +26,19 @@
 
   <LinearLayout
     android:id="@+id/ll_main_bar"
-    android:orientation="horizontal"
     android:gravity="center"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
-
-    <FrameLayout
-      android:id="@+id/fl_revel"
-      android:layout_marginLeft="17dp"
-      android:layout_gravity="center_vertical"
-      android:layout_width="35dp"
-      android:layout_height="37dp">
-      <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/logo"
-        android:id="@+id/iv_rankImage"/>
-
-    </FrameLayout>
+    android:layout_height="60dp">
 
     <LinearLayout
-      android:layout_gravity="center_vertical"
+      android:layout_marginLeft="16dp"
+      android:layout_gravity="left|center"
       android:layout_weight="1"
       android:id="@+id/rl_point"
-      android:paddingLeft="4dp"
-      android:paddingRight="4dp"
       android:gravity="left"
       android:layout_width="match_parent"
-      android:layout_height="45dp">
+      android:layout_height="42dp">
 
       <FrameLayout
         android:layout_gravity="center_vertical"
@@ -61,48 +46,64 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
         <Button
-          android:layout_width="match_parent"
+          android:layout_width="wrap_content"
           android:layout_height="match_parent"
           android:id="@+id/btn_pointhistory"
           android:background="@null"/>
-        <TextView
-          android:gravity="center"
-          android:layout_gravity="center"
-          android:textSize="32sp"
-          android:textStyle="bold"
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="regular"
+          android:gravity="center_vertical"
+          android:layout_gravity="center_vertical"
+          android:textSize="25sp"
           android:textColor="#000000"
           android:text="0"
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
-          android:id="@+id/tv_point"
-          android:layout_alignParentTop="true"/>
+          android:id="@+id/tv_point"/>
       </FrameLayout>
 
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="regular"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:textSize="25sp"
+        android:textColor="#000000"
+        android:text="P"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+
       <ImageView
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="2.8dp"
         android:layout_gravity="center_vertical"
         android:src="@drawable/rectangle_2"
         android:layout_width="13.3dp"
         android:layout_height="match_parent"
         android:paddingTop="15.85dp"
         android:paddingBottom="15.85dp"
-        android:id="@+id/iv_todaypoint"
-        android:layout_alignBottom="@+id/fl_point"
-        android:layout_toRightOf="@+id/fl_point"
-        android:layout_toEndOf="@+id/fl_point"/>
+        android:id="@+id/iv_todaypoint"/>
 
-      <TextView
-        android:layout_marginLeft="5dp"
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="regular"
+        android:layout_marginLeft="2.2dp"
         android:gravity="center"
         android:layout_gravity="center_vertical"
         android:id="@+id/tv_todaypoint"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:text="0"
-        android:textColor="#999999"
-        android:layout_alignBottom="@+id/iv_todaypoint"
-        android:layout_toRightOf="@+id/iv_todaypoint"
-        android:layout_toEndOf="@+id/iv_todaypoint"/>
+        android:textSize="16sp"
+        android:textColor="#6D6D6D"/>
+
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="regular"
+        android:layout_marginLeft="2.2dp"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="P"
+        android:textSize="16sp"
+        android:textColor="#6D6D6D"/>
 
     </LinearLayout>
 
@@ -112,6 +113,7 @@
       android:background="?android:attr/selectableItemBackground"
       android:layout_width="55dp"
       android:layout_height="50dp"
+      android:layout_marginRight="2dp"
       android:id="@+id/ibtn_right_button"/>
 
   </LinearLayout>
