@@ -6,148 +6,180 @@
               android:layout_height="match_parent">
 
   <!-- 상단바 -->
-  <LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:background="@color/colorWhite"
-    android:layout_height="50dp">
+  <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content">
 
-    <ImageButton
-      android:paddingRight="17dp"
-      android:paddingLeft="8dp"
-      android:paddingTop="12.5dp"
-      android:paddingBottom="12.5dp"
-      android:layout_width="37dp"
-      android:layout_height="match_parent"
-      android:background="#00000000"
-      android:src="@drawable/back"
-      android:id="@+id/btn_back_profile"
-      android:backgroundTint="#000000"/>
+    <com.puzi.puzi.ui.CusomScrollView
+      android:id="@+id/sv_container"
+      android:layout_marginTop="50dp"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
 
-    <com.joooonho.SelectableRoundedImageView
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      app:sriv_right_top_corner_radius="20dp"
-      app:sriv_left_top_corner_radius="20dp"
-      app:sriv_left_bottom_corner_radius="20dp"
-      app:sriv_right_bottom_corner_radius="20dp"
-      app:sriv_border_color="#979797"
-      app:sriv_border_width="0.5dp"
-      android:layout_gravity="center"
-      android:layout_width="40dp"
-      android:layout_height="40dp"
-      android:scaleType="centerCrop"
-      android:visibility="invisible"
-      android:id="@+id/iv_title_companyProfile_picture"/>
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="vertical">
 
-    <TextView
-      android:id="@+id/tv_title_companyName"
-      android:gravity="center"
-      android:layout_marginLeft="3dp"
-      android:layout_width="wrap_content"
-      android:textSize="16sp"
-      android:textColor="#333333"
-      android:visibility="invisible"
-      android:layout_height="match_parent"/>
+        <LinearLayout
+          android:id="@+id/ll_company_container"
+          android:orientation="vertical"
+          android:background="@color/colorWhite"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
 
-    <View
-      android:layout_weight="1"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"/>
+          <com.joooonho.SelectableRoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:sriv_right_top_corner_radius="52dp"
+            app:sriv_left_top_corner_radius="52dp"
+            app:sriv_left_bottom_corner_radius="52dp"
+            app:sriv_right_bottom_corner_radius="52dp"
+            app:sriv_border_color="#979797"
+            app:sriv_border_width="0.5dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="1dp"
+            android:layout_width="104dp"
+            android:layout_height="104dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/iv_companyProfile_picture"/>
 
-    <ImageButton
-      android:id="@+id/btn_block"
-      android:layout_gravity="right|center_vertical"
-      android:src="@drawable/wrong"
-      android:padding="13dp"
-      android:background="#00000000"
-      android:layout_width="45dp"
-      android:layout_height="45dp"/>
+          <TextView
+            android:id="@+id/tv_companyName"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="normal"
+            android:textColor="#333333"
+            android:layout_marginBottom="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-  </LinearLayout>
+          <TextView
+            android:id="@+id/tv_companyComment"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="#6d6d6d"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-  <com.puzi.puzi.ui.CusomScrollView
-    android:id="@+id/sv_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+          <Button
+            android:layout_width="80dp"
+            android:layout_height="22dp"
+            android:gravity="center"
+            android:text="애독하기"
+            android:textSize="12sp"
+            android:textColor="#ff2470"
+            android:layout_marginBottom="14dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button_like_off"
+            android:id="@+id/ibtn_like"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:background="#f4f4f4"
+          android:layout_height="10dp"/>
+
+        <ListView
+          android:id="@+id/lv_profile_channel_list"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginTop="15dp"
+          android:divider="#00000000"
+          android:background="#ffffff"/>
+      </LinearLayout>
+
+    </com.puzi.puzi.ui.CusomScrollView>
 
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="#ffffff"
+      android:background="#00000000"
       android:orientation="vertical">
 
       <LinearLayout
-        android:id="@+id/ll_company_container"
-        android:orientation="vertical"
-        android:background="@color/colorWhite"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:background="@color/colorWhite"
+        android:layout_height="50dp">
+
+        <ImageButton
+          android:paddingRight="17dp"
+          android:paddingLeft="8dp"
+          android:paddingTop="12.5dp"
+          android:paddingBottom="12.5dp"
+          android:layout_width="37dp"
+          android:layout_height="match_parent"
+          android:background="#00000000"
+          android:src="@drawable/back"
+          android:id="@+id/btn_back_profile"
+          android:backgroundTint="#000000"/>
 
         <com.joooonho.SelectableRoundedImageView
           xmlns:app="http://schemas.android.com/apk/res-auto"
-          app:sriv_right_top_corner_radius="52dp"
-          app:sriv_left_top_corner_radius="52dp"
-          app:sriv_left_bottom_corner_radius="52dp"
-          app:sriv_right_bottom_corner_radius="52dp"
+          app:sriv_right_top_corner_radius="20dp"
+          app:sriv_left_top_corner_radius="20dp"
+          app:sriv_left_bottom_corner_radius="20dp"
+          app:sriv_right_bottom_corner_radius="20dp"
           app:sriv_border_color="#979797"
           app:sriv_border_width="0.5dp"
           android:layout_gravity="center"
-          android:layout_marginTop="10dp"
-          android:layout_marginBottom="1dp"
-          android:layout_width="104dp"
-          android:layout_height="104dp"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
           android:scaleType="centerCrop"
-          android:id="@+id/iv_companyProfile_picture"/>
+          android:visibility="invisible"
+          android:id="@+id/iv_title_companyProfile_picture"/>
 
         <TextView
-          android:id="@+id/tv_companyName"
+          android:id="@+id/tv_title_companyName"
           android:gravity="center"
-          android:textSize="20sp"
-          android:fontFamily="sans-serif-medium"
-          android:textStyle="normal"
+          android:layout_marginLeft="3dp"
+          android:layout_width="wrap_content"
+          android:textSize="16sp"
           android:textColor="#333333"
-          android:layout_marginBottom="4dp"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"/>
+          android:visibility="invisible"
+          android:layout_height="match_parent"/>
 
-        <TextView
-          android:id="@+id/tv_companyComment"
-          android:gravity="center"
-          android:textSize="12sp"
-          android:textColor="#6d6d6d"
-          android:layout_marginBottom="10dp"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"/>
+        <View
+          android:layout_weight="1"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"/>
 
-        <Button
-          android:layout_width="80dp"
-          android:layout_height="22dp"
-          android:gravity="center"
-          android:text="애독하기"
-          android:textSize="12sp"
-          android:textColor="#ff2470"
-          android:layout_marginBottom="14dp"
-          android:layout_gravity="center_horizontal"
-          android:background="@drawable/button_like_off"
-          android:id="@+id/ibtn_like"/>
+        <ImageButton
+          android:id="@+id/btn_block"
+          android:layout_gravity="right|center_vertical"
+          android:src="@drawable/more_button"
+          android:background="#00000000"
+          android:layout_width="45dp"
+          android:layout_height="45dp"/>
 
       </LinearLayout>
 
       <LinearLayout
-        android:layout_width="match_parent"
-        android:background="#f4f4f4"
-        android:layout_height="10dp"/>
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="3dp"
+        android:visibility="invisible"
+        android:background="@drawable/button_drop_down"
+        android:id="@+id/ll_profile_channel_dropdown_container"
+        android:layout_gravity="right|top"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content">
 
-      <ListView
-        android:id="@+id/lv_profile_channel_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="15dp"
-        android:divider="#00000000"
-        android:background="#ffffff"/>
+        <Button
+          android:id="@+id/btn_profile_channel_dropdown_block"
+          android:text="차단하기"
+          android:textColor="#333333"
+          android:background="@drawable/ripple_basic"
+          android:layout_width="match_parent"
+          android:layout_height="40dp"/>
+
+      </LinearLayout>
+
     </LinearLayout>
 
-  </com.puzi.puzi.ui.CusomScrollView>
+  </FrameLayout>
 
   <LinearLayout
     android:id="@+id/ll_title_bottom_bar"

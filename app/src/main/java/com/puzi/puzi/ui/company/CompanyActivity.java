@@ -52,10 +52,11 @@ public class CompanyActivity extends BaseFragmentActivity {
 	@BindView(R.id.tv_title_companyName) public TextView titleCompanyName;
 	@BindView(R.id.ll_title_bottom_bar) public LinearLayout llTitleBottomBar;
 	@BindView(R.id.ibtn_like) public Button btnLike;
+	@BindView(R.id.ll_profile_channel_dropdown_container) public LinearLayout llDropDownContainer;
+	@BindView(R.id.btn_profile_channel_dropdown_block) public Button btnDropDownBlock;
 
 	private CompanyChannelAdapter companyChannelAdapter;
 
-	private int companyId = 0;
 	private int pagingIndex = 1;
 	private CompanyVO companyVO;
 	private boolean isBlock = false;
@@ -78,9 +79,9 @@ public class CompanyActivity extends BaseFragmentActivity {
 		Log.i(PuziUtils.INFO, "companyVO : " + companyVO.toString());
 
 		if(companyVO == null) {
-			companyId = intent.getIntExtra("companyId", 0);
+			int companyId = intent.getIntExtra("companyId", 0);
 			Log.i(PuziUtils.INFO, "companyId : " + companyId);
-			getCompany();
+			getCompany(companyId);
 		} else {
 			setCompanyInfo();
 		}
@@ -164,7 +165,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 		});
 	}
 
-	public void getCompany() {
+	public void getCompany(int companyId) {
 
 		CompanyNetworkService companyNetworkService = RetrofitManager.create(CompanyNetworkService.class);
 		String token = Preference.getProperty(CompanyActivity.this, "token");
@@ -194,6 +195,11 @@ public class CompanyActivity extends BaseFragmentActivity {
 		companyComment.setText(companyVO.getComment());
 		BitmapUIL.load(companyVO.getPictureUrl(), titleCompanyPicture);
 		titleCompanyName.setText(companyVO.getCompanyAlias());
+		if(companyVO.getBlocked()) {
+			btnDropDownBlock.setText("차단 해제하기");
+		} else {
+			btnDropDownBlock.setText("차단하기");
+		}
 		setLike();
 	}
 
@@ -262,7 +268,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 		SettingNetworkService settingNetworkService = RetrofitManager.create(SettingNetworkService.class);
 		String token = Preference.getProperty(CompanyActivity.this, "token");
 
-		Call<ResponseVO> call = settingNetworkService.blockCompany(token, isBlock, companyId);
+		Call<ResponseVO> call = settingNetworkService.blockCompany(token, isBlock, companyVO.getCompanyId());
 		call.enqueue(new CustomCallback<ResponseVO>(CompanyActivity.this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
@@ -270,6 +276,16 @@ public class CompanyActivity extends BaseFragmentActivity {
 				switch(responseVO.getResultType()){
 					case SUCCESS:
 						Log.i("INFO", "company block success.");
+						if(companyVO.getBlocked()) {
+							companyVO.setBlocked(false);
+							btnDropDownBlock.setText("차단하기");
+							Toast.makeText(getBaseContext(), "성공적으로 해제되었습니다.", Toast.LENGTH_SHORT).show();
+						} else {
+							companyVO.setBlocked(true);
+							btnDropDownBlock.setText("차단 해제하기");
+							Toast.makeText(getBaseContext(), "성공적으로 차단되었습니다.", Toast.LENGTH_SHORT).show();
+						}
+						showDropdown();
 						break;
 
 					default:
@@ -280,9 +296,8 @@ public class CompanyActivity extends BaseFragmentActivity {
 		});
 	}
 
-	@OnClick(R.id.btn_block)
+	@OnClick(R.id.btn_profile_channel_dropdown_block)
 	public void blockCompany() {
-
 		String title = "차단하기";
 		String message = "차단하시겠습니까?";
 
@@ -303,6 +318,17 @@ public class CompanyActivity extends BaseFragmentActivity {
 				Log.i(PuziUtils.INFO, "isBlock : " + isBlock);
 			}
 		});
+	}
+
+	@OnClick(R.id.btn_block)
+	public void showDropdown() {
+		if(llDropDownContainer.getVisibility() == View.INVISIBLE) {
+			llDropDownContainer.setVisibility(View.VISIBLE);
+			llDropDownContainer.startAnimation(inFromTop());
+		} else {
+			llDropDownContainer.setVisibility(View.INVISIBLE);
+			llDropDownContainer.startAnimation(outToTop());
+		}
 	}
 
 	@OnClick(R.id.ibtn_like)
