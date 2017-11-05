@@ -20,6 +20,8 @@ import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseActivity;
 import com.puzi.puzi.ui.common.DialogButtonCallback;
 import com.puzi.puzi.ui.common.OneButtonDialog;
+import com.puzi.puzi.ui.customview.NotoTextView;
+import com.puzi.puzi.utils.TextUtils;
 import retrofit2.Call;
 
 import java.text.SimpleDateFormat;
@@ -37,7 +39,7 @@ public class WithdrawActivity extends BaseActivity {
 	Unbinder unbinder;
 
 	@BindView(R.id.tv_store_withdraw_point)
-	TextView tvPoint;
+	NotoTextView tvPoint;
 	@BindView(R.id.sp_store_withdraw_bank)
 	Spinner spBank;
 	@BindView(R.id.et_store_withdraw_bank_account)
@@ -68,7 +70,7 @@ public class WithdrawActivity extends BaseActivity {
 
 	private void initComponent() {
 		UserVO myInfo = Preference.getMyInfo(this);
-		tvPoint.setText(myInfo.getPoint());
+		tvPoint.setText(TextUtils.addComma(myInfo.getPoint()) + "P");
 		adapter = new WithdrawHistoryAdapter(this, R.layout.item_store_withdraw_history, lvHistory, svContainer,
 			new CustomPagingAdapter.ListHandler() {
 				@Override
