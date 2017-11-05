@@ -1,6 +1,7 @@
 package com.puzi.puzi.ui;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +23,9 @@ import static com.google.common.collect.Lists.newArrayList;
  * 커스텀리스트뷰 기능
  * 1. 자동 프로그래스 하단에 띄어주고 화면 최적화
  * 2. 리스트가 비워져있을 때 안내메시지 띄어줌
+ * 3. 페이징인덱스 관리
  */
-public abstract class CustomBaseAdapter extends BaseAdapter {
+public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 
 	protected static final int VIEW_LIST = 0;
 	protected static final int VIEW_EMPTY = 1;
@@ -37,7 +39,7 @@ public abstract class CustomBaseAdapter extends BaseAdapter {
 	protected ListHandler listHandler;
 	private boolean lastestScrollFlag = false;
 
-	protected List<Object> list = newArrayList();
+	protected List<T> list = newArrayList();
 	@Getter
 	private int pagingIndex = 0; //시작할 때 +1하고 시작함, 즉 처음 pagingIndex값은 1임
 
@@ -50,11 +52,11 @@ public abstract class CustomBaseAdapter extends BaseAdapter {
 	@Setter @Getter
 	private boolean more = false;
 
-	public CustomBaseAdapter(Activity activity, int layoutResource, ListView listView, ListHandler listHandler) {
+	public CustomPagingAdapter(Activity activity, int layoutResource, ListView listView, ListHandler listHandler) {
 		this(activity, layoutResource, listView, null, listHandler);
 	}
 
-	public CustomBaseAdapter(Activity activity, int layoutResource, ListView listView, ScrollView scrollView, ListHandler listHandler) {
+	public CustomPagingAdapter(Activity activity, int layoutResource, ListView listView, ScrollView scrollView, ListHandler listHandler) {
 		this.activity = activity;
 		this.inflater = activity.getLayoutInflater();
 		this.layoutResource = layoutResource;
@@ -65,6 +67,8 @@ public abstract class CustomBaseAdapter extends BaseAdapter {
 	}
 
 	protected void init() {
+		this.listView.setAdapter(this);
+
 		if(scrollView != null) {
 			scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
 				@Override
@@ -98,7 +102,13 @@ public abstract class CustomBaseAdapter extends BaseAdapter {
 		}
 	}
 
-	public void addList(List list) {
+	public void addList(List<T> list) {
+		if((list == null || list.size() == 0) && this.list.size() == 0) {
+			empty = true;
+			notifyDataSetChanged();
+			Log.d("TAG", "+++ EMPTY");
+			return;
+		}
 		if(empty && list.size() > 0) {
 			empty = false;
 		}
@@ -106,9 +116,17 @@ public abstract class CustomBaseAdapter extends BaseAdapter {
 		notifyDataSetChanged();
 	}
 
-	public void addListWithTotalCount(List list, int totalCount) {
+	public void addListWithTotalCount(List<T> list, int totalCount) {
 		addList(list);
 		checkMore(totalCount);
+	}
+
+	public void removeItem(int position) {
+		list.remove(position);
+		if(list.size() == 0) {
+			empty = true;
+		}
+		notifyDataSetChanged();
 	}
 
 	protected void checkMore(int totalCount) {
@@ -119,13 +137,13 @@ public abstract class CustomBaseAdapter extends BaseAdapter {
 		}
 	}
 
-	public void addOne(Object obj) {
+	public void addOne(T obj) {
 		empty = false;
 		list.add(obj);
 		notifyDataSetChanged();
 	}
 
-	public void addFirst(Object obj) {
+	public void addFirst(T obj) {
 		empty = false;
 		list.add(0, obj);
 		notifyDataSetChanged();
@@ -136,7 +154,7 @@ public abstract class CustomBaseAdapter extends BaseAdapter {
 	}
 
 	public void initPagingIndex() {
-		pagingIndex = 1;
+		pagingIndex = 0;
 	}
 
 	public void getList() {
@@ -184,7 +202,7 @@ public abstract class CustomBaseAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public T getItem(int position) {
 		return list.get(position);
 	}
 
@@ -217,6 +235,9 @@ public abstract class CustomBaseAdapter extends BaseAdapter {
 		Holder viewHolder = null;
 		EmptyHolder emptyHolder = null;
 		int viewType = getItemViewType(position);
+
+		Log.d("CustomPagingAdapter", "+++ position : " + position);
+		Log.d("CustomPagingAdapter", "+++ viewType : " + viewType);
 
 		if(v == null) {
 			switch(viewType) {
@@ -261,7 +282,7 @@ public abstract class CustomBaseAdapter extends BaseAdapter {
 		return v;
 	}
 
-	protected abstract void setView(Holder viewHolder, Object item, int position);
+	protected abstract void setView(Holder viewHolder, T item, int position);
 
 	protected abstract Holder createHolder(View v);
 

@@ -69,6 +69,7 @@ public abstract class CustomCallback<T> implements Callback<T> {
 		builder.setNegativeButton("닫기", new Dialog.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				ProgressDialog.dismiss();
 			}
 		});
 		builder.setPositiveButton("재시도", new Dialog.OnClickListener() {
@@ -85,6 +86,11 @@ public abstract class CustomCallback<T> implements Callback<T> {
 
 	private void retry(Call<T> call){
 		ProgressDialog.show(activity);
-		call.clone().enqueue(this);
+		try {
+			call.clone().enqueue((Callback<T>) this.clone());
+		} catch (CloneNotSupportedException e) {
+			Log.e("CustomCallBack", e.toString(), e);
+			ProgressDialog.dismiss();
+		}
 	}
 }

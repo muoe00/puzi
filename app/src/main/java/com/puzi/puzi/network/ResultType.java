@@ -16,7 +16,7 @@ public enum ResultType {
 	OVERDUE_SAVE(2004, "적립기한이 지났습니다."),
 	ALREADY_SAVED(2005, "이미 적립되었습니다."),
 	NOT_FOUNT_RECOMMEND(2006, "등록되지 않은 추천인입니다."),
-	ALREADY_WROTE(2007, "이미 평가를 작성하였습니다."),
+	ALREADY_WROTE(2007, "이미 작성하였습니다."),
 	WRONG_SCORE(2008, "점수 범위가 벗어났습니다."),
 	ALREADY_INCLUDED(2009, "이미 특정시간이 포함되어 있습니다."),
 	NO_AUTH_DELETE(2010, "삭제권한이 없습니다."),
@@ -25,11 +25,14 @@ public enum ResultType {
 	OVER_QUANTITY(2013, "환불 수량이 더 많습니다."),
 	NO_CHANNEL(2014, "존재하지 않는 채널입니다."),
 	ALREADY_SIGNUP_WITH_PHONEKEY(2015, "이미 해당 핸드폰으로 가입하셨습니다."),
+	NO_CHANNEL_REPLY(2016, "존재하지 않는 댓글입니다."),
+	WRONG_TIME_TERN(2017, "종료시간이 시작시간보다 빠릅니다."),
 	WRONG_PARAMS(3000, "잘못된 파라미터 요청(#arg0#)"),
 	ERROR_STORE(4000, "일시적으로 상품구매 연동 에러가 발생하였습니다. 잠시 후 다시 요청해 주시기 바랍니다.");
 
 	@Getter
 	private int resultCode;
+	@Getter
 	private String resultMsg;
 
 	ResultType(int resultCode, String resultMsg) {

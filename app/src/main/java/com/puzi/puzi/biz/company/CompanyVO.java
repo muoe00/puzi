@@ -14,6 +14,7 @@ public class CompanyVO implements Serializable {
 	private String companyAlias;
 	private String pictureUrl;
 	private String comment;
+	private boolean liked;
 	private boolean blocked;
 
 	public boolean getBlocked() {

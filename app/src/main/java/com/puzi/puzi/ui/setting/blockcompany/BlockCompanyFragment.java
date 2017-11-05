@@ -15,7 +15,7 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.SettingNetworkService;
-import com.puzi.puzi.ui.CustomBaseAdapter;
+import com.puzi.puzi.ui.CustomPagingAdapter;
 import com.puzi.puzi.ui.base.BaseFragment;
 import retrofit2.Call;
 
@@ -33,7 +33,6 @@ public class BlockCompanyFragment extends BaseFragment {
 	ListView lvCompanyBlock;
 
 	private BlockCompanyAdapter adapter;
-	private int pagingIndex = 1;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -43,7 +42,7 @@ public class BlockCompanyFragment extends BaseFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_company_block, container, false);
+		View view = inflater.inflate(R.layout.fragment_setting_block_company, container, false);
 
 		unbinder = ButterKnife.bind(this, view);
 
@@ -53,7 +52,7 @@ public class BlockCompanyFragment extends BaseFragment {
 	}
 
 	private void initComponent() {
-		adapter = new BlockCompanyAdapter(getActivity(), lvCompanyBlock, new CustomBaseAdapter.ListHandler() {
+		adapter = new BlockCompanyAdapter(getActivity(), lvCompanyBlock, new CustomPagingAdapter.ListHandler() {
 			@Override
 			public void getList() {
 				getBlockedCompanyList();

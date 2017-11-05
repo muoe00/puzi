@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+  <ScrollView
+    android:id="@+id/sv_setting_block_time"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="146dp">
+
+        <ImageView
+          android:layout_gravity="right|top"
+          android:layout_width="154dp"
+          android:layout_height="132dp"
+          android:src="@drawable/eye"/>
+
+        <LinearLayout
+          android:orientation="vertical"
+          android:layout_marginTop="29dp"
+          android:layout_marginLeft="16dp"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+          <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+              android:textSize="25sp"
+              android:textColor="#333333"
+              android:lineSpacingExtra="8sp"
+              android:text="광고를 받길"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+
+            <TextView
+              android:textSize="25sp"
+              android:textColor="@color/colorPuzi"
+              android:lineSpacingExtra="8sp"
+              android:text=" 원하지 않는 "
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+
+          </LinearLayout>
+
+          <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+              android:textSize="25sp"
+              android:textColor="@color/colorPuzi"
+              android:lineSpacingExtra="8sp"
+              android:text="시간"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+
+            <TextView
+              android:textSize="25sp"
+              android:textColor="#333333"
+              android:lineSpacingExtra="8sp"
+              android:text="을 설정할 수 있습니다"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+
+          </LinearLayout>
+
+        </LinearLayout>
+
+      </FrameLayout>
+
+      <TextView
+        android:textSize="16sp"
+        android:textColor="#35343d"
+        android:lineSpacingExtra="0sp"
+        android:text="제한 시간"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+      <LinearLayout
+        android:layout_marginLeft="16dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="53dp">
+
+        <Spinner
+          style="@android:style/Widget.Spinner"
+          android:layout_width="100dp"
+          android:layout_height="53dp"
+          android:background="@drawable/button_block_time_off"
+          android:id="@+id/sp_setting_block_time_start"/>
+
+        <TextView
+          android:layout_gravity="bottom"
+          android:text="부터"
+          android:layout_marginLeft="5dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="14sp"
+          android:layout_marginRight="13dp"
+          android:textColor="#333333"/>
+
+        <Spinner
+          style="@android:style/Widget.Spinner"
+          android:gravity="center"
+          android:layout_width="100dp"
+          android:layout_height="53dp"
+          android:background="@drawable/button_block_time_off"
+          android:id="@+id/sp_setting_block_time_end"/>
+
+        <TextView
+          android:layout_gravity="bottom"
+          android:text="까지"
+          android:layout_marginLeft="5dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="14sp"
+          android:textColor="#333333"/>
+
+        <LinearLayout
+          android:layout_weight="1"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"/>
+
+        <ImageButton
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:layout_gravity="center_vertical"
+          android:src="@drawable/add_favorite"
+          android:layout_marginRight="16dp"
+          android:background="#00000000"
+          android:id="@+id/ibtn_setting_block_time_add"/>
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_marginTop="29dp"
+        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+      <TextView
+        android:text="내가 설정한 시간"
+        android:layout_marginTop="13dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#35343d"
+        android:lineSpacingExtra="0sp"/>
+
+      <LinearLayout
+        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+      <ListView
+        android:id="@+id/lv_setting_block_time"
+        android:dividerHeight="1dp"
+        android:divider="#dadada"
+        android:background="#fcfcfc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+      <LinearLayout
+        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    </LinearLayout>
+
+  </ScrollView>
+
+</LinearLayout>

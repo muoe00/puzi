@@ -29,10 +29,14 @@ public interface SettingNetworkService {
 
 	@FormUrlEncoded
 	@POST("/setting/reject/alarm")
-	Call<ResponseVO> alarm(@Header("token") String token,
+	Call<ResponseVO> blockTime(@Header("token") String token,
 		@Field("add") boolean add,
 		@Field("startTime") String startTime,
 		@Field("endTime") String endTime);
+
+	@GET("/v2/setting/reject/alarm/list")
+	Call<ResponseVO> blockedTimeList(@Header("token") String token,
+		@Query("pagingIndex") int pagingIndex);
 
 	@FormUrlEncoded
 	@POST("/setting/reject/company")

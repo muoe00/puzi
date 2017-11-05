@@ -76,7 +76,7 @@ public class PurchaseItemActivity extends BaseActivity {
 		countSpinner.setAdapter(countAdapter);
 	}
 
-	@OnItemSelected(R.id.sp_age)
+	@OnItemSelected(R.id.sp_store_purchase_count)
 	public void countSelected(int position) {
 		selectedCount = position + 1;
 	}

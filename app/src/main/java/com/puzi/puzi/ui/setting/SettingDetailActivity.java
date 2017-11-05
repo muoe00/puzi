@@ -12,6 +12,7 @@ import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
+import com.puzi.puzi.ui.setting.blockTime.BlockTimeFragment;
 import com.puzi.puzi.ui.setting.blockcompany.BlockCompanyFragment;
 import com.puzi.puzi.utils.PuziUtils;
 
@@ -59,7 +60,7 @@ public class SettingDetailActivity extends BaseFragmentActivity {
 				break;
 			case 3:
 				setTitle("알람 시간 제한 설정");
-				fragment = new AlarmFragment();
+				fragment = new BlockTimeFragment();
 				break;
 			case 4:
 				setTitle("수신 거부 관리");

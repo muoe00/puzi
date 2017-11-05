@@ -24,6 +24,7 @@ import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.CompanyNetworkService;
 import com.puzi.puzi.network.service.SettingNetworkService;
 import com.puzi.puzi.ui.CusomScrollView;
+import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.common.DialogButtonCallback;
 import com.puzi.puzi.ui.common.OneButtonDialog;
@@ -50,6 +51,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 	@BindView(R.id.iv_title_companyProfile_picture) public SelectableRoundedImageView titleCompanyPicture;
 	@BindView(R.id.tv_title_companyName) public TextView titleCompanyName;
 	@BindView(R.id.ll_title_bottom_bar) public LinearLayout llTitleBottomBar;
+	@BindView(R.id.ibtn_like) public Button btnLike;
 
 	private CompanyChannelAdapter companyChannelAdapter;
 
@@ -192,6 +194,19 @@ public class CompanyActivity extends BaseFragmentActivity {
 		companyComment.setText(companyVO.getComment());
 		BitmapUIL.load(companyVO.getPictureUrl(), titleCompanyPicture);
 		titleCompanyName.setText(companyVO.getCompanyAlias());
+		setLike();
+	}
+
+	private void setLike() {
+		if(companyVO.isLiked()) {
+			btnLike.setText("애독중");
+			btnLike.setTextColor(getResources().getColor(R.color.colorWhite));
+			btnLike.setBackgroundResource(R.drawable.button_like_on);
+		} else {
+			btnLike.setText("애독하기");
+			btnLike.setTextColor(getResources().getColor(R.color.colorPuzi));
+			btnLike.setBackgroundResource(R.drawable.button_like_off);
+		}
 	}
 
 	private void getChannelList(final boolean scrollToBottom) {
@@ -286,6 +301,34 @@ public class CompanyActivity extends BaseFragmentActivity {
 			public void onClick() {
 				updateBlock(isBlock);
 				Log.i(PuziUtils.INFO, "isBlock : " + isBlock);
+			}
+		});
+	}
+
+	@OnClick(R.id.ibtn_like)
+	public void clickLike() {
+		ProgressDialog.show(this);
+
+		CompanyNetworkService companyNetworkService = RetrofitManager.create(CompanyNetworkService.class);
+		String token = Preference.getProperty(CompanyActivity.this, "token");
+
+		final boolean add = !companyVO.isLiked();
+
+		Call<ResponseVO> call = companyNetworkService.like(token, add, companyVO.getCompanyId());
+		call.enqueue(new CustomCallback<ResponseVO>(this) {
+
+			@Override
+			public void onSuccess(ResponseVO responseVO) {
+
+				ProgressDialog.dismiss();
+
+				if(responseVO.getResultType().isSuccess()) {
+					companyVO.setLiked(add);
+					setLike();
+
+					String message = add ? "애독자로 추가되었습니다." : "애독자가 해제되었습니다.";
+					Toast.makeText(CompanyActivity.this, message, Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 	}

@@ -1,6 +1,7 @@
 package com.puzi.puzi.ui.setting.blockcompany;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -16,16 +17,18 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.SettingNetworkService;
-import com.puzi.puzi.ui.CustomBaseAdapter;
+import com.puzi.puzi.ui.CustomPagingAdapter;
 import com.puzi.puzi.ui.ProgressDialog;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.common.DialogButtonCallback;
 import com.puzi.puzi.ui.common.OneButtonDialog;
+import com.puzi.puzi.ui.company.CompanyActivity;
 import retrofit2.Call;
 
 /**
  * Created by JangwonPark on 2017. 11. 4..
  */
-public class BlockCompanyAdapter extends CustomBaseAdapter {
+public class BlockCompanyAdapter extends CustomPagingAdapter<RejectCompanyVO> {
 
 	private ListHandler listHandler;
 
@@ -34,11 +37,21 @@ public class BlockCompanyAdapter extends CustomBaseAdapter {
 	}
 
 	@Override
-	protected void setView(Holder viewHolder, Object item, final int position) {
+	protected void setView(Holder viewHolder, final RejectCompanyVO companyVO, final int position) {
 		ViewHolder holder = (ViewHolder) viewHolder;
-		final RejectCompanyVO companyVO = (RejectCompanyVO) item;
 
 		BitmapUIL.load(companyVO.getCompanyInfoDTO().getPictureUrl(), holder.ibtnPreview);
+		holder.ibtnPreview.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				BaseFragmentActivity baseActivity = (BaseFragmentActivity) activity;
+				Intent intent = new Intent(baseActivity, CompanyActivity.class);
+				intent.putExtra("company", companyVO.getCompanyInfoDTO());
+				baseActivity.startActivity(intent);
+				baseActivity.doAnimationGoRight();
+
+			}
+		});
 		holder.tvName.setText(companyVO.getCompanyInfoDTO().getCompanyAlias());
 		holder.ibtnRemove.setOnClickListener(new View.OnClickListener() {
 
@@ -64,10 +77,8 @@ public class BlockCompanyAdapter extends CustomBaseAdapter {
 									ProgressDialog.dismiss();
 
 									if (responseVO.getResultType().isSuccess()) {
-										Toast.makeText(activity, "성공적으로 제외되었습니다.", Toast.LENGTH_SHORT).show();
-
-										list.remove(position);
-										notifyDataSetChanged();
+										Toast.makeText(activity, "성공적으로 해제되었습니다.", Toast.LENGTH_SHORT).show();
+										removeItem(position);
 									}
 								}
 							});
