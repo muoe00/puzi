@@ -73,7 +73,6 @@
           android:layout_height="1dp"/>
 
         <Button
-          android:background="@drawable/ripple_basic"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:id="@+id/btn_channel_more_channel"/>
@@ -131,7 +130,7 @@
         </LinearLayout>
 
         <Button
-          android:background="@drawable/ripple_basic"
+
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:id="@+id/btn_channel_more_editorspage"/>

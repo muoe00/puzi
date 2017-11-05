@@ -14,7 +14,8 @@
     android:layout_width="match_parent"
     android:layout_height="54dp">
 
-    <TextView
+    <com.puzi.puzi.ui.customview.NotoTextView
+      app:fontWeight="demilight"
       android:text="설정"
       android:textColor="#333333"
       android:textSize="20sp"
