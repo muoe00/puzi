@@ -13,5 +13,7 @@
 
   <color name="colorPuzi">#ff2470</color>
 
+  <color name="colorPuziPink">#fee3ec</color>
+
   <color name="noAlpha">#00000000</color>
 </resources>
