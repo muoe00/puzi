@@ -1,4 +1,4 @@
-package com.puzi.puzi.ui.textview;
+package com.puzi.puzi.ui.customview;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -6,31 +6,31 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.widget.TextView;
+import android.widget.Button;
 import com.puzi.puzi.R;
 
 /**
  * Created by JangwonPark on 2017. 11. 5..
  */
-public class NotoTextView extends TextView {
+public class NotoButton extends Button {
 
-	public NotoTextView(Context context) {
+	public NotoButton(Context context) {
 		super(context);
 		setType(context);
 	}
 
-	public NotoTextView(Context context, AttributeSet attrs) {
+	public NotoButton(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setType(context, attrs);
 	}
 
-	public NotoTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+	public NotoButton(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		setType(context, attrs);
 	}
 
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public NotoTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	public NotoButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 		setType(context, attrs);
 	}
@@ -67,5 +67,4 @@ public class NotoTextView extends TextView {
 				break;
 		}
 	}
-
 }

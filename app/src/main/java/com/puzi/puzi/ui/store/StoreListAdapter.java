@@ -17,6 +17,7 @@ import com.puzi.puzi.biz.store.StoreType;
 import com.puzi.puzi.biz.store.StoreVO;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.store.item.StoreItemActivity;
+import com.puzi.puzi.ui.store.withdraw.WithdrawActivity;
 
 import java.util.List;
 import java.util.Map;
@@ -101,10 +102,16 @@ public class StoreListAdapter extends BaseAdapter {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				StoreVO storeVO = (StoreVO) storeMap.get(storeType).getItem(position);
-				Intent intent = new Intent(activity, StoreItemActivity.class);
-				intent.putExtra("storeVOJson", new Gson().toJson(storeVO));
-				activity.startActivity(intent);
-				activity.doAnimationGoRight();
+				if(storeVO.getStoreType().isWithdraw()) {
+					Intent intent = new Intent(activity, WithdrawActivity.class);
+					activity.startActivity(intent);
+					activity.doAnimationGoRight();
+				} else {
+					Intent intent = new Intent(activity, StoreItemActivity.class);
+					intent.putExtra("storeVOJson", new Gson().toJson(storeVO));
+					activity.startActivity(intent);
+					activity.doAnimationGoRight();
+				}
 			}
 		});
 

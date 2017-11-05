@@ -75,4 +75,10 @@ public abstract class BaseActivity extends Activity {
 		imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
 	}
 
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		doAnimationGoLeft();
+	}
+
 }

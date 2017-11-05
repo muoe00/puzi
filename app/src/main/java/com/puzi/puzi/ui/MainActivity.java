@@ -108,6 +108,7 @@ public class MainActivity extends BaseFragmentActivity {
 				switch(responseVO.getResultType()){
 					case SUCCESS:
 						userVO = responseVO.getValue("userInfoDTO", UserVO.class);
+						Preference.saveMyInfo(MainActivity.this, userVO);
 						Log.i("INFO", "HomeFragment main / userVO : " + userVO.toString());
 
 						tvPoint.setText(TextUtils.addComma(userVO.getPoint()));

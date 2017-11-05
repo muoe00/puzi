@@ -40,7 +40,7 @@ public interface StoreNetworkService {
 		@Field("purchaseHistoryId") int purchaseHistoryId,
 		@Field("quantity") int quantity);
 
-	@GET("/store/withdraw/result")
+	@GET("/v2/store/withdraw/result")
 	Call<ResponseVO> withdrawResult(@Header("token") String token,
 		@Query("pagingIndex") int pagingIndex);
 

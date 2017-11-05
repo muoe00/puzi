@@ -3,6 +3,8 @@ package com.puzi.puzi.cache;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import com.google.gson.Gson;
+import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.utils.PuziUtils;
 
 /**
@@ -10,6 +12,9 @@ import com.puzi.puzi.utils.PuziUtils;
  */
 
 public class Preference {
+
+	private static final String MY_INFO = "MY_INFO";
+	private static Gson gson = new Gson();
 
 	public static void addProperty(Activity activity, String key, String value) {
 		SharedPreferences.Editor editor = getEditor(activity);
@@ -36,4 +41,13 @@ public class Preference {
 	public static SharedPreferences getSharedPreferences(Activity activity) {
 		return activity.getSharedPreferences(PuziUtils.PUZI, Context.MODE_PRIVATE);
 	}
+
+	public static void saveMyInfo(Activity activity, UserVO myInfo) {
+		addProperty(activity, MY_INFO, gson.toJson(myInfo));
+	}
+	
+	public static UserVO getMyInfo(Activity activity) {
+		return gson.fromJson(getProperty(activity, MY_INFO), UserVO.class);
+	}
+
 }

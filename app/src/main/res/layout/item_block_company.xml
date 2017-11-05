@@ -25,7 +25,7 @@
       android:id="@+id/ibtn_block_company_preview"/>
 
 
-    <com.puzi.puzi.ui.textview.NotoTextView
+    <com.puzi.puzi.ui.customview.NotoTextView
       android:text=""
       android:layout_marginLeft="10dp"
       android:layout_gravity="center_vertical"

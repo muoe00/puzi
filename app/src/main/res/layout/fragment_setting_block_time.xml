@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.puzi.puzi.ui.textview.NotoTextView
+            <com.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="demilight"
               android:textSize="25sp"
               android:textColor="#333333"
@@ -45,7 +45,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"/>
 
-            <com.puzi.puzi.ui.textview.NotoTextView
+            <com.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="demilight"
               android:textSize="25sp"
               android:textColor="@color/colorPuzi"
@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.puzi.puzi.ui.textview.NotoTextView
+            <com.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="demilight"
               android:textSize="25sp"
               android:textColor="@color/colorPuzi"
@@ -70,7 +70,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"/>
 
-            <com.puzi.puzi.ui.textview.NotoTextView
+            <com.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="demilight"
               android:textSize="25sp"
               android:textColor="#333333"
@@ -85,7 +85,7 @@
 
       </FrameLayout>
 
-      <com.puzi.puzi.ui.textview.NotoTextView
+      <com.puzi.puzi.ui.customview.NotoTextView
         android:textSize="16sp"
         android:textColor="#35343d"
         android:lineSpacingExtra="0sp"
@@ -108,7 +108,7 @@
           android:background="@drawable/button_block_time_off"
           android:id="@+id/sp_setting_block_time_start"/>
 
-        <com.puzi.puzi.ui.textview.NotoTextView
+        <com.puzi.puzi.ui.customview.NotoTextView
           android:layout_gravity="bottom"
           android:text="부터"
           android:layout_marginLeft="5dp"
@@ -126,7 +126,7 @@
           android:background="@drawable/button_block_time_off"
           android:id="@+id/sp_setting_block_time_end"/>
 
-        <com.puzi.puzi.ui.textview.NotoTextView
+        <com.puzi.puzi.ui.customview.NotoTextView
           android:layout_gravity="bottom"
           android:text="까지"
           android:layout_marginLeft="5dp"
@@ -157,7 +157,7 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"/>
 
-      <com.puzi.puzi.ui.textview.NotoTextView
+      <com.puzi.puzi.ui.customview.NotoTextView
         android:text="내가 설정한 시간"
         android:layout_marginTop="13dp"
         android:layout_marginLeft="16dp"

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-  <FrameLayout
-    android:id="@+id/fl_level"
+  <LinearLayout
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="54dp">
@@ -17,252 +16,232 @@
       android:layout_height="match_parent"
       android:background="@null"
       android:src="@drawable/back"
-      android:id="@+id/ibtn_back_withdraw"/>
+      android:id="@+id/ibtn_store_withdraw_back"/>
 
-  </FrameLayout>
-
-  <LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="130dp">
-
-    <LinearLayout
-      android:id="@+id/ll_withdraw_info"
-      android:orientation="vertical"
-      android:gravity="center"
-      android:layout_marginTop="35dp"
-      android:layout_width="match_parent"
-      android:layout_height="40dp"
-      android:weightSum="1">
-
-      <RelativeLayout
-        android:id="@+id/rl_withdraw_point"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
-
-        <ImageView
-          android:layout_width="40dp"
-          android:layout_height="40dp"
-          android:src="@mipmap/level"
-          android:id="@+id/iv_withdraw_rankImage"/>
-
-        <TextView
-          android:gravity="center"
-          android:textSize="32sp"
-          android:textColor="@color/colorBlack"
-          android:text="100,000"
-          android:layout_marginRight="10dp"
-          android:layout_marginLeft="10dp"
-          android:layout_width="wrap_content"
-          android:layout_height="38dp"
-          android:id="@+id/tv_withdraw_point"
-          android:layout_alignParentTop="true"
-          android:layout_toRightOf="@+id/iv_withdraw_rankImage"/>
-
-      </RelativeLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-      android:id="@+id/ll_withdraw_today"
-      android:layout_width="match_parent"
-      android:layout_height="24dp"
-      android:layout_marginTop="2dp"
-      android:orientation="horizontal"
-      android:gravity="center">
-
-      <ImageView
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/rectangle_2"
-        android:layout_width="13.3dp"
-        android:layout_height="13.3dp"
-        android:id="@+id/iv_withdraw_todaypoint"
-        android:layout_alignBottom="@+id/fl_withdraw_point"
-        android:layout_toRightOf="@+id/fl_withdraw_point"
-        android:layout_toEndOf="@+id/fl_withdraw_point"/>
-
-      <View
-        android:layout_width="5dp"
-        android:layout_height="0dp"/>
-
-      <TextView
-        android:text="1000"
-        android:id="@+id/tv_withdraw_today"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:textSize="16sp"
-        android:textColor="@color/colorTextGray"/>
-
-    </LinearLayout>
+    <com.puzi.puzi.ui.customview.NotoTextView
+      app:fontWeight="medium"
+      android:gravity="center_horizontal"
+      android:text="출금하기"
+      android:layout_gravity="center_vertical"
+      android:textSize="20sp"
+      android:textColor="#333333"
+      android:layout_marginRight="44dp"
+      android:layout_weight="1"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"/>
 
   </LinearLayout>
 
   <LinearLayout
-    android:background="#DADADA"
-    android:layout_width="match_parent"
-    android:layout_height="1dp">
+    android:background="#dadada"
+    android:layout_width="match_parent" android:layout_height="1dp">
   </LinearLayout>
 
   <ScrollView
+    android:id="@+id/sv_store_withdraw_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <LinearLayout
-      android:orientation="vertical"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+
+      <com.puzi.puzi.ui.customview.NotoTextView
+        android:text="출금 가능 포인트"
+        app:fontWeight="medium"
+        android:layout_marginTop="11dp"
+        android:layout_marginLeft="16dp"
+        android:textSize="16sp"
+        android:textColor="#333333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
       <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp">
+        android:orientation="vertical">
 
-        <TextView
+        <com.puzi.puzi.ui.customview.NotoTextView
+          android:id="@+id/tv_store_withdraw_point"
+          android:text="10,000P"
+          app:fontWeight="demilight"
+          android:layout_marginTop="3dp"
+          android:layout_marginLeft="16dp"
+          android:textSize="32sp"
+          android:textStyle="normal"
+          android:textColor="#000000"
+          android:letterSpacing="0.01"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"/>
+
+        <LinearLayout
+          android:layout_marginLeft="16dp"
+          android:background="#ff2470"
           android:layout_width="match_parent"
-          android:layout_height="24dp"
-          android:layout_marginBottom="8dp"
-          android:textSize="16sp"
-          android:textColor="@color/colorBlack"
-          android:text="은행"
-          android:gravity="left" />
-
-        <Spinner
-          android:id="@+id/sp_withdraw_type"
-          android:prompt="@string/ask_type"
-          android:layout_width="match_parent"
-          android:layout_height="54dp">
-
-        </Spinner>
+          android:layout_height="3dp"/>
 
       </LinearLayout>
 
       <LinearLayout
-        android:orientation="vertical"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp">
+        android:layout_height="wrap_content">
+        
+        <LinearLayout
+          android:orientation="vertical"
+          android:layout_marginRight="16dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content">
 
-        <TextView
-          android:layout_width="match_parent"
-          android:layout_height="24dp"
-          android:layout_marginBottom="8dp"
-          android:textSize="16sp"
-          android:textColor="@color/colorBlack"
-          android:text="계좌번호"
-          android:gravity="left" />
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="medium"
+            android:text="은행"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-        <EditText
-          android:background="@drawable/edittext"
-          android:layout_width="match_parent"
-          android:layout_height="64dp"
-          android:textSize="15sp"
-          android:id="@+id/edt_withdraw_account"
-          android:textColorHint="#6D6D6D"
-          android:hint="계좌번호를 입력하세요."
-          android:ems="15"
-          android:maxLines="1"
-          android:paddingBottom="15dp"
-          android:paddingTop="15dp"
-          android:paddingLeft="15dp"/>
+          <Spinner
+            android:id="@+id/sp_store_withdraw_bank"
+            android:background="@drawable/button_store_withdraw_input"
+            android:layout_width="114dp"
+            android:layout_height="54dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:orientation="vertical"
+          android:layout_weight="1"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content">
+
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="medium"
+            android:text="계좌번호"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+          <EditText
+            android:id="@+id/et_store_withdraw_bank_account"
+            android:background="@drawable/button_store_withdraw_input"
+            android:paddingLeft="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"/>
+
+        </LinearLayout>
 
       </LinearLayout>
 
       <LinearLayout
-        android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp">
+        android:layout_height="wrap_content">
 
-        <TextView
-          android:layout_width="match_parent"
-          android:layout_height="24dp"
-          android:layout_marginBottom="8dp"
-          android:textSize="16sp"
-          android:textColor="@color/colorBlack"
-          android:text="출금 금액"
-          android:gravity="left" />
+        <LinearLayout
+          android:orientation="vertical"
+          android:layout_marginRight="16dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content">
 
-        <EditText
-          android:background="@drawable/edittext"
-          android:layout_width="match_parent"
-          android:layout_height="64dp"
-          android:textSize="15sp"
-          android:id="@+id/edt_withdraw_money"
-          android:hint="출금 금액을 입력하세요."
-          android:textColorHint="#6D6D6D"
-          android:maxLength="15"
-          android:maxLines="1"
-          android:paddingBottom="15dp"
-          android:paddingTop="15dp"
-          android:paddingLeft="15dp"/>
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="medium"
+            android:text="받는 사람"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+          <EditText
+            android:id="@+id/et_store_withdraw_bank_name"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:background="@drawable/button_store_withdraw_input"
+            android:layout_width="125dp"
+            android:layout_height="54dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:orientation="vertical"
+          android:layout_weight="1"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content">
+
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="medium"
+            android:text="출금 금액"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+          <Spinner
+            android:id="@+id/sp_store_withdraw_bank_price"
+            android:background="@drawable/button_store_withdraw_input"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"/>
+
+        </LinearLayout>
 
       </LinearLayout>
+
+      <com.puzi.puzi.ui.customview.NotoButton
+        app:fontWeight="bold"
+        android:id="@+id/btn_store_withdraw_confirm"
+        android:text="출금하기"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="17dp"
+        android:background="@drawable/button_puzi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
       <LinearLayout
-        android:orientation="vertical"
+        android:background="#f4f4f4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp">
-
-        <TextView
-          android:layout_width="match_parent"
-          android:layout_height="24dp"
-          android:layout_marginBottom="8dp"
-          android:textSize="16sp"
-          android:textColor="@color/colorBlack"
-          android:text="받는 사람"
-          android:gravity="left" />
-
-        <EditText
-          android:background="@drawable/edittext"
-          android:layout_width="match_parent"
-          android:layout_height="64dp"
-          android:textSize="15sp"
-          android:id="@+id/edt_withdraw_user"
-          android:hint="받는 사람을 입력하세요."
-          android:textColorHint="#6D6D6D"
-          android:maxLength="15"
-          android:maxLines="1"
-          android:paddingBottom="15dp"
-          android:paddingTop="15dp"
-          android:paddingLeft="15dp"/>
-
+        android:layout_height="10dp">
       </LinearLayout>
+
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="medium"
+        android:text="출금 내역"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="16dp"
+        android:textSize="16sp"
+        android:textColor="#333333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
       <LinearLayout
+        android:background="#f4f4f4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:layout_marginTop="37dp"
-        android:layout_marginBottom="35dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp">
-
-        <Button
-          android:text="문의하기"
-          android:layout_width="match_parent"
-          android:layout_height="54dp"
-          android:textSize="16dp"
-          android:textColor="@color/colorWhite"
-          android:background="@drawable/button_puzi"
-          android:id="@+id/btn_withdraw"/>
-
+        android:layout_height="1dp">
       </LinearLayout>
+
+      <ListView
+        android:id="@+id/lv_store_withdraw_history"
+        android:layout_marginTop="11dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+      <LinearLayout
+        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp">
+      </LinearLayout>
+
 
     </LinearLayout>
 
   </ScrollView>
+
 
 </LinearLayout>

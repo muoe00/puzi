@@ -11,7 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="40dp">
 
-    <com.puzi.puzi.ui.textview.NotoTextView
+    <com.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="light"
       android:layout_marginLeft="16dp"
       android:layout_gravity="center_vertical"
