@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
@@ -39,6 +40,11 @@ public class PuziApplication extends Application {
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
 				.threadPriority(Thread.NORM_PRIORITY - 2)
 				.denyCacheImageMultipleSizesInMemory()
+				.defaultDisplayImageOptions(
+					new DisplayImageOptions.Builder()
+						.showImageOnFail(R.drawable.basic_picture_preview)
+						.showImageForEmptyUri(R.drawable.basic_picture_preview)
+						.showImageOnLoading(R.drawable.basic_picture_preview).build())
 				.discCacheFileNameGenerator(new Md5FileNameGenerator())
 				.discCacheSize(30 * 1024 * 1024)
 				.discCacheFileCount(500)

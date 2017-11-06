@@ -33,9 +33,9 @@ public class BitmapUIL {
 	
 	private static DisplayImageOptions getOption(){		
 		DisplayImageOptions options = new DisplayImageOptions.Builder()
-		.showImageOnLoading(R.drawable.default_img)
-		.showImageForEmptyUri(R.drawable.default_img)
-		.showImageOnFail(R.drawable.default_img)
+		.showImageOnLoading(R.drawable.basic_picture_preview)
+		.showImageForEmptyUri(R.drawable.basic_picture_preview)
+		.showImageOnFail(R.drawable.basic_picture_preview)
 		.cacheInMemory(true)
 		.cacheOnDisc(true)
 		.considerExifParams(true)
