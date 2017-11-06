@@ -56,8 +56,8 @@ public class WithdrawActivity extends BaseActivity {
 
 	private WithdrawHistoryAdapter adapter;
 	private ArrayList<String> moneyList;
-	private BankType selectedBank;
-	private String selectedMoney;
+	private BankType selectedBank = BankType.IBKOKRSE;
+	private String selectedMoney = "10,000원";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
