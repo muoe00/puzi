@@ -111,8 +111,8 @@ public class MainActivity extends BaseFragmentActivity {
 						Preference.saveMyInfo(MainActivity.this, userVO);
 						Log.i("INFO", "HomeFragment main / userVO : " + userVO.toString());
 
-						tvPoint.setText(TextUtils.addComma(userVO.getPoint()));
-						tvTodayPoint.setText(TextUtils.addComma(userVO.getTodayPoint()));
+						tvPoint.setText(TextUtils.addComma(userVO.getPoint()) + "P");
+						tvTodayPoint.setText(TextUtils.addComma(userVO.getTodayPoint()) + "P");
 						break;
 
 					default:

@@ -16,6 +16,7 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.StoreNetworkService;
 import com.puzi.puzi.ui.CustomPagingAdapter;
+import com.puzi.puzi.ui.CustonArrayAdapter;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseActivity;
 import com.puzi.puzi.ui.common.DialogButtonCallback;
@@ -80,10 +81,10 @@ public class WithdrawActivity extends BaseActivity {
 			});
 		adapter.setEmptyMessage("출금내역이 없습니다.");
 		adapter.getList();
-		ArrayAdapter<String> bankAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, BankType.getBankNameList());
+		CustonArrayAdapter bankAdapter = new CustonArrayAdapter(getActivity(), BankType.getBankNameList());
 		spBank.setAdapter(bankAdapter);
 		moneyList = newArrayList("10,000원", "20,000원", "30,000원", "50,000원", "100,000원");
-		ArrayAdapter<String> moneyAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, moneyList);
+		CustonArrayAdapter moneyAdapter = new CustonArrayAdapter(getActivity(), moneyList);
 		spBankPrice.setAdapter(moneyAdapter);
 	}
 

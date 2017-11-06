@@ -5,6 +5,11 @@
               android:layout_height="match_parent">
 
   <LinearLayout
+    android:background="#dadada"
+    android:layout_width="match_parent" android:layout_height="1dp">
+  </LinearLayout>
+
+  <LinearLayout
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="54dp">
@@ -31,19 +36,15 @@
       android:layout_height="wrap_content"/>
 
   </LinearLayout>
-
-  <LinearLayout
-    android:background="#dadada"
-    android:layout_width="match_parent" android:layout_height="1dp">
-  </LinearLayout>
-
   <ScrollView
     android:id="@+id/sv_store_withdraw_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
-      android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
 
       <com.puzi.puzi.ui.customview.NotoTextView
         android:text="출금 가능 포인트"
@@ -100,6 +101,7 @@
             android:text="은행"
             android:textSize="16sp"
             android:textColor="#333333"
+            android:layout_marginBottom="3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -122,13 +124,17 @@
             android:text="계좌번호"
             android:textSize="16sp"
             android:textColor="#333333"
+            android:layout_marginBottom="3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-          <EditText
+          <com.puzi.puzi.ui.customview.NotoEditText
+            app:fontWeight="demilight"
             android:id="@+id/et_store_withdraw_bank_account"
             android:background="@drawable/button_store_withdraw_input"
             android:paddingLeft="16dp"
+            android:textSize="16sp"
+            android:textColor="#6d6d6d"
             android:layout_width="match_parent"
             android:layout_height="54dp"/>
 
@@ -155,13 +161,17 @@
             android:text="받는 사람"
             android:textSize="16sp"
             android:textColor="#333333"
+            android:layout_marginBottom="3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-          <EditText
+          <com.puzi.puzi.ui.customview.NotoEditText
+            app:fontWeight="demilight"
             android:id="@+id/et_store_withdraw_bank_name"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
+            android:textSize="16sp"
+            android:textColor="#6d6d6d"
             android:background="@drawable/button_store_withdraw_input"
             android:layout_width="125dp"
             android:layout_height="54dp"/>
@@ -179,6 +189,7 @@
             android:text="출금 금액"
             android:textSize="16sp"
             android:textColor="#333333"
+            android:layout_marginBottom="3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -202,6 +213,8 @@
         android:layout_marginBottom="17dp"
         android:background="@drawable/button_puzi"
         android:layout_width="match_parent"
+        android:textSize="16sp"
+        android:textColor="#ffffff"
         android:layout_height="wrap_content"/>
 
       <LinearLayout

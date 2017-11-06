@@ -55,7 +55,7 @@ public class SettingNetworkServiceTest {
 	public void company() throws Exception {
 		System.out.println("+++ START");
 
-		Call<ResponseVO> call = sut.company("test123123123", true, 1);
+		Call<ResponseVO> call = sut.blockCompany("test123123123", true, 1);
 		ResponseVO responseVO = NetworkTestValidation.call(call);
 
 	}
