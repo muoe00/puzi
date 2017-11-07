@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.puzi.puzi.cache.Preference.getMyInfo;
 
 public class MainActivity extends BaseFragmentActivity {
 
@@ -71,8 +72,7 @@ public class MainActivity extends BaseFragmentActivity {
 	private long backKeyPressedTime;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
@@ -93,6 +93,17 @@ public class MainActivity extends BaseFragmentActivity {
 		btnSetting.setTag(FRAGMENT_SETTING);
 
 		btnAdvertise.setSelected(true);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		UserVO myInfo = Preference.getMyInfo(getActivity());
+		if(myInfo == null) {
+			return;
+		}
+		tvPoint.setText(TextUtils.addComma(myInfo.getPoint()) + "P");
+		tvTodayPoint.setText(TextUtils.addComma(myInfo.getTodayPoint()) + "P");
 	}
 
 	public void getUser() {

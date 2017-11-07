@@ -47,7 +47,11 @@ public class Preference {
 	}
 	
 	public static UserVO getMyInfo(Activity activity) {
-		return gson.fromJson(getProperty(activity, MY_INFO), UserVO.class);
+		String json = getProperty(activity, MY_INFO);
+		if(json == null){
+			return null;
+		}
+		return gson.fromJson(json, UserVO.class);
 	}
 
 }

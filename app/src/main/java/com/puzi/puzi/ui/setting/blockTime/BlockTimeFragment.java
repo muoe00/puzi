@@ -5,7 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import butterknife.*;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.setting.RejectTimeVO;
 import com.puzi.puzi.cache.Preference;
@@ -13,6 +16,7 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.SettingNetworkService;
+import com.puzi.puzi.ui.CustomArrayAdapter;
 import com.puzi.puzi.ui.CustomPagingAdapter;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragment;
@@ -71,23 +75,20 @@ public class BlockTimeFragment extends BaseFragment {
 		adapter.getList();
 
 		timeList = newArrayList();
-		for(int i=0; i<24; i++){
+		for(int i=8; i<24; i++){
 			if(i > 9) {
 				timeList.add(i + "시");
 			} else {
 				timeList.add("0" + i + "시");
 			}
 		}
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, timeList);
 
-		spStart.setAdapter(adapter);
+		CustomArrayAdapter startAdapter = new CustomArrayAdapter(getActivity(), timeList);
+		spStart.setAdapter(startAdapter);
 		spStart.setPrompt("시작시간");
 		spStart.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				TextView textView = (TextView) view;
-				parent.setBackgroundResource(R.drawable.button_block_time_on);
-				textView.setTextColor(getResources().getColor(R.color.colorPuzi));
 				selectedStartTime = timeList.get(position).replace("시", "");
 			}
 
@@ -96,14 +97,12 @@ public class BlockTimeFragment extends BaseFragment {
 				parent.setBackgroundResource(R.drawable.button_block_time_off);
 			}
 		});
-		spEnd.setAdapter(adapter);
+		CustomArrayAdapter endAdapter = new CustomArrayAdapter(getActivity(), timeList);
+		spEnd.setAdapter(endAdapter);
 		spEnd.setPrompt("종료시간");
 		spEnd.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				TextView textView = (TextView) view;
-				parent.setBackgroundResource(R.drawable.button_block_time_on);
-				textView.setTextColor(getResources().getColor(R.color.colorPuzi));
 				selectedEndTime = timeList.get(position).replace("시", "");
 			}
 

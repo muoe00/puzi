@@ -73,39 +73,85 @@
             android:layout_marginBottom="13dp"
             android:background="#ff2470"
             android:layout_width="100dp"
-            android:layout_height="3dp">
+            android:layout_height="1dp">
           </LinearLayout>
 
-          <TextView
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="medium"
             android:text="TextView"
             android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="21sp"
+            android:textSize="20sp"
             android:textColor="#333333"
             android:gravity="center_horizontal"
+            android:layout_marginBottom="1dp"
             android:id="@+id/tv_store_purchase_name"/>
 
-          <TextView
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="medium"
             android:text="TextView"
             android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:fontFamily="sans-serif"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="#333333"
             android:gravity="center_horizontal"
-            android:layout_marginBottom="17dp"
+            android:layout_marginBottom="18dp"
             android:id="@+id/tv_store_purchase_price"/>
 
-          <Spinner
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:layout_marginBottom="17dp"
-            android:id="@+id/sp_store_purchase_count"/>
+          <LinearLayout
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_marginBottom="18dp"
+            android:layout_width="142dp"
+            android:layout_height="30dp">
+
+            <ImageButton
+              android:id="@+id/ibtn_store_purchase_plus"
+              android:background="#00000000"
+              android:src="@drawable/purchase_plus"
+              android:layout_width="30dp"
+              android:layout_height="30dp"/>
+
+            <LinearLayout
+              android:orientation="vertical"
+              android:layout_weight="1"
+              android:layout_width="0dp"
+              android:layout_height="match_parent">
+
+              <LinearLayout
+                android:background="#dadada"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+              <com.puzi.puzi.ui.customview.NotoTextView
+                android:id="@+id/tv_store_purchase_count"
+                app:fontWeight="medium"
+                android:textSize="15sp"
+                android:textColor="#333333"
+                android:gravity="center"
+                android:text="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+              <LinearLayout
+                android:background="#dadada"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            </LinearLayout>
+
+            <ImageButton
+              android:id="@+id/ibtn_store_purchase_minus"
+              android:background="#00000000"
+              android:src="@drawable/purchase_minus"
+              android:layout_width="30dp"
+              android:layout_height="30dp"/>
+
+          </LinearLayout>
 
         </LinearLayout>
 

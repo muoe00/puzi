@@ -9,6 +9,7 @@ import butterknife.BindView;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.store.WithdrawVO;
 import com.puzi.puzi.ui.CustomPagingAdapter;
+import com.puzi.puzi.utils.TextUtils;
 
 /**
  * Created by JangwonPark on 2017. 11. 5..
@@ -24,7 +25,7 @@ public class WithdrawHistoryAdapter extends CustomPagingAdapter<WithdrawVO> {
 		ViewHolder viewHolder = (ViewHolder) holder;
 
 		viewHolder.tvTime.setText(item.getCreatedAt());
-		viewHolder.tvPoint.setText(item.getMoney() + "P");
+		viewHolder.tvPoint.setText(TextUtils.addComma(item.getMoney()) + "P");
 	}
 
 	@Override

@@ -18,13 +18,13 @@ import static com.google.common.collect.Lists.newArrayList;
  * Created by JangwonPark on 2017. 11. 6..
  */
 
-public class CustonArrayAdapter extends BaseAdapter {
+public class CustomArrayAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
 	private Activity activity;
 	private List<String> list = newArrayList();
 
-	public CustonArrayAdapter(Activity activity, List<String> list) {
+	public CustomArrayAdapter(Activity activity, List<String> list) {
 		this.activity = activity;
 		this.inflater = activity.getLayoutInflater();
 		this.list.addAll(list);
