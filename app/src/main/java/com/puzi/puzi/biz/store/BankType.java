@@ -41,4 +41,13 @@ public enum BankType {
 		}
 		return list;
 	}
+
+	public static BankType findByName(String name) {
+		for(BankType bankType : values()) {
+			if(bankType.getName().equals(name)){
+				return bankType;
+			}
+		}
+		return null;
+	}
 }

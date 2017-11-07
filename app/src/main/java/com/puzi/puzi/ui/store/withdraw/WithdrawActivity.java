@@ -2,10 +2,7 @@ package com.puzi.puzi.ui.store.withdraw;
 
 import android.os.Bundle;
 import android.widget.*;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+import butterknife.*;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.store.BankType;
 import com.puzi.puzi.biz.store.WithdrawVO;
@@ -26,11 +23,11 @@ import com.puzi.puzi.utils.TextUtils;
 import retrofit2.Call;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.puzi.puzi.R.id.sp_store_withdraw_bank;
 
 /**
  * Created by muoe0 on 2017-07-30.
@@ -41,7 +38,7 @@ public class WithdrawActivity extends BaseActivity {
 
 	@BindView(R.id.tv_store_withdraw_point)
 	NotoTextView tvPoint;
-	@BindView(R.id.sp_store_withdraw_bank)
+	@BindView(sp_store_withdraw_bank)
 	Spinner spBank;
 	@BindView(R.id.et_store_withdraw_bank_account)
 	EditText etBankAccount;
@@ -55,7 +52,8 @@ public class WithdrawActivity extends BaseActivity {
 	ScrollView svContainer;
 
 	private WithdrawHistoryAdapter adapter;
-	private ArrayList<String> moneyList;
+	private List<String> moneyList = newArrayList("10,000원", "20,000원", "30,000원", "50,000원", "100,000원");;
+	private List<String> bankTypeList = BankType.getBankNameList();
 	private BankType selectedBank = BankType.IBKOKRSE;
 	private String selectedMoney = "10,000원";
 
@@ -81,9 +79,8 @@ public class WithdrawActivity extends BaseActivity {
 			});
 		adapter.setEmptyMessage("출금내역이 없습니다.");
 		adapter.getList();
-		CustomArrayAdapter bankAdapter = new CustomArrayAdapter(getActivity(), BankType.getBankNameList());
+		CustomArrayAdapter bankAdapter = new CustomArrayAdapter(getActivity(), bankTypeList);
 		spBank.setAdapter(bankAdapter);
-		moneyList = newArrayList("10,000원", "20,000원", "30,000원", "50,000원", "100,000원");
 		CustomArrayAdapter moneyAdapter = new CustomArrayAdapter(getActivity(), moneyList);
 		spBankPrice.setAdapter(moneyAdapter);
 	}
@@ -109,6 +106,16 @@ public class WithdrawActivity extends BaseActivity {
 				}
 			}
 		});
+	}
+
+	@OnItemSelected(R.id.sp_store_withdraw_bank)
+	public void bankSelected(int position) {
+		this.selectedBank = BankType.findByName(bankTypeList.get(position));
+	}
+
+	@OnItemSelected(R.id.sp_store_withdraw_bank_price)
+	public void priceSelected(int position) {
+		this.selectedMoney = moneyList.get(position);
 	}
 
 	@OnClick(R.id.btn_store_withdraw_confirm)
@@ -149,7 +156,7 @@ public class WithdrawActivity extends BaseActivity {
 							WithdrawVO withdrawVO = new WithdrawVO();
 							withdrawVO.setCreatedAt(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 							withdrawVO.setMoney(money);
-							adapter.addOne(withdrawVO);
+							adapter.addFirst(withdrawVO);
 
 							UserVO myInfo = Preference.getMyInfo(WithdrawActivity.this);
 							myInfo.setPoint(myInfo.getPoint() - money);
