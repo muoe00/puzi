@@ -163,6 +163,9 @@ public class ChannelFilterActivity extends BaseActivity {
 
 	@OnClick(R.id.ibtn_channel_filter_all)
 	public void filterAll() {
+		if(categoryTypeList == null || categoryTypeList.size() == 0) {
+			return;
+		}
 		while(true) {
 			setByCategoryType(categoryTypeList.get(0));
 
