@@ -1,6 +1,7 @@
 package com.puzi.puzi.ui.advertisement;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ public class AdvertisementFragment extends BaseFragment {
 	Unbinder unbinder;
 
 	@BindView(R.id.lv_advertise) public ListView lvAd;
+	@BindView(R.id.srl_advertisement_container) public SwipeRefreshLayout srlContainer;
 
 	private View view = null;
 	private boolean more = false;
@@ -51,11 +53,31 @@ public class AdvertisementFragment extends BaseFragment {
 		view = inflater.inflate(R.layout.fragment_advertisement, container, false);
 		unbinder = ButterKnife.bind(this, view);
 
-		initAdapter();
+		initComponent();
 		getAdvertiseList();
 		initScrollAction();
 
 		return view;
+	}
+
+	private void initComponent() {
+		advertiseListAdapter = new AdvertisementListAdapter(getActivity());
+		lvAd.setAdapter(advertiseListAdapter);
+
+		srlContainer.setColorSchemeResources(R.color.colorPuzi);
+		srlContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				refresh();
+				srlContainer.setRefreshing(false);
+			}
+		});
+	}
+
+	private void refresh() {
+		pagingIndex = 1;
+		advertiseListAdapter.clean();
+		getAdvertiseList();
 	}
 
 	public void getAdvertiseList() {
@@ -130,11 +152,6 @@ public class AdvertisementFragment extends BaseFragment {
 				lastestScrollFlag = (totalItemCount > 0) && firstVisibleItem + visibleItemCount >= totalItemCount;
 			}
 		});
-	}
-
-	private void initAdapter() {
-		advertiseListAdapter = new AdvertisementListAdapter(getActivity());
-		lvAd.setAdapter(advertiseListAdapter);
 	}
 
 	public synchronized void refresh(int adId, boolean saved) {

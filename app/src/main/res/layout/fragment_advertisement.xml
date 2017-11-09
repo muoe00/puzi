@@ -14,12 +14,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ListView
+    <android.support.v4.widget.SwipeRefreshLayout
+      android:id="@+id/srl_advertisement_container"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:id="@+id/lv_advertise"
-      android:background="@color/colorWhite"
-      android:divider="@color/colorWhite"/>
+      android:layout_height="match_parent">
+
+      <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lv_advertise"
+        android:background="@color/colorWhite"
+        android:divider="@color/colorWhite"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
   </LinearLayout>
 

@@ -54,6 +54,11 @@ public class AdvertisementListAdapter extends BaseAdapter {
 		list.addAll(advertiseVOList);
 	}
 
+	public void clean() {
+		list = new ArrayList();
+		notifyDataSetChanged();
+	}
+
 	public void empty() {
 		if(!empty){
 			empty = true;

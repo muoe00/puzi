@@ -152,7 +152,6 @@
           android:layout_height="21dp"
           android:src="@drawable/back_chevron_copy"
           android:layout_gravity="center_vertical|right"
-          android:id="@+id/iv_setting_alarm"
           android:layout_centerVertical="true"
           android:layout_alignParentRight="true"
           android:layout_alignParentEnd="true"/>
@@ -180,7 +179,7 @@
         <com.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
-          android:text="수신 거부 관리"
+          android:text="수신거부 관리"
           android:textSize="15sp"
           android:textColor="#333333"
           android:layout_centerVertical="true"

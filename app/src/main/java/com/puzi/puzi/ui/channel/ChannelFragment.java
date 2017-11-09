@@ -2,7 +2,6 @@ package com.puzi.puzi.ui.channel;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +48,6 @@ public class ChannelFragment extends BaseFragment {
 	@BindView(R.id.sv_channel) public ScrollView svContainer;
 	@BindView(R.id.fl_channel_more_channel_container) public FrameLayout flMoreChannelContainer;
 	@BindView(R.id.fl_channel_more_editorspage_container) public FrameLayout flMoreEditorspageContainer;
-	@BindView(R.id.srl_channel) public SwipeRefreshLayout srlChannel;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +65,9 @@ public class ChannelFragment extends BaseFragment {
 	}
 
 	private void initComponent() {
+		if(channelFilterAdapter != null) {
+			return;
+		}
 		// filter
 		channelFilterAdapter = new ChannelFilterAdapter(getActivity());
 		hlvChannelFilter.setAdapter(channelFilterAdapter);
@@ -79,7 +80,7 @@ public class ChannelFragment extends BaseFragment {
 			}
 		});
 		channelAdapter.setMore(false);
-//		channelAdapter.getList();
+		channelAdapter.getList();
 
 		editorsPageAdapter = new ChannelEditorspageAdapter(getActivity(), R.layout.item_channel_list_editorspage, lvEditorspage, svContainer,
 			new CustomPagingAdapter.ListHandler() {
@@ -90,22 +91,7 @@ public class ChannelFragment extends BaseFragment {
 				}
 			});
 		editorsPageAdapter.setMore(false);
-//		editorsPageAdapter.getList();
-
-		SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener() {
-
-			@Override
-			public void onRefresh() {
-				searchType = null;
-				channelAdapter.initPagingIndex();
-				channelAdapter.getList();
-				editorsPageAdapter.initPagingIndex();
-				editorsPageAdapter.getList();
-			}
-		};
-		srlChannel.setColorSchemeResources(R.color.colorPuzi);
-		srlChannel.setOnRefreshListener(listener);
-		listener.onRefresh();
+		editorsPageAdapter.getList();
 	}
 
 	private void getChannelList() {
@@ -120,14 +106,8 @@ public class ChannelFragment extends BaseFragment {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				channelAdapter.stopProgress();
-				srlChannel.setRefreshing(false);
 
 				if (responseVO.getResultType().isSuccess()) {
-					if(channelAdapter.getPagingIndex() <= 1) {
-						channelAdapter.clean();
-						channelAdapter.increasePagingIndex();
-
-					}
 
 					List<ChannelVO> newChannelList = responseVO.getList("channelDTOList", ChannelVO.class);
 					channelAdapter.addList(newChannelList);
@@ -154,14 +134,8 @@ public class ChannelFragment extends BaseFragment {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				editorsPageAdapter.stopProgress();
-				srlChannel.setRefreshing(false);
 
 				if (responseVO.getResultType().isSuccess()) {
-					if(editorsPageAdapter.getPagingIndex() <= 1) {
-						editorsPageAdapter.clean();
-						editorsPageAdapter.increasePagingIndex();
-					}
-
 					List<ChannelEditorsPageVO> newEditorspageList = responseVO.getList("channelEditorsPageDTOList", ChannelEditorsPageVO.class);
 					editorsPageAdapter.addList(newEditorspageList);
 
