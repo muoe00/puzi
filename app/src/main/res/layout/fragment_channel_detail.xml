@@ -51,7 +51,7 @@
           android:scaleType="centerCrop"
           android:id="@+id/ibtn_chanenl_detail_company_image"/>
 
-        <TextView
+        <com.puzi.puzi.ui.customview.RobotoTextView
           android:text="companyName"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -145,7 +145,7 @@
           android:layout_width="86dp"
           android:layout_height="26dp">
 
-          <TextView
+          <com.puzi.puzi.ui.customview.RobotoTextView
             android:id="@+id/tv_channel_detail_myScore"
             android:textSize="15sp"
             android:fontFamily="sans-serif"
@@ -157,7 +157,8 @@
             android:background="@drawable/button_myscore_left_back"
             android:layout_height="match_parent"/>
 
-          <TextView
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="regular"
             android:text="평가함"
             android:textSize="14sp"
             android:textColor="#dadada"
@@ -181,7 +182,8 @@
       </LinearLayout>
 
       <!-- 코멘트 -->
-      <TextView
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="regular"
         android:text="comment"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
@@ -217,7 +219,8 @@
         android:layout_height="10dp"/>
 
       <!-- 댓글 타이틀 -->
-      <TextView
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="bold"
         android:layout_marginTop="20dp"
         android:text="댓글"
         android:textSize="17sp"
@@ -273,7 +276,8 @@
       android:background="#ffffff"
       android:layout_height="wrap_content">
 
-      <EditText
+      <com.puzi.puzi.ui.customview.NotoEditText
+        app:fontWeight="regular"
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -293,7 +297,8 @@
         android:id="@+id/et_channel_detail_write_reply"
         android:hint="의견을 입력하세요"/>
 
-      <Button
+      <com.puzi.puzi.ui.customview.NotoButton
+        app:fontWeight="medium"
         android:text="게시"
         android:paddingLeft="17dp"
         android:paddingRight="14dp"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
+              xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:padding="0dp"
               android:layout_margin="0dp"
@@ -38,7 +38,8 @@
         android:id="@+id/ibtn_item_channel_image_1"
         android:background="#00000000"/>
 
-      <Button
+      <com.puzi.puzi.ui.customview.NotoButton
+        app:fontWeight="medium"
         android:text="title"
         android:textSize="15sp"
         android:textColor="#333333"

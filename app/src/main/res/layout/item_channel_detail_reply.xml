@@ -10,7 +10,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
+    <com.puzi.puzi.ui.customview.NotoTextView
+      app:fontWeight="bold"
       android:text="title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -49,7 +50,8 @@
           android:src="@drawable/thumbs_up"
           android:id="@+id/iv_channel_detail_reply_recommend"/>
 
-        <TextView
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="demilight"
           android:text="0"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -90,7 +92,8 @@
           android:src="@drawable/thumbs_up"
           android:id="@+id/iv_channel_detail_reply_reverse"/>
 
-        <TextView
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="demilight"
           android:text="0"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -112,7 +115,8 @@
 
   </LinearLayout>
 
-  <TextView
+  <com.puzi.puzi.ui.customview.NotoTextView
+    app:fontWeight="regular"
     android:text="comment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

@@ -323,6 +323,7 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 	public void clean() {
 		initPagingIndex();
 		list = newArrayList();
+		notifyDataSetChanged();
 	}
 
 	protected abstract class Holder {

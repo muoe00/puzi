@@ -7,15 +7,17 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
+      android:id="@+id/ll_channel_editors_page_top_container"
       android:orientation="horizontal"
       android:layout_width="match_parent"
       android:background="#ffffff"
-      android:layout_height="40dp">
+      android:layout_height="54dp">
 
       <ImageButton
-        android:layout_width="28dp"
-        android:layout_height="40dp"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:paddingTop="10dp"
@@ -24,13 +26,14 @@
         android:background="#00000000"
         android:id="@+id/ibtn_channel_editors_page_back"/>
 
-      <TextView
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="demilight"
         android:text="title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textColor="#333333"
-        android:layout_marginRight="28dp"
+        android:layout_marginRight="40dp"
         android:textSize="16sp"
         android:layout_gravity="center_vertical"
         android:id="@+id/tv_channel_editors_page_title"
@@ -38,54 +41,81 @@
 
     </LinearLayout>
 
+    <LinearLayout
+      android:id="@+id/ll_channel_editors_page_top_line"
+      android:background="#dadada"
+      android:layout_width="match_parent" android:layout_height="1dp"/>
+
     <FrameLayout
+      android:layout_weight="1"
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_height="0dp">
 
       <WebView
         android:id="@+id/wv_channel_editors_page_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
       </WebView>
-      <FrameLayout
-        android:id="@+id/fl_channel_editors_page_container"
-        android:background="#ffffff"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-          android:orientation="vertical"
-          android:layout_gravity="center"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content">
-
-          <ProgressBar android:id="@+id/pb_channel_editors_page_progress"
-                       style="?android:attr/progressBarStyle"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_gravity="center_horizontal"
-                       android:max="10000"
-                       android:layout_marginBottom="5dp"/>
-
-          <TextView
-            android:id="@+id/tv_channel_editors_page_message_1"
-            android:text="에디터스 페이지를 불러오는 중입니다."
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"/>
-
-          <TextView
-            android:text="에디터스 페이지는 에디터가 직접 작성하거나, 관련기사, 관련 블로그 등의 글이 있는 페이지입니다."
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:id="@+id/tv_channel_editors_page_message_2"/>
-
-        </LinearLayout>
-
-      </FrameLayout>
 
     </FrameLayout>
+
+    <LinearLayout
+      android:id="@+id/ll_channel_editors_page_bottom_container"
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:background="#fafafa"
+      android:layout_height="50dp">
+
+      <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:src="@drawable/path_12_copy"
+        android:background="#00000000"
+        android:id="@+id/ibtn_channel_editors_page_web_back"/>
+
+      <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="0dp" android:layout_height="match_parent"/>
+
+      <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:src="@drawable/path_12"
+        android:background="#00000000"
+        android:id="@+id/ibtn_channel_editors_page_web_forward"/>
+
+      <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="0dp" android:layout_height="match_parent"/>
+
+      <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:src="@drawable/refresh"
+        android:background="#00000000"
+        android:id="@+id/ibtn_channel_editors_page_web_refresh"/>
+
+      <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="0dp" android:layout_height="match_parent"/>
+
+      <LinearLayout
+        android:layout_width="40dp" android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
   </LinearLayout>
 
 </FrameLayout>
