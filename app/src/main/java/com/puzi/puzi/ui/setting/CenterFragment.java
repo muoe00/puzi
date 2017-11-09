@@ -9,7 +9,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.ui.base.BaseFragment;
-import com.puzi.puzi.ui.intro.InfoFragment;
 
 /**
  * Created by 170605 on 2017-10-26.
@@ -41,7 +40,7 @@ public class CenterFragment extends BaseFragment {
 	}
 
 	@OnClick({R.id.btn_setting_cs_using, R.id.btn_setting_cs_ad, R.id.btn_setting_cs_service,
-		R.id.btn_setting_cs_user, R.id.btn_setting_cs_gps, R.id.btn_setting_cs_open, R.id.btn_setting_cs_leave})
+		R.id.btn_setting_cs_user, R.id.btn_setting_cs_gps, R.id.btn_setting_cs_leave})
 	public void onClick(View v) {
 		Bundle bundle = new Bundle(1);
 
@@ -75,10 +74,6 @@ public class CenterFragment extends BaseFragment {
 				bundle.putString("key", "gps");
 				fragment.setArguments(bundle);
 				changedFragment("위치기반 서비스 이용약관");
-				break;
-			case R.id.btn_setting_cs_open :
-				fragment = new InfoFragment();
-				changedFragment("오픈소스 라이브러리");
 				break;
 			case R.id.btn_setting_cs_leave :
 				fragment = new OutFragment();

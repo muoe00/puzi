@@ -53,7 +53,4 @@ public enum ResultType {
 		return this == SUCCESS;
 	}
 
-	public int getResultCode() {
-		return resultCode;
-	}
 }

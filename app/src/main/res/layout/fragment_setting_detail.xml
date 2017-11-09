@@ -21,8 +21,8 @@
       android:id="@+id/ibtn_back_setting"/>
 
     <com.puzi.puzi.ui.customview.NotoTextView
-      app:fontWeight="medium"
-      android:textSize="20sp"
+      app:fontWeight="regular"
+      android:textSize="18sp"
       android:textColor="#333333"
       android:id="@+id/tv_setting_title"
       android:layout_gravity="center"

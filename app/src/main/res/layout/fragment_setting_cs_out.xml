@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
@@ -12,7 +12,8 @@
     android:layout_height="100dp"
     android:weightSum="1">
 
-    <TextView
+    <com.puzi.puzi.ui.customview.NotoTextView
+      app:fontWeight="regular"
       android:layout_marginTop="11dp"
       android:layout_gravity="center"
       android:text="포인트"
@@ -51,6 +52,10 @@
   </LinearLayout>
 
   <LinearLayout
+    android:background="#dadada"
+    android:layout_width="match_parent" android:layout_height="1dp"/>
+
+  <LinearLayout
     android:id="@+id/ll_out"
     android:gravity="center|top"
     android:orientation="vertical"
@@ -64,28 +69,33 @@
       android:layout_width="80dp"
       android:layout_height="80dp"/>
 
-    <TextView
+    <com.puzi.puzi.ui.customview.NotoTextView
+      app:fontWeight="regular"
       android:layout_marginTop="13dp"
       android:text="푸지 앱 탈퇴하시면 고객님의\n앱 이용내역(포인트 포함)이"
       android:textSize="20sp"
       android:textColor="#333333"
       android:gravity="center"
-      android:layout_width="235dp"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
 
-    <TextView
+    <com.puzi.puzi.ui.customview.NotoTextView
+      app:fontWeight="regular"
       android:text="모두 삭제됩니다"
       android:textSize="20sp"
       android:textColor="#f13d3a"
       android:gravity="center"
-      android:layout_width="235dp"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
 
-    <Button
+    <com.puzi.puzi.ui.customview.NotoButton
+      app:fontWeight="medium"
       android:id="@+id/btn_out"
       android:background="@drawable/btn_out"
       android:layout_marginTop="41dp"
-      android:layout_width="295dp"
+      android:layout_marginLeft="32dp"
+      android:layout_marginRight="32dp"
+      android:layout_width="match_parent"
       android:layout_height="54dp"/>
 
   </LinearLayout>

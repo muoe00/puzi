@@ -16,6 +16,7 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.SettingNetworkService;
 import com.puzi.puzi.network.service.UserNetworkService;
+import com.puzi.puzi.ui.CustomArrayAdapter;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.utils.PuziUtils;
@@ -70,15 +71,11 @@ public class AskFragment extends BaseFragment {
 	}
 
 	public void settingAskType() {
-		askTypes.add(USE.getComment());
-		askTypes.add(ADVERTISEMENT.getComment());
-		askTypes.add(TIEUP.getComment());
-		askTypes.add(ETC.getComment());
+		for(AskType askType : USE.values()) {
+			askTypes.add(askType.getComment());
+		}
 
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>
-			(getActivity(), android.R.layout.simple_spinner_dropdown_item, askTypes);
-
-		spAskType.setPrompt(getResources().getString(R.string.ask_type));
+		CustomArrayAdapter adapter = new CustomArrayAdapter(getActivity(), askTypes);
 		spAskType.setAdapter(adapter);
 	}
 

@@ -15,8 +15,8 @@
     android:layout_height="54dp">
 
     <com.puzi.puzi.ui.customview.NotoTextView
+      app:fontWeight="regular"
       android:gravity="center"
-      app:fontWeight="medium"
       android:text="설정"
       android:textColor="#333333"
       android:textSize="20sp"
