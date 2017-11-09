@@ -214,7 +214,6 @@
         android:background="#dadada"/>
 
       <LinearLayout
-        android:id="@+id/ll_fl_container"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="43dp"
@@ -224,7 +223,7 @@
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:layout_marginTop="18dp"
-          android:text="기"
+          android:text="기타"
           android:textSize="14sp"
           android:textColor="#6d6d6d"
           android:layout_width="wrap_content"
