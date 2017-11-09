@@ -95,7 +95,7 @@ public class EditorsPageActivity extends BaseActivity {
 
 					if(start) {
 						int gap = oldScrollY - scrollY;
-						count += (gap >= 0) ? 10 : -10;
+						count += (gap >= 0) ? 5 : -5;
 
 						if(llTopContainer.getLayoutParams().height > layoutHeight || llTopContainer.getLayoutParams().height < 0) {
 							start = false;

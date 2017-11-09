@@ -49,7 +49,7 @@
         android:ellipsize="end"
         android:background="#00000000"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="46dp"
         android:gravity="left"
         android:id="@+id/tv_item_channel_title_1"/>
 
@@ -96,7 +96,8 @@
           android:src="@drawable/star"
           android:id="@+id/iv_item_channel_company_star_5"/>
 
-        <TextView
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="demilight"
           android:layout_gravity="center_vertical"
           android:text="5.0/5.0"
           android:textSize="12sp"
@@ -133,7 +134,8 @@
         android:id="@+id/ibtn_item_channel_image_2"
         android:background="#00000000"/>
 
-      <Button
+      <com.puzi.puzi.ui.customview.NotoButton
+        app:fontWeight="medium"
         android:text="title"
         android:textSize="15sp"
         android:textColor="#333333"
@@ -143,7 +145,7 @@
         android:ellipsize="end"
         android:background="#00000000"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="46dp"
         android:gravity="left"
         android:id="@+id/tv_item_channel_title_2"/>
 
@@ -189,7 +191,8 @@
           android:src="@drawable/star"
           android:id="@+id/iv_item_channel_company_star2_5"/>
 
-        <TextView
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="demilight"
           android:layout_gravity="center_vertical"
           android:text="5.0/5.0"
           android:textSize="12sp"
