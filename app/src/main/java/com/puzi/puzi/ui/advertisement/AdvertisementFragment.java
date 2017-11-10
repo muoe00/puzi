@@ -8,16 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.AdvertisementNetworkService;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.utils.PuziUtils;
@@ -84,50 +82,37 @@ public class AdvertisementFragment extends BaseFragment {
 		advertiseListAdapter.startProgress();
 		lvAd.setSelection(advertiseListAdapter.getCount() - 1);
 
-		String token = Preference.getProperty(getActivity(), "token");
-
-		final AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
-
-		Call<ResponseVO> callList = advertisementNetworkService.adList(token, pagingIndex);
-		callList.enqueue(new CustomCallback(getActivity()) {
+		LazyRequestService service = new LazyRequestService(getActivity(), AdvertisementNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<AdvertisementNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(AdvertisementNetworkService advertisementNetworkService, String token) {
+				return advertisementNetworkService.adList(token, pagingIndex);
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				Log.i("INFO", "advertise responseVO : " + responseVO.toString());
 				advertiseListAdapter.stopProgress();
 
-				switch(responseVO.getResultType()){
-					case SUCCESS:
-						List<ReceivedAdvertiseVO> advertiseList = responseVO.getList("receivedAdvertiseDTOList", ReceivedAdvertiseVO.class);
-						Log.i(PuziUtils.INFO, "Advertise main / advertiseList : " + advertiseList.toString());
-						Log.i(PuziUtils.INFO, "advertiseList totalCount : " + responseVO.getInteger("totalCount"));
+				List<ReceivedAdvertiseVO> advertiseList = responseVO.getList("receivedAdvertiseDTOList", ReceivedAdvertiseVO.class);
+				Log.i(PuziUtils.INFO, "Advertise main / advertiseList : " + advertiseList.toString());
+				Log.i(PuziUtils.INFO, "advertiseList totalCount : " + responseVO.getInteger("totalCount"));
 
-						if(advertiseList.size() == 0) {
-							advertiseListAdapter.empty();
-							more = false;
-							return;
-						}
-
-						advertiseListAdapter.addAdvertiseList(advertiseList);
-						advertiseListAdapter.notifyDataSetChanged();
-
-						if(advertiseListAdapter.getCount() == responseVO.getInteger("totalCount")) {
-							more = false;
-							return;
-						}
-						more = true;
-
-						break;
-
-					case NO_AUTH:
-						PuziUtils.renewalToken(getActivity());
-
-						break;
-
-					default:
-						Log.i("INFO", "advertisement getAdvertiseList failed.");
-						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
-						break;
+				if(advertiseList.size() == 0) {
+					advertiseListAdapter.empty();
+					more = false;
+					return;
 				}
+
+				advertiseListAdapter.addAdvertiseList(advertiseList);
+				advertiseListAdapter.notifyDataSetChanged();
+
+				if(advertiseListAdapter.getCount() == responseVO.getInteger("totalCount")) {
+					more = false;
+					return;
+				}
+				more = true;
 			}
 		});
 	}

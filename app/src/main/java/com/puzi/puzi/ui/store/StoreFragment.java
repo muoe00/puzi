@@ -10,10 +10,9 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.store.StoreVO;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.StoreNetworkService;
 import com.puzi.puzi.ui.base.BaseFragment;
 import retrofit2.Call;
@@ -52,19 +51,20 @@ public class StoreFragment extends BaseFragment {
 
 	public void getStoreList() {
 
-		final StoreNetworkService storeNetworkService = RetrofitManager.create(StoreNetworkService.class);
-		String token = Preference.getProperty(getActivity(), "token");
-
-		Call<ResponseVO> call = storeNetworkService.brandList(token);
-		call.enqueue(new CustomCallback(getActivity()) {
+		LazyRequestService service = new LazyRequestService(getActivity(), StoreNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<StoreNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(StoreNetworkService storeNetworkService, String token) {
+				return storeNetworkService.brandList(token);
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-				if(responseVO.getResultType().isSuccess()) {
-					List<StoreVO> storeList = responseVO.getList("storeDTOList", StoreVO.class);
-					adapter.addList(storeList);
-					adapter.notifyDataSetChanged();
-				}
+				List<StoreVO> storeList = responseVO.getList("storeDTOList", StoreVO.class);
+				adapter.addList(storeList);
+				adapter.notifyDataSetChanged();
 			}
 		});
 

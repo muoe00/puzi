@@ -11,11 +11,10 @@ import butterknife.BindView;
 import com.joooonho.SelectableRoundedImageView;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.setting.RejectCompanyVO;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.SettingNetworkService;
 import com.puzi.puzi.ui.CustomPagingAdapter;
 import com.puzi.puzi.ui.ProgressDialog;
@@ -63,23 +62,21 @@ public class BlockCompanyAdapter extends CustomPagingAdapter<RejectCompanyVO> {
 
 						@Override
 						public void onClick() {
-							final SettingNetworkService settingNetworkService = RetrofitManager.create(SettingNetworkService.class);
-							String token = Preference.getProperty(activity, "token");
-
 							ProgressDialog.show(activity);
 
-							Call<ResponseVO> call = settingNetworkService.blockCompany(token, false, companyVO.getCompanyInfoDTO().getCompanyId());
-							call.enqueue(new CustomCallback(activity) {
+							LazyRequestService service = new LazyRequestService(activity, SettingNetworkService.class);
+							service.method(new LazyRequestService.RequestMothod<SettingNetworkService>() {
+								@Override
+								public Call<ResponseVO> execute(SettingNetworkService settingNetworkService, String token) {
+									return settingNetworkService.blockCompany(token, false, companyVO.getCompanyInfoDTO().getCompanyId());
+								}
+							});
+							service.enqueue(new CustomCallback(activity) {
 
 								@Override
 								public void onSuccess(ResponseVO responseVO) {
-
-									ProgressDialog.dismiss();
-
-									if (responseVO.getResultType().isSuccess()) {
-										Toast.makeText(activity, "성공적으로 해제되었습니다.", Toast.LENGTH_SHORT).show();
-										removeItem(position);
-									}
+									Toast.makeText(activity, "성공적으로 해제되었습니다.", Toast.LENGTH_SHORT).show();
+									removeItem(position);
 								}
 							});
 						}

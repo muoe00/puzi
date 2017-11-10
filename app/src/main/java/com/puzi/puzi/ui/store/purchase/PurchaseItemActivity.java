@@ -18,8 +18,8 @@ import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.StoreNetworkService;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseActivity;
@@ -110,23 +110,23 @@ public class PurchaseItemActivity extends BaseActivity {
 
 				ProgressDialog.show(getActivity());
 
-				StoreNetworkService storeNetworkService = RetrofitManager.create(StoreNetworkService.class);
-				String token = Preference.getProperty(getActivity(), "token");
-
-				Call<ResponseVO> call = storeNetworkService.purchase(token, storeVO.getStoreId(), storeItemVO.getStoreItemId(), selectedCount);
-				call.enqueue(new CustomCallback(getActivity()) {
+				LazyRequestService service = new LazyRequestService(getActivity(), StoreNetworkService.class);
+				service.method(new LazyRequestService.RequestMothod<StoreNetworkService>() {
+					@Override
+					public Call<ResponseVO> execute(StoreNetworkService storeNetworkService, String token) {
+						return storeNetworkService.purchase(token, storeVO.getStoreId(), storeItemVO.getStoreItemId(), selectedCount);
+					}
+				});
+				service.enqueue(new CustomCallback(getActivity()) {
 
 					@Override
 					public void onSuccess(ResponseVO responseVO) {
-						if(responseVO.getResultType().isSuccess()) {
-							UserVO myInfo = Preference.getMyInfo(getActivity());
-							myInfo.setPoint(myInfo.getPoint() - storeItemVO.getPrice());
-							Preference.saveMyInfo(getActivity(), myInfo);
+						UserVO myInfo = Preference.getMyInfo(getActivity());
+						myInfo.setPoint(myInfo.getPoint() - storeItemVO.getPrice());
+						Preference.saveMyInfo(getActivity(), myInfo);
 
-							Toast.makeText(getActivity(), "구매완료, 쿠폰함으로 이동 개발해야함!", Toast.LENGTH_SHORT).show();
-							//TODO:쿠폰 상세함으로 이동
-						}
-						ProgressDialog.dismiss();
+						Toast.makeText(getActivity(), "구매완료, 쿠폰함으로 이동 개발해야함!", Toast.LENGTH_SHORT).show();
+						//TODO:쿠폰 상세함으로 이동
 					}
 				});
 			}

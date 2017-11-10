@@ -8,10 +8,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import com.puzi.puzi.R;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.ChannelNetworkService;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.utils.UIUtils;
@@ -68,7 +67,7 @@ public class ChannelEvaluateDialog {
 						Toast.makeText(activity, "점수를 선택해주세요.", Toast.LENGTH_SHORT).show();
 						return;
 					}
-					String comment = etComment.getText().toString();
+					final String comment = etComment.getText().toString();
 					if(comment == null || comment.length() < 5){
 						Toast.makeText(activity, "평가를 5자이상 작성해주세요.", Toast.LENGTH_SHORT).show();
 						return;
@@ -76,22 +75,20 @@ public class ChannelEvaluateDialog {
 
 					ProgressDialog.show(activity);
 
-					String token = Preference.getProperty(activity, "token");
-					ChannelNetworkService channelNetworkService = RetrofitManager.create(ChannelNetworkService.class);
-					Call<ResponseVO> call = channelNetworkService.evaludate(token, channelId, score, comment);
-					call.enqueue(new CustomCallback(activity) {
+					LazyRequestService service = new LazyRequestService(activity, ChannelNetworkService.class);
+					service.method(new LazyRequestService.RequestMothod<ChannelNetworkService>() {
+						@Override
+						public Call<ResponseVO> execute(ChannelNetworkService channelNetworkService, String token) {
+							return channelNetworkService.evaludate(token, channelId, score, comment);
+						}
+					});
+					service.enqueue(new CustomCallback(activity) {
 
 						@Override
 						public void onSuccess(ResponseVO responseVO) {
-							ProgressDialog.dismiss();
-
-							if(responseVO.getResultType().isSuccess()){
-								Toast.makeText(activity, "평가를 작성해주셔서 감사합니다.", Toast.LENGTH_SHORT).show();
-								listener.success(score);
-								close();
-							} else {
-								Toast.makeText(activity, responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
-							}
+							Toast.makeText(activity, "평가를 작성해주셔서 감사합니다.", Toast.LENGTH_SHORT).show();
+							listener.success(score);
+							close();
 						}
 					});
 				}

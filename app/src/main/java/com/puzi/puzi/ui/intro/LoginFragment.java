@@ -15,8 +15,8 @@ import butterknife.*;
 import com.puzi.puzi.R;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.IntroActivity;
 import com.puzi.puzi.ui.MainActivity;
@@ -24,7 +24,6 @@ import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.ui.common.BasicDialog;
 import com.puzi.puzi.utils.EncryptUtils;
-import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
 /**
@@ -77,31 +76,29 @@ public class LoginFragment extends BaseFragment {
 		final String pwd = etPwd.getText().toString();
 
 		if(isValid(id, pwd)){
-			final String sha256Pw = EncryptUtils.sha256(pwd);
-
 			ProgressDialog.show(getActivity());
 
-			UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
-			String notifyId = Preference.getProperty(getActivity(), "tokenFCM");
-			String phoneType = "A";
-			String phoneKey = "ABC";
+			final String sha256Pw = EncryptUtils.sha256(pwd);
+			final String notifyId = Preference.getProperty(getActivity(), "tokenFCM");
+			final String phoneType = "A";
+			final String phoneKey = "ABC";
 
-			Log.i(PuziUtils.INFO, "login start - id:" + id + " / pwd:" + sha256Pw);
-
-			Call call = userNetworkService.login(id, sha256Pw, notifyId, phoneType, phoneKey);
-
-			call.enqueue(new CustomCallback(getActivity()) {
+			LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
+			service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
+				@Override
+				public Call<ResponseVO> execute(UserNetworkService userNetworkService, String token) {
+					return userNetworkService.login(id, sha256Pw, notifyId, phoneType, phoneKey);
+				}
+			});
+			service.enqueue(new CustomCallback(getActivity()) {
 				@Override
 				public void onSuccess(ResponseVO responseVO) {
-					switch(responseVO.getResultType()){
-						case SUCCESS:
-							successLogin(responseVO.getString("token"), id, sha256Pw);
-							break;
+					successLogin(responseVO.getString("token"), id, sha256Pw);
+				}
 
-						case LOGIN_FAIL:
-							BasicDialog.show(getActivity(), "로그인실패", "아이디 또는 비밀번호를 확인해주세요");
-							break;
-					}
+				@Override
+				public void onFail(ResponseVO responseVO) {
+					BasicDialog.show(getActivity(), "로그인실패", "아이디 또는 비밀번호를 확인해주세요");
 				}
 			});
 		}

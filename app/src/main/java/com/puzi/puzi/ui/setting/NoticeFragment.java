@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -15,8 +14,8 @@ import com.puzi.puzi.R;
 import com.puzi.puzi.biz.setting.NoticeVO;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.SettingNetworkService;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.utils.PuziUtils;
@@ -77,48 +76,34 @@ public class NoticeFragment extends BaseFragment {
 
 		String token = Preference.getProperty(getActivity(), "token");
 
-		final SettingNetworkService settingNetworkService = RetrofitManager.create(SettingNetworkService.class);
-
-		Call<ResponseVO> callList = settingNetworkService.list(token, pagingIndex);
-		callList.enqueue(new CustomCallback(getActivity()) {
+		LazyRequestService service = new LazyRequestService(getActivity(), SettingNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<SettingNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(SettingNetworkService settingNetworkService, String token) {
+				return settingNetworkService.list(token, pagingIndex);
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-				Log.i(PuziUtils.INFO, "notice responseVO : " + responseVO.toString());
 				noticeListAdapter.stopProgress();
 
-				switch(responseVO.getResultType()){
-					case SUCCESS:
-						List<NoticeVO> noticeList = responseVO.getList("userNoticeDTOList", NoticeVO.class);
-						Log.i(PuziUtils.INFO, "noticeList : " + noticeList.toString());
-						Log.i(PuziUtils.INFO, "noticeList totalCount : " + responseVO.getInteger("totalCount"));
+				List<NoticeVO> noticeList = responseVO.getList("userNoticeDTOList", NoticeVO.class);
 
-						if(noticeList.size() == 0) {
-							noticeListAdapter.empty();
-							more = false;
-							return;
-						}
-
-						noticeListAdapter.addNoticeList(noticeList);
-						noticeListAdapter.notifyDataSetChanged();
-
-						if(noticeListAdapter.getGroupCount() == responseVO.getInteger("totalCount")) {
-							more = false;
-							return;
-						}
-						more = true;
-
-						break;
-
-					case NO_AUTH:
-						PuziUtils.renewalToken(getActivity());
-
-						break;
-
-					default:
-						Log.i("INFO", "setting getNoticeList failed.");
-						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
-						break;
+				if(noticeList.size() == 0) {
+					noticeListAdapter.empty();
+					more = false;
+					return;
 				}
+
+				noticeListAdapter.addNoticeList(noticeList);
+				noticeListAdapter.notifyDataSetChanged();
+
+				if(noticeListAdapter.getGroupCount() == responseVO.getInteger("totalCount")) {
+					more = false;
+					return;
+				}
+				more = true;
 			}
 		});
 	}

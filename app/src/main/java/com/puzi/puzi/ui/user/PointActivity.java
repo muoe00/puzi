@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -17,10 +16,9 @@ import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.user.LevelType;
 import com.puzi.puzi.biz.user.UserVO;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
@@ -63,38 +61,31 @@ public class PointActivity extends BaseFragmentActivity {
 	}
 
 	public void getUser() {
-		final UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
-
-		String token = Preference.getProperty(PointActivity.this, "token");
-
-		Call<ResponseVO> callUser = userNetworkService.myInfo(token);
-		callUser.enqueue(new CustomCallback(PointActivity.this) {
+		LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(UserNetworkService userNetworkService, String token) {
+				return userNetworkService.myInfo(token);
+			}
+		});
+		service.enqueue(new CustomCallback(PointActivity.this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-				Log.i("INFO", "advertise responseVO : " + responseVO.toString());
-				switch(responseVO.getResultType()){
-					case SUCCESS:
-						UserVO userVO = responseVO.getValue("userInfoDTO", UserVO.class);
-						Log.i("INFO", "HomeFragment main / userVO : " + userVO.toString());
+				UserVO userVO = responseVO.getValue("userInfoDTO", UserVO.class);
+				Log.i("INFO", "HomeFragment main / userVO : " + userVO.toString());
 
-						NumberFormat numberFormat = NumberFormat.getInstance();
+				NumberFormat numberFormat = NumberFormat.getInstance();
 
-						LevelType level = LevelType.valueOf(userVO.getLevelType());
-						setLevelIcon(level);
+				LevelType level = LevelType.valueOf(userVO.getLevelType());
+				setLevelIcon(level);
 
-						int point = userVO.getPoint();
-						String resultPoint = numberFormat.format(point);
-						tvPoint.setText(resultPoint);
+				int point = userVO.getPoint();
+				String resultPoint = numberFormat.format(point);
+				tvPoint.setText(resultPoint);
 
-						int todayPoint = userVO.getTodayPoint();
-						String resultTodayPoint = numberFormat.format(todayPoint);
-						tvTodayPoint.setText(resultTodayPoint);
-						break;
-
-					default:
-						Log.i("INFO", "advertisement getUser failed.");
-						Toast.makeText(getBaseContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
-				}
+				int todayPoint = userVO.getTodayPoint();
+				String resultTodayPoint = numberFormat.format(todayPoint);
+				tvTodayPoint.setText(resultTodayPoint);
 			}
 		});
 	}

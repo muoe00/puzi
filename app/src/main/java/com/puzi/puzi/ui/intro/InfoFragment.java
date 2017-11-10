@@ -16,8 +16,8 @@ import com.puzi.puzi.R;
 import com.puzi.puzi.biz.user.*;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.ProgressDialog;
@@ -85,43 +85,42 @@ public class InfoFragment extends BaseFragment {
 
 	@OnClick(R.id.btn_signup_ok)
 	public void signup() {
-		isChecked();
+		if(userVO.getAgeType() == null) {
+			Toast.makeText(getContext(), "출생년도를 선택하세요", Toast.LENGTH_SHORT).show();
+			return;
+		} else if(userVO.getFavoriteTypeList().size() < 3) {
+			Toast.makeText(getContext(), "관심분야를 3가지 이상 선택해주세요", Toast.LENGTH_SHORT).show();
+			return;
+		} else if(!isConfirm) {
+			Toast.makeText(getContext(), "약관에 동의해주세요", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
 		ProgressDialog.show(getActivity());
 
-		Log.i("INFO", "User VO : " + userVO.toString());
-		UserNetworkService userService = RetrofitManager.create(UserNetworkService.class);
-
-		Call<ResponseVO> call = userService.signup(userVO.getUserId(), EncryptUtils.sha256(userVO.getPasswd()), userVO.getRegisterType()
-			, userVO.getEmail(), userVO.getNotifyId(), userVO.getGenderType(), userVO.getAge(), userVO.getFavoriteTypeList()
-			, userVO.getRecommendId(), userVO.getPhoneType(), userVO.getPhoneKey());
-		call.enqueue(new CustomCallback(getActivity()) {
+		LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(UserNetworkService userNetworkService, String token) {
+				return userNetworkService.signup(userVO.getUserId(), EncryptUtils.sha256(userVO.getPasswd()), userVO.getRegisterType()
+					, userVO.getEmail(), userVO.getNotifyId(), userVO.getGenderType(), userVO.getAge(), userVO.getFavoriteTypeList()
+					, userVO.getRecommendId(), userVO.getPhoneType(), userVO.getPhoneKey());
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-				Log.i("INFO", "signup responseVO : " + responseVO.toString());
-				ProgressDialog.dismiss();
+				String token = responseVO.getString("token");
+				Log.i("INFO", "signup token : " + token);
 
-				switch(responseVO.getResultType()){
-					case SUCCESS:
-						Log.i("INFO", "signup success.");
+				Preference.addProperty(getActivity(), "token", token);
+				Preference.addProperty(getActivity(), "id", userVO.getUserId());
+				Preference.addProperty(getActivity(), "passwd", userVO.getPasswd());
 
-						String token = responseVO.getString("token");
-						Log.i("INFO", "signup token : " + token);
-
-						Preference.addProperty(getActivity(), "token", token);
-						Preference.addProperty(getActivity(), "id", userVO.getUserId());
-						Preference.addProperty(getActivity(), "passwd", userVO.getPasswd());
-
-						Intent intent = new Intent(getActivity(), MainActivity.class);
-						startActivity(intent);
-						getActivity().finish();
-						getActivity().getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-						break;
-
-					default:
-						Log.i("INFO", "signup failed.");
-						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
-				}
+				Intent intent = new Intent(getActivity(), MainActivity.class);
+				startActivity(intent);
+				getActivity().finish();
+				getActivity().getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 			}
 		});
 	}
@@ -264,22 +263,6 @@ public class InfoFragment extends BaseFragment {
 		String idByANDROID_ID = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 		userVO.setPhoneKey(idByANDROID_ID);
 		userVO.setRecommendId(edtiRecommend.getText().toString().trim());
-	}
-
-	public void isChecked() {
-		if(userVO.getAgeType() == null) {
-			Toast.makeText(getContext(), "출생년도를 선택하세요", Toast.LENGTH_SHORT).show();
-		} else if(userVO.getFavoriteTypeList().size() < 3) {
-			if(userVO.getFavoriteTypeList().isEmpty()) {
-				Toast.makeText(getContext(), "관심분야를 선택하세요", Toast.LENGTH_SHORT).show();
-			} else {
-				Toast.makeText(getContext(), "관심분야를 3가지 이상 선택하세요", Toast.LENGTH_SHORT).show();
-			}
-		} else if(!isConfirm) {
-			Toast.makeText(getContext(), "약관에 동의해주세요", Toast.LENGTH_SHORT).show();
-		} else {
-			Log.i("INFO", "signup check complete.");
-		}
 	}
 
 	@OnClick(R.id.ll_signup_info)

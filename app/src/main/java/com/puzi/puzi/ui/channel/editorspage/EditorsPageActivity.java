@@ -2,6 +2,7 @@ package com.puzi.puzi.ui.channel.editorspage;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,7 +107,7 @@ public class EditorsPageActivity extends BaseActivity {
 						}
 
 						ViewGroup.LayoutParams params = llTopContainer.getLayoutParams();
-						int willHeight = params.height + count;
+						int willHeight = params.height + (count*3);
 						if(willHeight >= layoutHeight) {
 							params.height = layoutHeight;
 							llTopContainer.setLayoutParams(params);
@@ -118,7 +119,7 @@ public class EditorsPageActivity extends BaseActivity {
 							llTopContainer.setLayoutParams(params);
 						}
 						ViewGroup.LayoutParams params2 = llBottomContainer.getLayoutParams();
-						int willHeight2 = params2.height + count;
+						int willHeight2 = params2.height + (count*3);
 						if(willHeight2 >= layoutHeight2) {
 							params2.height = layoutHeight2;
 							llBottomContainer.setLayoutParams(params2);
@@ -140,9 +141,12 @@ public class EditorsPageActivity extends BaseActivity {
 					switch (event.getAction()) {
 						case MotionEvent.ACTION_DOWN:
 							start = true;
+							count = 0;
+							Log.d("TAG", "+++ ACTION_DOWN");
 
 							break;
 						case MotionEvent.ACTION_UP:
+							Log.d("TAG", "+++ ACTION_UP");
 							if(start) {
 								start = false;
 								if(

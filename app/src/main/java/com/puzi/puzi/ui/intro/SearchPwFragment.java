@@ -13,8 +13,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.IntroActivity;
 import com.puzi.puzi.ui.ProgressDialog;
@@ -46,43 +46,33 @@ public class SearchPwFragment extends BaseFragment {
 	@OnClick(R.id.btn_srchpw)
 	public void searchPw(){
 
-		if(editId.getText() != null && editEmail.getText() != null) {
-			String email = editEmail.getText().toString();
-			if(ValidationUtils.checkEmail(email)) {
-				ProgressDialog.show(getActivity());
-
-				String id = editId.getText().toString();
-				UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
-
-				Call<ResponseVO> call = userNetworkService.searchpasswd(id, email);
-				call.enqueue(new CustomCallback(getActivity()) {
-					@Override
-					public void onSuccess(ResponseVO responseVO) {
-						ProgressDialog.dismiss();
-
-						switch (responseVO.getResultType()) {
-							case SUCCESS:
-								Toast.makeText(getContext(), "이메일을 전송하였습니다", Toast.LENGTH_SHORT).show();
-								break;
-							case NOT_FOUND_USER:
-								Toast.makeText(getContext(), "등록되지 않은 사용자입니다", Toast.LENGTH_SHORT).show();
-								break;
-							case WRONG_PARAMS:
-								Toast.makeText(getContext(), "정확한 아이디와 이메일 주소를 입력하세요", Toast.LENGTH_SHORT).show();
-								break;
-						}
-					}
-				});
-			} else {
-				Toast.makeText(getContext(), "정확한 이메일 주소를 입력하세요", Toast.LENGTH_SHORT).show();
-			}
-		} else if (editId.getText() == null){
+		final String id = editId.getText().toString();
+		if (id == null || id.length() < 3){
 			Toast.makeText(getContext(), "아이디를 입력하세요", Toast.LENGTH_SHORT).show();
-		} else if (editId.getText() == null){
-			Toast.makeText(getContext(), "이메일 주소를 입력하세요", Toast.LENGTH_SHORT).show();
-		} else {
-			Toast.makeText(getContext(), "아이디와 이메일 주소를 입력하세요", Toast.LENGTH_SHORT).show();
+			return;
 		}
+
+		final String email = editEmail.getText().toString();
+		if(!ValidationUtils.checkEmail(email)) {
+			Toast.makeText(getContext(), "정확한 이메일 주소를 입력하세요", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		ProgressDialog.show(getActivity());
+
+		LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(UserNetworkService userNetworkService, String token) {
+				return userNetworkService.searchpasswd(id, email);
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
+			@Override
+			public void onSuccess(ResponseVO responseVO) {
+				Toast.makeText(getContext(), "이메일을 전송하였습니다", Toast.LENGTH_SHORT).show();
+			}
+		});
 	}
 
 	@OnClick(R.id.btn_srch_signup)

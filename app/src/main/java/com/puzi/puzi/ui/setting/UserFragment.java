@@ -13,14 +13,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.SettingNetworkService;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragment;
-import com.puzi.puzi.utils.PuziUtils;
 import com.puzi.puzi.utils.ValidationUtils;
 import retrofit2.Call;
 
@@ -96,33 +94,22 @@ public class UserFragment extends BaseFragment {
 		}
 	}
 
-	public void requestModification(String email, String passwd) {
-
-		String token = Preference.getProperty(getActivity(), "token");
+	public void requestModification(final String email, final String passwd) {
 
 		ProgressDialog.show(getActivity());
-		SettingNetworkService settingNetworkService  = RetrofitManager.create(SettingNetworkService.class);
-		Call<ResponseVO> call = settingNetworkService.updateAccount(token, passwd, email);
-		call.enqueue(new CustomCallback(getActivity()) {
+
+		LazyRequestService service = new LazyRequestService(getActivity(), SettingNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<SettingNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(SettingNetworkService settingNetworkService, String token) {
+				return settingNetworkService.updateAccount(token, passwd, email);
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-				ProgressDialog.dismiss();
-				switch(responseVO.getResultType()){
-					case SUCCESS:
-						Log.i("INFO", "advertisement getAdvertiseList success.");
-						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
-						break;
-
-					case NO_AUTH:
-						PuziUtils.renewalToken(getActivity());
-						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
-						break;
-
-					default:
-						Log.i("INFO", "advertisement getAdvertiseList failed.");
-						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
-						break;
-				}
+				Log.d("INFO", "advertisement getAdvertiseList success.");
+				Toast.makeText(getContext(), "성공적으로 변경되었습니다.", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

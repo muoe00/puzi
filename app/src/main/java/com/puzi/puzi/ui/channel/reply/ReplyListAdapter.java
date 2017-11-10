@@ -13,10 +13,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelReplyVO;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.ChannelNetworkService;
 import lombok.Getter;
 import retrofit2.Call;
@@ -176,27 +175,30 @@ public class ReplyListAdapter extends BaseAdapter {
 		recommendUI(viewHolder, channelReplyVO, !recommend, false);
 		recommendUI(viewHolder, channelReplyVO, recommend, true);
 
-		String token = Preference.getProperty(activity, "token");
-		ChannelNetworkService channelNetworkService = RetrofitManager.create(ChannelNetworkService.class);
-		Call<ResponseVO> call = channelNetworkService.replyRecommend(token, channelReplyVO.getChannelId(), channelReplyVO.getChannelReplyId(),
-			recommend);
-		call.enqueue(new CustomCallback(activity) {
-
+		LazyRequestService service = new LazyRequestService(activity, ChannelNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<ChannelNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(ChannelNetworkService channelNetworkService, String token) {
+				return channelNetworkService.replyRecommend(token, channelReplyVO.getChannelId(), channelReplyVO.getChannelReplyId(), recommend);
+			}
+		});
+		service.enqueue(new CustomCallback(activity) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
+				// Nothing to do
+			}
 
-				// 실패했을 경우 미리 +카운트해놓은 것 원복
-				if(!responseVO.getResultType().isSuccess()) {
-					if(recommend) {
-						channelReplyVO.setRecommend(channelReplyVO.getRecommend() - 1);
-						viewHolder.tvRecommend.setText(""+channelReplyVO.getRecommend());
-					} else {
-						channelReplyVO.setReverse(channelReplyVO.getReverse() - 1);
-						viewHolder.tvReverse.setText(""+channelReplyVO.getReverse());
-					}
-					recommendUI(viewHolder, channelReplyVO, recommend, false);
-					recommendUI(viewHolder, channelReplyVO, !recommend, true);
+			@Override
+			public void onFail(ResponseVO responseVO) {
+				if(recommend) {
+					channelReplyVO.setRecommend(channelReplyVO.getRecommend() - 1);
+					viewHolder.tvRecommend.setText(""+channelReplyVO.getRecommend());
+				} else {
+					channelReplyVO.setReverse(channelReplyVO.getReverse() - 1);
+					viewHolder.tvReverse.setText(""+channelReplyVO.getReverse());
 				}
+				recommendUI(viewHolder, channelReplyVO, recommend, false);
+				recommendUI(viewHolder, channelReplyVO, !recommend, true);
 			}
 		});
 	}

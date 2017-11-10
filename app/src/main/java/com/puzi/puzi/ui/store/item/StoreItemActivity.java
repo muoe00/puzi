@@ -12,11 +12,10 @@ import com.google.gson.Gson;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.store.StoreItemVO;
 import com.puzi.puzi.biz.store.StoreVO;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.StoreNetworkService;
 import com.puzi.puzi.ui.base.BaseActivity;
 import com.puzi.puzi.ui.store.purchase.PurchaseItemActivity;
@@ -66,18 +65,25 @@ public class StoreItemActivity extends BaseActivity {
 	}
 
 	private void getStoreItemList() {
-		StoreNetworkService storeNetworkService = RetrofitManager.create(StoreNetworkService.class);
-		String token = Preference.getProperty(this, "token");
-
-		Call<ResponseVO> call = storeNetworkService.itemList(token, storeVO.getStoreId(), 1);
-		call.enqueue(new CustomCallback(this) {
+		LazyRequestService service = new LazyRequestService(getActivity(), StoreNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<StoreNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(StoreNetworkService storeNetworkService, String token) {
+				return storeNetworkService.itemList(token, storeVO.getStoreId(), 1);
+			}
+		});
+		service.enqueue(new CustomCallback(this) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-				if(responseVO.getResultType().isSuccess()) {
-					List<StoreItemVO> storeItemList = responseVO.getList("storeItemDTOList", StoreItemVO.class);
-					storeItemAdapter.addList(storeItemList);
-				}
+				List<StoreItemVO> storeItemList = responseVO.getList("storeItemDTOList", StoreItemVO.class);
+				storeItemAdapter.addList(storeItemList);
+				progressBar.setVisibility(View.GONE);
+			}
+
+			@Override
+			public void onFail(ResponseVO responseVO) {
+				super.onFail(responseVO);
 				progressBar.setVisibility(View.GONE);
 			}
 		});

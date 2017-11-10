@@ -17,8 +17,10 @@ import com.puzi.puzi.biz.channel.ChannelCategoryType;
 import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
+import com.puzi.puzi.network.service.ChannelNetworkService;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.advertisement.AdvertisementFragment;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
@@ -32,12 +34,10 @@ import com.puzi.puzi.utils.TextUtils;
 import retrofit2.Call;
 
 import java.lang.reflect.Type;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static com.puzi.puzi.cache.Preference.getMyInfo;
 
 public class MainActivity extends BaseFragmentActivity {
 
@@ -108,29 +108,22 @@ public class MainActivity extends BaseFragmentActivity {
 	}
 
 	public void getUser() {
-		final UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
 
-		String token = Preference.getProperty(MainActivity.this, "token");
-
-		Call<ResponseVO> callUser = userNetworkService.myInfo(token);
-		callUser.enqueue(new CustomCallback(MainActivity.this) {
+		LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(UserNetworkService userNetworkService, String token) {
+				return userNetworkService.myInfo(token);
+			}
+		});
+		service.enqueue(new CustomCallback(MainActivity.this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-				Log.i("INFO", "advertise responseVO : " + responseVO.toString());
-				switch(responseVO.getResultType()){
-					case SUCCESS:
-						userVO = responseVO.getValue("userInfoDTO", UserVO.class);
-						Preference.saveMyInfo(MainActivity.this, userVO);
-						Log.i("INFO", "HomeFragment main / userVO : " + userVO.toString());
+				userVO = responseVO.getValue("userInfoDTO", UserVO.class);
+				Preference.saveMyInfo(MainActivity.this, userVO);
 
-						tvPoint.setText(TextUtils.addComma(userVO.getPoint()) + "P");
-						tvTodayPoint.setText(TextUtils.addComma(userVO.getTodayPoint()) + "P");
-						break;
-
-					default:
-						Log.i("INFO", "advertisement getUser failed.");
-						Toast.makeText(getBaseContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
-				}
+				tvPoint.setText(TextUtils.addComma(userVO.getPoint()) + "P");
+				tvTodayPoint.setText(TextUtils.addComma(userVO.getTodayPoint()) + "P");
 			}
 		});
 	}

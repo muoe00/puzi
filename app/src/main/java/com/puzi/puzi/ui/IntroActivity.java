@@ -17,8 +17,8 @@ import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
 import com.puzi.puzi.R;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
@@ -122,9 +122,14 @@ public class IntroActivity extends BaseFragmentActivity {
 	public void checkUser() {
 		uuid = getDevicesUUID(getApplicationContext());
 
-		final UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
-		Call<ResponseVO> call = userNetworkService.checkKakao(uuid);
-		call.enqueue(new CustomCallback(this) {
+		LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(UserNetworkService userNetworkService, String token) {
+				return userNetworkService.checkKakao(uuid);
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				isKakao = responseVO.getValue("registered", boolean.class);

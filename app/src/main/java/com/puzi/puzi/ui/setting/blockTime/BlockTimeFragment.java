@@ -11,10 +11,9 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.setting.RejectTimeVO;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.SettingNetworkService;
 import com.puzi.puzi.ui.CustomArrayAdapter;
 import com.puzi.puzi.ui.CustomPagingAdapter;
@@ -116,22 +115,22 @@ public class BlockTimeFragment extends BaseFragment {
 	private void getBlockedTimeList() {
 		adapter.startProgressWithScrollDown();
 
-		final SettingNetworkService settingNetworkService = RetrofitManager.create(SettingNetworkService.class);
-		String token = Preference.getProperty(getActivity(), "token");
-
-		Call<ResponseVO> call = settingNetworkService.blockedTimeList(token, adapter.getPagingIndex());
-		call.enqueue(new CustomCallback(getActivity()) {
+		LazyRequestService service = new LazyRequestService(getActivity(), SettingNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<SettingNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(SettingNetworkService settingNetworkService, String token) {
+				return settingNetworkService.blockedTimeList(token, adapter.getPagingIndex());
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-
 				adapter.stopProgress();
 
-				if (responseVO.getResultType().isSuccess()) {
-					List<RejectTimeVO> rejectTimeVoList = responseVO.getList("rejectTimeDTOList", RejectTimeVO.class);
-					adapter.addList(rejectTimeVoList);
-					adapter.setMore(false);
-				}
+				List<RejectTimeVO> rejectTimeVoList = responseVO.getList("rejectTimeDTOList", RejectTimeVO.class);
+				adapter.addList(rejectTimeVoList);
+				adapter.setMore(false);
 			}
 		});
 	}
@@ -140,26 +139,22 @@ public class BlockTimeFragment extends BaseFragment {
 	public void clickAdd(View v) {
 		ProgressDialog.show(getActivity());
 
-		final SettingNetworkService settingNetworkService = RetrofitManager.create(SettingNetworkService.class);
-		String token = Preference.getProperty(getActivity(), "token");
-
-		Call<ResponseVO> call = settingNetworkService.blockTime(token, true, selectedStartTime, selectedEndTime);
-		call.enqueue(new CustomCallback(getActivity()) {
+		LazyRequestService service = new LazyRequestService(getActivity(), SettingNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<SettingNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(SettingNetworkService settingNetworkService, String token) {
+				return settingNetworkService.blockTime(token, true, selectedStartTime, selectedEndTime);
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-
-				ProgressDialog.dismiss();
-
-				if (responseVO.getResultType().isSuccess()) {
-					Toast.makeText(getActivity(), "추가되었습니다.", Toast.LENGTH_SHORT).show();
-					RejectTimeVO newRejectTime = new RejectTimeVO();
-					newRejectTime.setStartTime(selectedStartTime);
-					newRejectTime.setEndTime(selectedEndTime);
-					adapter.addOne(newRejectTime);
-				} else {
-					Toast.makeText(getActivity(), responseVO.getResultType().getResultMsg(), Toast.LENGTH_LONG).show();
-				}
+				Toast.makeText(getActivity(), "추가되었습니다.", Toast.LENGTH_SHORT).show();
+				RejectTimeVO newRejectTime = new RejectTimeVO();
+				newRejectTime.setStartTime(selectedStartTime);
+				newRejectTime.setEndTime(selectedEndTime);
+				adapter.addOne(newRejectTime);
 			}
 		});
 	}

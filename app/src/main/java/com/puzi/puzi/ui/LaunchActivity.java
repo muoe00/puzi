@@ -18,9 +18,9 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.puzi.puzi.R;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.ResultType;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.base.BaseActivity;
 import com.puzi.puzi.utils.PuziUtils;
@@ -79,11 +79,15 @@ public class LaunchActivity extends BaseActivity {
 		finish();
 	}
 
-	public void login(final String id, final String sha256Pw, String notifyId, String phoneKey) {
-		UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
-
-		Call<ResponseVO> call = userNetworkService.login(id, sha256Pw, notifyId, "A", phoneKey);
-		call.enqueue(new CustomCallback(this) {
+	public void login(final String id, final String sha256Pw, final String notifyId, final String phoneKey) {
+		LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(UserNetworkService userNetworkService, String token) {
+				return userNetworkService.login(id, sha256Pw, notifyId, "A", phoneKey);
+			}
+		});
+		service.enqueue(new CustomCallback(this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				ResultType resultCode = responseVO.getResultType();

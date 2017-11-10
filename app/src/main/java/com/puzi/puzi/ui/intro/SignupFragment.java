@@ -16,8 +16,8 @@ import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.IntroActivity;
 import com.puzi.puzi.ui.ProgressDialog;
@@ -52,25 +52,21 @@ public class SignupFragment extends BaseFragment {
 	public void idCheck() {
 		ProgressDialog.show(getActivity());
 
-		UserNetworkService userService = RetrofitManager.create(UserNetworkService.class);
-
-		Call<ResponseVO> call = userService.check(id);
-		call.enqueue(new CustomCallback(getActivity()) {
+		LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(UserNetworkService userNetworkService, String token) {
+				return userNetworkService.check(id);
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
 
 			@Override
 			public void onSuccess(ResponseVO response) {
-				ProgressDialog.dismiss();
-
-				if (response.getResultCode() == 1000) {
-					Preference.addProperty(getActivity(), "id", id);
-					Preference.addProperty(getActivity(), "passwd", pw);
-					Preference.addProperty(getActivity(), "email", email);
-					changedFragment();
-				} else if (response.getResultCode() == 2002) {
-					Toast.makeText(getContext(), "중복된 아이디입니다.", Toast.LENGTH_SHORT).show();
-				} else {
-					Toast.makeText(getContext(), "잘못된 형식의 아이디입니다.", Toast.LENGTH_SHORT).show();
-				}
+				Preference.addProperty(getActivity(), "id", id);
+				Preference.addProperty(getActivity(), "passwd", pw);
+				Preference.addProperty(getActivity(), "email", email);
+				changedFragment();
 			}
 		});
 	}

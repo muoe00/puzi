@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.IntroActivity;
@@ -32,6 +33,11 @@ public abstract class CustomCallback extends LazyCallback {
 
 	public abstract void onSuccess(ResponseVO responseVO);
 
+	public void onFail(ResponseVO responseVO) {
+		// @Override if use
+		Toast.makeText(savedActivity, responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
+	}
+
 	@Override
 	public void onResponse(final Call<ResponseVO> call, retrofit2.Response<ResponseVO> response) {
 		Log.d("retrofit2Response", "" + response.body());
@@ -53,12 +59,14 @@ public abstract class CustomCallback extends LazyCallback {
 
 			if(response.body().getResultType().isNoAuth()) {
 				saveRetry();
-				if(!logining)
+				if(!logining){
 					tryLogin();
-				return;
+				}
+			} else if(response.body().getResultType().isSuccess()) {
+				onSuccess(response.body());
+			} else {
+				onFail(response.body());
 			}
-
-			onSuccess(response.body());
 		} else {
 			Log.d("errorbody : ", "" + response.errorBody());
 			retryProcess("통신 실패", "통신에 실패하였습니다\n잠시 후 다시 시도해주시기 바랍니다.");

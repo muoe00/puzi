@@ -2,7 +2,6 @@ package com.puzi.puzi.ui.setting;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.AdvertisementNetworkService;
 import com.puzi.puzi.ui.base.BaseFragment;
 import retrofit2.Call;
@@ -86,28 +84,18 @@ public class SettingFragment extends BaseFragment {
 	}
 
 	public void getVersion() {
-		Log.i("INFO", "getVersion");
-		String token = Preference.getProperty(getActivity(), "token");
-
-		final AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
-
-		Call<ResponseVO> callList = advertisementNetworkService.main(token);
-		callList.enqueue(new CustomCallback(getActivity()) {
+		LazyRequestService service = new LazyRequestService(getActivity(), AdvertisementNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<AdvertisementNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(AdvertisementNetworkService advertisementNetworkService, String token) {
+				return advertisementNetworkService.main(token);
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-
-				switch(responseVO.getResultType()){
-					case SUCCESS:
-						String version = responseVO.getString("version");
-						Log.i("INFO", "version : " + version);
-						tvVersion.setText(version);
-
-						break;
-
-					default:
-						Log.i("INFO", "getVersion failed.");
-						break;
-				}
+				String version = responseVO.getString("version");
+				tvVersion.setText(version);
 			}
 		});
 	}

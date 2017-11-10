@@ -6,10 +6,9 @@ import android.widget.*;
 import butterknife.BindView;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.setting.RejectTimeVO;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.SettingNetworkService;
 import com.puzi.puzi.ui.CustomPagingAdapter;
 import com.puzi.puzi.ui.ProgressDialog;
@@ -37,23 +36,22 @@ public class BlockTimeAdapter extends CustomPagingAdapter<RejectTimeVO> {
 				OneButtonDialog.show(activity, "제한 해제", "해제하시겠습니까?", "확인", new DialogButtonCallback() {
 					@Override
 					public void onClick() {
-						final SettingNetworkService settingNetworkService = RetrofitManager.create(SettingNetworkService.class);
-						String token = Preference.getProperty(activity, "token");
 
 						ProgressDialog.show(activity);
 
-						Call<ResponseVO> call = settingNetworkService.blockTime(token, false, item.getStartTime(), item.getEndTime());
-						call.enqueue(new CustomCallback(activity) {
+						LazyRequestService service = new LazyRequestService(activity, SettingNetworkService.class);
+						service.method(new LazyRequestService.RequestMothod<SettingNetworkService>() {
+							@Override
+							public Call<ResponseVO> execute(SettingNetworkService settingNetworkService, String token) {
+								return settingNetworkService.blockTime(token, false, item.getStartTime(), item.getEndTime());
+							}
+						});
+						service.enqueue(new CustomCallback(activity) {
 
 							@Override
 							public void onSuccess(ResponseVO responseVO) {
-
-								ProgressDialog.dismiss();
-
-								if (responseVO.getResultType().isSuccess()) {
-									Toast.makeText(activity, "성공적으로 해제되었습니다.", Toast.LENGTH_SHORT).show();
-									removeItem(position);
-								}
+								Toast.makeText(activity, "성공적으로 해제되었습니다.", Toast.LENGTH_SHORT).show();
+								removeItem(position);
 							}
 						});
 					}

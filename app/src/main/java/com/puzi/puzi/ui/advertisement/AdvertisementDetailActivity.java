@@ -25,11 +25,10 @@ import butterknife.Unbinder;
 import com.joooonho.SelectableRoundedImageView;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.AdvertisementNetworkService;
 import com.puzi.puzi.ui.base.BaseActivity;
 import com.puzi.puzi.ui.channel.ChannelDetailActivity;
@@ -213,43 +212,27 @@ public class AdvertisementDetailActivity extends BaseActivity {
 	public void returnAnswer(View view) {
 		llDialog.setVisibility(View.GONE);
 
-		String answer = null;
+		final String answer = view.getId() == R.id.tv_ad_answer_first ? answerOne : answerTwo;
 
-		switch (view.getId()) {
-			case R.id.tv_ad_answer_first:
-				answer = answerOne;
-				break;
-			case R.id.tv_ad_answer_second:
-				answer = answerTwo;
-				break;
-		}
-
-		AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
-		String token = Preference.getProperty(AdvertisementDetailActivity.this, "token");
-
-		Call<ResponseVO> call = advertisementNetworkService.pointSave(token, receivedAdvertise.getReceivedAdvertiseId(), answer);
-		call.enqueue(new CustomCallback(AdvertisementDetailActivity.this) {
+		LazyRequestService service = new LazyRequestService(getActivity(), AdvertisementNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<AdvertisementNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(AdvertisementNetworkService advertisementNetworkService, String token) {
+				return advertisementNetworkService.pointSave(token, receivedAdvertise.getReceivedAdvertiseId(), answer);
+			}
+		});
+		service.enqueue(new CustomCallback(AdvertisementDetailActivity.this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
+				Toast.makeText(getBaseContext(), "적립되었습니다.", Toast.LENGTH_SHORT).show();
 
-				switch(responseVO.getResultType()){
-					case SUCCESS:
-						Toast.makeText(getBaseContext(), "적립되었습니다.", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent();
+				intent.putExtra("advertiseIndex", receivedAdvertise.getReceivedAdvertiseId());
+				intent.putExtra("pointSavedState", true);
 
-						Intent intent = new Intent();
-						intent.putExtra("advertiseIndex", receivedAdvertise.getReceivedAdvertiseId());
-						intent.putExtra("pointSavedState", true);
+				Log.i(PuziUtils.INFO, "advertiseIndex : " + receivedAdvertise.getReceivedAdvertiseId());
 
-						Log.i(PuziUtils.INFO, "advertiseIndex : " + receivedAdvertise.getReceivedAdvertiseId());
-
-						setResult(Activity.RESULT_OK, intent);
-
-						break;
-
-					default:
-						Log.i("INFO", "point history failed.");
-						Toast.makeText(getBaseContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
-				}
+				setResult(Activity.RESULT_OK, intent);
 			}
 		});
 	}

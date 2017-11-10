@@ -16,11 +16,10 @@ import com.joooonho.SelectableRoundedImageView;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelVO;
 import com.puzi.puzi.biz.company.CompanyVO;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.CompanyNetworkService;
 import com.puzi.puzi.network.service.SettingNetworkService;
 import com.puzi.puzi.ui.CusomScrollView;
@@ -165,26 +164,20 @@ public class CompanyActivity extends BaseFragmentActivity {
 		});
 	}
 
-	public void getCompany(int companyId) {
+	public void getCompany(final int companyId) {
 
-		CompanyNetworkService companyNetworkService = RetrofitManager.create(CompanyNetworkService.class);
-		String token = Preference.getProperty(CompanyActivity.this, "token");
-
-		Call<ResponseVO> call = companyNetworkService.profile(token, companyId);
-		call.enqueue(new CustomCallback(CompanyActivity.this) {
+		LazyRequestService service = new LazyRequestService(getActivity(), CompanyNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<CompanyNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(CompanyNetworkService companyNetworkService, String token) {
+				return companyNetworkService.profile(token, companyId);
+			}
+		});
+		service.enqueue(new CustomCallback(CompanyActivity.this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-
-				switch(responseVO.getResultType()){
-					case SUCCESS:
-						companyVO = responseVO.getValue("companyInfoDTO", CompanyVO.class);
-						setCompanyInfo();
-						break;
-
-					default:
-						Log.i("INFO", "company profile failed.");
-						Toast.makeText(getBaseContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
-				}
+				companyVO = responseVO.getValue("companyInfoDTO", CompanyVO.class);
+				setCompanyInfo();
 			}
 		});
 	}
@@ -227,71 +220,64 @@ public class CompanyActivity extends BaseFragmentActivity {
 			});
 		}
 
-		CompanyNetworkService companyNetworkService = RetrofitManager.create(CompanyNetworkService.class);
-		String token = Preference.getProperty(CompanyActivity.this, "token");
-
-		Call<ResponseVO> call = companyNetworkService.channelList(token, companyVO.getCompanyId(), pagingIndex);
-		call.enqueue(new CustomCallback(this) {
+		LazyRequestService service = new LazyRequestService(getActivity(), CompanyNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<CompanyNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(CompanyNetworkService companyNetworkService, String token) {
+				return companyNetworkService.channelList(token, companyVO.getCompanyId(), pagingIndex);
+			}
+		});
+		service.enqueue(new CustomCallback(this) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-
 				companyChannelAdapter.stopProgress();
 
-				if(responseVO.getResultType().isSuccess()) {
-					List<ChannelVO> newChannelList = responseVO.getList("channelDTOList", ChannelVO.class);
-					companyChannelAdapter.addList(newChannelList);
-					setListViewHeightBasedOnChildren(lvChannelList);
+				List<ChannelVO> newChannelList = responseVO.getList("channelDTOList", ChannelVO.class);
+				companyChannelAdapter.addList(newChannelList);
+				setListViewHeightBasedOnChildren(lvChannelList);
 
-					totalCount = responseVO.getInteger("totalCount");
-					if(totalCount == companyChannelAdapter.getCount()) {
-						more = false;
-					} else {
-						more = true;
-					}
+				totalCount = responseVO.getInteger("totalCount");
+				if(totalCount == companyChannelAdapter.getCount()) {
+					more = false;
+				} else {
+					more = true;
+				}
 
-					if(!scrollToBottom) {
-						svContainer.post(new Runnable() {
-							@Override
-							public void run() {
-								svContainer.fullScroll(View.FOCUS_UP);
-							}
-						});
-					}
+				if(!scrollToBottom) {
+					svContainer.post(new Runnable() {
+						@Override
+						public void run() {
+							svContainer.fullScroll(View.FOCUS_UP);
+						}
+					});
 				}
 			}
 		});
 	}
 
-	public void updateBlock(boolean isBlock) {
-
-		SettingNetworkService settingNetworkService = RetrofitManager.create(SettingNetworkService.class);
-		String token = Preference.getProperty(CompanyActivity.this, "token");
-
-		Call<ResponseVO> call = settingNetworkService.blockCompany(token, isBlock, companyVO.getCompanyId());
-		call.enqueue(new CustomCallback(CompanyActivity.this) {
+	public void updateBlock(final boolean isBlock) {
+		LazyRequestService service = new LazyRequestService(getActivity(), SettingNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<SettingNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(SettingNetworkService settingNetworkService, String token) {
+				return settingNetworkService.blockCompany(token, isBlock, companyVO.getCompanyId());
+			}
+		});
+		service.enqueue(new CustomCallback(CompanyActivity.this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-
-				switch(responseVO.getResultType()){
-					case SUCCESS:
-						Log.i("INFO", "company block success.");
-						if(companyVO.getBlocked()) {
-							companyVO.setBlocked(false);
-							btnDropDownBlock.setText("차단하기");
-							Toast.makeText(getBaseContext(), "성공적으로 해제되었습니다.", Toast.LENGTH_SHORT).show();
-						} else {
-							companyVO.setBlocked(true);
-							btnDropDownBlock.setText("차단 해제하기");
-							Toast.makeText(getBaseContext(), "성공적으로 차단되었습니다.", Toast.LENGTH_SHORT).show();
-						}
-						showDropdown();
-						break;
-
-					default:
-						Log.i("INFO", "company block failed.");
-						Toast.makeText(getBaseContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
+				Log.i("INFO", "company block success.");
+				if(companyVO.getBlocked()) {
+					companyVO.setBlocked(false);
+					btnDropDownBlock.setText("차단하기");
+					Toast.makeText(getBaseContext(), "성공적으로 해제되었습니다.", Toast.LENGTH_SHORT).show();
+				} else {
+					companyVO.setBlocked(true);
+					btnDropDownBlock.setText("차단 해제하기");
+					Toast.makeText(getBaseContext(), "성공적으로 차단되었습니다.", Toast.LENGTH_SHORT).show();
 				}
+				showDropdown();
 			}
 		});
 	}
@@ -333,28 +319,26 @@ public class CompanyActivity extends BaseFragmentActivity {
 
 	@OnClick(R.id.ibtn_like)
 	public void clickLike() {
-		ProgressDialog.show(this);
-
-		CompanyNetworkService companyNetworkService = RetrofitManager.create(CompanyNetworkService.class);
-		String token = Preference.getProperty(CompanyActivity.this, "token");
-
 		final boolean add = !companyVO.isLiked();
 
-		Call<ResponseVO> call = companyNetworkService.like(token, add, companyVO.getCompanyId());
-		call.enqueue(new CustomCallback(this) {
+		ProgressDialog.show(this);
+
+		LazyRequestService service = new LazyRequestService(getActivity(), CompanyNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<CompanyNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(CompanyNetworkService companyNetworkService, String token) {
+				return companyNetworkService.like(token, add, companyVO.getCompanyId());
+			}
+		});
+		service.enqueue(new CustomCallback(this) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
+				companyVO.setLiked(add);
+				setLike();
 
-				ProgressDialog.dismiss();
-
-				if(responseVO.getResultType().isSuccess()) {
-					companyVO.setLiked(add);
-					setLike();
-
-					String message = add ? "애독자로 추가되었습니다." : "애독자가 해제되었습니다.";
-					Toast.makeText(CompanyActivity.this, message, Toast.LENGTH_SHORT).show();
-				}
+				String message = add ? "애독자로 추가되었습니다." : "애독자가 해제되었습니다.";
+				Toast.makeText(CompanyActivity.this, message, Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

@@ -15,12 +15,10 @@ import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import com.puzi.puzi.biz.channel.ChannelEditorsPageVO;
 import com.puzi.puzi.biz.channel.ChannelReplyVO;
 import com.puzi.puzi.biz.channel.ChannelVO;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.ChannelNetworkService;
 import com.puzi.puzi.ui.HorizontalListView;
 import com.puzi.puzi.ui.ProgressDialog;
@@ -93,8 +91,6 @@ public class ChannelDetailActivity extends BaseActivity {
 	private int pagingIndex = 1;
 	private int totalCount = 0;
 
-	private ChannelNetworkService channelNetworkService = RetrofitManager.create(ChannelNetworkService.class);
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -117,19 +113,22 @@ public class ChannelDetailActivity extends BaseActivity {
 		getChannelReplyList(false);
 	}
 
-	private void getChannelDetail(int channelId) {
+	private void getChannelDetail(final int channelId) {
 		ProgressDialog.show(this);
-		String token = Preference.getProperty(this, "token");
-		Call<ResponseVO> call = channelNetworkService.channelDetail(token, channelId);
-		call.enqueue(new CustomCallback(this) {
+
+		LazyRequestService service = new LazyRequestService(getActivity(), ChannelNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<ChannelNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(ChannelNetworkService channelNetworkService, String token) {
+				return channelNetworkService.channelDetail(token, channelId);
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-				ProgressDialog.dismiss();
-				if(responseVO.getResultType().isSuccess()) {
-					channelVO = responseVO.getValue("channelDTO", ChannelVO.class);
-					initAll();
-				}
+				channelVO = responseVO.getValue("channelDTO", ChannelVO.class);
+				initAll();
 			}
 		});
 	}
@@ -193,15 +192,14 @@ public class ChannelDetailActivity extends BaseActivity {
 			public void onSuccess(ResponseVO responseVO) {
 				editorsPageAdapter.stopProgress();
 
-				if(responseVO.getResultType().isSuccess()) {
-					List<ChannelEditorsPageVO> list = responseVO.getList("channelEditorsPageDTOList", ChannelEditorsPageVO.class);
-					if(list.size() > 0) {
-						editorsPageAdapter.add(list);
-						editorsPageAdapter.notifyDataSetChanged();
-						return;
-					}
+				List<ChannelEditorsPageVO> list = responseVO.getList("channelEditorsPageDTOList", ChannelEditorsPageVO.class);
+				if(list.size() > 0) {
+					hlvEditorsPage.setVisibility(View.GONE);
+					return;
 				}
-				hlvEditorsPage.setVisibility(View.GONE);
+
+				editorsPageAdapter.add(list);
+				editorsPageAdapter.notifyDataSetChanged();
 			}
 		});
 	}
@@ -232,27 +230,25 @@ public class ChannelDetailActivity extends BaseActivity {
 				replyListAdapter.stopProgress();
 				setListViewHeightBasedOnChildren(lvReply);
 
-				if(responseVO.getResultType().isSuccess()) {
-					totalCount = responseVO.getInteger("totalCount");
-					tvReplyTitle.setText("댓글 " + totalCount);
+				totalCount = responseVO.getInteger("totalCount");
+				tvReplyTitle.setText("댓글 " + totalCount);
 
-					if(totalCount == 0) {
-						replyListAdapter.empty();
-						more = false;
-						return;
-					}
-
-					List<ChannelReplyVO> channelReplyList = responseVO.getList("channelReplyDTOList", ChannelReplyVO.class);
-					replyListAdapter.addReplyList(channelReplyList);
-					replyListAdapter.notifyDataSetChanged();
-					setListViewHeightBasedOnChildren(lvReply);
-
-					if(replyListAdapter.getCount() == totalCount) {
-						more = false;
-						return;
-					}
-					more = true;
+				if(totalCount == 0) {
+					replyListAdapter.empty();
+					more = false;
+					return;
 				}
+
+				List<ChannelReplyVO> channelReplyList = responseVO.getList("channelReplyDTOList", ChannelReplyVO.class);
+				replyListAdapter.addReplyList(channelReplyList);
+				replyListAdapter.notifyDataSetChanged();
+				setListViewHeightBasedOnChildren(lvReply);
+
+				if(replyListAdapter.getCount() == totalCount) {
+					more = false;
+					return;
+				}
+				more = true;
 			}
 		});
 	}
@@ -305,36 +301,40 @@ public class ChannelDetailActivity extends BaseActivity {
 
 	@OnClick(R.id.btn_channel_detail_write)
 	public void write() {
-		String replyText = etWriteReply.getText().toString().replaceAll(" ", "");
+		final String replyText = etWriteReply.getText().toString().replaceAll(" ", "");
 		if(replyText != null && replyText.length() != 0) {
 			btnWrite.setEnabled(false);
-			String token = Preference.getProperty(this, "token");
-			Call<ResponseVO> call = channelNetworkService.replyWrite(token, channelVO.getChannelId(), replyText);
-			call.enqueue(new CustomCallback(this) {
+
+			LazyRequestService service = new LazyRequestService(getActivity(), ChannelNetworkService.class);
+			service.method(new LazyRequestService.RequestMothod<ChannelNetworkService>() {
+				@Override
+				public Call<ResponseVO> execute(ChannelNetworkService channelNetworkService, String token) {
+					return channelNetworkService.replyWrite(token, channelVO.getChannelId(), replyText);
+				}
+			});
+			service.enqueue(new CustomCallback(this) {
 
 				@Override
 				public void onSuccess(ResponseVO responseVO) {
 					btnWrite.setEnabled(true);
-					if(responseVO.getResultType().isSuccess()) {
-						// 초기화
-						etWriteReply.setText("");
-						// 키보드닫기
-						InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-						imm.hideSoftInputFromWindow(etWriteReply.getWindowToken(), 0);
-						// 댓글 추가
-						ChannelReplyVO newReply = responseVO.getValue("channelReplyDTO", ChannelReplyVO.class);
-						replyListAdapter.addReplyFirst(newReply);
-						replyListAdapter.notifyDataSetChanged();
-						setListViewHeightBasedOnChildren(lvReply);
-						// 스크롤 처음으로
-						int x = lvReply.getLeft();
-						int y = lvReply.getTop();
-						svContainer.smoothScrollTo(x, y);
-						lvReply.smoothScrollToPosition(0);
-						// 카운트 추가
-						totalCount = totalCount + 1;
-						tvReplyTitle.setText("댓글 " + totalCount);
-					}
+					// 초기화
+					etWriteReply.setText("");
+					// 키보드닫기
+					InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(etWriteReply.getWindowToken(), 0);
+					// 댓글 추가
+					ChannelReplyVO newReply = responseVO.getValue("channelReplyDTO", ChannelReplyVO.class);
+					replyListAdapter.addReplyFirst(newReply);
+					replyListAdapter.notifyDataSetChanged();
+					setListViewHeightBasedOnChildren(lvReply);
+					// 스크롤 처음으로
+					int x = lvReply.getLeft();
+					int y = lvReply.getTop();
+					svContainer.smoothScrollTo(x, y);
+					lvReply.smoothScrollToPosition(0);
+					// 카운트 추가
+					totalCount = totalCount + 1;
+					tvReplyTitle.setText("댓글 " + totalCount);
 				}
 			});
 		}

@@ -10,10 +10,9 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.setting.RejectCompanyVO;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.SettingNetworkService;
 import com.puzi.puzi.ui.CustomPagingAdapter;
 import com.puzi.puzi.ui.base.BaseFragment;
@@ -65,23 +64,23 @@ public class BlockCompanyFragment extends BaseFragment {
 	public void getBlockedCompanyList() {
 		adapter.startProgressWithScrollDown();
 
-		final SettingNetworkService settingNetworkService = RetrofitManager.create(SettingNetworkService.class);
-		String token = Preference.getProperty(getActivity(), "token");
-
-		Call<ResponseVO> call = settingNetworkService.blockedCompanyList(token, adapter.getPagingIndex());
-		call.enqueue(new CustomCallback(getActivity()) {
+		LazyRequestService service = new LazyRequestService(getActivity(), SettingNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<SettingNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(SettingNetworkService settingNetworkService, String token) {
+				return settingNetworkService.blockedCompanyList(token, adapter.getPagingIndex());
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-
 				adapter.stopProgress();
 
-				if (responseVO.getResultType().isSuccess()) {
-					List<RejectCompanyVO> rejectCompanyVOList = responseVO.getList("rejectCompanyDTOList", RejectCompanyVO.class);
-					int totalCount = responseVO.getInteger("totalCount");
+				List<RejectCompanyVO> rejectCompanyVOList = responseVO.getList("rejectCompanyDTOList", RejectCompanyVO.class);
+				int totalCount = responseVO.getInteger("totalCount");
 
-					adapter.addListWithTotalCount(rejectCompanyVOList, totalCount);
-				}
+				adapter.addListWithTotalCount(rejectCompanyVOList, totalCount);
 			}
 		});
 	}

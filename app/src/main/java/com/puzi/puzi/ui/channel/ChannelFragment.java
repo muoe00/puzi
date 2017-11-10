@@ -11,10 +11,9 @@ import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelCategoryType;
 import com.puzi.puzi.biz.channel.ChannelEditorsPageVO;
 import com.puzi.puzi.biz.channel.ChannelVO;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.ChannelNetworkService;
 import com.puzi.puzi.ui.CustomPagingAdapter;
 import com.puzi.puzi.ui.HorizontalListView;
@@ -98,26 +97,26 @@ public class ChannelFragment extends BaseFragment {
 	private void getChannelList() {
 		channelAdapter.startProgress();
 
-		final ChannelNetworkService channelNetworkService = RetrofitManager.create(ChannelNetworkService.class);
-		String token = Preference.getProperty(getActivity(), "token");
-
-		Call<ResponseVO> call = channelNetworkService.channelList(token, categoryTypeList, searchType, channelAdapter.getPagingIndex());
-		call.enqueue(new CustomCallback(getActivity()) {
+		LazyRequestService service = new LazyRequestService(getActivity(), ChannelNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<ChannelNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(ChannelNetworkService channelNetworkService, String token) {
+				return channelNetworkService.channelList(token, categoryTypeList, searchType, channelAdapter.getPagingIndex());
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				channelAdapter.stopProgress();
 
-				if (responseVO.getResultType().isSuccess()) {
+				List<ChannelVO> newChannelList = responseVO.getList("channelDTOList", ChannelVO.class);
+				channelAdapter.addList(newChannelList);
 
-					List<ChannelVO> newChannelList = responseVO.getList("channelDTOList", ChannelVO.class);
-					channelAdapter.addList(newChannelList);
-
-					searchType = responseVO.getString("responseVO");
-					int totalCount = responseVO.getInteger("totalCount");
-					if(channelAdapter.getCount() >= totalCount) {
-						flMoreChannelContainer.setVisibility(View.GONE);
-					}
+				searchType = responseVO.getString("responseVO");
+				int totalCount = responseVO.getInteger("totalCount");
+				if(channelAdapter.getCount() >= totalCount) {
+					flMoreChannelContainer.setVisibility(View.GONE);
 				}
 			}
 		});
@@ -126,25 +125,25 @@ public class ChannelFragment extends BaseFragment {
 	private void getEditorspageList() {
 		editorsPageAdapter.startProgress();
 
-		final ChannelNetworkService channelNetworkService = RetrofitManager.create(ChannelNetworkService.class);
-		String token = Preference.getProperty(getActivity(), "token");
-
-		Call<ResponseVO> call = channelNetworkService.channelEditorsPageList(token, categoryTypeList, editorsPageAdapter.getPagingIndex());
-		call.enqueue(new CustomCallback(getActivity()) {
+		LazyRequestService service = new LazyRequestService(getActivity(), ChannelNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<ChannelNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(ChannelNetworkService channelNetworkService, String token) {
+				return channelNetworkService.channelEditorsPageList(token, categoryTypeList, editorsPageAdapter.getPagingIndex());
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				editorsPageAdapter.stopProgress();
 
-				if (responseVO.getResultType().isSuccess()) {
-					List<ChannelEditorsPageVO> newEditorspageList = responseVO.getList("channelEditorsPageDTOList", ChannelEditorsPageVO.class);
-					editorsPageAdapter.addList(newEditorspageList);
+				List<ChannelEditorsPageVO> newEditorspageList = responseVO.getList("channelEditorsPageDTOList", ChannelEditorsPageVO.class);
+				editorsPageAdapter.addList(newEditorspageList);
 
-					int totalCount = responseVO.getInteger("totalCount");
-					if(editorsPageAdapter.getCount() >= totalCount) {
-						flMoreEditorspageContainer.setVisibility(View.GONE);
-					}
-
+				int totalCount = responseVO.getInteger("totalCount");
+				if(editorsPageAdapter.getCount() >= totalCount) {
+					flMoreEditorspageContainer.setVisibility(View.GONE);
 				}
 			}
 		});

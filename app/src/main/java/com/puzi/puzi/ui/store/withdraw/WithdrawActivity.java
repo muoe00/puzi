@@ -9,8 +9,8 @@ import com.puzi.puzi.biz.store.WithdrawVO;
 import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.StoreNetworkService;
 import com.puzi.puzi.ui.CustomArrayAdapter;
 import com.puzi.puzi.ui.CustomPagingAdapter;
@@ -88,22 +88,22 @@ public class WithdrawActivity extends BaseActivity {
 	private void getWithdrawHistoryList() {
 		adapter.startProgressWithScrollDown();
 
-		final StoreNetworkService storeNetworkService = RetrofitManager.create(StoreNetworkService.class);
-		String token = Preference.getProperty(getActivity(), "token");
-
-		Call<ResponseVO> call = storeNetworkService.withdrawResult(token, adapter.getPagingIndex());
-		call.enqueue(new CustomCallback(getActivity()) {
+		LazyRequestService service = new LazyRequestService(getActivity(), StoreNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<StoreNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(StoreNetworkService storeNetworkService, String token) {
+				return storeNetworkService.withdrawResult(token, adapter.getPagingIndex());
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-
 				adapter.stopProgress();
 
-				if (responseVO.getResultType().isSuccess()) {
-					List<WithdrawVO> withdrawVOList = responseVO.getList("withdrawDTOList", WithdrawVO.class);
-					int totalCount = responseVO.getInteger("totalCount");
-					adapter.addListWithTotalCount(withdrawVOList, totalCount);
-				}
+				List<WithdrawVO> withdrawVOList = responseVO.getList("withdrawDTOList", WithdrawVO.class);
+				int totalCount = responseVO.getInteger("totalCount");
+				adapter.addListWithTotalCount(withdrawVOList, totalCount);
 			}
 		});
 	}
@@ -143,27 +143,27 @@ public class WithdrawActivity extends BaseActivity {
 			public void onClick() {
 				ProgressDialog.show(WithdrawActivity.this);
 
-				final StoreNetworkService storeNetworkService = RetrofitManager.create(StoreNetworkService.class);
-				String token = Preference.getProperty(getActivity(), "token");
-
-				Call<ResponseVO> call = storeNetworkService.withdraw(token, accountNumber, selectedBank.getCode(), accountName, money);
-				call.enqueue(new CustomCallback(getActivity()) {
+				LazyRequestService service = new LazyRequestService(getActivity(), StoreNetworkService.class);
+				service.method(new LazyRequestService.RequestMothod<StoreNetworkService>() {
+					@Override
+					public Call<ResponseVO> execute(StoreNetworkService storeNetworkService, String token) {
+						return storeNetworkService.withdraw(token, accountNumber, selectedBank.getCode(), accountName, money);
+					}
+				});
+				service.enqueue(new CustomCallback(getActivity()) {
 
 					@Override
 					public void onSuccess(ResponseVO responseVO) {
+						WithdrawVO withdrawVO = new WithdrawVO();
+						withdrawVO.setCreatedAt(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+						withdrawVO.setMoney(money);
+						adapter.addFirst(withdrawVO);
 
-						if (responseVO.getResultType().isSuccess()) {
-							WithdrawVO withdrawVO = new WithdrawVO();
-							withdrawVO.setCreatedAt(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-							withdrawVO.setMoney(money);
-							adapter.addFirst(withdrawVO);
+						UserVO myInfo = Preference.getMyInfo(WithdrawActivity.this);
+						myInfo.setPoint(myInfo.getPoint() - money);
+						Preference.saveMyInfo(WithdrawActivity.this, myInfo);
 
-							UserVO myInfo = Preference.getMyInfo(WithdrawActivity.this);
-							myInfo.setPoint(myInfo.getPoint() - money);
-							Preference.saveMyInfo(WithdrawActivity.this, myInfo);
-
-							Toast.makeText(WithdrawActivity.this, "출금요청이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-						}
+						Toast.makeText(WithdrawActivity.this, "출금요청이 완료되었습니다.", Toast.LENGTH_SHORT).show();
 					}
 				});
 			}

@@ -8,15 +8,13 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.user.point.history.PointHistoryVO;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.AdvertisementNetworkService;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.utils.PuziUtils;
@@ -69,41 +67,37 @@ public class PointContentsFragment extends BaseFragment {
 		pointListAdapter.startProgress();
 		pointViewHolder.lvPoint.setSelection(pointListAdapter.getCount() - 1);
 
-		AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
-		String token = Preference.getProperty(getActivity(), "token");
-		Call<ResponseVO> call = advertisementNetworkService.pointHistory(token, pagingIndex);
-		call.enqueue(new CustomCallback(getActivity()) {
+		LazyRequestService service = new LazyRequestService(getActivity(), AdvertisementNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<AdvertisementNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(AdvertisementNetworkService advertisementNetworkService, String token) {
+				return advertisementNetworkService.pointHistory(token, pagingIndex);
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				pointListAdapter.stopProgress();
-				switch(responseVO.getResultType()){
-					case SUCCESS:
-						List<PointHistoryVO> pointHistoryVOs = responseVO.getList("pointHistorieDTOList", PointHistoryVO.class);
-						Log.i(PuziUtils.INFO, "point / pointHistoryVOs : " + pointHistoryVOs.toString());
 
-						if(pointHistoryVOs.size() == 0) {
-							pointListAdapter.empty();
-							more = false;
-							return;
-						}
+				List<PointHistoryVO> pointHistoryVOs = responseVO.getList("pointHistorieDTOList", PointHistoryVO.class);
+				Log.i(PuziUtils.INFO, "point / pointHistoryVOs : " + pointHistoryVOs.toString());
 
-						pointListAdapter.addPointList(pointHistoryVOs);
-						pointListAdapter.notifyDataSetChanged();
-
-						if(pointListAdapter.getCount() == responseVO.getInteger("totalCount")) {
-							more = false;
-							return;
-						}
-						more = true;
-
-						pointViewHolder.lvPoint.setAdapter(pointListAdapter);
-
-						break;
-
-					default:
-						Log.i("INFO", "point history failed.");
-						Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
+				if(pointHistoryVOs.size() == 0) {
+					pointListAdapter.empty();
+					more = false;
+					return;
 				}
+
+				pointListAdapter.addPointList(pointHistoryVOs);
+				pointListAdapter.notifyDataSetChanged();
+
+				if(pointListAdapter.getCount() == responseVO.getInteger("totalCount")) {
+					more = false;
+					return;
+				}
+				more = true;
+
+				pointViewHolder.lvPoint.setAdapter(pointListAdapter);
 			}
 		});
 	}
