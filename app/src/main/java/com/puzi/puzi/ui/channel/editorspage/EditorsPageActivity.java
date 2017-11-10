@@ -90,12 +90,15 @@ public class EditorsPageActivity extends BaseActivity {
 						ViewGroup.LayoutParams params = llTopContainer.getLayoutParams();
 						params.height = layoutHeight;
 						llTopContainer.setLayoutParams(params);
+						ViewGroup.LayoutParams params2 = llBottomContainer.getLayoutParams();
+						params2.height = layoutHeight2;
+						llBottomContainer.setLayoutParams(params2);
 						return;
 					}
 
 					if(start) {
 						int gap = oldScrollY - scrollY;
-						count += (gap >= 0) ? 5 : -5;
+						count += (gap >= 0) ? 3 : -3;
 
 						if(llTopContainer.getLayoutParams().height > layoutHeight || llTopContainer.getLayoutParams().height < 0) {
 							start = false;

@@ -80,6 +80,7 @@ public class MainActivity extends BaseFragmentActivity {
 		getUser();
 
 		viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
+		viewPager.setOffscreenPageLimit(5);
 		viewPager.setCurrentItem(FRAGMENT_ADVERTISE);
 
 		ivAdvertise.setImageResource(R.drawable.home_on);
