@@ -2,14 +2,29 @@ package com.puzi.puzi.ui.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import com.puzi.puzi.R;
 
+import static com.puzi.puzi.ui.base.BaseFragmentActivity.activities;
+
 public abstract class BaseActivity extends Activity {
-	
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		activities.add(this);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		activities.remove(this);
+	}
+
 	protected Animation outToTop(){
 		return AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_top);
 	}

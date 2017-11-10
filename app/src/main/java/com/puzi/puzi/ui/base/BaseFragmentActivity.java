@@ -1,6 +1,8 @@
 package com.puzi.puzi.ui.base;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -8,7 +10,30 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import com.puzi.puzi.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BaseFragmentActivity extends FragmentActivity {
+
+	public static List<Activity> activities = new ArrayList<>();
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		activities.add(this);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		activities.remove(this);
+	}
+
+	public static void finishAll() {
+		for(Activity activity : activities) {
+			activity.finish();
+		}
+	}
 
 	protected Animation outToTop() {
 		return AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_top);

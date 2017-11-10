@@ -82,7 +82,6 @@ public class ChannelDetailActivity extends BaseActivity {
 	@BindView(R.id.ll_channel_detail_myScore_container)
 	LinearLayout llMyScoreContainer;
 
-
 	private EditorsPageAdapter editorsPageAdapter;
 	private ReplyListAdapter replyListAdapter;
 

@@ -12,6 +12,7 @@ import com.puzi.puzi.R;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.ui.IntroActivity;
 import com.puzi.puzi.ui.base.BaseFragment;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.common.DialogButtonCallback;
 import com.puzi.puzi.ui.common.OneButtonDialog;
 
@@ -46,7 +47,8 @@ public class OutFragment extends BaseFragment {
 			public void onClick() {
 				Preference.removeProperty(getActivity(), "passwd");
 				startActivity(new Intent(getActivity(), IntroActivity.class));
-				getActivity().finish();
+				BaseFragmentActivity.finishAll();
+
 //				String token = Preference.getProperty(getActivity(), "token");
 //				ProgressDialog.show(getActivity());
 //

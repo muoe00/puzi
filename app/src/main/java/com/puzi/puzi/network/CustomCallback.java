@@ -11,6 +11,7 @@ import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.IntroActivity;
 import com.puzi.puzi.ui.ProgressDialog;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import okhttp3.Request;
 import retrofit2.Call;
 
@@ -101,7 +102,7 @@ public abstract class CustomCallback extends LazyCallback {
 						break;
 					case LOGIN_FAIL:
 						savedActivity.startActivity(new Intent(savedActivity, IntroActivity.class));
-						savedActivity.finish();
+						BaseFragmentActivity.finishAll();
 						break;
 					default:
 						break;
