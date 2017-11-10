@@ -1,6 +1,5 @@
 package com.puzi.puzi.ui.advertisement;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +17,7 @@ import com.puzi.puzi.R;
 import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import com.puzi.puzi.biz.company.CompanyVO;
 import com.puzi.puzi.image.BitmapUIL;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.company.CompanyActivity;
 import com.puzi.puzi.utils.PuziUtils;
 import lombok.Getter;
@@ -35,14 +35,14 @@ public class AdvertisementListAdapter extends BaseAdapter {
 	private static final int VIEW_EMPTY = 1;
 	private static final int VIEW_PROGRESS = 2;
 
-	private Activity activity;
+	private BaseFragmentActivity activity;
 	private LayoutInflater inflater;
 	private List<ReceivedAdvertiseVO> list = new ArrayList();
 	@Getter
 	private boolean progressed = false;
 	private boolean empty = false;
 
-	public AdvertisementListAdapter(Activity activity) {
+	public AdvertisementListAdapter(BaseFragmentActivity activity) {
 		this.activity = activity;
 		this.inflater = activity.getLayoutInflater();
 	}
@@ -195,6 +195,7 @@ public class AdvertisementListAdapter extends BaseAdapter {
 		bundle.putSerializable("advertise", receivedAdvertise);
 		intent.putExtras(bundle);
 		activity.startActivity(intent);
+		activity.doAnimationGoRight();
 	}
 
 	public void changedCompany(CompanyVO company) {
@@ -203,6 +204,7 @@ public class AdvertisementListAdapter extends BaseAdapter {
 		bundle.putSerializable("company", company);
 		intent.putExtras(bundle);
 		activity.startActivity(intent);
+		activity.doAnimationGoRight();
 	}
 
 	public void changeSaved(int adId, boolean saved) {

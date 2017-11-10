@@ -267,6 +267,7 @@ public class AdvertisementDetailActivity extends BaseActivity {
 			Intent intent = new Intent(AdvertisementDetailActivity.this, ChannelDetailActivity.class);
 			intent.putExtra("channelId", channelId);
 			startActivity(intent);
+			doAnimationGoRight();
 		} else {
 			Toast.makeText(this, "해당하는 채널이 없습니다.", Toast.LENGTH_SHORT).show();
 		}
@@ -280,6 +281,7 @@ public class AdvertisementDetailActivity extends BaseActivity {
 		bundle.putSerializable("company", receivedAdvertise.getCompanyInfoDTO());
 		intent.putExtras(bundle);
 		startActivity(intent);
+		doAnimationGoRight();
 	}
 
 	@Override

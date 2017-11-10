@@ -18,6 +18,7 @@ import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.AdvertisementNetworkService;
 import com.puzi.puzi.ui.base.BaseFragment;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
@@ -59,7 +60,7 @@ public class AdvertisementFragment extends BaseFragment {
 	}
 
 	private void initComponent() {
-		advertiseListAdapter = new AdvertisementListAdapter(getActivity());
+		advertiseListAdapter = new AdvertisementListAdapter((BaseFragmentActivity) getActivity());
 		lvAd.setAdapter(advertiseListAdapter);
 
 		srlContainer.setColorSchemeResources(R.color.colorPuzi);
@@ -96,8 +97,8 @@ public class AdvertisementFragment extends BaseFragment {
 				advertiseListAdapter.stopProgress();
 
 				List<ReceivedAdvertiseVO> advertiseList = responseVO.getList("receivedAdvertiseDTOList", ReceivedAdvertiseVO.class);
-				Log.i(PuziUtils.INFO, "Advertise main / advertiseList : " + advertiseList.toString());
-				Log.i(PuziUtils.INFO, "advertiseList totalCount : " + responseVO.getInteger("totalCount"));
+				Log.d(PuziUtils.INFO, "Advertise main / advertiseList : " + advertiseList.toString());
+				Log.d(PuziUtils.INFO, "advertiseList totalCount : " + responseVO.getInteger("totalCount"));
 
 				if(advertiseList.size() == 0) {
 					advertiseListAdapter.empty();
