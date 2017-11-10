@@ -94,7 +94,7 @@ public class SettingDetailActivity extends BaseFragmentActivity {
 			fragmentList.add(fragment);
 			Log.i("INFO", "addFragment");
 			fragmentTransaction = fragmentManager.beginTransaction();
-			fragmentTransaction.setCustomAnimations(R.anim.rightin, R.anim.shrink_back, R.anim.rightin, R.anim.shrink_back);
+			fragmentTransaction.setCustomAnimations(R.anim.rightin, R.anim.leftout, R.anim.rightin, R.anim.leftout);
 			fragmentTransaction.replace(R.id.ll_setting_content, fragment);
 			fragmentTransaction.addToBackStack(null);
 			fragmentTransaction.commitAllowingStateLoss();

@@ -55,7 +55,7 @@ public class SignupFragment extends BaseFragment {
 		UserNetworkService userService = RetrofitManager.create(UserNetworkService.class);
 
 		Call<ResponseVO> call = userService.check(id);
-		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+		call.enqueue(new CustomCallback(getActivity()) {
 
 			@Override
 			public void onSuccess(ResponseVO response) {

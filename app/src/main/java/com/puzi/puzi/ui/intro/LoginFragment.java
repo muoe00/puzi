@@ -77,6 +77,7 @@ public class LoginFragment extends BaseFragment {
 		final String pwd = etPwd.getText().toString();
 
 		if(isValid(id, pwd)){
+			final String sha256Pw = EncryptUtils.sha256(pwd);
 
 			ProgressDialog.show(getActivity());
 
@@ -85,21 +86,16 @@ public class LoginFragment extends BaseFragment {
 			String phoneType = "A";
 			String phoneKey = "ABC";
 
-			Log.i(PuziUtils.INFO, "login start - id:" + id + " / pwd:" + EncryptUtils.sha256(pwd));
+			Log.i(PuziUtils.INFO, "login start - id:" + id + " / pwd:" + sha256Pw);
 
-			Call call = userNetworkService.login(id, EncryptUtils.sha256(pwd), notifyId, phoneType, phoneKey);
+			Call call = userNetworkService.login(id, sha256Pw, notifyId, phoneType, phoneKey);
 
-			Log.i(PuziUtils.INFO, "login AFTER");
-
-			call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+			call.enqueue(new CustomCallback(getActivity()) {
 				@Override
 				public void onSuccess(ResponseVO responseVO) {
-
-					Log.i(PuziUtils.INFO, "login onSuccess start");
 					switch(responseVO.getResultType()){
 						case SUCCESS:
-							Log.i(PuziUtils.INFO, "login Success");
-							successLogin(responseVO.getString("token"), id, pwd);
+							successLogin(responseVO.getString("token"), id, sha256Pw);
 							break;
 
 						case LOGIN_FAIL:
@@ -114,9 +110,9 @@ public class LoginFragment extends BaseFragment {
 	private void successLogin(String token, String id, String pwd) {
 		Log.i("INFO", "login token : " + token);
 
+		Preference.addProperty(getActivity(), "token", token);
 		Preference.addProperty(getActivity(), "id", id);
 		Preference.addProperty(getActivity(), "passwd", pwd);
-		Preference.addProperty(getActivity(), "token", token);
 
 		startActivity(new Intent(getActivity(), MainActivity.class));
 		getActivity().overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);

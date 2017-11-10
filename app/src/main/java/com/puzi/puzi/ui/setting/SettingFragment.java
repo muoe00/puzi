@@ -92,7 +92,7 @@ public class SettingFragment extends BaseFragment {
 		final AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
 
 		Call<ResponseVO> callList = advertisementNetworkService.main(token);
-		callList.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+		callList.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 

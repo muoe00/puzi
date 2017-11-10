@@ -72,7 +72,7 @@ public class PointContentsFragment extends BaseFragment {
 		AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
 		String token = Preference.getProperty(getActivity(), "token");
 		Call<ResponseVO> call = advertisementNetworkService.pointHistory(token, pagingIndex);
-		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+		call.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				pointListAdapter.stopProgress();

@@ -18,6 +18,7 @@ import com.puzi.puzi.biz.channel.ChannelVO;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.ChannelNetworkService;
@@ -120,7 +121,7 @@ public class ChannelDetailActivity extends BaseActivity {
 		ProgressDialog.show(this);
 		String token = Preference.getProperty(this, "token");
 		Call<ResponseVO> call = channelNetworkService.channelDetail(token, channelId);
-		call.enqueue(new CustomCallback<ResponseVO>(this) {
+		call.enqueue(new CustomCallback(this) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
@@ -179,9 +180,14 @@ public class ChannelDetailActivity extends BaseActivity {
 	private void getEditorsPagetList() {
 		editorsPageAdapter.startProgress();
 
-		String token = Preference.getProperty(this, "token");
-		Call<ResponseVO> call = channelNetworkService.channelDetailEditorsPageList(token, channelVO.getChannelId());
-		call.enqueue(new CustomCallback<ResponseVO>(this) {
+		LazyRequestService service = new LazyRequestService(getActivity(), ChannelNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<ChannelNetworkService>(){
+			@Override
+			public Call<ResponseVO> execute(ChannelNetworkService channelNetworkService, String token) {
+				return channelNetworkService.channelDetailEditorsPageList(token, channelVO.getChannelId());
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
@@ -212,9 +218,14 @@ public class ChannelDetailActivity extends BaseActivity {
 			});
 		}
 
-		String token = Preference.getProperty(this, "token");
-		Call<ResponseVO> call = channelNetworkService.replyList(token, channelVO.getChannelId(), pagingIndex);
-		call.enqueue(new CustomCallback<ResponseVO>(this) {
+		LazyRequestService service = new LazyRequestService(getActivity(), ChannelNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<ChannelNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(ChannelNetworkService channelNetworkService, String token) {
+				return channelNetworkService.replyList(token, channelVO.getChannelId(), pagingIndex);
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
@@ -299,7 +310,7 @@ public class ChannelDetailActivity extends BaseActivity {
 			btnWrite.setEnabled(false);
 			String token = Preference.getProperty(this, "token");
 			Call<ResponseVO> call = channelNetworkService.replyWrite(token, channelVO.getChannelId(), replyText);
-			call.enqueue(new CustomCallback<ResponseVO>(this) {
+			call.enqueue(new CustomCallback(this) {
 
 				@Override
 				public void onSuccess(ResponseVO responseVO) {

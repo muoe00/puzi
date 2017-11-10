@@ -107,7 +107,7 @@ public class EditorsPageAdapter extends BaseAdapter {
 		switch(viewType) {
 			case VIEW_EDITORS_PAGE:
 				final ChannelEditorsPageVO editorsPageVO = (ChannelEditorsPageVO) getItem(position);
-				BitmapUIL.load(editorsPageVO.getPreviewUrl(), viewHolder.ivImage);
+				BitmapUIL.load(editorsPageVO.getPreviewUrl2(), viewHolder.ivImage);
 				viewHolder.tvTitle.setText(editorsPageVO.getTitle());
 				viewHolder.tvName.setText(editorsPageVO.getCreatedBy());
 				break;

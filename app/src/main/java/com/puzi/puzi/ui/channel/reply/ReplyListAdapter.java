@@ -180,7 +180,7 @@ public class ReplyListAdapter extends BaseAdapter {
 		ChannelNetworkService channelNetworkService = RetrofitManager.create(ChannelNetworkService.class);
 		Call<ResponseVO> call = channelNetworkService.replyRecommend(token, channelReplyVO.getChannelId(), channelReplyVO.getChannelReplyId(),
 			recommend);
-		call.enqueue(new CustomCallback<ResponseVO>(activity) {
+		call.enqueue(new CustomCallback(activity) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {

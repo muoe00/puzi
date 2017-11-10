@@ -70,7 +70,7 @@ public class StoreItemActivity extends BaseActivity {
 		String token = Preference.getProperty(this, "token");
 
 		Call<ResponseVO> call = storeNetworkService.itemList(token, storeVO.getStoreId(), 1);
-		call.enqueue(new CustomCallback<ResponseVO>(this) {
+		call.enqueue(new CustomCallback(this) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {

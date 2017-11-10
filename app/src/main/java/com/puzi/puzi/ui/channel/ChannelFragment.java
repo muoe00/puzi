@@ -82,7 +82,8 @@ public class ChannelFragment extends BaseFragment {
 		channelAdapter.setMore(false);
 		channelAdapter.getList();
 
-		editorsPageAdapter = new ChannelEditorspageAdapter(getActivity(), R.layout.item_channel_list_editorspage, lvEditorspage, svContainer,
+		editorsPageAdapter = new ChannelEditorspageAdapter(getActivity(), R.layout.item_channel_list_editorspage,
+			R.layout.item_channel_list_editorspage_2, lvEditorspage, svContainer,
 			new CustomPagingAdapter.ListHandler() {
 
 				@Override
@@ -101,7 +102,7 @@ public class ChannelFragment extends BaseFragment {
 		String token = Preference.getProperty(getActivity(), "token");
 
 		Call<ResponseVO> call = channelNetworkService.channelList(token, categoryTypeList, searchType, channelAdapter.getPagingIndex());
-		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+		call.enqueue(new CustomCallback(getActivity()) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
@@ -129,7 +130,7 @@ public class ChannelFragment extends BaseFragment {
 		String token = Preference.getProperty(getActivity(), "token");
 
 		Call<ResponseVO> call = channelNetworkService.channelEditorsPageList(token, categoryTypeList, editorsPageAdapter.getPagingIndex());
-		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+		call.enqueue(new CustomCallback(getActivity()) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
@@ -193,6 +194,7 @@ public class ChannelFragment extends BaseFragment {
 		} else {
 			hlvChannelFilter.setVisibility(View.GONE);
 		}
+		searchType = null;
 		this.channelAdapter.getList();
 		this.editorsPageAdapter.getList();
 	}

@@ -1,19 +1,14 @@
 package com.puzi.puzi.ui;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
@@ -21,16 +16,12 @@ import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
 import com.puzi.puzi.R;
-import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.ResultType;
 import com.puzi.puzi.network.RetrofitManager;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
-import com.puzi.puzi.ui.intro.LoginFragment;
-import com.puzi.puzi.utils.EncryptUtils;
 import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
@@ -38,7 +29,6 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 
 import static com.puzi.puzi.utils.PuziUtils.getDevicesUUID;
-import static com.puzi.puzi.utils.UIUtils.setStatusBarColor;
 
 public class IntroActivity extends BaseFragmentActivity {
 
@@ -48,10 +38,8 @@ public class IntroActivity extends BaseFragmentActivity {
 	private String uuid = null;
 	private String tempId = null;
 	private long backKeyPressedTime;
-	private boolean AUTO_LOGIN = false;
 	private boolean isKakao = false;
 
-	private Activity activity;
 	private ArrayList<BaseFragment> fragmentList = new ArrayList<BaseFragment>();
 	private BaseFragment fragment;
 	private FragmentManager fragmentManager = getSupportFragmentManager();
@@ -60,76 +48,18 @@ public class IntroActivity extends BaseFragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.layout_splash);
-		activity = this;
-		setStatusBarColor(activity);
-
+		setContentView(R.layout.activity_intro);
+		initFragment();
 		getAppKeyHash();
-		autoLogin();
-
-		FirebaseInstanceId.getInstance().getToken();
-		tokenFCM = FirebaseInstanceId.getInstance().getToken();
-		Log.i(PuziUtils.INFO, "FCM_Token : " + tokenFCM);
-		Preference.addProperty(IntroActivity.this, "tokenFCM", tokenFCM);
-
-		new Handler(){
-			@Override
-			public void handleMessage(Message message){
-				if(AUTO_LOGIN) {
-					startActivity(new Intent(IntroActivity.this, MainActivity.class));
-					fragmentList.clear();
-					finish();
-				} else {
-					setContentView(R.layout.activity_intro);
-					fragment = new IntroFragment();
-					addFragment(fragment);
-				}
-			}
-		}.sendEmptyMessageDelayed(0, 1000);
 	}
 
-	public void autoLogin() {
-
-		final String autoId = Preference.getProperty(this, "id");
-		final String autoPw = Preference.getProperty(this, "passwd");
-
-		// 메인 화면으로 갈지(자동로그인 성공), 로그인 화면으로 갈지(자동로그인 실패) 결정 (변수 : auto_login)
-		if(autoId != null && autoPw != null) {
-			login(autoId, EncryptUtils.sha256(autoPw), tokenFCM, "");
-		}
-	}
-
-	public void login(final String id, final String pw, String notifyId, String phoneKey) {
-		UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
-
-		Call<ResponseVO> call = userNetworkService.login(id, pw, notifyId, "A", phoneKey);
-		call.enqueue(new CustomCallback<ResponseVO>(this) {
-			@Override
-			public void onSuccess(ResponseVO responseVO) {
-
-				ProgressDialog.dismiss();
-				ResultType resultCode = responseVO.getResultType();
-
-				switch(resultCode){
-					case SUCCESS:
-						Log.i("INFO", "AUTO LOGIN SUCCESS");
-						AUTO_LOGIN = true;
-						String token = responseVO.getString("token");
-						if(token != null) {
-							Log.i("INFO", "AUTO TOKEN : " + token);
-							Preference.addProperty(getActivity(), "id", id);
-							Preference.addProperty(getActivity(), "passwd", pw);
-							Preference.addProperty(getActivity(), "token", token);
-						}
-						break;
-					case LOGIN_FAIL:
-//						isKakaoLogin();
-						break;
-					default:
-						break;
-				}
-			}
-		});
+	private void initFragment() {
+		fragment = new IntroFragment();
+		fragmentList.add(fragment);
+		fragmentTransaction = fragmentManager.beginTransaction();
+		fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
+		fragmentTransaction.addToBackStack(null);
+		fragmentTransaction.commitAllowingStateLoss();
 	}
 
 	public void isKakaoLogin() {
@@ -179,15 +109,11 @@ public class IntroActivity extends BaseFragmentActivity {
 			public void onSuccess(UserProfile userProfile) {
 				checkUser();
 				if(tempId != null) {
-					login(tempId, uuid, tokenFCM, "");
-				} else {
-					AUTO_LOGIN = false;
 				}
 			}
 
 			@Override
 			public void onNotSignedUp() {
-				AUTO_LOGIN = false;
 				// 카톡 회원이 아닐 경우
 			}
 		});
@@ -198,7 +124,7 @@ public class IntroActivity extends BaseFragmentActivity {
 
 		final UserNetworkService userNetworkService = RetrofitManager.create(UserNetworkService.class);
 		Call<ResponseVO> call = userNetworkService.checkKakao(uuid);
-		call.enqueue(new CustomCallback<ResponseVO>(this) {
+		call.enqueue(new CustomCallback(this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				isKakao = responseVO.getValue("registered", boolean.class);
@@ -232,7 +158,7 @@ public class IntroActivity extends BaseFragmentActivity {
 		} else {
 			fragmentList.add(fragment);
 			fragmentTransaction = fragmentManager.beginTransaction();
-			fragmentTransaction.setCustomAnimations(R.anim.rightin, R.anim.shrink_back, R.anim.rightin, R.anim.shrink_back);
+			fragmentTransaction.setCustomAnimations(R.anim.rightin, R.anim.leftout, R.anim.rightin, R.anim.leftout);
 			fragmentTransaction.replace(R.id.intro_fragment_container, fragment);
 			fragmentTransaction.addToBackStack(null);
 			fragmentTransaction.commitAllowingStateLoss();

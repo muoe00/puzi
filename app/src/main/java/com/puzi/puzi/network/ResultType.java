@@ -53,4 +53,7 @@ public enum ResultType {
 		return this == SUCCESS;
 	}
 
+	public boolean isNoAuth() {
+		return NO_AUTH == this;
+	}
 }

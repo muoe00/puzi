@@ -49,7 +49,11 @@ public abstract class BaseActivity extends Activity {
 	protected void doAnimationAlpha() {
 		overridePendingTransition(R.anim.alpha250, R.anim.alpha_out);
 	}
-	
+
+	protected void doAnimationAlpha1000() {
+		overridePendingTransition(0, R.anim.alpha_out1000);
+	}
+
 	protected void doAnimationGoLeft() {
 		overridePendingTransition(R.anim.leftin, R.anim.rightout);
 	}

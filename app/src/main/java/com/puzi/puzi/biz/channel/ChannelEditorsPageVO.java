@@ -11,6 +11,8 @@ import java.io.Serializable;
 public class ChannelEditorsPageVO implements Serializable {
 	private String title;
 	private String previewUrl;
+	private String previewUrl2;
+	private boolean showTitle;
 	private String link;
 	private String createdAt;
 	private String createdBy;

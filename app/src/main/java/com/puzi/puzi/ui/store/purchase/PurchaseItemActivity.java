@@ -114,7 +114,7 @@ public class PurchaseItemActivity extends BaseActivity {
 				String token = Preference.getProperty(getActivity(), "token");
 
 				Call<ResponseVO> call = storeNetworkService.purchase(token, storeVO.getStoreId(), storeItemVO.getStoreItemId(), selectedCount);
-				call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+				call.enqueue(new CustomCallback(getActivity()) {
 
 					@Override
 					public void onSuccess(ResponseVO responseVO) {

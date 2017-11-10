@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+  <FrameLayout
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="93dp">
+
+    <com.joooonho.SelectableRoundedImageView
+      app:sriv_left_top_corner_radius="8dp"
+      app:sriv_left_bottom_corner_radius="8dp"
+      app:sriv_right_top_corner_radius="8dp"
+      app:sriv_right_bottom_corner_radius="8dp"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:scaleType="centerCrop"
+      android:background="#00000000"
+      android:id="@+id/iv_item_channel_editor_image"/>
+
+  </FrameLayout>
+
+</LinearLayout>

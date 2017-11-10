@@ -29,10 +29,12 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 	protected static final int VIEW_LIST = 0;
 	protected static final int VIEW_EMPTY = 1;
 	protected static final int VIEW_PROGRESS = 2;
+	protected static final int VIEW_LIST_2 = 3;
 
 	protected LayoutInflater inflater;
 	protected Activity activity;
 	protected int layoutResource;
+	protected int layoutResource2;
 	protected ListView listView;
 	protected GridView gridView;
 	protected ScrollView scrollView;
@@ -53,13 +55,22 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 	private boolean more = false;
 
 	public CustomPagingAdapter(Activity activity, int layoutResource, ListView listView, ListHandler listHandler) {
-		this(activity, layoutResource, listView, null, listHandler);
+		this(activity, layoutResource, 0, listView, null, listHandler);
+	}
+
+	public CustomPagingAdapter(Activity activity, int layoutResource, int layoutResource2, ListView listView, ListHandler listHandler) {
+		this(activity, layoutResource, layoutResource2, listView, null, listHandler);
 	}
 
 	public CustomPagingAdapter(Activity activity, int layoutResource, ListView listView, ScrollView scrollView, ListHandler listHandler) {
+		this(activity, layoutResource, 0, listView, scrollView, listHandler);
+	}
+
+	public CustomPagingAdapter(Activity activity, int layoutResource, int layoutResource2, ListView listView, ScrollView scrollView, ListHandler listHandler) {
 		this.activity = activity;
 		this.inflater = activity.getLayoutInflater();
 		this.layoutResource = layoutResource;
+		this.layoutResource2 = layoutResource2;
 		this.listView = listView;
 		this.scrollView = scrollView;
 		this.listHandler =listHandler;
@@ -288,7 +299,11 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 					} else {
 						v = inflater.inflate(R.layout.item_empty, null);
 					}
-
+					break;
+				case VIEW_LIST_2:
+					v = inflater.inflate(layoutResource2, null);
+					viewHolder = createHolder2(v);
+					v.setTag(viewHolder);
 					break;
 			}
 		} else {
@@ -299,6 +314,10 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 
 				case VIEW_EMPTY:
 					emptyHolder = (EmptyHolder) v.getTag();
+					break;
+
+				case VIEW_LIST_2:
+					viewHolder = (Holder) v.getTag();
 					break;
 			}
 		}
@@ -311,14 +330,27 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 			case VIEW_EMPTY:
 				emptyHolder.tvEmptyMessage.setText(emptyMessage);
 				break;
+
+			case VIEW_LIST_2:
+				setView2(viewHolder, getItem(position), position);
+				break;
 		}
 
 		return v;
 	}
 
+	public void setView2(Holder viewHolder, T item, int position) {
+		// @Override if use
+	}
+
 	protected abstract void setView(Holder viewHolder, T item, int position);
 
 	protected abstract Holder createHolder(View v);
+
+	protected Holder createHolder2(View v) {
+		// @Override if use
+		return null;
+	}
 
 	public void clean() {
 		initPagingIndex();

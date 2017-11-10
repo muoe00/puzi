@@ -69,7 +69,7 @@ public class BlockCompanyAdapter extends CustomPagingAdapter<RejectCompanyVO> {
 							ProgressDialog.show(activity);
 
 							Call<ResponseVO> call = settingNetworkService.blockCompany(token, false, companyVO.getCompanyInfoDTO().getCompanyId());
-							call.enqueue(new CustomCallback<ResponseVO>(activity) {
+							call.enqueue(new CustomCallback(activity) {
 
 								@Override
 								public void onSuccess(ResponseVO responseVO) {

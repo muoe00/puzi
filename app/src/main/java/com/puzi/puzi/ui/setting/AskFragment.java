@@ -122,7 +122,7 @@ public class AskFragment extends BaseFragment {
 		Log.i("INFO", "ask userType : " + userType + ", askType : " + type + ", email : " + email + ", title : " + title + ", comment : " + comment);
 
 		Call<ResponseVO> callList = settingNetworkService.ask(token, userType, type.toString(), email, title, comment);
-		callList.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+		callList.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				Log.i(PuziUtils.INFO, "ask responseVO : " + responseVO.toString());
@@ -157,7 +157,7 @@ public class AskFragment extends BaseFragment {
 		String token = Preference.getProperty(getActivity(), "token");
 
 		Call<ResponseVO> callUser = userNetworkService.myInfo(token);
-		callUser.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+		callUser.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				Log.i("INFO", "advertise responseVO : " + responseVO.toString());

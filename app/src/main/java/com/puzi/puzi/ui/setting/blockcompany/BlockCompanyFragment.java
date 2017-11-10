@@ -69,7 +69,7 @@ public class BlockCompanyFragment extends BaseFragment {
 		String token = Preference.getProperty(getActivity(), "token");
 
 		Call<ResponseVO> call = settingNetworkService.blockedCompanyList(token, adapter.getPagingIndex());
-		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+		call.enqueue(new CustomCallback(getActivity()) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {

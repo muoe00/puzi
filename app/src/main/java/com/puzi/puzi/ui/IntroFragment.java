@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -26,6 +27,7 @@ public class IntroFragment extends BaseFragment {
 
 	@BindView(R.id.btn_signup) public Button btnSignup;
 	@BindView(R.id.btn_kakao_login) public Button btnKakao;
+	@BindView(R.id.ll_bar) public LinearLayout llBar;
 	@BindView(R.id.btn_login) public Button btnLogin;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -40,9 +42,11 @@ public class IntroFragment extends BaseFragment {
 		Animation animation1 = AnimationUtils.loadAnimation(getActivity(), R.anim.login_1);
 		Animation animation2 = AnimationUtils.loadAnimation(getActivity(), R.anim.login_2);
 		Animation animation3 = AnimationUtils.loadAnimation(getActivity(), R.anim.login_3);
+		Animation animation4 = AnimationUtils.loadAnimation(getActivity(), R.anim.login_4);
 		btnSignup.startAnimation(animation1);
 		btnKakao.startAnimation(animation2);
-		btnLogin.startAnimation(animation3);
+		llBar.startAnimation(animation3);
+		btnLogin.startAnimation(animation4);
 	}
 
 	@OnClick(R.id.btn_login)

@@ -52,7 +52,7 @@ public class SearchIdFragment extends BaseFragment {
 				UserNetworkService userNetworkService  = RetrofitManager.create(UserNetworkService.class);
 
 				Call<ResponseVO> call = userNetworkService.searchid(email);
-				call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+				call.enqueue(new CustomCallback(getActivity()) {
 					@Override
 					public void onSuccess(ResponseVO responseVO) {
 						ProgressDialog.dismiss();

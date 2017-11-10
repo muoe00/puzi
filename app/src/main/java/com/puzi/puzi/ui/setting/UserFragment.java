@@ -103,7 +103,7 @@ public class UserFragment extends BaseFragment {
 		ProgressDialog.show(getActivity());
 		SettingNetworkService settingNetworkService  = RetrofitManager.create(SettingNetworkService.class);
 		Call<ResponseVO> call = settingNetworkService.updateAccount(token, passwd, email);
-		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+		call.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				ProgressDialog.dismiss();

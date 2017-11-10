@@ -79,7 +79,7 @@ public class ChannelEvaluateDialog {
 					String token = Preference.getProperty(activity, "token");
 					ChannelNetworkService channelNetworkService = RetrofitManager.create(ChannelNetworkService.class);
 					Call<ResponseVO> call = channelNetworkService.evaludate(token, channelId, score, comment);
-					call.enqueue(new CustomCallback<ResponseVO>(activity) {
+					call.enqueue(new CustomCallback(activity) {
 
 						@Override
 						public void onSuccess(ResponseVO responseVO) {

@@ -92,7 +92,7 @@ public class WithdrawActivity extends BaseActivity {
 		String token = Preference.getProperty(getActivity(), "token");
 
 		Call<ResponseVO> call = storeNetworkService.withdrawResult(token, adapter.getPagingIndex());
-		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+		call.enqueue(new CustomCallback(getActivity()) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
@@ -147,7 +147,7 @@ public class WithdrawActivity extends BaseActivity {
 				String token = Preference.getProperty(getActivity(), "token");
 
 				Call<ResponseVO> call = storeNetworkService.withdraw(token, accountNumber, selectedBank.getCode(), accountName, money);
-				call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+				call.enqueue(new CustomCallback(getActivity()) {
 
 					@Override
 					public void onSuccess(ResponseVO responseVO) {

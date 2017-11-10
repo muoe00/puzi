@@ -80,7 +80,7 @@ public class NoticeFragment extends BaseFragment {
 		final SettingNetworkService settingNetworkService = RetrofitManager.create(SettingNetworkService.class);
 
 		Call<ResponseVO> callList = settingNetworkService.list(token, pagingIndex);
-		callList.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+		callList.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				Log.i(PuziUtils.INFO, "notice responseVO : " + responseVO.toString());

@@ -56,7 +56,7 @@ public class StoreFragment extends BaseFragment {
 		String token = Preference.getProperty(getActivity(), "token");
 
 		Call<ResponseVO> call = storeNetworkService.brandList(token);
-		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+		call.enqueue(new CustomCallback(getActivity()) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {

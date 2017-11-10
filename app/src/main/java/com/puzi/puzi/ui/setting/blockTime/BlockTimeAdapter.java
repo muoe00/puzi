@@ -43,7 +43,7 @@ public class BlockTimeAdapter extends CustomPagingAdapter<RejectTimeVO> {
 						ProgressDialog.show(activity);
 
 						Call<ResponseVO> call = settingNetworkService.blockTime(token, false, item.getStartTime(), item.getEndTime());
-						call.enqueue(new CustomCallback<ResponseVO>(activity) {
+						call.enqueue(new CustomCallback(activity) {
 
 							@Override
 							public void onSuccess(ResponseVO responseVO) {

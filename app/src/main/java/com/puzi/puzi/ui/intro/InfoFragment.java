@@ -94,7 +94,7 @@ public class InfoFragment extends BaseFragment {
 		Call<ResponseVO> call = userService.signup(userVO.getUserId(), EncryptUtils.sha256(userVO.getPasswd()), userVO.getRegisterType()
 			, userVO.getEmail(), userVO.getNotifyId(), userVO.getGenderType(), userVO.getAge(), userVO.getFavoriteTypeList()
 			, userVO.getRecommendId(), userVO.getPhoneType(), userVO.getPhoneKey());
-		call.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+		call.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				Log.i("INFO", "signup responseVO : " + responseVO.toString());

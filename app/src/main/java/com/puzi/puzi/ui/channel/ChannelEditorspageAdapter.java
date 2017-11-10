@@ -18,8 +18,29 @@ import com.puzi.puzi.ui.CustomPagingAdapter;
 
 public class ChannelEditorspageAdapter extends CustomPagingAdapter<ChannelEditorsPageVO> {
 
-	public ChannelEditorspageAdapter(Activity activity, int layoutResource, ListView listView, ScrollView scrollView, ListHandler listHandler) {
-		super(activity, layoutResource, listView, scrollView, listHandler);
+	public ChannelEditorspageAdapter(Activity activity, int layoutResource, int layoutResource2, ListView listView, ScrollView scrollView,
+		ListHandler listHandler) {
+		super(activity, layoutResource, layoutResource2, listView, scrollView, listHandler);
+	}
+
+	@Override
+	public int getViewTypeCount() {
+		return 4;
+	}
+
+	@Override
+	public int getItemViewType(int position) {
+		int type = super.getItemViewType(position);
+		if(VIEW_LIST != type) {
+			return type;
+		}
+
+		ChannelEditorsPageVO channelEditorsPageVO = getItem(position);
+		if(channelEditorsPageVO.isShowTitle()){
+			return VIEW_LIST;
+		} else {
+			return VIEW_LIST_2;
+		}
 	}
 
 	@Override
@@ -32,8 +53,19 @@ public class ChannelEditorspageAdapter extends CustomPagingAdapter<ChannelEditor
 	}
 
 	@Override
+	public void setView2(Holder holder, ChannelEditorsPageVO item, int position) {
+		ViewHolder2 viewHolder = (ViewHolder2) holder;
+		BitmapUIL.load(item.getPreviewUrl(), viewHolder.ivImage);
+	}
+
+	@Override
 	protected Holder createHolder(View v) {
 		return new ViewHolder(v);
+	}
+
+	@Override
+	protected Holder createHolder2(View v) {
+		return new ViewHolder2(v);
 	}
 
 	class ViewHolder extends Holder {
@@ -43,6 +75,15 @@ public class ChannelEditorspageAdapter extends CustomPagingAdapter<ChannelEditor
 		@BindView(R.id.tv_item_channel_editor_name) public TextView tvName;
 
 		public ViewHolder(View view) {
+			super(view);
+		}
+	}
+
+	class ViewHolder2 extends Holder {
+
+		@BindView(R.id.iv_item_channel_editor_image) public SelectableRoundedImageView ivImage;
+
+		public ViewHolder2(View view) {
 			super(view);
 		}
 	}

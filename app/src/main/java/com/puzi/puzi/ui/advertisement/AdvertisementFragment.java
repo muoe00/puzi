@@ -89,7 +89,7 @@ public class AdvertisementFragment extends BaseFragment {
 		final AdvertisementNetworkService advertisementNetworkService = RetrofitManager.create(AdvertisementNetworkService.class);
 
 		Call<ResponseVO> callList = advertisementNetworkService.adList(token, pagingIndex);
-		callList.enqueue(new CustomCallback<ResponseVO>(getActivity()) {
+		callList.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				Log.i("INFO", "advertise responseVO : " + responseVO.toString());

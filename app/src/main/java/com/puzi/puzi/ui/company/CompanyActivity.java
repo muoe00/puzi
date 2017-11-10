@@ -171,7 +171,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 		String token = Preference.getProperty(CompanyActivity.this, "token");
 
 		Call<ResponseVO> call = companyNetworkService.profile(token, companyId);
-		call.enqueue(new CustomCallback<ResponseVO>(CompanyActivity.this) {
+		call.enqueue(new CustomCallback(CompanyActivity.this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 
@@ -231,7 +231,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 		String token = Preference.getProperty(CompanyActivity.this, "token");
 
 		Call<ResponseVO> call = companyNetworkService.channelList(token, companyVO.getCompanyId(), pagingIndex);
-		call.enqueue(new CustomCallback<ResponseVO>(this) {
+		call.enqueue(new CustomCallback(this) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
@@ -269,7 +269,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 		String token = Preference.getProperty(CompanyActivity.this, "token");
 
 		Call<ResponseVO> call = settingNetworkService.blockCompany(token, isBlock, companyVO.getCompanyId());
-		call.enqueue(new CustomCallback<ResponseVO>(CompanyActivity.this) {
+		call.enqueue(new CustomCallback(CompanyActivity.this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 
@@ -341,7 +341,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 		final boolean add = !companyVO.isLiked();
 
 		Call<ResponseVO> call = companyNetworkService.like(token, add, companyVO.getCompanyId());
-		call.enqueue(new CustomCallback<ResponseVO>(this) {
+		call.enqueue(new CustomCallback(this) {
 
 			@Override
 			public void onSuccess(ResponseVO responseVO) {

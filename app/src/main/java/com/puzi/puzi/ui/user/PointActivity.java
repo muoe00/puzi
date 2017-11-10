@@ -68,7 +68,7 @@ public class PointActivity extends BaseFragmentActivity {
 		String token = Preference.getProperty(PointActivity.this, "token");
 
 		Call<ResponseVO> callUser = userNetworkService.myInfo(token);
-		callUser.enqueue(new CustomCallback<ResponseVO>(PointActivity.this) {
+		callUser.enqueue(new CustomCallback(PointActivity.this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				Log.i("INFO", "advertise responseVO : " + responseVO.toString());

@@ -14,6 +14,7 @@
     android:layout_width="176dp"
     android:layout_height="96dp"
     android:src="@drawable/active_icon"
+    android:scaleType="centerCrop"
     android:background="#00000000"
     android:id="@+id/iv_item_channel_detail_editors_page_image"/>
 
