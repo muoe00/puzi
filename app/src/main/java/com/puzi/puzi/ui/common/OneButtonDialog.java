@@ -34,4 +34,28 @@ public class OneButtonDialog {
 		});
 		dialog = builder.show();
 	}
+
+	public static void show(Activity activity, String title, String message, String buttonName, final DialogButtonCallback callback,
+		final DialogButtonCallback failCallback) {
+		if(dialog != null && dialog.isShowing()){
+			return;
+		}
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+		builder.setTitle(title);
+		builder.setMessage(message);
+		builder.setNegativeButton("취소", new Dialog.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				failCallback.onClick();
+			}
+		});
+		builder.setPositiveButton(buttonName, new Dialog.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				callback.onClick();
+			}
+		});
+		dialog = builder.show();
+	}
 }

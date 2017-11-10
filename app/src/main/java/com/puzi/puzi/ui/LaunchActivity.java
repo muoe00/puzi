@@ -7,6 +7,8 @@ import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +25,8 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.ResultType;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.common.DialogButtonCallback;
+import com.puzi.puzi.ui.common.OneButtonDialog;
 import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
@@ -34,10 +38,13 @@ public class LaunchActivity extends BaseActivity {
 
 	@BindView(R.id.splash_progress_Bar) public ProgressBar pbSplash;
 
+	private boolean goAlarmSetting = false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_splash);
+		Log.d("TAG", "+++ onCreate");
 
 		unbinder = ButterKnife.bind(this);
 
@@ -52,7 +59,34 @@ public class LaunchActivity extends BaseActivity {
 		pbSplash.getIndeterminateDrawable().setColorFilter(0xFFFFFFFF, android.graphics.PorterDuff.Mode.MULTIPLY);
 		pbSplash.setVisibility(View.VISIBLE);
 
+		if(!NotificationManagerCompat.from(getActivity()).areNotificationsEnabled()) {
+			OneButtonDialog.show(getActivity(), "설정", "알람설정이 꺼져있습니다.\n더 많은 적립을 받기위해 알람을 켜시겠습니까?", "켜기",
+				new DialogButtonCallback() {
+					@Override
+					public void onClick() {
+						goAlarmSetting = true;
+						Intent intent = new Intent(Settings.ACTION_SETTINGS);
+						startActivityForResult(intent, 0);
+						return;
+					}
+				}, new DialogButtonCallback() {
+					@Override
+					public void onClick() {
+						checkLogin();
+					}
+				});
+			return;
+		}
 		checkLogin();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Log.d("TAG", "+++ onResume");
+		if(goAlarmSetting) {
+			checkLogin();
+		}
 	}
 
 	public void checkLogin() {
