@@ -46,8 +46,8 @@ public class OutFragment extends BaseFragment {
 			@Override
 			public void onClick() {
 				Preference.removeProperty(getActivity(), "passwd");
-				startActivity(new Intent(getActivity(), IntroActivity.class));
 				BaseFragmentActivity.finishAll();
+				startActivity(new Intent(getActivity(), IntroActivity.class));
 
 //				String token = Preference.getProperty(getActivity(), "token");
 //				ProgressDialog.show(getActivity());

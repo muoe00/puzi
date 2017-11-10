@@ -101,8 +101,8 @@ public abstract class CustomCallback extends LazyCallback {
 						retry();
 						break;
 					case LOGIN_FAIL:
-						savedActivity.startActivity(new Intent(savedActivity, IntroActivity.class));
 						BaseFragmentActivity.finishAll();
+						savedActivity.startActivity(new Intent(savedActivity, IntroActivity.class));
 						break;
 					default:
 						break;
