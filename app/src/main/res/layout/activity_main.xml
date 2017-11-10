@@ -122,12 +122,11 @@
   </LinearLayout>
 
   <LinearLayout
-    android:layout_weight="0.1"
     android:id="@+id/main_fragment_container"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_gravity="bottom"
-    android:layout_height="50dp">
+    android:layout_height="54dp">
 
     <FrameLayout
       android:id="@+id/fl_advertise"
