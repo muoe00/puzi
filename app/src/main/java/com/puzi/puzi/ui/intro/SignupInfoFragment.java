@@ -1,6 +1,7 @@
 package com.puzi.puzi.ui.intro;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.FragmentManager;
@@ -33,7 +34,7 @@ import java.util.Date;
  * Created by muoe0 on 2017-07-27.
  */
 
-public class InfoFragment extends BaseFragment {
+public class SignupInfoFragment extends BaseFragment {
 
 	private Unbinder unbinder;
 
@@ -62,6 +63,9 @@ public class InfoFragment extends BaseFragment {
 
 		View view = inflater.inflate(R.layout.fragment_signup_info, container, false);
 		unbinder = ButterKnife.bind(this, view);
+
+		rbtnMale.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "NotoSansKR-Regular-Hestia.otf"));
+		rbtnFemale.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "NotoSansKR-Regular-Hestia.otf"));
 
 		settingYears();
 

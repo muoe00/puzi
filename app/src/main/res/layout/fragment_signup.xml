@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:id="@+id/ll_signup"
               android:orientation="vertical"
               android:layout_width="match_parent"
@@ -19,7 +19,8 @@
       android:background="@null"
       android:src="@drawable/back"
       android:id="@+id/ibtn_back"/>
-    <TextView
+    <com.puzi.puzi.ui.customview.NotoTextView
+      app:fontWeight="medium"
       android:text="회원가입"
       android:textColor="@color/colorBlack"
       android:textSize="20sp"
@@ -52,7 +53,8 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp">
 
-        <TextView
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="medium"
           android:layout_width="match_parent"
           android:layout_height="24dp"
           android:layout_marginBottom="8dp"
@@ -61,10 +63,11 @@
           android:text="아이디"
           android:gravity="left" />
 
-        <EditText
+        <com.puzi.puzi.ui.customview.NotoEditText
+          app:fontWeight="regular"
           android:background="@drawable/edittext"
           android:layout_width="match_parent"
-          android:layout_height="64dp"
+          android:layout_height="54dp"
           android:textSize="15sp"
           android:id="@+id/edt_signup_id"
           android:inputType="textUri"
@@ -76,7 +79,8 @@
           android:paddingTop="15dp"
           android:paddingLeft="15dp"/>
 
-        <TextView
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="regular"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_marginTop="5dp"
@@ -95,7 +99,8 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp">
 
-        <TextView
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="medium"
           android:layout_width="match_parent"
           android:layout_height="24dp"
           android:layout_marginBottom="8dp"
@@ -104,10 +109,11 @@
           android:text="이메일"
           android:gravity="left" />
 
-        <EditText
+        <com.puzi.puzi.ui.customview.NotoEditText
+          app:fontWeight="regular"
           android:background="@drawable/edittext"
           android:layout_width="match_parent"
-          android:layout_height="64dp"
+          android:layout_height="54dp"
           android:textSize="15sp"
           android:id="@+id/edt_signup_email"
           android:textColorHint="#6D6D6D"
@@ -129,7 +135,8 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp">
 
-        <TextView
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="medium"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_marginBottom="8dp"
@@ -138,10 +145,11 @@
           android:text="비밀번호"
           android:gravity="left" />
 
-        <EditText
+        <com.puzi.puzi.ui.customview.NotoEditText
+          app:fontWeight="regular"
           android:background="@drawable/edittext"
           android:layout_width="match_parent"
-          android:layout_height="64dp"
+          android:layout_height="54dp"
           android:textSize="15sp"
           android:id="@+id/edt_signup_pw"
           android:textColorHint="#6D6D6D"
@@ -153,10 +161,11 @@
           android:ems="15"
           android:maxLines="1"/>
 
-        <EditText
+        <com.puzi.puzi.ui.customview.NotoEditText
+          app:fontWeight="regular"
           android:background="@drawable/edittext"
           android:layout_width="match_parent"
-          android:layout_height="64dp"
+          android:layout_height="54dp"
           android:textSize="15sp"
           android:id="@+id/edt_signup_repw"
           android:textColorHint="#6D6D6D"
@@ -169,7 +178,8 @@
           android:ems="15"
           android:maxLines="1"/>
 
-        <TextView
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="regular"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_marginTop="5dp"
@@ -190,7 +200,8 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp">
 
-        <Button
+        <com.puzi.puzi.ui.customview.NotoButton
+          app:fontWeight="medium"
           android:layout_width="match_parent"
           android:layout_height="54dp"
           android:id="@+id/btn_signup_next"
