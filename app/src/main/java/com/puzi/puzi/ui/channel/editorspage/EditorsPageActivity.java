@@ -42,6 +42,9 @@ public class EditorsPageActivity extends BaseActivity {
 	private int count = 0;
 	private boolean start = false;
 
+	private int layoutHeight;
+	private int layoutHeight2;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -79,8 +82,8 @@ public class EditorsPageActivity extends BaseActivity {
 			}
 		});
 
-		final int layoutHeight = llTopContainer.getLayoutParams().height;
-		final int layoutHeight2 = llBottomContainer.getLayoutParams().height;
+		layoutHeight = llTopContainer.getLayoutParams().height;
+		layoutHeight2 = llBottomContainer.getLayoutParams().height;
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 			wvContainer.setOnScrollChangeListener(new View.OnScrollChangeListener() {
@@ -88,12 +91,7 @@ public class EditorsPageActivity extends BaseActivity {
 				@Override
 				public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 					if(scrollY <= 10) {
-						ViewGroup.LayoutParams params = llTopContainer.getLayoutParams();
-						params.height = layoutHeight;
-						llTopContainer.setLayoutParams(params);
-						ViewGroup.LayoutParams params2 = llBottomContainer.getLayoutParams();
-						params2.height = layoutHeight2;
-						llBottomContainer.setLayoutParams(params2);
+						showBar();
 						return;
 					}
 
@@ -109,26 +107,22 @@ public class EditorsPageActivity extends BaseActivity {
 						ViewGroup.LayoutParams params = llTopContainer.getLayoutParams();
 						int willHeight = params.height + (count*3);
 						if(willHeight >= layoutHeight) {
-							params.height = layoutHeight;
-							llTopContainer.setLayoutParams(params);
+							showTopBar();
 						} else if(willHeight > 0) {
 							params.height = willHeight;
 							llTopContainer.setLayoutParams(params);
 						} else {
-							params.height = 0;
-							llTopContainer.setLayoutParams(params);
+							hideTopBar();
 						}
 						ViewGroup.LayoutParams params2 = llBottomContainer.getLayoutParams();
 						int willHeight2 = params2.height + (count*3);
 						if(willHeight2 >= layoutHeight2) {
-							params2.height = layoutHeight2;
-							llBottomContainer.setLayoutParams(params2);
+							showBottomBar();
 						} else if(willHeight2 > 0) {
 							params2.height = willHeight2;
 							llBottomContainer.setLayoutParams(params2);
 						} else {
-							params2.height = 0;
-							llBottomContainer.setLayoutParams(params2);
+							hideBottomBar();
 						}
 					}
 				}
@@ -149,27 +143,14 @@ public class EditorsPageActivity extends BaseActivity {
 							Log.d("TAG", "+++ ACTION_UP");
 							if(start) {
 								start = false;
-								if(
-									(llTopContainer.getLayoutParams().height == 0 || llTopContainer.getLayoutParams().height == layoutHeight) &&
-										(llBottomContainer.getLayoutParams().height == 0 || llBottomContainer.getLayoutParams().height == layoutHeight2)
-									) {
+								if(alreadySetShowOrHide()) {
 									break;
 								}
 
 								if(count >= 0) {
-									ViewGroup.LayoutParams params = llTopContainer.getLayoutParams();
-									params.height = layoutHeight;
-									llTopContainer.setLayoutParams(params);
-									ViewGroup.LayoutParams params2 = llBottomContainer.getLayoutParams();
-									params2.height = layoutHeight2;
-									llBottomContainer.setLayoutParams(params2);
+									showBar();
 								} else {
-									ViewGroup.LayoutParams params = llTopContainer.getLayoutParams();
-									params.height = 0;
-									llTopContainer.setLayoutParams(params);
-									ViewGroup.LayoutParams params2 = llBottomContainer.getLayoutParams();
-									params2.height = 0;
-									llBottomContainer.setLayoutParams(params2);
+									hideBar();
 								}
 							}
 							count = 0;
@@ -179,6 +160,45 @@ public class EditorsPageActivity extends BaseActivity {
 				}
 			});
 		}
+	}
+
+	private boolean alreadySetShowOrHide() {
+		return (llTopContainer.getLayoutParams().height == 0 || llTopContainer.getLayoutParams().height == layoutHeight) &&
+				(llBottomContainer.getLayoutParams().height == 0 || llBottomContainer.getLayoutParams().height == layoutHeight2);
+	}
+
+	private void showBar() {
+		showTopBar();
+		showBottomBar();
+	}
+
+	private void showTopBar() {
+		ViewGroup.LayoutParams params = llTopContainer.getLayoutParams();
+		params.height = layoutHeight;
+		llTopContainer.setLayoutParams(params);
+	}
+
+	private void showBottomBar() {
+		ViewGroup.LayoutParams params2 = llBottomContainer.getLayoutParams();
+		params2.height = layoutHeight2;
+		llBottomContainer.setLayoutParams(params2);
+	}
+
+	private void hideBar() {
+		hideTopBar();
+		hideBottomBar();
+	}
+
+	private void hideTopBar() {
+		ViewGroup.LayoutParams params = llTopContainer.getLayoutParams();
+		params.height = 0;
+		llTopContainer.setLayoutParams(params);
+	}
+
+	private void hideBottomBar() {
+		ViewGroup.LayoutParams params2 = llBottomContainer.getLayoutParams();
+		params2.height = 0;
+		llBottomContainer.setLayoutParams(params2);
 	}
 
 	@OnClick(R.id.ibtn_channel_editors_page_web_back)
