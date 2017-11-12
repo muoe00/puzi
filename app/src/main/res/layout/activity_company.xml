@@ -8,7 +8,7 @@
   <!-- 상단바 -->
   <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content">
 
-    <com.puzi.puzi.ui.CusomScrollView
+    <com.puzi.puzi.ui.CustomScrollView
       android:id="@+id/sv_container"
       android:layout_marginTop="50dp"
       android:layout_width="match_parent"
@@ -93,7 +93,7 @@
           android:background="#ffffff"/>
       </LinearLayout>
 
-    </com.puzi.puzi.ui.CusomScrollView>
+    </com.puzi.puzi.ui.CustomScrollView>
 
     <LinearLayout
       android:layout_width="match_parent"

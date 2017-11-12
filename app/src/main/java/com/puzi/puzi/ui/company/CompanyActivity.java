@@ -22,7 +22,7 @@ import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.CompanyNetworkService;
 import com.puzi.puzi.network.service.SettingNetworkService;
-import com.puzi.puzi.ui.CusomScrollView;
+import com.puzi.puzi.ui.CustomScrollView;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.common.DialogButtonCallback;
@@ -46,7 +46,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 	@BindView(R.id.tv_companyComment) public TextView companyComment;
 	@BindView(R.id.lv_profile_channel_list) public ListView lvChannelList;
 	@BindView(R.id.ll_company_container) public LinearLayout llCompanyContainer;
-	@BindView(R.id.sv_container) public CusomScrollView svContainer;
+	@BindView(R.id.sv_container) public CustomScrollView svContainer;
 	@BindView(R.id.iv_title_companyProfile_picture) public SelectableRoundedImageView titleCompanyPicture;
 	@BindView(R.id.tv_title_companyName) public TextView titleCompanyName;
 	@BindView(R.id.ll_title_bottom_bar) public LinearLayout llTitleBottomBar;
@@ -102,7 +102,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 	}
 
 	private void initScrollAction() {
-		svContainer.setOnEndedScrolledListener(new CusomScrollView.OnEndedScrolledListener() {
+		svContainer.setOnEndedScrolledListener(new CustomScrollView.OnEndedScrolledListener() {
 			@Override
 			public void onEnded() {
 				if(more) {
@@ -133,7 +133,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 		});
 		final int CHANGE_Y_START = 200;
 		final int CHANGE_Y_END = 400;
-		svContainer.setOnScrollListener(new CusomScrollView.OnScrollListener() {
+		svContainer.setOnScrollListener(new CustomScrollView.OnScrollListener() {
 			@Override
 			public void onScroll(int direction, float scrollY) {
 				if(svContainerState == SCROLL_STATE_FLING || svContainerState == SCROLL_STATE_IDLE){

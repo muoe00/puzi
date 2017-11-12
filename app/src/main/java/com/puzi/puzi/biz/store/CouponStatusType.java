@@ -16,4 +16,9 @@ public enum CouponStatusType {
 
 	@Getter
 	private String comment;
+
+	public boolean isNotUsed() {
+		return this == NOT_USE;
+		// return this == NOT_USE || this == UNKNOWN;
+	}
 }

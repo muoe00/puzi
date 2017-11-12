@@ -2,20 +2,21 @@ package com.puzi.puzi.ui.store.coupon;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ListView;
-import android.widget.ScrollView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
-import com.puzi.puzi.biz.store.CouponStatusType;
 import com.puzi.puzi.biz.store.PurchaseHistoryVO;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.StoreNetworkService;
-import com.puzi.puzi.ui.CustomPagingAdapter;
+import com.puzi.puzi.ui.CustomScrollView;
 import com.puzi.puzi.ui.base.BaseActivity;
 import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
@@ -31,15 +32,16 @@ public class CouponActivity extends BaseActivity {
 
 	Unbinder unbinder;
 
-	@BindView(R.id.sv_coupon) ScrollView scView;
-	@BindView(R.id.lv_coupon) ListView lvCoupon;
-	@BindView(R.id.lv_used_coupon) ListView lvUsedCoupon;
+	@BindView(R.id.sv_coupon)
+	CustomScrollView scView;
+	@BindView(R.id.gv_coupon) GridView gvCoupon;
+	@BindView(R.id.gv_used_coupon) GridView gvUsedCoupon;
 
+	private boolean isUsedCoupon = false;
 	private boolean more = false;
 	private int pagingIndex = 1;
 	boolean lastestScrollFlag = false;
-	private List<PurchaseHistoryVO> couponList = new ArrayList();
-	private List<PurchaseHistoryVO> usedCouponList = new ArrayList();
+
 	private CouponListAdapter couponListAdapter;
 	private UsedCouponListAdapter usedCouponListAdapter;
 
@@ -50,13 +52,18 @@ public class CouponActivity extends BaseActivity {
 
 		unbinder = ButterKnife.bind(this);
 
+		initScrollAction();
 		initAdapter();
+		getCouponList();
 	}
 
 	public void getCouponList() {
 		couponListAdapter.startProgress();
+		usedCouponListAdapter.startProgress();
+		gvCoupon.setSelection(couponListAdapter.getCount() - 1);
+		gvUsedCoupon.setSelection(usedCouponListAdapter.getCount() - 1);
 
-		LazyRequestService service = new LazyRequestService(this, StoreNetworkService.class);
+		final LazyRequestService service = new LazyRequestService(this, StoreNetworkService.class);
 		service.method(new LazyRequestService.RequestMothod<StoreNetworkService>() {
 			@Override
 			public Call<ResponseVO> execute(StoreNetworkService storeNetworkService, String token) {
@@ -67,49 +74,112 @@ public class CouponActivity extends BaseActivity {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				couponListAdapter.stopProgress();
+				usedCouponListAdapter.stopProgress();
 
-				List<PurchaseHistoryVO> purchaseHistoryVOS = responseVO.getList("PurchaseHistoryDTO", PurchaseHistoryVO.class);
+				int totalCount = responseVO.getInteger("totalCount");
+
+				List<PurchaseHistoryVO> purchaseHistoryVOS = responseVO.getList("purchaseHistoryDTOList", PurchaseHistoryVO.class);
 				Log.i(PuziUtils.INFO, "purchaseHistoryVOS : " + purchaseHistoryVOS.toString());
+				Log.i(PuziUtils.INFO, "purchaseHistoryVOS size : " + purchaseHistoryVOS.size());
 				Log.i(PuziUtils.INFO, "purchaseHistory totalCount : " + responseVO.getInteger("totalCount"));
 
+				List<PurchaseHistoryVO> couponList = new ArrayList();
+				List<PurchaseHistoryVO> usedCouponList = new ArrayList();
+
 				for(PurchaseHistoryVO purchaseHistoryVO : purchaseHistoryVOS) {
-					if(purchaseHistoryVO.getCouponStatusType().equals(CouponStatusType.NOT_USE)) {
+					if(purchaseHistoryVO.getCouponStatusType().isNotUsed()) {
 						couponList.add(purchaseHistoryVO);
-					} else if(purchaseHistoryVO.getCouponStatusType().equals(CouponStatusType.USED)) {
+						isUsedCoupon = false;
+					} else {
 						usedCouponList.add(purchaseHistoryVO);
+						isUsedCoupon = true;
 					}
 				}
 
+				Log.i(PuziUtils.INFO, "couponList size : " + couponList.size());
+				Log.i(PuziUtils.INFO, "usedCouponList size : " + usedCouponList.size());
+
+				if(couponList.size() == 0) {
+					couponListAdapter.empty();
+					more = false;
+				}
+
 				couponListAdapter.addList(couponList);
-				usedCouponListAdapter.addList(usedCouponList);
 				couponListAdapter.notifyDataSetChanged();
-				usedCouponListAdapter.notifyDataSetChanged();
+				setGridViewHeightBasedOnChildren(couponListAdapter, gvCoupon);
+
+				if(isUsedCoupon) {
+					Log.i(PuziUtils.INFO, "isUsedCoupon : " + isUsedCoupon);
+					if(usedCouponList.size() == 0) {
+						if(!lastestScrollFlag) {
+							usedCouponListAdapter.empty();
+							more = false;
+							return;
+						}
+					}
+
+					usedCouponListAdapter.addList(usedCouponList);
+					usedCouponListAdapter.notifyDataSetChanged();
+					setGridViewHeightBasedOnChildren(usedCouponListAdapter, gvUsedCoupon);
+
+					Log.i(PuziUtils.INFO, "couponListAdapter.getCount() : " + couponListAdapter.getCount());
+					Log.i(PuziUtils.INFO, "usedCouponListAdapter.getCount() : " + usedCouponListAdapter.getCount());
+
+					if(couponListAdapter.getCount() + usedCouponListAdapter.getCount() == totalCount) {
+						more = false;
+						lastestScrollFlag = true;
+						Log.i(PuziUtils.INFO, "lastestScrollFlag : " + lastestScrollFlag);
+						return;
+					}
+					more = true;
+				}
 
 			}
 		});
 
 	}
 
+	private void setGridViewHeightBasedOnChildren(BaseAdapter baseAdapter, GridView gridView) {
+		int totalHeight = 0;
+		int desiredWidth = View.MeasureSpec.makeMeasureSpec(gridView.getWidth(), View.MeasureSpec.AT_MOST);
+
+		for (int i = 0; i < baseAdapter.getCount(); i++) {
+			View listItem = baseAdapter.getView(i, null, gridView);
+			listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+			totalHeight += listItem.getMeasuredHeight();
+		}
+
+		ViewGroup.LayoutParams params = gridView.getLayoutParams();
+		params.height = (totalHeight + 700) / 2;
+		gridView.setLayoutParams(params);
+		gridView.requestLayout();
+	}
+
+	private void initScrollAction() {
+		scView.setOnEndedScrolledListener(new CustomScrollView.OnEndedScrolledListener() {
+			@Override
+			public void onEnded() {
+				if(more) {
+					pagingIndex = pagingIndex + 1;
+					Log.i(PuziUtils.INFO, "pagingIndex : " + pagingIndex);
+					getCouponList();
+				}
+			}
+		});
+
+		scView.setOnScrollListener(new CustomScrollView.OnScrollListener() {
+			@Override
+			public void onScroll(int direction, float scrollY) {
+
+			}
+		});
+	}
+
 	private void initAdapter() {
-		couponListAdapter = new CouponListAdapter(getActivity(), R.layout.item_coupon_child, lvCoupon, scView, new CustomPagingAdapter.ListHandler() {
-
-			@Override
-			public void getList() {
-				getCouponList();
-			}
-		});
-		couponListAdapter.setMore(false);
-		couponListAdapter.getList();
-
-		usedCouponListAdapter = new UsedCouponListAdapter(getActivity(), R.layout.item_coupon_used_child, lvUsedCoupon, scView, new CustomPagingAdapter.ListHandler() {
-
-			@Override
-			public void getList() {
-				getCouponList();
-			}
-		});
-		usedCouponListAdapter.setMore(false);
-		usedCouponListAdapter.getList();
+		couponListAdapter = new CouponListAdapter(this);
+		gvCoupon.setAdapter(couponListAdapter);
+		usedCouponListAdapter = new UsedCouponListAdapter(this);
+		gvUsedCoupon.setAdapter(usedCouponListAdapter);
 	}
 
 	@OnClick(R.id.ibtn_back_point)

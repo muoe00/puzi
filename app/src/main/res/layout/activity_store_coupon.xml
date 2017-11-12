@@ -31,10 +31,11 @@
 
   </FrameLayout>
   
-  <ScrollView
+  <com.puzi.puzi.ui.CustomScrollView
     android:id="@+id/sv_coupon"
     android:layout_width="match_parent" 
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:isScrollContainer="true">
 
     <LinearLayout
       android:orientation="vertical"
@@ -69,13 +70,17 @@
 
       </LinearLayout>
 
-      <ListView
-        android:id="@+id/lv_coupon"
+      <GridView
+        android:listSelector="@android:color/transparent"
+        android:id="@+id/gv_coupon"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:numColumns="2"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        android:background="#00000000"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@color/colorWhite"
-        android:background="@color/colorWhite"
-        android:dividerHeight="10dp"/>
+        android:layout_height="wrap_content"/>
 
       <LinearLayout
         android:gravity="center_vertical"
@@ -105,16 +110,20 @@
 
       </LinearLayout>
 
-      <ListView
-        android:id="@+id/lv_used_coupon"
+      <GridView
+        android:listSelector="@android:color/transparent"
+        android:id="@+id/gv_used_coupon"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:numColumns="2"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        android:background="#00000000"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@color/colorWhite"
-        android:background="@color/colorWhite"
-        android:dividerHeight="10dp"/>
+        android:layout_height="wrap_content"/>
 
     </LinearLayout>
     
-  </ScrollView>
+  </com.puzi.puzi.ui.CustomScrollView>
   
 </LinearLayout>
