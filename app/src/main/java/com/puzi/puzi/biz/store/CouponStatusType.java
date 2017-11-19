@@ -18,7 +18,7 @@ public enum CouponStatusType {
 	private String comment;
 
 	public boolean isNotUsed() {
-		return this == NOT_USE;
-		// return this == NOT_USE || this == UNKNOWN;
+		// return this == NOT_USE;
+		return this == NOT_USE || this == UNKNOWN;
 	}
 }

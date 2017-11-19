@@ -242,10 +242,19 @@
       </LinearLayout>
 
       <FrameLayout
+        android:background="@null"
         android:layout_marginRight="16dp"
         android:layout_gravity="center"
         android:layout_width="40dp"
         android:layout_height="40dp">
+
+        <ProgressBar
+          android:id="@+id/pg_advertise"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          style="?android:attr/progressBarStyleLarge"
+          android:indeterminateOnly="true"
+          android:indeterminateDrawable="@drawable/progress_bar"/>
 
         <ImageView
           android:layout_gravity="center"
@@ -253,17 +262,6 @@
           android:id="@+id/iv_advertise_state"
           android:layout_width="23dp"
           android:layout_height="23dp"/>
-
-        <ProgressBar
-          android:id="@+id/pg_advertise"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:max="500"
-          android:progress="0"
-          android:indeterminate="true"
-          android:layout_centerInParent="true"
-          style="?android:attr/progressBarStyleLarge"
-          android:progressDrawable="@drawable/progress_bar"/>
 
         <LinearLayout
           android:gravity="center"

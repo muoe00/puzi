@@ -2,6 +2,7 @@ package com.puzi.puzi.ui.store.coupon;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -178,8 +179,28 @@ public class CouponActivity extends BaseActivity {
 	private void initAdapter() {
 		couponListAdapter = new CouponListAdapter(this);
 		gvCoupon.setAdapter(couponListAdapter);
+		gvCoupon.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if(event.getAction() == MotionEvent.ACTION_MOVE)
+				{
+					return true;
+				}
+				return false;
+			}
+		});
 		usedCouponListAdapter = new UsedCouponListAdapter(this);
 		gvUsedCoupon.setAdapter(usedCouponListAdapter);
+		gvUsedCoupon.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if(event.getAction() == MotionEvent.ACTION_MOVE)
+				{
+					return true;
+				}
+				return false;
+			}
+		});
 	}
 
 	@OnClick(R.id.ibtn_back_point)

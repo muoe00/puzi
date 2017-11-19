@@ -227,6 +227,7 @@ public class AdvertisementDetailActivity extends BaseActivity {
 		@Override
 		protected void onPreExecute() {
 			isCanceled = false;
+			progressCircle.setVisibility(View.VISIBLE);
 			progressCircle.setProgress(0);
 			progressCircle.setMax(500);
 		}
@@ -254,6 +255,7 @@ public class AdvertisementDetailActivity extends BaseActivity {
 		@Override
 		protected void onProgressUpdate(final Integer... progress) {
 			Log.i(PuziUtils.INFO, "progress i : " + progress[0]);
+			super.onProgressUpdate(progress);
 			progressCircle.setProgress(progress[0]);
 
 			if(progress[0] == 1) {
@@ -267,7 +269,6 @@ public class AdvertisementDetailActivity extends BaseActivity {
 			} else if(progress[0] == 401) {
 				tvProgress.setText(5 + "");
 			}
-			super.onProgressUpdate(progress);
 		}
 	}
 

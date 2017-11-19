@@ -1,36 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<rotate
+  android:duration="1"
+  android:pivotX="50%"
+  android:pivotY="50%"
+  android:fromDegrees="0"
+  android:toDegrees="360"
+  xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <item
+  <shape
+    android:innerRadiusRatio="3"
+    android:thicknessRatio="8"
+    android:useLevel="false"
+    android:thickness="3dp"
+    android:shape="ring">
+    <size
+      android:width="40dip"
+      android:height="40dip"/>
+    <gradient
+      android:type="sweep"
+      android:useLevel="false"
+      android:centerY="0.5"
+      android:endColor="#ff5146"
+      android:startColor="#ff2470"/>
+  </shape>
+
+  <!--<item
     android:id="@android:id/background">
     <shape
+      android:useLevel="false"
       android:shape="ring"
       android:thickness="3dp">
       <solid
         android:color="#E7E8E9"/>
     </shape>
-  </item>
+  </item>-->
 
-  <item
-    android:id="@android:id/secondaryProgress">
-    <shape
-      android:shape="ring"
-      android:thickness="3dp">
-      <solid
-        android:color="#E7E8E9"/>
-    </shape>
-  </item>
+  <!--<item-->
+    <!--android:id="@android:id/secondaryProgress">-->
+    <!--<shape-->
+      <!--android:useLevel="true"-->
+      <!--android:shape="ring"-->
+      <!--android:thickness="3dp">-->
+      <!--<solid-->
+        <!--android:color="#E7E8E9"/>-->
+    <!--</shape>-->
+  <!--</item>-->
 
-  <item
+  <!--<item
     android:id="@android:id/progress">
     <shape
+      android:useLevel="false"
       android:thickness="3dp"
       android:shape="ring">
       <gradient
+        android:type="sweep"
+        android:useLevel="false"
         android:centerY="0.5"
         android:endColor="#ff5146"
         android:startColor="#ff2470"/>
     </shape>
-  </item>
+  </item>-->
 
-</layer-list>
+</rotate>
