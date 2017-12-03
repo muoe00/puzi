@@ -253,8 +253,7 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           style="?android:attr/progressBarStyleLarge"
-          android:indeterminateOnly="true"
-          android:indeterminateDrawable="@drawable/progress_bar"/>
+          android:progressDrawable="@drawable/progress_ad"/>
 
         <ImageView
           android:layout_gravity="center"

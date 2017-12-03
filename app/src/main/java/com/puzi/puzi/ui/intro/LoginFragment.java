@@ -104,7 +104,7 @@ public class LoginFragment extends BaseFragment {
 		}
 	}
 
-	private void successLogin(String token, String id, String pwd) {
+	public void successLogin(String token, String id, String pwd) {
 		Log.i("INFO", "login token : " + token);
 
 		Preference.addProperty(getActivity(), "token", token);

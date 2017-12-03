@@ -41,7 +41,8 @@ public class CouponActivity extends BaseActivity {
 	private boolean isUsedCoupon = false;
 	private boolean more = false;
 	private int pagingIndex = 1;
-	boolean lastestScrollFlag = false;
+	private int totalCount = 0;
+	private boolean lastestScrollFlag = false;
 
 	private CouponListAdapter couponListAdapter;
 	private UsedCouponListAdapter usedCouponListAdapter;
@@ -77,12 +78,16 @@ public class CouponActivity extends BaseActivity {
 				couponListAdapter.stopProgress();
 				usedCouponListAdapter.stopProgress();
 
-				int totalCount = responseVO.getInteger("totalCount");
+				totalCount = responseVO.getInteger("totalCount");
+
+				if(totalCount == 0) {
+					return;
+				}
 
 				List<PurchaseHistoryVO> purchaseHistoryVOS = responseVO.getList("purchaseHistoryDTOList", PurchaseHistoryVO.class);
 				Log.i(PuziUtils.INFO, "purchaseHistoryVOS : " + purchaseHistoryVOS.toString());
 				Log.i(PuziUtils.INFO, "purchaseHistoryVOS size : " + purchaseHistoryVOS.size());
-				Log.i(PuziUtils.INFO, "purchaseHistory totalCount : " + responseVO.getInteger("totalCount"));
+				Log.i(PuziUtils.INFO, "purchaseHistory totalCount : " + totalCount);
 
 				List<PurchaseHistoryVO> couponList = new ArrayList();
 				List<PurchaseHistoryVO> usedCouponList = new ArrayList();
@@ -100,7 +105,7 @@ public class CouponActivity extends BaseActivity {
 				Log.i(PuziUtils.INFO, "couponList size : " + couponList.size());
 				Log.i(PuziUtils.INFO, "usedCouponList size : " + usedCouponList.size());
 
-				if(couponList.size() == 0) {
+				if(totalCount > 0 && couponList.size() == 0) {
 					couponListAdapter.empty();
 					more = false;
 				}
@@ -132,6 +137,10 @@ public class CouponActivity extends BaseActivity {
 						Log.i(PuziUtils.INFO, "lastestScrollFlag : " + lastestScrollFlag);
 						return;
 					}
+					more = true;
+				}
+
+				if(purchaseHistoryVOS.size() < responseVO.getInteger("totalCount")) {
 					more = true;
 				}
 

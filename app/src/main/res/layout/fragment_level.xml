@@ -5,9 +5,22 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-  <ImageView
-    android:id="@+id/iv_level"
+  <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="wrap_content">
+
+    <ImageView
+      android:id="@+id/iv_level"
+      android:src="@drawable/grade_img"
+      android:layout_marginTop="23dp"
+      android:layout_marginBottom="30dp"
+      android:layout_marginLeft="44dp"
+      android:layout_marginRight="44dp"
+      android:layout_gravity="center"
+      android:scrollbars="none"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+
+  </ScrollView>
 
 </LinearLayout>

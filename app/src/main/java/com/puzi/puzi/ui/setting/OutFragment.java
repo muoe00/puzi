@@ -49,6 +49,8 @@ public class OutFragment extends BaseFragment {
 				BaseFragmentActivity.finishAll();
 				startActivity(new Intent(getActivity(), IntroActivity.class));
 
+				Preference.removeProperty(getActivity(), "tokenFCM");
+
 //				String token = Preference.getProperty(getActivity(), "token");
 //				ProgressDialog.show(getActivity());
 //

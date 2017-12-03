@@ -73,14 +73,23 @@ public class SignupInfoFragment extends BaseFragment {
 		alert_confirm.setPositiveButton("확인", null);
 		AlertDialog alert = alert_confirm.create();
 
+		String isKakao = Preference.getProperty(getActivity(), "kakao");
+
 		userVO = new UserVO();
+
+		if(isKakao == "K") {
+			userVO.setRegisterType(RegisterType.K);
+			userVO.setPasswd(Preference.getProperty(getActivity(), "passwd"));
+		} else {
+			userVO.setRegisterType(RegisterType.N);
+			userVO.setPasswd(EncryptUtils.sha256(Preference.getProperty(getActivity(), "passwd")));
+		}
+
 		userVO.setUserId(Preference.getProperty(getActivity(), "id"));
-		userVO.setPasswd(Preference.getProperty(getActivity(), "passwd"));
-		userVO.setRegisterType(RegisterType.N);
 		userVO.setEmail(Preference.getProperty(getActivity(), "email"));
 		userVO.setNotifyId(Preference.getProperty(getActivity(), "tokenFCM"));
 		userVO.setPhoneType(PhoneType.A);
-		userVO.setLevelType(LevelType.BRONZE);
+		userVO.setLevelType(LevelType.WELCOME);
 
 		checkInfo();
 
@@ -106,7 +115,7 @@ public class SignupInfoFragment extends BaseFragment {
 		service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
 			@Override
 			public Call<ResponseVO> execute(UserNetworkService userNetworkService, String token) {
-				return userNetworkService.signup(userVO.getUserId(), EncryptUtils.sha256(userVO.getPasswd()), userVO.getRegisterType()
+				return userNetworkService.signup(userVO.getUserId(), userVO.getPasswd(), userVO.getRegisterType()
 					, userVO.getEmail(), userVO.getNotifyId(), userVO.getGenderType(), userVO.getAge(), userVO.getFavoriteTypeList()
 					, userVO.getRecommendId(), userVO.getPhoneType(), userVO.getPhoneKey());
 			}

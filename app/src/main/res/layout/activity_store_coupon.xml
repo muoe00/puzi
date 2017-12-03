@@ -20,7 +20,7 @@
       android:id="@+id/ibtn_back_point"/>
 
     <com.puzi.puzi.ui.customview.NotoTextView
-      app:fontWeight="medium"
+      app:fontWeight="regular"
       android:text="쿠폰함"
       android:textColor="#333333"
       android:textSize="20sp"

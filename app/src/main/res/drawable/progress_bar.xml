@@ -24,41 +24,4 @@
       android:startColor="#ff2470"/>
   </shape>
 
-  <!--<item
-    android:id="@android:id/background">
-    <shape
-      android:useLevel="false"
-      android:shape="ring"
-      android:thickness="3dp">
-      <solid
-        android:color="#E7E8E9"/>
-    </shape>
-  </item>-->
-
-  <!--<item-->
-    <!--android:id="@android:id/secondaryProgress">-->
-    <!--<shape-->
-      <!--android:useLevel="true"-->
-      <!--android:shape="ring"-->
-      <!--android:thickness="3dp">-->
-      <!--<solid-->
-        <!--android:color="#E7E8E9"/>-->
-    <!--</shape>-->
-  <!--</item>-->
-
-  <!--<item
-    android:id="@android:id/progress">
-    <shape
-      android:useLevel="false"
-      android:thickness="3dp"
-      android:shape="ring">
-      <gradient
-        android:type="sweep"
-        android:useLevel="false"
-        android:centerY="0.5"
-        android:endColor="#ff5146"
-        android:startColor="#ff2470"/>
-    </shape>
-  </item>-->
-
 </rotate>

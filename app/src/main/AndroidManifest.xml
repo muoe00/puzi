@@ -68,10 +68,11 @@
         <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
       </intent-filter>
     </service>
-  </application>
 
-  <meta-data
-    android:name="com.kakao.sdk.AppKey"
-    android:value="1d5e7a9c933cab62987d8cd5359db298"/>
+    <meta-data
+      android:name="com.kakao.sdk.AppKey"
+      android:value="@string/kakao_app_key"/>
+
+  </application>
 
 </manifest>
