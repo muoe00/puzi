@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
+import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
@@ -75,7 +76,7 @@ public class IntroActivity extends BaseFragmentActivity {
 		mKakaocallback = new SessionCallback();
 		com.kakao.auth.Session.getCurrentSession().addCallback(mKakaocallback);
 		com.kakao.auth.Session.getCurrentSession().checkAndImplicitOpen();
-		// com.kakao.auth.Session.getCurrentSession().open(AuthType.KAKAO_TALK_EXCLUDE_NATIVE_LOGIN, IntroActivity.this);
+		com.kakao.auth.Session.getCurrentSession().open(AuthType.KAKAO_TALK_EXCLUDE_NATIVE_LOGIN, IntroActivity.this);
 	}
 
 	@Override

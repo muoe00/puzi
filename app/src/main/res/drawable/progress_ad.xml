@@ -1,44 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-  <item
-    android:id="@android:id/background">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@android:id/secondaryProgress">
     <shape
-      android:useLevel="false"
+      android:innerRadiusRatio="3"
       android:shape="ring"
-      android:thickness="3dp">
-      <solid
-        android:color="#E7E8E9"/>
+      android:thickness="2dp"
+      android:thicknessRatio="8"
+      android:useLevel="true">
+      <gradient
+        android:centerColor="#999999"
+        android:endColor="#999999"
+        android:startColor="#999999"
+        android:type="sweep" />
     </shape>
   </item>
 
-  <item
-    android:id="@android:id/secondaryProgress">
-    <shape
-      android:useLevel="false"
-      android:shape="ring"
-      android:thickness="3dp">
-      <gradient
-        android:type="sweep"
-        android:useLevel="false"
-        android:centerY="0.5"
-        android:endColor="#ff5146"
-        android:startColor="#ff2470"/>
-    </shape>
+  <item android:id="@android:id/progress">
+    <rotate
+      android:fromDegrees="270"
+      android:pivotX="50%"
+      android:pivotY="50%"
+      android:toDegrees="270">
+      <shape
+        android:innerRadiusRatio="3"
+        android:shape="ring"
+        android:thickness="2dp"
+        android:thicknessRatio="8"
+        android:useLevel="true">
+        <rotate
+          android:fromDegrees="0"
+          android:pivotX="50%"
+          android:pivotY="50%"
+          android:toDegrees="360" />
+        <gradient
+          android:endColor="#ff5146"
+          android:startColor="#ff2470"
+          android:type="sweep" />
+      </shape>
+    </rotate>
   </item>
-
-  <item
-    android:id="@android:id/progress">
-    <shape
-      android:useLevel="false"
-      android:thickness="3dp"
-      android:shape="ring">
-      <gradient
-        android:type="sweep"
-        android:useLevel="false"
-        android:centerY="0.5"
-        android:endColor="#ff5146"
-        android:startColor="#ff2470"/>
-    </shape>
-  </item>
-</selector>
+</layer-list>

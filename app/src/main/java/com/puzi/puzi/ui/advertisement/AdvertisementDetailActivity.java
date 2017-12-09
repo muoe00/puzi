@@ -250,13 +250,18 @@ public class AdvertisementDetailActivity extends BaseActivity {
 		protected void onPostExecute(Integer params) {
 			isCanceled = true;
 			transAnimation(true);
+			progressCircle.setVisibility(View.GONE);
+			tvProgress.setVisibility(View.GONE);
+			tvProgress2.setVisibility(View.GONE);
+			ivState.setVisibility(View.VISIBLE);
+			ivState.setImageResource(R.drawable.old);
 		}
 
 		@Override
 		protected void onProgressUpdate(final Integer... progress) {
 			Log.i(PuziUtils.INFO, "progress i : " + progress[0]);
 			super.onProgressUpdate(progress);
-			progressCircle.setProgress(progress[0]);
+			progressCircle.setProgress(progress[0], true);
 
 			if(progress[0] == 1) {
 				tvProgress.setText(1 + "");
