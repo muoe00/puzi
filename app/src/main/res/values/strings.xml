@@ -1,6 +1,8 @@
 <resources>
   <string name="app_name">Puzi</string>
   <string name="kakao_app_key">1d5e7a9c933cab62987d8cd5359db298</string>
+  <string name="kakao_scheme">kakao1d5e7a9c933cab62987d8cd5359db298</string>
+  <string name="kakaolink_host">kakaolink</string>
 
   <string name="login_error_noid">아이디를 6자이상 입력해주세요</string>
   <string name="login_error_nopwd">비밀번호를 6자이상 입력해주세요</string>

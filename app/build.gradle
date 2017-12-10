@@ -50,6 +50,7 @@ dependencies {
 	testCompile 'junit:junit:4.12'
 	provided 'org.projectlombok:lombok:1.12.6'
 	compile group: project.KAKAO_SDK_GROUP, name: 'usermgmt', version: project.KAKAO_SDK_VERSION
+	compile group: project.KAKAO_SDK_GROUP, name: 'kakaolink', version: project.KAKAO_SDK_VERSION
 }
 
 apply plugin: 'com.google.gms.google-services'

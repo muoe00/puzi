@@ -3,7 +3,8 @@ package com.puzi.puzi.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.telephony.TelephonyManager;
+import android.os.Build;
+import android.provider.Settings;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.ui.IntroActivity;
 
@@ -27,11 +28,16 @@ public class PuziUtils {
 	}
 
 	public static String getDevicesUUID(Context mContext){
-		final TelephonyManager tm = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
-		final String tmDevice, tmSerial, androidId;
-		tmDevice = "" + tm.getDeviceId();
-		tmSerial = "" + tm.getSimSerialNumber();
-		androidId = "" + android.provider.Settings.Secure.getString(mContext.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+		String tmDevice = Settings.Secure.ANDROID_ID;
+		String tmSerial = null;
+		try {
+			tmSerial = (String) Build.class.getField("SERIAL").get(null);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		}
+		String androidId = "" + android.provider.Settings.Secure.getString(mContext.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
 		UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
 		String deviceId = deviceUuid.toString();
 		return deviceId;
