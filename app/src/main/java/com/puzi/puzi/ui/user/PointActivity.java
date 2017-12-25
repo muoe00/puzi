@@ -16,6 +16,7 @@ import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.user.LevelType;
 import com.puzi.puzi.biz.user.UserVO;
+import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
@@ -39,9 +40,10 @@ public class PointActivity extends BaseFragmentActivity {
 	@BindView(R.id.ibtn_back_point) public ImageButton btnBack;
 	@BindView(R.id.tv_point) public TextView tvPoint;
 	@BindView(R.id.tv_point_today) public TextView tvTodayPoint;
+	@BindView(R.id.tv_point_user_name) public TextView tvUserName;
+	@BindView(R.id.tv_point_user_level) public TextView tvUserLevel;
 	@BindView(R.id.tv_point_history) public TextView tvPointHistory;
 	@BindView(R.id.tv_point_level) public TextView tvPointLevel;
-	@BindView(R.id.iv_rankImage) public ImageView ivRanking;
 	@BindView(R.id.iv_point_select) public ImageView ivPointBar;
 	@BindView(R.id.iv_level_select) public ImageView ivLevelBar;
 
@@ -77,7 +79,9 @@ public class PointActivity extends BaseFragmentActivity {
 				NumberFormat numberFormat = NumberFormat.getInstance();
 
 				LevelType level = LevelType.valueOf(userVO.getLevelType());
-				setLevelIcon(level);
+				tvUserLevel.setText(level.getComment());
+
+				tvUserName.setText(Preference.getProperty(getActivity(), "id"));
 
 				int point = userVO.getPoint();
 				String resultPoint = numberFormat.format(point);
@@ -88,28 +92,6 @@ public class PointActivity extends BaseFragmentActivity {
 				tvTodayPoint.setText(resultTodayPoint);
 			}
 		});
-	}
-
-	public void setLevelIcon(LevelType level) {
-		switch (level) {
-			case BRONZE:
-				ivRanking.setImageResource(R.drawable.gold);
-				break;
-			case SILVER:
-				ivRanking.setImageResource(R.drawable.silver);
-				break;
-			case GOLD:
-				ivRanking.setImageResource(R.drawable.bronze);
-				break;
-			case PLATINUM:
-				ivRanking.setImageResource(R.drawable.platinum);
-				break;
-			case DIAMOND:
-				ivRanking.setImageResource(R.drawable.diamond);
-				break;
-			default:
-				break;
-		}
 	}
 
 	public void changedFragment(int tag) {

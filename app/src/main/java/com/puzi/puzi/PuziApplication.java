@@ -3,11 +3,13 @@ package com.puzi.puzi;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import com.kakao.auth.KakaoSDK;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.puzi.puzi.ui.intro.KakaoSDKAdapter;
 
 public class PuziApplication extends Application {
 
@@ -23,7 +25,7 @@ public class PuziApplication extends Application {
 		super.onCreate();
 
 		PuziApplication.instance = this;
-//		KakaoSDK.init(new KakaoSDKAdapter());
+		KakaoSDK.init(new KakaoSDKAdapter());
 
 		initImageLoader(getApplicationContext());
 	}

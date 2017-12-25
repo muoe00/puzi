@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
@@ -18,7 +18,8 @@
       android:layout_width="245dp"
       android:layout_height="match_parent">
 
-      <TextView
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="regular"
         android:id="@+id/tv_point_type"
         android:gravity="center_vertical"
         android:text="가입 축하 포인트 적립"
@@ -26,7 +27,8 @@
         android:layout_width="match_parent"
         android:layout_height="29dp"/>
 
-      <TextView
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="regular"
         android:id="@+id/tv_point_at"
         android:gravity="center_vertical"
         android:text="2017-10-03 20:00"
@@ -43,7 +45,8 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-      <TextView
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="regular"
         android:id="@+id/tv_point"
         android:layout_gravity="center_vertical"
         android:textSize="20sp"
@@ -52,7 +55,8 @@
         android:layout_width="wrap_content"
         android:layout_height="24dp"/>
 
-      <TextView
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="regular"
         android:layout_gravity="center_vertical"
         android:text="P"
         android:textSize="20sp"

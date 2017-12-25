@@ -29,7 +29,7 @@
       <Button
         android:id="@+id/btn_signup"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="match_parent"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:background="@drawable/btn_email_login"/>
@@ -37,7 +37,7 @@
       <Button
         android:id="@+id/btn_kakao_login"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="match_parent"
         android:background="@drawable/btn_kakao_login"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
@@ -58,7 +58,7 @@
       <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="match_parent"
         android:background="@drawable/btn_login_copy"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"

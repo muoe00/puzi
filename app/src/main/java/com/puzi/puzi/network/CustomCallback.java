@@ -18,6 +18,8 @@ import retrofit2.Call;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.puzi.puzi.network.ResultType.LOGIN_FAIL;
+
 /**
  * Created by muoe0 on 2017-04-28.
  */
@@ -66,6 +68,11 @@ public abstract class CustomCallback extends LazyCallback {
 			} else if(response.body().getResultType().isSuccess()) {
 				onSuccess(response.body());
 			} else {
+				if(response.body().getResultCode() == LOGIN_FAIL.getResultCode()) {
+					Preference.addProperty(getSavedActivity(), "id", null);
+					Preference.addProperty(getSavedActivity(), "passwd", null);
+					tryLogin();
+				}
 				onFail(response.body());
 			}
 		} else {

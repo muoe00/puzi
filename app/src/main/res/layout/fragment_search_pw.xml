@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
+              xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:weightSum="1"
               android:layout_width="match_parent"
@@ -20,7 +20,8 @@
       android:background="@null"
       android:src="@drawable/back"
       android:id="@+id/ibtn_back_serch_pw"/>
-    <TextView
+    <com.puzi.puzi.ui.customview.NotoTextView
+      app:fontWeight="medium"
       android:text="비밀번호 찾기"
       android:textColor="@color/colorBlack"
       android:textSize="20sp"
@@ -50,19 +51,71 @@
       android:layout_marginLeft="32dp"
       android:layout_marginRight="32dp">
 
-      <TextView
+      <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="20dp"
-        android:textSize="24sp"
-        android:textColor="@color/colorBlack"
-        android:text="회원 정보에 등록된 아이디와\n이메일 주소를 입력하세요"
-        android:gravity="left" />
+        android:layout_height="wrap_content">
 
-      <EditText
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="demilight"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:textSize="24sp"
+          android:textColor="@color/colorBlack"
+          android:text="회원 정보에 등록된 "
+          android:gravity="left" />
+
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="demilight"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:textSize="24sp"
+          android:textColor="@color/colorPuzi"
+          android:text="아이디"
+          android:gravity="left" />
+
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="demilight"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:textSize="24sp"
+          android:textColor="@color/colorBlack"
+          android:text="와"
+          android:gravity="left" />
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="demilight"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:textSize="24sp"
+          android:textColor="@color/colorPuzi"
+          android:text="이메일 주소"
+          android:gravity="left" />
+
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="demilight"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginBottom="20dp"
+          android:textSize="24sp"
+          android:textColor="@color/colorBlack"
+          android:text="를 입력하세요"
+          android:gravity="left" />
+
+        </LinearLayout>
+
+      <com.puzi.puzi.ui.customview.NotoEditText
+        app:fontWeight="regular"
         android:background="@drawable/edittext"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="54dp"
         android:layout_marginBottom="8dp"
         android:textSize="15sp"
         android:id="@+id/edit_search_id"
@@ -74,10 +127,11 @@
         android:paddingTop="15dp"
         android:paddingLeft="15dp"/>
 
-      <EditText
+      <com.puzi.puzi.ui.customview.NotoEditText
+        app:fontWeight="regular"
         android:background="@drawable/edittext"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="54dp"
         android:layout_marginBottom="24dp"
         android:textSize="15sp"
         android:id="@+id/edit_search_email"
@@ -89,7 +143,8 @@
         android:paddingTop="15dp"
         android:paddingLeft="15dp"/>
 
-      <Button
+      <com.puzi.puzi.ui.customview.NotoButton
+        app:fontWeight="bold"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_marginBottom="20dp"
@@ -97,14 +152,7 @@
         android:textSize="15sp"
         android:text="비밀번호 찾기"
         android:textColor="@color/colorWhite"
-        android:background="@drawable/button_search"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-      android:background="#DADADA"
-      android:layout_width="match_parent"
-      android:layout_height="1dp">
+        android:background="@drawable/button_puzi"/>
 
     </LinearLayout>
 
@@ -114,10 +162,10 @@
       android:layout_height="24dp"
       android:layout_marginTop="10dp"
       android:layout_marginLeft="32dp"
-      android:layout_marginRight="32dp"
-      android:layout_gravity="center_vertical">
+      android:layout_marginRight="32dp">
 
-      <TextView
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="regular"
         android:layout_gravity="left"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -126,8 +174,9 @@
         android:text="아직 푸지 회원이 아닌가요?"
         android:layout_weight="1"/>
 
-      <Button
-        android:layout_gravity="right"
+      <com.puzi.puzi.ui.customview.NotoButton
+        app:fontWeight="medium"
+        android:gravity="right"
         android:id="@+id/btn_srch_signup"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

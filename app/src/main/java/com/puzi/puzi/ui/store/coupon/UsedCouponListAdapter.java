@@ -1,23 +1,17 @@
 package com.puzi.puzi.ui.store.coupon;
 
-import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.joooonho.SelectableRoundedImageView;
 import com.puzi.puzi.R;
-import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
-import com.puzi.puzi.biz.company.CompanyVO;
 import com.puzi.puzi.biz.store.PurchaseHistoryVO;
 import com.puzi.puzi.image.BitmapUIL;
-import com.puzi.puzi.utils.PuziUtils;
+import com.puzi.puzi.ui.base.BaseActivity;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -25,18 +19,18 @@ import java.util.List;
 
 public class UsedCouponListAdapter extends BaseAdapter {
 
-	private static final int VIEW_COUPON = 0;
+	private static final int VIEW_USED_COUPON = 0;
 	private static final int VIEW_EMPTY = 1;
 	private static final int VIEW_PROGRESS = 2;
 
-	private Activity activity;
+	private BaseActivity activity;
 	private LayoutInflater inflater;
 	private List<PurchaseHistoryVO> list = new ArrayList();
 	@Getter
 	private boolean progressed = false;
 	private boolean empty = false;
 
-	public UsedCouponListAdapter(Activity activity) {
+	public UsedCouponListAdapter(BaseActivity activity) {
 		this.activity = activity;
 		this.inflater = activity.getLayoutInflater();
 	}
@@ -46,6 +40,11 @@ public class UsedCouponListAdapter extends BaseAdapter {
 			empty = false;
 		}
 		list.addAll(purchaseHistoryVOs);
+	}
+
+	public void clean() {
+		list = new ArrayList();
+		notifyDataSetChanged();
 	}
 
 	public void empty() {
@@ -67,7 +66,7 @@ public class UsedCouponListAdapter extends BaseAdapter {
 				return VIEW_PROGRESS;
 			}
 		}
-		return VIEW_COUPON;
+		return VIEW_USED_COUPON;
 	}
 
 	public void startProgress() {
@@ -114,14 +113,14 @@ public class UsedCouponListAdapter extends BaseAdapter {
 
 		if(v == null) {
 			switch(viewType) {
-				case VIEW_COUPON:
-					v = inflater.inflate(R.layout.fragment_advertisement_item, null);
+				case VIEW_USED_COUPON:
+					v = inflater.inflate(R.layout.item_coupon_used_child, null);
 					viewHolder = new ViewHolder(v);
 					v.setTag(viewHolder);
 					break;
 
 				case VIEW_EMPTY:
-					v = inflater.inflate(R.layout.item_list_empty_advertise, null);
+					v = inflater.inflate(R.layout.item_list_empty_used_coupon, null);
 					break;
 
 				case VIEW_PROGRESS:
@@ -133,48 +132,36 @@ public class UsedCouponListAdapter extends BaseAdapter {
 		}
 
 		switch(viewType) {
-			case VIEW_COUPON:
-				final ReceivedAdvertiseVO receivedAdvertise = (ReceivedAdvertiseVO) getItem(position);
+			case VIEW_USED_COUPON:
 
-				Log.i("INFO", "URL Company : " + receivedAdvertise.getLinkPreviewUrl());
+				final PurchaseHistoryVO purchaseHistoryVO = (PurchaseHistoryVO) getItem(position);
 
-				BitmapUIL.load(receivedAdvertise.getLinkPreviewUrl(), viewHolder.ivAd);
-				BitmapUIL.load(receivedAdvertise.getCompanyInfoDTO().getPictureUrl(), viewHolder.ivComp);
+				/*Log.i(PuziUtils.INFO, "Used getPictureUrl() : " + purchaseHistoryVO.getStoreItemDTO().getPictureUrl());
+				Log.i(PuziUtils.INFO, "Used getName() : " + purchaseHistoryVO.getStoreItemDTO().getName());
+				Log.i(PuziUtils.INFO, "Used getPrice() : " + purchaseHistoryVO.getStoreItemDTO().getPrice());
+				Log.i(PuziUtils.INFO, "Used getValidEndDate() : " + purchaseHistoryVO.getValidEndDate());*/
 
-				final CompanyVO company = receivedAdvertise.getCompanyInfoDTO();
+				BitmapUIL.load(purchaseHistoryVO.getStoreItemDTO().getPictureUrl(), viewHolder.ivImage);
+				viewHolder.tvTitle.setText(purchaseHistoryVO.getStoreItemDTO().getName());
+				viewHolder.tvPrice.setText(purchaseHistoryVO.getStoreItemDTO().getPrice() + "");
+				viewHolder.tvDate.setText(purchaseHistoryVO.getValidEndDate());
 
-				viewHolder.tvAd.setText(receivedAdvertise.getSendComment());
-				viewHolder.tvComp.setText(company.getCompanyAlias());
-
-				Log.i(PuziUtils.INFO, "adapter.getSaved() : " + receivedAdvertise.getSaved());
-				Log.i(PuziUtils.INFO, "adapter.getToday() : " + receivedAdvertise.getToday());
-
-				/*viewHolder.btnAd.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-//						changedDetail(receivedAdvertise);
-					}
-				});
-
-				viewHolder.ivComp.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-//						changedCompany(company);
-					}
-				});*/
 				break;
 		}
 
 		return v;
 	}
 
+
 	public class ViewHolder {
-		@BindView(R.id.btn_advertiseWv) public Button btnAd;
-		@BindView(R.id.iv_home_advertise) public SelectableRoundedImageView ivAd;
-		@BindView(R.id.iv_companyPicture) public SelectableRoundedImageView ivComp;
-		@BindView(R.id.iv_advertiseNew) public ImageView ivNew;
-		@BindView(R.id.tv_advertise) public TextView tvAd;
-		@BindView(R.id.tv_companyId) public TextView tvComp;
+		@BindView(R.id.iv_used_coupon)
+		public ImageView ivImage;
+		@BindView(R.id.tv_used_coupon_name)
+		public TextView tvTitle;
+		@BindView(R.id.tv_used_coupon_price)
+		public TextView tvPrice;
+		@BindView(R.id.tv_used_coupon_date)
+		public TextView tvDate;
 
 		public ViewHolder(View view) {
 			ButterKnife.bind(this, view);

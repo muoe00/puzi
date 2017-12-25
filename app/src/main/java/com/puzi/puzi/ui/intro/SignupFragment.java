@@ -108,7 +108,7 @@ public class SignupFragment extends BaseFragment {
 
 	public void changedFragment() {
 		Log.i("DEBUG", "fragment changed.");
-		BaseFragment infoFragment = new InfoFragment();
+		BaseFragment infoFragment = new SignupInfoFragment();
 
 		IntroActivity introActivity = (IntroActivity) getActivity();
 		introActivity.addFragment(infoFragment);

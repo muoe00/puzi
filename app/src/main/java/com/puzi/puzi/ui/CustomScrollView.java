@@ -13,7 +13,7 @@ import lombok.Setter;
  * Created by JangwonPark on 2017. 10. 14..
  */
 
-public class CusomScrollView extends ScrollView {
+public class CustomScrollView extends ScrollView {
 
 	public static final int SCROLL_UP = 0;
 	public static final int SCROLL_DOWN = 1;
@@ -27,7 +27,7 @@ public class CusomScrollView extends ScrollView {
 	/// 스크롤뷰 영역 체크하려고 두는 변수에용
 	Rect m_rect ;
 
-	public CusomScrollView(Context context, AttributeSet attrs) {
+	public CustomScrollView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		// TODO Auto-generated constructor stub
 	}

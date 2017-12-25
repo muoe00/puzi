@@ -6,11 +6,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum LevelType {
 
-	BRONZE("브론즈"),
-	SILVER("실버"),
-	GOLD("골드"),
-	PLATINUM("플레티넘"),
-	DIAMOND("다이아몬드");
+	WELCOME("Welcome"),
+	SILVER("Silver"),
+	GOLD("Gold"),
+	VIP("VIP"),
+	VVIP("VVIP");
 
 	@Getter
 	private String comment;

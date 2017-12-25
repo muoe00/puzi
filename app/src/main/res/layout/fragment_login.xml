@@ -48,7 +48,7 @@
       android:background="@drawable/edittext"
       android:id="@+id/login_et_id"
       android:layout_width="match_parent"
-      android:layout_height="55dp"
+      android:layout_height="54dp"
       android:layout_below="@+id/ibtn_bi"
       android:layout_centerHorizontal="true"
       android:layout_marginLeft="30dp"
@@ -65,7 +65,7 @@
       android:background="@drawable/edittext"
       android:id="@+id/edit_login_pw"
       android:layout_width="match_parent"
-      android:layout_height="64dp"
+      android:layout_height="54dp"
       android:layout_below="@+id/login_et_id"
       android:layout_centerHorizontal="true"
       android:layout_marginLeft="30dp"
@@ -81,6 +81,7 @@
       android:textSize="13.5sp"/>
 
     <com.puzi.puzi.ui.customview.NotoButton
+      app:fontWeight="bold"
       android:id="@+id/login_btn"
       android:layout_width="match_parent"
       android:layout_height="54dp"

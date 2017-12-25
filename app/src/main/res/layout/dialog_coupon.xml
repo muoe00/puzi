@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@drawable/dialog_line"
+              android:layout_gravity="center"
+              android:layout_width="328dp"
+              android:layout_height="410dp">
+
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+      android:id="@+id/iv_coupon_url"
+      android:layout_marginBottom="47dp"
+      android:layout_marginTop="56dp"
+      android:layout_marginLeft="31dp"
+      android:layout_marginRight="31dp"
+      android:layout_width="match_parent"
+      android:layout_height="252dp"/>
+
+    <ImageButton
+      android:id="@+id/ibtn_coupon_cancel"
+      android:src="@drawable/btn_cancel"
+      android:layout_width="328dp"
+      android:layout_height="55dp"/>
+
+  </LinearLayout>
+
+</LinearLayout>

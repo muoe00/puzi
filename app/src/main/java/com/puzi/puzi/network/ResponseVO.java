@@ -20,6 +20,10 @@ public class ResponseVO {
 		return ((Double) params.get(key)).intValue();
 	}
 
+	public boolean getBoolean(String key) {
+		return ((boolean) params.get(key));
+	}
+
 	public String getString(String key) {
 		return (String) params.get(key);
 	}
