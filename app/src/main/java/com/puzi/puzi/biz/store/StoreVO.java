@@ -22,4 +22,5 @@ public class StoreVO {
 		storeVO.setStoreType(StoreType.WITHDRAW);
 		return storeVO;
 	}
+
 }

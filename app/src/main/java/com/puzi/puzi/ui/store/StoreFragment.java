@@ -64,6 +64,7 @@ public class StoreFragment extends BaseFragment {
 			public void onSuccess(ResponseVO responseVO) {
 				List<StoreVO> storeList = responseVO.getList("storeDTOList", StoreVO.class);
 				adapter.addList(storeList);
+				adapter.addList(storeList);
 				adapter.notifyDataSetChanged();
 			}
 		});

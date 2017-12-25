@@ -215,7 +215,7 @@
         android:layout_width="match_parent"
         android:textSize="16sp"
         android:textColor="#ffffff"
-        android:layout_height="wrap_content"/>
+        android:layout_height="54dp"/>
 
       <LinearLayout
         android:background="#f4f4f4"
