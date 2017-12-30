@@ -63,7 +63,7 @@ public class StoreFragment extends BaseFragment {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				List<StoreVO> storeList = responseVO.getList("storeDTOList", StoreVO.class);
-				adapter.addList(storeList);
+				adapter.addList(StoreVO.getPuziStoreList());
 				adapter.addList(storeList);
 				adapter.notifyDataSetChanged();
 			}

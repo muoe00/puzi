@@ -160,7 +160,7 @@ public class CouponActivity extends BaseActivity {
 		}
 
 		ViewGroup.LayoutParams params = gridView.getLayoutParams();
-		params.height = (totalHeight + 700) / 2;
+		params.height = totalHeight;
 		gridView.setLayoutParams(params);
 		gridView.requestLayout();
 	}

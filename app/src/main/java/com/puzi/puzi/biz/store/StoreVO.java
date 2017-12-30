@@ -1,12 +1,18 @@
 package com.puzi.puzi.biz.store;
 
-import lombok.Data;
+import lombok.*;
+
+import java.util.List;
+
+import static com.google.common.collect.Lists.newArrayList;
 
 /**
  * Created by muoe0 on 2017-08-06.
  */
-
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor(suppressConstructorProperties = true)
 public class StoreVO {
 
 	private int storeId;
@@ -23,4 +29,19 @@ public class StoreVO {
 		return storeVO;
 	}
 
+	public static List<StoreVO> getPuziStoreList() {
+		return newArrayList(getPuziItem(), getPuziChallenge(), getPuziSaving());
+	}
+
+	private static StoreVO getPuziItem() {
+		return new StoreVO(0, "푸지아이템", "", StoreType.PUZI);
+	}
+
+	private static StoreVO getPuziChallenge() {
+		return new StoreVO(0, "푸지응모", "", StoreType.PUZI);
+	}
+
+	private static StoreVO getPuziSaving() {
+		return new StoreVO(0, "푸지적금", "", StoreType.PUZI);
+	}
 }

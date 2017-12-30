@@ -17,6 +17,8 @@ import com.puzi.puzi.biz.store.StoreType;
 import com.puzi.puzi.biz.store.StoreVO;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.store.item.StoreItemActivity;
+import com.puzi.puzi.ui.store.puzi.challenge.StoreChallengeActivity;
+import com.puzi.puzi.ui.store.puzi.saving.StoreSavingActivity;
 import com.puzi.puzi.ui.store.withdraw.WithdrawActivity;
 
 import java.util.List;
@@ -54,7 +56,7 @@ public class StoreListAdapter extends BaseAdapter {
 				storeTypeList.add(storeVO.getStoreType());
 			}
 		}
-		addWithdraw();
+//		addWithdraw();
 	}
 
 	private void addWithdraw() {
@@ -102,9 +104,18 @@ public class StoreListAdapter extends BaseAdapter {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				StoreVO storeVO = (StoreVO) storeMap.get(storeType).getItem(position);
-				if(storeVO.getStoreType().isWithdraw()) {
-					Intent intent = new Intent(activity, WithdrawActivity.class);
-					activity.startActivity(intent);
+				if(storeVO.getStoreType().isPuzi()) {
+					switch (storeVO.getName()) {
+						case "푸지아이템":
+							activity.startActivity(new Intent(activity, WithdrawActivity.class));
+							break;
+						case "푸지응모":
+							activity.startActivity(new Intent(activity, StoreChallengeActivity.class));
+							break;
+						case "푸지적금":
+							activity.startActivity(new Intent(activity, StoreSavingActivity.class));
+							break;
+					}
 					activity.doAnimationGoRight();
 				} else {
 					Intent intent = new Intent(activity, StoreItemActivity.class);

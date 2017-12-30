@@ -51,6 +51,9 @@
     <activity android:name=".ui.store.withdraw.WithdrawActivity"/>
     <activity android:name=".ui.store.coupon.CouponActivity"/>
     <activity android:name=".ui.store.item.StoreItemActivity"/>
+    <activity android:name=".ui.store.puzi.StoreItemActivity"/>
+    <activity android:name=".ui.store.puzi.challenge.StoreChallengeActivity"/>
+    <activity android:name=".ui.store.puzi.saving.StoreSavingActivity"/>
     <activity android:name=".ui.store.purchase.PurchaseItemActivity"/>
     <activity android:name=".ui.channel.editorspage.EditorsPageActivity"/>
     <activity android:name=".ui.channel.ChannelFilterActivity"/>

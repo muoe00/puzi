@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+  <LinearLayout
+    android:orientation="vertical"
+    android:background="@drawable/button_store_item"
+    android:layout_margin="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+
+    <LinearLayout
+      android:orientation="horizontal"
+      android:layout_marginTop="9dp"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="9dp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <ImageView
+        android:id="@+id/iv_store_saving_logo"
+        android:layout_width="20dp"
+        android:layout_height="20dp"/>
+
+      <com.puzi.puzi.ui.customview.NotoTextView
+        android:text="상호명"
+        android:id="@+id/tv_store_saving_logo_name"
+        app:fontWeight="medium"
+        android:layout_marginLeft="6dp"
+        android:textSize="11sp"
+        android:layout_gravity="center_vertical|left"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="100dp">
+
+      <ImageView
+        android:layout_gravity="center"
+        android:layout_marginTop="9dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="4dp"
+        android:scaleType="fitCenter"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:src="@mipmap/home"
+        android:id="@+id/iv_store_saving_item"/>
+
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="bold"
+        android:id="@+id/iv_store_saving_discount"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/bg_store_saving_discount"
+        android:gravity="center"
+        android:text="10%"
+        android:textColor="@color/colorWhite"
+        android:textSize="21sp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"/>
+
+    </FrameLayout>
+
+    <com.puzi.puzi.ui.customview.NotoTextView
+      app:fontWeight="regular"
+      android:text="itemName"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:layout_marginTop="5dp"
+      android:layout_marginStart="9dp"
+      android:layout_marginEnd="9dp"
+      android:textSize="14sp"
+      android:textColor="#333333"
+      android:id="@+id/tv_store_saving_item_name"/>
+
+    <com.puzi.puzi.ui.customview.RobotoTextView
+      android:text="price"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="left"
+      android:layout_marginBottom="12dp"
+      android:layout_marginStart="9dp"
+      android:textSize="14sp"
+      android:fontFamily="sans-serif-medium"
+      android:textStyle="normal"
+      android:textColor="#333333"
+      android:id="@+id/tv_store_saving_item_target"/>
+
+  </LinearLayout>
+
+
+</LinearLayout>

@@ -15,6 +15,7 @@ import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import okhttp3.Request;
 import retrofit2.Call;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -76,7 +77,11 @@ public abstract class CustomCallback extends LazyCallback {
 				onFail(response.body());
 			}
 		} else {
-			Log.d("errorbody : ", "" + response.errorBody());
+			try {
+				Log.d("errorbody : ", response.errorBody().string());
+			} catch (IOException e) {
+				Log.d("errorbody : ", e.toString());
+			}
 			retryProcess("통신 실패", "통신에 실패하였습니다\n잠시 후 다시 시도해주시기 바랍니다.");
 		}
 	}

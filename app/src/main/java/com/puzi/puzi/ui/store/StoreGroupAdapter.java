@@ -21,7 +21,6 @@ import static com.google.common.collect.Lists.newArrayList;
 /**
  * Created by muoe0 on 2017-08-06.
  */
-
 public class StoreGroupAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
@@ -69,8 +68,18 @@ public class StoreGroupAdapter extends BaseAdapter {
 		}
 
 		viewHolder.tvBrand.setText(store.getName());
-		if(store.getStoreType().isWithdraw()) {
-			viewHolder.ivBrand.setImageResource(R.drawable.withdraw_img);
+		if(store.getStoreType().isPuzi()) {
+			switch (store.getName()) {
+				case "푸지아이템":
+					viewHolder.ivBrand.setImageResource(R.drawable.puzi_item);
+					break;
+				case "푸지응모":
+					viewHolder.ivBrand.setImageResource(R.drawable.puzi_betting);
+					break;
+				case "푸지적금":
+					viewHolder.ivBrand.setImageResource(R.drawable.puzi_saving);
+					break;
+			}
 		} else {
 			BitmapUIL.load(store.getPictureUrl(), viewHolder.ivBrand);
 		}

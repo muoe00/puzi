@@ -408,19 +408,17 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 	}
 
 	private void setGridViewHeightBasedOnChildren() {
-		ListAdapter listAdapter = this;
-
 		int totalHeight = 0;
 		int desiredWidth = View.MeasureSpec.makeMeasureSpec(gridView.getWidth(), View.MeasureSpec.AT_MOST);
 
-		for (int i = 0; i < listAdapter.getCount(); i++) {
-			View listItem = listAdapter.getView(i, null, gridView);
+		for (int i = 0; i < this.getCount(); i++) {
+			View listItem = this.getView(i, null, gridView);
 			listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
 			totalHeight += listItem.getMeasuredHeight();
 		}
 
 		ViewGroup.LayoutParams params = gridView.getLayoutParams();
-		params.height = totalHeight / 2;
+		params.height = totalHeight;
 		gridView.setLayoutParams(params);
 		gridView.requestLayout();
 	}

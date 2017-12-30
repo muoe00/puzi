@@ -10,9 +10,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum StoreType {
 
-	PUZI_ITEM("푸지아이템"),
-	PUZI_CHALLENGE("푸지응모"),
-	PUZI_SAVING("푸지적금"),
+	PUZI("푸지"),
 	MOVIE("영화"),
 	CONVENIENCE_STORE("편의점"),
 	BAKERY("베이커리"),
@@ -28,5 +26,9 @@ public enum StoreType {
 
 	public boolean isWithdraw() {
 		return this == WITHDRAW;
+	}
+
+	public boolean isPuzi() {
+		return this == PUZI;
 	}
 }
