@@ -11,6 +11,7 @@ import com.puzi.puzi.R;
 import com.puzi.puzi.biz.store.puzi.StoreSavingItemVO;
 import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.ui.CustomPagingAdapter;
+import com.puzi.puzi.utils.TextUtils;
 
 /**
  * Created by JangwonPark on 2017. 12. 26..
@@ -31,7 +32,7 @@ public class StoreSavingAdapter extends CustomPagingAdapter<StoreSavingItemVO> {
 		holder.tvDiscount.setText((item.getDiscountRate()/10) + "%");
 		BitmapUIL.load(item.getStoreItemDTO().getPictureUrl(), holder.ivItem);
 		holder.tvItemName.setText(item.getStoreItemDTO().getName());
-		holder.tvTarget.setText(item.getTargetPoint() + "P/" + item.getTargetMyToday() + "회");
+		holder.tvTarget.setText(TextUtils.addComma(item.getTargetPoint()) + "P/" + item.getTargetMyToday() + "회");
 	}
 
 	@Override

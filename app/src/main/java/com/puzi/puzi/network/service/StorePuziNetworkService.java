@@ -16,7 +16,7 @@ public interface StorePuziNetworkService {
 	@FormUrlEncoded
 	@POST("/store/puzi/saving/register")
 	Call<ResponseVO> registerSaving(@Header("token") String token,
-		@Field("storeSavingItemId") int storeSavingItemId,
+		@Field("storeSavingItemId") long storeSavingItemId,
 		@Field("dailyPoint") int dailyPoint);
 
 	@FormUrlEncoded
@@ -37,7 +37,7 @@ public interface StorePuziNetworkService {
 	@FormUrlEncoded
 	@POST("/store/puzi/challenge/purchase")
 	Call<ResponseVO> purchaseChallenge(@Header("token") String token,
-		@Field("storeChallengeItemId") int storeChallengeItemId,
+		@Field("storeChallengeItemId") long storeChallengeItemId,
 		@Field("useItem") boolean useItem);
 
 	@GET("/store/puzi/item/list")

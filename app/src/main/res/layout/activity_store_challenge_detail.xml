@@ -1,7 +1,267 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+      android:layout_marginBottom="55dp"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- 상단바 -->
+        <LinearLayout
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:background="@color/colorWhite"
+          android:layout_height="54dp">
+
+          <ImageButton
+            android:paddingRight="17dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="12.5dp"
+            android:paddingBottom="12.5dp"
+            android:layout_width="37dp"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:src="@drawable/back"
+            android:id="@+id/btn_store_challenge_back"
+            android:backgroundTint="#000000"/>
+
+          <com.puzi.puzi.ui.customview.NotoTextView
+            android:text="푸지응모"
+            app:fontWeight="medium"
+            android:gravity="center"
+            android:layout_marginEnd="37dp"
+            android:textSize="20sp"
+            android:textColor="#333333"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:background="#dadada"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"/>
+
+        <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+          <LinearLayout
+            android:orientation="vertical"
+            android:background="@color/colorWhite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:text="아메리카노"
+              android:layout_gravity="center_horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textSize="22sp"
+              android:textColor="#333333"
+              android:gravity="center_horizontal"
+              android:layout_marginTop="17dp"
+              android:layout_marginBottom="9dp"
+              android:id="@+id/tv_store_challenge_name"/>
+
+            <com.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="bold"
+              android:text="300P"
+              android:layout_gravity="center_horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textSize="25sp"
+              android:textStyle="bold"
+              android:textColor="#333333"
+              android:gravity="center_horizontal"
+              android:layout_marginBottom="17dp"
+              android:id="@+id/tv_store_challenge_price"/>
+
+            <LinearLayout
+              android:layout_gravity="center_horizontal"
+              android:layout_marginBottom="14dp"
+              android:background="#ff2470"
+              android:layout_width="100dp"
+              android:layout_height="1dp">
+            </LinearLayout>
+
+            <ImageView
+              android:layout_gravity="center_horizontal"
+              android:layout_marginBottom="16dp"
+              android:layout_width="155dp"
+              android:layout_height="155dp"
+              android:src="@mipmap/home"
+              android:id="@+id/iv_store_challenge_preview"/>
+
+            <com.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:background="@drawable/bg_store_challenge_count"
+              android:text="100명 참여중"
+              android:textSize="16sp"
+              android:textColor="@color/colorWhite"
+              android:gravity="center"
+              android:layout_gravity="center_horizontal"
+              android:layout_marginBottom="17dp"
+              android:paddingLeft="15dp"
+              android:paddingRight="15dp"
+              android:layout_width="wrap_content"
+              android:layout_height="35dp"/>
+
+          </LinearLayout>
+
+          <!--<ImageView-->
+            <!--android:src="@drawable/challenge_back_icon"-->
+            <!--android:layout_gravity="right|bottom"-->
+            <!--android:layout_width="149dp"-->
+            <!--android:layout_height="165dp"/>-->
+
+        </FrameLayout>
+
+        <LinearLayout
+          android:background="#fafafa"
+          android:layout_width="match_parent"
+          android:layout_height="10dp">
+        </LinearLayout>
+
+        <LinearLayout
+          android:orientation="horizontal"
+          android:background="@color/colorWhite"
+          android:layout_width="match_parent"
+          android:layout_height="49dp">
+
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="regular"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="17dp"
+            android:textSize="17sp"
+            android:textColor="#333333"
+            android:text="20% 확률 상승 아이템"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+          <Switch
+            android:id="@+id/sw_store_challenge_item"
+            android:track="@drawable/switch_track_selector"
+            android:thumb="@drawable/switch_thumb_selector"
+            android:checked="false"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="17dp"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:background="#fafafa"
+          android:layout_width="match_parent"
+          android:layout_height="10dp">
+        </LinearLayout>
+
+        <LinearLayout
+          android:orientation="vertical"
+          android:background="@color/colorWhite"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="regular"
+            android:text="응모에 참여하시면 환불되지 않습니다."
+            android:textSize="13sp"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="17dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+          <LinearLayout
+            android:layout_marginTop="9dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:text="상품설명"
+              android:layout_width="52dp"
+              android:layout_height="wrap_content"
+              android:layout_marginRight="13dp"
+              android:textSize="14sp"
+              android:textColor="#6d6d6d"/>
+
+            <com.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="demilight"
+              android:text="text"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:textSize="12sp"
+              android:textColor="#6d6d6d"
+              android:id="@+id/tv_store_challenge_comment"
+              android:layout_weight="1"/>
+
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_marginTop="14dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="23dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:text="유효기간"
+              android:layout_width="52dp"
+              android:layout_height="wrap_content"
+              android:layout_marginRight="13dp"
+              android:textSize="14sp"
+              android:textColor="#6d6d6d"/>
+
+            <com.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="demilight"
+              android:text="TextView"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:textSize="12sp"
+              android:textColor="#6d6d6d"
+              android:id="@+id/tv_store_challenge_expiryDay"
+              android:layout_weight="1"/>
+
+          </LinearLayout>
+
+        </LinearLayout>
+
+      </LinearLayout>
+
+    </ScrollView>
+
+    <com.puzi.puzi.ui.customview.NotoButton
+      app:fontWeight="bold"
+      android:layout_gravity="bottom"
+      android:background="#ff5146"
+      android:text="응모하기"
+      android:layout_width="match_parent"
+      android:layout_height="55dp"
+      android:textSize="16sp"
+      android:textColor="#ffffff"
+      android:id="@+id/btn_store_challenge"/>
+
+  </FrameLayout>
 
 </LinearLayout>

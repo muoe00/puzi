@@ -87,7 +87,7 @@ public class StoreSavingActivity extends BaseActivity implements AdapterView.OnI
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		StoreSavingItemVO storeSavingItemVO = adapter.getItem(position);
-		Intent intent = new Intent();
+		Intent intent = new Intent(getActivity(), StoreSavingDetailActivity.class);
 		intent.putExtra("storeSavingItemVO", new Gson().toJson(storeSavingItemVO));
 		startActivity(intent);
 		doAnimationGoRight();

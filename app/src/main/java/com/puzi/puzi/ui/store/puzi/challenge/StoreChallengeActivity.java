@@ -87,7 +87,7 @@ public class StoreChallengeActivity extends BaseActivity implements AdapterView.
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		StoreChallengeItemVO storeChallengeItemVO = adapter.getItem(position);
-		Intent intent = new Intent();
+		Intent intent = new Intent(this, StoreChallengeDetailActivity.class);
 		intent.putExtra("storeChallengeItemVO", new Gson().toJson(storeChallengeItemVO));
 		startActivity(intent);
 		doAnimationGoRight();

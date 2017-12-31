@@ -1,5 +1,6 @@
 package com.puzi.puzi.biz.user;
 
+import com.puzi.puzi.biz.store.puzi.StoreSavingVO;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -31,6 +32,7 @@ public class UserVO implements Serializable {
 	private String phoneType;				// 폰종류(A)
 	private Boolean spendFlag;				// 구매가능여부
 	private String phoneKey;				// 핸드폰고유키
+	private StoreSavingVO userSavingDTO; 	// 적금정보
 
 	public String getLevelType() {
 		return levelType;
