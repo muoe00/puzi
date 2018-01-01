@@ -62,13 +62,14 @@ public class MainActivity extends BaseFragmentActivity {
 	@BindView(R.id.ibtn_right_button) public ImageButton ibtnRightButton;
 	@BindView(R.id.ll_main_bar) public LinearLayout llMain;
 	@BindView(R.id.ll_main_setting) public LinearLayout llMainSetting;
+	@BindView(R.id.fl_main_saving) public FrameLayout flMainSaving;
+	@BindView(R.id.tv_main_saving) public TextView tvMainSaving;
 
 	public static final int FRAGMENT_ADVERTISE = 0;
 	public static final int FRAGMENT_CHANNEL = 1;
 	public static final int FRAGMENT_STORE = 2;
 	public static final int FRAGMENT_SETTING  = 3;
 
-	private UserVO userVO;
 	private long backKeyPressedTime;
 
 	@Override
@@ -99,12 +100,7 @@ public class MainActivity extends BaseFragmentActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		UserVO myInfo = Preference.getMyInfo(getActivity());
-		if(myInfo == null) {
-			return;
-		}
-		tvPoint.setText(TextUtils.addComma(myInfo.getPoint()) + "P");
-		tvTodayPoint.setText(TextUtils.addComma(myInfo.getTodayPoint()) + "P");
+		updateUserInfoOnTitleBar();
 	}
 
 	public void getUser() {
@@ -119,13 +115,29 @@ public class MainActivity extends BaseFragmentActivity {
 		service.enqueue(new CustomCallback(MainActivity.this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-				userVO = responseVO.getValue("userInfoDTO", UserVO.class);
+				UserVO userVO = responseVO.getValue("userInfoDTO", UserVO.class);
 				Preference.saveMyInfo(MainActivity.this, userVO);
-
-				tvPoint.setText(TextUtils.addComma(userVO.getPoint()) + "P");
-				tvTodayPoint.setText(TextUtils.addComma(userVO.getTodayPoint()) + "P");
+				updateUserInfoOnTitleBar();
 			}
 		});
+	}
+
+	private void updateUserInfoOnTitleBar() {
+		UserVO userVO = Preference.getMyInfo(getActivity());
+		if(userVO == null) {
+			return;
+		}
+		tvPoint.setText(TextUtils.addComma(userVO.getPoint()) + "P");
+		tvTodayPoint.setText(TextUtils.addComma(userVO.getTodayPoint()) + "P");
+		if(userVO.getUserSavingDTO() != null) {
+			flMainSaving.setVisibility(View.VISIBLE);
+			tvMainSaving.setText(TextUtils.addComma(userVO.getUserSavingDTO().getSavedPoint()) + "P");
+		}
+	}
+
+	@OnClick({R.id.btn_main_saving})
+	public void savingOnClick() {
+		// 나의 푸지적금으로 이동
 	}
 
 	@OnClick({R.id.btn_pointhistory, R.id.ibtn_right_button})
