@@ -17,6 +17,7 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.StorePuziNetworkService;
+import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.CustomArrayAdapter;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseActivity;
@@ -112,10 +113,30 @@ public class StoreSavingDetailActivity extends BaseActivity {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				Toast.makeText(getActivity(), "가입이 완료되었습니다", Toast.LENGTH_SHORT).show();
-				startActivity(new Intent(getActivity(), StoreSavingMineActivity.class));
-				getActivity().finish();
+				requestMyInfo();
 			}
 
+		});
+	}
+
+	private void requestMyInfo() {
+		ProgressDialog.show(getActivity());
+
+		LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(UserNetworkService userNetworkService, String token) {
+				return userNetworkService.myInfo(token);
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
+			@Override
+			public void onSuccess(ResponseVO responseVO) {
+				UserVO userVO = responseVO.getValue("userInfoDTO", UserVO.class);
+				Preference.saveMyInfo(getActivity(), userVO);
+				startActivity(new Intent(getActivity(), StoreSavingMineActivity.class));
+				doAnimationGoRight();
+			}
 		});
 	}
 

@@ -43,6 +43,7 @@ public class Preference {
 	}
 
 	public static void saveMyInfo(Activity activity, UserVO myInfo) {
+		removeProperty(activity, MY_INFO);
 		addProperty(activity, MY_INFO, gson.toJson(myInfo));
 	}
 	

@@ -131,6 +131,8 @@ public class MainActivity extends BaseFragmentActivity {
 		if(userVO.getUserSavingDTO() != null) {
 			flMainSaving.setVisibility(View.VISIBLE);
 			tvMainSaving.setText(TextUtils.addComma(userVO.getUserSavingDTO().getSavedPoint()) + "P");
+		} else {
+			flMainSaving.setVisibility(View.GONE);
 		}
 	}
 

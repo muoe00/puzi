@@ -22,13 +22,13 @@ public interface StorePuziNetworkService {
 	@FormUrlEncoded
 	@POST("/store/puzi/saving/edit")
 	Call<ResponseVO> editSaving(@Header("token") String token,
-		@Field("storeSavingItemId") int storeSavingItemId,
+		@Field("storeSavingItemId") long storeSavingItemId,
 		@Field("dailyPoint") int dailyPoint);
 
 	@FormUrlEncoded
 	@POST("/store/puzi/saving/terminate")
 	Call<ResponseVO> terminateSaving(@Header("token") String token,
-		@Field("storeSavingItemId") int storeSavingItemId);
+		@Field("storeSavingItemId") long storeSavingItemId);
 
 	@GET("/store/puzi/challenge/list")
 	Call<ResponseVO> getChallengeList(@Header("token") String token,
