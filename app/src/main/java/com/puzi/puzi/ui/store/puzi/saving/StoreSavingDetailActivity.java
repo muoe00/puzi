@@ -25,9 +25,7 @@ import com.puzi.puzi.ui.common.OneButtonDialog;
 import com.puzi.puzi.utils.TextUtils;
 import retrofit2.Call;
 
-import java.util.List;
-
-import static com.google.common.collect.Lists.newArrayList;
+import static com.puzi.puzi.biz.PuziStaticValue.DAILY_POINT_LIST;
 
 /**
  * Created by JangwonPark on 2017. 12. 31..
@@ -49,7 +47,6 @@ public class StoreSavingDetailActivity extends BaseActivity {
 	@BindView(R.id.tv_store_saving_expiryDay)
 	TextView tvExpiryDay;
 
-	private List<String> dailyPointList = newArrayList("50원", "100원", "200원", "500원");
 	private StoreSavingItemVO storeSavingItemVO;
 	private int selectedDailyPoint;
 
@@ -68,19 +65,19 @@ public class StoreSavingDetailActivity extends BaseActivity {
 
 	private void initComponent() {
 		BitmapUIL.load(storeSavingItemVO.getStoreItemDTO().getPictureUrl(), ivPreview);
-		tvName.setText(storeSavingItemVO.getName() + " (" + storeSavingItemVO.getQuantity() + "개)");
+		tvName.setText(storeSavingItemVO.getName());
 		tvPointCount.setText("포인트 " + TextUtils.addComma(storeSavingItemVO.getTargetPoint()) + "P / 나의오늘은 "
 			+ storeSavingItemVO.getTargetMyToday() + "회");
 		tvComment.setText(storeSavingItemVO.getStoreItemDTO().getComment());
 		tvExpiryDay.setText(storeSavingItemVO.getStoreItemDTO().getExpiryDay() + "일");
-		CustomArrayAdapter adapter = new CustomArrayAdapter(getActivity(), dailyPointList);
+		CustomArrayAdapter adapter = new CustomArrayAdapter(getActivity(), DAILY_POINT_LIST);
 		spDailyPoint.setAdapter(adapter);
 		spDailyPoint.setSelection(1);
 	}
 
 	@OnItemSelected(R.id.sp_store_saving_daily_point)
 	public void dailyPointSelected(int position) {
-		String selected = dailyPointList.get(position);
+		String selected = DAILY_POINT_LIST.get(position);
 		this.selectedDailyPoint = Integer.parseInt(selected.substring(0, selected.length() - 1));
 	}
 
@@ -115,8 +112,8 @@ public class StoreSavingDetailActivity extends BaseActivity {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				Toast.makeText(getActivity(), "가입이 완료되었습니다", Toast.LENGTH_SHORT).show();
+				startActivity(new Intent(getActivity(), StoreSavingMineActivity.class));
 				getActivity().finish();
-				// 나의 푸지적금으로 넘어가기
 			}
 
 		});

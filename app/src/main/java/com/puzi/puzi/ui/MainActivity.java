@@ -19,14 +19,13 @@ import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.RetrofitManager;
-import com.puzi.puzi.network.service.ChannelNetworkService;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.advertisement.AdvertisementFragment;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.channel.ChannelFilterActivity;
 import com.puzi.puzi.ui.channel.ChannelFragment;
 import com.puzi.puzi.ui.store.coupon.CouponActivity;
+import com.puzi.puzi.ui.store.puzi.saving.StoreSavingMineActivity;
 import com.puzi.puzi.ui.user.PointActivity;
 import com.puzi.puzi.ui.user.RecommendActivity;
 import com.puzi.puzi.utils.PuziUtils;
@@ -137,7 +136,8 @@ public class MainActivity extends BaseFragmentActivity {
 
 	@OnClick({R.id.btn_main_saving})
 	public void savingOnClick() {
-		// 나의 푸지적금으로 이동
+		startActivity(new Intent(getActivity(), StoreSavingMineActivity.class));
+		doAnimationGoRight();
 	}
 
 	@OnClick({R.id.btn_pointhistory, R.id.ibtn_right_button})

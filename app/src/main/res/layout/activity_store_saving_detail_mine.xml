@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+              android:background="@color/colorWhite"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- 상단바 -->
+        <LinearLayout
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:background="@color/colorWhite"
+          android:layout_height="54dp">
+
+          <ImageButton
+            android:paddingRight="17dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="12.5dp"
+            android:paddingBottom="12.5dp"
+            android:layout_width="37dp"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:src="@drawable/back"
+            android:id="@+id/btn_store_saving_mine_back"
+            android:backgroundTint="#000000"/>
+
+          <com.puzi.puzi.ui.customview.NotoTextView
+            android:text="나의 푸지적금"
+            app:fontWeight="medium"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="#333333"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+          <ImageButton
+            android:id="@+id/btn_store_saving_mine_block"
+            android:layout_gravity="right|center_vertical"
+            android:src="@drawable/more_button"
+            android:background="#00000000"
+            android:layout_width="45dp"
+            android:layout_height="45dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:background="#dadada"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"/>
+
+        <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+          <LinearLayout
+            android:orientation="vertical"
+            android:background="@color/colorWhite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+              android:layout_gravity="center_horizontal"
+              android:layout_marginTop="16dp"
+              android:layout_width="136dp"
+              android:layout_height="136dp"
+              android:src="@mipmap/home"
+              android:id="@+id/iv_store_saving_mine_preview"/>
+
+            <com.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:text="아메리카노"
+              android:layout_gravity="center_horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textSize="22sp"
+              android:textColor="#333333"
+              android:gravity="center_horizontal"
+              android:layout_marginTop="17dp"
+              android:layout_marginBottom="9dp"
+              android:id="@+id/tv_store_saving_mine_name"/>
+
+          </LinearLayout>
+
+        </FrameLayout>
+
+        <LinearLayout
+          android:background="#fafafa"
+          android:layout_width="match_parent"
+          android:layout_height="10dp">
+        </LinearLayout>
+
+        <LinearLayout
+          android:orientation="horizontal"
+          android:background="@color/colorWhite"
+          android:layout_marginTop="22dp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="bold"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24dp"
+            android:textSize="15sp"
+            android:textColor="#333333"
+            android:text="누적 포인트\n"
+            android:layout_width="81dp"
+            android:layout_height="wrap_content"/>
+
+          <LinearLayout
+            android:layout_marginRight="17dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+              style="?android:attr/progressBarStyleHorizontal"
+              android:progressDrawable="@drawable/progressbar_saving_point"
+              android:layout_gravity="center_vertical"
+              android:layout_marginLeft="16dp"
+              android:layout_width="match_parent"
+              android:layout_height="14dp"
+              android:id="@+id/pb_store_saving_mine_point"/>
+
+            <LinearLayout
+              android:layout_gravity="right"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+              <com.puzi.puzi.ui.customview.NotoTextView
+                app:fontWeight="bold"
+                android:id="@+id/tv_store_saving_mine_point_text"
+                android:textColor="#e27bf1"
+                android:textSize="16sp"
+                android:text="300P "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+              <com.puzi.puzi.ui.customview.NotoTextView
+                app:fontWeight="regular"
+                android:id="@+id/tv_store_saving_mine_point_total_text"
+                android:textSize="13sp"
+                android:textColor="#666666"
+                android:text="/ 300P"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+          </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_marginTop="15dp"
+          android:layout_marginBottom="18dp"
+          android:orientation="horizontal"
+          android:background="@color/colorWhite"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="bold"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24dp"
+            android:textSize="15sp"
+            android:textColor="#333333"
+            android:text="나의오늘은\n참여 횟수"
+            android:layout_width="81dp"
+            android:layout_height="wrap_content"/>
+
+          <LinearLayout
+            android:layout_marginRight="17dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+              style="?android:attr/progressBarStyleHorizontal"
+              android:progressDrawable="@drawable/progressbar_saving_point"
+              android:layout_gravity="center_vertical"
+              android:layout_marginLeft="16dp"
+              android:layout_width="match_parent"
+              android:layout_height="14dp"
+              android:id="@+id/pb_store_saving_mine_count"/>
+
+            <LinearLayout
+              android:layout_gravity="right"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+              <com.puzi.puzi.ui.customview.NotoTextView
+                app:fontWeight="bold"
+                android:id="@+id/tv_store_saving_mine_count_text"
+                android:textColor="#ac3abd"
+                android:textSize="16sp"
+                android:text="30회 "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+              <com.puzi.puzi.ui.customview.NotoTextView
+                app:fontWeight="regular"
+                android:id="@+id/tv_store_saving_mine_count_total_text"
+                android:textSize="13sp"
+                android:textColor="#666666"
+                android:text="/ 80회"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+          </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_marginBottom="22dp"
+          android:orientation="horizontal"
+          android:background="@color/colorWhite"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="bold"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24dp"
+            android:textSize="15sp"
+            android:textColor="#333333"
+            android:text="하루 적금액"
+            android:layout_width="81dp"
+            android:layout_height="wrap_content"/>
+
+          <Spinner
+            android:padding="0dp"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/sp_store_saving_mine_daily_point"
+            android:background="@drawable/button_store_withdraw_input"
+            android:layout_width="91dp"
+            android:layout_height="35dp"/>
+
+          <com.puzi.puzi.ui.customview.NotoButton
+            app:fontWeight="bold"
+            android:id="@+id/btn_store_saving_mine_daily_point_update"
+            android:text="변경"
+            android:textSize="16sp"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/bg_my_saving_update_btn"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:background="#fafafa"
+          android:layout_width="match_parent"
+          android:layout_height="10dp">
+        </LinearLayout>
+
+        <LinearLayout
+          android:orientation="vertical"
+          android:background="@color/colorWhite"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="regular"
+            android:text="- 적금금액은 매일 새벽 1시에 입금되며, 입금된 금액은 사용할 수 없습니다.\n- 하루 적금액 변경은 한번만 가능하오니 신중하게 변경해주세요.\n- 해지시 적금금액은 사용 가능합니다."
+            android:textSize="13sp"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_marginBottom="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+      </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+      android:layout_marginTop="58dp"
+      android:layout_marginRight="3dp"
+      android:visibility="invisible"
+      android:background="@drawable/button_drop_down"
+      android:id="@+id/ll_profile_channel_dropdown_container"
+      android:layout_gravity="right|top"
+      android:layout_width="200dp"
+      android:layout_height="wrap_content">
+
+      <com.puzi.puzi.ui.customview.NotoButton
+        app:fontWeight="regular"
+        android:id="@+id/btn_profile_channel_dropdown_block"
+        android:text="차단하기"
+        android:textColor="#333333"
+        android:background="@drawable/ripple_basic"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+
+    </LinearLayout>
+
+  </FrameLayout>
+
+</LinearLayout>

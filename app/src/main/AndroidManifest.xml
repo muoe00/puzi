@@ -56,6 +56,7 @@
     <activity android:name=".ui.store.puzi.challenge.StoreChallengeDetailActivity"/>
     <activity android:name=".ui.store.puzi.saving.StoreSavingActivity"/>
     <activity android:name=".ui.store.puzi.saving.StoreSavingDetailActivity"/>
+    <activity android:name=".ui.store.puzi.saving.StoreSavingMineActivity"/>
     <activity android:name=".ui.store.purchase.PurchaseItemActivity"/>
     <activity android:name=".ui.channel.editorspage.EditorsPageActivity"/>
     <activity android:name=".ui.channel.ChannelFilterActivity"/>
