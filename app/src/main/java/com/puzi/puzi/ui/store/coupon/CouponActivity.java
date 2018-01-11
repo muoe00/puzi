@@ -214,6 +214,12 @@ public class CouponActivity extends BaseActivity {
 
 	@OnClick(R.id.ibtn_back_point)
 	public void back() {
-		finish();
+		onBackPressed();
+	}
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		doAnimationGoLeft();
 	}
 }

@@ -25,6 +25,7 @@ import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseActivity;
 import com.puzi.puzi.ui.common.DialogButtonCallback;
 import com.puzi.puzi.ui.common.OneButtonDialog;
+import com.puzi.puzi.ui.store.coupon.CouponActivity;
 import com.puzi.puzi.utils.TextUtils;
 import retrofit2.Call;
 
@@ -125,8 +126,13 @@ public class PurchaseItemActivity extends BaseActivity {
 						myInfo.setPoint(myInfo.getPoint() - storeItemVO.getPrice());
 						Preference.saveMyInfo(getActivity(), myInfo);
 
-						Toast.makeText(getActivity(), "구매완료, 쿠폰함으로 이동 개발해야함!", Toast.LENGTH_SHORT).show();
-						//TODO:쿠폰 상세함으로 이동
+						OneButtonDialog.show(getActivity(), "구매완료", "쿠폰함으로 이동하시겠습니까?", "이동", new DialogButtonCallback() {
+							@Override
+							public void onClick() {
+								startActivity(new Intent(getActivity(), CouponActivity.class));
+								doAnimationGoRight();
+							}
+						});
 					}
 				});
 			}
