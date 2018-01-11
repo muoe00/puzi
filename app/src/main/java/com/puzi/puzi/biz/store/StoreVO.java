@@ -30,7 +30,7 @@ public class StoreVO {
 	}
 
 	public static List<StoreVO> getPuziStoreList() {
-		return newArrayList(getPuziItem(), getPuziChallenge(), getPuziSaving());
+		return newArrayList(getPuziChallenge(), getPuziSaving());
 	}
 
 	private static StoreVO getPuziItem() {

@@ -25,6 +25,8 @@ import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.channel.ChannelFilterActivity;
 import com.puzi.puzi.ui.channel.ChannelFragment;
 import com.puzi.puzi.ui.store.coupon.CouponActivity;
+import com.puzi.puzi.ui.store.puzi.challenge.StoreChallengeDetailActivity;
+import com.puzi.puzi.ui.store.puzi.saving.StoreChallengeCompletedDialog;
 import com.puzi.puzi.ui.store.puzi.saving.StoreSavingMineActivity;
 import com.puzi.puzi.ui.user.PointActivity;
 import com.puzi.puzi.ui.user.RecommendActivity;
@@ -128,11 +130,26 @@ public class MainActivity extends BaseFragmentActivity {
 		}
 		tvPoint.setText(TextUtils.addComma(userVO.getPoint()) + "P");
 		tvTodayPoint.setText(TextUtils.addComma(userVO.getTodayPoint()) + "P");
-		if(userVO.getUserSavingDTO() != null) {
+		if(userVO.getUserSavingDTO() == null) {
+			flMainSaving.setVisibility(View.GONE);
+			return;
+		}
+		if(!userVO.getUserSavingDTO().isCompleted()) {
 			flMainSaving.setVisibility(View.VISIBLE);
 			tvMainSaving.setText(TextUtils.addComma(userVO.getUserSavingDTO().getSavedPoint()) + "P");
-		} else {
-			flMainSaving.setVisibility(View.GONE);
+			return;
+		}
+
+		flMainSaving.setVisibility(View.GONE);
+		if(userVO.getUserSavingDTO().isCompleted()) {
+			StoreChallengeCompletedDialog.load(getActivity(), userVO.getUserSavingDTO().getStoreItemDTO().getPictureUrl(),
+				new StoreChallengeDetailActivity.ChallengeSuccessListener() {
+					@Override
+					public void onSuccess() {
+						startActivity(new Intent(getActivity(), CouponActivity.class));
+						doAnimationGoRight();
+					}
+				});
 		}
 	}
 

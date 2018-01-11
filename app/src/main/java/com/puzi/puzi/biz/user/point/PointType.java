@@ -9,12 +9,18 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum PointType {
 
-	SIGNUP("회원가입"),
-	ADVERTISEMENT("광고적립"),
-	FRIEND_RECOMMEND("친구추천"),
-	FIRST_PURCHASE("첫구매가능한포인트"),
+	SIGNUP_POINT("회원가입"),
+	ADVERTISEMENT_POINT("광고적립"),
+	FRIEND_RECOMMEND_POINT("친구추천"),
+	FIRST_PURCHASE_LIMIT_POINT("첫구매가능제한"),
 	ITEM_PURCHASE("상품구매"),
-	WITHDRAW("출금");
+	WITHDRAW("출금"),
+	ADVERTISERMENT_VIEW_TIME("광고시청시간"),
+	ITEM_CHALLENGE("푸지응모"),
+	MY_TODAY_POINT("나의오늘은 적립금"),
+	MY_WORRY_POINT("나의고민은 적립금"),
+	MY_WORRY_REGISTER_POINT("나의고민은 등록"),
+	SAVING("푸지적금");
 
 	@Getter
 	private String comment;

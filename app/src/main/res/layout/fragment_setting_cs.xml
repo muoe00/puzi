@@ -47,7 +47,7 @@
         <com.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
-          android:text="사용문의"
+          android:text="문의하기"
           android:textColor="#333333"
           android:textSize="15sp"
           android:layout_gravity="center_vertical|left"
@@ -71,45 +71,6 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:id="@+id/btn_setting_cs_using"/>
-      </FrameLayout>
-
-      <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#dadada"/>
-
-      <FrameLayout
-        android:id="@+id/fl_setting_cs_ad"
-        android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:background="@color/colorWhite">
-
-        <com.puzi.puzi.ui.customview.NotoTextView
-          app:fontWeight="medium"
-          android:layout_marginLeft="16dp"
-          android:text="광고문의"
-          android:textColor="#333333"
-          android:textSize="15sp"
-          android:layout_gravity="center_vertical|left"
-          android:layout_centerVertical="true"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:id="@+id/tv_setting_version"/>
-
-        <ImageView
-          android:layout_marginRight="16dp"
-          android:layout_width="12.5dp"
-          android:layout_height="21dp"
-          android:layout_gravity="center_vertical|right"
-          android:src="@drawable/back_chevron_copy"
-          android:id="@+id/iv_setting_cs_ad"/>
-
-        <Button
-          android:background="@null"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:id="@+id/btn_setting_cs_ad"
-          android:layout_weight="1"/>
       </FrameLayout>
 
       <LinearLayout
@@ -216,49 +177,6 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:id="@+id/btn_setting_cs_user"
-          android:layout_weight="1"/>
-      </FrameLayout>
-
-      <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#dadada"/>
-
-      <FrameLayout
-        android:id="@+id/fl_setting_gps"
-        android:layout_below="@+id/ll_bar3"
-        android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:background="@color/colorWhite">
-
-        <com.puzi.puzi.ui.customview.NotoTextView
-          app:fontWeight="medium"
-          android:layout_marginLeft="16dp"
-          android:text="위치기반 서비스 이용약관"
-          android:textSize="15sp"
-          android:textColor="#333333"
-          android:layout_gravity="center_vertical|left"
-          android:layout_centerVertical="true"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:id="@+id/tv_setting_cs_gps"/>
-
-        <ImageView
-          android:layout_marginRight="16dp"
-          android:layout_width="12.5dp"
-          android:layout_height="21dp"
-          android:src="@drawable/back_chevron_copy"
-          android:layout_gravity="center_vertical|right"
-          android:id="@+id/iv_setting_cs_gps"
-          android:layout_centerVertical="true"
-          android:layout_alignParentRight="true"
-          android:layout_alignParentEnd="true"/>
-
-        <Button
-          android:background="@null"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:id="@+id/btn_setting_cs_gps"
           android:layout_weight="1"/>
       </FrameLayout>
 

@@ -14,6 +14,7 @@ public class UserSavingVO {
 	private int savedMyToday;
 	private int dailyPoint;
 	private boolean modifiedDailyPoint;
+	private boolean completed;
 	private StoreSavingItemVO storeSavingItemDTO;
 	private StoreItemVO storeItemDTO;
 }

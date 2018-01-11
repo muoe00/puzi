@@ -1,4 +1,4 @@
-package com.puzi.puzi.ui.store.puzi.challenge;
+package com.puzi.puzi.ui.store.puzi.saving;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -7,15 +7,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import com.puzi.puzi.R;
 import com.puzi.puzi.image.BitmapUIL;
+import com.puzi.puzi.ui.store.puzi.challenge.StoreChallengeDetailActivity;
 
 /**
  * Created by JangwonPark on 2017. 12. 31..
  */
-public class StoreChallengeSuccessDialog {
+public class StoreChallengeCompletedDialog {
 
 	private static Dialog dlg = null;
 
-	public static void load(final Activity activity, String imageUrl, final StoreChallengeDetailActivity.ChallengeSuccessListener listener) {
+	public static void load(final Activity activity, String pictureUrl, final StoreChallengeDetailActivity.ChallengeSuccessListener listener) {
 		if (dlg != null) {
 			dlg.dismiss();
 			dlg = null;
@@ -23,10 +24,10 @@ public class StoreChallengeSuccessDialog {
 
 		if (dlg == null) {
 			dlg = new Dialog(activity, R.style.FullHeightDialog);
-			dlg.setContentView(R.layout.dialog_store_challenge_success);
+			dlg.setContentView(R.layout.dialog_store_saving_completed);
 
-			ImageView ivSuccess = (ImageView) dlg.findViewById(R.id.iv_store_challenge_success);
-			BitmapUIL.load(imageUrl, ivSuccess);
+			ImageView ivSuccess = (ImageView) dlg.findViewById(R.id.iv_store_saving_completed);
+			BitmapUIL.load(pictureUrl, ivSuccess);
 
 			Button btnClose = (Button) dlg.findViewById(R.id.btn_dialog_close);
 			btnClose.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +49,7 @@ public class StoreChallengeSuccessDialog {
 		dlg.show();
 	}
 
-	private static void close() {
+	public static void close() {
 		if (dlg != null) {
 			dlg.dismiss();
 			dlg = null;

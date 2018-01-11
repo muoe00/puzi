@@ -19,7 +19,6 @@ import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.store.item.StoreItemActivity;
 import com.puzi.puzi.ui.store.puzi.challenge.StoreChallengeActivity;
 import com.puzi.puzi.ui.store.puzi.saving.StoreSavingActivity;
-import com.puzi.puzi.ui.store.withdraw.WithdrawActivity;
 
 import java.util.List;
 import java.util.Map;
@@ -106,9 +105,6 @@ public class StoreListAdapter extends BaseAdapter {
 				StoreVO storeVO = (StoreVO) storeMap.get(storeType).getItem(position);
 				if(storeVO.getStoreType().isPuzi()) {
 					switch (storeVO.getName()) {
-						case "푸지아이템":
-							activity.startActivity(new Intent(activity, WithdrawActivity.class));
-							break;
 						case "푸지응모":
 							activity.startActivity(new Intent(activity, StoreChallengeActivity.class));
 							break;

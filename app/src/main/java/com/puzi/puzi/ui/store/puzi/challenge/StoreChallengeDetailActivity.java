@@ -21,6 +21,7 @@ import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseActivity;
 import com.puzi.puzi.ui.common.DialogButtonCallback;
 import com.puzi.puzi.ui.common.OneButtonDialog;
+import com.puzi.puzi.ui.store.coupon.CouponActivity;
 import com.puzi.puzi.utils.TextUtils;
 import retrofit2.Call;
 
@@ -106,10 +107,12 @@ public class StoreChallengeDetailActivity extends BaseActivity {
 			public void onSuccess(ResponseVO responseVO) {
 				boolean result = responseVO.getBoolean("result");
 				if(result) {
-					StoreChallengeSuccessDialog.load(getActivity(), new ChallengeSuccessListener() {
+					StoreChallengeSuccessDialog.load(getActivity(), storeChallengeItemVO.getStoreItemDTO().getPictureUrl(),
+						new ChallengeSuccessListener() {
 						@Override
 						public void onSuccess() {
-							// 쿠폰함으로 이동
+							startActivity(new Intent(getActivity(), CouponActivity.class));
+							doAnimationGoRight();
 						}
 					});
 				} else {

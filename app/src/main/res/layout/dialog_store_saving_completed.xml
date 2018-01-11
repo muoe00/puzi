@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@drawable/channel_item_background"
+             android:orientation="vertical" >
+
+  <LinearLayout
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/bg_store_challenge_fail"
+    android:orientation="vertical">
+
+    <com.puzi.puzi.ui.customview.NotoTextView
+      app:fontWeight="medium"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="38dp"
+      android:gravity="center"
+      android:textSize="22sp"
+      android:textColor="#ff5146"
+      android:lineSpacingExtra="-1sp"
+      android:text="축하합니다!"/>
+
+    <LinearLayout
+      android:layout_gravity="center_horizontal"
+      android:orientation="horizontal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
+
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="demilight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="19dp"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textColor="#333333"
+        android:lineSpacingExtra="-1sp"
+        android:text="적금이 "/>
+
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="19dp"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textColor="#ff5146"
+        android:lineSpacingExtra="-1sp"
+        android:text="만기"/>
+
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="demilight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="19dp"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textColor="#333333"
+        android:lineSpacingExtra="-1sp"
+        android:text="되셨습니다."/>
+
+    </LinearLayout>
+
+    <ImageView
+      android:id="@+id/iv_store_saving_completed"
+      android:src="@drawable/popup_challenge_fail"
+      android:layout_gravity="center_horizontal"
+      android:layout_width="151dp"
+      android:layout_height="151dp"/>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:layout_marginBottom="40dp"
+      android:layout_marginTop="24dp"
+      android:layout_gravity="center"
+      android:orientation="horizontal">
+
+      <com.puzi.puzi.ui.customview.NotoButton
+        app:fontWeight="medium"
+        android:id="@+id/btn_dialog_close"
+        android:layout_width="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/button_store_challenge_success_close"
+        android:text="닫기"
+        android:textSize="16sp"
+        android:textColor="#ff5146"/>
+
+      <com.puzi.puzi.ui.customview.NotoButton
+        app:fontWeight="medium"
+        android:id="@+id/btn_dialog_move"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_store_challenge_success_move"
+        android:text="쿠폰함으로 이동"
+        android:textSize="16sp"
+        android:textColor="@color/colorWhite"/>
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+
+</FrameLayout>
