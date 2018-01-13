@@ -4,7 +4,7 @@
         <shape>
             <stroke
                 android:width="1dip" android:color="@color/colorPuzi"/>
-            <corners android:radius="5dip"/>
+            <corners android:radius="2dip"/>
             <padding
                 android:left="7dip"
                 android:right="7dip"
@@ -17,7 +17,7 @@
         <shape>
             <stroke
                 android:width="1dip" android:color="@color/colorPuzi"/>
-            <corners android:radius="5dip"/>
+            <corners android:radius="2dip"/>
             <padding
                 android:left="7dip"
                 android:right="7dip"
@@ -28,7 +28,11 @@
 
     <item android:state_enabled="false">
         <shape>
-            <corners android:radius="5dip"/>
+            <gradient
+              android:angle="270"
+              android:endColor="#fafafa"
+              android:startColor="#fafafa" />
+            <corners android:radius="2dip"/>
             <padding
                 android:left="7dip"
                 android:right="7dip"
@@ -39,9 +43,13 @@
 
     <item android:state_enabled="true">
         <shape>
+            <gradient
+              android:angle="270"
+              android:endColor="#fafafa"
+              android:startColor="#fafafa" />
             <stroke
                 android:width="1dip" android:color="#dadada"/>
-            <corners android:radius="5dip"/>
+            <corners android:radius="2dip"/>
             <padding
                 android:left="7dip"
                 android:right="7dip"

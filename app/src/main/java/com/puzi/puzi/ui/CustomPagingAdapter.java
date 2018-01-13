@@ -87,6 +87,15 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 		init();
 	}
 
+	public CustomPagingAdapter(Activity activity, int layoutResource, GridView gridView, ListHandler listHandler) {
+		this.activity = activity;
+		this.inflater = activity.getLayoutInflater();
+		this.layoutResource = layoutResource;
+		this.gridView = gridView;
+		this.listHandler =listHandler;
+		init();
+	}
+
 	protected void init() {
 		if(this.listView != null) {
 			this.listView.setAdapter(this);

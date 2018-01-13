@@ -350,6 +350,7 @@
       </LinearLayout>
 
       <com.puzi.puzi.ui.customview.NotoButton
+        android:id="@+id/btn_myworry_write_item_write"
         app:fontWeight="medium"
         android:text="선택완료"
         android:layout_width="match_parent"
@@ -360,8 +361,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="34dp"
-        android:background="@drawable/button_puzi"
-        android:id="@+id/btn_channel_filter_confirm"/>
+        android:background="@drawable/button_puzi"/>
     </LinearLayout>
   </ScrollView>
 

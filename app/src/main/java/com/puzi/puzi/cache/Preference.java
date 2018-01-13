@@ -55,4 +55,16 @@ public class Preference {
 		return gson.fromJson(json, UserVO.class);
 	}
 
+	public static void updateMyInfoPlusPoint(Activity activity, int plusPoint) {
+		UserVO myInfo = Preference.getMyInfo(activity);
+		myInfo.setPoint(myInfo.getPoint() + plusPoint);
+		Preference.saveMyInfo(activity, myInfo);
+	}
+
+	public static void updateMyInfoMinusPoint(Activity activity, int minusPoint) {
+		UserVO myInfo = Preference.getMyInfo(activity);
+		myInfo.setPoint(myInfo.getPoint() - minusPoint);
+		Preference.saveMyInfo(activity, myInfo);
+	}
+
 }

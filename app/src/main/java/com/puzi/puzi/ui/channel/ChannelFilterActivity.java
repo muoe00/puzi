@@ -175,7 +175,6 @@ public class ChannelFilterActivity extends BaseActivity {
 		}
 	}
 
-	@OnClick(R.id.btn_channel_filter_confirm)
 	public void filterConfirm() {
 		Intent intent = new Intent();
 

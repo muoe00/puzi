@@ -24,6 +24,7 @@ import com.puzi.puzi.ui.advertisement.AdvertisementFragment;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.channel.ChannelFilterActivity;
 import com.puzi.puzi.ui.channel.ChannelFragment;
+import com.puzi.puzi.ui.myworry.MyWorryWriteActivity;
 import com.puzi.puzi.ui.store.coupon.CouponActivity;
 import com.puzi.puzi.ui.store.puzi.challenge.StoreChallengeDetailActivity;
 import com.puzi.puzi.ui.store.puzi.saving.StoreChallengeCompletedDialog;
@@ -173,20 +174,8 @@ public class MainActivity extends BaseFragmentActivity {
 						break;
 
 					case FRAGMENT_CHANNEL:
-						intent = new Intent(MainActivity.this, ChannelFilterActivity.class);
-						List<ChannelCategoryType> categoryTypeList = null;
-						for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-							if (fragment != null && fragment.isVisible()) {
-								if(fragment instanceof ChannelFragment){
-									ChannelFragment channelFragment = (ChannelFragment) fragment;
-									categoryTypeList = channelFragment.getCategoryTypeList();
-								}
-							}
-						}
-						intent.putExtra("categoryTypeListJson", new Gson().toJson(categoryTypeList));
-						startActivityForResult(intent, 0);
-						doAnimationGoRight();
-						return;
+						intent = new Intent(MainActivity.this, MyWorryWriteActivity.class);
+						break;
 
 					case FRAGMENT_STORE:
 						intent = new Intent(MainActivity.this, CouponActivity.class);
@@ -260,7 +249,7 @@ public class MainActivity extends BaseFragmentActivity {
 				ivChannel.setImageResource(R.drawable.channel_on);
 				ivStore.setImageResource(R.drawable.store_off);
 				ivSetting.setImageResource(R.drawable.setting_off);
-				ibtnRightButton.setImageResource(R.drawable.filter_on);
+				ibtnRightButton.setImageResource(R.drawable.make_survey);
 				return;
 			case FRAGMENT_STORE:
 				llMain.setVisibility(View.VISIBLE);
@@ -284,7 +273,7 @@ public class MainActivity extends BaseFragmentActivity {
 	}
 
 	/**
-	 * 현재 광고 적립 상태변경 및 채널 필터링에 이용
+	 * 현재 광고 적립 상태변경
 	 * @param requestCode
 	 * @param resultCode
 	 * @param data
@@ -294,37 +283,16 @@ public class MainActivity extends BaseFragmentActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 			case RESULT_OK:
-				Type listType = new TypeToken<ArrayList<ChannelCategoryType>>(){}.getType();
-				List<ChannelCategoryType> categoryTypeList =
-					new Gson().fromJson(data.getStringExtra("categoryTypeListJson"), listType);
-
-				if(viewPager.getCurrentItem() == FRAGMENT_CHANNEL) {
+				int index = data.getIntExtra("advertiseIndex", 0);
+				boolean state = data.getBooleanExtra("pointSavedState", false);
+				if(index != 0) {
 					for (Fragment fragment : getSupportFragmentManager().getFragments()) {
 						if (fragment.isVisible()) {
-							if(fragment instanceof ChannelFragment){
-								ChannelFragment channelFragment = (ChannelFragment) fragment;
-								if(categoryTypeList != null && categoryTypeList.size() != 0) {
-									channelFragment.refresh(categoryTypeList);
-									ibtnRightButton.setImageResource(R.drawable.filter);
-								} else {
-									channelFragment.refresh(newArrayList(ChannelCategoryType.values()));
-									ibtnRightButton.setImageResource(R.drawable.filter_on);
-								}
-							}
-						}
-					}
-				} else {
-					int index = data.getIntExtra("advertiseIndex", 0);
-					boolean state = data.getBooleanExtra("pointSavedState", false);
-					if(index != 0) {
-						for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-							if (fragment.isVisible()) {
-								if(fragment instanceof AdvertisementFragment){
-									AdvertisementFragment advertisementFragment = (AdvertisementFragment) fragment;
-									advertisementFragment.refresh(index, state);
+							if(fragment instanceof AdvertisementFragment){
+								AdvertisementFragment advertisementFragment = (AdvertisementFragment) fragment;
+								advertisementFragment.refresh(index, state);
 
-									Log.i(PuziUtils.INFO, "index : " + index + ", state : " + state);
-								}
+								Log.i(PuziUtils.INFO, "index : " + index + ", state : " + state);
 							}
 						}
 					}

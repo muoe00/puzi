@@ -60,6 +60,7 @@
     <activity android:name=".ui.store.purchase.PurchaseItemActivity"/>
     <activity android:name=".ui.channel.editorspage.EditorsPageActivity"/>
     <activity android:name=".ui.channel.ChannelFilterActivity"/>
+    <activity android:name=".ui.myworry.MyWorryWriteActivity"/>
     <activity
       android:name=".ui.company.CompanyActivity"
       android:label="@string/title_activity_company">

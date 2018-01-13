@@ -14,7 +14,6 @@ import com.google.gson.Gson;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.store.StoreItemVO;
 import com.puzi.puzi.biz.store.StoreVO;
-import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.network.CustomCallback;
@@ -122,9 +121,7 @@ public class PurchaseItemActivity extends BaseActivity {
 
 					@Override
 					public void onSuccess(ResponseVO responseVO) {
-						UserVO myInfo = Preference.getMyInfo(getActivity());
-						myInfo.setPoint(myInfo.getPoint() - storeItemVO.getPrice());
-						Preference.saveMyInfo(getActivity(), myInfo);
+						Preference.updateMyInfoMinusPoint(getActivity(), storeItemVO.getPrice());
 
 						OneButtonDialog.show(getActivity(), "구매완료", "쿠폰함으로 이동하시겠습니까?", "이동", new DialogButtonCallback() {
 							@Override

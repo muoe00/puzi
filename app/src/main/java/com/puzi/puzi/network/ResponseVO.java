@@ -2,9 +2,11 @@ package com.puzi.puzi.network;
 
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
 import com.puzi.puzi.utils.GsonUtils;
 import lombok.Data;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +51,12 @@ public class ResponseVO {
 
 	public ResultType getResultType(){
 		return ResultType.findBy(resultCode);
+	}
+
+	public Map<String, Integer> getIntegerMap(String key) {
+		Type type = new TypeToken<Map<String, Integer>>(){}.getType();
+		Gson gson = GsonUtils.getGson();
+		return gson.fromJson(String.valueOf(params.get(key)), type);
 	}
 }
 
