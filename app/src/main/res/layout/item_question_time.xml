@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="69dp"
+    android:background="@drawable/bg_question_time"
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="15dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp">
+
+    <LinearLayout
+      android:layout_marginLeft="16dp"
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="69dp">
+
+      <ImageView
+        android:layout_gravity="bottom"
+        android:src="@drawable/today_hand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"/>
+
+      <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="medium"
+          android:text="나의 오늘은"
+          android:textSize="13sp"
+          android:textColor="@color/colorWhite"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"/>
+        
+        <ImageView
+          android:background="#ff2470"
+          android:layout_width="61dp"
+          android:layout_height="2dp"/>
+
+        <LinearLayout
+          android:orientation="horizontal"
+          android:layout_marginTop="5dp"
+          android:layout_marginLeft="10dp"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="medium"
+            android:text=""
+            android:textSize="18sp"
+            android:textColor="@color/colorWhite"
+            android:id="@+id/tv_question_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="medium"
+            android:text="시간"
+            android:textSize="18sp"
+            android:textColor="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="medium"
+            android:text=""
+            android:textSize="18sp"
+            android:textColor="@color/colorWhite"
+            android:id="@+id/tv_question_minute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="medium"
+            android:text="분 후 참여 가능합니다."
+            android:textSize="18sp"
+            android:textColor="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+      </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_marginTop="10.4dp"
+      android:layout_marginRight="10.4dp"
+      android:layout_gravity="right"
+      android:orientation="horizontal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
+
+      <ImageButton
+        android:background="@drawable/refresh_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+  </FrameLayout>
+
+</LinearLayout>

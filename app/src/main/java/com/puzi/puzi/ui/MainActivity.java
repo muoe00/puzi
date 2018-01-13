@@ -84,7 +84,7 @@ public class MainActivity extends BaseFragmentActivity {
 		viewPager.setCurrentItem(FRAGMENT_ADVERTISE);
 
 		ivAdvertise.setImageResource(R.drawable.home_on);
-		ivChannel.setImageResource(R.drawable.channel_off);
+		ivChannel.setImageResource(R.drawable.poll_off);
 		ivStore.setImageResource(R.drawable.store_off);
 		ivSetting.setImageResource(R.drawable.setting_off);
 
@@ -231,7 +231,7 @@ public class MainActivity extends BaseFragmentActivity {
 				llMain.setVisibility(View.VISIBLE);
 				llMainSetting.setVisibility(View.GONE);
 				ivAdvertise.setImageResource(R.drawable.home_on);
-				ivChannel.setImageResource(R.drawable.channel_off);
+				ivChannel.setImageResource(R.drawable.poll_off);
 				ivStore.setImageResource(R.drawable.store_off);
 				ivSetting.setImageResource(R.drawable.setting_off);
 				ibtnRightButton.setImageResource(R.drawable.add_friend);
@@ -240,16 +240,16 @@ public class MainActivity extends BaseFragmentActivity {
 				llMain.setVisibility(View.VISIBLE);
 				llMainSetting.setVisibility(View.GONE);
 				ivAdvertise.setImageResource(R.drawable.home_off);
-				ivChannel.setImageResource(R.drawable.channel_on);
+				ivChannel.setImageResource(R.drawable.poll_on);
 				ivStore.setImageResource(R.drawable.store_off);
 				ivSetting.setImageResource(R.drawable.setting_off);
-				ibtnRightButton.setImageResource(R.drawable.filter_on);
+				ibtnRightButton.setImageResource(R.drawable.make_survey);
 				return;
 			case FRAGMENT_STORE:
 				llMain.setVisibility(View.VISIBLE);
 				llMainSetting.setVisibility(View.GONE);
 				ivAdvertise.setImageResource(R.drawable.home_off);
-				ivChannel.setImageResource(R.drawable.channel_off);
+				ivChannel.setImageResource(R.drawable.poll_off);
 				ivStore.setImageResource(R.drawable.store_selected);
 				ivSetting.setImageResource(R.drawable.setting_off);
 				ibtnRightButton.setImageResource(R.drawable.coupon_archive);
@@ -258,7 +258,7 @@ public class MainActivity extends BaseFragmentActivity {
 				llMain.setVisibility(View.GONE);
 				llMainSetting.setVisibility(View.VISIBLE);
 				ivAdvertise.setImageResource(R.drawable.home_off);
-				ivChannel.setImageResource(R.drawable.channel_off);
+				ivChannel.setImageResource(R.drawable.poll_off);
 				ivStore.setImageResource(R.drawable.store_off);
 				ivSetting.setImageResource(R.drawable.setting_on);
 				return;

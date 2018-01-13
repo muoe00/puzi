@@ -28,6 +28,8 @@ import retrofit2.Call;
 
 import java.text.NumberFormat;
 
+import static com.puzi.puzi.biz.user.LevelType.*;
+
 /**
  * Created by muoe0 on 2017-07-08.
  */
@@ -44,6 +46,7 @@ public class PointActivity extends BaseFragmentActivity {
 	@BindView(R.id.tv_point_user_level) public TextView tvUserLevel;
 	@BindView(R.id.tv_point_history) public TextView tvPointHistory;
 	@BindView(R.id.tv_point_level) public TextView tvPointLevel;
+	@BindView(R.id.iv_point_background) public ImageView ivLevel;
 	@BindView(R.id.iv_point_select) public ImageView ivPointBar;
 	@BindView(R.id.iv_level_select) public ImageView ivLevelBar;
 
@@ -80,6 +83,24 @@ public class PointActivity extends BaseFragmentActivity {
 
 				LevelType level = LevelType.valueOf(userVO.getLevelType());
 				tvUserLevel.setText(level.getComment());
+
+				switch(findByComment(level.getComment())) {
+					case WELCOME:
+						ivLevel.setImageResource(R.drawable.welcome_grade);
+						break;
+					case SILVER:
+						ivLevel.setImageResource(R.drawable.silver_bg);
+						break;
+					case GOLD:
+						ivLevel.setImageResource(R.drawable.gold_grade);
+						break;
+					case VIP:
+						ivLevel.setImageResource(R.drawable.vip_grade);
+						break;
+					case VVIP:
+						ivLevel.setImageResource(R.drawable.vvip_grade);
+						break;
+				}
 
 				tvUserName.setText(Preference.getProperty(getActivity(), "id"));
 
