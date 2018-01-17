@@ -20,6 +20,7 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.UserNetworkService;
+import com.puzi.puzi.ui.CustomArrayAdapter;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragment;
@@ -29,6 +30,9 @@ import retrofit2.Call;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static com.puzi.puzi.biz.user.AddressInfo.CITY_MAP;
+import static com.puzi.puzi.biz.user.AddressInfo.REGION_LIST;
 
 /**
  * Created by muoe0 on 2017-07-27.
@@ -51,12 +55,16 @@ public class SignupInfoFragment extends BaseFragment {
 	@BindView(R.id.sp_age) public Spinner spAge;
 	@BindView(R.id.edit_recommend) public EditText edtiRecommend;
 	@BindView(R.id.ibtn_back) public ImageView ibtnBack;
+	@BindView(R.id.sp_region) public Spinner spRegion;
+	@BindView(R.id.sp_city) public Spinner spCity;
 
 	private boolean isConfirm = false;
 	private UserVO userVO;
 	private AlertDialog.Builder alert_confirm;
 	private ArrayList<String> favoritesList = new ArrayList<String>();
 	private ArrayList<String> yearList = new ArrayList<String>();
+	private String region = REGION_LIST.get(0);
+	private String city = CITY_MAP.get(region).get(0);
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,13 +79,10 @@ public class SignupInfoFragment extends BaseFragment {
 
 		alert_confirm = new AlertDialog.Builder(this.getContext());
 		alert_confirm.setPositiveButton("확인", null);
-		AlertDialog alert = alert_confirm.create();
-
-		String isKakao = Preference.getProperty(getActivity(), "kakao");
-
 		userVO = new UserVO();
 
-		if(isKakao == "K") {
+		String isKakao = Preference.getProperty(getActivity(), "kakao");
+		if("K".equals(isKakao)) {
 			userVO.setRegisterType(RegisterType.K);
 			userVO.setPasswd(Preference.getProperty(getActivity(), "passwd"));
 		} else {
@@ -117,7 +122,7 @@ public class SignupInfoFragment extends BaseFragment {
 			public Call<ResponseVO> execute(UserNetworkService userNetworkService, String token) {
 				return userNetworkService.signup(userVO.getUserId(), userVO.getPasswd(), userVO.getRegisterType()
 					, userVO.getEmail(), userVO.getNotifyId(), userVO.getGenderType(), userVO.getAge(), userVO.getFavoriteTypeList()
-					, userVO.getRecommendId(), userVO.getPhoneType(), userVO.getPhoneKey());
+					, userVO.getRecommendId(), userVO.getPhoneType(), userVO.getPhoneKey(), region, city);
 			}
 		});
 		service.enqueue(new CustomCallback(getActivity()) {
@@ -159,6 +164,18 @@ public class SignupInfoFragment extends BaseFragment {
 		Log.i("INFO", "Year : " + year + ", age type : " + userVO.getAgeType());
 	}
 
+	@OnItemSelected(R.id.sp_region)
+	public void checkRegion(int position) {
+		region = REGION_LIST.get(position);
+		spCity.setAdapter(new CustomArrayAdapter(getActivity(), CITY_MAP.get(REGION_LIST.get(position))));
+		city = CITY_MAP.get(region).get(0);
+	}
+
+	@OnItemSelected(R.id.sp_city)
+	public void checkCity(int position) {
+		city = CITY_MAP.get(region).get(position);
+	}
+
 	public int currentYear() {
 		long nowTime = System.currentTimeMillis();
 		Date date = new Date(nowTime);
@@ -177,11 +194,12 @@ public class SignupInfoFragment extends BaseFragment {
 			yearList.add(String.valueOf(index));
 		}
 
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>
-			(getActivity(), android.R.layout.simple_spinner_dropdown_item, yearList);
-
 		spAge.setPrompt(getResources().getString(R.string.info_age));
-		spAge.setAdapter(adapter);
+		spAge.setAdapter(new CustomArrayAdapter(getActivity(), yearList));
+		spRegion.setAdapter(new CustomArrayAdapter(getActivity(), REGION_LIST));
+		spRegion.setSelection(0);
+		spCity.setAdapter(new CustomArrayAdapter(getActivity(), CITY_MAP.get(REGION_LIST.get(0))));
+		spCity.setSelection(0);
 	}
 
 	@OnClick({R.id.btn_info_beauty, R.id.btn_info_shopping, R.id.btn_info_game, R.id.btn_info_eat,
@@ -254,14 +272,12 @@ public class SignupInfoFragment extends BaseFragment {
 		}
 	}
 
-	@OnClick({R.id.btn_signup_service, R.id.btn_signup_personal, R.id.btn_signup_gps})
+	@OnClick({R.id.btn_signup_service, R.id.btn_signup_personal})
 	public void checkClause(View view) {
 		switch (view.getId()) {
 			case R.id.btn_signup_service:
 				break;
 			case R.id.btn_signup_personal:
-				break;
-			case R.id.btn_signup_gps:
 				break;
 		}
 	}

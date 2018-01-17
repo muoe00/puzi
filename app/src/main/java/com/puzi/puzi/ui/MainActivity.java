@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelCategoryType;
+import com.puzi.puzi.biz.event.EventInfoVO;
 import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
@@ -74,6 +75,9 @@ public class MainActivity extends BaseFragmentActivity {
 
 	private long backKeyPressedTime;
 
+	private int rightButtonHome = R.drawable.add_friend;
+	private EventInfoVO eventInfoVO;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -81,6 +85,7 @@ public class MainActivity extends BaseFragmentActivity {
 
 		unbinder = ButterKnife.bind(this);
 		getUser();
+		getEventInfo();
 
 		viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
 		viewPager.setOffscreenPageLimit(5);
@@ -106,7 +111,6 @@ public class MainActivity extends BaseFragmentActivity {
 	}
 
 	public void getUser() {
-
 		LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
 		service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
 			@Override
@@ -120,6 +124,26 @@ public class MainActivity extends BaseFragmentActivity {
 				UserVO userVO = responseVO.getValue("userInfoDTO", UserVO.class);
 				Preference.saveMyInfo(MainActivity.this, userVO);
 				updateUserInfoOnTitleBar();
+			}
+		});
+	}
+
+	public void getEventInfo() {
+		LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(UserNetworkService userNetworkService, String token) {
+				return userNetworkService.eventEmoticon(token);
+			}
+		});
+		service.enqueue(new CustomCallback(MainActivity.this) {
+			@Override
+			public void onSuccess(ResponseVO responseVO) {
+				eventInfoVO = responseVO.getValue("eventInfoDTO", EventInfoVO.class);
+				if(eventInfoVO.getEventStatusType().isShowEvent()) {
+					rightButtonHome = R.drawable.add_friend_new;
+					ibtnRightButton.setImageResource(rightButtonHome);
+				}
 			}
 		});
 	}
@@ -171,6 +195,7 @@ public class MainActivity extends BaseFragmentActivity {
 				switch (viewPager.getCurrentItem()) {
 					case FRAGMENT_ADVERTISE:
 						intent = new Intent(MainActivity.this, RecommendActivity.class);
+						intent.putExtra("eventInfoVO", new Gson().toJson(eventInfoVO));
 						break;
 
 					case FRAGMENT_CHANNEL:
@@ -240,7 +265,7 @@ public class MainActivity extends BaseFragmentActivity {
 				ivChannel.setImageResource(R.drawable.channel_off);
 				ivStore.setImageResource(R.drawable.store_off);
 				ivSetting.setImageResource(R.drawable.setting_off);
-				ibtnRightButton.setImageResource(R.drawable.add_friend);
+				ibtnRightButton.setImageResource(rightButtonHome);
 				return;
 			case FRAGMENT_CHANNEL:
 				llMain.setVisibility(View.VISIBLE);

@@ -139,7 +139,7 @@
       android:gravity="right"
       android:src="@drawable/add_friend"
       android:background="?android:attr/selectableItemBackground"
-      android:layout_width="55dp"
+      android:layout_width="63dp"
       android:layout_height="50dp"
       android:layout_marginRight="2dp"
       android:id="@+id/ibtn_right_button"/>

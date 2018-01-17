@@ -148,7 +148,16 @@
             android:layout_marginLeft="17dp"
             android:textSize="17sp"
             android:textColor="#333333"
-            android:text="20% 확률 상승 아이템"
+            android:text="3배 확률 상승 아이템 "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="regular"
+            android:layout_gravity="center_vertical"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:text="(+200P)"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>

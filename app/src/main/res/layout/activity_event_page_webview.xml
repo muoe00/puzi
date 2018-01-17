@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+      android:id="@+id/ll_event_page_top_container"
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:background="#ffffff"
+      android:layout_height="54dp">
+
+      <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:src="@drawable/back"
+        android:background="#00000000"
+        android:id="@+id/ibtn_event_page_back"/>
+
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="demilight"
+        android:text="카카오톡 이모티콘 증정 이벤트"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textColor="#333333"
+        android:layout_marginRight="40dp"
+        android:textSize="16sp"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/tv_event_page_title"
+        android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+      android:orientation="vertical"
+      android:id="@+id/ll_event_page_top_line"
+      android:background="#dadada"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"/>
+
+    <FrameLayout
+      android:layout_weight="1"
+      android:layout_width="match_parent"
+      android:layout_height="0dp">
+
+      <WebView
+        android:id="@+id/wv_event_page_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+      </WebView>
+
+    </FrameLayout>
+
+  </LinearLayout>
+
+</FrameLayout>

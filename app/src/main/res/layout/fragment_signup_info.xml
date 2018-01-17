@@ -13,8 +13,9 @@
       android:id="@+id/ll_signup_info"
       android:orientation="vertical"
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_height="wrap_content">
 
+      <!-- 타이틀 -->
       <FrameLayout
         android:id="@+id/fl_signup_info"
         android:orientation="horizontal"
@@ -46,6 +47,7 @@
 
       </LinearLayout>
 
+      <!-- 성별 -->
       <LinearLayout
         android:orientation="vertical"
         android:gravity="center_vertical"
@@ -102,6 +104,7 @@
 
       </LinearLayout>
 
+      <!-- 출생년도 -->
       <LinearLayout
         android:orientation="vertical"
         android:gravity="center_vertical"
@@ -122,10 +125,56 @@
 
         <Spinner
           android:id="@+id/sp_age"
+          android:background="@drawable/button_store_withdraw_input"
           android:layout_width="match_parent"
           android:layout_height="54dp">
 
         </Spinner>
+
+      </LinearLayout>
+
+      <!-- 거주지역 -->
+      <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp">
+
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="medium"
+          android:layout_width="match_parent"
+          android:layout_height="24dp"
+          android:gravity="left"
+          android:textSize="16sp"
+          android:textColor="@color/colorBlack"
+          android:text="거주지역"/>
+
+        <LinearLayout
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="54dp">
+
+          <Spinner
+            android:id="@+id/sp_region"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:background="@drawable/button_store_withdraw_input"
+            android:layout_height="match_parent"/>
+
+          <LinearLayout
+            android:layout_width="16dp"
+            android:layout_height="match_parent"/>
+
+          <Spinner
+            android:id="@+id/sp_city"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:background="@drawable/button_store_withdraw_input"
+            android:layout_height="match_parent"/>
+        </LinearLayout>
 
       </LinearLayout>
 
@@ -169,8 +218,11 @@
               android:textSize="16sp"
               android:textColor="@color/colorTextGray"
               android:layout_weight="1"
-              android:layout_marginRight="16dp"
               android:layout_width="match_parent"
+              android:layout_height="match_parent"/>
+
+            <LinearLayout
+              android:layout_width="16dp"
               android:layout_height="match_parent"/>
 
             <com.puzi.puzi.ui.customview.NotoButton
@@ -179,7 +231,6 @@
               android:id="@+id/btn_info_shopping"
               android:text="쇼핑"
               android:textSize="16sp"
-              android:layout_marginRight="16dp"
               android:layout_weight="1"
               android:textColor="@color/colorTextGray"
               android:layout_width="match_parent"
@@ -202,8 +253,11 @@
               android:textSize="16sp"
               android:textColor="@color/colorTextGray"
               android:layout_weight="1"
-              android:layout_marginRight="16dp"
               android:layout_width="match_parent"
+              android:layout_height="match_parent"/>
+
+            <LinearLayout
+              android:layout_width="16dp"
               android:layout_height="match_parent"/>
 
             <com.puzi.puzi.ui.customview.NotoButton
@@ -214,7 +268,6 @@
               android:textSize="16sp"
               android:textColor="@color/colorTextGray"
               android:layout_weight="1"
-              android:layout_marginRight="16dp"
               android:layout_width="match_parent"
               android:layout_height="match_parent"/>
 
@@ -235,8 +288,11 @@
               android:textSize="16sp"
               android:textColor="@color/colorTextGray"
               android:layout_weight="1"
-              android:layout_marginRight="16dp"
               android:layout_width="match_parent"
+              android:layout_height="match_parent"/>
+
+            <LinearLayout
+              android:layout_width="16dp"
               android:layout_height="match_parent"/>
 
             <com.puzi.puzi.ui.customview.NotoButton
@@ -247,7 +303,6 @@
               android:textSize="16sp"
               android:textColor="@color/colorTextGray"
               android:layout_weight="1"
-              android:layout_marginRight="16dp"
               android:layout_width="match_parent"
               android:layout_height="match_parent"/>
 
@@ -267,14 +322,16 @@
               android:textSize="16sp"
               android:textColor="@color/colorTextGray"
               android:layout_weight="1"
-              android:layout_marginRight="16dp"
               android:layout_width="match_parent"
+              android:layout_height="match_parent"/>
+
+            <LinearLayout
+              android:layout_width="16dp"
               android:layout_height="match_parent"/>
 
             <com.puzi.puzi.ui.customview.NotoButton
               android:visibility="invisible"
               android:layout_weight="1"
-              android:layout_marginRight="16dp"
               android:layout_width="match_parent"
               android:layout_height="match_parent"/>
 
@@ -386,18 +443,7 @@
             android:id="@+id/btn_signup_personal"
             android:layout_weight="1"
             android:background="@null"/>
-          <com.puzi.puzi.ui.customview.NotoButton
-            app:fontWeight="regular"
-            android:text="@string/confirm_gps"
-            android:textSize="16sp"
-            android:textColor="#6D6D6D"
-            android:gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:id="@+id/btn_signup_gps"
-            android:layout_weight="1"
-            android:background="@null"/>
-          
+
           <FrameLayout
             android:layout_marginTop="20dp"
             android:orientation="horizontal"
