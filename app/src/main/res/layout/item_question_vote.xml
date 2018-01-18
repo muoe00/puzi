@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="63dp">
+              android:layout_height="73dp"
+              android:paddingBottom="10dp">
 
   <LinearLayout
     android:background="@drawable/bg_vote_item"
@@ -32,21 +34,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="demilight"
+            android:background="@drawable/bg_question_type"
+            android:gravity="center"
+            android:padding="2dp"
           android:text="여성"
           android:textSize="10sp"
           android:id="@+id/tv_vote_gender"
-          android:layout_width="27dp"
-          android:layout_height="12dp"/>
+          android:layout_width="30dp"
+          android:layout_height="16dp"/>
 
-        <TextView
+        <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="demilight"
+            android:background="@drawable/bg_question_type"
+            android:gravity="center"
+            android:padding="2dp"
           android:text="10대"
           android:textSize="10sp"
           android:layout_marginLeft="6dp"
           android:id="@+id/tv_vote_age"
           android:layout_toRightOf="@id/tv_vote_gender"
-          android:layout_width="27dp"
-          android:layout_height="12dp"/>
+          android:layout_width="30dp"
+          android:layout_height="16dp"/>
 
         <ImageView
           android:id="@+id/iv_vote_like"
@@ -58,7 +68,8 @@
           android:layout_toLeftOf="@+id/textView6"
           android:layout_toStartOf="@+id/textView6"/>
 
-        <TextView
+        <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="demilight"
           android:layout_gravity="right"
           android:layout_width="17dp"
           android:layout_height="14dp"
@@ -75,7 +86,10 @@
         app:fontWeight="regular"
         android:id="@+id/tv_vote_comment"
         android:text="남자친구 선물 뭐 사줄까요 ?"
-        android:textSize="16sp"
+          android:ellipsize="marquee"
+          android:marqueeRepeatLimit="marquee_forever"
+          android:singleLine="true"
+          android:textSize="16sp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
         android:layout_marginRight="10dp"

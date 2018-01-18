@@ -48,6 +48,7 @@
     <activity android:name=".ui.advertisement.AdvertisementDetailActivity"
       android:windowSoftInputMode="stateAlwaysHidden">
     </activity>
+    <activity android:name=".ui.today.QuestionActivity"/>
     <activity android:name=".ui.store.withdraw.WithdrawActivity"/>
     <activity android:name=".ui.store.coupon.CouponActivity"/>
     <activity android:name=".ui.store.item.StoreItemActivity"/>

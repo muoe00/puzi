@@ -4,34 +4,24 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-  <FrameLayout
-    android:id="@+id/fl_question"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/rv_question"
+      android:layout_width="match_parent"
+      android:layout_height="99dp">
 
-    <include
-      android:id="@+id/layout_question"
-      layout="@layout/item_question_init">
-    </include>
+  </android.support.v7.widget.RecyclerView>
 
-  </FrameLayout>
-
-  <ScrollView
-    android:id="@+id/sv_question"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
+  <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical">
 
-      <LinearLayout
+    <LinearLayout
         android:background="#f4f4f4"
         android:layout_width="match_parent"
         android:layout_height="10dp"/>
-      
-      <LinearLayout
+
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="16dp"
@@ -39,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="19dp">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+      <com.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="bold"
           android:text="투표해쥬라줘"
           android:textSize="16sp"
@@ -47,82 +37,86 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
 
-        <View
+      <View
           android:layout_width="0dp"
           android:layout_height="0dp"
           android:layout_weight="1">
-        </View>
-        
-        <Spinner
+      </View>
+
+      <Spinner
           android:layout_gravity="right"
           android:layout_width="55dp"
           android:layout_height="22dp">
 
-        </Spinner>
+      </Spinner>
 
-      </LinearLayout>
+    </LinearLayout>
 
-      <ListView
-        android:id="@+id/lv_vote"
-        android:divider="#00000000"
+    <ScrollView
+        android:id="@+id/sv_question"
         android:layout_marginTop="11dp"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite"/>
+        android:layout_height="match_parent">
 
       <LinearLayout
-        android:background="#eeeeee"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-      <FrameLayout
-        android:id="@+id/fl_vote_more"
-        android:background="@color/colorWhite"
-        android:layout_width="match_parent"
-        android:layout_height="38dp">
-
-        <LinearLayout
-          android:layout_gravity="center"
-          android:orientation="horizontal"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content">
-
-          <ImageView
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="16dp"
-            android:layout_width="wrap_content"
+        <ListView
+            android:id="@+id/lv_vote"
+            android:divider="#00000000"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/more_list"
-            android:id="@+id/imageView"/>
+            android:background="@color/colorWhite"/>
 
-          <com.puzi.puzi.ui.customview.NotoTextView
-            android:layout_gravity="center_vertical"
-            app:fontWeight="demilight"
-            android:textSize="14sp"
-            android:textColor="#6d6d6d"
-            android:text="더보기"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <FrameLayout
+            android:id="@+id/fl_vote_more"
+            android:background="@drawable/bg_more"
+            android:layout_width="match_parent"
+            android:layout_height="38dp">
 
-        </LinearLayout>
+          <LinearLayout
+              android:layout_gravity="center"
+              android:orientation="horizontal"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
 
-        <Button
-          android:background="?android:attr/selectableItemBackground"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:id="@+id/btn_channel_more_editorspage"/>
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/more_list"
+                android:id="@+id/imageView"/>
 
-      </FrameLayout>
+            <com.puzi.puzi.ui.customview.NotoTextView
+                android:layout_gravity="center_vertical"
+                app:fontWeight="demilight"
+                android:textSize="14sp"
+                android:textColor="#6d6d6d"
+                android:text="더보기"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-      <LinearLayout
-        android:background="#f4f4f4"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/>
+          </LinearLayout>
+
+          <Button
+              android:background="?android:attr/selectableItemBackground"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/btn_vote_more"/>
+
+        </FrameLayout>
 
       </LinearLayout>
-  </ScrollView>
+
+    </ScrollView>
+
+  </LinearLayout>
 
 </LinearLayout>

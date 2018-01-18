@@ -262,7 +262,7 @@ public class AdvertisementDetailActivity extends BaseActivity {
 			Log.i(PuziUtils.INFO, "progress i : " + progress[0]);
 			super.onProgressUpdate(progress);
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-				progressCircle.setProgress(progress[0], true);
+				progressCircle.setProgress(progress[0]);
 			}
 
 			if(progress[0] == 1) {

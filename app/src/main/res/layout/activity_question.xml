@@ -26,6 +26,8 @@
       <com.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="demilight"
         android:textSize="30sp"
+          android:textColor="@color/colorWhite"
+          android:id="@+id/tv_question_q"
         android:text="지금 당신의 기분은 ?"
         android:gravity="center"
         android:layout_width="match_parent"
@@ -84,15 +86,17 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent">
 
-          <ImageButton
+          <Button
             android:background="@drawable/button_question_off"
+              android:id="@+id/ibtn_question_a1"
             android:layout_weight="0.5"
             android:layout_marginRight="9dp"
             android:layout_width="0dp"
             android:layout_height="113dp"/>
 
-          <ImageButton
+          <Button
             android:background="@drawable/button_question_off"
+              android:id="@+id/ibtn_question_a2"
             android:layout_weight="0.5"
             android:layout_marginLeft="9dp"
             android:layout_width="0dp"
@@ -105,15 +109,17 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent">
 
-          <ImageButton
+          <Button
             android:background="@drawable/button_question_off"
+              android:id="@+id/ibtn_question_a3"
             android:layout_weight="0.5"
             android:layout_marginRight="9dp"
             android:layout_width="0dp"
             android:layout_height="113dp"/>
 
-          <ImageButton
+          <Button
             android:background="@drawable/button_question_off"
+              android:id="@+id/ibtn_question_a4"
             android:layout_weight="0.5"
             android:layout_marginLeft="9dp"
             android:layout_width="0dp"

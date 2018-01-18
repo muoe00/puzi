@@ -2,7 +2,7 @@ package com.puzi.puzi.ui;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import com.puzi.puzi.ui.question.QuestionFragment;
+import com.puzi.puzi.ui.today.QuestionFragment;
 import com.puzi.puzi.ui.advertisement.AdvertisementFragment;
 import com.puzi.puzi.ui.setting.SettingFragment;
 import com.puzi.puzi.ui.store.StoreFragment;
