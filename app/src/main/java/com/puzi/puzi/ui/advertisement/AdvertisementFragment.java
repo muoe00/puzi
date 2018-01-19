@@ -1,5 +1,6 @@
 package com.puzi.puzi.ui.advertisement;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -20,6 +21,7 @@ import com.puzi.puzi.network.service.AdvertisementNetworkService;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.utils.PuziUtils;
+import lombok.NoArgsConstructor;
 import retrofit2.Call;
 
 import java.util.List;
@@ -27,7 +29,7 @@ import java.util.List;
 /**
  * Created by muoe0 on 2017-07-08.
  */
-
+@NoArgsConstructor
 public class AdvertisementFragment extends BaseFragment {
 
 	Unbinder unbinder;
@@ -35,28 +37,44 @@ public class AdvertisementFragment extends BaseFragment {
 	@BindView(R.id.lv_advertise) public ListView lvAd;
 	@BindView(R.id.srl_advertisement_container) public SwipeRefreshLayout srlContainer;
 
-	private View view = null;
 	private boolean more = false;
 	private int pagingIndex = 1;
 	boolean lastestScrollFlag = false;
 	private AdvertisementListAdapter advertiseListAdapter;
 
+	private ReceivedAdvertiseVO startReceivedAdvertiseVO = null;
+
+	public void setPush(ReceivedAdvertiseVO receivedAdvertiseVO) {
+		startReceivedAdvertiseVO = receivedAdvertiseVO;
+	}
+
 	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.fragment_advertisement, container, false);
-		unbinder = ButterKnife.bind(this, view);
+		super.onCreateView(inflater, container, savedInstanceState);
+
+		v = inflater.inflate(R.layout.fragment_advertisement, container, false);
+		unbinder = ButterKnife.bind(this, v);
 
 		initComponent();
 		getAdvertiseList();
 		initScrollAction();
 
-		return view;
+		if(startReceivedAdvertiseVO != null) {
+			Log.d("PUSH", "++++startReceivedAdvertiseVO : " + startReceivedAdvertiseVO);
+			Intent intent = new Intent(getActivity(), AdvertisementDetailActivity.class);
+			Bundle bundle = new Bundle();
+			bundle.putSerializable("advertise", startReceivedAdvertiseVO);
+			intent.putExtras(bundle);
+			startActivity(intent);
+			doAnimationGoRight();
+		}
+
+		return v;
 	}
 
 	private void initComponent() {
@@ -151,4 +169,5 @@ public class AdvertisementFragment extends BaseFragment {
 		super.onDestroyView();
 		unbinder.unbind();
 	}
+
 }

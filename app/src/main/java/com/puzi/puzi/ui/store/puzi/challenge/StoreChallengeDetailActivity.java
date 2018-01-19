@@ -18,7 +18,7 @@ import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.StorePuziNetworkService;
 import com.puzi.puzi.ui.ProgressDialog;
-import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.common.DialogButtonCallback;
 import com.puzi.puzi.ui.common.OneButtonDialog;
 import com.puzi.puzi.ui.store.coupon.CouponActivity;
@@ -29,7 +29,7 @@ import retrofit2.Call;
  * Created by JangwonPark on 2017. 12. 30..
  */
 
-public class StoreChallengeDetailActivity extends BaseActivity {
+public class StoreChallengeDetailActivity extends BaseFragmentActivity {
 
 	Unbinder unbinder;
 
@@ -45,6 +45,8 @@ public class StoreChallengeDetailActivity extends BaseActivity {
 	TextView tvComment;
 	@BindView(R.id.tv_store_challenge_expiryDay)
 	TextView tvExpiryDay;
+	@BindView(R.id.fl_container_top)
+	FrameLayout flContainerTop;
 
 	private StoreChallengeItemVO storeChallengeItemVO;
 	private boolean usedItem = false;
@@ -55,6 +57,7 @@ public class StoreChallengeDetailActivity extends BaseActivity {
 		setContentView(R.layout.activity_store_challenge_detail);
 
 		unbinder = ButterKnife.bind(this);
+		targetViewForPush = flContainerTop;
 
 		Intent intent = getIntent();
 		storeChallengeItemVO = new Gson().fromJson(intent.getStringExtra("storeChallengeItemVO"), StoreChallengeItemVO.class);

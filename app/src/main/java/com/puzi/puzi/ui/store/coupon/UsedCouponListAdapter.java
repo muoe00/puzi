@@ -1,5 +1,6 @@
 package com.puzi.puzi.ui.store.coupon;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,6 @@ import butterknife.ButterKnife;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.store.PurchaseHistoryVO;
 import com.puzi.puzi.image.BitmapUIL;
-import com.puzi.puzi.ui.base.BaseActivity;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -23,14 +23,14 @@ public class UsedCouponListAdapter extends BaseAdapter {
 	private static final int VIEW_EMPTY = 1;
 	private static final int VIEW_PROGRESS = 2;
 
-	private BaseActivity activity;
+	private Activity activity;
 	private LayoutInflater inflater;
 	private List<PurchaseHistoryVO> list = new ArrayList();
 	@Getter
 	private boolean progressed = false;
 	private boolean empty = false;
 
-	public UsedCouponListAdapter(BaseActivity activity) {
+	public UsedCouponListAdapter(Activity activity) {
 		this.activity = activity;
 		this.inflater = activity.getLayoutInflater();
 	}

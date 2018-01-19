@@ -216,6 +216,11 @@ public class AdvertisementListAdapter extends BaseAdapter {
 		notifyDataSetChanged();
 	}
 
+	public void addFirst(ReceivedAdvertiseVO receivedAdvertiseVO) {
+		list.add(0, receivedAdvertiseVO);
+		notifyDataSetChanged();
+	}
+
 	public class ViewHolder {
 		@BindView(R.id.btn_advertiseWv) public Button btnAd;
 		@BindView(R.id.iv_home_advertise) public SelectableRoundedImageView ivAd;

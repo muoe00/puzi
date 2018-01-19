@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,7 +19,7 @@ import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.StorePuziNetworkService;
 import com.puzi.puzi.ui.CustomPagingAdapter;
-import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import retrofit2.Call;
 
 import java.util.List;
@@ -26,7 +27,7 @@ import java.util.List;
 /**
  * Created by JangwonPark on 2017. 12. 25..
  */
-public class StoreSavingActivity extends BaseActivity implements AdapterView.OnItemClickListener {
+public class StoreSavingActivity extends BaseFragmentActivity implements AdapterView.OnItemClickListener {
 
 	private StoreSavingAdapter adapter;
 
@@ -36,6 +37,8 @@ public class StoreSavingActivity extends BaseActivity implements AdapterView.OnI
 	GridView gvSaving;
 	@BindView(R.id.sv_store_saving)
 	ScrollView svSaving;
+	@BindView(R.id.ll_container_top)
+	LinearLayout llContainerTop;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class StoreSavingActivity extends BaseActivity implements AdapterView.OnI
 		setContentView(R.layout.activity_store_saving);
 
 		unbinder = ButterKnife.bind(this);
+		targetViewForPush = llContainerTop;
 
 		initComponent();
 	}

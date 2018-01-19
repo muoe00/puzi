@@ -53,6 +53,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 	@BindView(R.id.ibtn_like) public Button btnLike;
 	@BindView(R.id.ll_profile_channel_dropdown_container) public LinearLayout llDropDownContainer;
 	@BindView(R.id.btn_profile_channel_dropdown_block) public Button btnDropDownBlock;
+	@BindView(R.id.fl_company_container_top) public FrameLayout flCompanyContainerTop;
 
 	private CompanyChannelAdapter companyChannelAdapter;
 
@@ -69,6 +70,7 @@ public class CompanyActivity extends BaseFragmentActivity {
 		setContentView(R.layout.activity_company);
 
 		unbinder = ButterKnife.bind(this);
+		targetViewForPush = flCompanyContainerTop;
 
 		initScrollAction();
 		initAdapter();

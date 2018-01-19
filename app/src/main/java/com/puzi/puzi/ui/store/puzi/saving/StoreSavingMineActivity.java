@@ -16,7 +16,7 @@ import com.puzi.puzi.network.service.StorePuziNetworkService;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.CustomArrayAdapter;
 import com.puzi.puzi.ui.ProgressDialog;
-import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.common.DialogButtonCallback;
 import com.puzi.puzi.ui.common.OneButtonDialog;
 import com.puzi.puzi.utils.TextUtils;
@@ -27,7 +27,7 @@ import static com.puzi.puzi.biz.PuziStaticValue.DAILY_POINT_LIST;
 /**
  * Created by JangwonPark on 2017. 12. 31..
  */
-public class StoreSavingMineActivity extends BaseActivity {
+public class StoreSavingMineActivity extends BaseFragmentActivity {
 
 	Unbinder unbinder;
 
@@ -51,6 +51,8 @@ public class StoreSavingMineActivity extends BaseActivity {
 	Spinner spDailyPoint;
 	@BindView(R.id.ll_profile_channel_dropdown_container)
 	LinearLayout llContainer;
+	@BindView(R.id.fl_container_top)
+	LinearLayout flContainerTop;
 
 	private int selectedDailyPoint;
 
@@ -60,6 +62,7 @@ public class StoreSavingMineActivity extends BaseActivity {
 		setContentView(R.layout.activity_store_saving_detail_mine);
 
 		unbinder = ButterKnife.bind(this);
+		targetViewForPush = flContainerTop;
 
 		initComponent();
 	}

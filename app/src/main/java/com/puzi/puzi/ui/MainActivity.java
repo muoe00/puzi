@@ -1,7 +1,9 @@
 package com.puzi.puzi.ui;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,20 +13,18 @@ import android.view.View;
 import android.widget.*;
 import butterknife.*;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.puzi.puzi.R;
-import com.puzi.puzi.biz.channel.ChannelCategoryType;
 import com.puzi.puzi.biz.event.EventInfoVO;
 import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.cache.Preference;
+import com.puzi.puzi.fcm.PuziBroadcastReceiver;
+import com.puzi.puzi.fcm.PuziPushMessageVO;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.advertisement.AdvertisementFragment;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
-import com.puzi.puzi.ui.channel.ChannelFilterActivity;
-import com.puzi.puzi.ui.channel.ChannelFragment;
 import com.puzi.puzi.ui.myworry.MyWorryWriteActivity;
 import com.puzi.puzi.ui.store.coupon.CouponActivity;
 import com.puzi.puzi.ui.store.puzi.challenge.StoreChallengeDetailActivity;
@@ -35,12 +35,6 @@ import com.puzi.puzi.ui.user.RecommendActivity;
 import com.puzi.puzi.utils.PuziUtils;
 import com.puzi.puzi.utils.TextUtils;
 import retrofit2.Call;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.google.common.collect.Lists.newArrayList;
 
 public class MainActivity extends BaseFragmentActivity {
 
@@ -75,8 +69,44 @@ public class MainActivity extends BaseFragmentActivity {
 
 	private long backKeyPressedTime;
 
+	private PagerAdapter adapter;
 	private int rightButtonHome = R.drawable.add_friend;
 	private EventInfoVO eventInfoVO;
+	private Gson gson = new Gson();
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		updateUserInfoOnTitleBar();
+		IntentFilter filter = new IntentFilter("com.puzi.puzi.GOT_PUSH");
+		filter.setPriority(4);
+		registerReceiver(pushReceiver, filter);
+	}
+
+	private BroadcastReceiver pushReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			PuziPushMessageVO messageVO = PuziBroadcastReceiver.convert(intent);
+			if(messageVO == null) {
+				return;
+			}
+
+			switch (messageVO.getType()) {
+				case ADVERTISEMENT:
+					//
+					break;
+			}
+			showAlertOnTheTop(messageVO, llMain);
+			abortBroadcast();
+		}
+	};
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		unregisterReceiver(pushReceiver);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,10 +114,14 @@ public class MainActivity extends BaseFragmentActivity {
 		setContentView(R.layout.activity_main);
 
 		unbinder = ButterKnife.bind(this);
+		targetViewForPush = llMain;
+
 		getUser();
 		getEventInfo();
 
-		viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
+		adapter = new PagerAdapter(getSupportFragmentManager());
+
+		viewPager.setAdapter(adapter);
 		viewPager.setOffscreenPageLimit(5);
 		viewPager.setCurrentItem(FRAGMENT_ADVERTISE);
 
@@ -102,12 +136,6 @@ public class MainActivity extends BaseFragmentActivity {
 		btnSetting.setTag(FRAGMENT_SETTING);
 
 		btnAdvertise.setSelected(true);
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		updateUserInfoOnTitleBar();
 	}
 
 	public void getUser() {
@@ -316,7 +344,6 @@ public class MainActivity extends BaseFragmentActivity {
 							if(fragment instanceof AdvertisementFragment){
 								AdvertisementFragment advertisementFragment = (AdvertisementFragment) fragment;
 								advertisementFragment.refresh(index, state);
-
 								Log.i(PuziUtils.INFO, "index : " + index + ", state : " + state);
 							}
 						}

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +27,10 @@ public class SettingDetailActivity extends BaseFragmentActivity {
 
 	Unbinder unbinder;
 
-	@BindView(R.id.tv_setting_title) TextView tvTitle;
+	@BindView(R.id.tv_setting_title)
+	TextView tvTitle;
+	@BindView(R.id.fl_container_top)
+	FrameLayout flContainerTop;
 
 	private int tag;
 	private BaseFragment fragment;
@@ -40,6 +44,7 @@ public class SettingDetailActivity extends BaseFragmentActivity {
 		setContentView(R.layout.fragment_setting_detail);
 
 		unbinder = ButterKnife.bind(this);
+		targetViewForPush = flContainerTop;
 
 		tag = getIntent().getExtras().getInt("TAG");
 

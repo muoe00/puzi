@@ -15,7 +15,7 @@ import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.StorePuziNetworkService;
 import com.puzi.puzi.ui.CustomPagingAdapter;
-import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import retrofit2.Call;
 
 import java.util.List;
@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Created by JangwonPark on 2017. 12. 25..
  */
-public class StoreItemActivity extends BaseActivity implements AdapterView.OnItemClickListener {
+public class StoreItemActivity extends BaseFragmentActivity implements AdapterView.OnItemClickListener {
 
 	private StoreItemAdapter adapter;
 

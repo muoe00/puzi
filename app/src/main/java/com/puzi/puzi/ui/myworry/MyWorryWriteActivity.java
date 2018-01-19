@@ -15,7 +15,7 @@ import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.MyWorryNetworkService;
 import com.puzi.puzi.ui.ProgressDialog;
-import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import retrofit2.Call;
 
 import java.util.List;
@@ -27,7 +27,7 @@ import static com.google.common.collect.Lists.newArrayList;
  * Created by JangwonPark on 2017. 10. 4..
  */
 
-public class MyWorryWriteActivity extends BaseActivity {
+public class MyWorryWriteActivity extends BaseFragmentActivity {
 
 	private Unbinder unbinder;
 
@@ -71,6 +71,8 @@ public class MyWorryWriteActivity extends BaseActivity {
 	TextView tvItemTopPrice;
 	@BindView(R.id.tv_myworry_write_item_target_price)
 	TextView tvItemTargetPrice;
+	@BindView(R.id.ll_container_top)
+	LinearLayout llContainerTop;
 
 	private Map<String, Integer> priceInfoMap;
 	private MyWorryWriteAdapter adapter;
@@ -87,6 +89,7 @@ public class MyWorryWriteActivity extends BaseActivity {
 		setContentView(R.layout.activity_myworry_write);
 
 		unbinder = ButterKnife.bind(this);
+		targetViewForPush = llContainerTop;
 
 		getPriceInfo();
 

@@ -1,5 +1,6 @@
 package com.puzi.puzi.ui.store.item;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,6 @@ import butterknife.ButterKnife;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.store.StoreItemVO;
 import com.puzi.puzi.image.BitmapUIL;
-import com.puzi.puzi.ui.base.BaseActivity;
 import com.puzi.puzi.utils.TextUtils;
 
 import java.util.List;
@@ -25,10 +25,10 @@ import static com.google.common.collect.Lists.newArrayList;
 public class StoreItemAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
-	private BaseActivity activity;
+	private Activity activity;
 	private List<StoreItemVO> storeItemList = newArrayList();
 
-	public StoreItemAdapter(BaseActivity activity) {
+	public StoreItemAdapter(Activity activity) {
 		this.activity = activity;
 		this.inflater = activity.getLayoutInflater();
 	}

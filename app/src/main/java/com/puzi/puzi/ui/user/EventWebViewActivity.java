@@ -13,7 +13,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.cache.Preference;
-import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Created by JangwonPark on 2018. 1. 17..
  */
-public class EventWebViewActivity extends BaseActivity {
+public class EventWebViewActivity extends BaseFragmentActivity {
 
 	private Unbinder unbinder;
 
@@ -41,6 +41,7 @@ public class EventWebViewActivity extends BaseActivity {
 		setContentView(R.layout.activity_event_page_webview);
 
 		unbinder = ButterKnife.bind(this);
+		targetViewForPush = llTopContainer;
 
 		url = getIntent().getStringExtra("url");
 

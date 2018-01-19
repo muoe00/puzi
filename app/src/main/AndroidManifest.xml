@@ -7,6 +7,7 @@
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.WAKE_LOCK"/>
   <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+  <uses-permission android:name="android.permission.VIBRATE" />
 
   <application
     android:name=".PuziApplication"
@@ -62,7 +63,11 @@
     <activity android:name=".ui.channel.ChannelFilterActivity"/>
     <activity android:name=".ui.myworry.MyWorryWriteActivity"/>
     <activity android:name=".ui.user.EventWebViewActivity"/>
-
+    <activity
+      android:name=".ui.fcm.ScreenOffAlertActivity"
+      android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+      android:excludeFromRecents="true"
+      android:taskAffinity="com.puzi.puzi.popup"/>
     <activity
       android:name=".ui.company.CompanyActivity"
       android:label="@string/title_activity_company">
@@ -73,6 +78,7 @@
       <intent-filter>
         <action android:name="com.google.firebase.MESSAGING_EVENT"/>
       </intent-filter>
+
     </service>
 
     <service
@@ -81,6 +87,14 @@
         <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
       </intent-filter>
     </service>
+
+    <receiver
+      android:name=".fcm.PuziBroadcastReceiver"  android:exported="true">
+      <intent-filter android:priority="1" >
+        <action android:name="com.puzi.puzi.GOT_PUSH" />
+        <category android:name="com.puzi.puzi" />
+      </intent-filter>
+    </receiver>
 
     <meta-data
       android:name="com.kakao.sdk.AppKey"

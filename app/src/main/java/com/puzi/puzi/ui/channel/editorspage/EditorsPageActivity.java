@@ -18,13 +18,13 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.channel.ChannelEditorsPageVO;
-import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 
 /**
  * Created by JangwonPark on 2017. 10. 4..
  */
 
-public class EditorsPageActivity extends BaseActivity {
+public class EditorsPageActivity extends BaseFragmentActivity {
 
 	private Unbinder unbinder;
 
@@ -51,6 +51,7 @@ public class EditorsPageActivity extends BaseActivity {
 		setContentView(R.layout.activity_editors_page_webview);
 
 		unbinder = ButterKnife.bind(this);
+		targetViewForPush = llTopContainer;
 
 		channelEditorsPageVO = (ChannelEditorsPageVO) getIntent().getSerializableExtra("channelEditorsPageVO");
 

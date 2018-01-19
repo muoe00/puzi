@@ -2,10 +2,7 @@ package com.puzi.puzi.ui.store.puzi.saving;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import butterknife.*;
 import com.google.gson.Gson;
 import com.puzi.puzi.R;
@@ -20,7 +17,7 @@ import com.puzi.puzi.network.service.StorePuziNetworkService;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.CustomArrayAdapter;
 import com.puzi.puzi.ui.ProgressDialog;
-import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.common.DialogButtonCallback;
 import com.puzi.puzi.ui.common.OneButtonDialog;
 import com.puzi.puzi.utils.TextUtils;
@@ -31,7 +28,7 @@ import static com.puzi.puzi.biz.PuziStaticValue.DAILY_POINT_LIST;
 /**
  * Created by JangwonPark on 2017. 12. 31..
  */
-public class StoreSavingDetailActivity extends BaseActivity {
+public class StoreSavingDetailActivity extends BaseFragmentActivity {
 
 	Unbinder unbinder;
 
@@ -47,6 +44,8 @@ public class StoreSavingDetailActivity extends BaseActivity {
 	TextView tvComment;
 	@BindView(R.id.tv_store_saving_expiryDay)
 	TextView tvExpiryDay;
+	@BindView(R.id.fl_container_top)
+	FrameLayout flContainerTop;
 
 	private StoreSavingItemVO storeSavingItemVO;
 	private int selectedDailyPoint;
@@ -57,6 +56,7 @@ public class StoreSavingDetailActivity extends BaseActivity {
 		setContentView(R.layout.activity_store_saving_detail);
 
 		unbinder = ButterKnife.bind(this);
+		targetViewForPush = flContainerTop;
 
 		Intent intent = getIntent();
 		storeSavingItemVO = new Gson().fromJson(intent.getStringExtra("storeSavingItemVO"), StoreSavingItemVO.class);

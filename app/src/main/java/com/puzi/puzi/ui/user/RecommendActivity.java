@@ -3,6 +3,7 @@ package com.puzi.puzi.ui.user;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import butterknife.BindView;
@@ -16,13 +17,13 @@ import com.puzi.puzi.R;
 import com.puzi.puzi.biz.event.EventInfoVO;
 import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.cache.Preference;
-import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 
 /**
  * Created by muoe0 on 2017-07-08.
  */
 
-public class RecommendActivity extends BaseActivity {
+public class RecommendActivity extends BaseFragmentActivity {
 
 	@BindView(R.id.tv_recommend_id)
 	public TextView tvRecommendId;
@@ -32,6 +33,8 @@ public class RecommendActivity extends BaseActivity {
 	public ImageButton btnBack;
 	@BindView(R.id.ibtn_event_link)
 	public ImageButton ibtnEventLink;
+	@BindView(R.id.fl_container_top)
+	public FrameLayout flContainerTop;
 
 	private KakaoLink kakaoLink;
 	private KakaoTalkLinkMessageBuilder builder;
@@ -44,6 +47,7 @@ public class RecommendActivity extends BaseActivity {
 		setContentView(R.layout.activity_recommend);
 
 		ButterKnife.bind(this);
+		targetViewForPush = flContainerTop;
 
 		Intent intent = getIntent();
 		eventInfoVO = new Gson().fromJson(intent.getStringExtra("eventInfoVO"), EventInfoVO.class);
