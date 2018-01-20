@@ -2,8 +2,8 @@ package com.puzi.puzi.ui;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import com.puzi.puzi.ui.today.QuestionFragment;
 import com.puzi.puzi.ui.advertisement.AdvertisementFragment;
-import com.puzi.puzi.ui.channel.ChannelFragment;
 import com.puzi.puzi.ui.setting.SettingFragment;
 import com.puzi.puzi.ui.store.StoreFragment;
 
@@ -23,7 +23,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 			case 0:
 				return new AdvertisementFragment();
 			case 1:
-				return new ChannelFragment();
+				return new QuestionFragment();
 			case 2:
 				return new StoreFragment();
 			case 3:

@@ -27,6 +27,7 @@ public enum ResultType {
 	ALREADY_SIGNUP_WITH_PHONEKEY(2015, "이미 해당 핸드폰으로 가입하셨습니다."),
 	NO_CHANNEL_REPLY(2016, "존재하지 않는 댓글입니다."),
 	WRONG_TIME_TERN(2017, "종료시간이 시작시간보다 빠릅니다."),
+	ALREADY_REPLY(2019, "나의 오늘은 이미 답변하였습니다."),
 	WRONG_PARAMS(3000, "잘못된 파라미터 요청(#arg0#)"),
 	ERROR_STORE(4000, "일시적으로 상품구매 연동 에러가 발생하였습니다. 잠시 후 다시 요청해 주시기 바랍니다.");
 

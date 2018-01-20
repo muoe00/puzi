@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="69dp"
+    android:background="@drawable/bg_today"
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="15dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp">
+
+    <LinearLayout
+      android:gravity="center"
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="69dp">
+
+    <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="medium"
+        android:text="나의 오늘은"
+        android:textSize="13sp"
+        android:textColor="@color/colorWhite"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="104dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/notoTextView"/>
+
+      <Button
+        android:layout_gravity="center"
+        android:background="@drawable/participate_btn"
+        android:layout_marginTop="5dp"
+        android:layout_width="104dp"
+        android:layout_height="27dp"
+        android:layout_below="@+id/notoTextView"
+        android:id="@+id/button2"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_marginTop="6dp"
+      android:layout_marginRight="7dp"
+      android:layout_gravity="right"
+      android:orientation="horizontal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
+
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="regular"
+        android:text="+"
+        android:textSize="12sp"
+        android:textColor="@color/colorWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="regular"
+        android:id="@+id/tv_question_plus_point"
+        android:text=""
+        android:textSize="12sp"
+        android:textColor="@color/colorWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="regular"
+        android:text="P"
+        android:textSize="12sp"
+        android:textColor="@color/colorWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_rl"
+        android:background="@null"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+  </FrameLayout>
+
+</LinearLayout>

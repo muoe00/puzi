@@ -2,6 +2,7 @@ package com.puzi.puzi.ui.user;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -142,16 +143,18 @@ public class PointListAdapter extends BaseAdapter {
 				NumberFormat numberFormat = NumberFormat.getInstance();
 				String point = numberFormat.format(pointHistoryVO.getPoint());
 
-				viewHolder.tvPoint.setText(point);
-				if (pointHistoryVO.isSaved()) {
+				Log.i("pointHistoryVO", pointHistoryVO.toString());
+
+				if (pointHistoryVO.isSaved() == true) {
+					viewHolder.tvPoint.setText(point);
 					viewHolder.tvPoint.setTextColor(ContextCompat.getColor(context, R.color.colorPuzi));
-				} else {
+				} else if (pointHistoryVO.isSaved() == false) {
+					viewHolder.tvPoint.setText("-" + point);
 					viewHolder.tvPoint.setTextColor(ContextCompat.getColor(context, R.color.colorTextGray));
 				}
 
 				viewHolder.tvType.setText(pointHistoryVO.getPointType().getComment());
 				viewHolder.tvTime.setText(pointHistoryVO.getCreatedAt());
-
 
 				break;
 		}

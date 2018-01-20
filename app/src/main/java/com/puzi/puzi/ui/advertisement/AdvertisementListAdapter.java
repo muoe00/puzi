@@ -155,6 +155,7 @@ public class AdvertisementListAdapter extends BaseAdapter {
 				final CompanyVO company = receivedAdvertise.getCompanyInfoDTO();
 
 				viewHolder.tvAd.setText(receivedAdvertise.getSendComment());
+				viewHolder.tvAd.setSelected(true);
 				viewHolder.tvComp.setText(company.getCompanyAlias());
 
 				Log.i(PuziUtils.INFO, "adapter.getSaved() : " + receivedAdvertise.getSaved());

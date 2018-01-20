@@ -49,7 +49,7 @@ public class CenterFragment extends BaseFragment {
 				fragment = new AskFragment();
 				bundle.putString("key", "USER");
 				fragment.setArguments(bundle);
-				changedFragment("사용문의");
+				changedFragment("문의하기");
 				break;
 			case R.id.btn_setting_cs_ad :
 				fragment = new AskFragment();
