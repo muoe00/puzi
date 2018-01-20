@@ -254,7 +254,7 @@
           android:layout_height="match_parent"
           android:indeterminate="false"
           style="?android:attr/progressBarStyleHorizontal"
-          android:background="@drawable/progress_background"
+          android:background="@drawable/bg_ad_progress"
           android:progressDrawable="@drawable/progress_ad"/>
 
         <ImageView

@@ -26,6 +26,7 @@ import com.puzi.puzi.ui.channel.ChannelFilterActivity;
 import com.puzi.puzi.ui.channel.ChannelFragment;
 import com.puzi.puzi.ui.store.coupon.CouponActivity;
 import com.puzi.puzi.ui.store.puzi.saving.StoreSavingMineActivity;
+import com.puzi.puzi.ui.today.QuestionFragment;
 import com.puzi.puzi.ui.user.PointActivity;
 import com.puzi.puzi.ui.user.RecommendActivity;
 import com.puzi.puzi.utils.PuziUtils;
@@ -273,6 +274,7 @@ public class MainActivity extends BaseFragmentActivity {
 	 * @param data
 	 */
 
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
@@ -281,8 +283,10 @@ public class MainActivity extends BaseFragmentActivity {
 				List<ChannelCategoryType> categoryTypeList =
 					new Gson().fromJson(data.getStringExtra("categoryTypeListJson"), listType);
 
+				Log.i("MainActivity", "page : " + viewPager.getCurrentItem());
+
 				if(viewPager.getCurrentItem() == FRAGMENT_CHANNEL) {
-					for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+					for (android.support.v4.app.Fragment fragment : getSupportFragmentManager().getFragments()) {
 						if (fragment.isVisible()) {
 							if(fragment instanceof ChannelFragment){
 								ChannelFragment channelFragment = (ChannelFragment) fragment;
@@ -297,17 +301,22 @@ public class MainActivity extends BaseFragmentActivity {
 						}
 					}
 				} else {
-					int index = data.getIntExtra("advertiseIndex", 0);
-					boolean state = data.getBooleanExtra("pointSavedState", false);
-					if(index != 0) {
-						for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-							if (fragment.isVisible()) {
-								if(fragment instanceof AdvertisementFragment){
+
+					for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+						if (fragment.isVisible()) {
+							if(fragment instanceof AdvertisementFragment){
+								int index = data.getIntExtra("advertiseIndex", 0);
+								boolean state = data.getBooleanExtra("pointSavedState", false);
+
+								if(index != 0) {
 									AdvertisementFragment advertisementFragment = (AdvertisementFragment) fragment;
 									advertisementFragment.refresh(index, state);
-
-									Log.i(PuziUtils.INFO, "index : " + index + ", state : " + state);
 								}
+								Log.i("MainActivity", "index : " + index + ", state : " + state);
+							} else if (fragment instanceof QuestionFragment) {
+								QuestionFragment questionFragment = (QuestionFragment) fragment;
+								questionFragment.getWorryList();
+								Log.i("MainActivity", "getWorryList");
 							}
 						}
 					}

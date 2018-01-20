@@ -1,5 +1,6 @@
 package com.puzi.puzi.ui.today;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -7,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.puzi.puzi.R;
@@ -33,6 +36,7 @@ import retrofit2.Call;
 
 public class QuestionActivity extends BaseActivity {
 
+    private Context context;
     private Unbinder unbinder;
     private boolean isSelected = false;
     private int selectedCount = 0, savePoint;
@@ -41,6 +45,8 @@ public class QuestionActivity extends BaseActivity {
 
     @BindView(R.id.tv_question_q)
     NotoTextView tvQuestion;
+    @BindView(R.id.tv_answer_plus_point)
+    NotoTextView tvPoint;
     @BindView(R.id.ibtn_question_a1)
     Button btnA1;
     @BindView(R.id.ibtn_question_a2)
@@ -49,6 +55,8 @@ public class QuestionActivity extends BaseActivity {
     Button btnA3;
     @BindView(R.id.ibtn_question_a4)
     Button btnA4;
+    @BindView(R.id.ll_question_container_2)
+    LinearLayout llContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +69,12 @@ public class QuestionActivity extends BaseActivity {
         myTodayQuestionVO = (MyTodayQuestionVO) getIntent().getExtras().getSerializable("questionList");
 
         tvQuestion.setText(myTodayQuestionVO.getQuestion());
+        tvPoint.setText("" + myTodayQuestionVO.getSavePoint());
         btnA1.setText(myTodayQuestionVO.getAnswerOne());
         btnA2.setText(myTodayQuestionVO.getAnswerTwo());
 
         if(myTodayQuestionVO.getAnswerCount() == 2) {
-            btnA3.setVisibility(View.GONE);
-            btnA4.setVisibility(View.GONE);
+            llContainer.setVisibility(View.GONE);
         } else {
             btnA3.setText(myTodayQuestionVO.getAnswerThree());
             btnA4.setText(myTodayQuestionVO.getAnswerFour());
@@ -102,10 +110,16 @@ public class QuestionActivity extends BaseActivity {
     }
 
     public void setAnswer() {
+
+        Log.i("QuestionActivity", "id : " + myTodayQuestionVO.getMyTodayQuestionId());
+        Log.i("QuestionActivity", "answer : " + answer);
+        Log.i("QuestionActivity", "selectedCount : " + selectedCount);
+
         LazyRequestService service = new LazyRequestService(getActivity(), MyServiceNetworkService.class);
         service.method(new LazyRequestService.RequestMothod<MyServiceNetworkService>() {
             @Override
             public Call<ResponseVO> execute(MyServiceNetworkService myServiceNetworkService, String token) {
+                Log.i("QuestionActivity", "token : " + token);
                 return myServiceNetworkService.setAnswer(token, myTodayQuestionVO.getMyTodayQuestionId(), answer, selectedCount);
             }
         });

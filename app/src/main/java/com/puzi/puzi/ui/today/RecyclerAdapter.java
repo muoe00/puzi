@@ -9,11 +9,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.myservice.MyTodayQuestionVO;
 import com.puzi.puzi.ui.customview.NotoTextView;
+
+import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +28,7 @@ import static com.puzi.puzi.biz.myservice.ViewType.REMAIN;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-	private int state = 1, hour, minute;
+	private int state = 1, hour, minute, second;
     private MyTodayQuestionVO myTodayQuestionVO;
 	private Context context;
 
@@ -33,9 +36,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 		this.context = context;
 	}
 
-	public void setTime(int hour, int minute) {
+	public void setTime(int hour, int minute, int second) {
 		this.hour = hour;
 		this.minute = minute;
+		this.second = second;
 	}
 
 	public void setMyTodayQuestionVO(MyTodayQuestionVO myTodayQuestionVO) {
@@ -56,25 +60,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 		Log.i("RecyclerAdapter", "state : " + state);
 
 		if(state == INIT.getIndex()) {
+			Log.i("RecyclerAdapter", "index : " + INIT.getIndex());
 			view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_question_init, parent, false);
-			view.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent intent = new Intent(context, QuestionActivity.class);
-					intent.putExtra("questionList", myTodayQuestionVO);
-					context.startActivity(intent);
-				}
-			});
 		} else if(state == BONUS.getIndex()) {
 			view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_question_bonus, parent, false);
-			view.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent intent = new Intent(context, QuestionActivity.class);
-					intent.putExtra("questionList", myTodayQuestionVO);
-					context.startActivity(intent);
-				}
-			});
 		} else if(state == REMAIN.getIndex()){
 			view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_question_time, parent, false);
 		} else {
@@ -90,20 +79,42 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 	public void onBindViewHolder(ViewHolder holder, int position) {
 
 		if(state == REMAIN.getIndex()) {
-			holder.tvHour.setText("" + hour);
-			holder.tvMinute.setText("" + minute);
+
+			if(hour == 0 && minute == 0) {
+				holder.tvHour.setVisibility(View.GONE);
+				holder.tvHourString.setVisibility(View.GONE);
+				holder.tvMinute.setText("" + second);
+				holder.tvMinuteString.setText("초");
+			} else {
+				if(hour == 0) {
+					holder.tvHour.setVisibility(View.GONE);
+					holder.tvHourString.setVisibility(View.GONE);
+				} else if(minute == 0) {
+					holder.tvMinute.setVisibility(View.GONE);
+					holder.tvMinuteString.setVisibility(View.GONE);
+				} else {
+					holder.tvHour.setText("" + hour);
+					holder.tvMinute.setText("" + minute);
+				}
+			}
+
 		} else if(state == INIT.getIndex() || state == BONUS.getIndex()) {
 			holder.tvPlusPoint.setText("" + myTodayQuestionVO.getSavePoint());
+			holder.button.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					Log.i("RecyclerAdapter", "onClick");
+					Intent intent = new Intent(context, QuestionActivity.class);
+					intent.putExtra("questionList", myTodayQuestionVO);
+					context.startActivity(intent);
+				}
+			});
 		}
 	}
 
 	@Override
 	public int getItemCount() {
-		if(myTodayQuestionVO == null) {
-			return 0;
-		} else {
-			return 1;
-		}
+		return 1;
 	}
 
 	public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -111,17 +122,21 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 		public NotoTextView tvPlusPoint;
 		public NotoTextView tvHour;
 		public NotoTextView tvMinute;
+		public NotoTextView tvHourString;
+		public NotoTextView tvMinuteString;
+		public Button button;
 
 		public ViewHolder(View view, int index) {
 			super(view);
 
-			if(index == INIT.getIndex()) {
+			if(index == INIT.getIndex() || index == BONUS.getIndex()) {
 				tvPlusPoint = (NotoTextView) view.findViewById(R.id.tv_question_plus_point);
-			} else if(index == BONUS.getIndex()) {
-				tvPlusPoint = (NotoTextView) view.findViewById(R.id.tv_question_plus_point);
+				button = (Button) view.findViewById(R.id.btn_rl);
 			} else if(index == REMAIN.getIndex()) {
 				tvHour = (NotoTextView) view.findViewById(R.id.tv_question_hour);
 				tvMinute = (NotoTextView) view.findViewById(R.id.tv_question_minute);
+				tvHourString = (NotoTextView) view.findViewById(R.id.tv_question_hour_string);
+				tvMinuteString = (NotoTextView) view.findViewById(R.id.tv_question_minute_string);
 			}
 		}
 	}

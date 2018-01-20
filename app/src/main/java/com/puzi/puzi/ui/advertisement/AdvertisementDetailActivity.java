@@ -227,9 +227,13 @@ public class AdvertisementDetailActivity extends BaseActivity {
 		@Override
 		protected void onPreExecute() {
 			isCanceled = false;
-			progressCircle.setVisibility(View.VISIBLE);
-			progressCircle.setProgress(0);
-			progressCircle.setMax(500);
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+				progressCircle.setVisibility(View.VISIBLE);
+				progressCircle.setProgress(0);
+				progressCircle.setMax(500);
+			} else {
+				progressCircle.setVisibility(View.GONE);
+			}
 		}
 
 		@Override

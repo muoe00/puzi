@@ -66,7 +66,8 @@
 
           <com.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="medium"
-            android:text="시간"
+              android:id="@+id/tv_question_hour_string"
+            android:text="시간 "
             android:textSize="18sp"
             android:textColor="@color/colorWhite"
             android:layout_width="wrap_content"
@@ -82,8 +83,17 @@
             android:layout_height="wrap_content"/>
 
           <com.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:id="@+id/tv_question_minute_string"
+              android:text="분"
+              android:textSize="18sp"
+              android:textColor="@color/colorWhite"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+
+          <com.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="medium"
-            android:text="분 후 참여 가능합니다."
+            android:text=" 후 참여 가능합니다."
             android:textSize="18sp"
             android:textColor="@color/colorWhite"
             android:layout_width="wrap_content"

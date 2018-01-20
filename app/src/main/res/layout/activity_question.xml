@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
+              android:background="@drawable/bg_main"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
   <LinearLayout
     android:orientation="vertical"
-    android:background="@drawable/bg_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -50,7 +50,7 @@
 
         <com.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="regular"
-          android:id="@+id/tv_question_plus_point"
+          android:id="@+id/tv_answer_plus_point"
           android:text=""
           android:textSize="24sp"
           android:textColor="@color/colorWhite"
@@ -68,21 +68,24 @@
       </LinearLayout>
 
       <View
-        android:layout_weight="1"
+        android:layout_weight="0.9"
         android:layout_width="match_parent"
         android:layout_height="0dp"/>
 
       <LinearLayout
         android:orientation="vertical"
+          android:gravity="center"
+          android:layout_weight="0.1"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="246dp">
 
         <LinearLayout
           android:orientation="horizontal"
           android:layout_marginBottom="10dp"
+            android:layout_weight="1"
           android:layout_width="match_parent"
           android:layout_height="match_parent">
 
@@ -106,6 +109,8 @@
 
         <LinearLayout
           android:orientation="horizontal"
+            android:id="@+id/ll_question_container_2"
+            android:layout_weight="1"
           android:layout_width="match_parent"
           android:layout_height="match_parent">
 

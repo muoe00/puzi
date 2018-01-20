@@ -93,6 +93,7 @@
 
         <com.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="bold"
+            android:id="@+id/tv_answer_count"
           android:text=""
           android:textSize="16sp"
           android:textColor="@color/colorWhite"
@@ -117,6 +118,7 @@
 
         <com.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="regular"
+            android:id="@+id/tv_answer_count_limit"
           android:text=""
           android:textSize="16sp"
           android:textColor="@color/colorWhite"

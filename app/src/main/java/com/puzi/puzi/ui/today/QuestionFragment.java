@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
+import com.puzi.puzi.biz.myservice.CategoryType;
 import com.puzi.puzi.biz.myservice.MyTodayQuestionVO;
 import com.puzi.puzi.biz.myservice.MyWorryQuestionDTO;
 import com.puzi.puzi.biz.myservice.OrderType;
@@ -30,6 +31,7 @@ import com.puzi.puzi.ui.customview.NotoTextView;
 
 import retrofit2.Call;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -49,8 +51,8 @@ public class QuestionFragment extends BaseFragment {
 
 	private Unbinder unbinder;
 	private View view;
-	private boolean mine = false;
-	private int state = 1, pagingIndex = 1, bonusCount = 0, hour = 0, minute = 0, second = 0;
+	private boolean mine = false, isBonusTime = false;
+	private int state = 1, pagingIndex = 1, bonusCount = 0, hour = 0, minute = 0, second = 0, count = 0, max;
 	private OrderType orderType = OrderType.RECENTLY;
 
 	private List<MyTodayQuestionVO> myTodayQuestionList;
@@ -80,6 +82,7 @@ public class QuestionFragment extends BaseFragment {
 		Log.i("MyService", "onCreateView");
 
 		initComponent();
+		getQuestion();
 
 		return view;
 	}
@@ -87,7 +90,11 @@ public class QuestionFragment extends BaseFragment {
 	@Override
 	public void onResume() {
 		Log.i("MyService", "onResume");
-		getQuestion();
+		if(max > 0) {
+			setQuestion();
+		} else {
+			getQuestion();
+		}
 		super.onResume();
 	}
 
@@ -96,6 +103,25 @@ public class QuestionFragment extends BaseFragment {
 		Log.i("MyService", "onPause");
 		excutors.shutdownNow();
 		super.onPause();
+	}
+
+	public void setQuestion() {
+		if(count >= max) {
+			getQuestion();
+		} else {
+			if (isBonusTime) {
+				state = BONUS.getIndex();
+			} else {
+				state = INIT.getIndex();
+			}
+
+			adapter.setMyTodayQuestionVO(myTodayQuestionList.get(count));
+			count++;
+
+			adapter.changedState(state);
+			rvQuestion.setAdapter(adapter);
+			adapter.notifyDataSetChanged();
+		}
 	}
 
 	public void getQuestion() {
@@ -112,19 +138,15 @@ public class QuestionFragment extends BaseFragment {
 				Log.i("MyService", responseVO.toString());
 
 				myTodayQuestionList = responseVO.getList("myTodayQuestionDTOList", MyTodayQuestionVO.class);
-
-				boolean isBonusTime = responseVO.getBoolean("isBonusTime");
+				max = myTodayQuestionList.size();
+				isBonusTime = responseVO.getBoolean("isBonusTime");
 
 				if(myTodayQuestionList.size() > 0) {
-					Log.i("MyService", myTodayQuestionList.get(0).toString());
-
-					if(isBonusTime) {
-						state = BONUS.getIndex();
-						adapter.setMyTodayQuestionVO(myTodayQuestionList.get(0));
-					} else {
-						state = INIT.getIndex();
-						adapter.setMyTodayQuestionVO(myTodayQuestionList.get(0));
+					if(excutors != null) {
+						excutors.shutdownNow();
 					}
+					count = 0;
+					setQuestion();
 
 				} else {
 					boolean isMoreQuestion = responseVO.getBoolean("isMoreQuestion");
@@ -136,9 +158,10 @@ public class QuestionFragment extends BaseFragment {
 						second = responseVO.getInteger("remainSecond");
 
 						setTime();
-
-						Log.i("QuestionFragment", responseVO.getInteger("remainHour") + ", " + responseVO.getInteger("remainMinute"));
 					} else {
+						if(excutors != null) {
+							excutors.shutdownNow();
+						}
 						state = END.getIndex();
 					}
 				}
@@ -147,41 +170,45 @@ public class QuestionFragment extends BaseFragment {
 
 				adapter.changedState(state);
 				rvQuestion.setAdapter(adapter);
+				adapter.notifyDataSetChanged();
 			}
 		});
 	}
 
 	public void setTime() {
-		if(excutors.isShutdown()) {
+		if(excutors == null || excutors.isShutdown()) {
 			excutors = Executors.newSingleThreadScheduledExecutor();
-		}
-		excutors.scheduleAtFixedRate(new Runnable() {
-			@Override
-			public void run() {
-				getActivity().runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						if(second <= 0) {
-							if(minute > 0) {
-								minute--;
-								second = 60;
-							} else {
-								if(hour > 0) {
-									hour--;
-									minute = 59;
+			excutors.scheduleAtFixedRate(new Runnable() {
+
+				@Override
+				public void run() {
+					getActivity().runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							if(second <= 0) {
+								if(minute > 0) {
+									minute--;
 									second = 60;
+								} else {
+									if(hour > 0) {
+										hour--;
+										minute = 59;
+										second = 60;
+									} else {
+										getQuestion();
+									}
 								}
+							} else {
+								Log.i("QuestionFragment", "second : " + second);
+								adapter.setTime(hour, minute, second);
+								adapter.notifyDataSetChanged();
 							}
-						} else {
-							adapter.setTime(hour, minute);
-							adapter.notifyDataSetChanged();
 						}
-					}
-				});
-				Log.i("MainFragment", "setTime second : " + second);
-				second--;
-			}
-		}, 0, 1, TimeUnit.SECONDS);
+					});
+					second--;
+				}
+			}, 0, 1, TimeUnit.SECONDS);
+		}
 	}
 
 	public void getWorryList() {
@@ -196,9 +223,10 @@ public class QuestionFragment extends BaseFragment {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				myWorryQuestionList = responseVO.getList("myWorryQuestionDTOList", MyWorryQuestionDTO.class);
-				Log.i("QuestionFragment", myWorryQuestionList.get(0).toString());
+				Log.i("QuestionFragment", responseVO.toString());
 
 				worryAdaptor.addList(myWorryQuestionList);
+				worryAdaptor.notifyDataSetChanged();
 			}
 		});
 	}
