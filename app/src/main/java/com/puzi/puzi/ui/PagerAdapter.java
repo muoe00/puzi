@@ -8,6 +8,7 @@ import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.ui.channel.ChannelFragment;
 import com.puzi.puzi.ui.setting.SettingFragment;
 import com.puzi.puzi.ui.store.StoreFragment;
+import com.puzi.puzi.ui.today.QuestionFragment;
 
 /**
  * Created by muoe0 on 2017-07-08.
@@ -16,7 +17,7 @@ import com.puzi.puzi.ui.store.StoreFragment;
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
 	private AdvertisementFragment advertisementFragment = new AdvertisementFragment();
-	private ChannelFragment channelFragment = new ChannelFragment();
+	private QuestionFragment questionFragment = new QuestionFragment();
 	private StoreFragment storeFragment = new StoreFragment();
 	private SettingFragment settingFragment = new SettingFragment();
 
@@ -33,7 +34,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 			case 0:
 				return advertisementFragment;
 			case 1:
-				return channelFragment;
+				return questionFragment;
 			case 2:
 				return storeFragment;
 			case 3:
@@ -49,7 +50,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 			case 0:
 				return advertisementFragment;
 			case 1:
-				return channelFragment;
+				return questionFragment;
 			case 2:
 				return storeFragment;
 			case 3:
