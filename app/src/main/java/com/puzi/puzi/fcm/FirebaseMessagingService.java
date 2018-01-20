@@ -9,9 +9,12 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import com.google.firebase.messaging.RemoteMessage;
 import com.puzi.puzi.R;
 import com.puzi.puzi.ui.IntroActivity;
+
+import java.util.Map;
 
 /**
  * Created by muoe0 on 2017-10-15.
@@ -19,7 +22,6 @@ import com.puzi.puzi.ui.IntroActivity;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
-	private String msg;
 	private static PowerManager.WakeLock sCpuWakeLock;
 
 	@Override
@@ -29,11 +31,20 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 			| PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG" );
 		wakeLock.acquire(3000);*/
 
-		sendPushNotification(remoteMessage.getData().get("message"));
+		Map<String, String> data = remoteMessage.getData();
+		String defaultData = data.get("default");
+		if(defaultData == null || "".equals(defaultData)) {
+			return;
+		}
+
+		Log.d("PUSH", "+++ defaultData : " + defaultData);
+
+		Intent responseIntent = new Intent("com.puzi.puzi.GOT_PUSH");
+		responseIntent.putExtra("default", defaultData);
+		sendOrderedBroadcast(responseIntent, null);
 	}
 
 	private void sendPushNotification(String message) {
-		System.out.println("received message : " + message);
 		Intent intent = new Intent(this, IntroActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,

@@ -28,7 +28,6 @@ import com.puzi.puzi.ui.store.coupon.CouponActivity;
 import com.puzi.puzi.ui.store.puzi.challenge.StoreChallengeDetailActivity;
 import com.puzi.puzi.ui.store.puzi.saving.StoreChallengeCompletedDialog;
 import com.puzi.puzi.ui.store.puzi.saving.StoreSavingMineActivity;
-import com.puzi.puzi.ui.today.QuestionFragment;
 import com.puzi.puzi.ui.user.PointActivity;
 import com.puzi.puzi.ui.user.RecommendActivity;
 import com.puzi.puzi.utils.PuziUtils;
@@ -87,7 +86,7 @@ public class MainActivity extends BaseFragmentActivity {
 		viewPager.setCurrentItem(FRAGMENT_ADVERTISE);
 
 		ivAdvertise.setImageResource(R.drawable.home_on);
-		ivChannel.setImageResource(R.drawable.poll_off);
+		ivChannel.setImageResource(R.drawable.channel_off);
 		ivStore.setImageResource(R.drawable.store_off);
 		ivSetting.setImageResource(R.drawable.setting_off);
 
@@ -249,7 +248,7 @@ public class MainActivity extends BaseFragmentActivity {
 				llMain.setVisibility(View.VISIBLE);
 				llMainSetting.setVisibility(View.GONE);
 				ivAdvertise.setImageResource(R.drawable.home_on);
-				ivChannel.setImageResource(R.drawable.poll_off);
+				ivChannel.setImageResource(R.drawable.channel_off);
 				ivStore.setImageResource(R.drawable.store_off);
 				ivSetting.setImageResource(R.drawable.setting_off);
 				ibtnRightButton.setImageResource(R.drawable.add_friend);
@@ -258,16 +257,16 @@ public class MainActivity extends BaseFragmentActivity {
 				llMain.setVisibility(View.VISIBLE);
 				llMainSetting.setVisibility(View.GONE);
 				ivAdvertise.setImageResource(R.drawable.home_off);
-				ivChannel.setImageResource(R.drawable.poll_on);
+				ivChannel.setImageResource(R.drawable.channel_on);
 				ivStore.setImageResource(R.drawable.store_off);
 				ivSetting.setImageResource(R.drawable.setting_off);
-				ibtnRightButton.setImageResource(R.drawable.make_survey);
+				ibtnRightButton.setImageResource(R.drawable.filter_on);
 				return;
 			case FRAGMENT_STORE:
 				llMain.setVisibility(View.VISIBLE);
 				llMainSetting.setVisibility(View.GONE);
 				ivAdvertise.setImageResource(R.drawable.home_off);
-				ivChannel.setImageResource(R.drawable.poll_off);
+				ivChannel.setImageResource(R.drawable.channel_off);
 				ivStore.setImageResource(R.drawable.store_selected);
 				ivSetting.setImageResource(R.drawable.setting_off);
 				ibtnRightButton.setImageResource(R.drawable.coupon_archive);
@@ -276,7 +275,7 @@ public class MainActivity extends BaseFragmentActivity {
 				llMain.setVisibility(View.GONE);
 				llMainSetting.setVisibility(View.VISIBLE);
 				ivAdvertise.setImageResource(R.drawable.home_off);
-				ivChannel.setImageResource(R.drawable.poll_off);
+				ivChannel.setImageResource(R.drawable.channel_off);
 				ivStore.setImageResource(R.drawable.store_off);
 				ivSetting.setImageResource(R.drawable.setting_on);
 				return;
@@ -291,49 +290,19 @@ public class MainActivity extends BaseFragmentActivity {
 	 * @param data
 	 */
 
-	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 			case RESULT_OK:
-				Type listType = new TypeToken<ArrayList<ChannelCategoryType>>(){}.getType();
-				List<ChannelCategoryType> categoryTypeList =
-					new Gson().fromJson(data.getStringExtra("categoryTypeListJson"), listType);
-
-				Log.i("MainActivity", "page : " + viewPager.getCurrentItem());
-
-				if(viewPager.getCurrentItem() == FRAGMENT_CHANNEL) {
-					for (android.support.v4.app.Fragment fragment : getSupportFragmentManager().getFragments()) {
-						if (fragment.isVisible()) {
-							if(fragment instanceof ChannelFragment){
-								ChannelFragment channelFragment = (ChannelFragment) fragment;
-								if(categoryTypeList != null && categoryTypeList.size() != 0) {
-									channelFragment.refresh(categoryTypeList);
-									ibtnRightButton.setImageResource(R.drawable.filter);
-								} else {
-									channelFragment.refresh(newArrayList(ChannelCategoryType.values()));
-									ibtnRightButton.setImageResource(R.drawable.filter_on);
-								}
-							}
-						}
-					}
-				} else {
-
+				int index = data.getIntExtra("advertiseIndex", 0);
+				boolean state = data.getBooleanExtra("pointSavedState", false);
+				if(index != 0) {
 					for (Fragment fragment : getSupportFragmentManager().getFragments()) {
 						if (fragment.isVisible()) {
 							if(fragment instanceof AdvertisementFragment){
-								int index = data.getIntExtra("advertiseIndex", 0);
-								boolean state = data.getBooleanExtra("pointSavedState", false);
-
-								if(index != 0) {
-									AdvertisementFragment advertisementFragment = (AdvertisementFragment) fragment;
-									advertisementFragment.refresh(index, state);
-								}
-								Log.i("MainActivity", "index : " + index + ", state : " + state);
-							} else if (fragment instanceof QuestionFragment) {
-								QuestionFragment questionFragment = (QuestionFragment) fragment;
-								questionFragment.getWorryList();
-								Log.i("MainActivity", "getWorryList");
+								AdvertisementFragment advertisementFragment = (AdvertisementFragment) fragment;
+								advertisementFragment.refresh(index, state);
+								Log.i(PuziUtils.INFO, "index : " + index + ", state : " + state);
 							}
 						}
 					}

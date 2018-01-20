@@ -29,7 +29,7 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.AdvertisementNetworkService;
-import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.channel.ChannelDetailActivity;
 import com.puzi.puzi.ui.company.CompanyActivity;
 import com.puzi.puzi.utils.PuziUtils;
@@ -42,7 +42,7 @@ import java.util.concurrent.ScheduledExecutorService;
  * Created by muoe0 on 2017-07-30.
  */
 
-public class AdvertisementDetailActivity extends BaseActivity {
+public class AdvertisementDetailActivity extends BaseFragmentActivity {
 
 	Unbinder unbinder;
 
@@ -82,6 +82,7 @@ public class AdvertisementDetailActivity extends BaseActivity {
 		setContentView(R.layout.activity_advertisement_detail);
 
 		unbinder = ButterKnife.bind(this);
+		targetViewForPush = llTopContainer;
 		startTime = System.currentTimeMillis();
 
 		layoutHeight = llTopContainer.getLayoutParams().height;

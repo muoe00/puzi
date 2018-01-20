@@ -11,6 +11,11 @@ import com.puzi.puzi.R;
 
 import static com.puzi.puzi.ui.base.BaseFragmentActivity.activities;
 
+/**
+ * 해당 액티비티는
+ * FragmentActivity가 아닐경우, 푸시이벤트와 연관 없을 경우
+ * 사용합니다.
+ */
 public abstract class BaseActivity extends Activity {
 
 	@Override

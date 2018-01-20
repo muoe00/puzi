@@ -23,7 +23,7 @@ import com.puzi.puzi.network.service.ChannelNetworkService;
 import com.puzi.puzi.ui.HorizontalListView;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.advertisement.AdvertisementDetailActivity;
-import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.channel.editorspage.EditorsPageActivity;
 import com.puzi.puzi.ui.channel.editorspage.EditorsPageAdapter;
 import com.puzi.puzi.ui.channel.reply.ReplyListAdapter;
@@ -37,7 +37,7 @@ import java.util.List;
  * Created by muoe0 on 2017-08-06.
  */
 
-public class ChannelDetailActivity extends BaseActivity {
+public class ChannelDetailActivity extends BaseFragmentActivity {
 
 	private Unbinder unbinder;
 
@@ -96,6 +96,7 @@ public class ChannelDetailActivity extends BaseActivity {
 		setContentView(R.layout.fragment_channel_detail);
 
 		unbinder = ButterKnife.bind(this);
+		targetViewForPush = svContainer;
 
 		channelVO = (ChannelVO) getIntent().getSerializableExtra("channelVO");
 		if(channelVO == null) {

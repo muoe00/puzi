@@ -6,10 +6,10 @@
               android:weightSum="1">
 
   <FrameLayout
-    android:id="@+id/fl_setting"
+    android:id="@+id/fl_container_top"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="45dp">
+    android:layout_height="54dp">
 
     <ImageButton
       android:layout_gravity="left|center"
@@ -31,111 +31,152 @@
   </FrameLayout>
 
   <LinearLayout
-    android:orientation="vertical"
+    android:background="#dadada"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"/>
+
+  <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.puzi.puzi.ui.customview.NotoTextView
-      app:fontWeight="demilight"
-      android:text="친구에게 푸지를 추천하고"
-      android:textSize="24sp"
-      android:textColor="#333333"
-      android:layout_marginTop="24dp"
-      android:layout_marginLeft="32dp"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
-
     <LinearLayout
-      android:orientation="horizontal"
-      android:layout_marginLeft="32dp"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-
-      <com.puzi.puzi.ui.customview.NotoTextView
-        app:fontWeight="medium"
-        android:text="100P"
-        android:textSize="24sp"
-        android:textColor="@color/colorPuzi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-      <com.puzi.puzi.ui.customview.NotoTextView
-        app:fontWeight="demilight"
-        android:text="를 받으세요!"
-        android:textSize="24sp"
-        android:textColor="#333333"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-
-    <ImageView
-      android:layout_marginTop="41dp"
-      android:src="@drawable/group_3"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
-
-    <com.puzi.puzi.ui.customview.NotoTextView
-      app:fontWeight="regular"
-      android:gravity="center"
-      android:text="추천 아이디"
-      android:textSize="16sp"
-      android:textColor="#333333"
-      android:layout_marginTop="32dp"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
-
-    <com.puzi.puzi.ui.customview.NotoTextView
-      app:fontWeight="demilight"
-      android:id="@+id/tv_recommend_id"
-      android:textSize="28sp"
-      android:textColor="#333333"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
-
-    <ImageButton
-      android:layout_marginLeft="32dp"
-      android:layout_marginTop="32dp"
-      android:layout_marginRight="32dp"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@drawable/btn_kakao_invite"
-      android:id="@+id/recommend_kakaoButton"/>
+      android:orientation="vertical">
 
-    <LinearLayout
-      android:orientation="horizontal"
-      android:gravity="center"
-      android:layout_marginTop="9dp"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      <ImageButton
+        android:id="@+id/ibtn_event_link"
+        android:background="#000000"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"/>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
-        app:fontWeight="demilight"
-        android:text="친구 회원 가입시 "
-        android:textSize="16sp"
-        android:textColor="#6d6d6d"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+      <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-      <com.puzi.puzi.ui.customview.NotoTextView
-        app:fontWeight="medium"
-        android:text="50P"
-        android:textSize="16sp"
-        android:textColor="@color/colorPuzi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <LinearLayout
+          android:layout_weight="1"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"/>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
-        app:fontWeight="demilight"
-        android:text=" 추가 적립 가능합니다"
-        android:textSize="16sp"
-        android:textColor="#333333"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <LinearLayout
+          android:orientation="vertical"
+          android:layout_width="296dp"
+          android:layout_height="wrap_content">
+
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="demilight"
+            android:text="친구에게 푸지를 추천하고"
+            android:textSize="24sp"
+            android:textColor="#333333"
+            android:layout_marginTop="16.6dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+          <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:text="100P"
+              android:textSize="24sp"
+              android:textColor="@color/colorPuzi"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+
+            <com.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="demilight"
+              android:text="를 받으세요!"
+              android:textSize="24sp"
+              android:textColor="#333333"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+
+          </LinearLayout>
+
+          <ImageView
+            android:layout_marginTop="25dp"
+            android:src="@drawable/group_3"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_width="125dp"
+            android:layout_height="100dp"/>
+
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="regular"
+            android:gravity="center"
+            android:text="추천 아이디"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+          <com.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="medium"
+            android:id="@+id/tv_recommend_id"
+            android:textSize="28sp"
+            android:textColor="#333333"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+          <ImageButton
+            android:layout_marginTop="15dp"
+            android:layout_width="296dp"
+            android:layout_height="54dp"
+            android:background="@drawable/btn_kakao_invite"
+            android:id="@+id/recommend_kakaoButton"/>
+
+          <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="demilight"
+              android:text="친구 회원 가입시 "
+              android:textSize="16sp"
+              android:textColor="#6d6d6d"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+
+            <com.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:text="100P"
+              android:textSize="16sp"
+              android:textColor="@color/colorPuzi"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+
+            <com.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="demilight"
+              android:text=" 추가 적립 가능합니다"
+              android:textSize="16sp"
+              android:textColor="#333333"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+
+          </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_weight="1"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"/>
+
+      </LinearLayout>
 
     </LinearLayout>
-
-  </LinearLayout>
+  </ScrollView>
 
 </LinearLayout>
 

@@ -6,7 +6,7 @@
               android:layout_height="match_parent">
 
   <FrameLayout
-    android:id="@+id/fl_signup"
+    android:id="@+id/fl_container_top"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="53dp">

@@ -180,7 +180,7 @@
       android:gravity="right"
       android:src="@drawable/add_friend"
       android:background="?android:attr/selectableItemBackground"
-      android:layout_width="55dp"
+      android:layout_width="63dp"
       android:layout_height="50dp"
       android:layout_marginRight="2dp"
       android:id="@+id/ibtn_right_button"/>
@@ -241,8 +241,8 @@
 
       <ImageView
         android:id="@+id/iv_channel"
-        android:layout_width="24dp"
-        android:layout_height="22dp"
+        android:layout_width="22dp"
+        android:layout_height="27dp"
         android:layout_gravity="center"/>
 
       <Button
@@ -262,8 +262,8 @@
 
       <ImageView
         android:id="@+id/iv_store"
-        android:layout_width="24dp"
-        android:layout_height="22dp"
+        android:layout_width="20dp"
+        android:layout_height="24dp"
         android:layout_gravity="center"/>
 
       <Button
@@ -284,7 +284,7 @@
       <ImageView
         android:id="@+id/iv_setting"
         android:layout_width="24dp"
-        android:layout_height="22dp"
+        android:layout_height="24dp"
         android:layout_gravity="center"/>
 
       <Button

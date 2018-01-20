@@ -31,7 +31,7 @@ public class StoreSavingAdapter extends CustomPagingAdapter<StoreSavingItemVO> {
 		holder.tvLogoName.setText(item.getStoreDTO().getName());
 		holder.tvDiscount.setText((item.getDiscountRate()/10) + "%");
 		BitmapUIL.load(item.getStoreItemDTO().getPictureUrl(), holder.ivItem);
-		holder.tvItemName.setText(item.getStoreItemDTO().getName());
+		holder.tvItemName.setText(item.getName());
 		holder.tvTarget.setText(TextUtils.addComma(item.getTargetPoint()) + "P/" + item.getTargetMyToday() + "회");
 	}
 

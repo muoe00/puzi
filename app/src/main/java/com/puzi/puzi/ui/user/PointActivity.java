@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,6 +50,8 @@ public class PointActivity extends BaseFragmentActivity {
 	@BindView(R.id.iv_point_background) public ImageView ivLevel;
 	@BindView(R.id.iv_point_select) public ImageView ivPointBar;
 	@BindView(R.id.iv_level_select) public ImageView ivLevelBar;
+	@BindView(R.id.fl_container_top) public FrameLayout flContainerTop;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,8 @@ public class PointActivity extends BaseFragmentActivity {
 		setContentView(R.layout.activity_point);
 
 		unbinder = ButterKnife.bind(this);
+		targetViewForPush = flContainerTop;
+
 		tvPointHistory.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
 		tvPointLevel.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorTextGray));
 		ivPointBar.setVisibility(View.VISIBLE);

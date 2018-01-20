@@ -3,6 +3,7 @@ package com.puzi.puzi.ui.store.purchase;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,7 +15,6 @@ import com.google.gson.Gson;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.store.StoreItemVO;
 import com.puzi.puzi.biz.store.StoreVO;
-import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.network.CustomCallback;
@@ -22,7 +22,7 @@ import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.StoreNetworkService;
 import com.puzi.puzi.ui.ProgressDialog;
-import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.common.DialogButtonCallback;
 import com.puzi.puzi.ui.common.OneButtonDialog;
 import com.puzi.puzi.ui.store.coupon.CouponActivity;
@@ -32,7 +32,7 @@ import retrofit2.Call;
 /**
  * Created by JangwonPark on 2017. 11. 3..
  */
-public class PurchaseItemActivity extends BaseActivity {
+public class PurchaseItemActivity extends BaseFragmentActivity {
 
 	Unbinder unbinder;
 
@@ -50,6 +50,8 @@ public class PurchaseItemActivity extends BaseActivity {
 	TextView tvExpiryDay;
 	@BindView(R.id.tv_store_purchase_count)
 	TextView tvCount;
+	@BindView(R.id.fl_container_top)
+	FrameLayout flContainerTop;
 
 	private StoreVO storeVO;
 	private StoreItemVO storeItemVO;
@@ -61,6 +63,7 @@ public class PurchaseItemActivity extends BaseActivity {
 		setContentView(R.layout.activity_store_purchase);
 
 		unbinder = ButterKnife.bind(this);
+		targetViewForPush = flContainerTop;
 
 		Intent intent = getIntent();
 		storeVO = new Gson().fromJson(intent.getStringExtra("storeVOJson"), StoreVO.class);
@@ -122,9 +125,7 @@ public class PurchaseItemActivity extends BaseActivity {
 
 					@Override
 					public void onSuccess(ResponseVO responseVO) {
-						UserVO myInfo = Preference.getMyInfo(getActivity());
-						myInfo.setPoint(myInfo.getPoint() - storeItemVO.getPrice());
-						Preference.saveMyInfo(getActivity(), myInfo);
+						Preference.updateMyInfoMinusPoint(getActivity(), storeItemVO.getPrice());
 
 						OneButtonDialog.show(getActivity(), "구매완료", "쿠폰함으로 이동하시겠습니까?", "이동", new DialogButtonCallback() {
 							@Override

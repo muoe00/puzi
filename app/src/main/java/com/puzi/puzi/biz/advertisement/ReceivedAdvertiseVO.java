@@ -25,6 +25,9 @@ public class ReceivedAdvertiseVO implements Serializable {
 	private String receivedAt;
 	private boolean today;
 	private boolean saved;
+	private String companyName;
+	private String companyPictureUrl;
+	private String companyComment;
 	private CompanyVO companyInfoDTO;
 
 	public boolean getToday() {
@@ -33,6 +36,15 @@ public class ReceivedAdvertiseVO implements Serializable {
 
 	public boolean getSaved() {
 		return this.saved;
+	}
+
+	public void transferComponyInfo() {
+		if(companyInfoDTO == null) {
+			companyInfoDTO = new CompanyVO();
+		}
+		companyInfoDTO.setCompanyAlias(companyName);
+		companyInfoDTO.setPictureUrl(companyPictureUrl);
+		companyInfoDTO.setComment(companyComment);
 	}
 /*
 	protected ReceivedAdvertiseVO(Parcel in) {

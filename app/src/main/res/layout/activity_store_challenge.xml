@@ -7,6 +7,7 @@
 
   <!-- 상단바 -->
   <LinearLayout
+    android:id="@+id/ll_container_top"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:background="#ff5146"
@@ -72,6 +73,7 @@
         android:scrollbars="none"
         android:overScrollMode="never"
         android:background="#00000000"
+        android:listSelector="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

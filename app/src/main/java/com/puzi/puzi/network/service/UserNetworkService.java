@@ -30,7 +30,9 @@ public interface UserNetworkService {
 		@Field("favoriteTypeList") List<String> favoriteTypeList,
 		@Field("recommendId") String recommendId,
 		@Field("phoneType") String phoneType,
-		@Field("phoneKey") String phoneKey);
+		@Field("phoneKey") String phoneKey,
+		@Field("region") String region,
+		@Field("cityc") String city);
 
 	@GET("/guest/search/id")
 	Call<ResponseVO> searchid(@Query("email") String email);
@@ -49,4 +51,7 @@ public interface UserNetworkService {
 
 	@GET("/v2/user/myInfo")
 	Call<ResponseVO> myInfo(@Header("token") String token);
+
+	@GET("/v2/event/emoticon")
+	Call<ResponseVO> eventEmoticon(@Header("token") String token);
 }

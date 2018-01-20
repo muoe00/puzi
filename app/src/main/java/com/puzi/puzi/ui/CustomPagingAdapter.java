@@ -87,6 +87,15 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 		init();
 	}
 
+	public CustomPagingAdapter(Activity activity, int layoutResource, GridView gridView, ListHandler listHandler) {
+		this.activity = activity;
+		this.inflater = activity.getLayoutInflater();
+		this.layoutResource = layoutResource;
+		this.gridView = gridView;
+		this.listHandler =listHandler;
+		init();
+	}
+
 	protected void init() {
 		if(this.listView != null) {
 			this.listView.setAdapter(this);
@@ -414,7 +423,9 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 		for (int i = 0; i < this.getCount(); i++) {
 			View listItem = this.getView(i, null, gridView);
 			listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-			totalHeight += listItem.getMeasuredHeight();
+			if(i%2 == 0) {
+				totalHeight += listItem.getMeasuredHeight();
+			}
 		}
 
 		ViewGroup.LayoutParams params = gridView.getLayoutParams();

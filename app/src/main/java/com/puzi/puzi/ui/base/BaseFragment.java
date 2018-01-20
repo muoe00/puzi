@@ -8,9 +8,9 @@ import android.widget.EditText;
 import com.puzi.puzi.R;
 
 public class BaseFragment extends Fragment {
-	
+
 	protected View v;
-	
+
 	protected void setView(View v){
 		this.v = v;
 	}	
@@ -44,4 +44,5 @@ public class BaseFragment extends Fragment {
 		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.showSoftInput(editText, editText.length());
 	}
+
 }

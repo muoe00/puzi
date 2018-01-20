@@ -103,7 +103,6 @@ public class PointContentsFragment extends BaseFragment {
 	}
 
 	public void level(LevelViewHolder levelViewHolder) {
-
 	}
 
 	private void initScrollAction() {

@@ -39,8 +39,7 @@ public class CenterFragment extends BaseFragment {
 		return view;
 	}
 
-	@OnClick({R.id.btn_setting_cs_using, R.id.btn_setting_cs_ad, R.id.btn_setting_cs_service,
-		R.id.btn_setting_cs_user, R.id.btn_setting_cs_gps, R.id.btn_setting_cs_leave})
+	@OnClick({R.id.btn_setting_cs_using, R.id.btn_setting_cs_service, R.id.btn_setting_cs_user, R.id.btn_setting_cs_leave})
 	public void onClick(View v) {
 		Bundle bundle = new Bundle(1);
 
@@ -50,12 +49,6 @@ public class CenterFragment extends BaseFragment {
 				bundle.putString("key", "USER");
 				fragment.setArguments(bundle);
 				changedFragment("문의하기");
-				break;
-			case R.id.btn_setting_cs_ad :
-				fragment = new AskFragment();
-				bundle.putString("key", "ADVERTISER");
-				fragment.setArguments(bundle);
-				changedFragment("광고문의");
 				break;
 			case R.id.btn_setting_cs_service :
 				fragment = new TermsFragment();
@@ -68,12 +61,6 @@ public class CenterFragment extends BaseFragment {
 				bundle.putString("key", "user");
 				fragment.setArguments(bundle);
 				changedFragment("개인정보 취급방침");
-				break;
-			case R.id.btn_setting_cs_gps :
-				fragment = new TermsFragment();
-				bundle.putString("key", "gps");
-				fragment.setArguments(bundle);
-				changedFragment("위치기반 서비스 이용약관");
 				break;
 			case R.id.btn_setting_cs_leave :
 				fragment = new OutFragment();

@@ -9,7 +9,7 @@
     android:background="@drawable/button_store_item"
     android:layout_margin="8dp"
     android:layout_width="match_parent"
-    android:layout_height="200dp">
+    android:layout_height="wrap_content">
 
     <LinearLayout
       android:orientation="horizontal"
@@ -63,7 +63,7 @@
       android:layout_marginBottom="4dp"
       android:scaleType="fitCenter"
       android:layout_width="match_parent"
-      android:layout_height="84dp"
+      android:layout_height="154dp"
       android:src="@mipmap/home"
       android:id="@+id/iv_store_challenge_item"/>
 
@@ -71,10 +71,10 @@
       app:fontWeight="regular"
       android:text="itemName"
       android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1"
+      android:layout_height="wrap_content"
       android:layout_marginStart="9dp"
       android:layout_marginEnd="9dp"
+      android:lines="2"
       android:textSize="14sp"
       android:textColor="#333333"
       android:id="@+id/iv_store_challenge_item_name"/>

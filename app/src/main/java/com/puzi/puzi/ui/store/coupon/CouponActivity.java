@@ -18,7 +18,7 @@ import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.StoreNetworkService;
 import com.puzi.puzi.ui.CustomScrollView;
-import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
@@ -29,7 +29,7 @@ import java.util.List;
  * Created by muoe0 on 2017-08-06.
  */
 
-public class CouponActivity extends BaseActivity {
+public class CouponActivity extends BaseFragmentActivity {
 
 	Unbinder unbinder;
 
@@ -186,7 +186,7 @@ public class CouponActivity extends BaseActivity {
 	}
 
 	private void initAdapter() {
-		couponListAdapter = new CouponListAdapter(this);
+		couponListAdapter = new CouponListAdapter(getActivity());
 		gvCoupon.setAdapter(couponListAdapter);
 		gvCoupon.setOnTouchListener(new View.OnTouchListener() {
 			@Override
@@ -198,7 +198,7 @@ public class CouponActivity extends BaseActivity {
 				return false;
 			}
 		});
-		usedCouponListAdapter = new UsedCouponListAdapter(this);
+		usedCouponListAdapter = new UsedCouponListAdapter(getActivity());
 		gvUsedCoupon.setAdapter(usedCouponListAdapter);
 		gvUsedCoupon.setOnTouchListener(new View.OnTouchListener() {
 			@Override

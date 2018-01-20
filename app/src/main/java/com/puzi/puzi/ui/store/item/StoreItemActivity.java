@@ -3,10 +3,7 @@ package com.puzi.puzi.ui.store.item;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.*;
 import butterknife.*;
 import com.google.gson.Gson;
 import com.puzi.puzi.R;
@@ -17,13 +14,13 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.StoreNetworkService;
-import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.store.purchase.PurchaseItemActivity;
 import retrofit2.Call;
 
 import java.util.List;
 
-public class StoreItemActivity extends BaseActivity {
+public class StoreItemActivity extends BaseFragmentActivity {
 
 	Unbinder unbinder;
 
@@ -37,6 +34,8 @@ public class StoreItemActivity extends BaseActivity {
 	GridView gvStoreItem;
 	@BindView(R.id.tv_store_item_progressBar)
 	ProgressBar progressBar;
+	@BindView(R.id.ll_container_top)
+	LinearLayout llContainerTop;
 
 	private StoreVO storeVO;
 	private StoreItemAdapter storeItemAdapter;
@@ -47,6 +46,7 @@ public class StoreItemActivity extends BaseActivity {
 		setContentView(R.layout.activity_store_item);
 
 		unbinder = ButterKnife.bind(this);
+		targetViewForPush = llContainerTop;
 
 		Intent intent = getIntent();
 		storeVO = new Gson().fromJson(intent.getStringExtra("storeVOJson"), StoreVO.class);
