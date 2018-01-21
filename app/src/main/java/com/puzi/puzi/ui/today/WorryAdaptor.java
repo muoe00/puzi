@@ -141,8 +141,7 @@ public class WorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
         service.enqueue(new CustomCallback(activity) {
             @Override
             public void onSuccess(ResponseVO responseVO) {
-                Intent intent = new Intent();
-                ((MainActivity) activity).setResult(Activity.RESULT_OK, intent);
+
             }
         });
     }

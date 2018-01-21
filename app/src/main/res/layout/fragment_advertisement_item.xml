@@ -84,6 +84,7 @@
             android:singleLine="true"
           android:focusableInTouchMode="true"
           android:focusable="true"
+            android:layout_marginRight="30dp"
           android:layout_width="match_parent"
           android:layout_height="27dp"
           android:id="@+id/tv_advertise"/>
