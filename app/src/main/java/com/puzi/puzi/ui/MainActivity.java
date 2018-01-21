@@ -227,6 +227,7 @@ public class MainActivity extends BaseFragmentActivity {
 				switch (viewPager.getCurrentItem()) {
 					case FRAGMENT_ADVERTISE:
 						intent = new Intent(MainActivity.this, RecommendActivity.class);
+						intent.putExtra("eventInfoVO", gson.toJson(eventInfoVO));
 						break;
 
 					case FRAGMENT_CHANNEL:

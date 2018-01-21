@@ -28,6 +28,11 @@ public enum ResultType {
 	NO_CHANNEL_REPLY(2016, "존재하지 않는 댓글입니다."),
 	WRONG_TIME_TERN(2017, "종료시간이 시작시간보다 빠릅니다."),
 	ALREADY_REPLY(2019, "나의 오늘은 이미 답변하였습니다."),
+	ALREADY_REGISTER_SAVING(2020, "이미 적금에 가입되어 있습니다."),
+	NO_REGISTER_SAVING(2021, "가입된 적금이 없습니다."),
+	NO_MORE_EDIT_SAVING(2022, "더이상 수정할 수 없습니다."),
+	OVER_ANSWERS(2023, "이미 마감된 질문입니다."),
+	OVER_MAX_PURCHASE_QUANTITY(2024, "한번에 구매가능한 수량을 초과하였습니다. (최대 10개)"),
 	WRONG_PARAMS(3000, "잘못된 파라미터 요청(#arg0#)"),
 	ERROR_STORE(4000, "일시적으로 상품구매 연동 에러가 발생하였습니다. 잠시 후 다시 요청해 주시기 바랍니다.");
 
