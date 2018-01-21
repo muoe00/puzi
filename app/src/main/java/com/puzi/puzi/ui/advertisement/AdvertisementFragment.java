@@ -85,7 +85,8 @@ public class AdvertisementFragment extends BaseFragment {
 
 	@Override
 	public void onResume() {
-		update
+
+
 		super.onResume();
 	}
 
