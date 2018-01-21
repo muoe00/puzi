@@ -73,6 +73,8 @@ public class MainActivity extends BaseFragmentActivity {
 
 	private long backKeyPressedTime;
 
+	public static boolean needToUpdateUserVO = false;
+
 	private PagerAdapter adapter;
 	private int rightButtonHome = R.drawable.add_friend;
 	private EventInfoVO eventInfoVO;
@@ -110,6 +112,11 @@ public class MainActivity extends BaseFragmentActivity {
 	protected void onResume() {
 		super.onResume();
 		updateUserInfoOnTitleBar();
+
+		if(needToUpdateUserVO) {
+			getUser();
+			needToUpdateUserVO = true;
+		}
 
 		IntentFilter filter = new IntentFilter("com.puzi.puzi.GOT_PUSH");
 		filter.setPriority(4);

@@ -1,7 +1,5 @@
 package com.puzi.puzi.ui.today;
 
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,13 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ScrollView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
-import com.puzi.puzi.biz.myservice.CategoryType;
 import com.puzi.puzi.biz.myservice.MyTodayQuestionVO;
 import com.puzi.puzi.biz.myservice.MyWorryQuestionDTO;
 import com.puzi.puzi.biz.myservice.OrderType;
@@ -27,21 +23,14 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.MyServiceNetworkService;
 import com.puzi.puzi.ui.CustomPagingAdapter;
 import com.puzi.puzi.ui.base.BaseFragment;
-import com.puzi.puzi.ui.customview.NotoTextView;
-
 import retrofit2.Call;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import static com.puzi.puzi.biz.myservice.ViewType.BONUS;
-import static com.puzi.puzi.biz.myservice.ViewType.END;
-import static com.puzi.puzi.biz.myservice.ViewType.INIT;
-import static com.puzi.puzi.biz.myservice.ViewType.REMAIN;
+import static com.puzi.puzi.biz.myservice.ViewType.*;
 
 /**
  * Created by muoe0 on 2018-01-06.

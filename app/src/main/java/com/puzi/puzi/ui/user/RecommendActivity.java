@@ -17,6 +17,7 @@ import com.puzi.puzi.R;
 import com.puzi.puzi.biz.event.EventInfoVO;
 import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.cache.Preference;
+import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 
 /**
@@ -54,10 +55,14 @@ public class RecommendActivity extends BaseFragmentActivity {
 
 		initComponent();
 
+		MainActivity.needToUpdateMyWorry.add(1);
+
 		try {
 			kakaoLink = KakaoLink.getKakaoLink(this);
 			builder = kakaoLink.createKakaoTalkLinkMessageBuilder();
+			builder.addImage("https://s3.ap-northeast-2.amazonaws.com/puzi/event1.jpg", 1321, 692);
 			builder.addText("TEST");
+			builder.addAppLink("앱으로 이동하기");
 		} catch (KakaoParameterException e) {
 			e.printStackTrace();
 		}
