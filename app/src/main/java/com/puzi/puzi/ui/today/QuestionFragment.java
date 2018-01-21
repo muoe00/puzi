@@ -40,10 +40,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static com.puzi.puzi.biz.myservice.ViewType.BONUS;
-import static com.puzi.puzi.biz.myservice.ViewType.END;
-import static com.puzi.puzi.biz.myservice.ViewType.INIT;
-import static com.puzi.puzi.biz.myservice.ViewType.REMAIN;
+import static com.puzi.puzi.biz.myservice.ViewType.*;
 
 /**
  * Created by muoe0 on 2018-01-06.

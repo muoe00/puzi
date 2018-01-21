@@ -1,33 +1,26 @@
 package com.puzi.puzi.ui.today;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Toast;
-
-import com.puzi.puzi.R;
-import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
-import com.puzi.puzi.biz.myservice.MyTodayQuestionVO;
-import com.puzi.puzi.biz.myservice.MyWorryQuestionDTO;
-import com.puzi.puzi.biz.user.FavoriteType;
-import com.puzi.puzi.network.CustomCallback;
-import com.puzi.puzi.network.LazyRequestService;
-import com.puzi.puzi.network.ResponseVO;
-import com.puzi.puzi.network.service.MyServiceNetworkService;
-import com.puzi.puzi.ui.base.BaseActivity;
-import com.puzi.puzi.ui.customview.NotoTextView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import com.puzi.puzi.R;
+import com.puzi.puzi.biz.myservice.MyTodayQuestionVO;
+import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.LazyRequestService;
+import com.puzi.puzi.network.ResponseVO;
+import com.puzi.puzi.network.service.MyServiceNetworkService;
+import com.puzi.puzi.ui.MainActivity;
+import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.customview.NotoTextView;
 import retrofit2.Call;
 
 /**
@@ -126,6 +119,7 @@ public class QuestionActivity extends BaseActivity {
         service.enqueue(new CustomCallback(getActivity()) {
             @Override
             public void onSuccess(ResponseVO responseVO) {
+                MainActivity.needToUpdateUserVO = true;
                 savePoint = responseVO.getInteger("savedPoint");
                 // 적립 인디케이터
                 Toast.makeText(savedActivity, savePoint + "원이 적립되었습니다.", Toast.LENGTH_SHORT).show();

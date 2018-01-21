@@ -71,7 +71,7 @@ public class EventWebViewActivity extends BaseFragmentActivity {
 			public void onPageFinished(WebView view, String url) {
 				super.onPageFinished(view, url);
 				if(!pageError) {
-					tvTitle.setText("푸지-카카오톡 이모티콘 증정 이벤트");
+					tvTitle.setText("카카오톡 이모티콘 증정 이벤트");
 				}
 			}
 		});

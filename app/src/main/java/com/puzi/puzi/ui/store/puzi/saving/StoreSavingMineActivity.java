@@ -52,7 +52,7 @@ public class StoreSavingMineActivity extends BaseFragmentActivity {
 	@BindView(R.id.ll_profile_channel_dropdown_container)
 	LinearLayout llContainer;
 	@BindView(R.id.fl_container_top)
-	LinearLayout flContainerTop;
+	FrameLayout flContainerTop;
 
 	private int selectedDailyPoint;
 
@@ -79,8 +79,8 @@ public class StoreSavingMineActivity extends BaseFragmentActivity {
 		tvPointTotalText.setText("/ " + TextUtils.addComma(userSavingVO.getStoreSavingItemDTO().getTargetPoint()) + "P");
 		pbCount.setMax(userSavingVO.getStoreSavingItemDTO().getTargetMyToday());
 		pbCount.setProgress(userSavingVO.getSavedMyToday());
-		tvCountText.setText(TextUtils.addComma(userSavingVO.getSavedMyToday()) + "P ");
-		tvCountTotalText.setText("/ " + TextUtils.addComma(userSavingVO.getStoreSavingItemDTO().getTargetMyToday()) + "P");
+		tvCountText.setText(TextUtils.addComma(userSavingVO.getSavedMyToday()) + "회 ");
+		tvCountTotalText.setText("/ " + TextUtils.addComma(userSavingVO.getStoreSavingItemDTO().getTargetMyToday()) + "회");
 		CustomArrayAdapter adapter = new CustomArrayAdapter(getActivity(), DAILY_POINT_LIST);
 		spDailyPoint.setAdapter(adapter);
 		int count = 0;

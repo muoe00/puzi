@@ -34,7 +34,6 @@ import static com.puzi.puzi.biz.user.LevelType.*;
 /**
  * Created by muoe0 on 2017-07-08.
  */
-
 public class PointActivity extends BaseFragmentActivity {
 
 	Unbinder unbinder;
@@ -51,7 +50,6 @@ public class PointActivity extends BaseFragmentActivity {
 	@BindView(R.id.iv_point_select) public ImageView ivPointBar;
 	@BindView(R.id.iv_level_select) public ImageView ivLevelBar;
 	@BindView(R.id.fl_container_top) public FrameLayout flContainerTop;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -156,7 +154,12 @@ public class PointActivity extends BaseFragmentActivity {
 
 	@OnClick(R.id.ibtn_back_point)
 	public void back() {
-		finish();
+		onBackPressed();
+	}
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
 		doAnimationGoLeft();
 	}
 }

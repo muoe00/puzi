@@ -75,47 +75,6 @@
           android:textSize="16sp"
           android:textColor="#6D6D6D"/>
         
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginLeft="7dp"
-            android:background="@drawable/bg_main_saving"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="24dp">
-
-          <ImageView
-              android:layout_marginLeft="11dp"
-              android:layout_marginTop="3dp"
-              android:layout_marginBottom="3dp"
-              android:src="@drawable/puzi_saving"
-              android:layout_gravity="center_vertical"
-              android:layout_width="19dp"
-              android:layout_height="18dp" />
-
-          <com.puzi.puzi.ui.customview.NotoTextView
-              android:layout_marginLeft="7dp"
-              android:id="@+id/tv_saving_point"
-              app:fontWeight="medium"
-              android:textSize="12sp"
-              android:textColor="@color/colorWhite"
-              android:layout_gravity="center_vertical"
-              android:gravity="center"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content" />
-
-          <com.puzi.puzi.ui.customview.NotoTextView
-              android:layout_marginRight="11dp"
-              app:fontWeight="medium"
-              android:text="P"
-              android:textSize="12sp"
-              android:textColor="@color/colorWhite"
-              android:layout_gravity="center_vertical"
-              android:gravity="center"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
       </LinearLayout>
 
       <Button
