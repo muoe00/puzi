@@ -55,8 +55,6 @@ public class RecommendActivity extends BaseFragmentActivity {
 
 		initComponent();
 
-		MainActivity.needToUpdateMyWorry.add(1);
-
 		try {
 			kakaoLink = KakaoLink.getKakaoLink(this);
 			builder = kakaoLink.createKakaoTalkLinkMessageBuilder();
