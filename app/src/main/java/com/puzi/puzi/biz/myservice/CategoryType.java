@@ -17,7 +17,8 @@ public enum CategoryType {
     TEN("10대"),
     TWENTY("20대"),
     THIRTY("30대"),
-    FOURTY("40대이상");
+    FOURTY("40대이상"),
+    ENTIRE("전체");
 
     @Getter
     private String comment;

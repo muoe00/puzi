@@ -1,7 +1,6 @@
 package com.puzi.puzi.ui.today;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,33 +8,36 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import com.google.gson.Gson;
 import com.puzi.puzi.R;
-import com.puzi.puzi.biz.myservice.CategoryType;
+import com.puzi.puzi.biz.myservice.AnswerType;
 import com.puzi.puzi.biz.myservice.MyTodayQuestionVO;
 import com.puzi.puzi.biz.myservice.MyWorryQuestionDTO;
 import com.puzi.puzi.biz.myservice.OrderType;
+import com.puzi.puzi.biz.store.puzi.StoreChallengeItemVO;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.MyServiceNetworkService;
 import com.puzi.puzi.ui.CustomPagingAdapter;
 import com.puzi.puzi.ui.base.BaseFragment;
-import com.puzi.puzi.ui.customview.NotoTextView;
+import com.puzi.puzi.ui.store.puzi.challenge.StoreChallengeDetailActivity;
 
 import retrofit2.Call;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import static com.puzi.puzi.biz.myservice.ViewType.BONUS;
@@ -47,7 +49,7 @@ import static com.puzi.puzi.biz.myservice.ViewType.REMAIN;
  * Created by muoe0 on 2018-01-06.
  */
 
-public class QuestionFragment extends BaseFragment {
+public class QuestionFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
 	private Unbinder unbinder;
 	private View view;
@@ -58,15 +60,17 @@ public class QuestionFragment extends BaseFragment {
 	private List<MyTodayQuestionVO> myTodayQuestionList;
 	private List<MyWorryQuestionDTO> myWorryQuestionList;
 
-	private RecyclerAdapter adapter;
+	private TodayAdapter adapter;
 	private RecyclerView.LayoutManager manager;
 	private WorryAdaptor worryAdaptor;
+	private List<AnswerType> answerTypeList;
 
 	private ScheduledExecutorService excutors = Executors.newSingleThreadScheduledExecutor();
 
 	@BindView(R.id.lv_vote) ListView lvQuestion;
 	@BindView(R.id.sv_question) ScrollView svQuestion;
 	@BindView(R.id.rv_question) RecyclerView rvQuestion;
+	@BindView(R.id.id_worry_spinner) Spinner spinner;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -239,7 +243,7 @@ public class QuestionFragment extends BaseFragment {
 	public void initComponent() {
 
 		// myToday
-		adapter = new RecyclerAdapter(getContext());
+		adapter = new TodayAdapter(getContext());
 		rvQuestion.setHasFixedSize(true);
 		manager = new LinearLayoutManager(getActivity());
 		rvQuestion.setLayoutManager(manager);
@@ -251,8 +255,23 @@ public class QuestionFragment extends BaseFragment {
 				getWorryList();
 			}
 		});
-		worryAdaptor.setMore(false);
+		lvQuestion.setAdapter(worryAdaptor);
+		lvQuestion.setOnItemClickListener(this);
 		worryAdaptor.getList();
+		worryAdaptor.setMore(true);
+
+		answerTypeList = AnswerType.getList();
+		SpinnerAdapter spinnerAdapter = new SpinnerAdapter(getActivity());
+		spinnerAdapter.addList(answerTypeList);
+		spinner.setAdapter(spinnerAdapter);
 	}
 
+	@Override
+	public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+		Log.i("QuestionFragment", "onItemClick");
+		MyWorryQuestionDTO myWorryQuestionDTO = worryAdaptor.getItem(i);
+		Intent intent = new Intent(getActivity(), AnswerActivity.class);
+		intent.putExtra("myWorryQuestionDTO", myWorryQuestionDTO);
+		startActivity(intent);
+	}
 }

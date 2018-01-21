@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -271,15 +272,15 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 			}
 
 			if(progress[0] == 1) {
-				tvProgress.setText(1 + "");
+				tvProgress.setText(5 + "");
 			} else if(progress[0] == 101) {
-				tvProgress.setText(2 + "");
+				tvProgress.setText(4 + "");
 			} else if(progress[0] == 201) {
 				tvProgress.setText(3 + "");
 			} else if(progress[0] == 301) {
-				tvProgress.setText(4 + "");
+				tvProgress.setText(2 + "");
 			} else if(progress[0] == 401) {
-				tvProgress.setText(5 + "");
+				tvProgress.setText(1 + "");
 			}
 		}
 	}
@@ -334,7 +335,6 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 
 				Log.i(PuziUtils.INFO, "advertiseIndex : " + receivedAdvertise.getReceivedAdvertiseId());
 
-				setResult(Activity.RESULT_OK, intent);
 			}
 		});
 	}

@@ -44,6 +44,7 @@
       </View>
 
       <Spinner
+          android:id="@+id/id_worry_spinner"
           android:layout_gravity="right"
           android:layout_width="55dp"
           android:layout_height="22dp">
@@ -63,13 +64,16 @@
         android:layout_height="match_parent">
 
       <LinearLayout
-        android:orientation="vertical"
+          android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <ListView
             android:id="@+id/lv_vote"
             android:divider="#00000000"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"/>

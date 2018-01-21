@@ -13,6 +13,7 @@ import com.puzi.puzi.R;
 /**
  * Created by JangwonPark on 2017. 11. 5..
  */
+
 public class NotoTextView extends TextView {
 
 	public NotoTextView(Context context) {

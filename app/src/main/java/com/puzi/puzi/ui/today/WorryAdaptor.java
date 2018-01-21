@@ -75,35 +75,17 @@ public class WorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
         viewHolder.progressBar.setMax(item.getTotalAnswerCount());
         viewHolder.progressBar.setProgress(item.getAnsweredCount());
 
-
-
         viewHolder.tvLike.setText("" + item.getLikedCount());
-        viewHolder.rlLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addLikeCount(item.getMyWorryQuestionId());
-
-                int like = item.getLikedCount();
-                boolean isLike = item.isLikedByMe();
-
-                if(isLike) {
-                    like--;
-                    isLike = false;
-                    viewHolder.ivLike.setImageResource(R.drawable.like);
-                } else {
-                    like++;
-                    isLike = true;
-                    viewHolder.ivLike.setImageResource(R.drawable.shape);
-                }
-                viewHolder.tvLike.setText("" + like);
-
-            }
-        });
 
         categoryAdapter = new CategoryAdapter(activity);
         manager = new LinearLayoutManager(activity);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        categoryAdapter.addList(item.getCategoryTypeList());
+
+        if(item.getCategoryTypeList().size() > 5) {
+            categoryAdapter.addOne();
+        } else {
+            categoryAdapter.addList(item.getCategoryTypeList());
+        }
         viewHolder.lvCategory.setHasFixedSize(true);
         viewHolder.lvCategory.setLayoutManager(manager);
         viewHolder.lvCategory.setAdapter(categoryAdapter);
@@ -127,22 +109,5 @@ public class WorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
         public ViewHolder(View view) {
             super(view);
         }
-    }
-
-    public void addLikeCount(final int id) {
-
-        LazyRequestService service = new LazyRequestService(activity, MyServiceNetworkService.class);
-        service.method(new LazyRequestService.RequestMothod<MyServiceNetworkService>() {
-            @Override
-            public Call<ResponseVO> execute(MyServiceNetworkService myServiceNetworkService, String token) {
-                return myServiceNetworkService.serWorryLike(token, id);
-            }
-        });
-        service.enqueue(new CustomCallback(activity) {
-            @Override
-            public void onSuccess(ResponseVO responseVO) {
-
-            }
-        });
     }
 }

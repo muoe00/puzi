@@ -57,7 +57,7 @@ public class RecommendActivity extends BaseFragmentActivity {
 		try {
 			kakaoLink = KakaoLink.getKakaoLink(this);
 			builder = kakaoLink.createKakaoTalkLinkMessageBuilder();
-			builder.addText("TEST");
+			builder.addAppLink("https://s3.ap-northeast-2.amazonaws.com/puzi/event1.jpg");
 		} catch (KakaoParameterException e) {
 			e.printStackTrace();
 		}

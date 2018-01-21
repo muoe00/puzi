@@ -1,5 +1,6 @@
 package com.puzi.puzi.ui.customview;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Typeface;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 /**
  * Created by JangwonPark on 2017. 11. 6..
  */
+@SuppressLint("AppCompatCustomView")
 public class RobotoTextView extends TextView {
 
 	public RobotoTextView(Context context) {
