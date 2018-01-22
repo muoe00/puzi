@@ -35,7 +35,8 @@
         android:src="@drawable/welcome_icon"
         android:id="@+id/iv_out_level"/>
 
-      <TextView
+      <com.puzi.puzi.ui.customview.NotoTextView
+        app:fontWeight="medium"
         android:gravity="center"
         android:textSize="32sp"
         android:textColor="@color/colorBlack"

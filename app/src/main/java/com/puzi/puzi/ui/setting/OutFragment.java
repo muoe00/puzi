@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,6 +32,8 @@ public class OutFragment extends BaseFragment {
 
 	@BindView(R.id.iv_out_level)
 	ImageView ivLevel;
+	@BindView(R.id.tv_out_point)
+	TextView tvPoint;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -44,6 +47,7 @@ public class OutFragment extends BaseFragment {
 		unbinder = ButterKnife.bind(this, view);
 
 		UserVO myInfo = Preference.getMyInfo(getActivity());
+		tvPoint.setText(myInfo.getPoint());
 		switch (myInfo.getLevelType()) {
 			case "WELCOME":
 				ivLevel.setImageResource(R.drawable.welcome_icon);
