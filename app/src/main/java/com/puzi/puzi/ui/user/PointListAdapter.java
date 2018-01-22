@@ -145,11 +145,11 @@ public class PointListAdapter extends BaseAdapter {
 
 				Log.i("pointHistoryVO", pointHistoryVO.toString());
 
-				if (pointHistoryVO.isSaved() == true) {
-					viewHolder.tvPoint.setText(point);
+				if (pointHistoryVO.isSaved()) {
+					viewHolder.tvPoint.setText(point + "P");
 					viewHolder.tvPoint.setTextColor(ContextCompat.getColor(context, R.color.colorPuzi));
-				} else if (pointHistoryVO.isSaved() == false) {
-					viewHolder.tvPoint.setText("-" + point);
+				} else {
+					viewHolder.tvPoint.setText(point + "P");
 					viewHolder.tvPoint.setTextColor(ContextCompat.getColor(context, R.color.colorTextGray));
 				}
 
