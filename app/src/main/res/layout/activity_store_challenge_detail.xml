@@ -27,16 +27,12 @@
           android:layout_height="54dp">
 
           <ImageButton
-            android:paddingRight="17dp"
-            android:paddingLeft="8dp"
-            android:paddingTop="12.5dp"
-            android:paddingBottom="12.5dp"
-            android:layout_width="37dp"
+            android:layout_gravity="left|center"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:background="#00000000"
+            android:background="@null"
             android:src="@drawable/back"
-            android:id="@+id/btn_store_challenge_back"
-            android:backgroundTint="#000000"/>
+            android:id="@+id/btn_store_challenge_back"/>
 
           <com.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="medium"
