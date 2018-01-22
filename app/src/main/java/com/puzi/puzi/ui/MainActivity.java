@@ -14,7 +14,6 @@ import android.widget.*;
 import butterknife.*;
 import com.google.gson.Gson;
 import com.puzi.puzi.R;
-import com.puzi.puzi.biz.channel.ChannelCategoryType;
 import com.puzi.puzi.biz.event.EventInfoVO;
 import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.cache.Preference;
@@ -26,8 +25,7 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.advertisement.AdvertisementFragment;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
-import com.puzi.puzi.ui.channel.ChannelFilterActivity;
-import com.puzi.puzi.ui.channel.ChannelFragment;
+import com.puzi.puzi.ui.myworry.MyWorryWriteActivity;
 import com.puzi.puzi.ui.store.coupon.CouponActivity;
 import com.puzi.puzi.ui.store.puzi.challenge.StoreChallengeDetailActivity;
 import com.puzi.puzi.ui.store.puzi.saving.StoreChallengeCompletedDialog;
@@ -37,8 +35,6 @@ import com.puzi.puzi.ui.user.RecommendActivity;
 import com.puzi.puzi.utils.PuziUtils;
 import com.puzi.puzi.utils.TextUtils;
 import retrofit2.Call;
-
-import java.util.List;
 
 public class MainActivity extends BaseFragmentActivity {
 
@@ -238,20 +234,8 @@ public class MainActivity extends BaseFragmentActivity {
 						break;
 
 					case FRAGMENT_CHANNEL:
-						intent = new Intent(MainActivity.this, ChannelFilterActivity.class);
-						List<ChannelCategoryType> categoryTypeList = null;
-						for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-							if (fragment != null && fragment.isVisible()) {
-								if(fragment instanceof ChannelFragment){
-									ChannelFragment channelFragment = (ChannelFragment) fragment;
-									categoryTypeList = channelFragment.getCategoryTypeList();
-								}
-							}
-						}
-						intent.putExtra("categoryTypeListJson", new Gson().toJson(categoryTypeList));
-						startActivityForResult(intent, 0);
-						doAnimationGoRight();
-						return;
+						intent = new Intent(MainActivity.this, MyWorryWriteActivity.class);
+						break;
 
 					case FRAGMENT_STORE:
 						intent = new Intent(MainActivity.this, CouponActivity.class);

@@ -139,11 +139,21 @@ public class LaunchActivity extends BaseActivity {
 						finish();
 						break;
 					case LOGIN_FAIL:
+						Preference.removeProperty(getActivity(), "id");
+						Preference.removeProperty(getActivity(), "passwd");
+						Preference.removeProperty(getActivity(), "token");
 						goLoginPage();
 						break;
 					default:
 						break;
 				}
+			}
+			@Override
+			public void onFailure(final Call<ResponseVO> call, Throwable t) {
+				Preference.removeProperty(getActivity(), "id");
+				Preference.removeProperty(getActivity(), "passwd");
+				Preference.removeProperty(getActivity(), "token");
+				goLoginPage();
 			}
 		});
 	}

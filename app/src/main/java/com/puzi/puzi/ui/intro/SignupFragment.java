@@ -63,9 +63,9 @@ public class SignupFragment extends BaseFragment {
 
 			@Override
 			public void onSuccess(ResponseVO response) {
-				Preference.addProperty(getActivity(), "id", id);
-				Preference.addProperty(getActivity(), "passwd", pw);
-				Preference.addProperty(getActivity(), "email", email);
+				Preference.addProperty(getActivity(), "tempid", id);
+				Preference.addProperty(getActivity(), "temppasswd", pw);
+				Preference.addProperty(getActivity(), "tempemail", email);
 				changedFragment();
 			}
 		});

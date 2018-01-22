@@ -84,14 +84,14 @@ public class SignupInfoFragment extends BaseFragment {
 		String isKakao = Preference.getProperty(getActivity(), "kakao");
 		if("K".equals(isKakao)) {
 			userVO.setRegisterType(RegisterType.K);
-			userVO.setPasswd(Preference.getProperty(getActivity(), "passwd"));
+			userVO.setPasswd(Preference.getProperty(getActivity(), "temppasswd"));
 		} else {
 			userVO.setRegisterType(RegisterType.N);
-			userVO.setPasswd(EncryptUtils.sha256(Preference.getProperty(getActivity(), "passwd")));
+			userVO.setPasswd(EncryptUtils.sha256(Preference.getProperty(getActivity(), "temppasswd")));
 		}
 
-		userVO.setUserId(Preference.getProperty(getActivity(), "id"));
-		userVO.setEmail(Preference.getProperty(getActivity(), "email"));
+		userVO.setUserId(Preference.getProperty(getActivity(), "tempid"));
+		userVO.setEmail(Preference.getProperty(getActivity(), "tempemail"));
 		userVO.setNotifyId(Preference.getProperty(getActivity(), "tokenFCM"));
 		userVO.setPhoneType(PhoneType.A);
 		userVO.setLevelType(LevelType.WELCOME);
@@ -190,12 +190,17 @@ public class SignupInfoFragment extends BaseFragment {
 
 		int currentYear = currentYear();
 
+		int basicIndex = 0;
 		for(int index = 1940; index <= currentYear; index++){
+			if(index == 1999) {
+				basicIndex = index;
+			}
 			yearList.add(String.valueOf(index));
 		}
 
 		spAge.setPrompt(getResources().getString(R.string.info_age));
 		spAge.setAdapter(new CustomArrayAdapter(getActivity(), yearList));
+		spAge.setSelection(basicIndex);
 		spRegion.setAdapter(new CustomArrayAdapter(getActivity(), REGION_LIST));
 		spRegion.setSelection(0);
 		spCity.setAdapter(new CustomArrayAdapter(getActivity(), CITY_MAP.get(REGION_LIST.get(0))));
