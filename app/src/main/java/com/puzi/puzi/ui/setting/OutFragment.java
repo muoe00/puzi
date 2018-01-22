@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
+import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.ui.IntroActivity;
 import com.puzi.puzi.ui.base.BaseFragment;
@@ -26,6 +29,9 @@ public class OutFragment extends BaseFragment {
 
 	private View view = null;
 
+	@BindView(R.id.iv_out_level)
+	ImageView ivLevel;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -36,6 +42,25 @@ public class OutFragment extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_setting_cs_out, container, false);
 		unbinder = ButterKnife.bind(this, view);
+
+		UserVO myInfo = Preference.getMyInfo(getActivity());
+		switch (myInfo.getLevelType()) {
+			case "WELCOME":
+				ivLevel.setImageResource(R.drawable.welcome_icon);
+				break;
+			case "SILVER":
+				ivLevel.setImageResource(R.drawable.silver_icon);
+				break;
+			case "GOLD":
+				ivLevel.setImageResource(R.drawable.gold_icon);
+				break;
+			case "VIP":
+				ivLevel.setImageResource(R.drawable.vip_icon);
+				break;
+			case "VVIP":
+				ivLevel.setImageResource(R.drawable.vvip_icon);
+				break;
+		}
 
 		return view;
 	}

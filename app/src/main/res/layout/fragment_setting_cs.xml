@@ -79,7 +79,7 @@
         android:background="#dadada"/>
 
       <FrameLayout
-          android:visibility="gone"
+        android:visibility="gone"
         android:id="@+id/fl_setting_cs_ad"
         android:layout_width="match_parent"
         android:layout_height="53dp"
@@ -226,6 +226,7 @@
         android:background="#dadada"/>
 
       <FrameLayout
+        android:visibility="gone"
         android:id="@+id/fl_setting_gps"
         android:layout_below="@+id/ll_bar3"
         android:layout_width="match_parent"
@@ -264,6 +265,7 @@
       </FrameLayout>
 
       <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#dadada"/>
