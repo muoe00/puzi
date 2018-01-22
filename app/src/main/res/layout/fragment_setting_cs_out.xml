@@ -90,8 +90,11 @@
 
     <com.puzi.puzi.ui.customview.NotoButton
       app:fontWeight="medium"
+      android:text="푸지 탈퇴하기"
+      android:textSize="16sp"
+      android:textColor="#ff2470"
       android:id="@+id/btn_out"
-      android:background="@drawable/btn_out"
+      android:background="@drawable/button_favorite_on"
       android:layout_marginTop="41dp"
       android:layout_marginLeft="32dp"
       android:layout_marginRight="32dp"
