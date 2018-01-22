@@ -42,6 +42,9 @@
         <data android:host="@string/kakaolink_host"
               android:scheme="@string/kakao_scheme">
         </data>
+        <!--<data android:host="@string/kakaotalk_host"-->
+              <!--android:scheme="@string/kakao_scheme">-->
+        <!--</data>-->
       </intent-filter>
     </activity>
     <activity android:name=".ui.user.PointActivity"/>

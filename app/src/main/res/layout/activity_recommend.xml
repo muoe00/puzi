@@ -46,9 +46,11 @@
 
       <ImageButton
         android:id="@+id/ibtn_event_link"
+        android:src="@drawable/recommend_event_image"
         android:background="#000000"
+        android:scaleType="fitXY"
         android:layout_width="match_parent"
-        android:layout_height="150dp"/>
+        android:layout_height="wrap_content"/>
 
       <LinearLayout
         android:orientation="horizontal"

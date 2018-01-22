@@ -17,13 +17,11 @@ import com.puzi.puzi.R;
 import com.puzi.puzi.biz.event.EventInfoVO;
 import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.cache.Preference;
-import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 
 /**
  * Created by muoe0 on 2017-07-08.
  */
-
 public class RecommendActivity extends BaseFragmentActivity {
 
 	@BindView(R.id.tv_recommend_id)
@@ -42,6 +40,8 @@ public class RecommendActivity extends BaseFragmentActivity {
 
 	private EventInfoVO eventInfoVO;
 
+	private String recommendMessage;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,14 +55,35 @@ public class RecommendActivity extends BaseFragmentActivity {
 
 		initComponent();
 
-		MainActivity.needToUpdateMyWorry.add(1);
+		UserVO myInfo = Preference.getMyInfo(getActivity());
+
+		if(eventInfoVO.getEventStatusType().isShowEvent()) {
+			recommendMessage = "당신의 취향을 구매합니다, Puzi\n"
+				+ "\n"
+				+ "친구추천을 통해 \n"
+				+ "카카오톡 이모티콘 받아가세요.\n"
+				+ "\n"
+				+ "상품응모, 적금을 통한 \n"
+				+ "현명한 적립금 소비는 덤! \n"
+				+ "\n"
+				+ "추천인: " + myInfo.getUserId();
+		} else {
+			recommendMessage = "당신의 취향을 구매합니다, Puzi\n"
+				+ "\n"
+				+ "친구 추천하고 100포인트 적립받으세요!\n"
+				+ "\n"
+				+ "상품응모, 상품적금을 통한 \n"
+				+ "현명한 적립금 소비는 덤! \n"
+				+ "\n"
+				+ "추천인: " + myInfo.getUserId();
+		}
 
 		try {
 			kakaoLink = KakaoLink.getKakaoLink(this);
 			builder = kakaoLink.createKakaoTalkLinkMessageBuilder();
 			builder.addImage("https://s3.ap-northeast-2.amazonaws.com/puzi/event1.jpg", 1321, 692);
-			builder.addText("TEST");
-			builder.addAppLink("앱으로 이동하기");
+			builder.addText(recommendMessage);
+			builder.addAppLink("앱으로 이동");
 		} catch (KakaoParameterException e) {
 			e.printStackTrace();
 		}

@@ -172,7 +172,8 @@ public abstract class CustomCallback extends LazyCallback {
 		for(CustomCallback retry : retrySet) {
 			if(retry.savedActivity.equals(savedActivity)) {
 				if(!savedActivity.isFinishing()) {
-					retry.getService().enqueue(retry);
+					if(retry.getService() != null)
+						retry.getService().enqueue(retry);
 				}
 			}
 		}
