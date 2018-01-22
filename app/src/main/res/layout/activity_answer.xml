@@ -39,8 +39,15 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+      android:layout_weight="0.1">
+
+    </View>
+
     <LinearLayout
-      android:layout_marginTop="73dp"
+        android:layout_weight="0.9"
       android:layout_marginLeft="16dp"
       android:layout_marginRight="16dp"
       android:layout_width="match_parent"
@@ -49,6 +56,7 @@
 
       <com.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="demilight"
+          android:id="@+id/tv_worry_title"
         android:textSize="30sp"
         android:textColor="@color/colorWhite"
         android:text="지금 당신의 기분은 ?"
@@ -57,14 +65,16 @@
         android:layout_height="wrap_content"/>
 
       <LinearLayout
+          android:id="@+id/ll_answer_like"
         android:layout_marginTop="18dp"
         android:layout_gravity="center"
-        android:background="@drawable/bg_vote_like"
+        android:background="@drawable/bg_vote_like_off"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="30dp">
 
         <ImageView
+            android:id="@+id/iv_answer_like"
           android:layout_gravity="center_vertical"
           android:layout_marginLeft="14dp"
           android:layout_marginRight="5dp"
@@ -73,6 +83,7 @@
           android:layout_height="wrap_content"/>
 
         <com.puzi.puzi.ui.customview.NotoTextView
+            android:id="@+id/tv_answer_like"
           android:layout_gravity="center_vertical"
           android:layout_marginRight="14dp"
           app:fontWeight="regular"
@@ -84,9 +95,15 @@
 
       </LinearLayout>
 
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+        android:layout_weight="0.5">
+
+      </View>
+
       <LinearLayout
         android:layout_gravity="right"
-        android:layout_marginTop="54dp"
         android:layout_marginBottom="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -135,27 +152,37 @@
 
       </LinearLayout>
 
+      <View
+          android:layout_weight="0.9"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"/>
+
       <LinearLayout
         android:orientation="vertical"
+          android:gravity="center"
+          android:layout_weight="0.9"
         android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layout_weight="1"
           android:orientation="horizontal"
           android:layout_marginBottom="10dp"
           android:layout_width="match_parent"
           android:layout_height="match_parent">
 
-          <ImageButton
+          <Button
             android:background="@drawable/button_question_off"
+              android:id="@+id/btn_answer_1"
             android:layout_weight="0.5"
             android:layout_marginRight="9dp"
             android:layout_width="0dp"
             android:layout_height="113dp"/>
 
-          <ImageButton
+          <Button
             android:background="@drawable/button_question_off"
+              android:id="@+id/btn_answer_2"
             android:layout_weight="0.5"
             android:layout_marginLeft="9dp"
             android:layout_width="0dp"
@@ -164,33 +191,36 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_weight="1"
+            android:id="@+id/ll_answer_container_2"
           android:orientation="horizontal"
           android:layout_width="match_parent"
           android:layout_height="match_parent">
 
-          <ImageButton
+          <Button
             android:background="@drawable/button_question_off"
+              android:id="@+id/btn_answer_3"
             android:layout_weight="0.5"
             android:layout_marginRight="9dp"
             android:layout_width="0dp"
             android:layout_height="113dp"/>
 
-          <ImageButton
+          <Button
             android:background="@drawable/button_question_off"
+              android:id="@+id/btn_answer_4"
             android:layout_weight="0.5"
             android:layout_marginLeft="9dp"
             android:layout_width="0dp"
             android:layout_height="113dp"/>
 
         </LinearLayout>
-        
       </LinearLayout>
-      
     </LinearLayout>
 
     <com.puzi.puzi.ui.customview.NotoButton
       app:fontWeight="bold"
       android:background="@drawable/button_puzi"
+        android:gravity="center"
       android:text="선택완료"
       android:textSize="16sp"
       android:textColor="@color/colorWhite"

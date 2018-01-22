@@ -31,6 +31,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         this.activity = activity;
     }
 
+    public void addOne() {
+        this.list = new ArrayList<>();
+        this.list.add(CategoryType.ENTIRE);
+    }
+
     public void addList(List<CategoryType> list) {
         this.list = list;
     }

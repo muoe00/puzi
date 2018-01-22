@@ -1,5 +1,6 @@
 package com.puzi.puzi.ui.advertisement;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -24,7 +25,9 @@ import com.puzi.puzi.utils.PuziUtils;
 import lombok.NoArgsConstructor;
 import retrofit2.Call;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Created by muoe0 on 2017-07-08.
@@ -41,12 +44,15 @@ public class AdvertisementFragment extends BaseFragment {
 	private int pagingIndex = 1;
 	boolean lastestScrollFlag = false;
 	private AdvertisementListAdapter advertiseListAdapter;
-
 	private ReceivedAdvertiseVO startReceivedAdvertiseVO = null;
+
+	public static List<ReceivedAdvertiseVO> receivedAdvertiseVOS = new ArrayList<>();
 
 	public void setPush(ReceivedAdvertiseVO receivedAdvertiseVO) {
 		startReceivedAdvertiseVO = receivedAdvertiseVO;
 	}
+
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +81,13 @@ public class AdvertisementFragment extends BaseFragment {
 		}
 
 		return v;
+	}
+
+	@Override
+	public void onResume() {
+
+
+		super.onResume();
 	}
 
 	private void initComponent() {
@@ -169,5 +182,4 @@ public class AdvertisementFragment extends BaseFragment {
 		super.onDestroyView();
 		unbinder.unbind();
 	}
-
 }

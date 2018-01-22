@@ -22,6 +22,7 @@ import com.puzi.puzi.ui.base.BaseFragmentActivity;
 /**
  * Created by muoe0 on 2017-07-08.
  */
+
 public class RecommendActivity extends BaseFragmentActivity {
 
 	@BindView(R.id.tv_recommend_id)

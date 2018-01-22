@@ -1,5 +1,6 @@
 package com.puzi.puzi.ui.customview;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -13,6 +14,7 @@ import com.puzi.puzi.R;
  * Created by JangwonPark on 2017. 11. 6..
  */
 
+@SuppressLint("AppCompatCustomView")
 public class NotoEditText extends EditText {
 
 	public NotoEditText(Context context) {

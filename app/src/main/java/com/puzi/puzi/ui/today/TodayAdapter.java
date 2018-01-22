@@ -2,37 +2,28 @@ package com.puzi.puzi.ui.today;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.widget.RecyclerView;
-import android.test.LoaderTestCase;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.myservice.MyTodayQuestionVO;
 import com.puzi.puzi.ui.customview.NotoTextView;
 
-import java.io.Serializable;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import static com.puzi.puzi.biz.myservice.ViewType.BONUS;
-import static com.puzi.puzi.biz.myservice.ViewType.END;
 import static com.puzi.puzi.biz.myservice.ViewType.INIT;
 import static com.puzi.puzi.biz.myservice.ViewType.REMAIN;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> {
 
 	private int state = 1, hour, minute, second;
     private MyTodayQuestionVO myTodayQuestionVO;
 	private Context context;
 
-	public RecyclerAdapter(Context context) {
+	public TodayAdapter(Context context) {
 		this.context = context;
 	}
 
@@ -45,7 +36,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 	public void setMyTodayQuestionVO(MyTodayQuestionVO myTodayQuestionVO) {
 		this.myTodayQuestionVO = myTodayQuestionVO;
 
-		Log.i("RecyclerAdapter", "myTodayQuestionVO : " + myTodayQuestionVO.toString());
+		Log.i("TodayAdapter", "myTodayQuestionVO : " + myTodayQuestionVO.toString());
 	}
 
 	public void changedState(int state) {
@@ -57,10 +48,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
 		View view;
 
-		Log.i("RecyclerAdapter", "state : " + state);
+		Log.i("TodayAdapter", "state : " + state);
 
 		if(state == INIT.getIndex()) {
-			Log.i("RecyclerAdapter", "index : " + INIT.getIndex());
+			Log.i("TodayAdapter", "index : " + INIT.getIndex());
 			view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_question_init, parent, false);
 		} else if(state == BONUS.getIndex()) {
 			view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_question_bonus, parent, false);
@@ -103,7 +94,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 			holder.button.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					Log.i("RecyclerAdapter", "onClick");
+					Log.i("TodayAdapter", "onClick");
 					Intent intent = new Intent(context, QuestionActivity.class);
 					intent.putExtra("questionList", myTodayQuestionVO);
 					context.startActivity(intent);
