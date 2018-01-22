@@ -19,6 +19,7 @@ import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.common.DialogButtonCallback;
 import com.puzi.puzi.ui.common.OneButtonDialog;
+import com.puzi.puzi.utils.TextUtils;
 
 /**
  * Created by 170605 on 2017-10-27.
@@ -47,7 +48,7 @@ public class OutFragment extends BaseFragment {
 		unbinder = ButterKnife.bind(this, view);
 
 		UserVO myInfo = Preference.getMyInfo(getActivity());
-		tvPoint.setText(myInfo.getPoint());
+		tvPoint.setText(TextUtils.addComma(myInfo.getPoint()));
 		switch (myInfo.getLevelType()) {
 			case "WELCOME":
 				ivLevel.setImageResource(R.drawable.welcome_icon);
