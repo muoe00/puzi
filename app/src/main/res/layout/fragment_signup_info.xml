@@ -338,7 +338,7 @@
               app:fontWeight="regular"
               android:background="@drawable/button_favorite_off"
               android:id="@+id/btn_info_finance"
-              android:text="금융(보험,제테크)"
+              android:text="금융\n(보험,제테크)"
               android:textSize="16sp"
               android:textColor="@color/colorTextGray"
               android:layout_weight="1"

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +27,7 @@ public class IntroFragment extends BaseFragment {
 	private Unbinder unbinder;
 
 	@BindView(R.id.btn_signup) public Button btnSignup;
-	@BindView(R.id.btn_kakao_login) public Button btnKakao;
+	@BindView(R.id.fl_kakao_login_container) public FrameLayout flKakao;
 	@BindView(R.id.ll_bar) public LinearLayout llBar;
 	@BindView(R.id.btn_login) public Button btnLogin;
 
@@ -44,7 +45,7 @@ public class IntroFragment extends BaseFragment {
 		Animation animation3 = AnimationUtils.loadAnimation(getActivity(), R.anim.login_3);
 		Animation animation4 = AnimationUtils.loadAnimation(getActivity(), R.anim.login_4);
 		btnSignup.startAnimation(animation1);
-		btnKakao.startAnimation(animation2);
+		flKakao.startAnimation(animation2);
 		llBar.startAnimation(animation3);
 		btnLogin.startAnimation(animation4);
 	}
