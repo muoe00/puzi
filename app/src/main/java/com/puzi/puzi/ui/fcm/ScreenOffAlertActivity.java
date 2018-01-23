@@ -11,7 +11,6 @@ import butterknife.Unbinder;
 import com.google.gson.Gson;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
-import com.puzi.puzi.biz.setting.NoticeVO;
 import com.puzi.puzi.fcm.PuziPushType;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.base.BaseActivity;
@@ -66,17 +65,12 @@ public class ScreenOffAlertActivity extends BaseActivity {
 			case ADVERTISEMENT:
 				data = intent.getStringExtra("receivedAdvertiseDTO");
 				ReceivedAdvertiseVO receivedAdvertiseVO = gson.fromJson(data, ReceivedAdvertiseVO.class);
-				title = "(광고)";
+				title = "새로운 광고가 도착했습니다.";
 				comment = receivedAdvertiseVO.getSendComment();
 				nextIntent.putExtra("receivedAdvertiseDTO", data);
 				break;
 
 			case NOTICE:
-				data = intent.getStringExtra("noticeDTO");
-				NoticeVO noticeVO = gson.fromJson(data, NoticeVO.class);
-				title = "(공지)";
-				comment = noticeVO.getTitle();
-				nextIntent.putExtra("noticeDTO", data);
 				break;
 		}
 

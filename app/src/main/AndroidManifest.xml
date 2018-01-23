@@ -42,10 +42,14 @@
         <data android:host="@string/kakaolink_host"
               android:scheme="@string/kakao_scheme">
         </data>
+        <!--<data android:host="@string/kakaotalk_host"-->
+              <!--android:scheme="@string/kakao_scheme">-->
+        <!--</data>-->
       </intent-filter>
     </activity>
     <activity android:name=".ui.today.AnswerActivity"/>
     <activity android:name=".ui.user.PointActivity"/>
+    <activity android:name=".ui.setting.SettingDetailActivity"/>
     <activity android:name=".ui.setting.SettingDetailActivity"/>
     <activity android:name=".ui.advertisement.AdvertisementDetailActivity"
       android:windowSoftInputMode="stateAlwaysHidden">
@@ -68,6 +72,11 @@
     <activity
       android:name=".ui.fcm.ScreenOffAlertActivity"
       android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+      android:excludeFromRecents="true"
+      android:taskAffinity="com.puzi.puzi.popup"/>
+    <activity
+      android:name=".ui.fcm.ScreenOnAlertActivity"
+      android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
       android:excludeFromRecents="true"
       android:taskAffinity="com.puzi.puzi.popup"/>
     <activity

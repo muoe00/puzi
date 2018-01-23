@@ -69,7 +69,7 @@ public abstract class CustomCallback extends LazyCallback {
 			} else if(response.body().getResultType().isSuccess()) {
 				onSuccess(response.body());
 			} else {
-				if(response.body().getResultCode() == LOGIN_FAIL.getResultCode()) {
+				if(response.body().getResultCode() == LOGIN_FAIL.getResultCode() && !request.url().toString().endsWith("/guest/login")) {
 					Preference.addProperty(getSavedActivity(), "id", null);
 					Preference.addProperty(getSavedActivity(), "passwd", null);
 					tryLogin();
@@ -172,7 +172,8 @@ public abstract class CustomCallback extends LazyCallback {
 		for(CustomCallback retry : retrySet) {
 			if(retry.savedActivity.equals(savedActivity)) {
 				if(!savedActivity.isFinishing()) {
-					retry.getService().enqueue(retry);
+					if(retry.getService() != null)
+						retry.getService().enqueue(retry);
 				}
 			}
 		}

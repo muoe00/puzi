@@ -36,7 +36,6 @@
         android:textSize="16sp"
         android:id="@+id/edt_setting_email"
         android:textColor="#6D6D6D"
-        android:hint="이메일 주소를 입력하세요."
         android:ems="15"
         android:maxLines="1"
         android:inputType="textEmailAddress"
@@ -68,7 +67,7 @@
         app:fontWeight="regular"
         android:background="@drawable/edittext"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="54dp"
         android:textSize="15sp"
         android:id="@+id/edt_setting_pw"
         android:textColorHint="#6D6D6D"
@@ -84,7 +83,7 @@
         app:fontWeight="regular"
         android:background="@drawable/edittext"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="54dp"
         android:textSize="15sp"
         android:id="@+id/edt_setting_repw"
         android:textColorHint="#6D6D6D"
@@ -104,7 +103,7 @@
         android:layout_marginTop="5dp"
         android:textSize="12sp"
         android:textColor="#333333"
-        android:text="8-15자 이내,\n숫자, 영문 대소문자, 특수문자 중 2개 이상 조합해주세요."
+        android:text="8-15자 이내, 숫자와 영문으로 조합해주세요."
         android:gravity="left" />
 
     </LinearLayout>

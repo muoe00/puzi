@@ -112,6 +112,7 @@
           android:layout_height="match_parent">
 
           <com.puzi.puzi.ui.customview.RobotoTextView
+            app:fontWeight="regular"
             android:gravity="center_vertical"
             android:layout_marginRight="2.6dp"
             android:layout_gravity="center_vertical"
@@ -134,6 +135,7 @@
             android:id="@+id/iv_todaypoint"/>
 
           <com.puzi.puzi.ui.customview.RobotoTextView
+            app:fontWeight="regular"
             android:layout_marginLeft="2.2dp"
             android:gravity="center"
             android:layout_gravity="center_vertical"

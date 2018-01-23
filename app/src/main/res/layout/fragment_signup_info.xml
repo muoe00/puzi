@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
+              android:background="#ffffff"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
@@ -23,13 +24,13 @@
         android:layout_height="54dp">
 
         <ImageButton
-          android:padding="16dp"
           android:layout_gravity="left|center"
           android:layout_width="50dp"
           android:layout_height="match_parent"
           android:background="@null"
           android:src="@drawable/back"
           android:id="@+id/ibtn_back"/>
+
         <com.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:text="회원가입"
@@ -123,13 +124,24 @@
           android:textColor="@color/colorBlack"
           android:text="출생년도"/>
 
-        <Spinner
-          android:id="@+id/sp_age"
-          android:background="@drawable/button_store_withdraw_input"
-          android:layout_width="match_parent"
+        <FrameLayout 
+          android:layout_width="match_parent" 
           android:layout_height="54dp">
 
-        </Spinner>
+          <Spinner
+            android:id="@+id/sp_age"
+            android:background="@drawable/button_store_withdraw_input"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"/>
+          
+          <ImageView
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="17.2dp"
+            android:src="@drawable/down_buton2"
+            android:layout_width="13dp"
+            android:layout_height="6.7dp"/>
+          
+        </FrameLayout>
 
       </LinearLayout>
 
@@ -157,23 +169,50 @@
           android:layout_width="match_parent"
           android:layout_height="54dp">
 
-          <Spinner
-            android:id="@+id/sp_region"
+          <FrameLayout
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:background="@drawable/button_store_withdraw_input"
-            android:layout_height="match_parent"/>
+            android:layout_height="54dp">
+
+            <Spinner
+              android:id="@+id/sp_region"
+              android:layout_width="match_parent"
+              android:background="@drawable/button_store_withdraw_input"
+              android:layout_height="match_parent"/>
+
+            <ImageView
+              android:layout_gravity="right|center_vertical"
+              android:layout_marginRight="17.2dp"
+              android:src="@drawable/back_chevron_down"
+              android:layout_width="13dp"
+              android:layout_height="6.7dp"/>
+
+          </FrameLayout>
 
           <LinearLayout
             android:layout_width="16dp"
             android:layout_height="match_parent"/>
 
-          <Spinner
-            android:id="@+id/sp_city"
+          <FrameLayout
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:background="@drawable/button_store_withdraw_input"
-            android:layout_height="match_parent"/>
+            android:layout_height="54dp">
+
+            <Spinner
+              android:id="@+id/sp_city"
+              android:layout_width="match_parent"
+              android:background="@drawable/button_store_withdraw_input"
+              android:layout_height="match_parent"/>
+
+            <ImageView
+              android:layout_gravity="right|center_vertical"
+              android:layout_marginRight="17.2dp"
+              android:src="@drawable/back_chevron_down"
+              android:layout_width="13dp"
+              android:layout_height="6.7dp"/>
+
+          </FrameLayout>
+
         </LinearLayout>
 
       </LinearLayout>
@@ -394,31 +433,28 @@
         android:layout_marginTop="19dp"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="31dp">
 
-        <LinearLayout
-          android:orientation="horizontal"
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="medium"
           android:layout_width="match_parent"
-          android:layout_height="54dp"
-          android:layout_marginBottom="5dp">
-
-          <com.puzi.puzi.ui.customview.NotoTextView
-            app:fontWeight="medium"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="left|center_vertical"
-            android:textSize="16sp"
-            android:textColor="@color/colorBlack"
-            android:text="약관동의"/>
-
-        </LinearLayout>
+          android:layout_height="wrap_content"
+          android:gravity="left|center_vertical"
+          android:textSize="16sp"
+          android:layout_marginBottom="6dp"
+          android:textColor="@color/colorBlack"
+          android:text="약관동의"/>
 
         <LinearLayout
           android:orientation="vertical"
-          android:layout_marginTop="10dp"
+          android:paddingLeft="10dp"
+          android:paddingRight="10dp"
+          android:paddingTop="12dp"
+          android:paddingBottom="12dp"
+          android:background="#fafafa"
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
+
           <com.puzi.puzi.ui.customview.NotoButton
             app:fontWeight="regular"
             android:text="@string/confirm_service"
@@ -431,6 +467,7 @@
             android:layout_marginBottom="12dp"
             android:layout_weight="1"
             android:background="@null"/>
+
           <com.puzi.puzi.ui.customview.NotoButton
             app:fontWeight="regular"
             android:text="@string/confirm_personal"
@@ -439,7 +476,6 @@
             android:gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
-            android:layout_marginBottom="12dp"
             android:id="@+id/btn_signup_personal"
             android:layout_weight="1"
             android:background="@null"/>
@@ -449,12 +485,15 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="30dp">
+
             <ImageView
               android:src="@drawable/radio_off"
               android:layout_width="30dp"
               android:layout_height="30dp"
               android:id="@+id/iv_signup_all"/>
-            <TextView
+
+            <com.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="regular"
               android:layout_marginLeft="42dp"
               android:gravity="center_vertical"
               android:text="약관 전체 동의"
@@ -462,37 +501,30 @@
               android:textColor="@color/colorTextGray"
               android:layout_width="100dp"
               android:layout_height="match_parent"/>
+
             <Button
               android:background="@null"
               android:id="@+id/btn_signup_all"
               android:layout_width="130dp"
               android:layout_height="match_parent"/>
+
           </FrameLayout>
 
         </LinearLayout>
 
       </LinearLayout>
 
-      <LinearLayout
+      <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_height="54dp"
         android:layout_marginBottom="28dp"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-        <Button
-          android:layout_width="match_parent"
-          android:layout_height="54dp"
-          android:id="@+id/btn_signup_ok"
-          android:textSize="16sp"
-          android:text="회원가입"
-          android:background="@drawable/button_puzi"
-          android:textColor="@color/colorWhite"/>
-
-      </LinearLayout>
+        android:id="@+id/btn_signup_ok"
+        android:textSize="16sp"
+        android:text="회원가입"
+        android:background="@drawable/button_puzi"
+        android:textColor="@color/colorWhite"/>
 
     </LinearLayout>
 

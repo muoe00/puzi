@@ -70,6 +70,7 @@ public class IntroActivity extends BaseFragmentActivity {
 	}
 
 	public void isKakaoLogin() {
+		ProgressDialog.show(getActivity());
 		Log.i("TAG", "isKakaoLogin");
 
 		// 카카오 세션 오픈
@@ -93,6 +94,7 @@ public class IntroActivity extends BaseFragmentActivity {
 
 		@Override
 		public void onSessionOpened() {
+			ProgressDialog.dismiss();
 
 			Log.i("TAG" , "onSessionOpened");
 
@@ -127,22 +129,14 @@ public class IntroActivity extends BaseFragmentActivity {
 					Log.i("UserProfile", userProfile.toString());
 
 					checkUser();
-
-					if(isKakao) {
-						kakaoIdLogin(tempId, uuid);
-					} else {
-						kakaoIdSignup(tempId, uuid);
-					}
 				}
 			});
 
 		}
 
 		@Override
-		public void onSessionOpenFailed(KakaoException exception) {
-			Log.i("TAG" , "onSessionOpenFailed");
-
-			exception.printStackTrace();
+		public void onSessionOpenFailed(KakaoException e) {
+			Log.e("TAG" , "onSessionOpenFailed", e);
 		}
 	}
 
@@ -198,8 +192,13 @@ public class IntroActivity extends BaseFragmentActivity {
 		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-				isKakao = responseVO.getBoolean("registered");
-				tempId = responseVO.getString("tempId");
+				boolean isKakao = responseVO.getBoolean("registered");
+				String tempId = responseVO.getString("tempId");
+				if(isKakao) {
+					kakaoIdLogin(tempId, uuid);
+				} else {
+					kakaoIdSignup(tempId, uuid);
+				}
 			}
 		});
 	}

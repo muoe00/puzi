@@ -13,7 +13,6 @@
     android:layout_height="54dp">
 
     <ImageButton
-      android:padding="16dp"
       android:layout_gravity="left|center"
       android:layout_width="50dp"
       android:layout_height="match_parent"

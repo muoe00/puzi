@@ -63,9 +63,9 @@ public class SignupFragment extends BaseFragment {
 
 			@Override
 			public void onSuccess(ResponseVO response) {
-				Preference.addProperty(getActivity(), "id", id);
-				Preference.addProperty(getActivity(), "passwd", pw);
-				Preference.addProperty(getActivity(), "email", email);
+				Preference.addProperty(getActivity(), "tempid", id);
+				Preference.addProperty(getActivity(), "temppasswd", pw);
+				Preference.addProperty(getActivity(), "tempemail", email);
 				changedFragment();
 			}
 		});
@@ -92,13 +92,18 @@ public class SignupFragment extends BaseFragment {
 		} else {
 			if(ValidationUtils.checkEmail(email)) {
 				if(pw.equals(rePw)) {
-					if(ValidationUtils.checkUserId(id)) {
-						idCheck();
-					} else {
+					if(!ValidationUtils.checkUserId(id)) {
 						Toast.makeText(getContext(), "정확한 아이디를 입력하세요.", Toast.LENGTH_SHORT).show();
+						return;
 					}
+					if(!ValidationUtils.isValidPasswd(pw)) {
+						Toast.makeText(getContext(), "비밀번호가 규칙에 맞지 않습니다.", Toast.LENGTH_SHORT).show();
+						return;
+					}
+
+					idCheck();
 				} else {
-					Toast.makeText(getContext(), "정확한 비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getContext(), "비밀번호가 서로 다릅니다.", Toast.LENGTH_SHORT).show();
 				}
 			} else {
 				Toast.makeText(getContext(), "정확한 이메일 주소를 입력하세요.", Toast.LENGTH_SHORT).show();

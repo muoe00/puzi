@@ -21,9 +21,12 @@ import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.CustomArrayAdapter;
+import com.puzi.puzi.ui.IntroActivity;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragment;
+import com.puzi.puzi.ui.setting.PersonalFragment;
+import com.puzi.puzi.ui.setting.UsingFragment;
 import com.puzi.puzi.utils.EncryptUtils;
 import retrofit2.Call;
 
@@ -31,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static android.R.attr.fragment;
 import static com.puzi.puzi.biz.user.AddressInfo.CITY_MAP;
 import static com.puzi.puzi.biz.user.AddressInfo.REGION_LIST;
 
@@ -84,14 +88,14 @@ public class SignupInfoFragment extends BaseFragment {
 		String isKakao = Preference.getProperty(getActivity(), "kakao");
 		if("K".equals(isKakao)) {
 			userVO.setRegisterType(RegisterType.K);
-			userVO.setPasswd(Preference.getProperty(getActivity(), "passwd"));
+			userVO.setPasswd(Preference.getProperty(getActivity(), "temppasswd"));
 		} else {
 			userVO.setRegisterType(RegisterType.N);
-			userVO.setPasswd(EncryptUtils.sha256(Preference.getProperty(getActivity(), "passwd")));
+			userVO.setPasswd(EncryptUtils.sha256(Preference.getProperty(getActivity(), "temppasswd")));
 		}
 
-		userVO.setUserId(Preference.getProperty(getActivity(), "id"));
-		userVO.setEmail(Preference.getProperty(getActivity(), "email"));
+		userVO.setUserId(Preference.getProperty(getActivity(), "tempid"));
+		userVO.setEmail(Preference.getProperty(getActivity(), "tempemail"));
 		userVO.setNotifyId(Preference.getProperty(getActivity(), "tokenFCM"));
 		userVO.setPhoneType(PhoneType.A);
 		userVO.setLevelType(LevelType.WELCOME);
@@ -106,7 +110,7 @@ public class SignupInfoFragment extends BaseFragment {
 		if(userVO.getAgeType() == null) {
 			Toast.makeText(getContext(), "출생년도를 선택하세요", Toast.LENGTH_SHORT).show();
 			return;
-		} else if(userVO.getFavoriteTypeList().size() < 3) {
+		} else if(userVO.getFavoriteTypeList() == null || userVO.getFavoriteTypeList().size() < 3) {
 			Toast.makeText(getContext(), "관심분야를 3가지 이상 선택해주세요", Toast.LENGTH_SHORT).show();
 			return;
 		} else if(!isConfirm) {
@@ -196,6 +200,7 @@ public class SignupInfoFragment extends BaseFragment {
 
 		spAge.setPrompt(getResources().getString(R.string.info_age));
 		spAge.setAdapter(new CustomArrayAdapter(getActivity(), yearList));
+		spAge.setSelection(1999-1940);
 		spRegion.setAdapter(new CustomArrayAdapter(getActivity(), REGION_LIST));
 		spRegion.setSelection(0);
 		spCity.setAdapter(new CustomArrayAdapter(getActivity(), CITY_MAP.get(REGION_LIST.get(0))));
@@ -276,8 +281,14 @@ public class SignupInfoFragment extends BaseFragment {
 	public void checkClause(View view) {
 		switch (view.getId()) {
 			case R.id.btn_signup_service:
+				BaseFragment usingFragment = new UsingFragment();
+				IntroActivity introActivity = (IntroActivity) getActivity();
+				introActivity.addFragment(usingFragment);
 				break;
 			case R.id.btn_signup_personal:
+				BaseFragment personalFragment = new PersonalFragment();
+				introActivity = (IntroActivity) getActivity();
+				introActivity.addFragment(personalFragment);
 				break;
 		}
 	}

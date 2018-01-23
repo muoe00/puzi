@@ -51,13 +51,13 @@ public class CenterFragment extends BaseFragment {
 				changedFragment("문의하기");
 				break;
 			case R.id.btn_setting_cs_service :
-				fragment = new TermsFragment();
+				fragment = new UsingFragment();
 				bundle.putString("key", "service");
 				fragment.setArguments(bundle);
 				changedFragment("서비스 이용약관");
 				break;
 			case R.id.btn_setting_cs_user :
-				fragment = new TermsFragment();
+				fragment = new PersonalFragment();
 				bundle.putString("key", "user");
 				fragment.setArguments(bundle);
 				changedFragment("개인정보 취급방침");

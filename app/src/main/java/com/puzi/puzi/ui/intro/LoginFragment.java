@@ -18,6 +18,7 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.UserNetworkService;
+import com.puzi.puzi.ui.DeviceKeyFinder;
 import com.puzi.puzi.ui.IntroActivity;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.ProgressDialog;
@@ -81,7 +82,7 @@ public class LoginFragment extends BaseFragment {
 			final String sha256Pw = EncryptUtils.sha256(pwd);
 			final String notifyId = Preference.getProperty(getActivity(), "tokenFCM");
 			final String phoneType = "A";
-			final String phoneKey = "ABC";
+			final String phoneKey = DeviceKeyFinder.find(getActivity());
 
 			LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
 			service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {

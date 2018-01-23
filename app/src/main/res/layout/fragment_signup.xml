@@ -12,13 +12,13 @@
     android:layout_height="54dp">
 
     <ImageButton
-      android:padding="16dp"
       android:layout_gravity="left|center"
       android:layout_width="50dp"
       android:layout_height="match_parent"
       android:background="@null"
       android:src="@drawable/back"
       android:id="@+id/ibtn_back"/>
+
     <com.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="medium"
       android:text="회원가입"
@@ -32,9 +32,7 @@
   <LinearLayout
     android:background="#DADADA"
     android:layout_width="match_parent"
-    android:layout_height="1dp">
-
-  </LinearLayout>
+    android:layout_height="1dp"/>
 
   <ScrollView
     android:layout_width="match_parent"
@@ -185,7 +183,7 @@
           android:layout_marginTop="5dp"
           android:textSize="12sp"
           android:textColor="#333333"
-          android:text="8-15자 이내,\n숫자, 영문 대소문자, 특수문자 중 3개 이상 조합해주세요."
+          android:text="8-15자 이내, 숫자와 영문으로 조합해주세요."
           android:gravity="left" />
 
       </LinearLayout>
@@ -205,7 +203,7 @@
           android:layout_width="match_parent"
           android:layout_height="54dp"
           android:id="@+id/btn_signup_next"
-          android:background="@drawable/button_search"
+          android:background="@drawable/button_puzi"
           android:textSize="16sp"
           android:text="다음 단계"
           android:textColor="@color/colorWhite"/>

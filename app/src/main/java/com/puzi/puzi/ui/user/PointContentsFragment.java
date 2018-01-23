@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import butterknife.BindView;
@@ -16,6 +15,7 @@ import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.AdvertisementNetworkService;
+import com.puzi.puzi.ui.CustomPagingAdapter;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
@@ -29,8 +29,6 @@ import java.util.List;
 public class PointContentsFragment extends BaseFragment {
 
 	private int tag = 0, pagingIndex = 1;
-	private boolean more = false;
-	boolean lastestScrollFlag = false;
 	private PointListAdapter pointListAdapter;
 	private PointViewHolder pointViewHolder = null;
 	private LevelViewHolder levelViewHolder = null;
@@ -47,22 +45,25 @@ public class PointContentsFragment extends BaseFragment {
 			case PuziUtils.VIEW_POINT:
 				view = inflater.inflate(R.layout.fragment_point_list, container, false);
 				pointViewHolder = new PointViewHolder(view);
-				pointListAdapter = new PointListAdapter(getContext());
+				pointListAdapter = new PointListAdapter(getActivity(), pointViewHolder.lvPoint, new CustomPagingAdapter.ListHandler() {
+					@Override
+					public void getList() {
+						pointList();
+					}
+				});
 				pointViewHolder.lvPoint.setAdapter(pointListAdapter);
-				initScrollAction();
-				pointList(pointViewHolder);
+				pointListAdapter.getList();
 				break;
 			case PuziUtils.VIEW_LEVEL:
 				view = inflater.inflate(R.layout.fragment_level, container, false);
 				levelViewHolder = new LevelViewHolder(view);
-				level(levelViewHolder);
 				break;
 		}
 
 		return view;
 	}
 
-	public void pointList(final PointViewHolder pointViewHolder) {
+	public void pointList() {
 
 		pointListAdapter.startProgress();
 		pointViewHolder.lvPoint.setSelection(pointListAdapter.getCount() - 1);
@@ -80,48 +81,9 @@ public class PointContentsFragment extends BaseFragment {
 				pointListAdapter.stopProgress();
 
 				List<PointHistoryVO> pointHistoryVOs = responseVO.getList("pointHistorieDTOList", PointHistoryVO.class);
-				Log.i(PuziUtils.INFO, "point / pointHistoryVOs : " + pointHistoryVOs.toString());
+				int totalCount = responseVO.getInteger("totalCount");
 
-				if(pointHistoryVOs.size() == 0) {
-					pointListAdapter.empty();
-					more = false;
-					return;
-				}
-
-				pointListAdapter.addPointList(pointHistoryVOs);
-				pointListAdapter.notifyDataSetChanged();
-
-				if(pointListAdapter.getCount() == responseVO.getInteger("totalCount")) {
-					more = false;
-					return;
-				}
-				more = true;
-
-				pointViewHolder.lvPoint.setAdapter(pointListAdapter);
-			}
-		});
-	}
-
-	public void level(LevelViewHolder levelViewHolder) {
-	}
-
-	private void initScrollAction() {
-		pointViewHolder.lvPoint.setOnScrollListener(new AbsListView.OnScrollListener() {
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-				Log.i(PuziUtils.INFO, "scrollState : " + scrollState + ", more : " + more);
-
-				if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastestScrollFlag) {
-					if(more) {
-						pagingIndex = pagingIndex + 1;
-						pointList(pointViewHolder);
-					}
-				}
-			}
-
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-				lastestScrollFlag = (totalItemCount > 0) && firstVisibleItem + visibleItemCount >= totalItemCount;
+				pointListAdapter.addListWithTotalCount(pointHistoryVOs, totalCount);
 			}
 		});
 	}

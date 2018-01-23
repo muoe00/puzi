@@ -55,16 +55,6 @@
         android:layout_width="wrap_content"
         android:layout_height="24dp"/>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
-        app:fontWeight="regular"
-        android:layout_gravity="center_vertical"
-        android:text="P"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorPuzi"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"/>
-
     </LinearLayout>
 
   </LinearLayout>

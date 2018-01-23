@@ -24,7 +24,7 @@ public interface StoreNetworkService {
 		@Query("storeItemId") int storeItemId);
 
 	@FormUrlEncoded
-	@POST("/store/purchase")
+	@POST("/v2/store/purchase")
 	Call<ResponseVO> purchase(@Header("token") String token,
 		@Field("storeId") int storeId,
 		@Field("storeItemId") int storeItemId,

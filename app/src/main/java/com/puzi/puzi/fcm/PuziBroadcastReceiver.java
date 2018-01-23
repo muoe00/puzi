@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.puzi.puzi.R;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.fcm.ScreenOffAlertActivity;
+import com.puzi.puzi.ui.fcm.ScreenOnAlertActivity;
 
 import static com.puzi.puzi.fcm.PuziPushType.ADVERTISEMENT;
 
@@ -89,6 +90,10 @@ public class PuziBroadcastReceiver extends BroadcastReceiver {
 		if (!isScreenOn(context)) {
 			// 잠겨있을 경우 깨우기
 			Intent newViewIntent = getNewIntent(context, messageVO, ScreenOffAlertActivity.class);
+			newViewIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			context.startActivity(newViewIntent);
+		} else {
+			Intent newViewIntent = getNewIntent(context, messageVO, ScreenOnAlertActivity.class);
 			newViewIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			context.startActivity(newViewIntent);
 		}

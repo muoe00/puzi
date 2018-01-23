@@ -1,15 +1,11 @@
 package com.puzi.puzi.ui;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
 import android.support.v4.app.NotificationManagerCompat;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -30,8 +26,6 @@ import com.puzi.puzi.ui.common.OneButtonDialog;
 import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
-import java.security.MessageDigest;
-
 public class LaunchActivity extends BaseActivity {
 
 	Unbinder unbinder;
@@ -39,6 +33,7 @@ public class LaunchActivity extends BaseActivity {
 	@BindView(R.id.splash_progress_Bar) public ProgressBar pbSplash;
 
 	private boolean goAlarmSetting = false;
+	private String tokenFCM;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +44,9 @@ public class LaunchActivity extends BaseActivity {
 		unbinder = ButterKnife.bind(this);
 
 		FirebaseInstanceId.getInstance().getToken();
-		String tokenFCM = FirebaseInstanceId.getInstance().getToken();
+		tokenFCM = FirebaseInstanceId.getInstance().getToken();
 		Log.i(PuziUtils.INFO, "FCM_Token : " + tokenFCM);
 		Preference.addProperty(LaunchActivity.this, "tokenFCM", tokenFCM);
-
-		getAppKeyHash();
 
 		pbSplash.setIndeterminate(true);
 		pbSplash.getIndeterminateDrawable().setColorFilter(0xFFFFFFFF, android.graphics.PorterDuff.Mode.MULTIPLY);
@@ -92,11 +85,10 @@ public class LaunchActivity extends BaseActivity {
 	public void checkLogin() {
 		final String autoId = Preference.getProperty(this, "id");
 		final String autoPw = Preference.getProperty(this, "passwd");
-		final String tokenFCM = Preference.getProperty(LaunchActivity.this, "tokenFCM");
 
 		// 메인 화면으로 갈지(자동로그인 성공), 로그인 화면으로 갈지(자동로그인 실패) 결정 (변수 : auto_login)
 		if (autoId != null && autoPw != null) {
-			login(autoId, autoPw, tokenFCM, "");
+			login(autoId, autoPw, tokenFCM, DeviceKeyFinder.find(getActivity()));
 		} else {
 			new Handler() {
 				@Override
@@ -139,29 +131,24 @@ public class LaunchActivity extends BaseActivity {
 						finish();
 						break;
 					case LOGIN_FAIL:
+						Preference.removeProperty(getActivity(), "id");
+						Preference.removeProperty(getActivity(), "passwd");
+						Preference.removeProperty(getActivity(), "token");
 						goLoginPage();
 						break;
 					default:
 						break;
 				}
 			}
-		});
-	}
 
-	private void getAppKeyHash() {
-		try {
-			PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-			for (Signature signature : info.signatures) {
-				MessageDigest md;
-				md = MessageDigest.getInstance("SHA");
-				md.update(signature.toByteArray());
-				String something = new String(Base64.encode(md.digest(), 0));
-				Log.i("Hash key", something);
+			@Override
+			public void onFail(ResponseVO responseVO) {
+				Preference.removeProperty(getActivity(), "id");
+				Preference.removeProperty(getActivity(), "passwd");
+				Preference.removeProperty(getActivity(), "token");
+				goLoginPage();
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			Log.e("name not found", e.toString());
-		}
+		});
 	}
 
 }

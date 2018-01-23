@@ -1,5 +1,6 @@
 package com.puzi.puzi.network.service;
 
+import com.puzi.puzi.biz.user.FavoriteType;
 import com.puzi.puzi.network.ResponseVO;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -19,7 +20,7 @@ public interface SettingNetworkService {
 	@FormUrlEncoded
 	@POST("/setting/update/favorites")
 	Call<ResponseVO> updateFavorites(@Header("token") String token,
-		@Field("favoriteTypeList") List<String> favoriteTypeList);
+		@Field("favoriteTypeList") List<FavoriteType> favoriteTypeList);
 
 	@FormUrlEncoded
 	@POST("/setting/update/account")
