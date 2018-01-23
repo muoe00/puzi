@@ -2,7 +2,14 @@ package com.puzi.puzi.ui.fcm;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,14 +25,20 @@ import com.puzi.puzi.ui.base.BaseActivity;
 /**
  * Created by JangwonPark on 2018. 1. 17..
  */
-public class ScreenOffAlertActivity extends BaseActivity {
+public class ScreenOnAlertActivity extends BaseActivity {
 
 	Unbinder unbinder;
 
-	@BindView(R.id.tv_title)
+	@BindView(R.id.tv_top_title)
 	TextView tvTitle;
-	@BindView(R.id.tv_comment)
+	@BindView(R.id.tv_top_comment)
 	TextView tvComment;
+	@BindView(R.id.ll_view_container)
+	LinearLayout llViewContainer;
+	@BindView(R.id.fl_container)
+	FrameLayout flContainer;
+	@BindView(R.id.btn_top)
+	Button btnTop;
 
 	private Gson gson = new Gson();
 	private PuziPushType type;
@@ -35,7 +48,7 @@ public class ScreenOffAlertActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_screen_off_alert);
+		setContentView(R.layout.view_screen_on_alert);
 
 		getWindow()
 			.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
@@ -47,9 +60,36 @@ public class ScreenOffAlertActivity extends BaseActivity {
 		Intent intent = getIntent();
 
 		initComponent(intent);
+
+		Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.top_in);
+		flContainer.startAnimation(animation);
+
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				closeAlertOnTheTop();
+			}
+		}, 2000);
+	}
+
+	private void closeAlertOnTheTop() {
+		if(flContainer.getVisibility() == View.GONE) {
+			return;
+		}
+		flContainer.setVisibility(View.GONE);
+		Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.top_out);
+		flContainer.startAnimation(animation);
+		finish();
 	}
 
 	private void initComponent(Intent intent) {
+		FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) llViewContainer.getLayoutParams();
+		params.topMargin = 0;
+		llViewContainer.setLayoutParams(params);
+		FrameLayout.LayoutParams params2 = (FrameLayout.LayoutParams) btnTop.getLayoutParams();
+		params2.topMargin = 0;
+		btnTop.setLayoutParams(params2);
+
 		String typeString = intent.getStringExtra("TYPE");
 		if(typeString == null) {
 			finish();
@@ -83,15 +123,10 @@ public class ScreenOffAlertActivity extends BaseActivity {
 		tvComment.setText(comment);
 	}
 
-	@OnClick(R.id.btn_dialog_close)
-	public void closeClick() {
-		finish();
-	}
-
-	@OnClick(R.id.btn_dialog_confirm)
+	@OnClick(R.id.btn_top)
 	public void confirmClick() {
+		closeAlertOnTheTop();
 		startActivity(nextIntent);
-		finish();
 		doAnimationGoRight();
 	}
 
