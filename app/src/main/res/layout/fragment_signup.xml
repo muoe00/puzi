@@ -32,9 +32,7 @@
   <LinearLayout
     android:background="#DADADA"
     android:layout_width="match_parent"
-    android:layout_height="1dp">
-
-  </LinearLayout>
+    android:layout_height="1dp"/>
 
   <ScrollView
     android:layout_width="match_parent"

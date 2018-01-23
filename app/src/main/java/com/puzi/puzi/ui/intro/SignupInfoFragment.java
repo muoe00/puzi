@@ -34,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static android.R.attr.fragment;
 import static com.puzi.puzi.biz.user.AddressInfo.CITY_MAP;
 import static com.puzi.puzi.biz.user.AddressInfo.REGION_LIST;
 
@@ -109,7 +110,7 @@ public class SignupInfoFragment extends BaseFragment {
 		if(userVO.getAgeType() == null) {
 			Toast.makeText(getContext(), "출생년도를 선택하세요", Toast.LENGTH_SHORT).show();
 			return;
-		} else if(userVO.getFavoriteTypeList().size() < 3) {
+		} else if(userVO.getFavoriteTypeList() == null || userVO.getFavoriteTypeList().size() < 3) {
 			Toast.makeText(getContext(), "관심분야를 3가지 이상 선택해주세요", Toast.LENGTH_SHORT).show();
 			return;
 		} else if(!isConfirm) {
@@ -193,17 +194,13 @@ public class SignupInfoFragment extends BaseFragment {
 
 		int currentYear = currentYear();
 
-		int basicIndex = 0;
 		for(int index = 1940; index <= currentYear; index++){
-			if(index == 1999) {
-				basicIndex = index;
-			}
 			yearList.add(String.valueOf(index));
 		}
 
 		spAge.setPrompt(getResources().getString(R.string.info_age));
 		spAge.setAdapter(new CustomArrayAdapter(getActivity(), yearList));
-		spAge.setSelection(basicIndex);
+		spAge.setSelection(1999-1940);
 		spRegion.setAdapter(new CustomArrayAdapter(getActivity(), REGION_LIST));
 		spRegion.setSelection(0);
 		spCity.setAdapter(new CustomArrayAdapter(getActivity(), CITY_MAP.get(REGION_LIST.get(0))));

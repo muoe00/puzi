@@ -4,9 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
+import com.puzi.puzi.ui.IntroActivity;
 import com.puzi.puzi.ui.base.BaseFragment;
 
 /**
@@ -19,6 +23,11 @@ public class UsingFragment extends BaseFragment {
 
 	private View view = null;
 
+	@BindView(R.id.fl_signup)
+	FrameLayout flTitle;
+	@BindView(R.id.fl_signup_line)
+	LinearLayout llLine;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -29,6 +38,11 @@ public class UsingFragment extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_setting_cs_using, container, false);
 		unbinder = ButterKnife.bind(this, view);
+
+		if(getActivity() instanceof IntroActivity) {
+			flTitle.setVisibility(View.VISIBLE);
+			llLine.setVisibility(View.VISIBLE);
+		}
 
 		return view;
 	}

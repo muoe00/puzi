@@ -5,6 +5,38 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+  <FrameLayout
+    android:visibility="gone"
+    android:id="@+id/fl_signup"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="54dp">
+
+    <ImageButton
+      android:layout_gravity="left|center"
+      android:layout_width="50dp"
+      android:layout_height="match_parent"
+      android:background="@null"
+      android:src="@drawable/back"
+      android:id="@+id/ibtn_back"/>
+
+    <com.puzi.puzi.ui.customview.NotoTextView
+      app:fontWeight="medium"
+      android:text="개인정보 취급방침"
+      android:textColor="@color/colorBlack"
+      android:textSize="20sp"
+      android:gravity="center"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
+  </FrameLayout>
+
+  <LinearLayout
+    android:id="@+id/fl_signup_line"
+    android:visibility="gone"
+    android:background="#DADADA"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"/>
+
   <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
