@@ -66,6 +66,7 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 		return viewHolder;
 	}
 
+
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position) {
 
