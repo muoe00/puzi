@@ -50,6 +50,7 @@
     <activity android:name=".ui.today.AnswerActivity"/>
     <activity android:name=".ui.user.PointActivity"/>
     <activity android:name=".ui.setting.SettingDetailActivity"/>
+    <activity android:name=".ui.setting.SettingDetailActivity"/>
     <activity android:name=".ui.advertisement.AdvertisementDetailActivity"
       android:windowSoftInputMode="stateAlwaysHidden">
     </activity>
