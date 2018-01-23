@@ -55,7 +55,10 @@ public interface MyServiceNetworkService {
 
 	@FormUrlEncoded
 	@POST("/myworry/answer")
-	Call<ResponseVO> setWorryAnswer(@Header("token") String token);
+	Call<ResponseVO> setWorryAnswer(@Header("token") String token,
+									@Field("myWorryQuestionId") int myWorryQuestionId,
+									@Field("answer") String answer,
+									@Field("answerNumber") int answerNumber);
 
 	@FormUrlEncoded
 	@POST("/myworry/like")

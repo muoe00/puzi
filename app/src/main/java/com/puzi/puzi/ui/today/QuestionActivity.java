@@ -103,7 +103,6 @@ public class QuestionActivity extends BaseActivity {
     }
 
     public void setAnswer() {
-
         Log.i("QuestionActivity", "id : " + myTodayQuestionVO.getMyTodayQuestionId());
         Log.i("QuestionActivity", "answer : " + answer);
         Log.i("QuestionActivity", "selectedCount : " + selectedCount);
@@ -128,7 +127,7 @@ public class QuestionActivity extends BaseActivity {
         });
     }
 
-    public void setEnabled(Button btn, boolean state) {
+    public void setEnabled(boolean state) {
         if (selectedCount == 1) {
             btnA2.setEnabled(state);
             btnA3.setEnabled(state);
@@ -151,14 +150,14 @@ public class QuestionActivity extends BaseActivity {
     public void checkButton(Button btn) {
         if(isSelected) {
             isSelected = false;
-            setEnabled(btn, true);
+            setEnabled(true);
             selectedCount = 0;
             btn.setBackgroundResource(R.drawable.button_question_off);
             btn.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorTextGray));
 
         } else {
             isSelected = true;
-            setEnabled(btn, false);
+            setEnabled(false);
             btn.setBackgroundResource(R.drawable.button_question_on);
             btn.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
         }

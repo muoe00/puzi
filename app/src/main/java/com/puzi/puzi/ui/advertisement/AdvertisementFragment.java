@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
+import static com.google.common.collect.Lists.newArrayList;
+
 /**
  * Created by muoe0 on 2017-07-08.
  */
@@ -46,13 +48,15 @@ public class AdvertisementFragment extends BaseFragment {
 	private AdvertisementListAdapter advertiseListAdapter;
 	private ReceivedAdvertiseVO startReceivedAdvertiseVO = null;
 
-	public static List<ReceivedAdvertiseVO> receivedAdvertiseVOS = new ArrayList<>();
+	public static List<Integer> needToUpdateIds = newArrayList();
 
 	public void setPush(ReceivedAdvertiseVO receivedAdvertiseVO) {
 		startReceivedAdvertiseVO = receivedAdvertiseVO;
 	}
 
-
+	public static void updateSavedPoint(int id) {
+		needToUpdateIds.add(id);
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -85,7 +89,13 @@ public class AdvertisementFragment extends BaseFragment {
 
 	@Override
 	public void onResume() {
+		if(needToUpdateIds.size() > 0) {
+			for(int index : needToUpdateIds) {
+				advertiseListAdapter.changeSaved(index, true);
+			}
 
+			needToUpdateIds.clear();
+		}
 
 		super.onResume();
 	}

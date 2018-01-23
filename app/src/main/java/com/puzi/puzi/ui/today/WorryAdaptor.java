@@ -59,7 +59,6 @@ public class WorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
 
         this.activity = activity;
         this.context = activity.getApplicationContext();
-
     }
 
     @Override
@@ -89,6 +88,17 @@ public class WorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
         viewHolder.lvCategory.setHasFixedSize(true);
         viewHolder.lvCategory.setLayoutManager(manager);
         viewHolder.lvCategory.setAdapter(categoryAdapter);
+    }
+
+    public void changedState(QuestionFragment.UpdateLike updateLike) {
+        for(int i = 0; i < list.size(); i++) {
+            if(list.get(i).getMyWorryQuestionId() == updateLike.getId()) {
+                list.get(i).setLikedByMe(updateLike.isLike());
+                list.get(i).setLikedCount(updateLike.getCount());
+            }
+        }
+        Log.i("WorryAdaptor", "changedState()");
+        notifyDataSetChanged();
     }
 
     @Override

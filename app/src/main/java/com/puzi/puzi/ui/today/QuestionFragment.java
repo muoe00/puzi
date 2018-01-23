@@ -18,21 +18,18 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-import com.google.gson.Gson;
 import com.puzi.puzi.R;
-import com.puzi.puzi.biz.myservice.AnswerType;
 import com.puzi.puzi.biz.myservice.MyTodayQuestionVO;
 import com.puzi.puzi.biz.myservice.MyWorryQuestionDTO;
 import com.puzi.puzi.biz.myservice.OrderType;
-import com.puzi.puzi.biz.store.puzi.StoreChallengeItemVO;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.MyServiceNetworkService;
 import com.puzi.puzi.ui.CustomPagingAdapter;
 import com.puzi.puzi.ui.base.BaseFragment;
-import com.puzi.puzi.ui.store.puzi.challenge.StoreChallengeDetailActivity;
 
+import lombok.Data;
 import retrofit2.Call;
 
 import java.util.List;
@@ -40,6 +37,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static com.puzi.puzi.biz.myservice.ViewType.*;
 
 /**
@@ -60,14 +58,20 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	private TodayAdapter adapter;
 	private RecyclerView.LayoutManager manager;
 	private WorryAdaptor worryAdaptor;
-	private List<AnswerType> answerTypeList;
-
+	private List<OrderType> orderTypes;
 	private ScheduledExecutorService excutors = Executors.newSingleThreadScheduledExecutor();
+
+	public static List<UpdateLike> needToUpdateLike = newArrayList();
 
 	@BindView(R.id.lv_vote) ListView lvQuestion;
 	@BindView(R.id.sv_question) ScrollView svQuestion;
 	@BindView(R.id.rv_question) RecyclerView rvQuestion;
 	@BindView(R.id.id_worry_spinner) Spinner spinner;
+
+	public static void updateLike(int id, boolean isLike, int count) {
+		UpdateLike updateLike = new UpdateLike(id, isLike, count);
+		needToUpdateLike.add(updateLike);
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -95,6 +99,15 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 			setQuestion();
 		} else {
 			getQuestion();
+		}
+
+		Log.i("QuestionFragment", "needToUpdateLike.size() : " + needToUpdateLike.size());
+
+		if(needToUpdateLike.size() > 0) {
+			for(UpdateLike updateLike : needToUpdateLike) {
+				worryAdaptor.changedState(updateLike);
+			}
+			needToUpdateLike.clear();
 		}
 		super.onResume();
 	}
@@ -257,9 +270,9 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		worryAdaptor.getList();
 		worryAdaptor.setMore(true);
 
-		answerTypeList = AnswerType.getList();
+		orderTypes = OrderType.getList();
 		SpinnerAdapter spinnerAdapter = new SpinnerAdapter(getActivity());
-		spinnerAdapter.addList(answerTypeList);
+		spinnerAdapter.addList(orderTypes);
 		spinner.setAdapter(spinnerAdapter);
 	}
 
@@ -270,5 +283,18 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		Intent intent = new Intent(getActivity(), AnswerActivity.class);
 		intent.putExtra("myWorryQuestionDTO", myWorryQuestionDTO);
 		startActivity(intent);
+	}
+
+	@Data
+	public static class UpdateLike {
+		private int id;
+		private boolean isLike;
+		private int count;
+
+		public UpdateLike(int id, boolean isLike, int count) {
+			this.id = id;
+			this.isLike = isLike;
+			this.count = count;
+		}
 	}
 }

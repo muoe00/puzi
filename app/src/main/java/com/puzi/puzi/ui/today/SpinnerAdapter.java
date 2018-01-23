@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.myservice.AnswerType;
+import com.puzi.puzi.biz.myservice.OrderType;
 
 import java.util.List;
 
@@ -16,14 +17,14 @@ public class SpinnerAdapter extends BaseAdapter {
 
 	private Activity activity;
     private LayoutInflater inflate;
-	private List<AnswerType> list;
+	private List<OrderType> list;
 
 	public SpinnerAdapter(Activity activity) {
 		this.activity = activity;
 		this.inflate = activity.getLayoutInflater();
 	}
 
-	public void addList(List<AnswerType> list) {
+	public void addList(List<OrderType> list) {
 		this.list = list;
 	}
 

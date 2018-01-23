@@ -219,6 +219,7 @@
 
     <com.puzi.puzi.ui.customview.NotoButton
       app:fontWeight="bold"
+        android:id="@+id/btn_answer_ok"
       android:background="@drawable/button_puzi"
         android:gravity="center"
       android:text="선택완료"
