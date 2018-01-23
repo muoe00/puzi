@@ -13,14 +13,20 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
+import com.puzi.puzi.biz.user.UserVO;
+import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.SettingNetworkService;
+import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragment;
+import com.puzi.puzi.utils.EncryptUtils;
 import com.puzi.puzi.utils.ValidationUtils;
 import retrofit2.Call;
+
+import static com.puzi.puzi.cache.Preference.getMyInfo;
 
 /**
  * Created by 170605 on 2017-10-23.
@@ -36,8 +42,6 @@ public class UserFragment extends BaseFragment {
 	@BindView(R.id.ll_setting_user) public LinearLayout linearLayout;
 
 	private View view = null;
-	private String modEmail;
-	private String modPasswd;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -50,48 +54,58 @@ public class UserFragment extends BaseFragment {
 		view = inflater.inflate(R.layout.fragment_setting_user, container, false);
 		unbinder = ButterKnife.bind(this, view);
 
+		UserVO myInfo = getMyInfo(getActivity());
+
+		editEmail.setHint(myInfo.getEmail());
+
 		return view;
 	}
 
 	@OnClick(R.id.btn_setting_user_modify)
 	public void modifyInformation() {
 
-		modEmail = "";
-		modPasswd = "";
-
-		if(editEmail != null || editPw != null) {
-
-			if(editEmail != null) {
-				String email = editEmail.getText().toString();
-
-				if(ValidationUtils.checkEmail(email)) {
-					modEmail = email;
-				} else {
-					Toast.makeText(getContext(), "정확한 이메일 주소를 입력하세요", Toast.LENGTH_SHORT).show();
-					return ;
-				}
-			}
-
-			if(editPw != null) {
-				if(editRePw == null) {
-					Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
-					return ;
-				} else {
-					String passwd = editPw.getText().toString();
-
-					if(passwd.equals(editRePw.getText().toString())) {
-						modPasswd = passwd;
-					} else {
-						Toast.makeText(getContext(), "정확한 비밀번호를 입력하세요", Toast.LENGTH_SHORT).show();
-						return ;
-					}
-				}
-			}
-
-			requestModification(modEmail, modPasswd);
-		} else {
+		if(editEmail == null && editPw == null) {
 			Toast.makeText(getContext(), "변경하고자 하는 정보를 입력하세요", Toast.LENGTH_SHORT).show();
+			return;
 		}
+
+		String email = "";
+		if(editEmail != null) {
+			email = editEmail.getText().toString();
+		}
+		String passwd = "";
+		if(editPw != null) {
+			passwd = editPw.getText().toString();
+		}
+
+		String passwd2 = "";
+		if(editRePw != null) {
+			passwd2 = editRePw.getText().toString();
+		}
+
+		if("".equals(email) && "".equals(passwd) && "".equals(passwd2)) {
+			Toast.makeText(getContext(), "변경하고자 하는 정보를 입력하세요", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		if(!"".equals(passwd) && !passwd.equals(passwd2)) {
+			Toast.makeText(getContext(), "비밀번호가 서로 다릅니다.", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		if(!"".equals(passwd) && !ValidationUtils.isValidPasswd(passwd)) {
+			Toast.makeText(getContext(), "비밀번호가 규칙에 맞지 않습니다.", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		if(!"".equals(email) && !ValidationUtils.checkEmail(email)) {
+			Toast.makeText(getContext(), "정확한 이메일 주소를 입력하세요", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		email = "".equals(email) ? null : email;
+		passwd = "".equals(passwd) ? null : EncryptUtils.sha256(passwd);
+		requestModification(email, passwd);
 	}
 
 	public void requestModification(final String email, final String passwd) {
@@ -109,7 +123,17 @@ public class UserFragment extends BaseFragment {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				Log.d("INFO", "advertisement getAdvertiseList success.");
+				MainActivity.needToUpdateUserVO = true;
 				Toast.makeText(getContext(), "성공적으로 변경되었습니다.", Toast.LENGTH_SHORT).show();
+
+				UserVO myInfo = Preference.getMyInfo(getActivity());
+				if(email != null) {
+					myInfo.setEmail(email);
+				}
+				Preference.saveMyInfo(getActivity(), myInfo);
+				if(passwd != null) {
+					Preference.addProperty(getActivity(), "passwd", passwd);
+				}
 			}
 		});
 	}

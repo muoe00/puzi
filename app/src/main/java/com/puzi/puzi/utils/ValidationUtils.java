@@ -20,6 +20,15 @@ public class ValidationUtils {
 			return true;
 	}
 
+	public static boolean isValidPasswd(String pw) {
+		String regex = "^(?=.*[a-zA-Z]+)(?=.*[!@#$%^*+=-]|.*[0-9]+).{8,15}$";
+		if(!checkNull(pw) || !Pattern.matches(regex, pw.trim())){
+			return false;
+		} else
+			return true;
+
+	}
+
 	public static boolean checkNull(Object object) {
 		return object != null;
 	}
