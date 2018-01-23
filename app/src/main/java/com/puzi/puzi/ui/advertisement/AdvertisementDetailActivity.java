@@ -32,6 +32,7 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.AdvertisementNetworkService;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.channel.ChannelDetailActivity;
+import com.puzi.puzi.ui.common.PointDialog;
 import com.puzi.puzi.ui.company.CompanyActivity;
 import com.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
@@ -332,7 +333,9 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 				} else {
 					int savedPoint = responseVO.getInteger("savedPoint");
 
-					Toast.makeText(getBaseContext(), savedPoint + "원이 적립되었습니다.", Toast.LENGTH_SHORT).show();
+					PointDialog.load(getActivity(), savedPoint);
+
+					// Toast.makeText(getBaseContext(), savedPoint + "원이 적립되었습니다.", Toast.LENGTH_SHORT).show();
 
 					Intent intent = new Intent();
 					intent.putExtra("advertiseIndex", receivedAdvertise.getReceivedAdvertiseId());

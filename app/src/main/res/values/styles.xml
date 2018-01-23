@@ -12,6 +12,7 @@
     <item name="@android:windowBackground">@color/noAlpha</item>
     <item name="android:windowNoTitle">true</item>
   </style>
+  <style name="FullScreenTheme" parent="@android:style/Theme.Translucent.NoTitleBar"/>
   <style name="AppTheme.NoActionBar">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>

@@ -20,6 +20,7 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.MyServiceNetworkService;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.common.PointDialog;
 import com.puzi.puzi.ui.customview.NotoTextView;
 import retrofit2.Call;
 
@@ -120,8 +121,9 @@ public class QuestionActivity extends BaseActivity {
             public void onSuccess(ResponseVO responseVO) {
                 MainActivity.needToUpdateUserVO = true;
                 savePoint = responseVO.getInteger("savedPoint");
-                // 적립 인디케이터
-                Toast.makeText(savedActivity, savePoint + "원이 적립되었습니다.", Toast.LENGTH_SHORT).show();
+
+                PointDialog.load(getActivity(), savePoint);
+                // Toast.makeText(savedActivity, savePoint + "원이 적립되었습니다.", Toast.LENGTH_SHORT).show();
                 closeView();
             }
         });

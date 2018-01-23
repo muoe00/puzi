@@ -21,6 +21,7 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.MyServiceNetworkService;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.common.PointDialog;
 import com.puzi.puzi.ui.customview.NotoTextView;
 
 import butterknife.BindView;
@@ -175,8 +176,8 @@ public class AnswerActivity extends BaseActivity {
                     count = "" + savePoint;
                 }
 
-                // 적립 인디케이터
-                Toast.makeText(savedActivity, count, Toast.LENGTH_SHORT).show();
+                PointDialog.load(getActivity(), savePoint);
+                // Toast.makeText(savedActivity, count, Toast.LENGTH_SHORT).show();
             }
         });
     }

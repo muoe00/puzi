@@ -47,7 +47,6 @@ public class CouponActivity extends BaseFragmentActivity {
 	private boolean isUsedCoupon = false;
 	private boolean more = false;
 	private int pagingIndex = 1;
-	private int totalCount = 0;
 	private boolean lastestScrollFlag = false;
 
 	private CouponListAdapter couponListAdapter;
@@ -62,8 +61,8 @@ public class CouponActivity extends BaseFragmentActivity {
 
 		initScrollAction();
 		initAdapter();
-		getUsedCouponList();
 		getNotUseCouponList();
+		getUsedCouponList();
 	}
 
 	public void getUsedCouponList () {
@@ -81,7 +80,6 @@ public class CouponActivity extends BaseFragmentActivity {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				usedCouponListAdapter.stopProgress();
-				totalCount = responseVO.getInteger("totalCount");
 
 				Log.i("Coupon", "responseVO : " + responseVO.toString());
 
@@ -89,7 +87,7 @@ public class CouponActivity extends BaseFragmentActivity {
 
 				Log.i(PuziUtils.INFO, "used history : " + usedCouponList.toString());
 				Log.i(PuziUtils.INFO, "used history size : " + usedCouponList.size());
-				Log.i(PuziUtils.INFO, "used history totalCount : " + totalCount);
+				Log.i(PuziUtils.INFO, "used history totalCount : " + responseVO.getInteger("totalCount"));
 
 				if(usedCouponList.size() == 0) {
 					if(!lastestScrollFlag) {
@@ -109,7 +107,7 @@ public class CouponActivity extends BaseFragmentActivity {
 
 				Log.i(PuziUtils.INFO, "usedCouponListAdapter.getCount() : " + usedCouponListAdapter.getCount());
 
-				if(usedCouponListAdapter.getCount() == totalCount) {
+				if(usedCouponListAdapter.getCount() == responseVO.getInteger("totalCount")) {
 					more = false;
 					lastestScrollFlag = true;
 					Log.i(PuziUtils.INFO, "lastestScrollFlag : " + lastestScrollFlag);
@@ -135,7 +133,6 @@ public class CouponActivity extends BaseFragmentActivity {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				couponListAdapter.stopProgress();
-				totalCount = responseVO.getInteger("totalCount");
 
 				Log.i("Coupon", "responseVO : " + responseVO.toString());
 
@@ -143,7 +140,7 @@ public class CouponActivity extends BaseFragmentActivity {
 
 				Log.i(PuziUtils.INFO, "not use history : " + couponList.toString());
 				Log.i(PuziUtils.INFO, "not use history size : " + couponList.size());
-				Log.i(PuziUtils.INFO, "not use history totalCount : " + totalCount);
+				Log.i(PuziUtils.INFO, "not use history totalCount : " + responseVO.getInteger("totalCount"));
 
 				if(couponList.size() == 0) {
 					if(!lastestScrollFlag) {
@@ -159,11 +156,11 @@ public class CouponActivity extends BaseFragmentActivity {
 
 				couponListAdapter.addList(couponList);
 				couponListAdapter.notifyDataSetChanged();
-				setGridViewHeightBasedOnChildren(couponListAdapter, gvUsedCoupon);
+				setGridViewHeightBasedOnChildren(couponListAdapter, gvCoupon);
 
 				Log.i(PuziUtils.INFO, "usedCouponListAdapter.getCount() : " + couponListAdapter.getCount());
 
-				if(couponListAdapter.getCount() == totalCount) {
+				if(couponListAdapter.getCount() == responseVO.getInteger("totalCount")) {
 					more = false;
 					lastestScrollFlag = true;
 					Log.i(PuziUtils.INFO, "lastestScrollFlag : " + lastestScrollFlag);

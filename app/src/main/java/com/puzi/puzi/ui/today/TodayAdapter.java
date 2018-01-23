@@ -88,6 +88,7 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 					holder.tvMinute.setText("" + minute);
 				}
 			}
+			notifyDataSetChanged();
 
 		} else if(state == INIT.getIndex() || state == BONUS.getIndex()) {
 			holder.tvPlusPoint.setText("" + myTodayQuestionVO.getSavePoint());
@@ -100,6 +101,8 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 					context.startActivity(intent);
 				}
 			});
+		} else {
+			notifyDataSetChanged();
 		}
 	}
 
