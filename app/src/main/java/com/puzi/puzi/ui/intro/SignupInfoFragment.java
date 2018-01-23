@@ -21,9 +21,12 @@ import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.UserNetworkService;
 import com.puzi.puzi.ui.CustomArrayAdapter;
+import com.puzi.puzi.ui.IntroActivity;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragment;
+import com.puzi.puzi.ui.setting.PersonalFragment;
+import com.puzi.puzi.ui.setting.UsingFragment;
 import com.puzi.puzi.utils.EncryptUtils;
 import retrofit2.Call;
 
@@ -281,8 +284,14 @@ public class SignupInfoFragment extends BaseFragment {
 	public void checkClause(View view) {
 		switch (view.getId()) {
 			case R.id.btn_signup_service:
+				BaseFragment usingFragment = new UsingFragment();
+				IntroActivity introActivity = (IntroActivity) getActivity();
+				introActivity.addFragment(usingFragment);
 				break;
 			case R.id.btn_signup_personal:
+				BaseFragment personalFragment = new PersonalFragment();
+				introActivity = (IntroActivity) getActivity();
+				introActivity.addFragment(personalFragment);
 				break;
 		}
 	}
