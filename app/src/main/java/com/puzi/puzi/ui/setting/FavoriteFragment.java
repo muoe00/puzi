@@ -14,15 +14,21 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.user.FavoriteType;
+import com.puzi.puzi.biz.user.UserVO;
+import com.puzi.puzi.cache.Preference;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.SettingNetworkService;
+import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragment;
 import retrofit2.Call;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static com.puzi.puzi.biz.user.FavoriteType.BEAUTY;
 
 /**
  * Created by 170605 on 2017-10-23.
@@ -40,13 +46,53 @@ public class FavoriteFragment extends BaseFragment {
 	@BindView(R.id.btn_setting_finance) public Button btnFinance;
 	@BindView(R.id.btn_setting_culture) public Button btnCulture;
 
-	private ArrayList<String> favoritesList = new ArrayList<String>();
+	private List<FavoriteType> favoritesList = new ArrayList<FavoriteType>();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		View view = inflater.inflate(R.layout.fragment_setting_favorites, container, false);
 		unbinder = ButterKnife.bind(this, view);
+
+		UserVO myInfo = Preference.getMyInfo(getActivity());
+		List<String> list = myInfo.getFavoriteTypeList();
+		for(String typeName : list) {
+			FavoriteType type = FavoriteType.valueOf(typeName);
+			favoritesList.add(type);
+
+			switch (type) {
+				case BEAUTY:
+					btnBeauty.setBackgroundResource(R.drawable.button_favorite_on);
+					btnBeauty.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPuzi));
+					break;
+				case SHOPPING:
+					btnShop.setBackgroundResource(R.drawable.button_favorite_on);
+					btnShop.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPuzi));
+					break;
+				case GAME:
+					btnGame.setBackgroundResource(R.drawable.button_favorite_on);
+					btnGame.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPuzi));
+					break;
+				case EAT:
+					btnEat.setBackgroundResource(R.drawable.button_favorite_on);
+					btnEat.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPuzi));
+					break;
+				case TOUR:
+					btnTour.setBackgroundResource(R.drawable.button_favorite_on);
+					btnTour.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPuzi));
+					break;
+				case FINANCE:
+					btnFinance.setBackgroundResource(R.drawable.button_favorite_on);
+					btnFinance.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPuzi));
+					break;
+				case CULTURE:
+					btnCulture.setBackgroundResource(R.drawable.button_favorite_on);
+					btnCulture.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPuzi));
+					break;
+				default:
+					break;
+			}
+		}
 
 		return view;
 	}
@@ -56,56 +102,43 @@ public class FavoriteFragment extends BaseFragment {
 	public void checkFavorites(View view) {
 		switch (view.getId()) {
 			case R.id.btn_setting_beauty:
-				checkList(FavoriteType.BEAUTY.getComment(), btnBeauty);
+				checkList(BEAUTY, btnBeauty);
 				break;
 			case R.id.btn_setting_shopping:
-				checkList(FavoriteType.SHOPPING.getComment(), btnShop);
+				checkList(FavoriteType.SHOPPING, btnShop);
 				break;
 			case R.id.btn_setting_game:
-				checkList(FavoriteType.GAME.getComment(), btnGame);
+				checkList(FavoriteType.GAME, btnGame);
 				break;
 			case R.id.btn_setting_eat:
-				checkList(FavoriteType.EAT.getComment(), btnEat);
+				checkList(FavoriteType.EAT, btnEat);
 				break;
 			case R.id.btn_setting_tour:
-				checkList(FavoriteType.TOUR.getComment(), btnTour);
+				checkList(FavoriteType.TOUR, btnTour);
 				break;
 			case R.id.btn_setting_finance:
-				checkList(FavoriteType.FINANCE.getComment(), btnFinance);
+				checkList(FavoriteType.FINANCE, btnFinance);
 				break;
 			case R.id.btn_setting_culture:
-				checkList(FavoriteType.CULTURE.getComment(), btnCulture);
+				checkList(FavoriteType.CULTURE, btnCulture);
 				break;
 			default:
 				break;
 		}
 	}
 
-	public void checkList(String category, Button btn) {
-		if(isFavorites(category)) {
-			favoritesList.remove(category);
+	public void checkList(FavoriteType type, Button btn) {
+		if(favoritesList.contains(type)) {
+			favoritesList.remove(type);
 			btn.setBackgroundResource(R.drawable.button_favorite_off);
 			btn.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextGray));
 		} else {
-			favoritesList.add(String.valueOf(category));
+			favoritesList.add(type);
 			btn.setBackgroundResource(R.drawable.button_favorite_on);
 			btn.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPuzi));
 		}
 
 		Log.i("INFO", "favoritesList : " + favoritesList.toString());
-	}
-
-	public boolean isFavorites(String item) {
-		if(favoritesList.isEmpty()) {
-			return false;
-		} else {
-			for (String favorite : favoritesList) {
-				if (favorite.equals(String.valueOf(item))) {
-					return true;
-				}
-			}
-			return false;
-		}
 	}
 
 	@OnClick(R.id.btn_setting_user_modify)
@@ -135,6 +168,7 @@ public class FavoriteFragment extends BaseFragment {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				Toast.makeText(getActivity(), "변경되었습니다.", Toast.LENGTH_SHORT).show();
+				MainActivity.needToUpdateUserVO = true;
 			}
 		});
 	}
