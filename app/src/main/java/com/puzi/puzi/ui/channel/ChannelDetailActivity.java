@@ -3,6 +3,7 @@ package com.puzi.puzi.ui.channel;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -128,6 +129,7 @@ public class ChannelDetailActivity extends BaseFragmentActivity {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				channelVO = responseVO.getValue("channelDTO", ChannelVO.class);
+				Log.d("", "+++ channelDTO : " + channelVO);
 				initAll();
 			}
 		});
@@ -146,7 +148,7 @@ public class ChannelDetailActivity extends BaseFragmentActivity {
 		BitmapUIL.load(channelVO.getCompanyInfoDTO().getPictureUrl(), ibtnCompanyImage);
 		tvCompanyName.setText(channelVO.getCompanyInfoDTO().getCompanyAlias());
 		tvComment.setText(channelVO.getComment());
-		tvEvaluateAverage.setText(channelVO.getAverageScore() + " / 5");
+		tvEvaluateAverage.setText(channelVO.getAverageScore() == 0 ? "-" : channelVO.getAverageScore() + " / 5");
 		UIUtils.setEvaluateStarScoreImage(channelVO.getAverageScore(),
 			ivEvaluateStar1, ivEvaluateStar2, ivEvaluateStar3, ivEvaluateStar4, ivEvaluateStar5, R.drawable.star_big, R.drawable.star_big_copy_4);
 		if(channelVO.isScored()) {

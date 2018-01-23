@@ -41,11 +41,9 @@ public class IntroActivity extends BaseFragmentActivity {
 
 	private SessionCallback mKakaocallback;
 
-	private String tokenFCM = null;
 	private String uuid = null;
-	private String tempId = null;
 	private long backKeyPressedTime;
-	private boolean isKakao = false;
+	private boolean isCheckingKakaoTempId = false;
 
 	private ArrayList<BaseFragment> fragmentList = new ArrayList<BaseFragment>();
 	private BaseFragment fragment;
@@ -77,7 +75,7 @@ public class IntroActivity extends BaseFragmentActivity {
 		mKakaocallback = new SessionCallback();
 		com.kakao.auth.Session.getCurrentSession().addCallback(mKakaocallback);
 		com.kakao.auth.Session.getCurrentSession().checkAndImplicitOpen();
-		com.kakao.auth.Session.getCurrentSession().open(AuthType.KAKAO_TALK_EXCLUDE_NATIVE_LOGIN, IntroActivity.this);
+		com.kakao.auth.Session.getCurrentSession().open(AuthType.KAKAO_LOGIN_ALL, IntroActivity.this);
 	}
 
 	@Override
@@ -143,7 +141,7 @@ public class IntroActivity extends BaseFragmentActivity {
 	public void kakaoIdLogin(final String id, final String pwd) {
 		final String notifyId = Preference.getProperty(getActivity(), "tokenFCM");
 		final String phoneType = "A";
-		final String phoneKey = "ABC";
+		final String phoneKey = DeviceKeyFinder.find(getActivity());
 
 		LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
 		service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
@@ -180,6 +178,13 @@ public class IntroActivity extends BaseFragmentActivity {
 	}
 
 	public void checkUser() {
+		if(isCheckingKakaoTempId) {
+			return;
+		}
+		isCheckingKakaoTempId = true;
+
+		ProgressDialog.show(getActivity());
+
 		uuid = getDevicesUUID(getApplicationContext());
 
 		LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
@@ -192,6 +197,10 @@ public class IntroActivity extends BaseFragmentActivity {
 		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
+				isCheckingKakaoTempId = false;
+
+				ProgressDialog.dismiss();
+
 				boolean isKakao = responseVO.getBoolean("registered");
 				String tempId = responseVO.getString("tempId");
 				if(isKakao) {

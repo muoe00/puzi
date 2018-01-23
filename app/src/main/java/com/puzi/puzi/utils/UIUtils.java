@@ -32,7 +32,13 @@ public class UIUtils {
 
 	public static void setEvaluateStarScoreImage(int score, ImageView star1, ImageView star2, ImageView star3, ImageView star4,
 		ImageView star5, int onResource, int offResource) {
-		if(score <= 1) {
+		if(score <= 0) {
+			star1.setImageResource(offResource);
+			star2.setImageResource(offResource);
+			star3.setImageResource(offResource);
+			star4.setImageResource(offResource);
+			star5.setImageResource(offResource);
+		}else if(score == 1) {
 			star1.setImageResource(onResource);
 			star2.setImageResource(offResource);
 			star3.setImageResource(offResource);

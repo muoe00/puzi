@@ -187,6 +187,9 @@ public class BaseFragmentActivity extends FragmentActivity {
 					receivedAdvertiseVO.getSendComment(), new ScreenOnTopView.Listener() {
 						@Override
 						public void onClick(View v) {
+							if(v.getVisibility() == View.GONE) {
+								return;
+							}
 							closeAlertOnTheTop(v);
 							showAdvertisement(receivedAdvertiseVO);
 						}
