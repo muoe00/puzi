@@ -107,9 +107,9 @@
             android:layout_height="30dp">
 
             <ImageButton
-              android:id="@+id/ibtn_store_purchase_plus"
+              android:id="@+id/ibtn_store_purchase_minus"
               android:background="#00000000"
-              android:src="@drawable/purchase_plus"
+              android:src="@drawable/purchase_minus"
               android:layout_width="30dp"
               android:layout_height="30dp"/>
 
@@ -143,9 +143,9 @@
             </LinearLayout>
 
             <ImageButton
-              android:id="@+id/ibtn_store_purchase_minus"
+              android:id="@+id/ibtn_store_purchase_plus"
               android:background="#00000000"
-              android:src="@drawable/purchase_minus"
+              android:src="@drawable/purchase_plus"
               android:layout_width="30dp"
               android:layout_height="30dp"/>
 
