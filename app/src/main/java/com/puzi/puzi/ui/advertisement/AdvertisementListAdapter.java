@@ -158,13 +158,13 @@ public class AdvertisementListAdapter extends BaseAdapter {
 				viewHolder.tvAd.setSelected(true);
 				viewHolder.tvComp.setText(company.getCompanyAlias());
 
-				Log.i(PuziUtils.INFO, "adapter.getSaved() : " + receivedAdvertise.getSaved());
-				Log.i(PuziUtils.INFO, "adapter.getToday() : " + receivedAdvertise.getToday());
+				Log.i(PuziUtils.INFO, "adapter.getSaved() : " + receivedAdvertise.isSaved());
+				Log.i(PuziUtils.INFO, "adapter.getToday() : " + receivedAdvertise.isToday());
 
-				if(receivedAdvertise.getSaved() && receivedAdvertise.getToday()) {
+				if(receivedAdvertise.isSaved() && receivedAdvertise.isToday()) {
 					viewHolder.ivNew.setVisibility(View.VISIBLE);
 					viewHolder.ivNew.setImageResource(R.drawable.old);
-				} else if(!receivedAdvertise.getSaved() && receivedAdvertise.getToday()) {
+				} else if(!receivedAdvertise.isSaved() && receivedAdvertise.isToday()) {
 					viewHolder.ivNew.setVisibility(View.VISIBLE);
 					viewHolder.ivNew.setImageResource(R.drawable.new_);
 				} else {

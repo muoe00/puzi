@@ -1,18 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
+              android:layout_gravity="center"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-  <TextView
-    android:layout_marginTop="20dp"
-    android:layout_marginBottom="20dp"
-    android:text="사용가능한 쿠폰이 없습니다."
-    android:textSize="15sp"
-    android:textColor="#6d6d6d"
-    android:lineSpacingExtra="9sp"
-    android:gravity="center_horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/tv_item_list_message"/>
+  <View
+      android:layout_weight="1"
+      android:layout_width="match_parent"
+      android:layout_height="0dp">
+
+  </View>
+
+  <LinearLayout
+      android:layout_weight="1"
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_empty_coupon"
+        android:src="@drawable/no_ticket"
+        android:layout_gravity="center"
+        android:layout_width="130dp"
+        android:layout_height="130dp" />
+
+    <TextView
+        android:layout_marginTop="23dp"
+        android:text="사용가능한 쿠폰이 없습니다."
+        android:textSize="22sp"
+        android:textColor="#333333"
+        android:lineSpacingExtra="9sp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="172dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_item_list_message"/>
+
+  </LinearLayout>
+
+  <View
+      android:layout_weight="1"
+      android:layout_width="match_parent"
+      android:layout_height="0dp">
+
+  </View>
+
 </LinearLayout>

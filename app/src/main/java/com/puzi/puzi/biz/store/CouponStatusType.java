@@ -10,14 +10,13 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum CouponStatusType {
 
-	NOT_USE("미사용상태"),
-	USED("사용상태"),
-	UNKNOWN("알수없음");
+	NOT_USE(000, "미사용"),
+	USED(001, "사용"),
+	CANCEL(100, "취소"),
+	UNKNOWN(999, "알수없음");
 
 	@Getter
+	private int index;
+	@Getter
 	private String comment;
-
-	public boolean isNotUsed() {
-		return this == NOT_USE || this == UNKNOWN;
-	}
 }

@@ -39,6 +39,8 @@ import retrofit2.Call;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
+import static com.puzi.puzi.ui.advertisement.AdvertisementFragment.updateSavedPoint;
+
 /**
  * Created by muoe0 on 2017-07-30.
  */
@@ -91,12 +93,12 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 
 		receivedAdvertise = (ReceivedAdvertiseVO) getIntent().getExtras().getSerializable("advertise");
 
-		Log.i(PuziUtils.INFO, "detail.getSaved() : " + receivedAdvertise.getSaved());
-		Log.i(PuziUtils.INFO, "detail.getToday() : " + receivedAdvertise.getToday());
+		Log.i(PuziUtils.INFO, "detail.getSaved() : " + receivedAdvertise.isSaved());
+		Log.i(PuziUtils.INFO, "detail.getToday() : " + receivedAdvertise.isToday());
 
 		llDialog.setVisibility(View.GONE);
 
-		if(!receivedAdvertise.getSaved() && receivedAdvertise.getToday()) {
+		if(!receivedAdvertise.isSaved() && receivedAdvertise.isToday()) {
 			String quiz = receivedAdvertise.getQuiz();
 			answerOne = receivedAdvertise.getAnswerOne();
 			answerTwo = receivedAdvertise.getAnswerTwo();
@@ -108,7 +110,7 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 			DialogAsync dialogAsync = new DialogAsync();
 			dialogAsync.execute();
 
-		} else if(receivedAdvertise.getSaved()) {
+		} else if(receivedAdvertise.isSaved()) {
 			// tvState.setText("이미 적립된 광고입니다.");
 			progressCircle.setVisibility(View.GONE);
 			tvProgress.setVisibility(View.GONE);
@@ -325,16 +327,21 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 
-				int savedPoint = responseVO.getInteger("savedPoint");
+				if(receivedAdvertise.isTest()) {
+					Toast.makeText(getBaseContext(), "테스트 광고입니다", Toast.LENGTH_SHORT).show();
+				} else {
+					int savedPoint = responseVO.getInteger("savedPoint");
 
-				Toast.makeText(getBaseContext(), savedPoint + "원이 적립되었습니다.", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getBaseContext(), savedPoint + "원이 적립되었습니다.", Toast.LENGTH_SHORT).show();
 
-				Intent intent = new Intent();
-				intent.putExtra("advertiseIndex", receivedAdvertise.getReceivedAdvertiseId());
-				intent.putExtra("pointSavedState", true);
+					Intent intent = new Intent();
+					intent.putExtra("advertiseIndex", receivedAdvertise.getReceivedAdvertiseId());
+					intent.putExtra("pointSavedState", true);
 
-				Log.i(PuziUtils.INFO, "advertiseIndex : " + receivedAdvertise.getReceivedAdvertiseId());
+					Log.i(PuziUtils.INFO, "advertiseIndex : " + receivedAdvertise.getReceivedAdvertiseId());
 
+					updateSavedPoint(receivedAdvertise.getReceivedAdvertiseId());
+				}
 			}
 		});
 	}

@@ -4,15 +4,25 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+  <ImageView
+      android:id="@+id/iv_empty_coupon"
+      android:layout_marginTop="66dp"
+      android:src="@drawable/no_ticket"
+      android:layout_gravity="center"
+      android:layout_width="130dp"
+      android:layout_height="130dp" />
+
   <TextView
-    android:layout_marginTop="20dp"
-    android:layout_marginBottom="20dp"
-    android:text="사용한 쿠폰이 없습니다."
-    android:textSize="15sp"
-    android:textColor="#6d6d6d"
-    android:lineSpacingExtra="9sp"
-    android:gravity="center_horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/tv_item_list_message"/>
+      android:layout_marginTop="20dp"
+      android:layout_marginBottom="20dp"
+      android:text="사용한 쿠폰이 없습니다."
+      android:textSize="22sp"
+      android:textColor="#333333"
+      android:lineSpacingExtra="9sp"
+      android:layout_gravity="center"
+      android:gravity="center"
+      android:layout_width="172dp"
+      android:layout_height="wrap_content"
+      android:id="@+id/tv_item_list_message"/>
+
 </LinearLayout>

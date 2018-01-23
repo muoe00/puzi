@@ -30,9 +30,13 @@ public interface StoreNetworkService {
 		@Field("storeItemId") int storeItemId,
 		@Field("quantity") int quantity);
 
-	@GET("/v2/store/purchase/history")
-	Call<ResponseVO> purchaseHistory(@Header("token") String token,
+	@GET("/v2/store/purchase/history/notuse")
+	Call<ResponseVO> purchaseHistoryNotUse(@Header("token") String token,
 		@Query("pagingIndex") int pagingIndex);
+
+	@GET("/v2/store/purchase/history/used")
+	Call<ResponseVO> purchaseHistoryUsed(@Header("token") String token,
+									 @Query("pagingIndex") int pagingIndex);
 
 	@FormUrlEncoded
 	@POST("/store/refund")
