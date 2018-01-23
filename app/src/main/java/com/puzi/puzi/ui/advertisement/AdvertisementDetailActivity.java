@@ -267,7 +267,6 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 
 		@Override
 		protected void onProgressUpdate(final Integer... progress) {
-			Log.i(PuziUtils.INFO, "progress i : " + progress[0]);
 			super.onProgressUpdate(progress);
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 				progressCircle.setProgress(progress[0]);

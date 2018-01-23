@@ -113,7 +113,7 @@ public class ChannelEvaluateDialog {
 			public void onClick(View v) {
 				ChannelEvaluateDialog.score = score;
 				UIUtils.setEvaluateStarScoreImage(score, ibtnStar1, ibtnStar2, ibtnStar3, ibtnStar4, ibtnStar5,
-					R.drawable.star_big, R.drawable.star_gray);
+					R.drawable.star_big, R.drawable.star_big_copy_4);
 			}
 		};
 	}
