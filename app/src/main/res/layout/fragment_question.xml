@@ -27,7 +27,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_width="match_parent"
-        android:layout_height="19dp">
+        android:layout_height="22dp">
 
       <com.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="bold"
@@ -44,9 +44,10 @@
       </View>
 
       <Spinner
+          android:background="@drawable/bg_spinner"
           android:id="@+id/id_worry_spinner"
           android:layout_gravity="right"
-          android:layout_width="55dp"
+          android:layout_width="65dp"
           android:layout_height="22dp">
 
       </Spinner>

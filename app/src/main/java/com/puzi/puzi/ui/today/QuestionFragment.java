@@ -8,11 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.Spinner;
+
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.myservice.MyTodayQuestionVO;
 import com.puzi.puzi.biz.myservice.MyWorryQuestionDTO;
@@ -23,16 +24,25 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.MyServiceNetworkService;
 import com.puzi.puzi.ui.CustomPagingAdapter;
 import com.puzi.puzi.ui.base.BaseFragment;
-import lombok.Data;
-import retrofit2.Call;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+import lombok.Data;
+import retrofit2.Call;
+
 import static com.google.common.collect.Lists.newArrayList;
-import static com.puzi.puzi.biz.myservice.ViewType.*;
+import static com.puzi.puzi.biz.myservice.ViewType.BONUS;
+import static com.puzi.puzi.biz.myservice.ViewType.END;
+import static com.puzi.puzi.biz.myservice.ViewType.INIT;
+import static com.puzi.puzi.biz.myservice.ViewType.REMAIN;
 
 /**
  * Created by muoe0 on 2018-01-06.
@@ -43,14 +53,15 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	private Unbinder unbinder;
 	private View view;
 	private boolean mine = false, isBonusTime = false;
-	private int state = 1, pagingIndex = 1, bonusCount = 0, hour = 0, minute = 0, second = 0, count = 0, max;
+	private int state = 1, pagingIndex = 1, bonusCount = 0, hour = 0, minute = 0, second = 0, count = 0, max = 0;
 	private OrderType orderType = OrderType.RECENTLY;
 
 	private List<MyTodayQuestionVO> myTodayQuestionList;
 	private List<MyWorryQuestionDTO> myWorryQuestionList;
 
-	private TodayAdapter adapter;
+	private TodayAdapter todayAdapter;
 	private RecyclerView.LayoutManager manager;
+	private SpinnerAdapter spinnerAdapter;
 	private WorryAdaptor worryAdaptor;
 	private List<OrderType> orderTypes;
 	private ScheduledExecutorService excutors = Executors.newSingleThreadScheduledExecutor();
@@ -79,10 +90,19 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		view = inflater.inflate(R.layout.fragment_question, container, false);
 		unbinder = ButterKnife.bind(this, view);
 
-		Log.i("MyService", "onCreateView");
-
 		initComponent();
 		getQuestion();
+
+		TodayAdapter.RefreshCallback refreshCallback = new TodayAdapter.RefreshCallback() {
+			@Override
+			public void refresh() {
+				getQuestion();
+			}
+		};
+
+		todayAdapter.setRefreshCallback(refreshCallback);
+
+		Log.i("MyService", "onCreateView");
 
 		return view;
 	}
@@ -124,12 +144,12 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				state = INIT.getIndex();
 			}
 
-			adapter.setMyTodayQuestionVO(myTodayQuestionList.get(count));
+			todayAdapter.setMyTodayQuestionVO(myTodayQuestionList.get(count));
 			count++;
 
-			adapter.changedState(state);
-			rvQuestion.setAdapter(adapter);
-			adapter.notifyDataSetChanged();
+			todayAdapter.changedState(state);
+			rvQuestion.setAdapter(todayAdapter);
+			todayAdapter.notifyDataSetChanged();
 		}
 	}
 
@@ -168,18 +188,16 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 
 						setTime();
 					} else {
-						if(excutors != null) {
-							excutors.shutdownNow();
-						}
+						excutors.shutdownNow();
 						state = END.getIndex();
 					}
 				}
 
 				Log.i("QuestionFragment", "state : " + state);
 
-				adapter.changedState(state);
-				rvQuestion.setAdapter(adapter);
-				adapter.notifyDataSetChanged();
+				todayAdapter.changedState(state);
+				rvQuestion.setAdapter(todayAdapter);
+				todayAdapter.notifyDataSetChanged();
 			}
 		});
 	}
@@ -209,8 +227,8 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 								}
 							} else {
 								Log.i("QuestionFragment", "second : " + second);
-								adapter.setTime(hour, minute, second);
-								adapter.notifyDataSetChanged();
+								todayAdapter.setTime(hour, minute, second);
+								todayAdapter.notifyDataSetChanged();
 							}
 						}
 					});
@@ -242,9 +260,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 
 				Log.i("QuestionFragment", responseVO.toString());
 
-				/*worryAdaptor.addList(myWorryQuestionList);
-				worryAdaptor.notifyDataSetChanged();*/
-
 				worryAdaptor.addListWithTotalCount(myWorryQuestionList, totalCount);
 
 				if(totalCount == worryAdaptor.getCount()) {
@@ -264,7 +279,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	public void initComponent() {
 
 		// myToday
-		adapter = new TodayAdapter(getContext(), this);
+		todayAdapter = new TodayAdapter(getContext());
 		rvQuestion.setHasFixedSize(true);
 		manager = new LinearLayoutManager(getActivity());
 		rvQuestion.setLayoutManager(manager);
@@ -278,12 +293,10 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		});
 		lvQuestion.setAdapter(worryAdaptor);
 		lvQuestion.setOnItemClickListener(this);
-		worryAdaptor.getList();
-		worryAdaptor.setMore(true);
 
-		SpinnerAdapter spinnerAdapter = new SpinnerAdapter(getActivity());
+		List<String> filterType = Arrays.asList("전체", "내가 쓴 글");
+		spinnerAdapter = new SpinnerAdapter(getContext(), filterType);
 		spinner.setAdapter(spinnerAdapter);
-
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -292,7 +305,8 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				} else {
 					mine = true;
 				}
-				worryAdaptor.clean();
+				worryAdaptor.initPagingIndex();
+				worryAdaptor.increasePagingIndex();
 				getWorryList();
 				Log.i("QuestionFragment", "mine : " + mine);
 			}

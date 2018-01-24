@@ -21,12 +21,11 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 
 	private int state = 1, hour, minute, second;
     private MyTodayQuestionVO myTodayQuestionVO;
-    private QuestionFragment fragment;
 	private Context context;
+	private RefreshCallback refreshCallback;
 
-	public TodayAdapter(Context context, QuestionFragment fragment) {
+	public TodayAdapter(Context context) {
 		this.context = context;
-		this.fragment = fragment;
 	}
 
 	public void setTime(int hour, int minute, int second) {
@@ -73,7 +72,6 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 	public void onBindViewHolder(ViewHolder holder, int position) {
 
 		if(state == REMAIN.getIndex()) {
-
 			if(hour == 0 && minute == 0) {
 				holder.tvHour.setVisibility(View.GONE);
 				holder.tvHourString.setVisibility(View.GONE);
@@ -91,7 +89,14 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 					holder.tvMinute.setText("" + minute);
 				}
 			}
-			notifyDataSetChanged();
+
+			holder.button.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					Log.i("TodayAdapter", "onClick");
+					refreshCallback.refresh();
+				}
+			});
 
 		} else if(state == INIT.getIndex() || state == BONUS.getIndex()) {
 			holder.tvPlusPoint.setText("" + myTodayQuestionVO.getSavePoint());
@@ -102,6 +107,14 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 					Intent intent = new Intent(context, QuestionActivity.class);
 					intent.putExtra("questionList", myTodayQuestionVO);
 					context.startActivity(intent);
+				}
+			});
+		} else {
+			holder.button.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					Log.i("TodayAdapter", "onClick");
+					refreshCallback.refresh();
 				}
 			});
 		}
@@ -132,7 +145,18 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 				tvMinute = (NotoTextView) view.findViewById(R.id.tv_question_minute);
 				tvHourString = (NotoTextView) view.findViewById(R.id.tv_question_hour_string);
 				tvMinuteString = (NotoTextView) view.findViewById(R.id.tv_question_minute_string);
+				button = (Button) view.findViewById(R.id.btn_rl);
+			} else {
+				button = (Button) view.findViewById(R.id.btn_rl);
 			}
 		}
+	}
+
+	public void setRefreshCallback(RefreshCallback refreshCallback) {
+		this.refreshCallback = refreshCallback;
+	}
+
+	interface RefreshCallback {
+		void refresh();
 	}
 }

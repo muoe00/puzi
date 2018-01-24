@@ -1,17 +1,13 @@
 package com.puzi.puzi.ui.today;
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.myservice.MyTodayQuestionVO;
 import com.puzi.puzi.network.CustomCallback;
@@ -22,6 +18,14 @@ import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.base.BaseActivity;
 import com.puzi.puzi.ui.common.PointDialog;
 import com.puzi.puzi.ui.customview.NotoTextView;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import retrofit2.Call;
 
 /**
@@ -30,7 +34,7 @@ import retrofit2.Call;
 
 public class QuestionActivity extends BaseActivity {
 
-    private Context context;
+    private Activity activity;
     private Unbinder unbinder;
     private boolean isSelected = false;
     private int selectedCount = 0, savePoint;
@@ -59,6 +63,7 @@ public class QuestionActivity extends BaseActivity {
         setContentView(R.layout.activity_question);
 
         unbinder = ButterKnife.bind(this);
+        activity = this;
 
         myTodayQuestionVO = (MyTodayQuestionVO) getIntent().getExtras().getSerializable("questionList");
 
@@ -122,9 +127,14 @@ public class QuestionActivity extends BaseActivity {
                 MainActivity.needToUpdateUserVO = true;
                 savePoint = responseVO.getInteger("savedPoint");
 
-                PointDialog.load(getActivity(), savePoint, false);
-                // Toast.makeText(savedActivity, savePoint + "원이 적립되었습니다.", Toast.LENGTH_SHORT).show();
-                closeView();
+                PointDialog.load(activity, savePoint, true);
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        closeView();
+                    }
+                }, 1250);
             }
         });
     }

@@ -18,9 +18,9 @@
       android:layout_height="wrap_content"/>
 
     <LinearLayout
-      android:layout_marginTop="91dp"
+      android:layout_marginTop="90dp"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
       android:orientation="vertical">
 
       <com.puzi.puzi.ui.customview.NotoTextView
@@ -34,7 +34,8 @@
         android:layout_height="wrap_content"/>
 
       <LinearLayout
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="10dp"
+          android:layout_marginBottom="20dp"
         android:layout_gravity="center"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
@@ -68,26 +69,26 @@
       </LinearLayout>
 
       <View
-        android:layout_weight="0.9"
+        android:layout_weight="0.2"
         android:layout_width="match_parent"
         android:layout_height="0dp"/>
 
       <LinearLayout
-        android:orientation="vertical"
+          android:orientation="vertical"
+          android:layout_weight="0.8"
           android:gravity="center"
-          android:layout_weight="0.1"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="300dp">
+          android:layout_marginLeft="16dp"
+          android:layout_marginRight="16dp"
+          android:layout_marginBottom="20dp"
+          android:layout_width="match_parent"
+          android:layout_height="0dp">
 
         <LinearLayout
           android:orientation="horizontal"
           android:layout_marginBottom="10dp"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
           android:layout_width="match_parent"
-          android:layout_height="match_parent">
+          android:layout_height="0dp">
 
           <Button
             android:background="@drawable/button_question_off"
@@ -95,7 +96,7 @@
             android:layout_weight="0.5"
             android:layout_marginRight="9dp"
             android:layout_width="0dp"
-            android:layout_height="113dp"/>
+            android:layout_height="match_parent"/>
 
           <Button
             android:background="@drawable/button_question_off"
@@ -103,16 +104,16 @@
             android:layout_weight="0.5"
             android:layout_marginLeft="9dp"
             android:layout_width="0dp"
-            android:layout_height="113dp"/>
+            android:layout_height="match_parent"/>
 
         </LinearLayout>
 
         <LinearLayout
           android:orientation="horizontal"
+            android:layout_weight="0.5"
             android:id="@+id/ll_question_container_2"
-            android:layout_weight="1"
           android:layout_width="match_parent"
-          android:layout_height="match_parent">
+          android:layout_height="0dp">
 
           <Button
             android:background="@drawable/button_question_off"
@@ -120,7 +121,7 @@
             android:layout_weight="0.5"
             android:layout_marginRight="9dp"
             android:layout_width="0dp"
-            android:layout_height="113dp"/>
+            android:layout_height="match_parent"/>
 
           <Button
             android:background="@drawable/button_question_off"
@@ -128,7 +129,7 @@
             android:layout_weight="0.5"
             android:layout_marginLeft="9dp"
             android:layout_width="0dp"
-            android:layout_height="113dp"/>
+            android:layout_height="match_parent"/>
 
         </LinearLayout>
 

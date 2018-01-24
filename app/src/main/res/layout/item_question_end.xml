@@ -84,6 +84,12 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
+        <Button
+            android:id="@+id/btn_rl"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </FrameLayout>
 
 </LinearLayout>

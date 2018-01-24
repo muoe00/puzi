@@ -1,6 +1,5 @@
 package com.puzi.puzi.ui.today;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -9,12 +8,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.puzi.puzi.R;
-import com.puzi.puzi.biz.myservice.MyTodayQuestionVO;
+import com.puzi.puzi.biz.myservice.MyWorryAnswerDTO;
 import com.puzi.puzi.biz.myservice.MyWorryAnswerResultDTO;
 import com.puzi.puzi.biz.myservice.MyWorryQuestionDTO;
+import com.puzi.puzi.biz.myservice.MyWorryQuestionDetailDTO;
+import com.puzi.puzi.biz.myservice.PersonalType;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
@@ -30,6 +30,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import retrofit2.Call;
 
+import static com.puzi.puzi.biz.myservice.PersonalType.ANSWERED;
+import static com.puzi.puzi.biz.myservice.PersonalType.NOT_ANSWERED;
 import static com.puzi.puzi.ui.today.QuestionFragment.updateLike;
 
 /**
@@ -42,7 +44,10 @@ public class AnswerActivity extends BaseActivity {
     private boolean isSelected = false;
     private int selectedCount = 0, savePoint, saveCount;
     private String answer;
+    private PersonalType personalType;
     private MyWorryQuestionDTO myWorryQuestionDTO;
+    private MyWorryAnswerDTO myWorryAnswerDTO;
+    private MyWorryQuestionDetailDTO myWorryQuestionDetailDTO;
     private MyWorryAnswerResultDTO myWorryAnswerResultDTO;
 
     @BindView(R.id.ibtn_question_report)
@@ -84,9 +89,64 @@ public class AnswerActivity extends BaseActivity {
         Log.i("AnswerActivity", "myWorryQuestionDTO : " + myWorryQuestionDTO.toString());
 
         initComponents();
+        getDetail();
     }
 
-    public void initComponents() {
+    public void getDetail() {
+        final LazyRequestService service = new LazyRequestService(getActivity(), MyServiceNetworkService.class);
+        service.method(new LazyRequestService.RequestMothod<MyServiceNetworkService>() {
+            @Override
+            public Call<ResponseVO> execute(MyServiceNetworkService myServiceNetworkService, String token) {
+                return myServiceNetworkService.getWorryDetail(token, myWorryQuestionDTO.getMyWorryQuestionId());
+            }
+        });
+        service.enqueue(new CustomCallback(getActivity()) {
+            @Override
+            public void onSuccess(ResponseVO responseVO) {
+                Log.i("AnswerActivity", responseVO.toString());
+
+                myWorryQuestionDetailDTO = responseVO.getValue("myWorryQuestionDetailDTO", MyWorryQuestionDetailDTO.class);
+                personalType = myWorryQuestionDetailDTO.getPersonalType();
+
+                if(personalType.equals(NOT_ANSWERED)) {
+                    initAnswer();
+                } else {
+                    if(personalType.equals(ANSWERED)) {
+                        myWorryAnswerDTO = myWorryQuestionDetailDTO.getMyWorryAnswerDTO();
+                        switch (myWorryAnswerDTO.getAnswerNumber()) {
+                            case 1:
+                                btnAnswer1.setBackgroundResource(R.drawable.button_question_on);
+                                btnAnswer1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                break;
+                            case 2:
+                                btnAnswer2.setBackgroundResource(R.drawable.button_question_on);
+                                btnAnswer2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                break;
+                            case 3:
+                                btnAnswer3.setBackgroundResource(R.drawable.button_question_on);
+                                btnAnswer3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                break;
+                            case 4:
+                                btnAnswer4.setBackgroundResource(R.drawable.button_question_on);
+                                btnAnswer4.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                break;
+                        }
+                    }
+
+                    myWorryAnswerResultDTO = myWorryQuestionDetailDTO.getMyWorryAnswerResultDTO();
+                    btnOk.setVisibility(View.INVISIBLE);
+                    updateAnswerView();
+
+                    btnAnswer1.setClickable(false);
+                    btnAnswer2.setClickable(false);
+                    btnAnswer3.setClickable(false);
+                    btnAnswer4.setClickable(false);
+                }
+            }
+        });
+    }
+
+    public void initAnswer() {
         if(myWorryQuestionDTO.getQuestionCount() == 2) {
             llContainer.setVisibility(View.GONE);
             btnAnswer1.setText(myWorryQuestionDTO.getAnswerOne());
@@ -97,11 +157,12 @@ public class AnswerActivity extends BaseActivity {
             btnAnswer3.setText(myWorryQuestionDTO.getAnswerThree());
             btnAnswer4.setText(myWorryQuestionDTO.getAnswerFour());
         }
+    }
 
+    public void initComponents() {
         tvTitle.setText(myWorryQuestionDTO.getQuestion());
         tvCount.setText("" + myWorryQuestionDTO.getAnsweredCount());
         tvCountLimit.setText("" + myWorryQuestionDTO.getTotalAnswerCount());
-
         tvLike.setText("" + myWorryQuestionDTO.getLikedCount());
 
         if(myWorryQuestionDTO.isLikedByMe()) {
@@ -122,24 +183,16 @@ public class AnswerActivity extends BaseActivity {
     public void checkAnswer(View view) {
         switch (view.getId()) {
             case R.id.btn_answer_1:
-                selectedCount = 1;
-                answer = myWorryQuestionDTO.getAnswerOne();
-                checkButton(btnAnswer1);
+                checkButton(btnAnswer1, 1);
                 break;
             case R.id.btn_answer_2:
-                selectedCount = 2;
-                answer = myWorryQuestionDTO.getAnswerTwo();
-                checkButton(btnAnswer2);
+                checkButton(btnAnswer2, 2);
                 break;
             case R.id.btn_answer_3:
-                selectedCount = 3;
-                answer = myWorryQuestionDTO.getAnswerThree();
-                checkButton(btnAnswer3);
+                checkButton(btnAnswer3, 3);
                 break;
             case R.id.btn_answer_4:
-                selectedCount = 4;
-                answer = myWorryQuestionDTO.getAnswerFour();
-                checkButton(btnAnswer4);
+                checkButton(btnAnswer4, 4);
                 break;
         }
     }
@@ -163,6 +216,7 @@ public class AnswerActivity extends BaseActivity {
 
                 savePoint = responseVO.getInteger("savedPoint");
                 saveCount = responseVO.getInteger("savedCount");
+
                 myWorryAnswerResultDTO = responseVO.getValue("myWorryAnswerResultDTO", MyWorryAnswerResultDTO.class);
                 updateAnswerView();
 
@@ -177,6 +231,11 @@ public class AnswerActivity extends BaseActivity {
                     state = true;
                     PointDialog.load(getActivity(), savePoint, state);
                 }
+
+                btnAnswer1.setClickable(false);
+                btnAnswer2.setClickable(false);
+                btnAnswer3.setClickable(false);
+                btnAnswer4.setClickable(false);
             }
         });
     }
@@ -206,37 +265,31 @@ public class AnswerActivity extends BaseActivity {
         btnAnswer4.setText(context);
     }
 
-    public void setEnabled(boolean state) {
-        if (selectedCount == 1) {
-            btnAnswer2.setEnabled(state);
-            btnAnswer3.setEnabled(state);
-            btnAnswer4.setEnabled(state);
-        } else if(selectedCount == 2) {
-            btnAnswer1.setEnabled(state);
-            btnAnswer3.setEnabled(state);
-            btnAnswer4.setEnabled(state);
-        } else if(selectedCount == 3) {
-            btnAnswer2.setEnabled(state);
-            btnAnswer1.setEnabled(state);
-            btnAnswer4.setEnabled(state);
-        } else if(selectedCount == 4) {
-            btnAnswer2.setEnabled(state);
-            btnAnswer3.setEnabled(state);
-            btnAnswer4.setEnabled(state);
-        }
-    }
-
-    public void checkButton(Button btn) {
-        if(isSelected) {
-            isSelected = false;
-            setEnabled(true);
-            selectedCount = 0;
-            btn.setBackgroundResource(R.drawable.button_question_off);
-            btn.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorTextGray));
-
+    public void checkButton(Button btn, int index) {
+        if (isSelected) {
+            if(selectedCount == index) {
+                isSelected = false;
+                selectedCount = 0;
+                btn.setBackgroundResource(R.drawable.button_question_off);
+                btn.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+            }
         } else {
             isSelected = true;
-            setEnabled(false);
+            selectedCount = index;
+            switch (index) {
+                case 1:
+                    answer = myWorryQuestionDTO.getAnswerOne();
+                    break;
+                case 2:
+                    answer = myWorryQuestionDTO.getAnswerTwo();
+                    break;
+                case 3:
+                    answer = myWorryQuestionDTO.getAnswerThree();
+                    break;
+                case 4:
+                    answer = myWorryQuestionDTO.getAnswerFour();
+                    break;
+            }
             btn.setBackgroundResource(R.drawable.button_question_on);
             btn.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
         }

@@ -5,14 +5,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.*;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import android.widget.AbsListView;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
 import com.puzi.puzi.R;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import lombok.Getter;
+import lombok.Setter;
 
 import static com.google.common.collect.Lists.newArrayList;
 

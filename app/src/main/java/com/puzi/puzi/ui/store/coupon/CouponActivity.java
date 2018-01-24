@@ -11,12 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 import com.puzi.puzi.R;
-import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import com.puzi.puzi.biz.store.PurchaseHistoryVO;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.LazyRequestService;
@@ -25,10 +20,14 @@ import com.puzi.puzi.network.service.StoreNetworkService;
 import com.puzi.puzi.ui.CustomScrollView;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.utils.PuziUtils;
-import retrofit2.Call;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+import retrofit2.Call;
 
 /**
  * Created by muoe0 on 2017-08-06.
@@ -191,7 +190,7 @@ public class CouponActivity extends BaseFragmentActivity {
 		}
 
 		ViewGroup.LayoutParams params = gridView.getLayoutParams();
-		params.height = totalHeight;
+		params.height = (int) (totalHeight * 0.6);
 		gridView.setLayoutParams(params);
 		gridView.requestLayout();
 	}
