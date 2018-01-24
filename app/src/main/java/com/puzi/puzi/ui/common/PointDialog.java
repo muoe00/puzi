@@ -2,16 +2,11 @@ package com.puzi.puzi.ui.common;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.media.Image;
-import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.puzi.puzi.R;
 import com.puzi.puzi.ui.customview.NotoTextView;
 
@@ -25,7 +20,7 @@ import java.util.TimerTask;
 public class PointDialog {
     private static Dialog dlg = null;
 
-    public static void load(final Activity activity, final int point) {
+    public static void load(final Activity activity, final int point, final boolean saved) {
         if (dlg != null) {
             dlg.dismiss();
             dlg = null;
@@ -39,6 +34,8 @@ public class PointDialog {
             ImageView iv = (ImageView) dlg.findViewById(R.id.iv_view_point);
             // inal ImageView ivS = (ImageView) dlg.findViewById(R.id.iv_view_point_second);
             NotoTextView tv = (NotoTextView) dlg.findViewById(R.id.tv_view_point);
+            NotoTextView tvPlus = (NotoTextView) dlg.findViewById(R.id.tv_view_point_plus);
+            NotoTextView tvP = (NotoTextView) dlg.findViewById(R.id.tv_view_point_p);
 
             // ivS.setVisibility(View.INVISIBLE);
 
@@ -47,6 +44,12 @@ public class PointDialog {
 
             rl.startAnimation(animAlpha);
             iv.startAnimation(animScale);
+
+            if(!saved) {
+             tvP.setVisibility(View.GONE);
+             tvPlus.setVisibility(View.GONE);
+            }
+
             tv.setText("" + point);
 
             Timer timer = new Timer();

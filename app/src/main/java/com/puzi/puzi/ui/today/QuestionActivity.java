@@ -122,7 +122,7 @@ public class QuestionActivity extends BaseActivity {
                 MainActivity.needToUpdateUserVO = true;
                 savePoint = responseVO.getInteger("savedPoint");
 
-                PointDialog.load(getActivity(), savePoint);
+                PointDialog.load(getActivity(), savePoint, false);
                 // Toast.makeText(savedActivity, savePoint + "원이 적립되었습니다.", Toast.LENGTH_SHORT).show();
                 closeView();
             }

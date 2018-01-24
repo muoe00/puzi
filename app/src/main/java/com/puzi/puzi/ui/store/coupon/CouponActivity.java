@@ -44,9 +44,12 @@ public class CouponActivity extends BaseFragmentActivity {
 	@BindView(R.id.gv_coupon) GridView gvCoupon;
 	@BindView(R.id.gv_used_coupon) GridView gvUsedCoupon;
 
-	private boolean isUsedCoupon = false;
 	private boolean more = false;
+	private boolean notUsedMore = false;
+	private boolean useMore = false;
 	private int pagingIndex = 1;
+	private int notUsedpagingIndex = 1;
+	private int usepagingIndex = 1;
 	private boolean lastestScrollFlag = false;
 
 	private CouponListAdapter couponListAdapter;
@@ -73,7 +76,7 @@ public class CouponActivity extends BaseFragmentActivity {
 		service.method(new LazyRequestService.RequestMothod<StoreNetworkService>() {
 			@Override
 			public Call<ResponseVO> execute(StoreNetworkService storeNetworkService, String token) {
-				return storeNetworkService.purchaseHistoryUsed(token, pagingIndex);
+				return storeNetworkService.purchaseHistoryUsed(token, usepagingIndex);
 			}
 		});
 		service.enqueue(new CustomCallback(getActivity()) {
@@ -97,6 +100,7 @@ public class CouponActivity extends BaseFragmentActivity {
 						View emptyView = inflater.inflate(R.layout.item_list_empty_used_coupon, null);
 						llUsed.addView(emptyView);
 						more = false;
+						useMore = false;
 						return;
 					}
 				}
@@ -109,11 +113,13 @@ public class CouponActivity extends BaseFragmentActivity {
 
 				if(usedCouponListAdapter.getCount() == responseVO.getInteger("totalCount")) {
 					more = false;
+					useMore = false;
 					lastestScrollFlag = true;
 					Log.i(PuziUtils.INFO, "lastestScrollFlag : " + lastestScrollFlag);
 					return;
 				}
 				more = true;
+				useMore = true;
 			}
 		});
 	}
@@ -126,7 +132,7 @@ public class CouponActivity extends BaseFragmentActivity {
 		service.method(new LazyRequestService.RequestMothod<StoreNetworkService>() {
 			@Override
 			public Call<ResponseVO> execute(StoreNetworkService storeNetworkService, String token) {
-				return storeNetworkService.purchaseHistoryNotUse(token, pagingIndex);
+				return storeNetworkService.purchaseHistoryNotUse(token, notUsedpagingIndex);
 			}
 		});
 		service.enqueue(new CustomCallback(getActivity()) {
@@ -150,6 +156,7 @@ public class CouponActivity extends BaseFragmentActivity {
 						View emptyView = inflater.inflate(R.layout.item_list_empty_coupon, null);
 						llNotUsed.addView(emptyView);
 						more = false;
+						notUsedMore = false;
 						return;
 					}
 				}
@@ -162,11 +169,13 @@ public class CouponActivity extends BaseFragmentActivity {
 
 				if(couponListAdapter.getCount() == responseVO.getInteger("totalCount")) {
 					more = false;
+					notUsedMore = false;
 					lastestScrollFlag = true;
 					Log.i(PuziUtils.INFO, "lastestScrollFlag : " + lastestScrollFlag);
 					return;
 				}
 				more = true;
+				notUsedMore = true;
 			}
 		});
 	}
@@ -191,10 +200,18 @@ public class CouponActivity extends BaseFragmentActivity {
 		scView.setOnEndedScrolledListener(new CustomScrollView.OnEndedScrolledListener() {
 			@Override
 			public void onEnded() {
-				if(more) {
+				/*if(more) {
 					pagingIndex = pagingIndex + 1;
 					Log.i(PuziUtils.INFO, "pagingIndex : " + pagingIndex);
 					getNotUseCouponList();
+					getUsedCouponList();
+				}*/
+
+				if(notUsedMore) {
+					notUsedpagingIndex = notUsedpagingIndex + 1;
+					getNotUseCouponList();
+				} else if (!notUsedMore && useMore) {
+					usepagingIndex = usepagingIndex + 1;
 					getUsedCouponList();
 				}
 			}

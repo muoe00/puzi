@@ -21,10 +21,12 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 
 	private int state = 1, hour, minute, second;
     private MyTodayQuestionVO myTodayQuestionVO;
+    private QuestionFragment fragment;
 	private Context context;
 
-	public TodayAdapter(Context context) {
+	public TodayAdapter(Context context, QuestionFragment fragment) {
 		this.context = context;
+		this.fragment = fragment;
 	}
 
 	public void setTime(int hour, int minute, int second) {
@@ -103,6 +105,7 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 				}
 			});
 		} else {
+			fragment.getQuestion();
 			notifyDataSetChanged();
 		}
 	}
