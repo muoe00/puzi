@@ -8,6 +8,7 @@
               android:paddingBottom="10dp">
 
   <LinearLayout
+    android:id="@+id/ll_question_bg"
     android:background="@drawable/bg_vote_item"
     android:orientation="horizontal"
     android:layout_width="match_parent"

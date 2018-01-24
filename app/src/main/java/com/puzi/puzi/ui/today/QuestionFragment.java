@@ -8,16 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.Spinner;
-
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.myservice.MyTodayQuestionVO;
 import com.puzi.puzi.biz.myservice.MyWorryQuestionDTO;
@@ -28,7 +23,6 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.MyServiceNetworkService;
 import com.puzi.puzi.ui.CustomPagingAdapter;
 import com.puzi.puzi.ui.base.BaseFragment;
-
 import lombok.Data;
 import retrofit2.Call;
 
@@ -67,6 +61,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	@BindView(R.id.sv_question) ScrollView svQuestion;
 	@BindView(R.id.rv_question) RecyclerView rvQuestion;
 	@BindView(R.id.id_worry_spinner) Spinner spinner;
+	@BindView(R.id.btn_vote_more) Button btnMore;
 
 	public static void updateLike(int id, boolean isLike, int count) {
 		UpdateLike updateLike = new UpdateLike(id, isLike, count);
@@ -226,21 +221,37 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	}
 
 	public void getWorryList() {
+
+		orderType = OrderType.getRandomType();
+		worryAdaptor.startProgressWithScrollDown();
+
 		LazyRequestService service = new LazyRequestService(getActivity(), MyServiceNetworkService.class);
 		service.method(new LazyRequestService.RequestMothod<MyServiceNetworkService>() {
 			@Override
 			public Call<ResponseVO> execute(MyServiceNetworkService myServiceNetworkService, String token) {
-				return myServiceNetworkService.getWorryList(token, pagingIndex, mine, orderType.toString());
+				return myServiceNetworkService.getWorryList(token, worryAdaptor.getPagingIndex(), mine, orderType.toString());
 			}
 		});
 		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
+				worryAdaptor.stopProgress();
+
 				myWorryQuestionList = responseVO.getList("myWorryQuestionDTOList", MyWorryQuestionDTO.class);
+				int totalCount = responseVO.getInteger("totalCount");
+
 				Log.i("QuestionFragment", responseVO.toString());
 
-				worryAdaptor.addList(myWorryQuestionList);
-				worryAdaptor.notifyDataSetChanged();
+				/*worryAdaptor.addList(myWorryQuestionList);
+				worryAdaptor.notifyDataSetChanged();*/
+
+				worryAdaptor.addListWithTotalCount(myWorryQuestionList, totalCount);
+
+				if(totalCount == worryAdaptor.getCount()) {
+					btnMore.setEnabled(false);
+				} else {
+					btnMore.setEnabled(true);
+				}
 			}
 		});
 	}
@@ -253,7 +264,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	public void initComponent() {
 
 		// myToday
-		adapter = new TodayAdapter(getContext());
+		adapter = new TodayAdapter(getContext(), this);
 		rvQuestion.setHasFixedSize(true);
 		manager = new LinearLayoutManager(getActivity());
 		rvQuestion.setLayoutManager(manager);
@@ -270,10 +281,27 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		worryAdaptor.getList();
 		worryAdaptor.setMore(true);
 
-		orderTypes = OrderType.getList();
 		SpinnerAdapter spinnerAdapter = new SpinnerAdapter(getActivity());
-		spinnerAdapter.addList(orderTypes);
 		spinner.setAdapter(spinnerAdapter);
+
+		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				if(position == 0) {
+					mine = false;
+				} else {
+					mine true;
+				}
+				worryAdaptor.clean();
+				getWorryList();
+				Log.i("QuestionFragment", "mine : " + mine);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				mine = false;
+			}
+		})
 	}
 
 	@Override

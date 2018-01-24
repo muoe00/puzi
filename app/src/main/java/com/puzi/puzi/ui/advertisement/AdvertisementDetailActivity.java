@@ -332,7 +332,7 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 				} else {
 					int savedPoint = responseVO.getInteger("savedPoint");
 
-					PointDialog.load(getActivity(), savedPoint);
+					PointDialog.load(getActivity(), savedPoint, false);
 
 					// Toast.makeText(getBaseContext(), savedPoint + "원이 적립되었습니다.", Toast.LENGTH_SHORT).show();
 

@@ -170,13 +170,17 @@ public class AnswerActivity extends BaseActivity {
 
                 Log.i("AnswerActivity", myWorryAnswerResultDTO.toString());
 
+                boolean state = false;
+
                 if(saveCount < 10) {
                     count = "" + saveCount + " / 10";
+                    state = false;
                 } else if (saveCount == 10) {
                     count = "" + savePoint;
+                    state = true;
                 }
 
-                PointDialog.load(getActivity(), savePoint);
+                PointDialog.load(getActivity(), count, state);
                 // Toast.makeText(savedActivity, count, Toast.LENGTH_SHORT).show();
             }
         });

@@ -6,36 +6,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.puzi.puzi.R;
-import com.puzi.puzi.biz.myservice.AnswerType;
-import com.puzi.puzi.biz.myservice.OrderType;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class SpinnerAdapter extends BaseAdapter {
 
 	private Activity activity;
     private LayoutInflater inflate;
-	private List<OrderType> list;
+    private List<String> stateList = Arrays.asList("전체", "내가 쓴 글");
+	private boolean state;
 
 	public SpinnerAdapter(Activity activity) {
 		this.activity = activity;
 		this.inflate = activity.getLayoutInflater();
 	}
 
-	public void addList(List<OrderType> list) {
-		this.list = list;
+	public void setState(boolean state) {
+		this.state = state;
 	}
 
 	@Override
 	public int getCount() {
-		return list.size();
+		return stateList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return list.get(position);
+		return stateList.get(position);
 	}
 
 	@Override
@@ -49,11 +48,8 @@ public class SpinnerAdapter extends BaseAdapter {
 			view = inflate.inflate(R.layout.item_spinner_normal, viewGroup, false);
 		}
 
-		if(list != null){
-			String text = list.get(i).getComment();
-
-			((TextView) view.findViewById(R.id.spinnerText)).setText(text);
-		}
+		String text = stateList.get(i);
+		((TextView) view.findViewById(R.id.spinnerText)).setText(text);
 
 		return view;
 	}
