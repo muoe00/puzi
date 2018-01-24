@@ -290,7 +290,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				if(position == 0) {
 					mine = false;
 				} else {
-					mine true;
+					mine = true;
 				}
 				worryAdaptor.clean();
 				getWorryList();
@@ -301,7 +301,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 			public void onNothingSelected(AdapterView<?> parent) {
 				mine = false;
 			}
-		})
+		});
 	}
 
 	@Override

@@ -104,9 +104,6 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 					context.startActivity(intent);
 				}
 			});
-		} else {
-			fragment.getQuestion();
-			notifyDataSetChanged();
 		}
 	}
 

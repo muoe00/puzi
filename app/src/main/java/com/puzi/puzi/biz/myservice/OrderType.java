@@ -26,7 +26,7 @@ public enum OrderType {
         List<OrderType> orderTypes = Arrays.asList(OrderType.values());
 
         Random random = new Random();
-        int index = random.nextInt(3) + 1;
+        int index = random.nextInt(2);
 
         return orderTypes.get(index);
     }

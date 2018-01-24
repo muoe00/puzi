@@ -48,9 +48,11 @@ public class PointDialog {
             if(!saved) {
              tvP.setVisibility(View.GONE);
              tvPlus.setVisibility(View.GONE);
-            }
 
-            tv.setText("" + point);
+             tv.setText("" + point +  " / 10");
+            } else {
+                tv.setText("" + point);
+            }
 
             Timer timer = new Timer();
 

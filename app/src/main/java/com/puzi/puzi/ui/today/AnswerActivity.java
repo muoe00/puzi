@@ -161,8 +161,6 @@ public class AnswerActivity extends BaseActivity {
             public void onSuccess(ResponseVO responseVO) {
                 MainActivity.needToUpdateUserVO = true;
 
-                String count = "";
-
                 savePoint = responseVO.getInteger("savedPoint");
                 saveCount = responseVO.getInteger("savedCount");
                 myWorryAnswerResultDTO = responseVO.getValue("myWorryAnswerResultDTO", MyWorryAnswerResultDTO.class);
@@ -173,15 +171,12 @@ public class AnswerActivity extends BaseActivity {
                 boolean state = false;
 
                 if(saveCount < 10) {
-                    count = "" + saveCount + " / 10";
                     state = false;
+                    PointDialog.load(getActivity(), saveCount, state);
                 } else if (saveCount == 10) {
-                    count = "" + savePoint;
                     state = true;
+                    PointDialog.load(getActivity(), savePoint, state);
                 }
-
-                PointDialog.load(getActivity(), count, state);
-                // Toast.makeText(savedActivity, count, Toast.LENGTH_SHORT).show();
             }
         });
     }
