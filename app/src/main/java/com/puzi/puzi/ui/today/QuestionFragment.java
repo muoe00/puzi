@@ -261,11 +261,16 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				Log.i("QuestionFragment", responseVO.toString());
 
 				worryAdaptor.addListWithTotalCount(myWorryQuestionList, totalCount);
+				// worryAdaptor.addList(myWorryQuestionList);
 
 				if(totalCount == worryAdaptor.getCount()) {
 					btnMore.setEnabled(false);
 				} else {
 					btnMore.setEnabled(true);
+				}
+
+				if(worryAdaptor.getCount() >= totalCount) {
+					btnMore.setVisibility(View.GONE);
 				}
 			}
 		});
@@ -291,6 +296,8 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				getWorryList();
 			}
 		});
+		worryAdaptor.setMore(false);
+		worryAdaptor.getList();
 		lvQuestion.setAdapter(worryAdaptor);
 		lvQuestion.setOnItemClickListener(this);
 
