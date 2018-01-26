@@ -1,11 +1,9 @@
 package com.puzi.puzi.ui.advertisement;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,11 +15,12 @@ import android.view.animation.TranslateAnimation;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.*;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.joooonho.SelectableRoundedImageView;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
@@ -35,10 +34,15 @@ import com.puzi.puzi.ui.channel.ChannelDetailActivity;
 import com.puzi.puzi.ui.common.PointDialog;
 import com.puzi.puzi.ui.company.CompanyActivity;
 import com.puzi.puzi.utils.PuziUtils;
-import retrofit2.Call;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+import retrofit2.Call;
 
 import static com.puzi.puzi.ui.advertisement.AdvertisementFragment.updateSavedPoint;
 
@@ -332,7 +336,7 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 				} else {
 					int savedPoint = responseVO.getInteger("savedPoint");
 
-					PointDialog.load(getActivity(), savedPoint, false);
+					PointDialog.load(getActivity(), savedPoint, true);
 
 					// Toast.makeText(getBaseContext(), savedPoint + "원이 적립되었습니다.", Toast.LENGTH_SHORT).show();
 

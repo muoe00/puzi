@@ -55,6 +55,10 @@ public class QuestionActivity extends BaseActivity {
     Button btnA4;
     @BindView(R.id.ll_question_container_2)
     LinearLayout llContainer;
+    @BindView(R.id.ll_question_weight)
+    LinearLayout llWeight;
+    @BindView(R.id.view_question_weight)
+    View vWeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +76,15 @@ public class QuestionActivity extends BaseActivity {
         btnA1.setText(myTodayQuestionVO.getAnswerOne());
         btnA2.setText(myTodayQuestionVO.getAnswerTwo());
 
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) llWeight.getLayoutParams();
+        params.weight = 30;
+        LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) vWeight.getLayoutParams();
+        params1.weight = 70;
+
         if(myTodayQuestionVO.getAnswerCount() == 2) {
             llContainer.setVisibility(View.GONE);
+            llWeight.setLayoutParams(params);
+            vWeight.setLayoutParams(params1);
         } else {
             btnA3.setText(myTodayQuestionVO.getAnswerThree());
             btnA4.setText(myTodayQuestionVO.getAnswerFour());

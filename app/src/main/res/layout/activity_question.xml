@@ -69,11 +69,13 @@
       </LinearLayout>
 
       <View
+          android:id="@+id/view_question_weight"
         android:layout_weight="0.2"
         android:layout_width="match_parent"
         android:layout_height="0dp"/>
 
       <LinearLayout
+          android:id="@+id/ll_question_weight"
           android:orientation="vertical"
           android:layout_weight="0.8"
           android:gravity="center"

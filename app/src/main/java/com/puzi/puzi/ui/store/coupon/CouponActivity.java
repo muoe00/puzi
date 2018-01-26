@@ -46,7 +46,6 @@ public class CouponActivity extends BaseFragmentActivity {
 	private boolean more = false;
 	private boolean notUsedMore = false;
 	private boolean useMore = false;
-	private int pagingIndex = 1;
 	private int notUsedpagingIndex = 1;
 	private int usepagingIndex = 1;
 	private boolean lastestScrollFlag = false;
@@ -61,10 +60,68 @@ public class CouponActivity extends BaseFragmentActivity {
 
 		unbinder = ButterKnife.bind(this);
 
-		initScrollAction();
 		initAdapter();
+		initScrollAction();
 		getNotUseCouponList();
-		getUsedCouponList();
+	}
+
+	public void getNotUseCouponList() {
+		couponListAdapter.startProgress();
+		gvCoupon.setSelection(couponListAdapter.getCount() - 1);
+
+		final LazyRequestService service = new LazyRequestService(this, StoreNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<StoreNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(StoreNetworkService storeNetworkService, String token) {
+				return storeNetworkService.purchaseHistoryNotUse(token, notUsedpagingIndex);
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
+			@Override
+			public void onSuccess(ResponseVO responseVO) {
+				couponListAdapter.stopProgress();
+
+				Log.i("Coupon", "responseVO : " + responseVO.toString());
+
+				List<PurchaseHistoryVO> couponList = responseVO.getList("purchaseHistoryDTOList", PurchaseHistoryVO.class);
+
+				Log.i(PuziUtils.INFO, "not use history : " + couponList.toString());
+				Log.i(PuziUtils.INFO, "not use history size : " + couponList.size());
+				Log.i(PuziUtils.INFO, "not use history totalCount : " + responseVO.getInteger("totalCount"));
+
+				if(couponList.size() == 0) {
+					if(!lastestScrollFlag) {
+						// couponListAdapter.empty();
+						gvCoupon.setVisibility(View.GONE);
+						LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+						View emptyView = inflater.inflate(R.layout.item_list_empty_coupon, null);
+						llNotUsed.addView(emptyView);
+						more = false;
+						notUsedMore = false;
+						return;
+					}
+
+				} else {
+					couponListAdapter.addList(couponList);
+					if (couponListAdapter.getCount() == responseVO.getInteger("totalCount")) {
+						more = false;
+						notUsedMore = false;
+						lastestScrollFlag = true;
+						Log.i(PuziUtils.INFO, "lastestScrollFlag : " + lastestScrollFlag);
+
+						getUsedCouponList();
+						return;
+					}
+
+					couponListAdapter.notifyDataSetChanged();
+					setGridViewHeightBasedOnChildren(couponListAdapter, gvCoupon);
+
+					more = true;
+					notUsedMore = true;
+				}
+
+			}
+		});
 	}
 
 	public void getUsedCouponList () {
@@ -105,8 +162,6 @@ public class CouponActivity extends BaseFragmentActivity {
 				}
 
 				usedCouponListAdapter.addList(usedCouponList);
-				usedCouponListAdapter.notifyDataSetChanged();
-				setGridViewHeightBasedOnChildren(usedCouponListAdapter, gvUsedCoupon);
 
 				Log.i(PuziUtils.INFO, "usedCouponListAdapter.getCount() : " + usedCouponListAdapter.getCount());
 
@@ -115,66 +170,15 @@ public class CouponActivity extends BaseFragmentActivity {
 					useMore = false;
 					lastestScrollFlag = true;
 					Log.i(PuziUtils.INFO, "lastestScrollFlag : " + lastestScrollFlag);
+
 					return;
 				}
+
+				usedCouponListAdapter.notifyDataSetChanged();
+				setGridViewHeightBasedOnChildren(usedCouponListAdapter, gvUsedCoupon);
+
 				more = true;
 				useMore = true;
-			}
-		});
-	}
-
-	public void getNotUseCouponList() {
-		couponListAdapter.startProgress();
-		gvCoupon.setSelection(couponListAdapter.getCount() - 1);
-
-		final LazyRequestService service = new LazyRequestService(this, StoreNetworkService.class);
-		service.method(new LazyRequestService.RequestMothod<StoreNetworkService>() {
-			@Override
-			public Call<ResponseVO> execute(StoreNetworkService storeNetworkService, String token) {
-				return storeNetworkService.purchaseHistoryNotUse(token, notUsedpagingIndex);
-			}
-		});
-		service.enqueue(new CustomCallback(getActivity()) {
-			@Override
-			public void onSuccess(ResponseVO responseVO) {
-				couponListAdapter.stopProgress();
-
-				Log.i("Coupon", "responseVO : " + responseVO.toString());
-
-				List<PurchaseHistoryVO> couponList = responseVO.getList("purchaseHistoryDTOList", PurchaseHistoryVO.class);
-
-				Log.i(PuziUtils.INFO, "not use history : " + couponList.toString());
-				Log.i(PuziUtils.INFO, "not use history size : " + couponList.size());
-				Log.i(PuziUtils.INFO, "not use history totalCount : " + responseVO.getInteger("totalCount"));
-
-				if(couponList.size() == 0) {
-					if(!lastestScrollFlag) {
-						// couponListAdapter.empty();
-						gvCoupon.setVisibility(View.GONE);
-						LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-						View emptyView = inflater.inflate(R.layout.item_list_empty_coupon, null);
-						llNotUsed.addView(emptyView);
-						more = false;
-						notUsedMore = false;
-						return;
-					}
-				}
-
-				couponListAdapter.addList(couponList);
-				couponListAdapter.notifyDataSetChanged();
-				setGridViewHeightBasedOnChildren(couponListAdapter, gvCoupon);
-
-				Log.i(PuziUtils.INFO, "usedCouponListAdapter.getCount() : " + couponListAdapter.getCount());
-
-				if(couponListAdapter.getCount() == responseVO.getInteger("totalCount")) {
-					more = false;
-					notUsedMore = false;
-					lastestScrollFlag = true;
-					Log.i(PuziUtils.INFO, "lastestScrollFlag : " + lastestScrollFlag);
-					return;
-				}
-				more = true;
-				notUsedMore = true;
 			}
 		});
 	}
@@ -183,6 +187,8 @@ public class CouponActivity extends BaseFragmentActivity {
 		int totalHeight = 0;
 		int desiredWidth = View.MeasureSpec.makeMeasureSpec(gridView.getWidth(), View.MeasureSpec.AT_MOST);
 
+		Log.i("CouponActivity", "baseAdapter.getCount() : " + baseAdapter.getCount());
+
 		for (int i = 0; i < baseAdapter.getCount(); i++) {
 			View listItem = baseAdapter.getView(i, null, gridView);
 			listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
@@ -190,7 +196,7 @@ public class CouponActivity extends BaseFragmentActivity {
 		}
 
 		ViewGroup.LayoutParams params = gridView.getLayoutParams();
-		params.height = (int) (totalHeight * 0.6);
+		params.height = totalHeight;
 		gridView.setLayoutParams(params);
 		gridView.requestLayout();
 	}
