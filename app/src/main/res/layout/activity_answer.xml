@@ -149,8 +149,48 @@
       </LinearLayout>
 
       <LinearLayout
+          android:id="@+id/ll_answer_a2"
+          android:orientation="vertical"
+          android:visibility="gone"
+          android:gravity="center"
+          android:layout_weight="0.7"
+          android:layout_marginBottom="20dp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="163dp">
+
+          <Button
+              android:background="@drawable/button_question_off"
+              android:textColor="@color/colorBlack"
+              android:id="@+id/btn_answer_a2_a1"
+              android:layout_weight="0.5"
+              android:layout_marginRight="9dp"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"/>
+
+          <Button
+              android:background="@drawable/button_question_off"
+              android:textColor="@color/colorBlack"
+              android:id="@+id/btn_answer_a2_a2"
+              android:layout_weight="0.5"
+              android:layout_marginLeft="9dp"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/ll_answer_a4"
         android:orientation="vertical"
           android:gravity="center"
+          android:visibility="gone"
           android:layout_weight="0.7"
         android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
@@ -210,6 +250,7 @@
 
         </LinearLayout>
       </LinearLayout>
+
     </LinearLayout>
 
     <com.puzi.puzi.ui.customview.NotoButton

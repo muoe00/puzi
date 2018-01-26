@@ -110,14 +110,16 @@ public class CouponActivity extends BaseFragmentActivity {
 						Log.i(PuziUtils.INFO, "lastestScrollFlag : " + lastestScrollFlag);
 
 						getUsedCouponList();
-						return;
+
+					} else {
+						more = true;
+						notUsedMore = true;
 					}
 
 					couponListAdapter.notifyDataSetChanged();
 					setGridViewHeightBasedOnChildren(couponListAdapter, gvCoupon);
 
-					more = true;
-					notUsedMore = true;
+
 				}
 
 			}
@@ -170,15 +172,14 @@ public class CouponActivity extends BaseFragmentActivity {
 					useMore = false;
 					lastestScrollFlag = true;
 					Log.i(PuziUtils.INFO, "lastestScrollFlag : " + lastestScrollFlag);
-
-					return;
+				} else {
+					more = true;
+					useMore = true;
 				}
 
 				usedCouponListAdapter.notifyDataSetChanged();
 				setGridViewHeightBasedOnChildren(usedCouponListAdapter, gvUsedCoupon);
 
-				more = true;
-				useMore = true;
 			}
 		});
 	}
@@ -189,14 +190,20 @@ public class CouponActivity extends BaseFragmentActivity {
 
 		Log.i("CouponActivity", "baseAdapter.getCount() : " + baseAdapter.getCount());
 
+		int count = baseAdapter.getCount() % 2;
+
 		for (int i = 0; i < baseAdapter.getCount(); i++) {
 			View listItem = baseAdapter.getView(i, null, gridView);
 			listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
 			totalHeight += listItem.getMeasuredHeight();
+
+			if((i == 0) && (count != 0)) {
+				totalHeight += listItem.getMeasuredHeight();
+			}
 		}
 
 		ViewGroup.LayoutParams params = gridView.getLayoutParams();
-		params.height = totalHeight;
+		params.height = totalHeight / 2;
 		gridView.setLayoutParams(params);
 		gridView.requestLayout();
 	}
@@ -211,7 +218,6 @@ public class CouponActivity extends BaseFragmentActivity {
 					getNotUseCouponList();
 					getUsedCouponList();
 				}*/
-
 				if(notUsedMore) {
 					notUsedpagingIndex = notUsedpagingIndex + 1;
 					getNotUseCouponList();

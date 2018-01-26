@@ -174,7 +174,7 @@
           android:id="@+id/btn_profile_channel_dropdown_block"
           android:text="차단하기"
           android:textColor="#333333"
-          android:background="@drawable/ripple_basic"
+
           android:layout_width="match_parent"
           android:layout_height="40dp"/>
 

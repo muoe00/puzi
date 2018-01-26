@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:background="@drawable/bg_main"
               android:layout_width="match_parent"
@@ -30,6 +31,8 @@
           android:id="@+id/tv_question_q"
         android:text="지금 당신의 기분은 ?"
         android:gravity="center"
+          android:paddingLeft="10dp"
+          android:paddingRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -75,7 +78,46 @@
         android:layout_height="0dp"/>
 
       <LinearLayout
-          android:id="@+id/ll_question_weight"
+          android:id="@+id/ll_question_a2"
+          android:visibility="visible"
+          android:orientation="vertical"
+          android:layout_weight="0.8"
+          android:gravity="center"
+          android:layout_marginLeft="16dp"
+          android:layout_marginRight="16dp"
+          android:layout_marginBottom="20dp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="163dp">
+
+          <Button
+              android:background="@drawable/button_question_off"
+              android:id="@+id/ibtn_question_a2_a1"
+              android:layout_weight="0.5"
+              android:layout_marginRight="9dp"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"/>
+
+          <Button
+              android:background="@drawable/button_question_off"
+              android:id="@+id/ibtn_question_a2_a2"
+              android:layout_weight="0.5"
+              android:layout_marginLeft="9dp"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/ll_question_a4"
+          android:visibility="gone"
           android:orientation="vertical"
           android:layout_weight="0.8"
           android:gravity="center"
@@ -90,7 +132,7 @@
           android:layout_marginBottom="10dp"
             android:layout_weight="0.5"
           android:layout_width="match_parent"
-          android:layout_height="0dp">
+          android:layout_height="113dp">
 
           <Button
             android:background="@drawable/button_question_off"
@@ -115,7 +157,7 @@
             android:layout_weight="0.5"
             android:id="@+id/ll_question_container_2"
           android:layout_width="match_parent"
-          android:layout_height="0dp">
+          android:layout_height="113dp">
 
           <Button
             android:background="@drawable/button_question_off"
