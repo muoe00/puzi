@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -34,7 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static android.R.attr.fragment;
 import static com.puzi.puzi.biz.user.AddressInfo.CITY_MAP;
 import static com.puzi.puzi.biz.user.AddressInfo.REGION_LIST;
 
@@ -142,7 +140,6 @@ public class SignupInfoFragment extends BaseFragment {
 				Intent intent = new Intent(getActivity(), MainActivity.class);
 				startActivity(intent);
 				getActivity().finish();
-				getActivity().getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 			}
 		});
 	}
