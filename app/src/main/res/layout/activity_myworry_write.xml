@@ -281,7 +281,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="17dp"
             android:layout_width="wrap_content"
-            android:layout_height="20dp">
+            android:layout_height="wrap_content">
 
           <Switch
               android:showText="false"
@@ -293,7 +293,7 @@
               android:thumb="@drawable/switch_thumb_selector_puzi"
               android:checked="false"
               android:layout_width="wrap_content"
-              android:layout_height="wrap_content"/>
+              android:layout_height="20dp"/>
 
         </LinearLayout>
 
