@@ -16,4 +16,7 @@ public enum PersonalType {
 
     private String comment;
 
+    public boolean isMine() {
+        return this == OWNER;
+    }
 }

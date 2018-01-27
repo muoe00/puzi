@@ -39,8 +39,6 @@ import static com.puzi.puzi.utils.PuziUtils.getDevicesUUID;
 
 public class IntroActivity extends BaseFragmentActivity {
 
-	public static int TEST_COUNT = 0;
-
 	private SessionCallback mKakaocallback;
 
 	private String uuid = null;
@@ -54,7 +52,6 @@ public class IntroActivity extends BaseFragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		TEST_COUNT += 1;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_intro);
 		initFragment();

@@ -4,10 +4,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.*;
 
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.myservice.MyWorryAnswerDTO;
@@ -21,6 +18,8 @@ import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.MyServiceNetworkService;
 import com.puzi.puzi.ui.MainActivity;
 import com.puzi.puzi.ui.base.BaseActivity;
+import com.puzi.puzi.ui.common.DialogButtonCallback;
+import com.puzi.puzi.ui.common.OneButtonDialog;
 import com.puzi.puzi.ui.common.PointDialog;
 import com.puzi.puzi.ui.customview.NotoTextView;
 
@@ -366,6 +365,39 @@ public class AnswerActivity extends BaseActivity {
                 Log.i("AnswerActivity", "count : " + myWorryQuestionDTO.getLikedCount());
 
                 updateLike(myWorryQuestionDTO.getMyWorryQuestionId(), myWorryQuestionDTO.isLikedByMe(), myWorryQuestionDTO.getLikedCount());
+            }
+        });
+    }
+
+    @OnClick(R.id.ibtn_question_report)
+    public void notifyClick() {
+        if(personalType.isMine()) {
+            Toast.makeText(getActivity(), "내가 올린 고민을 신고할 수 없습니다.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(myWorryQuestionDTO.isNotifiedByMe()) {
+            Toast.makeText(getActivity(), "이미 신고하였습니다.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        OneButtonDialog.show(getActivity(), "신고하기", "해당질문을 신고하시겠습니까?", "신고하기", new DialogButtonCallback() {
+            @Override
+            public void onClick() {
+                LazyRequestService service = new LazyRequestService(getActivity(), MyServiceNetworkService.class);
+                service.method(new LazyRequestService.RequestMothod<MyServiceNetworkService>() {
+                    @Override
+                    public Call<ResponseVO> execute(MyServiceNetworkService myServiceNetworkService, String token) {
+                        return myServiceNetworkService.setWorryNotify(token, myWorryQuestionDTO.getMyWorryQuestionId());
+                    }
+                });
+                service.enqueue(new CustomCallback(getActivity()) {
+                    @Override
+                    public void onSuccess(ResponseVO responseVO) {
+                        myWorryQuestionDTO.setNotifiedByMe(true);
+                        Toast.makeText(getActivity(), "정상적으로 접수되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
