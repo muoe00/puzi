@@ -344,6 +344,8 @@
           android:layout_height="match_parent"/>
 
         <com.puzi.puzi.ui.customview.NotoButton
+          android:id="@+id/btn_setting_version"
+          android:visibility="gone"
           android:gravity="center"
           android:layout_gravity="center_vertical"
           app:fontWeight="demilight"
@@ -355,7 +357,8 @@
           android:layout_width="55dp"
           android:layout_height="22dp"/>
 
-        <TextView
+        <com.puzi.puzi.ui.customview.NotoTextView
+          app:fontWeight="demilight"
           android:layout_marginRight="16dp"
           android:text="v1.0.0"
           android:textColor="#333333"

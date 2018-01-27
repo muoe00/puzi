@@ -59,24 +59,12 @@ public class RecommendActivity extends BaseFragmentActivity {
 		UserVO myInfo = Preference.getMyInfo(getActivity());
 
 		if(eventInfoVO.getEventStatusType().isShowEvent()) {
-			recommendMessage = "당신의 취향을 구매합니다, Puzi\n"
-				+ "\n"
-				+ "친구추천을 통해 \n"
-				+ "카카오톡 이모티콘 받아가세요.\n"
-				+ "\n"
-				+ "상품응모, 적금을 통한 \n"
-				+ "현명한 적립금 소비는 덤! \n"
-				+ "\n"
-				+ "추천인: " + myInfo.getUserId();
+			recommendMessage = "카카오톡 무료 이모티콘, 너도 받고푸지?\n"
+				+ "친구 추천하고 100포인트 적립 받으세요!\n"
+				+ "추천인 : " + myInfo.getUserId();
 		} else {
-			recommendMessage = "당신의 취향을 구매합니다, Puzi\n"
-				+ "\n"
-				+ "친구 추천하고 100포인트 적립받으세요!\n"
-				+ "\n"
-				+ "상품응모, 상품적금을 통한 \n"
-				+ "현명한 적립금 소비는 덤! \n"
-				+ "\n"
-				+ "추천인: " + myInfo.getUserId();
+			recommendMessage = "친구 추천하고 100포인트 적립 받으세요!\n"
+				+ "추천인 : " + myInfo.getUserId();
 		}
 
 		try {

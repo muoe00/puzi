@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitManager {
 
-	private static final String baseURL = "http://dev.api.puzi.kr";
+	private static final String baseURL = "https://api.puzi.kr";
 
 	public static <T> T create(Class<T> c){
 

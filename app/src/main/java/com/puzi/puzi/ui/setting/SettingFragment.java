@@ -1,10 +1,14 @@
 package com.puzi.puzi.ui.setting;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +37,10 @@ public class SettingFragment extends BaseFragment {
 
 	Unbinder unbinder;
 
-	@BindView(R.id.tv_setting_versionNum) TextView tvVersion;
+	@BindView(R.id.tv_setting_versionNum)
+	TextView tvVersion;
+	@BindView(R.id.btn_setting_version)
+	Button btnVersion;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -95,9 +102,36 @@ public class SettingFragment extends BaseFragment {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				String version = responseVO.getString("version");
-				tvVersion.setText(version);
+				Log.e("VERSION", version);
+				setVersion(version);
 			}
 		});
+	}
+
+	private void setVersion(String version) {
+		tvVersion.setText(version);
+		try {
+			String appVersion = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName;
+			Log.e("VERSION", appVersion);
+			if(version.equals(appVersion)) {
+				btnVersion.setVisibility(View.GONE);
+			} else {
+				btnVersion.setVisibility(View.VISIBLE);
+			}
+		} catch (PackageManager.NameNotFoundException e) {
+			Log.e("VERSION", e.toString(), e);
+		}
+	}
+
+	@OnClick(R.id.btn_setting_version)
+	public void versionClick(View v) {
+		Log.d("VERSION", "+++ PackageName : " + getActivity().getPackageName());
+		final String appPackageName = getActivity().getPackageName();
+		try {
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+		} catch (android.content.ActivityNotFoundException anfe) {
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+		}
 	}
 
 	@Override
