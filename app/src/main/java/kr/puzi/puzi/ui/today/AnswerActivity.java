@@ -9,6 +9,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.myservice.MyWorryAnswerDTO;
 import kr.puzi.puzi.biz.myservice.MyWorryAnswerResultDTO;
 import kr.puzi.puzi.biz.myservice.MyWorryQuestionDTO;
@@ -22,11 +27,6 @@ import kr.puzi.puzi.ui.MainActivity;
 import kr.puzi.puzi.ui.base.BaseActivity;
 import kr.puzi.puzi.ui.common.PointDialog;
 import kr.puzi.puzi.ui.customview.NotoTextView;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 import retrofit2.Call;
 
 /**
@@ -36,7 +36,7 @@ import retrofit2.Call;
 public class AnswerActivity extends BaseActivity {
 
     private Unbinder unbinder;
-    private boolean isSelected = false;
+    private boolean isSelected = false, isTwoAnser = false;
     private int selectedCount = 0, savePoint, saveCount;
     private String answer;
     private PersonalType personalType;
@@ -118,6 +118,11 @@ public class AnswerActivity extends BaseActivity {
                         myWorryAnswerDTO = myWorryQuestionDetailDTO.getMyWorryAnswerDTO();
 
                         if(myWorryQuestionDTO.getQuestionCount() == 2) {
+
+                            isTwoAnser = true;
+
+                            Log.i("AnswerActivity", "isTwoAnser : " + isTwoAnser);
+
                             switch (myWorryAnswerDTO.getAnswerNumber()) {
                                 case 1:
                                     btnA2A1.setBackgroundResource(kr.puzi.puzi.R.drawable.button_question_on);
@@ -129,6 +134,9 @@ public class AnswerActivity extends BaseActivity {
                                     break;
                             }
                         } else {
+
+                            isTwoAnser = false;
+
                             switch (myWorryAnswerDTO.getAnswerNumber()) {
                                 case 1:
                                     btnAnswer1.setBackgroundResource(kr.puzi.puzi.R.drawable.button_question_on);
@@ -148,17 +156,26 @@ public class AnswerActivity extends BaseActivity {
                                     break;
                             }
                         }
+
+
                     }
 
+                }
                     myWorryAnswerResultDTO = myWorryQuestionDetailDTO.getMyWorryAnswerResultDTO();
                     btnOk.setVisibility(View.INVISIBLE);
+
                     updateAnswerView();
 
-                    btnAnswer1.setClickable(false);
-                    btnAnswer2.setClickable(false);
-                    btnAnswer3.setClickable(false);
-                    btnAnswer4.setClickable(false);
-                }
+                    if(myWorryQuestionDTO.getQuestionCount() == 2) {
+                        btnA2A1.setClickable(false);
+                        btnA2A2.setClickable(false);
+                    } else {
+                        btnAnswer1.setClickable(false);
+                        btnAnswer2.setClickable(false);
+                        btnAnswer3.setClickable(false);
+                        btnAnswer4.setClickable(false);
+                    }
+
             }
         });
     }
@@ -200,7 +217,7 @@ public class AnswerActivity extends BaseActivity {
     }
 
     @OnClick({kr.puzi.puzi.R.id.btn_answer_1, kr.puzi.puzi.R.id.btn_answer_2, kr.puzi.puzi.R.id.btn_answer_3, kr.puzi.puzi.R.id.btn_answer_4})
-    public void checkAnswer(View view) {
+    public void checkAnswer4(View view) {
         switch (view.getId()) {
             case kr.puzi.puzi.R.id.btn_answer_1:
                 checkButton(btnAnswer1, 1);
@@ -213,6 +230,19 @@ public class AnswerActivity extends BaseActivity {
                 break;
             case kr.puzi.puzi.R.id.btn_answer_4:
                 checkButton(btnAnswer4, 4);
+                break;
+        }
+    }
+
+
+    @OnClick({R.id.btn_answer_a2_a1, R.id.btn_answer_a2_a2})
+    public void checkAnswer2(View view) {
+        switch (view.getId()) {
+            case kr.puzi.puzi.R.id.btn_answer_a2_a1:
+                checkButton(btnA2A1, 1);
+                break;
+            case kr.puzi.puzi.R.id.btn_answer_a2_a2:
+                checkButton(btnA2A2, 2);
                 break;
         }
     }
@@ -263,26 +293,36 @@ public class AnswerActivity extends BaseActivity {
     public void updateAnswerView() {
 
         int index = 0;
-        int maxCount = myWorryAnswerResultDTO.getAnswerLimitCount();
+        int maxCount = myWorryAnswerResultDTO.getAnswerCount();
         String context = "";
 
         btnOk.setVisibility(View.GONE);
 
-        index = myWorryAnswerResultDTO.getAnswerOneCount() * 100 / maxCount;
-        context = myWorryQuestionDTO.getAnswerOne() + "\n" + index + "%";
-        btnAnswer1.setText(context);
+        if(!isTwoAnser) {
+            index = myWorryAnswerResultDTO.getAnswerOneCount() * 100 / maxCount;
+            context = myWorryQuestionDTO.getAnswerOne() + "\n" + index + "%";
+            btnAnswer1.setText(context);
 
-        index = myWorryAnswerResultDTO.getAnswerTwoCount() * 100 / maxCount;
-        context = myWorryQuestionDTO.getAnswerTwo() + "\n" + index + "%";
-        btnAnswer2.setText(context);
+            index = myWorryAnswerResultDTO.getAnswerTwoCount() * 100 / maxCount;
+            context = myWorryQuestionDTO.getAnswerTwo() + "\n" + index + "%";
+            btnAnswer2.setText(context);
 
-        index = myWorryAnswerResultDTO.getAnswerThreeCount() * 100 / maxCount;
-        context = myWorryQuestionDTO.getAnswerThree() + "\n" + index + "%";
-        btnAnswer3.setText(context);
+            index = myWorryAnswerResultDTO.getAnswerThreeCount() * 100 / maxCount;
+            context = myWorryQuestionDTO.getAnswerThree() + "\n" + index + "%";
+            btnAnswer3.setText(context);
 
-        index = myWorryAnswerResultDTO.getAnswerFourCount() * 100 / maxCount;
-        context = myWorryQuestionDTO.getAnswerFour() + "\n" + index + "%";
-        btnAnswer4.setText(context);
+            index = myWorryAnswerResultDTO.getAnswerFourCount() * 100 / maxCount;
+            context = myWorryQuestionDTO.getAnswerFour() + "\n" + index + "%";
+            btnAnswer4.setText(context);
+        } else {
+            index = myWorryAnswerResultDTO.getAnswerOneCount() * 100 / maxCount;
+            context = myWorryQuestionDTO.getAnswerOne() + "\n" + index + "%";
+            btnA2A1.setText(context);
+
+            index = myWorryAnswerResultDTO.getAnswerTwoCount() * 100 / maxCount;
+            context = myWorryQuestionDTO.getAnswerTwo() + "\n" + index + "%";
+            btnA2A2.setText(context);
+        }
     }
 
     public void checkButton(Button btn, int index) {

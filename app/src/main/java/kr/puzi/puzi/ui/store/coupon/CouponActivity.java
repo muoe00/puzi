@@ -11,6 +11,12 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import kr.puzi.puzi.biz.store.PurchaseHistoryVO;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
@@ -19,13 +25,6 @@ import kr.puzi.puzi.network.service.StoreNetworkService;
 import kr.puzi.puzi.ui.CustomScrollView;
 import kr.puzi.puzi.ui.base.BaseFragmentActivity;
 import kr.puzi.puzi.utils.PuziUtils;
-
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 import retrofit2.Call;
 
 /**
@@ -100,7 +99,6 @@ public class CouponActivity extends BaseFragmentActivity {
 						notUsedMore = false;
 						return;
 					}
-
 				} else {
 					couponListAdapter.addList(couponList);
 					if (couponListAdapter.getCount() == responseVO.getInteger("totalCount")) {
@@ -118,8 +116,6 @@ public class CouponActivity extends BaseFragmentActivity {
 
 					couponListAdapter.notifyDataSetChanged();
 					setGridViewHeightBasedOnChildren(couponListAdapter, gvCoupon);
-
-
 				}
 
 			}
@@ -161,25 +157,24 @@ public class CouponActivity extends BaseFragmentActivity {
 						useMore = false;
 						return;
 					}
-				}
-
-				usedCouponListAdapter.addList(usedCouponList);
-
-				Log.i(PuziUtils.INFO, "usedCouponListAdapter.getCount() : " + usedCouponListAdapter.getCount());
-
-				if(usedCouponListAdapter.getCount() == responseVO.getInteger("totalCount")) {
-					more = false;
-					useMore = false;
-					lastestScrollFlag = true;
-					Log.i(PuziUtils.INFO, "lastestScrollFlag : " + lastestScrollFlag);
 				} else {
-					more = true;
-					useMore = true;
+					usedCouponListAdapter.addList(usedCouponList);
+
+					Log.i(PuziUtils.INFO, "usedCouponListAdapter.getCount() : " + usedCouponListAdapter.getCount());
+
+					if(usedCouponListAdapter.getCount() == responseVO.getInteger("totalCount")) {
+						more = false;
+						useMore = false;
+						lastestScrollFlag = true;
+						Log.i(PuziUtils.INFO, "lastestScrollFlag : " + lastestScrollFlag);
+					} else {
+						more = true;
+						useMore = true;
+					}
+
+					usedCouponListAdapter.notifyDataSetChanged();
+					setGridViewHeightBasedOnChildren(usedCouponListAdapter, gvUsedCoupon);
 				}
-
-				usedCouponListAdapter.notifyDataSetChanged();
-				setGridViewHeightBasedOnChildren(usedCouponListAdapter, gvUsedCoupon);
-
 			}
 		});
 	}
