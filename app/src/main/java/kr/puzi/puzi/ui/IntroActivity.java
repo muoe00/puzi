@@ -39,6 +39,8 @@ import static kr.puzi.puzi.utils.PuziUtils.getDevicesUUID;
 
 public class IntroActivity extends BaseFragmentActivity {
 
+	public static int TEST_COUNT = 0;
+
 	private SessionCallback mKakaocallback;
 
 	private String uuid = null;
@@ -52,6 +54,7 @@ public class IntroActivity extends BaseFragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		TEST_COUNT += 1;
 		super.onCreate(savedInstanceState);
 		setContentView(kr.puzi.puzi.R.layout.activity_intro);
 		initFragment();
@@ -166,8 +169,8 @@ public class IntroActivity extends BaseFragmentActivity {
 	}
 
 	public void kakaoIdSignup(final String id, final String pw) {
-		Preference.addProperty(getActivity(), "id", id);
-		Preference.addProperty(getActivity(), "passwd", pw);
+		Preference.addProperty(getActivity(), "tempid", id);
+		Preference.addProperty(getActivity(), "temppasswd", pw);
 		Preference.addProperty(getActivity(), "kakao", "K");
 		// Preference.addProperty(getActivity(), "email", email);
 

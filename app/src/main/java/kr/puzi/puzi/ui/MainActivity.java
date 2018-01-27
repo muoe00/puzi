@@ -81,6 +81,8 @@ public class MainActivity extends BaseFragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(kr.puzi.puzi.R.layout.activity_main);
 
+		Log.e("TEST_COUNT", "+++ " + IntroActivity.TEST_COUNT);
+
 		unbinder = ButterKnife.bind(this);
 		targetViewForPush = llMain;
 

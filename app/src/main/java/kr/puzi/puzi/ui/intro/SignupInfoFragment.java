@@ -154,6 +154,7 @@ public class SignupInfoFragment extends BaseFragment {
 
 				Intent intent = new Intent(getActivity(), MainActivity.class);
 				startActivity(intent);
+				getActivity().finish();
 			}
 		});
 	}
