@@ -16,6 +16,7 @@
     <com.puzi.puzi.ui.setting.AnimatedExpandableListView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+        android:overScrollMode="never"
       android:id="@+id/lv_notice"
       android:background="@color/colorWhite"
       android:columnWidth="240dp"/>

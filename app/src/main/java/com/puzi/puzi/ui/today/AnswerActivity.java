@@ -76,6 +76,14 @@ public class AnswerActivity extends BaseActivity {
     NotoTextView tvLike;
     @BindView(R.id.btn_answer_ok)
     Button btnOk;
+    @BindView(R.id.btn_answer_a2_a1)
+    Button btnA2A1;
+    @BindView(R.id.btn_answer_a2_a2)
+    Button btnA2A2;
+    @BindView(R.id.ll_answer_a4)
+    LinearLayout llA4;
+    @BindView(R.id.ll_answer_a2)
+    LinearLayout llA2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,28 +116,42 @@ public class AnswerActivity extends BaseActivity {
                 myWorryQuestionDetailDTO = responseVO.getValue("myWorryQuestionDetailDTO", MyWorryQuestionDetailDTO.class);
                 personalType = myWorryQuestionDetailDTO.getPersonalType();
 
-                if(personalType.equals(NOT_ANSWERED)) {
-                    initAnswer();
-                } else {
+                initAnswer();
+
+                if(!personalType.equals(NOT_ANSWERED)) {
                     if(personalType.equals(ANSWERED)) {
                         myWorryAnswerDTO = myWorryQuestionDetailDTO.getMyWorryAnswerDTO();
-                        switch (myWorryAnswerDTO.getAnswerNumber()) {
-                            case 1:
-                                btnAnswer1.setBackgroundResource(R.drawable.button_question_on);
-                                btnAnswer1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
-                                break;
-                            case 2:
-                                btnAnswer2.setBackgroundResource(R.drawable.button_question_on);
-                                btnAnswer2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
-                                break;
-                            case 3:
-                                btnAnswer3.setBackgroundResource(R.drawable.button_question_on);
-                                btnAnswer3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
-                                break;
-                            case 4:
-                                btnAnswer4.setBackgroundResource(R.drawable.button_question_on);
-                                btnAnswer4.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
-                                break;
+
+                        if(myWorryQuestionDTO.getQuestionCount() == 2) {
+                            switch (myWorryAnswerDTO.getAnswerNumber()) {
+                                case 1:
+                                    btnA2A1.setBackgroundResource(R.drawable.button_question_on);
+                                    btnA2A1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                    break;
+                                case 2:
+                                    btnA2A2.setBackgroundResource(R.drawable.button_question_on);
+                                    btnA2A2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                    break;
+                            }
+                        } else {
+                            switch (myWorryAnswerDTO.getAnswerNumber()) {
+                                case 1:
+                                    btnAnswer1.setBackgroundResource(R.drawable.button_question_on);
+                                    btnAnswer1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                    break;
+                                case 2:
+                                    btnAnswer2.setBackgroundResource(R.drawable.button_question_on);
+                                    btnAnswer2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                    break;
+                                case 3:
+                                    btnAnswer3.setBackgroundResource(R.drawable.button_question_on);
+                                    btnAnswer3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                    break;
+                                case 4:
+                                    btnAnswer4.setBackgroundResource(R.drawable.button_question_on);
+                                    btnAnswer4.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                    break;
+                            }
                         }
                     }
 
@@ -148,10 +170,13 @@ public class AnswerActivity extends BaseActivity {
 
     public void initAnswer() {
         if(myWorryQuestionDTO.getQuestionCount() == 2) {
-            llContainer.setVisibility(View.GONE);
-            btnAnswer1.setText(myWorryQuestionDTO.getAnswerOne());
-            btnAnswer2.setText(myWorryQuestionDTO.getAnswerTwo());
+            llA4.setVisibility(View.GONE);
+            llA2.setVisibility(View.VISIBLE);
+            btnA2A1.setText(myWorryQuestionDTO.getAnswerOne());
+            btnA2A2.setText(myWorryQuestionDTO.getAnswerTwo());
         } else {
+            llA4.setVisibility(View.VISIBLE);
+            llA2.setVisibility(View.GONE);
             btnAnswer1.setText(myWorryQuestionDTO.getAnswerOne());
             btnAnswer2.setText(myWorryQuestionDTO.getAnswerTwo());
             btnAnswer3.setText(myWorryQuestionDTO.getAnswerThree());

@@ -5,6 +5,7 @@
               android:layout_height="match_parent">
 
   <ScrollView
+      android:overScrollMode="never"
     android:id="@+id/sv_setting_block_time"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -175,6 +176,7 @@
 
       <ListView
         android:id="@+id/lv_setting_block_time"
+          android:overScrollMode="never"
         android:dividerHeight="1dp"
         android:divider="#dadada"
         android:background="#fcfcfc"

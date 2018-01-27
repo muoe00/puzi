@@ -10,8 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.joooonho.SelectableRoundedImageView;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
@@ -19,11 +18,13 @@ import com.puzi.puzi.biz.company.CompanyVO;
 import com.puzi.puzi.image.BitmapUIL;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.company.CompanyActivity;
-import com.puzi.puzi.utils.PuziUtils;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import lombok.Getter;
 
 /**
  * Created by muoe0 on 2017-07-08.
@@ -32,8 +33,10 @@ import java.util.List;
 public class AdvertisementListAdapter extends BaseAdapter {
 
 	private static final int VIEW_ADVERTISE = 0;
-	private static final int VIEW_EMPTY = 1;
-	private static final int VIEW_PROGRESS = 2;
+	private static final int VIEW_ADVERTISE_NEW = 1;
+	private static final int VIEW_ADVERTISE_SAVED = 2;
+	private static final int VIEW_EMPTY = 3;
+	private static final int VIEW_PROGRESS = 4;
 
 	private BaseFragmentActivity activity;
 	private LayoutInflater inflater;
@@ -66,10 +69,11 @@ public class AdvertisementListAdapter extends BaseAdapter {
 	}
 
 	public int getViewTypeCount() {
-		return 3;
+		return 5;
 	}
 
 	public int getItemViewType(int position) {
+
 		if(empty) {
 			return VIEW_EMPTY;
 		}
@@ -78,6 +82,15 @@ public class AdvertisementListAdapter extends BaseAdapter {
 				return VIEW_PROGRESS;
 			}
 		}
+
+		final ReceivedAdvertiseVO receivedAdvertise = (ReceivedAdvertiseVO) getItem(position);
+
+		if(receivedAdvertise.isSaved() && receivedAdvertise.isToday()) {
+			return VIEW_ADVERTISE_SAVED;
+		} else if(!receivedAdvertise.isSaved() && receivedAdvertise.isToday()) {
+			return VIEW_ADVERTISE_NEW;
+		}
+
 		return VIEW_ADVERTISE;
 	}
 
@@ -131,6 +144,18 @@ public class AdvertisementListAdapter extends BaseAdapter {
 					v.setTag(viewHolder);
 					break;
 
+				case VIEW_ADVERTISE_NEW:
+					v = inflater.inflate(R.layout.fragment_advertisement_item_new, null);
+					viewHolder = new ViewHolder(v);
+					v.setTag(viewHolder);
+					break;
+
+				case VIEW_ADVERTISE_SAVED:
+					v = inflater.inflate(R.layout.fragment_advertisement_item_saved, null);
+					viewHolder = new ViewHolder(v);
+					v.setTag(viewHolder);
+					break;
+
 				case VIEW_EMPTY:
 					v = inflater.inflate(R.layout.item_list_empty_advertise, null);
 					break;
@@ -144,9 +169,13 @@ public class AdvertisementListAdapter extends BaseAdapter {
 		}
 
 		switch(viewType) {
-			case VIEW_ADVERTISE:
-				final ReceivedAdvertiseVO receivedAdvertise = (ReceivedAdvertiseVO) getItem(position);
+			case VIEW_EMPTY:
+				break;
+			case VIEW_PROGRESS:
+				break;
+			default:
 
+				final ReceivedAdvertiseVO receivedAdvertise = (ReceivedAdvertiseVO) getItem(position);
 				Log.i("INFO", "URL Company : " + receivedAdvertise.getLinkPreviewUrl());
 
 				BitmapUIL.load(receivedAdvertise.getLinkPreviewUrl(), viewHolder.ivAd);
@@ -157,27 +186,12 @@ public class AdvertisementListAdapter extends BaseAdapter {
 				viewHolder.tvAd.setText(receivedAdvertise.getSendComment());
 				viewHolder.tvAd.setSelected(true);
 				viewHolder.tvComp.setText(company.getCompanyAlias());
-
-				Log.i(PuziUtils.INFO, "adapter.getSaved() : " + receivedAdvertise.isSaved());
-				Log.i(PuziUtils.INFO, "adapter.getToday() : " + receivedAdvertise.isToday());
-
-				if(receivedAdvertise.isSaved() && receivedAdvertise.isToday()) {
-					viewHolder.ivNew.setVisibility(View.VISIBLE);
-					viewHolder.ivNew.setImageResource(R.drawable.old);
-				} else if(!receivedAdvertise.isSaved() && receivedAdvertise.isToday()) {
-					viewHolder.ivNew.setVisibility(View.VISIBLE);
-					viewHolder.ivNew.setImageResource(R.drawable.new_);
-				} else {
-					viewHolder.ivNew.setVisibility(View.GONE);
-				}
-
 				viewHolder.btnAd.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						changedDetail(receivedAdvertise);
 					}
 				});
-
 				viewHolder.ivComp.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {

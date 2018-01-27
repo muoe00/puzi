@@ -26,14 +26,16 @@
         android:layout_marginTop="15dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="22dp">
+        android:layout_height="25dp">
 
       <com.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="bold"
           android:text="나의 고민은"
           android:textSize="16sp"
           android:textColor="#333333"
+          android:gravity="center"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
 
@@ -48,7 +50,7 @@
           android:id="@+id/id_worry_spinner"
           android:layout_gravity="right"
           android:layout_width="65dp"
-          android:layout_height="22dp">
+          android:layout_height="match_parent">
 
       </Spinner>
 
@@ -60,6 +62,7 @@
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:overScrollMode="never"
         android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -74,6 +77,7 @@
             android:divider="#00000000"
             android:clickable="false"
             android:focusable="false"
+            android:overScrollMode="never"
             android:focusableInTouchMode="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -114,7 +118,9 @@
               android:background="?android:attr/selectableItemBackground"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:id="@+id/btn_vote_more"/>
+              android:id="@+id/btn_vote_more"
+              android:layout_marginTop="5dp"
+              android:layout_marginBottom="5dp"/>
 
         </FrameLayout>
 

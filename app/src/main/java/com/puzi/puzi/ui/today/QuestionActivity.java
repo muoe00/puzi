@@ -53,8 +53,14 @@ public class QuestionActivity extends BaseActivity {
     Button btnA3;
     @BindView(R.id.ibtn_question_a4)
     Button btnA4;
-    @BindView(R.id.ll_question_container_2)
-    LinearLayout llContainer;
+    @BindView(R.id.ibtn_question_a2_a1)
+    Button btnA2A1;
+    @BindView(R.id.ibtn_question_a2_a2)
+    Button btnA2A2;
+    @BindView(R.id.ll_question_a4)
+    LinearLayout llA4;
+    @BindView(R.id.ll_question_a2)
+    LinearLayout llA2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +75,17 @@ public class QuestionActivity extends BaseActivity {
 
         tvQuestion.setText(myTodayQuestionVO.getQuestion());
         tvPoint.setText("" + myTodayQuestionVO.getSavePoint());
-        btnA1.setText(myTodayQuestionVO.getAnswerOne());
-        btnA2.setText(myTodayQuestionVO.getAnswerTwo());
 
         if(myTodayQuestionVO.getAnswerCount() == 2) {
-            llContainer.setVisibility(View.GONE);
+            llA4.setVisibility(View.GONE);
+            llA2.setVisibility(View.VISIBLE);
+            btnA2A1.setText(myTodayQuestionVO.getAnswerOne());
+            btnA2A2.setText(myTodayQuestionVO.getAnswerTwo());
         } else {
+            llA4.setVisibility(View.VISIBLE);
+            llA2.setVisibility(View.GONE);
+            btnA1.setText(myTodayQuestionVO.getAnswerOne());
+            btnA2.setText(myTodayQuestionVO.getAnswerTwo());
             btnA3.setText(myTodayQuestionVO.getAnswerThree());
             btnA4.setText(myTodayQuestionVO.getAnswerFour());
         }

@@ -241,7 +241,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	public void getWorryList() {
 
 		orderType = OrderType.getRandomType();
-		worryAdaptor.startProgressWithScrollDown();
 
 		LazyRequestService service = new LazyRequestService(getActivity(), MyServiceNetworkService.class);
 		service.method(new LazyRequestService.RequestMothod<MyServiceNetworkService>() {
@@ -261,13 +260,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				Log.i("QuestionFragment", responseVO.toString());
 
 				worryAdaptor.addListWithTotalCount(myWorryQuestionList, totalCount);
-				// worryAdaptor.addList(myWorryQuestionList);
-
-				if(totalCount == worryAdaptor.getCount()) {
-					btnMore.setEnabled(false);
-				} else {
-					btnMore.setEnabled(true);
-				}
 
 				if(worryAdaptor.getCount() >= totalCount) {
 					btnMore.setVisibility(View.GONE);
@@ -293,15 +285,16 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		worryAdaptor = new WorryAdaptor(getActivity(), R.layout.item_question_vote, lvQuestion, svQuestion, new CustomPagingAdapter.ListHandler() {
 			@Override
 			public void getList() {
+				worryAdaptor.startProgressWithScrollDown();
 				getWorryList();
 			}
-		});
+		}, true);
 		worryAdaptor.setMore(false);
 		worryAdaptor.getList();
 		lvQuestion.setAdapter(worryAdaptor);
 		lvQuestion.setOnItemClickListener(this);
 
-		List<String> filterType = Arrays.asList("전체", "내가 쓴 글");
+		List<String> filterType = Arrays.asList("전체", "나의 고민");
 		spinnerAdapter = new SpinnerAdapter(getContext(), filterType);
 		spinner.setAdapter(spinnerAdapter);
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -312,8 +305,10 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				} else {
 					mine = true;
 				}
+				worryAdaptor.clean();
 				worryAdaptor.initPagingIndex();
 				worryAdaptor.increasePagingIndex();
+				worryAdaptor.startProgress();
 				getWorryList();
 				Log.i("QuestionFragment", "mine : " + mine);
 			}

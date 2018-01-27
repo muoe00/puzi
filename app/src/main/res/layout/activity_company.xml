@@ -13,6 +13,7 @@
 
     <com.puzi.puzi.ui.CustomScrollView
       android:id="@+id/sv_container"
+        android:overScrollMode="never"
       android:layout_marginTop="50dp"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
@@ -89,6 +90,7 @@
 
         <ListView
           android:id="@+id/lv_profile_channel_list"
+            android:overScrollMode="never"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_marginTop="15dp"
@@ -174,7 +176,7 @@
           android:id="@+id/btn_profile_channel_dropdown_block"
           android:text="차단하기"
           android:textColor="#333333"
-          android:background="@drawable/ripple_basic"
+
           android:layout_width="match_parent"
           android:layout_height="40dp"/>
 

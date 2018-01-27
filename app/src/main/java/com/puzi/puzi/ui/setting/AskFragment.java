@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
-import butterknife.*;
+
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.setting.AskType;
 import com.puzi.puzi.biz.user.UserVO;
@@ -22,9 +22,15 @@ import com.puzi.puzi.ui.CustomArrayAdapter;
 import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.utils.ValidationUtils;
-import retrofit2.Call;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemSelected;
+import butterknife.Unbinder;
+import retrofit2.Call;
 
 import static com.puzi.puzi.biz.setting.AskType.USE;
 import static com.puzi.puzi.biz.setting.AskType.findByComment;
@@ -145,7 +151,7 @@ public class AskFragment extends BaseFragment {
 			public void onSuccess(ResponseVO responseVO) {
 				UserVO userVO = responseVO.getValue("userInfoDTO", UserVO.class);
 				email = userVO.getEmail();
-				editEmail.setText(email);
+				// editEmail.setText(email);
 			}
 		});
 	}

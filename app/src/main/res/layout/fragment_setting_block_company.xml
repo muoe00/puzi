@@ -9,6 +9,7 @@
 
   <ListView
     android:id="@+id/lv_company_block"
+      android:overScrollMode="never"
     android:dividerHeight="1dp"
     android:divider="#dadada"
     android:layout_width="match_parent"
