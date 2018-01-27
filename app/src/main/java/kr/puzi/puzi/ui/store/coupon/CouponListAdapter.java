@@ -8,16 +8,14 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import kr.puzi.puzi.biz.store.PurchaseHistoryVO;
 import kr.puzi.puzi.image.BitmapUIL;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import lombok.Getter;
 
 /**
  * Created by 170605 on 2017-10-27.

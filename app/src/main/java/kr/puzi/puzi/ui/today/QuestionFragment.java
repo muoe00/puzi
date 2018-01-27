@@ -8,36 +8,29 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.Spinner;
-
+import android.widget.*;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import kr.puzi.puzi.biz.myservice.MyTodayQuestionVO;
 import kr.puzi.puzi.biz.myservice.MyWorryQuestionDTO;
 import kr.puzi.puzi.biz.myservice.OrderType;
+import kr.puzi.puzi.biz.myservice.ViewType;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
 import kr.puzi.puzi.network.ResponseVO;
 import kr.puzi.puzi.network.service.MyServiceNetworkService;
 import kr.puzi.puzi.ui.CustomPagingAdapter;
 import kr.puzi.puzi.ui.base.BaseFragment;
+import lombok.Data;
+import retrofit2.Call;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-import kr.puzi.puzi.biz.myservice.ViewType;
-import lombok.Data;
-import retrofit2.Call;
 
 import static com.google.common.collect.Lists.newArrayList;
 

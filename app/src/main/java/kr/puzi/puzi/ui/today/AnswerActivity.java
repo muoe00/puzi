@@ -5,26 +5,22 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
-
-import kr.puzi.puzi.biz.myservice.MyWorryAnswerDTO;
-import kr.puzi.puzi.biz.myservice.MyWorryAnswerResultDTO;
-import kr.puzi.puzi.biz.myservice.MyWorryQuestionDTO;
-import kr.puzi.puzi.biz.myservice.MyWorryQuestionDetailDTO;
-import kr.puzi.puzi.biz.myservice.PersonalType;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+import kr.puzi.puzi.R;
+import kr.puzi.puzi.biz.myservice.*;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
 import kr.puzi.puzi.network.ResponseVO;
 import kr.puzi.puzi.network.service.MyServiceNetworkService;
 import kr.puzi.puzi.ui.MainActivity;
 import kr.puzi.puzi.ui.base.BaseActivity;
+import kr.puzi.puzi.ui.common.DialogButtonCallback;
+import kr.puzi.puzi.ui.common.OneButtonDialog;
 import kr.puzi.puzi.ui.common.PointDialog;
 import kr.puzi.puzi.ui.customview.NotoTextView;
-import com.puzi.puzi.R;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 import retrofit2.Call;
 
 /**
