@@ -40,7 +40,7 @@
           android:layout_width="28dp"
           android:layout_height="28dp">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
             android:gravity="center"
             app:fontWeight="regular"
             android:id="@+id/tv_worry_progress"
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
             android:gravity="center"
             app:fontWeight="regular"
             android:text="%"
@@ -102,7 +102,7 @@
               android:layout_width="14dp"
               android:layout_height="12dp"/>
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
               android:id="@+id/tv_vote_like"
               android:layout_width="17dp"
               android:layout_height="14dp"
@@ -115,7 +115,7 @@
 
       </RelativeLayout>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="regular"
         android:id="@+id/tv_vote_comment"
         android:text="남자친구 선물 뭐 사줄까요 ?"

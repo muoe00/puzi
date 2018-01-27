@@ -11,7 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="54dp">
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       android:id="@+id/tv_item_myworry_write_title"
       app:fontWeight="regular"
       android:text="저가형"
@@ -22,7 +22,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       android:id="@+id/tv_item_myworry_write_price"
       app:fontWeight="regular"
       android:text="포인트답변수"

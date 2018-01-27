@@ -37,7 +37,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="medium"
         android:gravity="left"
         android:layout_marginTop="15dp"
@@ -49,7 +49,7 @@
         android:lineSpacingExtra="-1sp"
         android:text="새로운 광고가 도착했습니다."/>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="light"
         android:gravity="left"
         android:layout_marginTop="1dp"

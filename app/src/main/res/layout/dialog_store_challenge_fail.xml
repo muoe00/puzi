@@ -12,9 +12,9 @@
     android:background="@drawable/bg_store_challenge_fail"
     android:orientation="vertical">
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="regular"
-      android:id="@+id/dialog_edittext_tvTitle"
+      android:id="@+id/dialog_edittext_tvComment"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="38dp"
@@ -31,7 +31,7 @@
       android:layout_width="151dp"
       android:layout_height="151dp"/>
 
-    <com.puzi.puzi.ui.customview.NotoButton
+    <kr.puzi.puzi.ui.customview.NotoButton
       app:fontWeight="bold"
       android:id="@+id/btn_dialog_close"
       android:layout_width="300dp"

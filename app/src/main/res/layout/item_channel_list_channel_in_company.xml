@@ -38,7 +38,7 @@
         android:id="@+id/ibtn_item_channel_image_1"
         android:background="#00000000"/>
 
-      <com.puzi.puzi.ui.customview.NotoButton
+      <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="medium"
         android:text="title"
         android:textSize="15sp"
@@ -96,7 +96,7 @@
           android:src="@drawable/star"
           android:id="@+id/iv_item_channel_company_star_5"/>
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="demilight"
           android:layout_gravity="center_vertical"
           android:text="5.0/5.0"
@@ -134,7 +134,7 @@
         android:id="@+id/ibtn_item_channel_image_2"
         android:background="#00000000"/>
 
-      <com.puzi.puzi.ui.customview.NotoButton
+      <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="medium"
         android:text="title"
         android:textSize="15sp"
@@ -191,7 +191,7 @@
           android:src="@drawable/star"
           android:id="@+id/iv_item_channel_company_star2_5"/>
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="demilight"
           android:layout_gravity="center_vertical"
           android:text="5.0/5.0"

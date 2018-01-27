@@ -5,7 +5,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-  <com.puzi.puzi.ui.HorizontalListView
+  <kr.puzi.puzi.ui.HorizontalListView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:widget="http://schemas.android.com/apk/res-auto"
     android:id="@+id/hlv_channel_filter"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/more_list"/>
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             android:layout_gravity="center_vertical"
             app:fontWeight="demilight"
             android:textSize="14sp"
@@ -122,7 +122,7 @@
             android:src="@drawable/more_list"
             android:id="@+id/imageView"/>
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             android:layout_gravity="center_vertical"
             app:fontWeight="demilight"
             android:textSize="14sp"

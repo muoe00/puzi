@@ -11,7 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.puzi.puzi.ui.CustomScrollView
+    <kr.puzi.puzi.ui.CustomScrollView
       android:id="@+id/sv_container"
         android:overScrollMode="never"
       android:layout_marginTop="50dp"
@@ -47,7 +47,7 @@
             android:scaleType="centerCrop"
             android:id="@+id/iv_companyProfile_picture"/>
 
-          <com.puzi.puzi.ui.customview.RobotoTextView
+          <kr.puzi.puzi.ui.customview.RobotoTextView
             android:id="@+id/tv_companyName"
             android:gravity="center"
             android:textSize="20sp"
@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="regular"
             android:id="@+id/tv_companyComment"
             android:gravity="center"
@@ -68,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-          <com.puzi.puzi.ui.customview.NotoButton
+          <kr.puzi.puzi.ui.customview.NotoButton
             app:fontWeight="light"
             android:layout_width="80dp"
             android:layout_height="22dp"
@@ -98,7 +98,7 @@
           android:background="#ffffff"/>
       </LinearLayout>
 
-    </com.puzi.puzi.ui.CustomScrollView>
+    </kr.puzi.puzi.ui.CustomScrollView>
 
     <LinearLayout
       android:layout_width="match_parent"
@@ -135,7 +135,7 @@
           android:visibility="invisible"
           android:id="@+id/iv_title_companyProfile_picture"/>
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="regular"
           android:id="@+id/tv_title_companyName"
           android:gravity="center"
@@ -171,7 +171,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content">
 
-        <com.puzi.puzi.ui.customview.NotoButton
+        <kr.puzi.puzi.ui.customview.NotoButton
           app:fontWeight="regular"
           android:id="@+id/btn_profile_channel_dropdown_block"
           android:text="차단하기"

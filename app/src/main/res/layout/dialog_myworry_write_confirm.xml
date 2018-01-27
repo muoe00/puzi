@@ -12,7 +12,7 @@
     android:background="@drawable/bg_store_challenge_fail"
     android:orientation="vertical">
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="medium"
       android:id="@+id/tv_dialog_title_point"
       android:layout_width="match_parent"
@@ -24,7 +24,7 @@
       android:lineSpacingExtra="-1sp"
       android:text=""/>
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="medium"
       android:gravity="center"
       android:layout_width="match_parent"
@@ -43,7 +43,7 @@
       android:layout_gravity="center"
       android:orientation="horizontal">
 
-      <com.puzi.puzi.ui.customview.NotoButton
+      <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="medium"
         android:id="@+id/btn_dialog_close"
         android:layout_width="0dp"
@@ -56,7 +56,7 @@
         android:textSize="16sp"
         android:textColor="#ff2470"/>
 
-      <com.puzi.puzi.ui.customview.NotoButton
+      <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="medium"
         android:id="@+id/btn_dialog_confirm"
         android:layout_width="0dp"

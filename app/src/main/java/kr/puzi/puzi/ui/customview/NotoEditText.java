@@ -1,0 +1,73 @@
+package kr.puzi.puzi.ui.customview;
+
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Typeface;
+import android.os.Build;
+import android.util.AttributeSet;
+import android.widget.EditText;
+
+/**
+ * Created by JangwonPark on 2017. 11. 6..
+ */
+
+@SuppressLint("AppCompatCustomView")
+public class NotoEditText extends EditText {
+
+	public NotoEditText(Context context) {
+		super(context);
+		setType(context);
+	}
+
+	public NotoEditText(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		setType(context, attrs);
+	}
+
+	public NotoEditText(Context context, AttributeSet attrs, int defStyleAttr) {
+		super(context, attrs, defStyleAttr);
+		setType(context, attrs);
+	}
+
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	public NotoEditText(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+		super(context, attrs, defStyleAttr, defStyleRes);
+		setType(context, attrs);
+	}
+
+	private void setType(Context context) {
+		this.setTypeface(Typeface.createFromAsset(context.getAssets(), "NotoSansKR-Regular-Hestia.otf"));
+	}
+
+	private void setType(Context context, AttributeSet attrs) {
+		TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, kr.puzi.puzi.R.styleable.NotoTextView, 0, 0);
+
+		int fontWeight = typedArray.getInteger(kr.puzi.puzi.R.styleable.NotoTextView_fontWeight, 0);
+		switch (fontWeight) {
+			case 0:
+				this.setTypeface(Typeface.createFromAsset(context.getAssets(), "NotoSansKR-Thin-Hestia.otf"));
+				break;
+			case 1:
+				this.setTypeface(Typeface.createFromAsset(context.getAssets(), "NotoSansKR-Light-Hestia.otf"));
+				break;
+			case 2:
+				this.setTypeface(Typeface.createFromAsset(context.getAssets(), "NotoSansKR-DemiLight-Hestia.otf"));
+				break;
+			case 3:
+				this.setTypeface(Typeface.createFromAsset(context.getAssets(), "NotoSansKR-Regular-Hestia.otf"));
+				break;
+			case 4:
+				this.setTypeface(Typeface.createFromAsset(context.getAssets(), "NotoSansKR-Medium-Hestia.otf"));
+				break;
+			case 5:
+				this.setTypeface(Typeface.createFromAsset(context.getAssets(), "NotoSansKR-Bold-Hestia.otf"));
+				break;
+			case 6:
+				this.setTypeface(Typeface.createFromAsset(context.getAssets(), "NotoSansKR-Black-Hestia.otf"));
+				break;
+		}
+	}
+
+}

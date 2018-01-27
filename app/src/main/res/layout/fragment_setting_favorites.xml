@@ -19,7 +19,7 @@
       android:layout_marginLeft="32dp"
       android:layout_marginRight="32dp">
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="medium"
         android:layout_width="match_parent"
         android:layout_height="24dp"
@@ -41,7 +41,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
 
-          <com.puzi.puzi.ui.customview.NotoButton
+          <kr.puzi.puzi.ui.customview.NotoButton
             app:fontWeight="regular"
             android:background="@drawable/button_favorite_off"
             android:id="@+id/btn_setting_beauty"
@@ -53,7 +53,7 @@
             android:layout_width="0dp"
             android:layout_height="54dp"/>
 
-          <com.puzi.puzi.ui.customview.NotoButton
+          <kr.puzi.puzi.ui.customview.NotoButton
             app:fontWeight="regular"
             android:background="@drawable/button_favorite_off"
             android:id="@+id/btn_setting_shopping"
@@ -73,7 +73,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
 
-          <com.puzi.puzi.ui.customview.NotoButton
+          <kr.puzi.puzi.ui.customview.NotoButton
             app:fontWeight="regular"
             android:background="@drawable/button_favorite_off"
             android:id="@+id/btn_setting_game"
@@ -85,7 +85,7 @@
             android:layout_width="0dp"
             android:layout_height="54dp"/>
 
-          <com.puzi.puzi.ui.customview.NotoButton
+          <kr.puzi.puzi.ui.customview.NotoButton
             app:fontWeight="regular"
             android:background="@drawable/button_favorite_off"
             android:id="@+id/btn_setting_eat"
@@ -105,7 +105,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
 
-          <com.puzi.puzi.ui.customview.NotoButton
+          <kr.puzi.puzi.ui.customview.NotoButton
             app:fontWeight="regular"
             android:background="@drawable/button_favorite_off"
             android:id="@+id/btn_setting_tour"
@@ -117,7 +117,7 @@
             android:layout_width="0dp"
             android:layout_height="54dp"/>
 
-          <com.puzi.puzi.ui.customview.NotoButton
+          <kr.puzi.puzi.ui.customview.NotoButton
             app:fontWeight="regular"
             android:background="@drawable/button_favorite_off"
             android:id="@+id/btn_setting_finance"
@@ -137,7 +137,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
 
-          <com.puzi.puzi.ui.customview.NotoButton
+          <kr.puzi.puzi.ui.customview.NotoButton
             app:fontWeight="regular"
             android:background="@drawable/button_favorite_off"
             android:id="@+id/btn_setting_culture"
@@ -149,7 +149,7 @@
             android:layout_width="0dp"
             android:layout_height="54dp"/>
 
-          <com.puzi.puzi.ui.customview.NotoButton
+          <kr.puzi.puzi.ui.customview.NotoButton
             android:text="문화\n(콘서트,공연)"
             app:fontWeight="regular"
             android:visibility="invisible"
@@ -165,7 +165,7 @@
 
       </LinearLayout>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="medium"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -177,7 +177,7 @@
 
     </LinearLayout>
 
-    <com.puzi.puzi.ui.customview.NotoButton
+    <kr.puzi.puzi.ui.customview.NotoButton
       app:fontWeight="medium"
       android:layout_marginLeft="32dp"
       android:layout_marginRight="32dp"

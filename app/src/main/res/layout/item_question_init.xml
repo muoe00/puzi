@@ -19,7 +19,7 @@
       android:layout_width="match_parent"
       android:layout_height="69dp">
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="medium"
         android:text="나의 오늘은"
         android:textSize="13sp"
@@ -49,7 +49,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content">
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="regular"
         android:text="+"
         android:textSize="12sp"
@@ -57,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="regular"
         android:id="@+id/tv_question_plus_point"
         android:text=""
@@ -66,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="regular"
         android:text="P"
         android:textSize="12sp"

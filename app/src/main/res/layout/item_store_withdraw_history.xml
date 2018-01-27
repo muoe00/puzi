@@ -10,7 +10,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       android:id="@+id/tv_item_store_withdraw_history_time"
       app:fontWeight="light"
       android:textSize="20sp"
@@ -22,7 +22,7 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"/>
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       android:id="@+id/tv_item_store_withdraw_history_point"
       app:fontWeight="regular"
       android:textSize="20sp"

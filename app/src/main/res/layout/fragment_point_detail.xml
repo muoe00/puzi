@@ -18,7 +18,7 @@
       android:layout_width="wrap_content"
       android:layout_height="match_parent">
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="regular"
         android:id="@+id/tv_point_type"
         android:gravity="center_vertical"
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="29dp"/>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="demilight"
         android:id="@+id/tv_point_at"
         android:gravity="center_vertical"
@@ -45,7 +45,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="regular"
         android:id="@+id/tv_point"
         android:layout_gravity="center_vertical"

@@ -32,7 +32,7 @@
           android:src="@drawable/back"
           android:id="@+id/ibtn_back"/>
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:text="회원가입"
           android:textColor="@color/colorBlack"
@@ -59,7 +59,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
@@ -116,7 +116,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_width="match_parent"
           android:layout_height="24dp"
@@ -156,7 +156,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_width="match_parent"
           android:layout_height="24dp"
@@ -227,7 +227,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_width="match_parent"
           android:layout_height="24dp"
@@ -250,7 +250,7 @@
             android:layout_height="54dp"
             android:layout_marginBottom="15dp">
 
-            <com.puzi.puzi.ui.customview.NotoButton
+            <kr.puzi.puzi.ui.customview.NotoButton
               app:fontWeight="regular"
               android:background="@drawable/button_favorite_off"
               android:id="@+id/btn_info_beauty"
@@ -265,7 +265,7 @@
               android:layout_width="16dp"
               android:layout_height="match_parent"/>
 
-            <com.puzi.puzi.ui.customview.NotoButton
+            <kr.puzi.puzi.ui.customview.NotoButton
               app:fontWeight="regular"
               android:background="@drawable/button_favorite_off"
               android:id="@+id/btn_info_shopping"
@@ -285,7 +285,7 @@
             android:layout_height="54dp"
             android:layout_marginBottom="15dp">
 
-            <com.puzi.puzi.ui.customview.NotoButton
+            <kr.puzi.puzi.ui.customview.NotoButton
               app:fontWeight="regular"
               android:background="@drawable/button_favorite_off"
               android:id="@+id/btn_info_game"
@@ -300,7 +300,7 @@
               android:layout_width="16dp"
               android:layout_height="match_parent"/>
 
-            <com.puzi.puzi.ui.customview.NotoButton
+            <kr.puzi.puzi.ui.customview.NotoButton
               app:fontWeight="regular"
               android:background="@drawable/button_favorite_off"
               android:id="@+id/btn_info_eat"
@@ -320,7 +320,7 @@
             android:layout_height="54dp"
             android:layout_marginBottom="15dp">
 
-            <com.puzi.puzi.ui.customview.NotoButton
+            <kr.puzi.puzi.ui.customview.NotoButton
               app:fontWeight="regular"
               android:background="@drawable/button_favorite_off"
               android:id="@+id/btn_info_tour"
@@ -335,7 +335,7 @@
               android:layout_width="16dp"
               android:layout_height="match_parent"/>
 
-            <com.puzi.puzi.ui.customview.NotoButton
+            <kr.puzi.puzi.ui.customview.NotoButton
               app:fontWeight="regular"
               android:background="@drawable/button_favorite_off"
               android:id="@+id/btn_info_finance"
@@ -354,7 +354,7 @@
             android:layout_width="match_parent"
             android:layout_height="54dp">
 
-            <com.puzi.puzi.ui.customview.NotoButton
+            <kr.puzi.puzi.ui.customview.NotoButton
               app:fontWeight="regular"
               android:background="@drawable/button_favorite_off"
               android:id="@+id/btn_info_culture"
@@ -369,7 +369,7 @@
               android:layout_width="16dp"
               android:layout_height="match_parent"/>
 
-            <com.puzi.puzi.ui.customview.NotoButton
+            <kr.puzi.puzi.ui.customview.NotoButton
               android:visibility="invisible"
               android:layout_weight="1"
               android:layout_width="match_parent"
@@ -379,7 +379,7 @@
 
         </LinearLayout>
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
@@ -399,7 +399,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_width="match_parent"
           android:layout_height="24dp"
@@ -409,7 +409,7 @@
           android:textColor="@color/colorBlack"
           android:text="추천 아이디 (선택)"/>
 
-        <com.puzi.puzi.ui.customview.NotoEditText
+        <kr.puzi.puzi.ui.customview.NotoEditText
           app:fontWeight="regular"
           android:layout_width="match_parent"
           android:layout_height="54dp"
@@ -436,7 +436,7 @@
         android:layout_marginRight="32dp"
         android:layout_marginBottom="31dp">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -456,7 +456,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
 
-          <com.puzi.puzi.ui.customview.NotoButton
+          <kr.puzi.puzi.ui.customview.NotoButton
             app:fontWeight="regular"
             android:text="@string/confirm_service"
             android:textSize="16sp"
@@ -469,7 +469,7 @@
             android:layout_weight="1"
             android:background="@null"/>
 
-          <com.puzi.puzi.ui.customview.NotoButton
+          <kr.puzi.puzi.ui.customview.NotoButton
             app:fontWeight="regular"
             android:text="@string/confirm_personal"
             android:textSize="16sp"
@@ -493,7 +493,7 @@
               android:layout_height="30dp"
               android:id="@+id/iv_signup_all"/>
 
-            <com.puzi.puzi.ui.customview.NotoTextView
+            <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="regular"
               android:layout_marginLeft="42dp"
               android:gravity="center_vertical"

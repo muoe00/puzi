@@ -22,7 +22,7 @@
       android:src="@mipmap/home"
       android:id="@+id/iv_store_item_preview"/>
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="regular"
       android:text="itemName"
       android:layout_width="match_parent"
@@ -34,7 +34,7 @@
       android:textColor="#333333"
       android:id="@+id/tv_store_item_name"/>
 
-    <com.puzi.puzi.ui.customview.RobotoTextView
+    <kr.puzi.puzi.ui.customview.RobotoTextView
       android:text="price"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

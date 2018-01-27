@@ -35,7 +35,7 @@
             android:src="@drawable/back"
             android:id="@+id/btn_store_saving_back"/>
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             android:text="푸지적금"
             app:fontWeight="medium"
             android:gravity="center"
@@ -70,7 +70,7 @@
               android:src="@mipmap/home"
               android:id="@+id/iv_store_saving_preview"/>
 
-            <com.puzi.puzi.ui.customview.NotoTextView
+            <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="medium"
               android:text="아메리카노"
               android:layout_gravity="center_horizontal"
@@ -99,7 +99,7 @@
           android:layout_width="match_parent"
           android:layout_height="49dp">
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="bold"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="24dp"
@@ -109,7 +109,7 @@
             android:layout_width="81dp"
             android:layout_height="wrap_content"/>
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="regular"
             android:id="@+id/tv_store_saving_point_count"
             android:layout_gravity="center_vertical"
@@ -129,7 +129,7 @@
           android:layout_width="match_parent"
           android:layout_height="49dp">
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="bold"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="24dp"
@@ -176,7 +176,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="regular"
             android:text="- 적금금액은 매일 새벽 1시에 입금되며, 입금된 금액은 사용할 수 없습니다.\n- 해지시 적금금액은 사용 가능합니다."
             android:textSize="13sp"
@@ -194,7 +194,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.puzi.puzi.ui.customview.NotoTextView
+            <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="medium"
               android:text="상품설명"
               android:layout_width="52dp"
@@ -203,7 +203,7 @@
               android:textSize="14sp"
               android:textColor="#6d6d6d"/>
 
-            <com.puzi.puzi.ui.customview.NotoTextView
+            <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="demilight"
               android:text=""
               android:layout_width="0dp"
@@ -224,7 +224,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.puzi.puzi.ui.customview.NotoTextView
+            <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="medium"
               android:text="유효기간"
               android:layout_width="52dp"
@@ -233,7 +233,7 @@
               android:textSize="14sp"
               android:textColor="#6d6d6d"/>
 
-            <com.puzi.puzi.ui.customview.NotoTextView
+            <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="demilight"
               android:text=""
               android:layout_width="0dp"
@@ -251,7 +251,7 @@
 
     </ScrollView>
 
-    <com.puzi.puzi.ui.customview.NotoButton
+    <kr.puzi.puzi.ui.customview.NotoButton
       app:fontWeight="bold"
       android:layout_gravity="bottom"
       android:background="#7b0f8b"

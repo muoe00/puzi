@@ -20,7 +20,7 @@
       android:src="@drawable/back"
       android:id="@+id/ibtn_back"/>
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="medium"
       android:text="서비스 이용약관"
       android:textColor="@color/colorBlack"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         android:text="@string/string_use"
         app:fontWeight="regular"
         android:textColor="#333333"

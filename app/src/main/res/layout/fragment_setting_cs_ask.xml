@@ -22,7 +22,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_width="match_parent"
           android:layout_height="24dp"
@@ -51,7 +51,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_width="match_parent"
           android:layout_height="24dp"
@@ -61,7 +61,7 @@
           android:text="이메일"
           android:gravity="left" />
 
-        <com.puzi.puzi.ui.customview.NotoEditText
+        <kr.puzi.puzi.ui.customview.NotoEditText
           app:fontWeight="regular"
           android:background="@drawable/edittext"
           android:layout_width="match_parent"
@@ -88,7 +88,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_width="match_parent"
           android:layout_height="24dp"
@@ -98,7 +98,7 @@
           android:text="제목"
           android:gravity="left" />
 
-        <com.puzi.puzi.ui.customview.NotoEditText
+        <kr.puzi.puzi.ui.customview.NotoEditText
           app:fontWeight="regular"
           android:background="@drawable/edittext"
           android:layout_width="match_parent"
@@ -124,7 +124,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_width="match_parent"
           android:layout_height="24dp"
@@ -134,7 +134,7 @@
           android:text="내용"
           android:gravity="left" />
 
-        <com.puzi.puzi.ui.customview.NotoEditText
+        <kr.puzi.puzi.ui.customview.NotoEditText
           app:fontWeight="regular"
           android:background="@drawable/edittext"
           android:layout_width="match_parent"
@@ -161,7 +161,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp">
 
-        <com.puzi.puzi.ui.customview.NotoButton
+        <kr.puzi.puzi.ui.customview.NotoButton
           app:fontWeight="medium"
           android:layout_width="match_parent"
           android:layout_height="54dp"

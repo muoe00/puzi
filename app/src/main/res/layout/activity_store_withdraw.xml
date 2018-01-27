@@ -23,7 +23,7 @@
       android:src="@drawable/back"
       android:id="@+id/ibtn_store_withdraw_back"/>
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="medium"
       android:gravity="center_horizontal"
       android:text="출금하기"
@@ -47,7 +47,7 @@
       android:layout_height="wrap_content"
       android:orientation="vertical">
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         android:text="출금 가능 포인트"
         app:fontWeight="medium"
         android:layout_marginTop="11dp"
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           android:id="@+id/tv_store_withdraw_point"
           android:text="10,000P"
           app:fontWeight="demilight"
@@ -97,7 +97,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content">
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="medium"
             android:text="은행"
             android:textSize="16sp"
@@ -120,7 +120,7 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content">
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="medium"
             android:text="계좌번호"
             android:textSize="16sp"
@@ -129,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-          <com.puzi.puzi.ui.customview.NotoEditText
+          <kr.puzi.puzi.ui.customview.NotoEditText
             app:fontWeight="demilight"
             android:id="@+id/et_store_withdraw_bank_account"
             android:background="@drawable/button_store_withdraw_input"
@@ -157,7 +157,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content">
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="medium"
             android:text="받는 사람"
             android:textSize="16sp"
@@ -166,7 +166,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-          <com.puzi.puzi.ui.customview.NotoEditText
+          <kr.puzi.puzi.ui.customview.NotoEditText
             app:fontWeight="demilight"
             android:id="@+id/et_store_withdraw_bank_name"
             android:paddingLeft="16dp"
@@ -185,7 +185,7 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content">
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="medium"
             android:text="출금 금액"
             android:textSize="16sp"
@@ -204,7 +204,7 @@
 
       </LinearLayout>
 
-      <com.puzi.puzi.ui.customview.NotoButton
+      <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="bold"
         android:id="@+id/btn_store_withdraw_confirm"
         android:text="출금하기"
@@ -224,7 +224,7 @@
         android:layout_height="10dp">
       </LinearLayout>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="medium"
         android:text="출금 내역"
         android:layout_marginTop="10dp"
