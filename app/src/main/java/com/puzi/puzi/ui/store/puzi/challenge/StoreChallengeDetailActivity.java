@@ -2,11 +2,13 @@ package com.puzi.puzi.ui.store.puzi.challenge;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.*;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+import android.widget.CompoundButton;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.store.puzi.StoreChallengeItemVO;
@@ -21,8 +23,14 @@ import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.common.DialogButtonCallback;
 import com.puzi.puzi.ui.common.OneButtonDialog;
+import com.puzi.puzi.ui.customview.NotoTextView;
 import com.puzi.puzi.ui.store.coupon.CouponActivity;
 import com.puzi.puzi.utils.TextUtils;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import retrofit2.Call;
 
 /**
@@ -33,6 +41,8 @@ public class StoreChallengeDetailActivity extends BaseFragmentActivity {
 
 	Unbinder unbinder;
 
+	@BindView(R.id.tv_store_challenge_count)
+	NotoTextView tvCount;
 	@BindView(R.id.tv_store_challenge_name)
 	TextView tvName;
 	@BindView(R.id.tv_store_challenge_price)
@@ -70,6 +80,7 @@ public class StoreChallengeDetailActivity extends BaseFragmentActivity {
 		tvPrice.setText(TextUtils.addComma(storeChallengeItemVO.getPrice()) + "P");
 		BitmapUIL.load(storeChallengeItemVO.getStoreItemDTO().getPictureUrl(), ivPreview);
 		tvComment.setText(storeChallengeItemVO.getStoreItemDTO().getComment());
+		tvCount.setText(storeChallengeItemVO.getChallengeCount() + "명 참여중");
 		tvExpiryDay.setText(storeChallengeItemVO.getStoreItemDTO().getExpiryDay() + "일");
 		svItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

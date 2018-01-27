@@ -260,13 +260,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				Log.i("QuestionFragment", responseVO.toString());
 
 				worryAdaptor.addListWithTotalCount(myWorryQuestionList, totalCount);
-				// worryAdaptor.addList(myWorryQuestionList);
-
-				if(totalCount == worryAdaptor.getCount()) {
-					btnMore.setEnabled(false);
-				} else {
-					btnMore.setEnabled(true);
-				}
 
 				if(worryAdaptor.getCount() >= totalCount) {
 					btnMore.setVisibility(View.GONE);
@@ -292,11 +285,10 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		worryAdaptor = new WorryAdaptor(getActivity(), R.layout.item_question_vote, lvQuestion, svQuestion, new CustomPagingAdapter.ListHandler() {
 			@Override
 			public void getList() {
-
 				worryAdaptor.startProgressWithScrollDown();
 				getWorryList();
 			}
-		});
+		}, true);
 		worryAdaptor.setMore(false);
 		worryAdaptor.getList();
 		lvQuestion.setAdapter(worryAdaptor);

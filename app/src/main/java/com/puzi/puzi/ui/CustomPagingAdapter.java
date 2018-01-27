@@ -48,6 +48,7 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 	protected ScrollView scrollView;
 	protected ListHandler listHandler;
 	private boolean lastestScrollFlag = false;
+	private boolean moreBtn = false;
 
 	protected List<T> list = newArrayList();
 	@Getter
@@ -72,6 +73,22 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 
 	public CustomPagingAdapter(Activity activity, int layoutResource, ListView listView, ScrollView scrollView, ListHandler listHandler) {
 		this(activity, layoutResource, 0, listView, scrollView, listHandler);
+	}
+
+	public CustomPagingAdapter(Activity activity, int layoutResource, ListView listView, ScrollView scrollView, ListHandler listHandler, boolean moreBtn) {
+		this(activity, layoutResource, 0, listView, scrollView, listHandler, moreBtn);
+	}
+
+	public CustomPagingAdapter(Activity activity, int layoutResource, int layoutResource2, ListView listView, ScrollView scrollView, ListHandler listHandler, boolean moreBtn) {
+		this.activity = activity;
+		this.inflater = activity.getLayoutInflater();
+		this.layoutResource = layoutResource;
+		this.layoutResource2 = layoutResource2;
+		this.listView = listView;
+		this.scrollView = scrollView;
+		this.listHandler =listHandler;
+		this.moreBtn = moreBtn;
+		init();
 	}
 
 	public CustomPagingAdapter(Activity activity, int layoutResource, int layoutResource2, ListView listView, ScrollView scrollView, ListHandler listHandler) {
@@ -111,53 +128,54 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 			this.gridView.setAdapter(this);
 		}
 
-		if(scrollView != null) {
-			scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-				@Override
-				public void onScrollChanged() {
-					int scrollViewPos = scrollView.getScrollY();
-					int TextView_lines = scrollView.getChildAt(0).getBottom() - scrollView.getHeight();
-					if(TextView_lines == scrollViewPos){
-						if(more && !progressed) {
-							getList();
+		if(!moreBtn) {
+			if (scrollView != null) {
+				scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+					@Override
+					public void onScrollChanged() {
+						int scrollViewPos = scrollView.getScrollY();
+						int TextView_lines = scrollView.getChildAt(0).getBottom() - scrollView.getHeight();
+						if (TextView_lines == scrollViewPos) {
+							if (more && !progressed) {
+								getList();
+							}
 						}
 					}
-				}
-			});
-		} else if (listView != null) {
-			listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-
-				@Override
-				public void onScrollStateChanged(AbsListView view, int scrollState) {
-					if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastestScrollFlag) {
-						if(more && !progressed) {
-							getList();
+				});
+			} else if (listView != null) {
+				listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+					@Override
+					public void onScrollStateChanged(AbsListView view, int scrollState) {
+						if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastestScrollFlag) {
+							if (more && !progressed) {
+								getList();
+							}
 						}
 					}
-				}
 
-				@Override
-				public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-					lastestScrollFlag = (totalItemCount > 0) && firstVisibleItem + visibleItemCount >= totalItemCount;
-				}
-			});
-		} else {
-			gridView.setOnScrollListener(new AbsListView.OnScrollListener() {
+					@Override
+					public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+						lastestScrollFlag = (totalItemCount > 0) && firstVisibleItem + visibleItemCount >= totalItemCount;
+					}
+				});
+			} else {
+				gridView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
-				@Override
-				public void onScrollStateChanged(AbsListView view, int scrollState) {
-					if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastestScrollFlag) {
-						if(more && !progressed) {
-							getList();
+					@Override
+					public void onScrollStateChanged(AbsListView view, int scrollState) {
+						if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastestScrollFlag) {
+							if (more && !progressed) {
+								getList();
+							}
 						}
 					}
-				}
 
-				@Override
-				public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-					lastestScrollFlag = (totalItemCount > 0) && firstVisibleItem + visibleItemCount >= totalItemCount;
-				}
-			});
+					@Override
+					public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+						lastestScrollFlag = (totalItemCount > 0) && firstVisibleItem + visibleItemCount >= totalItemCount;
+					}
+				});
+			}
 		}
 	}
 

@@ -31,8 +31,8 @@ public class WorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
     private CategoryAdapter categoryAdapter;
     private LinearLayoutManager manager;
 
-    public WorryAdaptor(Activity activity, int layoutResource, ListView listView, ScrollView scrollView, ListHandler listHandler) {
-        super(activity, layoutResource, listView, scrollView, listHandler);
+    public WorryAdaptor(Activity activity, int layoutResource, ListView listView, ScrollView scrollView, ListHandler listHandler, boolean moreBtn) {
+        super(activity, layoutResource, listView, scrollView, listHandler, moreBtn);
 
         this.activity = activity;
         this.context = activity.getApplicationContext();

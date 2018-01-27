@@ -6,6 +6,7 @@
               android:layout_height="match_parent">
 
   <ScrollView
+      android:overScrollMode="never"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -115,6 +116,7 @@
 
       <LinearLayout
         android:layout_width="match_parent"
+          android:visibility="gone"
         android:layout_height="1dp"
         android:background="#dadada"/>
 

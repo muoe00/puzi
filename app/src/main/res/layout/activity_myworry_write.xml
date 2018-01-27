@@ -39,6 +39,7 @@
     android:layout_height="1dp"/>
 
   <ScrollView
+      android:overScrollMode="never"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -161,65 +162,73 @@
 
       </LinearLayout>
 
-      <com.puzi.puzi.ui.customview.NotoEditText
-        android:id="@+id/et_myworry_write_answer_1"
-        app:fontWeight="regular"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/edittext"
-        android:gravity="center|left"
-        android:hint="1번 답변"
-        android:textSize="16sp"
-        android:textColor="#333333"
-        android:textColorHint="#bbbbbb"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+      <LinearLayout
+          android:orientation="vertical"
+          android:layout_marginBottom="25dp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
 
-      <com.puzi.puzi.ui.customview.NotoEditText
-        android:id="@+id/et_myworry_write_answer_2"
-        app:fontWeight="regular"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/edittext"
-        android:gravity="center|left"
-        android:hint="2번 답변"
-        android:textSize="16sp"
-        android:textColor="#333333"
-        android:textColorHint="#bbbbbb"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+        <com.puzi.puzi.ui.customview.NotoEditText
+            android:id="@+id/et_myworry_write_answer_1"
+            app:fontWeight="regular"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/edittext"
+            android:gravity="center|left"
+            android:hint="1번 답변"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:textColorHint="#bbbbbb"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
 
-      <com.puzi.puzi.ui.customview.NotoEditText
-        android:id="@+id/et_myworry_write_answer_3"
-        app:fontWeight="regular"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/edittext"
-        android:gravity="center|left"
-        android:hint="3번 답변"
-        android:textSize="16sp"
-        android:textColor="#333333"
-        android:textColorHint="#bbbbbb"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+        <com.puzi.puzi.ui.customview.NotoEditText
+            android:id="@+id/et_myworry_write_answer_2"
+            app:fontWeight="regular"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/edittext"
+            android:gravity="center|left"
+            android:hint="2번 답변"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:textColorHint="#bbbbbb"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
 
-      <com.puzi.puzi.ui.customview.NotoEditText
-        android:id="@+id/et_myworry_write_answer_4"
-        app:fontWeight="regular"
-        android:layout_marginBottom="25dp"
-        android:background="@drawable/edittext"
-        android:gravity="center|left"
-        android:hint="4번 답변"
-        android:textSize="16sp"
-        android:textColor="#333333"
-        android:textColorHint="#bbbbbb"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+        <com.puzi.puzi.ui.customview.NotoEditText
+            android:id="@+id/et_myworry_write_answer_3"
+            app:fontWeight="regular"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/edittext"
+            android:gravity="center|left"
+            android:hint="3번 답변"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:textColorHint="#bbbbbb"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+
+        <com.puzi.puzi.ui.customview.NotoEditText
+            android:id="@+id/et_myworry_write_answer_4"
+            app:fontWeight="regular"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/edittext"
+            android:gravity="center|left"
+            android:hint="4번 답변"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:textColorHint="#bbbbbb"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+
+      </LinearLayout>
 
       <!-- 타입 -->
       <com.puzi.puzi.ui.customview.NotoTextView
@@ -247,11 +256,12 @@
       <LinearLayout
         android:layout_marginBottom="3dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+          android:orientation="horizontal">
 
         <com.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
-          android:text="상위노출"
+          android:text="상위노출 "
           android:textSize="16sp"
           android:textColor="#333333"
           android:layout_width="wrap_content"
@@ -262,20 +272,30 @@
           android:id="@+id/tv_myworry_write_item_top_price"
           android:text="(+P)"
           android:textSize="12sp"
+            android:layout_weight="1"
           android:textColor="#333333"
-          android:layout_weight="1"
           android:layout_width="0dp"
           android:layout_height="wrap_content"/>
 
-        <Switch
-          android:id="@+id/sw_myworry_write_item_top"
-          android:track="@drawable/switch_track_selector_puzi"
-          android:thumb="@drawable/switch_thumb_selector_puzi"
-          android:checked="false"
-          android:layout_gravity="center_vertical"
-          android:layout_marginRight="17dp"
-          android:layout_width="wrap_content"
-          android:layout_height="20dp"/>
+        <LinearLayout
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="17dp"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp">
+
+          <Switch
+              android:showText="false"
+              android:textOn=""
+              android:textOff=""
+              android:switchMinWidth="5dp"
+              android:id="@+id/sw_myworry_write_item_top"
+              android:track="@drawable/switch_track_selector_puzi"
+              android:thumb="@drawable/switch_thumb_selector_puzi"
+              android:checked="false"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
       </LinearLayout>
 
@@ -290,37 +310,51 @@
 
       <!-- 타겟 -->
       <LinearLayout
+          android:orientation="horizontal"
         android:layout_marginBottom="3dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
-          android:text="타겟"
+          android:text="타겟 "
           android:textSize="16sp"
           android:textColor="#333333"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
 
         <com.puzi.puzi.ui.customview.NotoTextView
-          app:fontWeight="medium"
-          android:id="@+id/tv_myworry_write_item_target_price"
-          android:text="(+P)"
-          android:textSize="12sp"
-          android:textColor="#333333"
-          android:layout_weight="1"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"/>
+            android:id="@+id/tv_myworry_write_item_target_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(+P)"
+            android:textColor="#333333"
+            android:textSize="12sp"
+            app:fontWeight="medium" />
 
-        <Switch
-          android:id="@+id/sw_myworry_write_item_target"
-          android:track="@drawable/switch_track_selector_puzi"
-          android:thumb="@drawable/switch_thumb_selector_puzi"
-          android:checked="false"
-          android:layout_gravity="center_vertical"
-          android:layout_marginRight="17dp"
-          android:layout_width="wrap_content"
-          android:layout_height="20dp"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+          android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="17dp"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp">
+
+          <Switch
+              android:showText="false"
+              android:textOn=""
+              android:textOff=""
+              android:switchMinWidth="5dp"
+              android:id="@+id/sw_myworry_write_item_target"
+              android:track="@drawable/switch_track_selector_puzi"
+              android:thumb="@drawable/switch_thumb_selector_puzi"
+              android:checked="false"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+        </LinearLayout>
 
       </LinearLayout>
 
@@ -328,6 +362,7 @@
       android:id="@+id/ll_myworry_write_item_target_container"
       android:visibility="gone"
       android:orientation="vertical"
+        android:layout_marginTop="3dp"
       android:layout_marginBottom="17dp"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
