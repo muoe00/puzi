@@ -1,5 +1,6 @@
 package kr.puzi.puzi.network.service;
 
+import kr.puzi.puzi.biz.user.FavoriteType;
 import kr.puzi.puzi.network.ResponseVO;
 import kr.puzi.puzi.network.RetrofitManager;
 import org.junit.Before;
@@ -8,6 +9,8 @@ import retrofit2.Call;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static kr.puzi.puzi.biz.user.FavoriteType.BEAUTY;
 
 /**
  * Created by 170605 on 2017-11-01.
@@ -35,8 +38,8 @@ public class SettingNetworkServiceTest {
 	public void updateFavorites() throws Exception {
 		System.out.println("+++ START");
 
-		List<String> favoriteTypeList = new ArrayList<>();
-		favoriteTypeList.add("BEAUTY");
+		List<FavoriteType> favoriteTypeList = new ArrayList<>();
+		favoriteTypeList.add(BEAUTY);
 
 		Call<ResponseVO> call = sut.updateFavorites("test123123123", favoriteTypeList);
 		ResponseVO responseVO = NetworkTestValidation.call(call);

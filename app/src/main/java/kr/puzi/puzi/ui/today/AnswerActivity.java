@@ -25,6 +25,8 @@ import kr.puzi.puzi.network.ResponseVO;
 import kr.puzi.puzi.network.service.MyServiceNetworkService;
 import kr.puzi.puzi.ui.MainActivity;
 import kr.puzi.puzi.ui.base.BaseActivity;
+import kr.puzi.puzi.ui.common.DialogButtonCallback;
+import kr.puzi.puzi.ui.common.OneButtonDialog;
 import kr.puzi.puzi.ui.common.PointDialog;
 import kr.puzi.puzi.ui.customview.NotoTextView;
 import retrofit2.Call;
@@ -45,46 +47,46 @@ public class AnswerActivity extends BaseActivity {
     private MyWorryQuestionDetailDTO myWorryQuestionDetailDTO;
     private MyWorryAnswerResultDTO myWorryAnswerResultDTO;
 
-    @BindView(kr.puzi.puzi.R.id.ibtn_question_report)
+    @BindView(R.id.ibtn_question_report)
     ImageButton ibtnReport;
-    @BindView(kr.puzi.puzi.R.id.tv_answer_count)
+    @BindView(R.id.tv_answer_count)
     NotoTextView tvCount;
-    @BindView(kr.puzi.puzi.R.id.tv_answer_count_limit)
+    @BindView(R.id.tv_answer_count_limit)
     NotoTextView tvCountLimit;
-    @BindView(kr.puzi.puzi.R.id.tv_worry_title)
+    @BindView(R.id.tv_worry_title)
     NotoTextView tvTitle;
-    @BindView(kr.puzi.puzi.R.id.ll_answer_container_2)
+    @BindView(R.id.ll_answer_container_2)
     LinearLayout llContainer;
-    @BindView(kr.puzi.puzi.R.id.btn_answer_1)
+    @BindView(R.id.btn_answer_1)
     Button btnAnswer1;
-    @BindView(kr.puzi.puzi.R.id.btn_answer_2)
+    @BindView(R.id.btn_answer_2)
     Button btnAnswer2;
-    @BindView(kr.puzi.puzi.R.id.btn_answer_3)
+    @BindView(R.id.btn_answer_3)
     Button btnAnswer3;
-    @BindView(kr.puzi.puzi.R.id.btn_answer_4)
+    @BindView(R.id.btn_answer_4)
     Button btnAnswer4;
-    @BindView(kr.puzi.puzi.R.id.ll_answer_like)
+    @BindView(R.id.ll_answer_like)
     LinearLayout llLike;
-    @BindView(kr.puzi.puzi.R.id.iv_answer_like)
+    @BindView(R.id.iv_answer_like)
     ImageView ivLike;
-    @BindView(kr.puzi.puzi.R.id.tv_answer_like)
+    @BindView(R.id.tv_answer_like)
     NotoTextView tvLike;
-    @BindView(kr.puzi.puzi.R.id.btn_answer_ok)
+    @BindView(R.id.btn_answer_ok)
     Button btnOk;
-    @BindView(kr.puzi.puzi.R.id.btn_answer_a2_a1)
+    @BindView(R.id.btn_answer_a2_a1)
     Button btnA2A1;
-    @BindView(kr.puzi.puzi.R.id.btn_answer_a2_a2)
+    @BindView(R.id.btn_answer_a2_a2)
     Button btnA2A2;
-    @BindView(kr.puzi.puzi.R.id.ll_answer_a4)
+    @BindView(R.id.ll_answer_a4)
     LinearLayout llA4;
-    @BindView(kr.puzi.puzi.R.id.ll_answer_a2)
+    @BindView(R.id.ll_answer_a2)
     LinearLayout llA2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(kr.puzi.puzi.R.layout.activity_answer);
+        setContentView(R.layout.activity_answer);
 
         unbinder = ButterKnife.bind(this);
         myWorryQuestionDTO = (MyWorryQuestionDTO) getIntent().getExtras().getSerializable("myWorryQuestionDTO");
@@ -125,12 +127,12 @@ public class AnswerActivity extends BaseActivity {
 
                             switch (myWorryAnswerDTO.getAnswerNumber()) {
                                 case 1:
-                                    btnA2A1.setBackgroundResource(kr.puzi.puzi.R.drawable.button_question_on);
-                                    btnA2A1.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorPuzi));
+                                    btnA2A1.setBackgroundResource(R.drawable.button_question_on);
+                                    btnA2A1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
                                     break;
                                 case 2:
-                                    btnA2A2.setBackgroundResource(kr.puzi.puzi.R.drawable.button_question_on);
-                                    btnA2A2.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorPuzi));
+                                    btnA2A2.setBackgroundResource(R.drawable.button_question_on);
+                                    btnA2A2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
                                     break;
                             }
                         } else {
@@ -139,25 +141,23 @@ public class AnswerActivity extends BaseActivity {
 
                             switch (myWorryAnswerDTO.getAnswerNumber()) {
                                 case 1:
-                                    btnAnswer1.setBackgroundResource(kr.puzi.puzi.R.drawable.button_question_on);
-                                    btnAnswer1.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorPuzi));
+                                    btnAnswer1.setBackgroundResource(R.drawable.button_question_on);
+                                    btnAnswer1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
                                     break;
                                 case 2:
-                                    btnAnswer2.setBackgroundResource(kr.puzi.puzi.R.drawable.button_question_on);
-                                    btnAnswer2.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorPuzi));
+                                    btnAnswer2.setBackgroundResource(R.drawable.button_question_on);
+                                    btnAnswer2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
                                     break;
                                 case 3:
-                                    btnAnswer3.setBackgroundResource(kr.puzi.puzi.R.drawable.button_question_on);
-                                    btnAnswer3.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorPuzi));
+                                    btnAnswer3.setBackgroundResource(R.drawable.button_question_on);
+                                    btnAnswer3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
                                     break;
                                 case 4:
-                                    btnAnswer4.setBackgroundResource(kr.puzi.puzi.R.drawable.button_question_on);
-                                    btnAnswer4.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorPuzi));
+                                    btnAnswer4.setBackgroundResource(R.drawable.button_question_on);
+                                    btnAnswer4.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
                                     break;
                             }
                         }
-
-
                     }
 
                 }
@@ -216,24 +216,23 @@ public class AnswerActivity extends BaseActivity {
         });
     }
 
-    @OnClick({kr.puzi.puzi.R.id.btn_answer_1, kr.puzi.puzi.R.id.btn_answer_2, kr.puzi.puzi.R.id.btn_answer_3, kr.puzi.puzi.R.id.btn_answer_4})
-    public void checkAnswer4(View view) {
+    @OnClick({R.id.btn_answer_1, R.id.btn_answer_2, R.id.btn_answer_3, R.id.btn_answer_4})
+    public void checkAnswer(View view) {
         switch (view.getId()) {
-            case kr.puzi.puzi.R.id.btn_answer_1:
+            case R.id.btn_answer_1:
                 checkButton(btnAnswer1, 1);
                 break;
-            case kr.puzi.puzi.R.id.btn_answer_2:
+            case R.id.btn_answer_2:
                 checkButton(btnAnswer2, 2);
                 break;
-            case kr.puzi.puzi.R.id.btn_answer_3:
+            case R.id.btn_answer_3:
                 checkButton(btnAnswer3, 3);
                 break;
-            case kr.puzi.puzi.R.id.btn_answer_4:
+            case R.id.btn_answer_4:
                 checkButton(btnAnswer4, 4);
                 break;
         }
     }
-
 
     @OnClick({R.id.btn_answer_a2_a1, R.id.btn_answer_a2_a2})
     public void checkAnswer2(View view) {
@@ -247,7 +246,7 @@ public class AnswerActivity extends BaseActivity {
         }
     }
 
-    @OnClick(kr.puzi.puzi.R.id.btn_answer_ok)
+    @OnClick(R.id.btn_answer_ok)
     public void setAnswer() {
         Log.i("AnswerActivity", "setAnswer");
 
@@ -330,8 +329,8 @@ public class AnswerActivity extends BaseActivity {
             if(selectedCount == index) {
                 isSelected = false;
                 selectedCount = 0;
-                btn.setBackgroundResource(kr.puzi.puzi.R.drawable.button_question_off);
-                btn.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorBlack));
+                btn.setBackgroundResource(R.drawable.button_question_off);
+                btn.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
             }
         } else {
             isSelected = true;
@@ -350,21 +349,21 @@ public class AnswerActivity extends BaseActivity {
                     answer = myWorryQuestionDTO.getAnswerFour();
                     break;
             }
-            btn.setBackgroundResource(kr.puzi.puzi.R.drawable.button_question_on);
-            btn.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorPuzi));
+            btn.setBackgroundResource(R.drawable.button_question_on);
+            btn.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
         }
     }
 
     public void setLikeOn() {
-        llLike.setBackgroundResource(kr.puzi.puzi.R.drawable.bg_vote_like_on);
-        ivLike.setImageResource(kr.puzi.puzi.R.drawable.shape);
-        tvLike.setTextColor(getResources().getColor(kr.puzi.puzi.R.color.colorPuzi));
+        llLike.setBackgroundResource(R.drawable.bg_vote_like_on);
+        ivLike.setImageResource(R.drawable.shape);
+        tvLike.setTextColor(getResources().getColor(R.color.colorPuzi));
     }
 
     public void setLikeOff() {
-        llLike.setBackgroundResource(kr.puzi.puzi.R.drawable.bg_vote_like_off);
-        ivLike.setImageResource(kr.puzi.puzi.R.drawable.like);
-        tvLike.setTextColor(getResources().getColor(kr.puzi.puzi.R.color.colorWhite));
+        llLike.setBackgroundResource(R.drawable.bg_vote_like_off);
+        ivLike.setImageResource(R.drawable.like);
+        tvLike.setTextColor(getResources().getColor(R.color.colorWhite));
     }
 
     public void addLikeCount(final int id) {
@@ -405,7 +404,40 @@ public class AnswerActivity extends BaseActivity {
         });
     }
 
-    @OnClick(kr.puzi.puzi.R.id.ibtn_question_close)
+    @OnClick(R.id.ibtn_question_report)
+    public void notifyClick() {
+        if(personalType.isMine()) {
+            Toast.makeText(getActivity(), "내가 올린 고민을 신고할 수 없습니다.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(myWorryQuestionDTO.isNotifiedByMe()) {
+            Toast.makeText(getActivity(), "이미 신고하였습니다.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        OneButtonDialog.show(getActivity(), "신고하기", "해당질문을 신고하시겠습니까?", "신고하기", new DialogButtonCallback() {
+            @Override
+            public void onClick() {
+                LazyRequestService service = new LazyRequestService(getActivity(), MyServiceNetworkService.class);
+                service.method(new LazyRequestService.RequestMothod<MyServiceNetworkService>() {
+                    @Override
+                    public Call<ResponseVO> execute(MyServiceNetworkService myServiceNetworkService, String token) {
+                        return myServiceNetworkService.setWorryNotify(token, myWorryQuestionDTO.getMyWorryQuestionId());
+                    }
+                });
+                service.enqueue(new CustomCallback(getActivity()) {
+                    @Override
+                    public void onSuccess(ResponseVO responseVO) {
+                        myWorryQuestionDTO.setNotifiedByMe(true);
+                        Toast.makeText(getActivity(), "정상적으로 접수되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
+
+    @OnClick(R.id.ibtn_question_close)
     public void closeView() {
         finish();
     }

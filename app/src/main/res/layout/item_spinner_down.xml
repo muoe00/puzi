@@ -5,7 +5,7 @@
     android:paddingLeft="7dp"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="30dp">
+    android:layout_height="50dp">
 
   <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="regular"
@@ -13,7 +13,7 @@
       android:id="@+id/tv_spinner_down"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
-      android:textSize="12sp"
+      android:textSize="14sp"
       android:textColor="#6d6d6d"/>
 
 </LinearLayout>
