@@ -10,16 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+
 import com.puzi.puzi.R;
 import com.puzi.puzi.network.CustomCallback;
 import com.puzi.puzi.network.LazyRequestService;
 import com.puzi.puzi.network.ResponseVO;
 import com.puzi.puzi.network.service.AdvertisementNetworkService;
 import com.puzi.puzi.ui.base.BaseFragment;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import retrofit2.Call;
 
 /**
@@ -102,7 +104,7 @@ public class SettingFragment extends BaseFragment {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				String version = responseVO.getString("version");
-				Log.e("VERSION", version);
+				Log.e("VERSION", "version : " + version);
 				setVersion(version);
 			}
 		});
@@ -112,7 +114,7 @@ public class SettingFragment extends BaseFragment {
 		tvVersion.setText(version);
 		try {
 			String appVersion = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName;
-			Log.e("VERSION", appVersion);
+			Log.e("VERSION", "app version : " + appVersion);
 			if(version.equals(appVersion)) {
 				btnVersion.setVisibility(View.GONE);
 			} else {

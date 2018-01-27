@@ -5,11 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.myservice.CategoryType;
-import com.puzi.puzi.ui.CustomArrayAdapter;
 import com.puzi.puzi.ui.customview.NotoTextView;
 
 import java.util.ArrayList;
@@ -52,7 +50,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
         holder.tvCategory.setText(list.get(position).getComment());
     }
 

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
@@ -53,7 +54,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	private Unbinder unbinder;
 	private View view;
 	private boolean mine = false, isBonusTime = false;
-	private int state = 1, pagingIndex = 1, bonusCount = 0, hour = 0, minute = 0, second = 0, count = 0, max = 0;
+	private int state = 1, hour = 0, minute = 0, second = 0, count = 0, max = 0;
 	private OrderType orderType = OrderType.RECENTLY;
 
 	private List<MyTodayQuestionVO> myTodayQuestionList;
@@ -63,7 +64,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	private RecyclerView.LayoutManager manager;
 	private SpinnerAdapter spinnerAdapter;
 	private WorryAdaptor worryAdaptor;
-	private List<OrderType> orderTypes;
 	private ScheduledExecutorService excutors = Executors.newSingleThreadScheduledExecutor();
 
 	public static List<UpdateLike> needToUpdateLike = newArrayList();
@@ -73,6 +73,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	@BindView(R.id.rv_question) RecyclerView rvQuestion;
 	@BindView(R.id.id_worry_spinner) Spinner spinner;
 	@BindView(R.id.btn_vote_more) Button btnMore;
+	@BindView(R.id.fl_vote_more) FrameLayout flMore;
 
 	public static void updateLike(int id, boolean isLike, int count) {
 		UpdateLike updateLike = new UpdateLike(id, isLike, count);
@@ -99,7 +100,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				getQuestion();
 			}
 		};
-
 		todayAdapter.setRefreshCallback(refreshCallback);
 
 		Log.i("MyService", "onCreateView");
@@ -261,8 +261,13 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 
 				worryAdaptor.addListWithTotalCount(myWorryQuestionList, totalCount);
 
-				if(worryAdaptor.getCount() >= totalCount) {
-					btnMore.setVisibility(View.GONE);
+				Log.i("QuestionFragment", "worryAdaptor.getCount() : " + worryAdaptor.getCount());
+				Log.i("QuestionFragment", "totalCount : " + totalCount);
+
+				if((worryAdaptor.getCount() == totalCount) || (worryAdaptor.isEmpty()) || !(worryAdaptor.isMore())) {
+					flMore.setVisibility(View.GONE);
+				} else {
+					flMore.setVisibility(View.VISIBLE);
 				}
 			}
 		});
@@ -309,6 +314,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				worryAdaptor.initPagingIndex();
 				worryAdaptor.increasePagingIndex();
 				worryAdaptor.startProgress();
+				worryAdaptor.setMine(mine);
 				getWorryList();
 				Log.i("QuestionFragment", "mine : " + mine);
 			}

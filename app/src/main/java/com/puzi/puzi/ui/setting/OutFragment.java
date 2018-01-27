@@ -2,24 +2,35 @@ package com.puzi.puzi.ui.setting;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+import android.widget.Toast;
+
 import com.puzi.puzi.R;
 import com.puzi.puzi.biz.user.UserVO;
 import com.puzi.puzi.cache.Preference;
+import com.puzi.puzi.network.CustomCallback;
+import com.puzi.puzi.network.ResponseVO;
+import com.puzi.puzi.network.RetrofitManager;
+import com.puzi.puzi.network.service.SettingNetworkService;
 import com.puzi.puzi.ui.IntroActivity;
+import com.puzi.puzi.ui.ProgressDialog;
 import com.puzi.puzi.ui.base.BaseFragment;
 import com.puzi.puzi.ui.base.BaseFragmentActivity;
 import com.puzi.puzi.ui.common.DialogButtonCallback;
 import com.puzi.puzi.ui.common.OneButtonDialog;
+import com.puzi.puzi.utils.PuziUtils;
 import com.puzi.puzi.utils.TextUtils;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+import retrofit2.Call;
 
 /**
  * Created by 170605 on 2017-10-27.
@@ -81,36 +92,36 @@ public class OutFragment extends BaseFragment {
 
 				Preference.removeProperty(getActivity(), "tokenFCM");
 
-//				String token = Preference.getProperty(getActivity(), "token");
-//				ProgressDialog.show(getActivity());
-//
-//				final SettingNetworkService settingNetworkService = RetrofitManager.create(SettingNetworkService.class);
-//
-//				Call<ResponseVO> callList = settingNetworkService.out(token);
-//				callList.enqueue(new CustomCallback(getActivity()) {
-//					@Override
-//					public void onSuccess(ResponseVO responseVO) {
-//						Log.i(PuziUtils.INFO, "ask responseVO : " + responseVO.toString());
-//						ProgressDialog.dismiss();
-//
-//						switch(responseVO.getResultType()){
-//							case SUCCESS:
-//								ProgressDialog.dismiss();
-//								Intent intent = new Intent(getActivity(), IntroActivity.class);
-//								getActivity().startActivity(intent);
-//								break;
-//
-//							case NO_AUTH:
-//								PuziUtils.renewalToken(getActivity());
-//								break;
-//
-//							default:
-//								Log.i("INFO", "out failed.");
-//								Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
-//								break;
-//						}
-//					}
-//				});
+				String token = Preference.getProperty(getActivity(), "token");
+				ProgressDialog.show(getActivity());
+
+				final SettingNetworkService settingNetworkService = RetrofitManager.create(SettingNetworkService.class);
+
+				Call<ResponseVO> callList = settingNetworkService.out(token);
+				callList.enqueue(new CustomCallback(getActivity()) {
+					@Override
+					public void onSuccess(ResponseVO responseVO) {
+						Log.i(PuziUtils.INFO, "ask responseVO : " + responseVO.toString());
+						ProgressDialog.dismiss();
+
+						switch(responseVO.getResultType()){
+							case SUCCESS:
+								ProgressDialog.dismiss();
+								Intent intent = new Intent(getActivity(), IntroActivity.class);
+								getActivity().startActivity(intent);
+								break;
+
+							case NO_AUTH:
+								PuziUtils.renewalToken(getActivity());
+								break;
+
+							default:
+								Log.i("INFO", "out failed.");
+								Toast.makeText(getContext(), responseVO.getResultMsg(), Toast.LENGTH_SHORT).show();
+								break;
+						}
+					}
+				});
 			}
 		});
 	}
