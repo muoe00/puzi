@@ -14,7 +14,7 @@
     android:layout_width="320dp"
     android:layout_height="wrap_content">
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="medium"
       android:gravity="left"
       android:layout_marginLeft="20dp"
@@ -28,7 +28,7 @@
       android:lineSpacingExtra="-1sp"
       android:text="새로운 광고가 도착했습니다."/>
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       android:padding="5dp"
       app:fontWeight="light"
       android:gravity="left"
@@ -51,7 +51,7 @@
       android:layout_gravity="center"
       android:orientation="horizontal">
 
-      <com.puzi.puzi.ui.customview.NotoButton
+      <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="medium"
         android:id="@+id/btn_dialog_close"
         android:layout_width="0dp"
@@ -64,7 +64,7 @@
         android:textSize="14sp"
         android:textColor="#ff2470"/>
 
-      <com.puzi.puzi.ui.customview.NotoButton
+      <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="medium"
         android:id="@+id/btn_dialog_confirm"
         android:layout_width="0dp"

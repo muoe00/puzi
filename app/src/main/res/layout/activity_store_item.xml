@@ -23,7 +23,7 @@
       android:src="@drawable/back_chevron"
       android:id="@+id/btn_store_item_back"/>
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="medium"
       android:id="@+id/tv_store_item_title"
       android:gravity="center"
@@ -53,7 +53,7 @@
       android:src="@drawable/button_puzi"
       android:id="@+id/iv_store_item_logo"/>
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="medium"
       android:text="TextView"
       android:layout_marginStart="8dp"

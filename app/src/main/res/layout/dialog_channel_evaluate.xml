@@ -12,7 +12,7 @@
     android:background="#ffffff"
     android:orientation="vertical">
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="medium"
       android:id="@+id/dialog_edittext_tvTitle"
       android:layout_width="match_parent"
@@ -82,9 +82,9 @@
 
     </LinearLayout>
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="medium"
-      android:id="@+id/dialog_edittext_tvTitle"
+      android:id="@+id/dialog_edittext_tvComment"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:gravity="center"
@@ -95,7 +95,7 @@
       android:lineSpacingExtra="-1sp"
       android:text="평가입력"/>
 
-    <com.puzi.puzi.ui.customview.NotoEditText
+    <kr.puzi.puzi.ui.customview.NotoEditText
       app:fontWeight="regular"
       android:id="@+id/et_dialog_channel_evaluate_comment"
       android:layout_width="match_parent"
@@ -115,7 +115,7 @@
       android:inputType="textMultiLine">
 
       <requestFocus/>
-    </com.puzi.puzi.ui.customview.NotoEditText>
+    </kr.puzi.puzi.ui.customview.NotoEditText>
 
     <LinearLayout
       android:layout_width="match_parent"
@@ -125,7 +125,7 @@
       android:layout_gravity="center"
       android:orientation="horizontal">
 
-      <com.puzi.puzi.ui.customview.NotoButton
+      <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="regular"
         android:id="@+id/dialog_edittext_btnCancel"
         android:layout_width="0dp"
@@ -137,7 +137,7 @@
         android:text="취소"
         android:textColor="@color/colorPuzi"/>
 
-      <com.puzi.puzi.ui.customview.NotoButton
+      <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="regular"
         android:id="@+id/btn_dialog_channel_evaluate_confirm"
         android:layout_width="0dp"

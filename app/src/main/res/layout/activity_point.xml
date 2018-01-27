@@ -22,7 +22,7 @@
       android:src="@drawable/back"
       android:id="@+id/ibtn_back_point"/>
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="regular"
       android:text="적립금"
       android:textColor="#333333"
@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="regular"
           android:id="@+id/tv_point_user_name"
           android:text="Puzi"
@@ -68,7 +68,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="regular"
           android:text="님은"
           android:textSize="15sp"
@@ -83,7 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="bold"
           android:id="@+id/tv_point_user_level"
           android:text="VVIP"
@@ -92,7 +92,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="regular"
           android:text="등급 입니다."
           android:textSize="15sp"
@@ -111,7 +111,7 @@
           android:layout_width="wrap_content"
           android:layout_height="match_parent">
 
-          <com.puzi.puzi.ui.customview.RobotoTextView
+          <kr.puzi.puzi.ui.customview.RobotoTextView
             app:fontWeight="regular"
             android:gravity="center_vertical"
             android:layout_marginRight="2.6dp"
@@ -134,7 +134,7 @@
             android:paddingBottom="15.85dp"
             android:id="@+id/iv_todaypoint"/>
 
-          <com.puzi.puzi.ui.customview.RobotoTextView
+          <kr.puzi.puzi.ui.customview.RobotoTextView
             app:fontWeight="regular"
             android:layout_marginLeft="2.2dp"
             android:gravity="center"
@@ -180,7 +180,7 @@
       android:layout_weight="1"
       android:orientation="vertical">
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="regular"
         android:text="적립금"
         android:textColor="@color/colorPuzi"
@@ -211,7 +211,7 @@
       android:layout_weight="1"
       android:orientation="vertical">
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="regular"
         android:text="등급"
         android:textColor="#6D6D6D"

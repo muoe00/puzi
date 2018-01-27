@@ -24,7 +24,7 @@
     android:layout_width="match_parent"
     android:layout_height="0dp"/>
 
-  <com.puzi.puzi.ui.customview.NotoButton
+  <kr.puzi.puzi.ui.customview.NotoButton
     app:fontWeight="medium"
     android:text="이메일로 회원가입"
     android:textColor="#ffffff"
@@ -58,7 +58,7 @@
         android:layout_width="18dp"
         android:layout_height="16dp"/>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="medium"
         android:text="카카오 계정으로 로그인"
         android:textColor="#3f211e"
@@ -89,7 +89,7 @@
     android:gravity="center">
   </LinearLayout>
 
-  <com.puzi.puzi.ui.customview.NotoButton
+  <kr.puzi.puzi.ui.customview.NotoButton
     app:fontWeight="medium"
     android:text="로그인"
     android:id="@+id/btn_login"

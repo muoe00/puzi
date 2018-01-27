@@ -19,7 +19,7 @@
       android:src="@drawable/back"
       android:id="@+id/ibtn_back_store"/>
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="medium"
       android:textSize="15sp"
       android:gravity="center"

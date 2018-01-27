@@ -12,7 +12,7 @@
     android:background="@drawable/bg_store_challenge_fail"
     android:orientation="vertical">
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="medium"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content">
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="demilight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
         android:lineSpacingExtra="-1sp"
         android:text="응모에 "/>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
         android:lineSpacingExtra="-1sp"
         android:text="당첨"/>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="demilight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
       android:layout_gravity="center"
       android:orientation="horizontal">
 
-      <com.puzi.puzi.ui.customview.NotoButton
+      <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="medium"
         android:id="@+id/btn_dialog_close"
         android:layout_width="0dp"
@@ -92,7 +92,7 @@
         android:textSize="16sp"
         android:textColor="#ff5146"/>
 
-      <com.puzi.puzi.ui.customview.NotoButton
+      <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="medium"
         android:id="@+id/btn_dialog_move"
         android:layout_width="0dp"

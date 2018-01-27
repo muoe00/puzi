@@ -23,7 +23,7 @@
         android:src="@drawable/back"
         android:id="@+id/ibtn_channel_editors_page_back"/>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="demilight"
         android:text="title"
         android:layout_width="0dp"

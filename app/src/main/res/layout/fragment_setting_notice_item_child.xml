@@ -13,7 +13,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="regular"
       android:textSize="16sp"
       android:textColor="#6d6d6d"

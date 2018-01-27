@@ -25,7 +25,7 @@
         android:layout_height="43dp"
         android:background="#efefef">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:layout_marginTop="18dp"
@@ -49,7 +49,7 @@
         android:layout_height="53dp"
         android:background="@color/colorWhite">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:text="계정 설정"
@@ -92,7 +92,7 @@
         android:layout_height="53dp"
         android:background="@color/colorWhite">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:text="관심사 설정"
@@ -135,7 +135,7 @@
         android:layout_height="53dp"
         android:background="@color/colorWhite">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:text="알람시간 제한 설정"
@@ -177,7 +177,7 @@
         android:layout_height="53dp"
         android:background="@color/colorWhite">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:text="수신거부 관리"
@@ -219,7 +219,7 @@
         android:layout_height="43dp"
         android:background="#efefef">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:layout_marginTop="18dp"
@@ -243,7 +243,7 @@
         android:layout_width="match_parent"
         android:layout_height="53dp">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:text="공지사항"
@@ -284,7 +284,7 @@
         android:layout_height="53dp"
         android:background="@color/colorWhite">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:text="고객센터"
@@ -327,7 +327,7 @@
         android:layout_height="53dp"
         android:background="@color/colorWhite">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:text="버전정보"
@@ -344,7 +344,7 @@
           android:layout_width="0dp"
           android:layout_height="match_parent"/>
 
-        <com.puzi.puzi.ui.customview.NotoButton
+        <kr.puzi.puzi.ui.customview.NotoButton
           android:id="@+id/btn_setting_version"
           android:visibility="gone"
           android:gravity="center"
@@ -358,7 +358,7 @@
           android:layout_width="55dp"
           android:layout_height="22dp"/>
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="demilight"
           android:layout_marginRight="16dp"
           android:text="v1.0.0"

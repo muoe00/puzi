@@ -12,7 +12,7 @@
     android:layout_height="100dp"
     android:weightSum="1">
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="regular"
       android:layout_marginTop="11dp"
       android:layout_gravity="center"
@@ -35,7 +35,7 @@
         android:src="@drawable/welcome_icon"
         android:id="@+id/iv_out_level"/>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="medium"
         android:gravity="center"
         android:textSize="32sp"
@@ -70,7 +70,7 @@
       android:layout_width="80dp"
       android:layout_height="80dp"/>
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="regular"
       android:layout_marginTop="13dp"
       android:text="푸지 앱 탈퇴하시면 고객님의\n앱 이용내역(포인트 포함)이"
@@ -80,7 +80,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="regular"
       android:text="모두 삭제됩니다"
       android:textSize="20sp"
@@ -89,7 +89,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
 
-    <com.puzi.puzi.ui.customview.NotoButton
+    <kr.puzi.puzi.ui.customview.NotoButton
       app:fontWeight="medium"
       android:text="푸지 탈퇴하기"
       android:textSize="16sp"

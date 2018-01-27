@@ -24,7 +24,7 @@
       android:layout_height="match_parent"
       android:orientation="vertical">
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="demilight"
         android:textSize="30sp"
           android:textColor="@color/colorWhite"
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="regular"
           android:text="+"
           android:textSize="24sp"
@@ -52,7 +52,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="regular"
           android:id="@+id/tv_answer_plus_point"
           android:text=""
@@ -61,7 +61,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="regular"
           android:text="P"
           android:textSize="24sp"

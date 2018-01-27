@@ -19,7 +19,7 @@
       android:src="@drawable/back_chevron"
       android:id="@+id/ibtn_back"/>
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="regular"
       android:text="친구 추천"
       android:textColor="#333333"
@@ -68,7 +68,7 @@
           android:layout_width="296dp"
           android:layout_height="wrap_content">
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="demilight"
             android:text="친구에게 푸지를 추천하고"
             android:textSize="24sp"
@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.puzi.puzi.ui.customview.NotoTextView
+            <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="medium"
               android:text="100P"
               android:textSize="24sp"
@@ -90,7 +90,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"/>
 
-            <com.puzi.puzi.ui.customview.NotoTextView
+            <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="demilight"
               android:text="를 받으세요!"
               android:textSize="24sp"
@@ -108,7 +108,7 @@
             android:layout_width="125dp"
             android:layout_height="100dp"/>
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="regular"
             android:gravity="center"
             android:text="추천 아이디"
@@ -119,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="medium"
             android:id="@+id/tv_recommend_id"
             android:textSize="28sp"
@@ -143,7 +143,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.puzi.puzi.ui.customview.NotoTextView
+            <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="demilight"
               android:text="친구 회원 가입시 "
               android:textSize="16sp"
@@ -151,7 +151,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"/>
 
-            <com.puzi.puzi.ui.customview.NotoTextView
+            <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="medium"
               android:text="100P"
               android:textSize="16sp"
@@ -159,7 +159,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"/>
 
-            <com.puzi.puzi.ui.customview.NotoTextView
+            <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="demilight"
               android:text=" 추가 적립 가능합니다"
               android:textSize="16sp"

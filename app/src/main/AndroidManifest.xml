@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.puzi.puzi">
+          package="kr.puzi.puzi">
 
   <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
   <uses-permission android:name="android.Manifest.permission.READ_PHONE_STATE" />
@@ -10,7 +10,7 @@
   <uses-permission android:name="android.permission.VIBRATE" />
 
   <application
-    android:name=".PuziApplication"
+    android:name="kr.puzi.puzi.PuziApplication"
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
@@ -20,7 +20,7 @@
 
     <activity
       android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-      android:name=".ui.LaunchActivity"
+      android:name="kr.puzi.puzi.ui.LaunchActivity"
       android:label="@string/app_name">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -28,15 +28,15 @@
       </intent-filter>
     </activity>
     <activity
-      android:name=".ui.IntroActivity"
+      android:name="kr.puzi.puzi.ui.IntroActivity"
       android:label="@string/app_name"/>
     <activity
-      android:name=".ui.MainActivity"
+      android:name="kr.puzi.puzi.ui.MainActivity"
       android:windowSoftInputMode="adjustPan"/>
     <activity
-      android:name=".ui.channel.ChannelDetailActivity"
+      android:name="kr.puzi.puzi.ui.channel.ChannelDetailActivity"
       android:windowSoftInputMode="stateAlwaysHidden"/>
-    <activity android:name=".ui.user.RecommendActivity">
+    <activity android:name="kr.puzi.puzi.ui.user.RecommendActivity">
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
         <data android:host="@string/kakaolink_host"
@@ -47,45 +47,44 @@
         <!--</data>-->
       </intent-filter>
     </activity>
-    <activity android:name=".ui.today.AnswerActivity"/>
-    <activity android:name=".ui.user.PointActivity"/>
-    <activity android:name=".ui.setting.SettingDetailActivity"/>
-    <activity android:name=".ui.setting.SettingDetailActivity"/>
-    <activity android:name=".ui.advertisement.AdvertisementDetailActivity"
+    <activity android:name="kr.puzi.puzi.ui.today.AnswerActivity"/>
+    <activity android:name="kr.puzi.puzi.ui.user.PointActivity"/>
+    <activity android:name="kr.puzi.puzi.ui.setting.SettingDetailActivity"/>
+    <activity android:name="kr.puzi.puzi.ui.advertisement.AdvertisementDetailActivity"
       android:windowSoftInputMode="stateAlwaysHidden">
     </activity>
-    <activity android:name=".ui.today.QuestionActivity"/>
-    <activity android:name=".ui.store.withdraw.WithdrawActivity"/>
-    <activity android:name=".ui.store.coupon.CouponActivity"/>
-    <activity android:name=".ui.store.item.StoreItemActivity"/>
-    <activity android:name=".ui.store.puzi.StoreItemActivity"/>
-    <activity android:name=".ui.store.puzi.challenge.StoreChallengeActivity"/>
-    <activity android:name=".ui.store.puzi.challenge.StoreChallengeDetailActivity"/>
-    <activity android:name=".ui.store.puzi.saving.StoreSavingActivity"/>
-    <activity android:name=".ui.store.puzi.saving.StoreSavingDetailActivity"/>
-    <activity android:name=".ui.store.puzi.saving.StoreSavingMineActivity"/>
-    <activity android:name=".ui.store.purchase.PurchaseItemActivity"/>
-    <activity android:name=".ui.channel.editorspage.EditorsPageActivity"/>
-    <activity android:name=".ui.channel.ChannelFilterActivity"/>
-    <activity android:name=".ui.myworry.MyWorryWriteActivity"/>
-    <activity android:name=".ui.user.EventWebViewActivity"/>
+    <activity android:name="kr.puzi.puzi.ui.today.QuestionActivity"/>
+    <activity android:name="kr.puzi.puzi.ui.store.withdraw.WithdrawActivity"/>
+    <activity android:name="kr.puzi.puzi.ui.store.coupon.CouponActivity"/>
+    <activity android:name="kr.puzi.puzi.ui.store.item.StoreItemActivity"/>
+    <activity android:name="kr.puzi.puzi.ui.store.puzi.StoreItemActivity"/>
+    <activity android:name="kr.puzi.puzi.ui.store.puzi.challenge.StoreChallengeActivity"/>
+    <activity android:name="kr.puzi.puzi.ui.store.puzi.challenge.StoreChallengeDetailActivity"/>
+    <activity android:name="kr.puzi.puzi.ui.store.puzi.saving.StoreSavingActivity"/>
+    <activity android:name="kr.puzi.puzi.ui.store.puzi.saving.StoreSavingDetailActivity"/>
+    <activity android:name="kr.puzi.puzi.ui.store.puzi.saving.StoreSavingMineActivity"/>
+    <activity android:name="kr.puzi.puzi.ui.store.purchase.PurchaseItemActivity"/>
+    <activity android:name="kr.puzi.puzi.ui.channel.editorspage.EditorsPageActivity"/>
+    <activity android:name="kr.puzi.puzi.ui.channel.ChannelFilterActivity"/>
+    <activity android:name="kr.puzi.puzi.ui.myworry.MyWorryWriteActivity"/>
+    <activity android:name="kr.puzi.puzi.ui.user.EventWebViewActivity"/>
     <activity
-      android:name=".ui.fcm.ScreenOffAlertActivity"
+      android:name="kr.puzi.puzi.ui.fcm.ScreenOffAlertActivity"
       android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
       android:excludeFromRecents="true"
       android:taskAffinity="com.puzi.puzi.popup"/>
     <activity
-      android:name=".ui.fcm.ScreenOnAlertActivity"
+      android:name="kr.puzi.puzi.ui.fcm.ScreenOnAlertActivity"
       android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
       android:excludeFromRecents="true"
       android:taskAffinity="com.puzi.puzi.popup"/>
     <activity
-      android:name=".ui.company.CompanyActivity"
+      android:name="kr.puzi.puzi.ui.company.CompanyActivity"
       android:label="@string/title_activity_company">
     </activity>
 
     <service
-      android:name=".fcm.FirebaseMessagingService">
+      android:name="kr.puzi.puzi.fcm.FirebaseMessagingService">
       <intent-filter>
         <action android:name="com.google.firebase.MESSAGING_EVENT"/>
       </intent-filter>
@@ -93,14 +92,14 @@
     </service>
 
     <service
-      android:name=".fcm.FirebaseInstanceIDService">
+      android:name="kr.puzi.puzi.fcm.FirebaseInstanceIDService">
       <intent-filter>
         <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
       </intent-filter>
     </service>
 
     <receiver
-      android:name=".fcm.PuziBroadcastReceiver"  android:exported="true">
+      android:name="kr.puzi.puzi.fcm.PuziBroadcastReceiver"  android:exported="true">
       <intent-filter android:priority="1" >
         <action android:name="com.puzi.puzi.GOT_PUSH" />
         <category android:name="com.puzi.puzi" />

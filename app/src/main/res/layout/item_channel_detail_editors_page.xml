@@ -18,7 +18,7 @@
     android:background="#00000000"
     android:id="@+id/iv_item_channel_detail_editors_page_image"/>
 
-  <com.puzi.puzi.ui.customview.NotoTextView
+  <kr.puzi.puzi.ui.customview.NotoTextView
     app:fontWeight="medium"
     android:text="title"
     android:layout_width="176dp"
@@ -31,7 +31,7 @@
     android:textColor="#35343d"
     android:id="@+id/tv_item_channel_detail_editors_page_title"/>
 
-  <com.puzi.puzi.ui.customview.NotoTextView
+  <kr.puzi.puzi.ui.customview.NotoTextView
     app:fontWeight="light"
     android:text="name"
     android:layout_width="176dp"

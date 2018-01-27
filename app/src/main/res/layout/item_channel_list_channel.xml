@@ -39,7 +39,7 @@
         android:id="@+id/ibtn_item_channel_image_1"
         android:background="#00000000"/>
 
-      <com.puzi.puzi.ui.customview.NotoButton
+      <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="regular"
         android:focusable ="false"
         android:text="title"
@@ -55,7 +55,7 @@
         android:gravity="left"
         android:id="@+id/tv_item_channel_company_name_1"/>
 
-      <com.puzi.puzi.ui.customview.NotoButton
+      <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="medium"
         android:focusable ="false"
         android:text="title\n안녕"
@@ -114,7 +114,7 @@
           android:src="@drawable/star"
           android:id="@+id/iv_item_channel_company_star_5"/>
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="demilight"
           android:layout_gravity="center_vertical"
           android:text="5.0/5.0"

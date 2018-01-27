@@ -18,7 +18,7 @@
       android:layout_marginLeft="32dp"
       android:layout_marginRight="32dp">
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="medium"
         android:layout_width="match_parent"
         android:layout_height="24dp"
@@ -28,7 +28,7 @@
         android:text="이메일"
         android:gravity="left" />
 
-      <com.puzi.puzi.ui.customview.NotoEditText
+      <kr.puzi.puzi.ui.customview.NotoEditText
         app:fontWeight="regular"
         android:background="@drawable/edittext"
         android:layout_width="match_parent"
@@ -53,7 +53,7 @@
       android:layout_marginLeft="32dp"
       android:layout_marginRight="32dp">
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="medium"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -63,7 +63,7 @@
         android:text="비밀번호"
         android:gravity="left" />
 
-      <com.puzi.puzi.ui.customview.NotoEditText
+      <kr.puzi.puzi.ui.customview.NotoEditText
         app:fontWeight="regular"
         android:background="@drawable/edittext"
         android:layout_width="match_parent"
@@ -79,7 +79,7 @@
         android:ems="15"
         android:maxLines="1"/>
 
-      <com.puzi.puzi.ui.customview.NotoEditText
+      <kr.puzi.puzi.ui.customview.NotoEditText
         app:fontWeight="regular"
         android:background="@drawable/edittext"
         android:layout_width="match_parent"
@@ -96,7 +96,7 @@
         android:ems="15"
         android:maxLines="1"/>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="regular"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -108,7 +108,7 @@
 
     </LinearLayout>
 
-    <com.puzi.puzi.ui.customview.NotoButton
+    <kr.puzi.puzi.ui.customview.NotoButton
       app:fontWeight="medium"
       android:layout_marginLeft="32dp"
       android:layout_marginRight="32dp"

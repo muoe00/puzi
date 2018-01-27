@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.puzi.puzi.ui.customview.NotoTextView
+                <kr.puzi.puzi.ui.customview.NotoTextView
                     app:fontWeight="medium"
                     android:text="나의 오늘은"
                     android:textSize="13sp"
@@ -55,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <com.puzi.puzi.ui.customview.NotoTextView
+                    <kr.puzi.puzi.ui.customview.NotoTextView
                         app:fontWeight="medium"
                         android:text="오늘의 질문이 마감되었습니다"
                         android:textSize="18sp"

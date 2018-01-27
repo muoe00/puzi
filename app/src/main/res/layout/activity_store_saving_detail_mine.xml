@@ -35,7 +35,7 @@
             android:src="@drawable/back"
             android:id="@+id/btn_store_saving_mine_back"/>
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             android:text="나의 푸지적금"
             app:fontWeight="medium"
             android:gravity="center"
@@ -78,7 +78,7 @@
               android:src="@mipmap/home"
               android:id="@+id/iv_store_saving_mine_preview"/>
 
-            <com.puzi.puzi.ui.customview.NotoTextView
+            <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="medium"
               android:text="아메리카노"
               android:layout_gravity="center_horizontal"
@@ -108,7 +108,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="bold"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="24dp"
@@ -139,7 +139,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content">
 
-              <com.puzi.puzi.ui.customview.NotoTextView
+              <kr.puzi.puzi.ui.customview.NotoTextView
                 app:fontWeight="bold"
                 android:id="@+id/tv_store_saving_mine_point_text"
                 android:textColor="#e27bf1"
@@ -148,7 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-              <com.puzi.puzi.ui.customview.NotoTextView
+              <kr.puzi.puzi.ui.customview.NotoTextView
                 app:fontWeight="regular"
                 android:id="@+id/tv_store_saving_mine_point_total_text"
                 android:textSize="13sp"
@@ -171,7 +171,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="bold"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="24dp"
@@ -202,7 +202,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content">
 
-              <com.puzi.puzi.ui.customview.NotoTextView
+              <kr.puzi.puzi.ui.customview.NotoTextView
                 app:fontWeight="bold"
                 android:id="@+id/tv_store_saving_mine_count_text"
                 android:textColor="#ac3abd"
@@ -211,7 +211,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-              <com.puzi.puzi.ui.customview.NotoTextView
+              <kr.puzi.puzi.ui.customview.NotoTextView
                 app:fontWeight="regular"
                 android:id="@+id/tv_store_saving_mine_count_total_text"
                 android:textSize="13sp"
@@ -233,7 +233,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="bold"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="24dp"
@@ -268,7 +268,7 @@
 
           </FrameLayout>
 
-          <com.puzi.puzi.ui.customview.NotoButton
+          <kr.puzi.puzi.ui.customview.NotoButton
             app:fontWeight="bold"
             android:id="@+id/btn_store_saving_mine_daily_point_update"
             android:text="변경"
@@ -293,7 +293,7 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent">
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="regular"
             android:text="- 적금금액은 매일 새벽 1시에 입금되며, 입금된 금액은 사용할 수 없습니다.\n- 하루 적금액 변경은 한번만 가능하오니 신중하게 변경해주세요.\n- 해지시 적금금액은 사용 가능합니다."
             android:textSize="13sp"
@@ -320,7 +320,7 @@
       android:layout_width="160dp"
       android:layout_height="wrap_content">
 
-      <com.puzi.puzi.ui.customview.NotoButton
+      <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="regular"
         android:id="@+id/btn_profile_channel_dropdown_block"
           android:background="@drawable/bg_store_saving"

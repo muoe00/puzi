@@ -19,7 +19,7 @@
       android:background="@null"
       android:src="@drawable/back"
       android:id="@+id/ibtn_back_serch_id"/>
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="medium"
       android:text="아이디 찾기"
       android:textColor="@color/colorBlack"
@@ -50,7 +50,7 @@
       android:layout_marginLeft="32dp"
       android:layout_marginRight="32dp">
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="demilight"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -60,7 +60,7 @@
         android:text="회원 정보에 등록된\n이메일 주소를 입력하세요"
         android:gravity="left" />
 
-      <com.puzi.puzi.ui.customview.NotoEditText
+      <kr.puzi.puzi.ui.customview.NotoEditText
         app:fontWeight="regular"
         android:background="@drawable/edittext"
         android:layout_width="match_parent"
@@ -76,7 +76,7 @@
         android:paddingTop="15dp"
         android:paddingLeft="15dp"/>
 
-      <com.puzi.puzi.ui.customview.NotoButton
+      <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="bold"
         android:layout_width="match_parent"
         android:layout_height="54dp"
@@ -97,7 +97,7 @@
       android:layout_marginLeft="32dp"
       android:layout_marginRight="32dp">
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="regular"
         android:layout_gravity="left"
         android:layout_width="wrap_content"
@@ -107,7 +107,7 @@
         android:text="아직 푸지 회원이 아닌가요?"
         android:layout_weight="1"/>
 
-      <com.puzi.puzi.ui.customview.NotoButton
+      <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="medium"
         android:gravity="right"
         android:id="@+id/btn_srch_signup"

@@ -14,7 +14,7 @@
     android:layout_gravity="center_horizontal"
     android:id="@+id/iv_item_store_brand_single"/>
 
-  <com.puzi.puzi.ui.customview.NotoTextView
+  <kr.puzi.puzi.ui.customview.NotoTextView
     app:fontWeight="regular"
     android:text="TextView"
     android:layout_width="wrap_content"

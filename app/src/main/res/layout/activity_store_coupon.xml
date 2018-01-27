@@ -20,7 +20,7 @@
       android:src="@drawable/back"
       android:id="@+id/ibtn_back_point"/>
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="regular"
       android:text="쿠폰함"
       android:textColor="#333333"
@@ -38,7 +38,7 @@
       android:layout_width="match_parent"
       android:layout_height="1dp"></LinearLayout>
   
-  <com.puzi.puzi.ui.CustomScrollView
+  <kr.puzi.puzi.ui.CustomScrollView
     android:id="@+id/sv_coupon"
     android:layout_width="match_parent" 
     android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="24dp">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="regular"
           android:id="@+id/tv_coupon_header"
           android:text="미사용 쿠폰"
@@ -105,7 +105,7 @@
         android:layout_width="match_parent"
         android:layout_height="24dp">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="regular"
           android:id="@+id/tv_used_coupon_header"
           android:text="사용 완료 쿠폰"
@@ -145,6 +145,6 @@
 
     </LinearLayout>
     
-  </com.puzi.puzi.ui.CustomScrollView>
+  </kr.puzi.puzi.ui.CustomScrollView>
   
 </LinearLayout>

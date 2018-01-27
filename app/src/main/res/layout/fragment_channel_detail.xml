@@ -49,7 +49,7 @@
           android:scaleType="centerCrop"
           android:id="@+id/ibtn_chanenl_detail_company_image"/>
 
-        <com.puzi.puzi.ui.customview.RobotoTextView
+        <kr.puzi.puzi.ui.customview.RobotoTextView
           android:text="companyName"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
           android:layout_width="86dp"
           android:layout_height="26dp">
 
-          <com.puzi.puzi.ui.customview.RobotoTextView
+          <kr.puzi.puzi.ui.customview.RobotoTextView
             android:id="@+id/tv_channel_detail_myScore"
             android:textSize="15sp"
             android:fontFamily="sans-serif"
@@ -159,7 +159,7 @@
             android:background="@drawable/button_myscore_left_back"
             android:layout_height="match_parent"/>
 
-          <com.puzi.puzi.ui.customview.NotoTextView
+          <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="regular"
             android:text="평가함"
             android:textSize="14sp"
@@ -184,7 +184,7 @@
       </LinearLayout>
 
       <!-- 코멘트 -->
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="regular"
         android:text="comment"
         android:paddingLeft="16dp"
@@ -203,7 +203,7 @@
         android:layout_height="10dp"/>
 
       <!-- 에디터스페이지 가로스크롤 -->
-      <com.puzi.puzi.ui.HorizontalListView
+      <kr.puzi.puzi.ui.HorizontalListView
           android:overScrollMode="never"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:widget="http://schemas.android.com/apk/res-auto"
@@ -222,7 +222,7 @@
         android:layout_height="10dp"/>
 
       <!-- 댓글 타이틀 -->
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="bold"
         android:layout_marginTop="20dp"
         android:text="댓글"
@@ -280,7 +280,7 @@
       android:background="#ffffff"
       android:layout_height="wrap_content">
 
-      <com.puzi.puzi.ui.customview.NotoEditText
+      <kr.puzi.puzi.ui.customview.NotoEditText
         app:fontWeight="regular"
         android:layout_weight="1"
         android:layout_width="0dp"
@@ -301,7 +301,7 @@
         android:id="@+id/et_channel_detail_write_reply"
         android:hint="의견을 입력하세요"/>
 
-      <com.puzi.puzi.ui.customview.NotoButton
+      <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="medium"
         android:text="게시"
         android:paddingLeft="17dp"

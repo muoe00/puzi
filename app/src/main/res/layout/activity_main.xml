@@ -14,7 +14,7 @@
     android:layout_width="match_parent"
     android:layout_height="54dp">
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="regular"
       android:gravity="center"
       android:text="설정"
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
-        <com.puzi.puzi.ui.customview.RobotoTextView
+        <kr.puzi.puzi.ui.customview.RobotoTextView
           android:layout_marginLeft="16dp"
           android:gravity="center_vertical"
           android:layout_marginRight="2.6dp"
@@ -64,7 +64,7 @@
           android:paddingBottom="15.85dp"
           android:id="@+id/iv_todaypoint"/>
 
-        <com.puzi.puzi.ui.customview.RobotoTextView
+        <kr.puzi.puzi.ui.customview.RobotoTextView
           android:layout_marginLeft="2.2dp"
           android:gravity="center"
           android:layout_gravity="center_vertical"
@@ -108,7 +108,7 @@
           android:layout_width="19dp"
           android:layout_height="18dp"/>
 
-        <com.puzi.puzi.ui.customview.RobotoTextView
+        <kr.puzi.puzi.ui.customview.RobotoTextView
           android:id="@+id/tv_main_saving"
           android:layout_gravity="center_vertical"
           android:textSize="12sp"
@@ -150,12 +150,12 @@
     android:background="#dadada"
     android:layout_width="match_parent" android:layout_height="1dp"/>
 
-  <com.puzi.puzi.ui.CustomViewPager
+  <kr.puzi.puzi.ui.CustomViewPager
     android:id="@+id/vp_main"
     android:layout_weight="1"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-  </com.puzi.puzi.ui.CustomViewPager>
+  </kr.puzi.puzi.ui.CustomViewPager>
 
   <LinearLayout
     android:id="@+id/intro_fragment_line"

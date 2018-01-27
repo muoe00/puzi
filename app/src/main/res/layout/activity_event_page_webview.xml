@@ -23,7 +23,7 @@
         android:src="@drawable/back"
         android:id="@+id/ibtn_event_page_back"/>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="demilight"
         android:text="카카오톡 이모티콘 증정 이벤트"
         android:layout_width="0dp"

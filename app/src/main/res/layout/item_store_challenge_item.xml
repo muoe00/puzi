@@ -24,7 +24,7 @@
         android:layout_width="20dp"
         android:layout_height="20dp"/>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         android:text="상호명"
         android:id="@+id/tv_store_challenge_logo_name"
         app:fontWeight="medium"
@@ -35,7 +35,7 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"/>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         android:text="1000명"
         android:id="@+id/tv_store_challenge_count"
         app:fontWeight="bold"
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-      <com.puzi.puzi.ui.customview.NotoTextView
+      <kr.puzi.puzi.ui.customview.NotoTextView
         android:text="참여중"
         app:fontWeight="medium"
         android:textSize="8sp"
@@ -67,7 +67,7 @@
       android:src="@mipmap/home"
       android:id="@+id/iv_store_challenge_item"/>
 
-    <com.puzi.puzi.ui.customview.NotoTextView
+    <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="regular"
       android:text="itemName"
       android:layout_width="match_parent"
@@ -79,7 +79,7 @@
       android:textColor="#333333"
       android:id="@+id/iv_store_challenge_item_name"/>
 
-    <com.puzi.puzi.ui.customview.RobotoTextView
+    <kr.puzi.puzi.ui.customview.RobotoTextView
       android:text="price"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

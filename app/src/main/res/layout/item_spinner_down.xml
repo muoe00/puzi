@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="22dp">
 
-  <com.puzi.puzi.ui.customview.NotoTextView
+  <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="regular"
       android:gravity="center_vertical"
       android:id="@+id/tv_spinner_down"

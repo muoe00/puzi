@@ -22,7 +22,7 @@
         android:layout_height="43dp"
         android:background="#efefef">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:layout_marginTop="18dp"
@@ -45,7 +45,7 @@
         android:background="@color/colorWhite"
         android:layout_height="53dp">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:text="사용문의"
@@ -86,7 +86,7 @@
         android:layout_height="53dp"
         android:background="@color/colorWhite">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:text="광고문의"
@@ -126,7 +126,7 @@
         android:layout_height="43dp"
         android:background="#efefef">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:layout_marginTop="18dp"
@@ -149,7 +149,7 @@
         android:layout_height="53dp"
         android:background="@color/colorWhite">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:text="서비스 이용약관"
@@ -191,7 +191,7 @@
         android:layout_height="53dp"
         android:background="@color/colorWhite">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:text="개인정보 취급방침"
@@ -235,7 +235,7 @@
         android:layout_height="53dp"
         android:background="@color/colorWhite">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:text="위치기반 서비스 이용약관"
@@ -278,7 +278,7 @@
         android:layout_height="43dp"
         android:background="#efefef">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:layout_marginTop="18dp"
@@ -302,7 +302,7 @@
         android:layout_height="53dp"
         android:background="@color/colorWhite">
 
-        <com.puzi.puzi.ui.customview.NotoTextView
+        <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="medium"
           android:layout_marginLeft="16dp"
           android:text="회원탈퇴"
