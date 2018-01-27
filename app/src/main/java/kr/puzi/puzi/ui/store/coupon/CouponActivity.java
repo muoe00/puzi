@@ -27,8 +27,6 @@ import kr.puzi.puzi.ui.base.BaseFragmentActivity;
 import kr.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
-import java.util.List;
-
 /**
  * Created by muoe0 on 2017-08-06.
  */
@@ -160,21 +158,21 @@ public class CouponActivity extends BaseFragmentActivity {
 
 				usedCouponListAdapter.addList(usedCouponList);
 
-					Log.i(PuziUtils.INFO, "usedCouponListAdapter.getCount() : " + usedCouponListAdapter.getCount());
+				Log.i(PuziUtils.INFO, "usedCouponListAdapter.getCount() : " + usedCouponListAdapter.getCount());
 
-					if(usedCouponListAdapter.getCount() == responseVO.getInteger("totalCount")) {
-						more = false;
-						useMore = false;
-						lastestScrollFlag = true;
-						Log.i(PuziUtils.INFO, "lastestScrollFlag : " + lastestScrollFlag);
-					} else {
-						more = true;
-						useMore = true;
-					}
-
-					usedCouponListAdapter.notifyDataSetChanged();
-					setGridViewHeightBasedOnChildren(usedCouponListAdapter, gvUsedCoupon);
+				if(usedCouponListAdapter.getCount() == responseVO.getInteger("totalCount")) {
+					more = false;
+					useMore = false;
+					lastestScrollFlag = true;
+					Log.i(PuziUtils.INFO, "lastestScrollFlag : " + lastestScrollFlag);
+				} else {
+					more = true;
+					useMore = true;
 				}
+
+				usedCouponListAdapter.notifyDataSetChanged();
+				setGridViewHeightBasedOnChildren(usedCouponListAdapter, gvUsedCoupon);
+
 			}
 		});
 	}
