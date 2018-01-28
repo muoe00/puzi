@@ -1,4 +1,4 @@
-package kr.puzi.puzi.ui.today;
+package kr.puzi.puzi.ui.myservice.myworry;
 
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -30,6 +30,7 @@ import kr.puzi.puzi.ui.common.DialogButtonCallback;
 import kr.puzi.puzi.ui.common.OneButtonDialog;
 import kr.puzi.puzi.ui.common.PointDialog;
 import kr.puzi.puzi.ui.customview.NotoTextView;
+import kr.puzi.puzi.ui.myservice.QuestionFragment;
 import retrofit2.Call;
 
 /**
@@ -296,32 +297,56 @@ public class AnswerActivity extends BaseActivity {
         int maxCount = myWorryAnswerResultDTO.getAnswerCount();
         String context = "";
 
+        // 예외처리
+
         btnOk.setVisibility(View.GONE);
 
-        if(!isTwoAnser) {
-            index = myWorryAnswerResultDTO.getAnswerOneCount() * 100 / maxCount;
-            context = myWorryQuestionDTO.getAnswerOne() + "\n" + index + "%";
-            btnAnswer1.setText(context);
+        if(maxCount != 0) {
+            if(!isTwoAnser) {
+                index = myWorryAnswerResultDTO.getAnswerOneCount() * 100 / maxCount;
+                context = myWorryQuestionDTO.getAnswerOne() + "\n" + index + "%";
+                btnAnswer1.setText(context);
 
-            index = myWorryAnswerResultDTO.getAnswerTwoCount() * 100 / maxCount;
-            context = myWorryQuestionDTO.getAnswerTwo() + "\n" + index + "%";
-            btnAnswer2.setText(context);
+                index = myWorryAnswerResultDTO.getAnswerTwoCount() * 100 / maxCount;
+                context = myWorryQuestionDTO.getAnswerTwo() + "\n" + index + "%";
+                btnAnswer2.setText(context);
 
-            index = myWorryAnswerResultDTO.getAnswerThreeCount() * 100 / maxCount;
-            context = myWorryQuestionDTO.getAnswerThree() + "\n" + index + "%";
-            btnAnswer3.setText(context);
+                index = myWorryAnswerResultDTO.getAnswerThreeCount() * 100 / maxCount;
+                context = myWorryQuestionDTO.getAnswerThree() + "\n" + index + "%";
+                btnAnswer3.setText(context);
 
-            index = myWorryAnswerResultDTO.getAnswerFourCount() * 100 / maxCount;
-            context = myWorryQuestionDTO.getAnswerFour() + "\n" + index + "%";
-            btnAnswer4.setText(context);
+                index = myWorryAnswerResultDTO.getAnswerFourCount() * 100 / maxCount;
+                context = myWorryQuestionDTO.getAnswerFour() + "\n" + index + "%";
+                btnAnswer4.setText(context);
+            } else {
+                index = myWorryAnswerResultDTO.getAnswerOneCount() * 100 / maxCount;
+                context = myWorryQuestionDTO.getAnswerOne() + "\n" + index + "%";
+                btnA2A1.setText(context);
+
+                index = myWorryAnswerResultDTO.getAnswerTwoCount() * 100 / maxCount;
+                context = myWorryQuestionDTO.getAnswerTwo() + "\n" + index + "%";
+                btnA2A2.setText(context);
+            }
         } else {
-            index = myWorryAnswerResultDTO.getAnswerOneCount() * 100 / maxCount;
-            context = myWorryQuestionDTO.getAnswerOne() + "\n" + index + "%";
-            btnA2A1.setText(context);
+            if(!isTwoAnser) {
+                context = myWorryQuestionDTO.getAnswerOne() + "\n" + 0 + "%";
+                btnAnswer1.setText(context);
 
-            index = myWorryAnswerResultDTO.getAnswerTwoCount() * 100 / maxCount;
-            context = myWorryQuestionDTO.getAnswerTwo() + "\n" + index + "%";
-            btnA2A2.setText(context);
+                context = myWorryQuestionDTO.getAnswerTwo() + "\n" + 0 + "%";
+                btnAnswer2.setText(context);
+
+                context = myWorryQuestionDTO.getAnswerThree() + "\n" + 0 + "%";
+                btnAnswer3.setText(context);
+
+                context = myWorryQuestionDTO.getAnswerFour() + "\n" + 0 + "%";
+                btnAnswer4.setText(context);
+            } else {
+                context = myWorryQuestionDTO.getAnswerOne() + "\n" + 0 + "%";
+                btnA2A1.setText(context);
+
+                context = myWorryQuestionDTO.getAnswerTwo() + "\n" + 0 + "%";
+                btnA2A2.setText(context);
+            }
         }
     }
 

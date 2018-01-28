@@ -1,4 +1,4 @@
-package kr.puzi.puzi.ui.today;
+package kr.puzi.puzi.ui.myservice.mytoday;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,15 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import kr.puzi.puzi.biz.myservice.MyTodayQuestionVO;
-import kr.puzi.puzi.ui.customview.NotoTextView;
+import java.io.Serializable;
+import java.util.List;
 
+import kr.puzi.puzi.biz.myservice.MyTodayQuestionVO;
 import kr.puzi.puzi.biz.myservice.ViewType;
+import kr.puzi.puzi.ui.customview.NotoTextView;
+import kr.puzi.puzi.ui.myservice.QuestionFragment;
 
 public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> {
 
 	private int state = 1, hour, minute, second;
-    private MyTodayQuestionVO myTodayQuestionVO;
+    private List<MyTodayQuestionVO> myTodayQuestionVOList;
 	private Context context;
 	private RefreshCallback refreshCallback;
 
@@ -31,10 +34,8 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 		this.second = second;
 	}
 
-	public void setMyTodayQuestionVO(MyTodayQuestionVO myTodayQuestionVO) {
-		this.myTodayQuestionVO = myTodayQuestionVO;
-
-		Log.i("TodayAdapter", "myTodayQuestionVO : " + myTodayQuestionVO.toString());
+	public void setMyTodayQuestionVOList(List<MyTodayQuestionVO> myTodayQuestionVOList) {
+		this.myTodayQuestionVOList = myTodayQuestionVOList;
 	}
 
 	public void changedState(int state) {
@@ -96,13 +97,13 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 			});
 
 		} else if(state == ViewType.INIT.getIndex() || state == ViewType.BONUS.getIndex()) {
-			holder.tvPlusPoint.setText("" + myTodayQuestionVO.getSavePoint());
+			holder.tvPlusPoint.setText("" + myTodayQuestionVOList.get(QuestionFragment.count).getSavePoint());
 			holder.button.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
 					Log.i("TodayAdapter", "onClick");
 					Intent intent = new Intent(context, QuestionActivity.class);
-					intent.putExtra("questionList", myTodayQuestionVO);
+					intent.putExtra("questionList", (Serializable) myTodayQuestionVOList);
 					context.startActivity(intent);
 				}
 			});
@@ -153,7 +154,7 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 		this.refreshCallback = refreshCallback;
 	}
 
-	interface RefreshCallback {
+	public interface RefreshCallback {
 		void refresh();
 	}
 }

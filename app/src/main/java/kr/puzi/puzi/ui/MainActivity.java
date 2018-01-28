@@ -25,7 +25,7 @@ import kr.puzi.puzi.network.ResponseVO;
 import kr.puzi.puzi.network.service.UserNetworkService;
 import kr.puzi.puzi.ui.advertisement.AdvertisementFragment;
 import kr.puzi.puzi.ui.base.BaseFragmentActivity;
-import kr.puzi.puzi.ui.myworry.MyWorryWriteActivity;
+import kr.puzi.puzi.ui.myservice.myworry.MyWorryWriteActivity;
 import kr.puzi.puzi.ui.store.coupon.CouponActivity;
 import kr.puzi.puzi.ui.store.puzi.challenge.StoreChallengeDetailActivity;
 import kr.puzi.puzi.ui.store.puzi.saving.StoreChallengeCompletedDialog;

@@ -1,4 +1,4 @@
-package kr.puzi.puzi.ui.today;
+package kr.puzi.puzi.ui.myservice.myworry;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,12 +19,14 @@ import kr.puzi.puzi.ui.base.BaseFragmentActivity;
 import kr.puzi.puzi.ui.customview.NotoTextView;
 
 import butterknife.BindView;
+import kr.puzi.puzi.ui.myservice.QuestionFragment;
+import kr.puzi.puzi.ui.myservice.mytoday.CategoryAdapter;
 
 /**
  * Created by juhyun on 2018. 1. 14..
  */
 
-public class WorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
+public class MyWorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
 
     private boolean mine = false;
     private Activity activity;
@@ -32,7 +34,7 @@ public class WorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
     private CategoryAdapter categoryAdapter;
     private LinearLayoutManager manager;
 
-    public WorryAdaptor(Activity activity, int layoutResource, ListView listView, ScrollView scrollView, ListHandler listHandler, boolean moreBtn) {
+    public MyWorryAdaptor(Activity activity, int layoutResource, ListView listView, ScrollView scrollView, ListHandler listHandler, boolean moreBtn) {
         super(activity, layoutResource, listView, scrollView, listHandler, moreBtn);
 
         this.activity = activity;
@@ -88,13 +90,13 @@ public class WorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
                 list.get(i).setLikedCount(updateLike.getCount());
             }
         }
-        Log.i("WorryAdaptor", "changedState()");
+        Log.i("MyWorryAdaptor", "changedState()");
         notifyDataSetChanged();
     }
 
     @Override
     protected Holder createHolder(View v) {
-        return new WorryAdaptor.ViewHolder(v);
+        return new MyWorryAdaptor.ViewHolder(v);
     }
 
     class ViewHolder extends Holder {

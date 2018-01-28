@@ -1,4 +1,4 @@
-package kr.puzi.puzi.ui.today;
+package kr.puzi.puzi.ui.myservice.mytoday;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;

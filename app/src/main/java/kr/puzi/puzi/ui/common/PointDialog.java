@@ -7,11 +7,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import kr.puzi.puzi.R;
-import kr.puzi.puzi.ui.customview.NotoTextView;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import kr.puzi.puzi.R;
+import kr.puzi.puzi.ui.customview.NotoTextView;
 
 /**
  * Created by juhyun on 2018. 1. 23..
@@ -55,19 +56,6 @@ public class PointDialog {
             }
 
             Timer timer = new Timer();
-
-            /*timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            iv.setVisibility(View.GONE);
-                            ivS.setVisibility(View.VISIBLE);
-                        }
-                    });
-                }
-            }, 1000);*/
 
             timer.schedule(new TimerTask() {
                 @Override

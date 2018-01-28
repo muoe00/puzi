@@ -42,13 +42,12 @@ public class CouponActivity extends BaseFragmentActivity {
 	@BindView(kr.puzi.puzi.R.id.gv_coupon) GridView gvCoupon;
 	@BindView(kr.puzi.puzi.R.id.gv_used_coupon) GridView gvUsedCoupon;
 
-	private boolean more = false;
 	private boolean notUsedMore = false;
 	private boolean useMore = false;
 	private int notUsedpagingIndex = 1;
 	private int usepagingIndex = 1;
 	private boolean lastestScrollFlag = false;
-
+	private View usedEmptyView, notUsedEmptyView;
 	private CouponListAdapter couponListAdapter;
 	private UsedCouponListAdapter usedCouponListAdapter;
 
@@ -89,33 +88,31 @@ public class CouponActivity extends BaseFragmentActivity {
 				Log.i(PuziUtils.INFO, "not use history totalCount : " + responseVO.getInteger("totalCount"));
 
 				if(notUsedpagingIndex == 1 && couponList.size() == 0) {
-					// couponListAdapter.empty();
 					gvCoupon.setVisibility(View.GONE);
 					LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-					View emptyView = inflater.inflate(kr.puzi.puzi.R.layout.item_list_empty_coupon, null);
-					llNotUsed.addView(emptyView);
-					more = false;
+					if(usedEmptyView == null) {
+						notUsedEmptyView = inflater.inflate(kr.puzi.puzi.R.layout.item_list_empty_coupon, null);
+						llNotUsed.addView(notUsedEmptyView);
+					}
 					notUsedMore = false;
 					return;
 
 				} else {
 					couponListAdapter.addList(couponList);
 					if (couponListAdapter.getCount() == responseVO.getInteger("totalCount")) {
-						more = false;
 						notUsedMore = false;
 						lastestScrollFlag = true;
 						Log.i(PuziUtils.INFO, "lastestScrollFlag : " + lastestScrollFlag);
 
-						getUsedCouponList();
-
 					} else {
-						more = true;
 						notUsedMore = true;
 					}
 
 					couponListAdapter.notifyDataSetChanged();
 					setGridViewHeightBasedOnChildren(couponListAdapter, gvCoupon);
 				}
+
+				getUsedCouponList();
 
 			}
 		});
@@ -146,12 +143,12 @@ public class CouponActivity extends BaseFragmentActivity {
 				Log.i(PuziUtils.INFO, "used history totalCount : " + responseVO.getInteger("totalCount"));
 
 				if(usepagingIndex == 1 && usedCouponList.size() == 0) {
-					// usedCouponListAdapter.empty();
 					gvUsedCoupon.setVisibility(View.GONE);
 					LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-					View emptyView = inflater.inflate(kr.puzi.puzi.R.layout.item_list_empty_used_coupon, null);
-					llUsed.addView(emptyView);
-					more = false;
+					if(usedEmptyView == null) {
+						usedEmptyView = inflater.inflate(kr.puzi.puzi.R.layout.item_list_empty_used_coupon, null);
+						llUsed.addView(usedEmptyView);
+					}
 					useMore = false;
 					return;
 				}
@@ -161,12 +158,10 @@ public class CouponActivity extends BaseFragmentActivity {
 				Log.i(PuziUtils.INFO, "usedCouponListAdapter.getCount() : " + usedCouponListAdapter.getCount());
 
 				if(usedCouponListAdapter.getCount() == responseVO.getInteger("totalCount")) {
-					more = false;
 					useMore = false;
 					lastestScrollFlag = true;
 					Log.i(PuziUtils.INFO, "lastestScrollFlag : " + lastestScrollFlag);
 				} else {
-					more = true;
 					useMore = true;
 				}
 

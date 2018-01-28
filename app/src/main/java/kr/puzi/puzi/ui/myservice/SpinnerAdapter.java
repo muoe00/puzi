@@ -1,4 +1,4 @@
-package kr.puzi.puzi.ui.today;
+package kr.puzi.puzi.ui.myservice;
 
 import android.content.Context;
 import android.view.LayoutInflater;

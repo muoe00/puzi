@@ -47,13 +47,13 @@
         <!--</data>-->
       </intent-filter>
     </activity>
-    <activity android:name="kr.puzi.puzi.ui.today.AnswerActivity"/>
+    <activity android:name=".ui.myservice.myworry.AnswerActivity"/>
     <activity android:name="kr.puzi.puzi.ui.user.PointActivity"/>
     <activity android:name="kr.puzi.puzi.ui.setting.SettingDetailActivity"/>
     <activity android:name="kr.puzi.puzi.ui.advertisement.AdvertisementDetailActivity"
       android:windowSoftInputMode="stateAlwaysHidden">
     </activity>
-    <activity android:name="kr.puzi.puzi.ui.today.QuestionActivity"/>
+    <activity android:name=".ui.myservice.mytoday.QuestionActivity"/>
     <activity android:name="kr.puzi.puzi.ui.store.withdraw.WithdrawActivity"/>
     <activity android:name="kr.puzi.puzi.ui.store.coupon.CouponActivity"/>
     <activity android:name="kr.puzi.puzi.ui.store.item.StoreItemActivity"/>
@@ -66,7 +66,7 @@
     <activity android:name="kr.puzi.puzi.ui.store.purchase.PurchaseItemActivity"/>
     <activity android:name="kr.puzi.puzi.ui.channel.editorspage.EditorsPageActivity"/>
     <activity android:name="kr.puzi.puzi.ui.channel.ChannelFilterActivity"/>
-    <activity android:name="kr.puzi.puzi.ui.myworry.MyWorryWriteActivity"/>
+    <activity android:name=".ui.myservice.myworry.MyWorryWriteActivity"/>
     <activity android:name="kr.puzi.puzi.ui.user.EventWebViewActivity"/>
     <activity
       android:name="kr.puzi.puzi.ui.fcm.ScreenOffAlertActivity"

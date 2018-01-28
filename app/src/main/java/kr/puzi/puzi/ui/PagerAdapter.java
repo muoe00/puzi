@@ -7,7 +7,7 @@ import kr.puzi.puzi.ui.advertisement.AdvertisementFragment;
 import kr.puzi.puzi.ui.base.BaseFragment;
 import kr.puzi.puzi.ui.setting.SettingFragment;
 import kr.puzi.puzi.ui.store.StoreFragment;
-import kr.puzi.puzi.ui.today.QuestionFragment;
+import kr.puzi.puzi.ui.myservice.QuestionFragment;
 
 /**
  * Created by muoe0 on 2017-07-08.

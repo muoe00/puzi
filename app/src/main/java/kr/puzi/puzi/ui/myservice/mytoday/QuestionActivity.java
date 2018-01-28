@@ -1,4 +1,4 @@
-package kr.puzi.puzi.ui.today;
+package kr.puzi.puzi.ui.myservice.mytoday;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,6 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.myservice.MyTodayQuestionVO;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
@@ -17,14 +26,7 @@ import kr.puzi.puzi.ui.MainActivity;
 import kr.puzi.puzi.ui.base.BaseActivity;
 import kr.puzi.puzi.ui.common.PointDialog;
 import kr.puzi.puzi.ui.customview.NotoTextView;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+import kr.puzi.puzi.ui.myservice.QuestionFragment;
 import retrofit2.Call;
 
 /**
@@ -36,9 +38,10 @@ public class QuestionActivity extends BaseActivity {
     private Activity activity;
     private Unbinder unbinder;
     private boolean isSelected = false;
-    private int selectedCount = 0, savePoint;
+    private int selectedCount = 0, savePoint, size = 0;
     private String answer;
     private MyTodayQuestionVO myTodayQuestionVO = null;
+    private List<MyTodayQuestionVO> myTodayQuestionVOList = null;
 
     @BindView(kr.puzi.puzi.R.id.tv_question_q)
     NotoTextView tvQuestion;
@@ -70,7 +73,26 @@ public class QuestionActivity extends BaseActivity {
         unbinder = ButterKnife.bind(this);
         activity = this;
 
-        myTodayQuestionVO = (MyTodayQuestionVO) getIntent().getExtras().getSerializable("questionList");
+        myTodayQuestionVOList = (List<MyTodayQuestionVO>) getIntent().getExtras().getSerializable("questionList");
+        size = myTodayQuestionVOList.size();
+
+        Log.i("QuestionActivity", "onCreate size : " + size + " count : " + QuestionFragment.count);
+
+        setComponents();
+    }
+
+    public void init() {
+        isSelected = false;
+        answer = "";
+        selectedCount = 0;
+
+        Log.i("QuestionActivity", "init size : " + size + " count : " + QuestionFragment.count);
+    }
+
+    public void setComponents() {
+        myTodayQuestionVO = myTodayQuestionVOList.get(QuestionFragment.count);
+
+        Log.i("QuestionActivity", "setComponents myTodayQuestionVO : " + myTodayQuestionVO.toString());
 
         tvQuestion.setText(myTodayQuestionVO.getQuestion());
         tvPoint.setText("" + myTodayQuestionVO.getSavePoint());
@@ -80,6 +102,12 @@ public class QuestionActivity extends BaseActivity {
             llA2.setVisibility(View.VISIBLE);
             btnA2A1.setText(myTodayQuestionVO.getAnswerOne());
             btnA2A2.setText(myTodayQuestionVO.getAnswerTwo());
+            btnA2A1.setEnabled(true);
+            btnA2A2.setEnabled(true);
+            btnA2A1.setBackgroundResource(R.drawable.button_question_off);
+            btnA2A1.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
+            btnA2A2.setBackgroundResource(R.drawable.button_question_off);
+            btnA2A2.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
         } else {
             llA4.setVisibility(View.VISIBLE);
             llA2.setVisibility(View.GONE);
@@ -87,11 +115,41 @@ public class QuestionActivity extends BaseActivity {
             btnA2.setText(myTodayQuestionVO.getAnswerTwo());
             btnA3.setText(myTodayQuestionVO.getAnswerThree());
             btnA4.setText(myTodayQuestionVO.getAnswerFour());
+            btnA1.setEnabled(true);
+            btnA2.setEnabled(true);
+            btnA3.setEnabled(true);
+            btnA4.setEnabled(true);
+            btnA1.setBackgroundResource(R.drawable.button_question_off);
+            btnA1.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
+            btnA2.setBackgroundResource(R.drawable.button_question_off);
+            btnA2.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
+            btnA3.setBackgroundResource(R.drawable.button_question_off);
+            btnA3.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
+            btnA4.setBackgroundResource(R.drawable.button_question_off);
+            btnA4.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
         }
     }
 
+    @OnClick({kr.puzi.puzi.R.id.ibtn_question_a2_a1, kr.puzi.puzi.R.id.ibtn_question_a2_a2})
+    public void checkAnswer4(View view) {
+        switch (view.getId()) {
+            case kr.puzi.puzi.R.id.ibtn_question_a2_a1:
+                selectedCount = 1;
+                answer = myTodayQuestionVO.getAnswerOne();
+                checkButton(btnA2A1);
+                break;
+            case kr.puzi.puzi.R.id.ibtn_question_a2_a2:
+                selectedCount = 2;
+                answer = myTodayQuestionVO.getAnswerTwo();
+                checkButton(btnA2A2);
+                break;
+        }
+
+        setAnswer();
+    }
+
     @OnClick({kr.puzi.puzi.R.id.ibtn_question_a1, kr.puzi.puzi.R.id.ibtn_question_a2, kr.puzi.puzi.R.id.ibtn_question_a3, kr.puzi.puzi.R.id.ibtn_question_a4})
-    public void checkAnswer(View view) {
+    public void checkAnswer2(View view) {
         switch (view.getId()) {
             case kr.puzi.puzi.R.id.ibtn_question_a1:
                 selectedCount = 1;
@@ -142,7 +200,20 @@ public class QuestionActivity extends BaseActivity {
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        closeView();
+                        Log.i("QuestionActivity", "setAnswer size : " + size + " count : " + QuestionFragment.count);
+                        if((size == 0) || (QuestionFragment.count == size - 1)) {
+                            closeView();
+                        } else {
+                            QuestionFragment.count++;
+                            init();
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    setComponents();
+                                }
+                            });
+                        }
                     }
                 }, 1250);
             }
@@ -151,10 +222,12 @@ public class QuestionActivity extends BaseActivity {
 
     public void setEnabled(boolean state) {
         if (selectedCount == 1) {
+            btnA2A2.setEnabled(state);
             btnA2.setEnabled(state);
             btnA3.setEnabled(state);
             btnA4.setEnabled(state);
         } else if(selectedCount == 2) {
+            btnA2A1.setEnabled(state);
             btnA1.setEnabled(state);
             btnA3.setEnabled(state);
             btnA4.setEnabled(state);

@@ -1,4 +1,4 @@
-package kr.puzi.puzi.ui.myworry;
+package kr.puzi.puzi.ui.myservice.myworry;
 
 import android.graphics.Color;
 import android.os.Bundle;

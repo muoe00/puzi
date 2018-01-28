@@ -1,4 +1,4 @@
-package kr.puzi.puzi.ui.today;
+package kr.puzi.puzi.ui.myservice;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.Spinner;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,14 +35,11 @@ import kr.puzi.puzi.network.ResponseVO;
 import kr.puzi.puzi.network.service.MyServiceNetworkService;
 import kr.puzi.puzi.ui.CustomPagingAdapter;
 import kr.puzi.puzi.ui.base.BaseFragment;
+import kr.puzi.puzi.ui.myservice.mytoday.TodayAdapter;
+import kr.puzi.puzi.ui.myservice.myworry.AnswerActivity;
+import kr.puzi.puzi.ui.myservice.myworry.MyWorryAdaptor;
 import lombok.Data;
 import retrofit2.Call;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -43,7 +52,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	private Unbinder unbinder;
 	private View view;
 	private boolean mine = false, isBonusTime = false;
-	private int state = 1, hour = 0, minute = 0, second = 0, count = 0, max = 0;
+	private int state = 1, hour = 0, minute = 0, second = 0, max = 0;
 	private OrderType orderType = OrderType.RECENTLY;
 
 	private List<MyTodayQuestionVO> myTodayQuestionList;
@@ -52,9 +61,10 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	private TodayAdapter todayAdapter;
 	private RecyclerView.LayoutManager manager;
 	private SpinnerAdapter spinnerAdapter;
-	private WorryAdaptor worryAdaptor;
+	private MyWorryAdaptor myWorryAdaptor;
 	private ScheduledExecutorService excutors = Executors.newSingleThreadScheduledExecutor();
 
+	public static int count = 0;
 	public static List<UpdateLike> needToUpdateLike = newArrayList();
 
 	@BindView(kr.puzi.puzi.R.id.lv_vote) ListView lvQuestion;
@@ -91,25 +101,27 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		};
 		todayAdapter.setRefreshCallback(refreshCallback);
 
-		Log.i("MyService", "onCreateView");
+		Log.i("QuestionFragment", "onCreateView");
 
 		return view;
 	}
 
 	@Override
 	public void onResume() {
-		Log.i("MyService", "onResume");
-		if(max > 0) {
-			setQuestion();
-		} else {
+		Log.i("QuestionFragment", "onResume");
+		Log.i("QuestionFragment", "max : " + max);
+
+		if(max == count) {
 			getQuestion();
+		} else {
+			setQuestion();
 		}
 
 		Log.i("QuestionFragment", "needToUpdateLike.size() : " + needToUpdateLike.size());
 
 		if(needToUpdateLike.size() > 0) {
 			for(UpdateLike updateLike : needToUpdateLike) {
-				worryAdaptor.changedState(updateLike);
+				myWorryAdaptor.changedState(updateLike);
 			}
 			needToUpdateLike.clear();
 		}
@@ -118,13 +130,13 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 
 	@Override
 	public void onPause() {
-		Log.i("MyService", "onPause");
+		Log.i("QuestionFragment", "onPause");
 		excutors.shutdownNow();
 		super.onPause();
 	}
 
 	public void setQuestion() {
-		if(count >= max) {
+		if(max == count) {
 			getQuestion();
 		} else {
 			if (isBonusTime) {
@@ -133,9 +145,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				state = ViewType.INIT.getIndex();
 			}
 
-			todayAdapter.setMyTodayQuestionVO(myTodayQuestionList.get(count));
-			count++;
-
+			todayAdapter.setMyTodayQuestionVOList(myTodayQuestionList);
 			todayAdapter.changedState(state);
 			rvQuestion.setAdapter(todayAdapter);
 			todayAdapter.notifyDataSetChanged();
@@ -153,7 +163,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-				Log.i("MyService", responseVO.toString());
+				Log.i("QuestionFragment", responseVO.toString());
 
 				myTodayQuestionList = responseVO.getList("myTodayQuestionDTOList", MyTodayQuestionVO.class);
 				max = myTodayQuestionList.size();
@@ -235,25 +245,25 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		service.method(new LazyRequestService.RequestMothod<MyServiceNetworkService>() {
 			@Override
 			public Call<ResponseVO> execute(MyServiceNetworkService myServiceNetworkService, String token) {
-				return myServiceNetworkService.getWorryList(token, worryAdaptor.getPagingIndex(), mine, orderType.toString());
+				return myServiceNetworkService.getWorryList(token, myWorryAdaptor.getPagingIndex(), mine, orderType.toString());
 			}
 		});
 		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-				worryAdaptor.stopProgress();
+				myWorryAdaptor.stopProgress();
 
 				myWorryQuestionList = responseVO.getList("myWorryQuestionDTOList", MyWorryQuestionDTO.class);
 				int totalCount = responseVO.getInteger("totalCount");
 
 				Log.i("QuestionFragment", responseVO.toString());
 
-				worryAdaptor.addListWithTotalCount(myWorryQuestionList, totalCount);
+				myWorryAdaptor.addListWithTotalCount(myWorryQuestionList, totalCount);
 
-				Log.i("QuestionFragment", "worryAdaptor.getCount() : " + worryAdaptor.getCount());
+				Log.i("QuestionFragment", "myWorryAdaptor.getCount() : " + myWorryAdaptor.getCount());
 				Log.i("QuestionFragment", "totalCount : " + totalCount);
 
-				if((worryAdaptor.getCount() == totalCount) || (worryAdaptor.isEmpty()) || !(worryAdaptor.isMore())) {
+				if((myWorryAdaptor.getCount() == totalCount) || (myWorryAdaptor.isEmpty()) || !(myWorryAdaptor.isMore())) {
 					flMore.setVisibility(View.GONE);
 				} else {
 					flMore.setVisibility(View.VISIBLE);
@@ -264,7 +274,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 
 	@OnClick(kr.puzi.puzi.R.id.btn_vote_more)
 	public void clickMoreVoteList() {
-		worryAdaptor.getList();
+		myWorryAdaptor.getList();
 	}
 
 	public void initComponent() {
@@ -276,16 +286,16 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		rvQuestion.setLayoutManager(manager);
 
 		// myWorry
-		worryAdaptor = new WorryAdaptor(getActivity(), kr.puzi.puzi.R.layout.item_question_vote, lvQuestion, svQuestion, new CustomPagingAdapter.ListHandler() {
+		myWorryAdaptor = new MyWorryAdaptor(getActivity(), kr.puzi.puzi.R.layout.item_question_vote, lvQuestion, svQuestion, new CustomPagingAdapter.ListHandler() {
 			@Override
 			public void getList() {
-				worryAdaptor.startProgressWithScrollDown();
+				myWorryAdaptor.startProgressWithScrollDown();
 				getWorryList();
 			}
 		}, true);
-		worryAdaptor.setMore(false);
-		worryAdaptor.getList();
-		lvQuestion.setAdapter(worryAdaptor);
+		myWorryAdaptor.setMore(false);
+		myWorryAdaptor.getList();
+		lvQuestion.setAdapter(myWorryAdaptor);
 		lvQuestion.setOnItemClickListener(this);
 
 		List<String> filterType = Arrays.asList("전체", "나의 고민");
@@ -299,11 +309,11 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				} else {
 					mine = true;
 				}
-				worryAdaptor.clean();
-				worryAdaptor.initPagingIndex();
-				worryAdaptor.increasePagingIndex();
-				worryAdaptor.startProgress();
-				worryAdaptor.setMine(mine);
+				myWorryAdaptor.clean();
+				myWorryAdaptor.initPagingIndex();
+				myWorryAdaptor.increasePagingIndex();
+				myWorryAdaptor.startProgress();
+				myWorryAdaptor.setMine(mine);
 				getWorryList();
 				Log.i("QuestionFragment", "mine : " + mine);
 			}
@@ -318,7 +328,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 		Log.i("QuestionFragment", "onItemClick");
-		MyWorryQuestionDTO myWorryQuestionDTO = worryAdaptor.getItem(i);
+		MyWorryQuestionDTO myWorryQuestionDTO = myWorryAdaptor.getItem(i);
 		Intent intent = new Intent(getActivity(), AnswerActivity.class);
 		intent.putExtra("myWorryQuestionDTO", myWorryQuestionDTO);
 		startActivity(intent);
