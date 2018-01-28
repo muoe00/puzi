@@ -141,15 +141,23 @@ public class AnswerActivity extends BaseActivity {
 
                 initAnswer();
 
-                if(!personalType.equals(PersonalType.NOT_ANSWERED)) {
-                    if(personalType.equals(PersonalType.ANSWERED)) {
-                        myWorryAnswerDTO = myWorryQuestionDetailDTO.getMyWorryAnswerDTO();
+                if(personalType.equals(PersonalType.NOT_ANSWERED)) {
+                    if (myWorryQuestionDTO.getQuestionCount() == 2) {
+                        tvA2P1.setVisibility(View.GONE);
+                        tvA2P2.setVisibility(View.GONE);
+                    } else {
+                        tvPercent1.setVisibility(View.GONE);
+                        tvPercent2.setVisibility(View.GONE);
+                        tvPercent3.setVisibility(View.GONE);
+                        tvPercent4.setVisibility(View.GONE);
+                    }
+                } else {
+                    myWorryAnswerDTO = myWorryQuestionDetailDTO.getMyWorryAnswerDTO();
 
-                        if(myWorryQuestionDTO.getQuestionCount() == 2) {
+                    if (personalType.equals(PersonalType.ANSWERED)) {
+                        if (myWorryQuestionDTO.getQuestionCount() == 2) {
 
                             isTwoAnser = true;
-
-                            Log.i("AnswerActivity", "isTwoAnser : " + isTwoAnser);
 
                             switch (myWorryAnswerDTO.getAnswerNumber()) {
                                 case 1:
@@ -162,7 +170,6 @@ public class AnswerActivity extends BaseActivity {
                                     break;
                             }
                         } else {
-
                             isTwoAnser = false;
 
                             switch (myWorryAnswerDTO.getAnswerNumber()) {
@@ -186,7 +193,6 @@ public class AnswerActivity extends BaseActivity {
                         }
                     }
 
-                }
                     myWorryAnswerResultDTO = myWorryQuestionDetailDTO.getMyWorryAnswerResultDTO();
                     btnOk.setVisibility(View.INVISIBLE);
 
@@ -201,6 +207,7 @@ public class AnswerActivity extends BaseActivity {
                         btnAnswer3.setClickable(false);
                         btnAnswer4.setClickable(false);
                     }
+                }
 
             }
         });
@@ -311,6 +318,8 @@ public class AnswerActivity extends BaseActivity {
                 btnAnswer2.setClickable(false);
                 btnAnswer3.setClickable(false);
                 btnAnswer4.setClickable(false);
+                btnA2A1.setClickable(false);
+                btnA2A2.setClickable(false);
             }
         });
     }
@@ -319,7 +328,6 @@ public class AnswerActivity extends BaseActivity {
 
         int index = 0;
         int maxCount = myWorryAnswerResultDTO.getAnswerCount();
-        String context = "";
 
         btnOk.setVisibility(View.GONE);
 
