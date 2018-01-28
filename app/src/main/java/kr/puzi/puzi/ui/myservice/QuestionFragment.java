@@ -112,6 +112,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		Log.i("QuestionFragment", "max : " + max);
 
 		if(max == count) {
+			count = 0;
 			getQuestion();
 		} else {
 			setQuestion();
@@ -173,7 +174,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 					if(excutors != null) {
 						excutors.shutdownNow();
 					}
-					count = 0;
 					setQuestion();
 
 				} else {

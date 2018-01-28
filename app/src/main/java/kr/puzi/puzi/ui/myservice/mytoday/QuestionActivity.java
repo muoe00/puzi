@@ -192,6 +192,8 @@ public class QuestionActivity extends BaseActivity {
         service.enqueue(new CustomCallback(getActivity()) {
             @Override
             public void onSuccess(ResponseVO responseVO) {
+                Log.i("QuestionActivity", "responseVO : " + responseVO.toString());
+
                 MainActivity.needToUpdateUserVO = true;
                 savePoint = responseVO.getInteger("savedPoint");
 
@@ -202,6 +204,7 @@ public class QuestionActivity extends BaseActivity {
                     public void run() {
                         Log.i("QuestionActivity", "setAnswer size : " + size + " count : " + QuestionFragment.count);
                         if((size == 0) || (QuestionFragment.count == size - 1)) {
+                            QuestionFragment.count++;
                             closeView();
                         } else {
                             QuestionFragment.count++;

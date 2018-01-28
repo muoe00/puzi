@@ -83,6 +83,30 @@ public class AnswerActivity extends BaseActivity {
     LinearLayout llA4;
     @BindView(R.id.ll_answer_a2)
     LinearLayout llA2;
+    @BindView(R.id.tv_answer_1_t)
+    NotoTextView tvAnswer1;
+    @BindView(R.id.tv_answer_2_t)
+    NotoTextView tvAnswer2;
+    @BindView(R.id.tv_answer_3_t)
+    NotoTextView tvAnswer3;
+    @BindView(R.id.tv_answer_4_t)
+    NotoTextView tvAnswer4;
+    @BindView(R.id.tv_answer_1_p)
+    NotoTextView tvPercent1;
+    @BindView(R.id.tv_answer_2_p)
+    NotoTextView tvPercent2;
+    @BindView(R.id.tv_answer_3_p)
+    NotoTextView tvPercent3;
+    @BindView(R.id.tv_answer_4_p)
+    NotoTextView tvPercent4;
+    @BindView(R.id.tv_answer_a2_t1)
+    NotoTextView tvA2T1;
+    @BindView(R.id.tv_answer_a2_t2)
+    NotoTextView tvA2T2;
+    @BindView(R.id.tv_answer_a2_p1)
+    NotoTextView tvA2P1;
+    @BindView(R.id.tv_answer_a2_p2)
+    NotoTextView tvA2P2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,15 +210,15 @@ public class AnswerActivity extends BaseActivity {
         if(myWorryQuestionDTO.getQuestionCount() == 2) {
             llA4.setVisibility(View.GONE);
             llA2.setVisibility(View.VISIBLE);
-            btnA2A1.setText(myWorryQuestionDTO.getAnswerOne());
-            btnA2A2.setText(myWorryQuestionDTO.getAnswerTwo());
+            tvA2T1.setText(myWorryQuestionDTO.getAnswerOne());
+            tvA2T2.setText(myWorryQuestionDTO.getAnswerTwo());
         } else {
             llA4.setVisibility(View.VISIBLE);
             llA2.setVisibility(View.GONE);
-            btnAnswer1.setText(myWorryQuestionDTO.getAnswerOne());
-            btnAnswer2.setText(myWorryQuestionDTO.getAnswerTwo());
-            btnAnswer3.setText(myWorryQuestionDTO.getAnswerThree());
-            btnAnswer4.setText(myWorryQuestionDTO.getAnswerFour());
+            tvAnswer1.setText(myWorryQuestionDTO.getAnswerOne());
+            tvAnswer2.setText(myWorryQuestionDTO.getAnswerTwo());
+            tvAnswer3.setText(myWorryQuestionDTO.getAnswerThree());
+            tvAnswer4.setText(myWorryQuestionDTO.getAnswerFour());
         }
     }
 
@@ -222,16 +246,16 @@ public class AnswerActivity extends BaseActivity {
     public void checkAnswer(View view) {
         switch (view.getId()) {
             case R.id.btn_answer_1:
-                checkButton(btnAnswer1, 1);
+                checkButton(btnAnswer1, tvAnswer1, 1);
                 break;
             case R.id.btn_answer_2:
-                checkButton(btnAnswer2, 2);
+                checkButton(btnAnswer2, tvAnswer2,2);
                 break;
             case R.id.btn_answer_3:
-                checkButton(btnAnswer3, 3);
+                checkButton(btnAnswer3, tvAnswer3,3);
                 break;
             case R.id.btn_answer_4:
-                checkButton(btnAnswer4, 4);
+                checkButton(btnAnswer4, tvAnswer4,4);
                 break;
         }
     }
@@ -240,10 +264,10 @@ public class AnswerActivity extends BaseActivity {
     public void checkAnswer2(View view) {
         switch (view.getId()) {
             case kr.puzi.puzi.R.id.btn_answer_a2_a1:
-                checkButton(btnA2A1, 1);
+                checkButton(btnA2A1, tvA2T1, 1);
                 break;
             case kr.puzi.puzi.R.id.btn_answer_a2_a2:
-                checkButton(btnA2A2, 2);
+                checkButton(btnA2A2, tvA2T2, 2);
                 break;
         }
     }
@@ -297,66 +321,64 @@ public class AnswerActivity extends BaseActivity {
         int maxCount = myWorryAnswerResultDTO.getAnswerCount();
         String context = "";
 
-        // 예외처리
-
         btnOk.setVisibility(View.GONE);
 
         if(maxCount != 0) {
             if(!isTwoAnser) {
                 index = myWorryAnswerResultDTO.getAnswerOneCount() * 100 / maxCount;
-                context = myWorryQuestionDTO.getAnswerOne() + "\n" + index + "%";
-                btnAnswer1.setText(context);
+                tvAnswer1.setText(myWorryQuestionDTO.getAnswerOne());
+                tvPercent1.setText(index + "%");
 
                 index = myWorryAnswerResultDTO.getAnswerTwoCount() * 100 / maxCount;
-                context = myWorryQuestionDTO.getAnswerTwo() + "\n" + index + "%";
-                btnAnswer2.setText(context);
+                tvAnswer2.setText(myWorryQuestionDTO.getAnswerTwo());
+                tvPercent2.setText(index + "%");
 
                 index = myWorryAnswerResultDTO.getAnswerThreeCount() * 100 / maxCount;
-                context = myWorryQuestionDTO.getAnswerThree() + "\n" + index + "%";
-                btnAnswer3.setText(context);
+                tvAnswer3.setText(myWorryQuestionDTO.getAnswerThree());
+                tvPercent3.setText(index + "%");
 
                 index = myWorryAnswerResultDTO.getAnswerFourCount() * 100 / maxCount;
-                context = myWorryQuestionDTO.getAnswerFour() + "\n" + index + "%";
-                btnAnswer4.setText(context);
+                tvAnswer4.setText(myWorryQuestionDTO.getAnswerFour());
+                tvPercent4.setText(index + "%");
             } else {
                 index = myWorryAnswerResultDTO.getAnswerOneCount() * 100 / maxCount;
-                context = myWorryQuestionDTO.getAnswerOne() + "\n" + index + "%";
-                btnA2A1.setText(context);
+                tvA2T1.setText(myWorryQuestionDTO.getAnswerOne());
+                tvA2P1.setText(index + "%");
 
                 index = myWorryAnswerResultDTO.getAnswerTwoCount() * 100 / maxCount;
-                context = myWorryQuestionDTO.getAnswerTwo() + "\n" + index + "%";
-                btnA2A2.setText(context);
+                tvA2T2.setText(myWorryQuestionDTO.getAnswerTwo());
+                tvA2P2.setText(index + "%");
             }
         } else {
             if(!isTwoAnser) {
-                context = myWorryQuestionDTO.getAnswerOne() + "\n" + 0 + "%";
-                btnAnswer1.setText(context);
+                tvAnswer1.setText(myWorryQuestionDTO.getAnswerOne());
+                tvPercent1.setText(0 + "%");
 
-                context = myWorryQuestionDTO.getAnswerTwo() + "\n" + 0 + "%";
-                btnAnswer2.setText(context);
+                tvAnswer2.setText(myWorryQuestionDTO.getAnswerTwo());
+                tvPercent2.setText(0 + "%");
 
-                context = myWorryQuestionDTO.getAnswerThree() + "\n" + 0 + "%";
-                btnAnswer3.setText(context);
+                tvAnswer3.setText(myWorryQuestionDTO.getAnswerThree());
+                tvPercent3.setText(0 + "%");
 
-                context = myWorryQuestionDTO.getAnswerFour() + "\n" + 0 + "%";
-                btnAnswer4.setText(context);
+                tvAnswer4.setText(myWorryQuestionDTO.getAnswerFour());
+                tvPercent4.setText(0 + "%");
             } else {
-                context = myWorryQuestionDTO.getAnswerOne() + "\n" + 0 + "%";
-                btnA2A1.setText(context);
+                tvA2T1.setText(myWorryQuestionDTO.getAnswerOne());
+                tvA2P1.setText(0 + "%");
 
-                context = myWorryQuestionDTO.getAnswerTwo() + "\n" + 0 + "%";
-                btnA2A2.setText(context);
+                tvA2T2.setText(myWorryQuestionDTO.getAnswerTwo());
+                tvA2P2.setText(0 + "%");
             }
         }
     }
 
-    public void checkButton(Button btn, int index) {
+    public void checkButton(Button btn, NotoTextView tv, int index) {
         if (isSelected) {
             if(selectedCount == index) {
                 isSelected = false;
                 selectedCount = 0;
                 btn.setBackgroundResource(R.drawable.button_question_off);
-                btn.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
             }
         } else {
             isSelected = true;
@@ -376,7 +398,7 @@ public class AnswerActivity extends BaseActivity {
                     break;
             }
             btn.setBackgroundResource(R.drawable.button_question_on);
-            btn.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+            tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
         }
     }
 
