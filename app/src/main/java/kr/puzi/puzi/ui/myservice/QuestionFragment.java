@@ -204,42 +204,42 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	}
 
 	public void setTime() {
+		Log.i("QuestionFragment", "setTime");
 		if(excutors == null || excutors.isShutdown()) {
 			excutors = Executors.newSingleThreadScheduledExecutor();
-			excutors.scheduleAtFixedRate(new Runnable() {
+		}
 
-				@Override
-				public void run() {
-					getActivity().runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							if(second <= 0) {
-								Log.i("QuestionFragment", "second : " + second);
-								if(minute > 0) {
-									Log.i("QuestionFragment", "minute : " + minute);
-									minute--;
+		excutors.scheduleAtFixedRate(new Runnable() {
+			@Override
+			public void run() {
+				getActivity().runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						if(second <= 0) {
+							Log.i("QuestionFragment", "second : " + second);
+							if(minute > 0) {
+								Log.i("QuestionFragment", "minute : " + minute);
+								minute--;
+								second = 60;
+							} else {
+								if(hour > 0) {
+									Log.i("QuestionFragment", "hour : " + hour);
+									hour--;
+									minute = 59;
 									second = 60;
 								} else {
-									if(hour > 0) {
-										Log.i("QuestionFragment", "hour : " + hour);
-										hour--;
-										minute = 59;
-										second = 60;
-									} else {
-										getQuestion();
-									}
+									getQuestion();
 								}
-							} else {
-								Log.i("QuestionFragment", "second : " + second);
 							}
-							todayAdapter.setTime(hour, minute, second);
-							todayAdapter.notifyDataSetChanged();
 						}
-					});
-					second--;
-				}
-			}, 0, 1, TimeUnit.SECONDS);
-		}
+						todayAdapter.setTime(hour, minute, second);
+						todayAdapter.notifyDataSetChanged();
+						Log.i("QuestionFragment", "second : " + second);
+					}
+				});
+				second--;
+			}
+		}, 0, 10, TimeUnit.SECONDS);
 	}
 
 	public void getWorryList() {
