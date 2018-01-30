@@ -161,7 +161,7 @@ public class AnswerActivity extends BaseActivity {
                     }
 
                 } else {
-                    btnOk.setVisibility(View.INVISIBLE);
+                    btnOk.setVisibility(View.GONE);
                     myWorryAnswerDTO = myWorryQuestionDetailDTO.getMyWorryAnswerDTO();
                     myWorryAnswerResultDTO = myWorryQuestionDetailDTO.getMyWorryAnswerResultDTO();
 
