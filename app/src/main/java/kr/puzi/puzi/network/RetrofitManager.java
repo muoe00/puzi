@@ -15,7 +15,7 @@ public class RetrofitManager {
 	public static <T> T create(Class<T> c){
 
 		return new Retrofit.Builder()
-			.baseUrl(baseURL_DEBUG)
+			.baseUrl(baseURL)
 			.addConverterFactory(GsonConverterFactory.create())
 			.build()
 			.create(c);
