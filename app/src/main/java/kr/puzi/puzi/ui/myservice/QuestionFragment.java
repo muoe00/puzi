@@ -231,9 +231,9 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 								}
 							} else {
 								Log.i("QuestionFragment", "second : " + second);
-								todayAdapter.setTime(hour, minute, second);
-								todayAdapter.notifyDataSetChanged();
 							}
+							todayAdapter.setTime(hour, minute, second);
+							todayAdapter.notifyDataSetChanged();
 						}
 					});
 					second--;
