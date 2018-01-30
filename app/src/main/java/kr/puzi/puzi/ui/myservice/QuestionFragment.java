@@ -156,6 +156,8 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	}
 
 	public void getQuestion() {
+
+
 		final LazyRequestService service = new LazyRequestService(getActivity(), MyServiceNetworkService.class);
 		service.method(new LazyRequestService.RequestMothod<MyServiceNetworkService>() {
 			@Override
@@ -201,6 +203,14 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				todayAdapter.notifyDataSetChanged();
 			}
 		});
+	}
+
+	public void startRefresh() {
+		// 흰 색 layout
+	}
+
+	public void endRefresh() {
+
 	}
 
 	public void setTime() {
