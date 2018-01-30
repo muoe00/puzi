@@ -143,6 +143,7 @@ public class AnswerActivity extends BaseActivity {
 
                 myWorryQuestionDetailDTO = responseVO.getValue("myWorryQuestionDetailDTO", MyWorryQuestionDetailDTO.class);
                 personalType = myWorryQuestionDetailDTO.getPersonalType();
+                myWorryAnswerResultDTO = myWorryQuestionDetailDTO.getMyWorryAnswerResultDTO();
 
                 initAnswer();
 
@@ -161,9 +162,8 @@ public class AnswerActivity extends BaseActivity {
                     }
 
                 } else {
-                    btnOk.setVisibility(View.INVISIBLE);
+                    btnOk.setVisibility(View.GONE);
                     myWorryAnswerDTO = myWorryQuestionDetailDTO.getMyWorryAnswerDTO();
-                    myWorryAnswerResultDTO = myWorryQuestionDetailDTO.getMyWorryAnswerResultDTO();
 
                     updateAnswerView();
 
@@ -172,30 +172,30 @@ public class AnswerActivity extends BaseActivity {
                             switch (myWorryAnswerDTO.getAnswerNumber()) {
                                 case 1:
                                     btnA2A1.setBackgroundResource(R.drawable.button_question_on);
-                                    btnA2A1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                    tvA2T1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
                                     break;
                                 case 2:
                                     btnA2A2.setBackgroundResource(R.drawable.button_question_on);
-                                    btnA2A2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                    tvA2T2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
                                     break;
                             }
                         } else {
                             switch (myWorryAnswerDTO.getAnswerNumber()) {
                                 case 1:
                                     btnAnswer1.setBackgroundResource(R.drawable.button_question_on);
-                                    btnAnswer1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                    tvAnswer1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
                                     break;
                                 case 2:
                                     btnAnswer2.setBackgroundResource(R.drawable.button_question_on);
-                                    btnAnswer2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                    tvAnswer2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
                                     break;
                                 case 3:
                                     btnAnswer3.setBackgroundResource(R.drawable.button_question_on);
-                                    btnAnswer3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                    tvAnswer3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
                                     break;
                                 case 4:
                                     btnAnswer4.setBackgroundResource(R.drawable.button_question_on);
-                                    btnAnswer4.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                    tvAnswer4.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
                                     break;
                             }
                         }
@@ -381,7 +381,7 @@ public class AnswerActivity extends BaseActivity {
         }
     }
 
-    public void checkButton(Button btn, NotoTextView tv, int index) {
+    public void checkButton(LinearLayout btn, NotoTextView tv, int index) {
         if (isSelected) {
             if(selectedCount == index) {
                 isSelected = false;

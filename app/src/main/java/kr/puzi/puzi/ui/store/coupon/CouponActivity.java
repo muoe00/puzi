@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.store.PurchaseHistoryVO;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
@@ -35,10 +36,12 @@ public class CouponActivity extends BaseFragmentActivity {
 
 	Unbinder unbinder;
 
-	@BindView(kr.puzi.puzi.R.id.sv_coupon)
-    CustomScrollView scView;
+	@BindView(kr.puzi.puzi.R.id.sv_coupon) CustomScrollView scView;
+	@BindView(R.id.ll_coupon_container) LinearLayout llView;
 	@BindView(kr.puzi.puzi.R.id.ll_used_coupon) LinearLayout llUsed;
 	@BindView(kr.puzi.puzi.R.id.ll_not_use_coupon) LinearLayout llNotUsed;
+	@BindView(R.id.ll_coupon_container_used) LinearLayout llUsedContainer;
+	@BindView(R.id.ll_coupon_container_not_used) LinearLayout llNotUsedContainer;
 	@BindView(kr.puzi.puzi.R.id.gv_coupon) GridView gvCoupon;
 	@BindView(kr.puzi.puzi.R.id.gv_used_coupon) GridView gvUsedCoupon;
 
@@ -48,7 +51,7 @@ public class CouponActivity extends BaseFragmentActivity {
 	private int notUsedpagingIndex = 1;
 	private int usepagingIndex = 1;
 	private boolean lastestScrollFlag = false;
-	private View usedEmptyView, notUsedEmptyView;
+	private View usedEmptyView, notUsedEmptyView, container;
 	private CouponListAdapter couponListAdapter;
 	private UsedCouponListAdapter usedCouponListAdapter;
 
@@ -143,12 +146,20 @@ public class CouponActivity extends BaseFragmentActivity {
 				Log.i(PuziUtils.INFO, "used history size : " + usedCouponList.size());
 				Log.i(PuziUtils.INFO, "used history totalCount : " + responseVO.getInteger("totalCount"));
 
+				LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
 				if(usepagingIndex == 1 && usedCouponList.size() == 0) {
 					if(notUsedNull) {
-						// 전체 NULL 레이아웃 뿌리기
+						llUsed.setVisibility(View.GONE);
+						llNotUsed.setVisibility(View.GONE);
+						llUsedContainer.setVisibility(View.GONE);
+						llNotUsedContainer.setVisibility(View.GONE);
+						if (container == null) {
+							container = inflater.inflate(kr.puzi.puzi.R.layout.item_list_empty_coupon, null);
+							llView.addView(container);
+						}
 					} else {
 						gvUsedCoupon.setVisibility(View.GONE);
-						LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 						if (usedEmptyView == null) {
 							usedEmptyView = inflater.inflate(kr.puzi.puzi.R.layout.item_list_empty_used_coupon, null);
 							llUsed.addView(usedEmptyView);

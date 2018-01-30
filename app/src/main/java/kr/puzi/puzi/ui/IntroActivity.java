@@ -80,6 +80,7 @@ public class IntroActivity extends BaseFragmentActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		ProgressDialog.dismiss();
 		//간편로그인시 호출 ,없으면 간편로그인시 로그인 성공화면으로 넘어가지 않음
 		if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
 			return;
@@ -92,20 +93,20 @@ public class IntroActivity extends BaseFragmentActivity {
 
 		@Override
 		public void onSessionOpened() {
-			ProgressDialog.dismiss();
-
 			Log.i("TAG" , "onSessionOpened");
 
 			UserManagement.requestMe(new MeResponseCallback() {
 
 				@Override
 				public void onFailure(ErrorResult errorResult) {
+					ProgressDialog.dismiss();
 					int ErrorCode = errorResult.getErrorCode();
 					int ClientErrorCode = -777;
 
 					if (ErrorCode == ClientErrorCode) {
 						Toast.makeText(getApplicationContext(), "카카오톡 서버의 네트워크가 불안정합니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
 					} else {
+						Toast.makeText(getApplicationContext(), "카카오톡 로그인에 실패하였습니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
 						Log.i("TAG" , "오류로 카카오로그인 실패 ");
 					}
 				}
@@ -113,11 +114,14 @@ public class IntroActivity extends BaseFragmentActivity {
 				@Override
 				public void onSessionClosed(ErrorResult errorResult) {
 					Log.i("TAG" , "onSessionClosed : " + errorResult.getErrorMessage());
+					ProgressDialog.dismiss();
 				}
 
 				@Override
 				public void onNotSignedUp() {
+					Toast.makeText(getApplicationContext(), "카카오톡에 가입되어 있지 않습니다.", Toast.LENGTH_SHORT).show();
 					Log.i("TAG" , "onNotSignedUp");
+					ProgressDialog.dismiss();
 				}
 
 				@Override
@@ -125,7 +129,7 @@ public class IntroActivity extends BaseFragmentActivity {
 					//로그인에 성공하면 로그인한 사용자의 일련번호, 닉네임, 이미지url등을 리턴합니다.
 					//사용자 ID는 보안상의 문제로 제공하지 않고 일련번호는 제공합니다.
 					Log.i("UserProfile", userProfile.toString());
-
+					ProgressDialog.dismiss();
 					checkUser();
 				}
 			});
@@ -134,11 +138,14 @@ public class IntroActivity extends BaseFragmentActivity {
 
 		@Override
 		public void onSessionOpenFailed(KakaoException e) {
+			ProgressDialog.dismiss();
 			Log.e("TAG" , "onSessionOpenFailed", e);
 		}
 	}
 
 	public void kakaoIdLogin(final String id, final String pwd) {
+		ProgressDialog.show(getActivity());
+
 		final String notifyId = Preference.getProperty(getActivity(), "tokenFCM");
 		final String phoneType = "A";
 		final String phoneKey = DeviceKeyFinder.find(getActivity());
@@ -160,6 +167,7 @@ public class IntroActivity extends BaseFragmentActivity {
 
 			@Override
 			public void onFail(ResponseVO responseVO) {
+				ProgressDialog.dismiss();
 				BasicDialog.show(getActivity(), "로그인실패", "아이디 또는 비밀번호를 확인해주세요");
 			}
 		});
@@ -179,6 +187,7 @@ public class IntroActivity extends BaseFragmentActivity {
 
 	public void checkUser() {
 		if(isCheckingKakaoTempId) {
+			ProgressDialog.dismiss();
 			return;
 		}
 		isCheckingKakaoTempId = true;
@@ -253,6 +262,7 @@ public class IntroActivity extends BaseFragmentActivity {
 	}
 
 	public void backFragment() {
+		ProgressDialog.dismiss();
 		int position = fragmentList.size() - 1;
 
 		if(fragmentList.size() == 1) {
