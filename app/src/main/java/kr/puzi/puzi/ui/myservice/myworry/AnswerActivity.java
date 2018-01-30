@@ -143,6 +143,7 @@ public class AnswerActivity extends BaseActivity {
 
                 myWorryQuestionDetailDTO = responseVO.getValue("myWorryQuestionDetailDTO", MyWorryQuestionDetailDTO.class);
                 personalType = myWorryQuestionDetailDTO.getPersonalType();
+                myWorryAnswerResultDTO = myWorryQuestionDetailDTO.getMyWorryAnswerResultDTO();
 
                 initAnswer();
 
@@ -163,7 +164,6 @@ public class AnswerActivity extends BaseActivity {
                 } else {
                     btnOk.setVisibility(View.GONE);
                     myWorryAnswerDTO = myWorryQuestionDetailDTO.getMyWorryAnswerDTO();
-                    myWorryAnswerResultDTO = myWorryQuestionDetailDTO.getMyWorryAnswerResultDTO();
 
                     updateAnswerView();
 
