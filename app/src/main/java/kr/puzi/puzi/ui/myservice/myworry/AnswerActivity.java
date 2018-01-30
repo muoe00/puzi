@@ -60,13 +60,13 @@ public class AnswerActivity extends BaseActivity {
     @BindView(R.id.ll_answer_container_2)
     LinearLayout llContainer;
     @BindView(R.id.btn_answer_1)
-    Button btnAnswer1;
+    LinearLayout btnAnswer1;
     @BindView(R.id.btn_answer_2)
-    Button btnAnswer2;
+    LinearLayout btnAnswer2;
     @BindView(R.id.btn_answer_3)
-    Button btnAnswer3;
+    LinearLayout btnAnswer3;
     @BindView(R.id.btn_answer_4)
-    Button btnAnswer4;
+    LinearLayout btnAnswer4;
     @BindView(R.id.ll_answer_like)
     LinearLayout llLike;
     @BindView(R.id.iv_answer_like)
@@ -76,9 +76,9 @@ public class AnswerActivity extends BaseActivity {
     @BindView(R.id.btn_answer_ok)
     Button btnOk;
     @BindView(R.id.btn_answer_a2_a1)
-    Button btnA2A1;
+    LinearLayout btnA2A1;
     @BindView(R.id.btn_answer_a2_a2)
-    Button btnA2A2;
+    LinearLayout btnA2A2;
     @BindView(R.id.ll_answer_a4)
     LinearLayout llA4;
     @BindView(R.id.ll_answer_a2)
@@ -116,6 +116,11 @@ public class AnswerActivity extends BaseActivity {
 
         unbinder = ButterKnife.bind(this);
         myWorryQuestionDTO = (MyWorryQuestionDTO) getIntent().getExtras().getSerializable("myWorryQuestionDTO");
+        if (myWorryQuestionDTO.getQuestionCount() == 2) {
+            isTwoAnser = true;
+        } else {
+            isTwoAnser = false;
+        }
 
         Log.i("AnswerActivity", "myWorryQuestionDTO : " + myWorryQuestionDTO.toString());
 
@@ -142,7 +147,10 @@ public class AnswerActivity extends BaseActivity {
                 initAnswer();
 
                 if(personalType.equals(PersonalType.NOT_ANSWERED)) {
-                    if (myWorryQuestionDTO.getQuestionCount() == 2) {
+                    btnOk.setVisibility(View.VISIBLE);
+                    updateAnswerView();
+
+                    if (isTwoAnser) {
                         tvA2P1.setVisibility(View.GONE);
                         tvA2P2.setVisibility(View.GONE);
                     } else {
@@ -151,14 +159,16 @@ public class AnswerActivity extends BaseActivity {
                         tvPercent3.setVisibility(View.GONE);
                         tvPercent4.setVisibility(View.GONE);
                     }
+
                 } else {
+                    btnOk.setVisibility(View.INVISIBLE);
                     myWorryAnswerDTO = myWorryQuestionDetailDTO.getMyWorryAnswerDTO();
+                    myWorryAnswerResultDTO = myWorryQuestionDetailDTO.getMyWorryAnswerResultDTO();
+
+                    updateAnswerView();
 
                     if (personalType.equals(PersonalType.ANSWERED)) {
-                        if (myWorryQuestionDTO.getQuestionCount() == 2) {
-
-                            isTwoAnser = true;
-
+                        if (isTwoAnser) {
                             switch (myWorryAnswerDTO.getAnswerNumber()) {
                                 case 1:
                                     btnA2A1.setBackgroundResource(R.drawable.button_question_on);
@@ -170,8 +180,6 @@ public class AnswerActivity extends BaseActivity {
                                     break;
                             }
                         } else {
-                            isTwoAnser = false;
-
                             switch (myWorryAnswerDTO.getAnswerNumber()) {
                                 case 1:
                                     btnAnswer1.setBackgroundResource(R.drawable.button_question_on);
@@ -193,12 +201,7 @@ public class AnswerActivity extends BaseActivity {
                         }
                     }
 
-                    myWorryAnswerResultDTO = myWorryQuestionDetailDTO.getMyWorryAnswerResultDTO();
-                    btnOk.setVisibility(View.INVISIBLE);
-
-                    updateAnswerView();
-
-                    if(myWorryQuestionDTO.getQuestionCount() == 2) {
+                    if(isTwoAnser) {
                         btnA2A1.setClickable(false);
                         btnA2A2.setClickable(false);
                     } else {
@@ -328,8 +331,6 @@ public class AnswerActivity extends BaseActivity {
 
         int index = 0;
         int maxCount = myWorryAnswerResultDTO.getAnswerCount();
-
-        btnOk.setVisibility(View.GONE);
 
         if(maxCount != 0) {
             if(!isTwoAnser) {

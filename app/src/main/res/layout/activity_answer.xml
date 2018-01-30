@@ -151,7 +151,7 @@
       <LinearLayout
           android:id="@+id/ll_answer_a2"
           android:orientation="vertical"
-          android:visibility="visible"
+          android:visibility="gone"
           android:gravity="bottom"
           android:layout_marginBottom="20dp"
           android:layout_width="match_parent"
@@ -163,86 +163,67 @@
             android:layout_width="match_parent"
             android:layout_height="163dp">
 
-          <FrameLayout
-              android:layout_weight="0.5"
-              android:layout_marginRight="9dp"
-              android:layout_width="0dp"
-              android:layout_height="match_parent">
+          <LinearLayout
+            android:background="@drawable/button_question_off"
+            android:id="@+id/btn_answer_a2_a1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="0.5"
+            android:layout_marginRight="9dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
 
-            <Button
-                android:background="@drawable/button_question_off"
-                android:id="@+id/btn_answer_a2_a1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+            <kr.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:id="@+id/tv_answer_a2_t1"
+              android:gravity="center"
+              android:textSize="24sp"
+              android:text="테스트"
+              android:textColor="@color/colorBlack"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <kr.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:id="@+id/tv_answer_a2_p1"
+              android:gravity="center"
+              android:textSize="20sp"
+              android:textColor="@color/colorPuzi"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
 
-              <kr.puzi.puzi.ui.customview.NotoTextView
-                  app:fontWeight="medium"
-                  android:id="@+id/tv_answer_a2_t1"
-                  android:gravity="center"
-                  android:textSize="24sp"
-                  android:textColor="@color/colorBlack"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
+          </LinearLayout>
 
-              <kr.puzi.puzi.ui.customview.NotoTextView
-                  app:fontWeight="medium"
-                  android:id="@+id/tv_answer_a2_p1"
-                  android:gravity="center"
-                  android:textSize="20sp"
-                  android:textColor="@color/colorPuzi"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
+          <LinearLayout
+            android:id="@+id/btn_answer_a2_a2"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="0.5"
+            android:background="@drawable/button_question_off"
+            android:layout_marginLeft="9dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
 
-            </LinearLayout>
+            <kr.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:id="@+id/tv_answer_a2_t2"
+              android:gravity="center"
+              android:text="테스트"
+              android:textSize="24sp"
+              android:textColor="@color/colorPuzi"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
 
-          </FrameLayout>
+            <kr.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:id="@+id/tv_answer_a2_p2"
+              android:gravity="center"
+              android:textSize="20sp"
+              android:textColor="@color/colorPuzi"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
 
-          <FrameLayout
-              android:layout_weight="0.5"
-              android:layout_marginLeft="9dp"
-              android:layout_width="0dp"
-              android:layout_height="match_parent">
-
-            <Button
-                android:background="@drawable/button_question_off"
-                android:textColor="@color/colorBlack"
-                android:id="@+id/btn_answer_a2_a2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-              <kr.puzi.puzi.ui.customview.NotoTextView
-                  app:fontWeight="medium"
-                  android:id="@+id/tv_answer_a2_t2"
-                  android:gravity="center"
-                  android:textSize="24sp"
-                  android:textColor="@color/colorBlack"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
-
-              <kr.puzi.puzi.ui.customview.NotoTextView
-                  app:fontWeight="medium"
-                  android:id="@+id/tv_answer_a2_p2"
-                  android:gravity="center"
-                  android:textSize="20sp"
-                  android:textColor="@color/colorPuzi"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-          </FrameLayout>
+          </LinearLayout>
 
         </LinearLayout>
 
@@ -252,7 +233,7 @@
           android:id="@+id/ll_answer_a4"
         android:orientation="vertical"
           android:gravity="center"
-          android:visibility="gone"
+          android:visibility="visible"
           android:layout_weight="0.7"
         android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
@@ -265,28 +246,20 @@
           android:layout_width="match_parent"
           android:layout_height="0dp">
 
-          <FrameLayout
-            android:layout_weight="0.5"
-            android:layout_marginRight="9dp"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-
-          <Button
-              android:background="@drawable/button_question_off"
-              android:textColor="@color/colorBlack"
-              android:id="@+id/btn_answer_1"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"/>
-
           <LinearLayout
+            android:background="@drawable/button_question_off"
+            android:id="@+id/btn_answer_1"
               android:orientation="vertical"
               android:gravity="center"
-              android:layout_width="match_parent"
+              android:layout_weight="0.5"
+              android:layout_marginRight="9dp"
+              android:layout_width="0dp"
               android:layout_height="match_parent">
 
             <kr.puzi.puzi.ui.customview.NotoTextView
                 app:fontWeight="medium"
                 android:id="@+id/tv_answer_1_t"
+                android:text="테스트"
                 android:gravity="center"
                 android:textSize="24sp"
                 android:textColor="@color/colorBlack"
@@ -304,48 +277,36 @@
 
           </LinearLayout>
 
-        </FrameLayout>
+          <LinearLayout
+            android:background="@drawable/button_question_off"
+            android:id="@+id/btn_answer_2"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="0.5"
+            android:layout_marginLeft="9dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
 
-          <FrameLayout
-              android:layout_weight="0.5"
-              android:layout_marginLeft="9dp"
-              android:layout_width="0dp"
-              android:layout_height="match_parent">
+            <kr.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:id="@+id/tv_answer_2_t"
+              android:text="테스트"
+              android:gravity="center"
+              android:textSize="24sp"
+              android:textColor="@color/colorBlack"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
 
-            <Button
-                android:background="@drawable/button_question_off"
-                android:textColor="@color/colorBlack"
-                android:id="@+id/btn_answer_2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+            <kr.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:id="@+id/tv_answer_2_p"
+              android:gravity="center"
+              android:textSize="20sp"
+              android:textColor="@color/colorPuzi"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-              <kr.puzi.puzi.ui.customview.NotoTextView
-                  app:fontWeight="medium"
-                  android:id="@+id/tv_answer_2_t"
-                  android:gravity="center"
-                  android:textSize="24sp"
-                  android:textColor="@color/colorBlack"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
-
-              <kr.puzi.puzi.ui.customview.NotoTextView
-                  app:fontWeight="medium"
-                  android:id="@+id/tv_answer_2_p"
-                  android:gravity="center"
-                  android:textSize="20sp"
-                  android:textColor="@color/colorPuzi"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-          </FrameLayout>
+          </LinearLayout>
 
         </LinearLayout>
 
@@ -356,24 +317,15 @@
           android:layout_width="match_parent"
           android:layout_height="0dp">
 
-          <FrameLayout
+            <LinearLayout
+              android:background="@drawable/button_question_off"
+              android:id="@+id/btn_answer_3"
+                android:orientation="vertical"
+                android:gravity="center"
               android:layout_weight="0.5"
               android:layout_marginRight="9dp"
               android:layout_width="0dp"
               android:layout_height="match_parent">
-
-            <Button
-                android:background="@drawable/button_question_off"
-                android:textColor="@color/colorBlack"
-                android:id="@+id/btn_answer_3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
               <kr.puzi.puzi.ui.customview.NotoTextView
                   app:fontWeight="medium"
@@ -395,25 +347,14 @@
 
             </LinearLayout>
 
-          </FrameLayout>
-
-          <FrameLayout
-              android:layout_weight="0.5"
-              android:layout_marginLeft="9dp"
-              android:layout_width="0dp"
-              android:layout_height="match_parent">
-
-            <Button
-                android:background="@drawable/button_question_off"
-                android:textColor="@color/colorBlack"
-                android:id="@+id/btn_answer_4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
             <LinearLayout
+              android:background="@drawable/button_question_off"
+              android:id="@+id/btn_answer_4"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:layout_marginLeft="9dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent">
 
               <kr.puzi.puzi.ui.customview.NotoTextView
@@ -435,8 +376,6 @@
                   android:layout_height="wrap_content" />
 
             </LinearLayout>
-
-          </FrameLayout>
 
         </LinearLayout>
       </LinearLayout>

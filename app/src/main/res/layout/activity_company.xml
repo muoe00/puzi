@@ -174,9 +174,9 @@
         <kr.puzi.puzi.ui.customview.NotoButton
           app:fontWeight="regular"
           android:id="@+id/btn_profile_channel_dropdown_block"
+          android:background="@drawable/bg_store_saving"
           android:text="차단하기"
           android:textColor="#333333"
-
           android:layout_width="match_parent"
           android:layout_height="40dp"/>
 

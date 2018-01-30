@@ -132,7 +132,9 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	@Override
 	public void onPause() {
 		Log.i("QuestionFragment", "onPause");
-		excutors.shutdownNow();
+		if(excutors != null) {
+			excutors.shutdownNow();
+		}
 		super.onPause();
 	}
 
@@ -212,11 +214,14 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 						@Override
 						public void run() {
 							if(second <= 0) {
+								Log.i("QuestionFragment", "second : " + second);
 								if(minute > 0) {
+									Log.i("QuestionFragment", "minute : " + minute);
 									minute--;
 									second = 60;
 								} else {
 									if(hour > 0) {
+										Log.i("QuestionFragment", "hour : " + hour);
 										hour--;
 										minute = 59;
 										second = 60;

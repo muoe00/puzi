@@ -42,6 +42,7 @@ public class CouponActivity extends BaseFragmentActivity {
 	@BindView(kr.puzi.puzi.R.id.gv_coupon) GridView gvCoupon;
 	@BindView(kr.puzi.puzi.R.id.gv_used_coupon) GridView gvUsedCoupon;
 
+	private boolean notUsedNull = false;
 	private boolean notUsedMore = false;
 	private boolean useMore = false;
 	private int notUsedpagingIndex = 1;
@@ -94,8 +95,8 @@ public class CouponActivity extends BaseFragmentActivity {
 						notUsedEmptyView = inflater.inflate(kr.puzi.puzi.R.layout.item_list_empty_coupon, null);
 						llNotUsed.addView(notUsedEmptyView);
 					}
+					notUsedNull = true;
 					notUsedMore = false;
-					return;
 
 				} else {
 					couponListAdapter.addList(couponList);
@@ -143,11 +144,15 @@ public class CouponActivity extends BaseFragmentActivity {
 				Log.i(PuziUtils.INFO, "used history totalCount : " + responseVO.getInteger("totalCount"));
 
 				if(usepagingIndex == 1 && usedCouponList.size() == 0) {
-					gvUsedCoupon.setVisibility(View.GONE);
-					LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-					if(usedEmptyView == null) {
-						usedEmptyView = inflater.inflate(kr.puzi.puzi.R.layout.item_list_empty_used_coupon, null);
-						llUsed.addView(usedEmptyView);
+					if(notUsedNull) {
+						// 전체 NULL 레이아웃 뿌리기
+					} else {
+						gvUsedCoupon.setVisibility(View.GONE);
+						LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+						if (usedEmptyView == null) {
+							usedEmptyView = inflater.inflate(kr.puzi.puzi.R.layout.item_list_empty_used_coupon, null);
+							llUsed.addView(usedEmptyView);
+						}
 					}
 					useMore = false;
 					return;
