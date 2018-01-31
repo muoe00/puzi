@@ -75,7 +75,7 @@
 
           <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="medium"
-            android:text="10"
+            android:text="5"
             android:textSize="18sp"
             android:textColor="@color/colorWhite"
             android:id="@+id/tv_question_minute"
@@ -85,11 +85,29 @@
           <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="medium"
               android:id="@+id/tv_question_minute_string"
-              android:text="분"
+              android:text="분 "
               android:textSize="18sp"
               android:textColor="@color/colorWhite"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"/>
+
+          <kr.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="medium"
+            android:text="10"
+            android:textSize="18sp"
+            android:textColor="@color/colorWhite"
+            android:id="@+id/tv_question_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+          <kr.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="medium"
+            android:id="@+id/tv_question_second_string"
+            android:text="초"
+            android:textSize="18sp"
+            android:textColor="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
           <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="medium"

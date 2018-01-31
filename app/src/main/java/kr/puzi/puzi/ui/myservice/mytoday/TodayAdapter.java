@@ -12,6 +12,7 @@ import android.widget.Button;
 import java.io.Serializable;
 import java.util.List;
 
+import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.myservice.MyTodayQuestionVO;
 import kr.puzi.puzi.biz.myservice.ViewType;
 import kr.puzi.puzi.ui.customview.NotoTextView;
@@ -46,7 +47,6 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 	public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
 		View view;
-
 		Log.i("TodayAdapter", "state : " + state);
 
 		if(state == ViewType.INIT.getIndex()) {
@@ -65,27 +65,24 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 		return viewHolder;
 	}
 
-
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position) {
-
 		if(state == ViewType.REMAIN.getIndex()) {
-			if(hour == 0 && minute == 0) {
+			holder.tvHour.setText("" + hour);
+			holder.tvMinute.setText("" + minute);
+			holder.tvSecond.setText("" + second);
+			holder.tvHour.setVisibility(View.VISIBLE);
+			holder.tvHourString.setVisibility(View.VISIBLE);
+			holder.tvMinute.setVisibility(View.VISIBLE);
+			holder.tvMinuteString.setVisibility(View.VISIBLE);
+
+			if(hour < 1) {
 				holder.tvHour.setVisibility(View.GONE);
 				holder.tvHourString.setVisibility(View.GONE);
-				holder.tvMinute.setText("" + second);
-				holder.tvMinuteString.setText("초");
-			} else {
-				if(hour == 0) {
-					holder.tvHour.setVisibility(View.GONE);
-					holder.tvHourString.setVisibility(View.GONE);
-				} else if(minute == 0) {
-					holder.tvMinute.setVisibility(View.GONE);
-					holder.tvMinuteString.setVisibility(View.GONE);
-				} else {
-					holder.tvHour.setText("" + hour);
-					holder.tvMinute.setText("" + minute);
-				}
+			}
+			if(minute < 1) {
+				holder.tvMinute.setVisibility(View.GONE);
+				holder.tvMinuteString.setVisibility(View.GONE);
 			}
 
 			holder.button.setOnClickListener(new View.OnClickListener() {
@@ -124,12 +121,13 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 	}
 
 	public static class ViewHolder extends RecyclerView.ViewHolder {
-
 		public NotoTextView tvPlusPoint;
 		public NotoTextView tvHour;
 		public NotoTextView tvMinute;
+		public NotoTextView tvSecond;
 		public NotoTextView tvHourString;
 		public NotoTextView tvMinuteString;
+		public NotoTextView tvSecondString;
 		public Button button;
 
 		public ViewHolder(View view, int index) {
@@ -137,16 +135,15 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 
 			if(index == ViewType.INIT.getIndex() || index == ViewType.BONUS.getIndex()) {
 				tvPlusPoint = (NotoTextView) view.findViewById(kr.puzi.puzi.R.id.tv_question_plus_point);
-				button = (Button) view.findViewById(kr.puzi.puzi.R.id.btn_rl);
 			} else if(index == ViewType.REMAIN.getIndex()) {
 				tvHour = (NotoTextView) view.findViewById(kr.puzi.puzi.R.id.tv_question_hour);
 				tvMinute = (NotoTextView) view.findViewById(kr.puzi.puzi.R.id.tv_question_minute);
+				tvSecond = (NotoTextView) view.findViewById(R.id.tv_question_second);
 				tvHourString = (NotoTextView) view.findViewById(kr.puzi.puzi.R.id.tv_question_hour_string);
 				tvMinuteString = (NotoTextView) view.findViewById(kr.puzi.puzi.R.id.tv_question_minute_string);
-				button = (Button) view.findViewById(kr.puzi.puzi.R.id.btn_rl);
-			} else {
-				button = (Button) view.findViewById(kr.puzi.puzi.R.id.btn_rl);
+				tvSecondString = (NotoTextView) view.findViewById(R.id.tv_question_second_string);
 			}
+			button = (Button) view.findViewById(kr.puzi.puzi.R.id.btn_rl);
 		}
 	}
 
