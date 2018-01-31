@@ -62,7 +62,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	private RecyclerView.LayoutManager manager;
 	private SpinnerAdapter spinnerAdapter;
 	private MyWorryAdaptor myWorryAdaptor;
-	private ScheduledExecutorService excutors = Executors.newSingleThreadScheduledExecutor();
+	private ScheduledExecutorService excutors;
 
 	public static int count = 0;
 	public static List<UpdateLike> needToUpdateLike = newArrayList();
@@ -156,8 +156,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	}
 
 	public void getQuestion() {
-
-
 		final LazyRequestService service = new LazyRequestService(getActivity(), MyServiceNetworkService.class);
 		service.method(new LazyRequestService.RequestMothod<MyServiceNetworkService>() {
 			@Override
@@ -205,55 +203,45 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		});
 	}
 
-	public void startRefresh() {
-		// 흰 색 layout
-	}
-
-	public void endRefresh() {
-
-	}
-
 	public void setTime() {
 		Log.i("QuestionFragment", "setTime");
 		if(excutors == null || excutors.isShutdown()) {
 			excutors = Executors.newSingleThreadScheduledExecutor();
-		}
-
-		excutors.scheduleAtFixedRate(new Runnable() {
-			@Override
-			public void run() {
-				getActivity().runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						if(second <= 0) {
+			excutors.scheduleAtFixedRate(new Runnable() {
+				@Override
+				public void run() {
+					getActivity().runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							second--;
 							Log.i("QuestionFragment", "second : " + second);
-							if(minute > 0) {
-								Log.i("QuestionFragment", "minute : " + minute);
-								minute--;
-								second = 60;
-							} else {
-								if(hour > 0) {
-									Log.i("QuestionFragment", "hour : " + hour);
-									hour--;
-									minute = 59;
+							if (second <= 0) {
+								Log.i("QuestionFragment", "second : " + second);
+								if (minute > 0) {
+									Log.i("QuestionFragment", "minute : " + minute);
+									minute--;
 									second = 60;
 								} else {
-									getQuestion();
+									if (hour > 0) {
+										Log.i("QuestionFragment", "hour : " + hour);
+										hour--;
+										minute = 59;
+										second = 60;
+									} else {
+										getQuestion();
+									}
 								}
 							}
+							todayAdapter.setTime(hour, minute, second);
+							todayAdapter.notifyDataSetChanged();
 						}
-						todayAdapter.setTime(hour, minute, second);
-						todayAdapter.notifyDataSetChanged();
-						Log.i("QuestionFragment", "second : " + second);
-					}
-				});
-				second--;
-			}
-		}, 0, 10, TimeUnit.SECONDS);
+					});
+				}
+			}, 0, 1, TimeUnit.SECONDS);
+		}
 	}
 
 	public void getWorryList() {
-
 		orderType = OrderType.getRandomType();
 
 		LazyRequestService service = new LazyRequestService(getActivity(), MyServiceNetworkService.class);

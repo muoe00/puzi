@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
+
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
@@ -18,6 +19,9 @@ import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
+
+import java.security.MessageDigest;
+import java.util.ArrayList;
 
 import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
@@ -31,9 +35,6 @@ import kr.puzi.puzi.ui.intro.LoginFragment;
 import kr.puzi.puzi.ui.intro.SignupInfoFragment;
 import kr.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
-
-import java.security.MessageDigest;
-import java.util.ArrayList;
 
 import static kr.puzi.puzi.utils.PuziUtils.getDevicesUUID;
 
@@ -75,7 +76,7 @@ public class IntroActivity extends BaseFragmentActivity {
 		mKakaocallback = new SessionCallback();
 		com.kakao.auth.Session.getCurrentSession().addCallback(mKakaocallback);
 		com.kakao.auth.Session.getCurrentSession().checkAndImplicitOpen();
-		com.kakao.auth.Session.getCurrentSession().open(AuthType.KAKAO_LOGIN_ALL, IntroActivity.this);
+		com.kakao.auth.Session.getCurrentSession().open(AuthType.KAKAO_TALK_EXCLUDE_NATIVE_LOGIN, IntroActivity.this);
 	}
 
 	@Override

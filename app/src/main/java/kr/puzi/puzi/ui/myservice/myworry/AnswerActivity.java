@@ -200,16 +200,6 @@ public class AnswerActivity extends BaseActivity {
                             }
                         }
                     }
-
-                    if(isTwoAnser) {
-                        btnA2A1.setClickable(false);
-                        btnA2A2.setClickable(false);
-                    } else {
-                        btnAnswer1.setClickable(false);
-                        btnAnswer2.setClickable(false);
-                        btnAnswer3.setClickable(false);
-                        btnAnswer4.setClickable(false);
-                    }
                 }
 
             }
@@ -316,19 +306,11 @@ public class AnswerActivity extends BaseActivity {
                     state = true;
                     PointDialog.load(getActivity(), savePoint, state);
                 }
-
-                btnAnswer1.setClickable(false);
-                btnAnswer2.setClickable(false);
-                btnAnswer3.setClickable(false);
-                btnAnswer4.setClickable(false);
-                btnA2A1.setClickable(false);
-                btnA2A2.setClickable(false);
             }
         });
     }
 
     public void updateAnswerView() {
-
         int index = 0;
         int maxCount = myWorryAnswerResultDTO.getAnswerCount();
 
@@ -388,6 +370,54 @@ public class AnswerActivity extends BaseActivity {
                 selectedCount = 0;
                 btn.setBackgroundResource(R.drawable.button_question_off);
                 tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+            } else {
+                isSelected = true;
+                selectedCount = index;
+
+                switch (index) {
+                    case 1:
+                        answer = myWorryQuestionDTO.getAnswerOne();
+                        btnAnswer2.setBackgroundResource(R.drawable.button_question_off);
+                        btnAnswer3.setBackgroundResource(R.drawable.button_question_off);
+                        btnAnswer4.setBackgroundResource(R.drawable.button_question_off);
+                        tvAnswer2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        tvAnswer3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        tvAnswer4.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        btnA2A2.setBackgroundResource(R.drawable.button_question_off);
+                        tvA2T2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        break;
+                    case 2:
+                        answer = myWorryQuestionDTO.getAnswerTwo();
+                        btnAnswer1.setBackgroundResource(R.drawable.button_question_off);
+                        btnAnswer3.setBackgroundResource(R.drawable.button_question_off);
+                        btnAnswer4.setBackgroundResource(R.drawable.button_question_off);
+                        tvAnswer1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        tvAnswer3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        tvAnswer4.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        btnA2A1.setBackgroundResource(R.drawable.button_question_off);
+                        tvA2T1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        break;
+                    case 3:
+                        answer = myWorryQuestionDTO.getAnswerThree();
+                        btnAnswer1.setBackgroundResource(R.drawable.button_question_off);
+                        btnAnswer2.setBackgroundResource(R.drawable.button_question_off);
+                        btnAnswer4.setBackgroundResource(R.drawable.button_question_off);
+                        tvAnswer1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        tvAnswer2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        tvAnswer4.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        break;
+                    case 4:
+                        answer = myWorryQuestionDTO.getAnswerFour();
+                        btnAnswer1.setBackgroundResource(R.drawable.button_question_off);
+                        btnAnswer3.setBackgroundResource(R.drawable.button_question_off);
+                        btnAnswer2.setBackgroundResource(R.drawable.button_question_off);
+                        tvAnswer1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        tvAnswer3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        tvAnswer2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        break;
+                }
+                btn.setBackgroundResource(R.drawable.button_question_on);
+                tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
             }
         } else {
             isSelected = true;

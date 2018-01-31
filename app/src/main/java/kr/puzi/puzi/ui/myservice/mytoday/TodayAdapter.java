@@ -90,6 +90,7 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 				public void onClick(View view) {
 					Log.i("TodayAdapter", "onClick");
 					refreshCallback.refresh();
+					notifyItemChanged(0);
 				}
 			});
 
@@ -110,6 +111,7 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.ViewHolder> 
 				public void onClick(View view) {
 					Log.i("TodayAdapter", "onClick");
 					refreshCallback.refresh();
+					notifyItemChanged(0);
 				}
 			});
 		}
