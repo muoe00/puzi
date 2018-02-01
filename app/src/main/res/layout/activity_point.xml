@@ -26,7 +26,7 @@
       app:fontWeight="regular"
       android:text="적립금"
       android:textColor="#333333"
-      android:textSize="20sp"
+      android:textSize="20dp"
       android:gravity="center"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -63,7 +63,7 @@
           app:fontWeight="regular"
           android:id="@+id/tv_point_user_name"
           android:text="Puzi"
-          android:textSize="15sp"
+          android:textSize="15dp"
           android:textColor="@color/colorWhite"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
@@ -71,7 +71,7 @@
         <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="regular"
           android:text="님은"
-          android:textSize="15sp"
+          android:textSize="15dp"
           android:textColor="@color/colorWhite"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
@@ -87,7 +87,7 @@
           app:fontWeight="bold"
           android:id="@+id/tv_point_user_level"
           android:text="VVIP"
-          android:textSize="20sp"
+          android:textSize="20dp"
           android:textColor="@color/colorWhite"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
@@ -95,7 +95,7 @@
         <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="regular"
           android:text="등급 입니다."
-          android:textSize="15sp"
+          android:textSize="15dp"
           android:textColor="@color/colorWhite"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
@@ -116,7 +116,7 @@
             android:gravity="center_vertical"
             android:layout_marginRight="2.6dp"
             android:layout_gravity="center_vertical"
-            android:textSize="32sp"
+            android:textSize="32dp"
             android:textColor="@color/colorWhite"
             android:text="0P"
             android:layout_width="wrap_content"
@@ -143,7 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0P"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:textColor="@color/colorWhite"/>
 
         </LinearLayout>
@@ -184,7 +184,7 @@
         app:fontWeight="regular"
         android:text="적립금"
         android:textColor="@color/colorPuzi"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:gravity="center"
         android:paddingBottom="4dp"
         android:layout_width="match_parent"
@@ -215,7 +215,7 @@
         app:fontWeight="regular"
         android:text="등급"
         android:textColor="#6D6D6D"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:gravity="center"
         android:paddingBottom="4dp"
         android:layout_width="match_parent"

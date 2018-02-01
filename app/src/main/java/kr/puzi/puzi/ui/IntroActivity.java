@@ -11,6 +11,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
@@ -23,6 +24,7 @@ import com.kakao.util.exception.KakaoException;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 
+import kr.puzi.puzi.R;
 import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
@@ -31,7 +33,6 @@ import kr.puzi.puzi.network.service.UserNetworkService;
 import kr.puzi.puzi.ui.base.BaseFragment;
 import kr.puzi.puzi.ui.base.BaseFragmentActivity;
 import kr.puzi.puzi.ui.common.BasicDialog;
-import kr.puzi.puzi.ui.intro.LoginFragment;
 import kr.puzi.puzi.ui.intro.SignupInfoFragment;
 import kr.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
@@ -147,7 +148,7 @@ public class IntroActivity extends BaseFragmentActivity {
 	public void kakaoIdLogin(final String id, final String pwd) {
 		ProgressDialog.show(getActivity());
 
-		final String notifyId = Preference.getProperty(getActivity(), "tokenFCM");
+		final String notifyId = FirebaseInstanceId.getInstance().getToken();
 		final String phoneType = "A";
 		final String phoneKey = DeviceKeyFinder.find(getActivity());
 
@@ -161,9 +162,16 @@ public class IntroActivity extends BaseFragmentActivity {
 		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
+				Toast.makeText(getActivity(), "responseVO " + responseVO.toString(), Toast.LENGTH_SHORT).show();
+				Preference.addProperty(getActivity(), "token", responseVO.getString("token"));
+				Preference.addProperty(getActivity(), "id", id);
+				Preference.addProperty(getActivity(), "passwd", pwd);
 
-				LoginFragment loginFragment = new LoginFragment();
-				loginFragment.successLogin(responseVO.getString("token"), id, pwd);
+				startActivity(new Intent(getActivity(), MainActivity.class));
+				getActivity().overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
+				getActivity().finish();
+				/*LoginFragment loginFragment = new LoginFragment();
+				loginFragment.successLogin(responseVO.getString("token"), id, pwd);*/
 			}
 
 			@Override

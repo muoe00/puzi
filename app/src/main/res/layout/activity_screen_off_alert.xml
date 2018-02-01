@@ -22,7 +22,7 @@
       android:layout_marginTop="30dp"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:textSize="14sp"
+      android:textSize="14dp"
       android:id="@+id/tv_title"
       android:textColor="#666666"
       android:lineSpacingExtra="-1sp"
@@ -36,7 +36,7 @@
       android:layout_marginRight="20dp"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:textSize="14sp"
+      android:textSize="14dp"
       android:lines="2"
       android:id="@+id/tv_comment"
       android:textColor="#333333"
@@ -61,7 +61,7 @@
         android:layout_weight="1"
         android:background="@drawable/button_favorite_on"
         android:text="닫기"
-        android:textSize="14sp"
+        android:textSize="14dp"
         android:textColor="#ff2470"/>
 
       <kr.puzi.puzi.ui.customview.NotoButton
@@ -73,7 +73,7 @@
         android:layout_weight="1"
         android:background="@drawable/button_puzi"
         android:text="자세히보기"
-        android:textSize="14sp"
+        android:textSize="14dp"
         android:textColor="@color/colorWhite"/>
 
     </LinearLayout>

@@ -68,6 +68,7 @@
                 android:orientation="vertical"
                 android:layout_marginLeft="13dp"
                 android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
@@ -76,9 +77,10 @@
 
                 <kr.puzi.puzi.ui.customview.NotoTextView
                     app:fontWeight="medium"
-                    android:textSize="18sp"
+                    android:textSize="18dp"
                     android:textColor="#333333"
                     android:text="광고 타이틀 자리입니다"
+                    android:gravity="center_vertical"
                     android:ellipsize="marquee"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:singleLine="true"
@@ -86,16 +88,17 @@
                     android:focusable="true"
                     android:layout_marginRight="30dp"
                     android:layout_width="match_parent"
-                    android:layout_height="27dp"
+                    android:layout_height="wrap_content"
                     android:id="@+id/tv_advertise"/>
 
                 <kr.puzi.puzi.ui.customview.NotoTextView
                     app:fontWeight="regular"
-                    android:textSize="16sp"
+                    android:textSize="16dp"
                     android:textColor="#9B9B9B"
                     android:text="company"
+                    android:gravity="center_vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="19dp"
+                    android:layout_height="wrap_content"
                     android:id="@+id/tv_companyId"/>
 
             </LinearLayout>

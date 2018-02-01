@@ -14,6 +14,7 @@ import android.widget.*;
 import butterknife.*;
 import com.google.gson.Gson;
 
+import kr.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import kr.puzi.puzi.biz.event.EventInfoVO;
 import kr.puzi.puzi.biz.user.UserVO;
 import kr.puzi.puzi.cache.Preference;
@@ -129,7 +130,8 @@ public class MainActivity extends BaseFragmentActivity {
 
 			switch (messageVO.getType()) {
 				case ADVERTISEMENT:
-					//
+					ReceivedAdvertiseVO receivedAdvertiseVO = messageVO.getReceivedAdvertiseDTO();
+					// receivedAdvertiseVO
 					break;
 			}
 			showAlertOnTheTop(messageVO, llMain);

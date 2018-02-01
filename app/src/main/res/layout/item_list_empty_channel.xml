@@ -8,7 +8,7 @@
     android:layout_marginTop="20dp"
     android:layout_marginBottom="20dp"
     android:text="등록된 채널이 없습니다."
-    android:textSize="15sp"
+    android:textSize="15dp"
     android:textColor="#6d6d6d"
     android:lineSpacingExtra="9sp"
     android:gravity="center_horizontal"

@@ -26,7 +26,7 @@
 
       <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="demilight"
-        android:textSize="30sp"
+        android:textSize="30dp"
           android:textColor="@color/colorWhite"
           android:id="@+id/tv_question_q"
         android:text="지금 당신의 기분은 ?"
@@ -47,7 +47,7 @@
         <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="regular"
           android:text="+"
-          android:textSize="24sp"
+          android:textSize="24dp"
           android:textColor="@color/colorWhite"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
@@ -56,7 +56,7 @@
           app:fontWeight="regular"
           android:id="@+id/tv_answer_plus_point"
           android:text=""
-          android:textSize="24sp"
+          android:textSize="24dp"
           android:textColor="@color/colorWhite"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
@@ -64,7 +64,7 @@
         <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="regular"
           android:text="P"
-          android:textSize="24sp"
+          android:textSize="24dp"
           android:textColor="@color/colorWhite"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>

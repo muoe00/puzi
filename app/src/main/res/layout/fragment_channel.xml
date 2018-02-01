@@ -61,7 +61,7 @@
           <kr.puzi.puzi.ui.customview.NotoTextView
             android:layout_gravity="center_vertical"
             app:fontWeight="demilight"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:textColor="#6d6d6d"
             android:text="더보기"
             android:layout_width="wrap_content"
@@ -125,7 +125,7 @@
           <kr.puzi.puzi.ui.customview.NotoTextView
             android:layout_gravity="center_vertical"
             app:fontWeight="demilight"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:textColor="#6d6d6d"
             android:text="더보기"
             android:layout_width="wrap_content"

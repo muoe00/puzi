@@ -1,10 +1,15 @@
 package kr.puzi.puzi.network.service;
 
+import java.util.List;
+
 import kr.puzi.puzi.network.ResponseVO;
 import retrofit2.Call;
-import retrofit2.http.*;
-
-import java.util.List;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by muoe0 on 2017-04-28.
@@ -32,7 +37,7 @@ public interface UserNetworkService {
 		@Field("phoneType") String phoneType,
 		@Field("phoneKey") String phoneKey,
 		@Field("region") String region,
-		@Field("cityc") String city);
+		@Field("city") String city);
 
 	@GET("/guest/search/id")
 	Call<ResponseVO> searchid(@Query("email") String email);

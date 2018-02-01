@@ -10,8 +10,19 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
-import android.widget.*;
-import butterknife.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnEditorAction;
+import butterknife.Unbinder;
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
@@ -80,7 +91,7 @@ public class LoginFragment extends BaseFragment {
 			ProgressDialog.show(getActivity());
 
 			final String sha256Pw = EncryptUtils.sha256(pwd);
-			final String notifyId = Preference.getProperty(getActivity(), "tokenFCM");
+			final String notifyId = FirebaseInstanceId.getInstance().getToken();
 			final String phoneType = "A";
 			final String phoneKey = DeviceKeyFinder.find(getActivity());
 

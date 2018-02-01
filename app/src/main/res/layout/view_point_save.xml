@@ -44,7 +44,7 @@
                 app:fontWeight="medium"
                 android:id="@+id/tv_view_point_plus"
                 android:text="+"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 android:textColor="#ff2470"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -53,7 +53,7 @@
                 app:fontWeight="medium"
                 android:id="@+id/tv_view_point"
                 android:text="30"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 android:textColor="#ff2470"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -62,7 +62,7 @@
                 app:fontWeight="medium"
                 android:id="@+id/tv_view_point_p"
                 android:text="P"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 android:textColor="#ff2470"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

@@ -52,7 +52,7 @@
       <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="demilight"
           android:id="@+id/tv_worry_title"
-        android:textSize="30sp"
+        android:textSize="30dp"
         android:textColor="@color/colorWhite"
         android:text="지금 당신의 기분은 ?"
         android:gravity="center"
@@ -84,7 +84,7 @@
           android:layout_marginRight="14dp"
           app:fontWeight="regular"
           android:text="510"
-          android:textSize="20sp"
+          android:textSize="20dp"
           android:textColor="@color/colorWhite"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:text=""
             android:textColor="@color/colorWhite"
-            android:textSize="16sp"
+            android:textSize="16dp"
             app:fontWeight="bold" />
 
         <kr.puzi.puzi.ui.customview.NotoTextView
@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             android:text="명 "
             android:textColor="@color/colorWhite"
-            android:textSize="16sp"
+            android:textSize="16dp"
             app:fontWeight="bold" />
 
         <kr.puzi.puzi.ui.customview.NotoTextView
@@ -126,7 +126,7 @@
             android:layout_height="wrap_content"
             android:text=" 참여 / "
             android:textColor="@color/colorWhite"
-            android:textSize="16sp"
+            android:textSize="16dp"
             app:fontWeight="regular" />
 
         <kr.puzi.puzi.ui.customview.NotoTextView
@@ -135,7 +135,7 @@
             android:layout_height="wrap_content"
             android:text=""
             android:textColor="@color/colorWhite"
-            android:textSize="16sp"
+            android:textSize="16dp"
             app:fontWeight="regular" />
 
         <kr.puzi.puzi.ui.customview.NotoTextView
@@ -143,7 +143,7 @@
             android:layout_height="wrap_content"
             android:text="명"
             android:textColor="@color/colorWhite"
-            android:textSize="16sp"
+            android:textSize="16dp"
             app:fontWeight="regular" />
 
       </LinearLayout>
@@ -177,7 +177,7 @@
               app:fontWeight="medium"
               android:id="@+id/tv_answer_a2_t1"
               android:gravity="center"
-              android:textSize="24sp"
+              android:textSize="24dp"
               android:text="테스트"
               android:textColor="@color/colorBlack"
               android:layout_width="match_parent"
@@ -187,7 +187,7 @@
               app:fontWeight="medium"
               android:id="@+id/tv_answer_a2_p1"
               android:gravity="center"
-              android:textSize="20sp"
+              android:textSize="20dp"
               android:textColor="@color/colorPuzi"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
@@ -209,7 +209,7 @@
               android:id="@+id/tv_answer_a2_t2"
               android:gravity="center"
               android:text="테스트"
-              android:textSize="24sp"
+              android:textSize="24dp"
               android:textColor="@color/colorBlack"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
@@ -218,7 +218,7 @@
               app:fontWeight="medium"
               android:id="@+id/tv_answer_a2_p2"
               android:gravity="center"
-              android:textSize="20sp"
+              android:textSize="20dp"
               android:textColor="@color/colorPuzi"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
@@ -261,7 +261,7 @@
                 android:id="@+id/tv_answer_1_t"
                 android:text="테스트"
                 android:gravity="center"
-                android:textSize="24sp"
+                android:textSize="24dp"
                 android:textColor="@color/colorBlack"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -270,7 +270,7 @@
                 app:fontWeight="medium"
                 android:id="@+id/tv_answer_1_p"
                 android:gravity="center"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 android:textColor="@color/colorPuzi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -292,7 +292,7 @@
               android:id="@+id/tv_answer_2_t"
               android:text="테스트"
               android:gravity="center"
-              android:textSize="24sp"
+              android:textSize="24dp"
               android:textColor="@color/colorBlack"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
@@ -301,7 +301,7 @@
               app:fontWeight="medium"
               android:id="@+id/tv_answer_2_p"
               android:gravity="center"
-              android:textSize="20sp"
+              android:textSize="20dp"
               android:textColor="@color/colorPuzi"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
@@ -331,7 +331,7 @@
                   app:fontWeight="medium"
                   android:id="@+id/tv_answer_3_t"
                   android:gravity="center"
-                  android:textSize="24sp"
+                  android:textSize="24dp"
                   android:textColor="@color/colorBlack"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content" />
@@ -340,7 +340,7 @@
                   app:fontWeight="medium"
                   android:id="@+id/tv_answer_3_p"
                   android:gravity="center"
-                  android:textSize="20sp"
+                  android:textSize="20dp"
                   android:textColor="@color/colorPuzi"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content" />
@@ -361,7 +361,7 @@
                   app:fontWeight="medium"
                   android:id="@+id/tv_answer_4_t"
                   android:gravity="center"
-                  android:textSize="24sp"
+                  android:textSize="24dp"
                   android:textColor="@color/colorBlack"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content" />
@@ -370,7 +370,7 @@
                   app:fontWeight="medium"
                   android:id="@+id/tv_answer_4_p"
                   android:gravity="center"
-                  android:textSize="20sp"
+                  android:textSize="20dp"
                   android:textColor="@color/colorPuzi"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content" />
@@ -388,7 +388,7 @@
       android:background="@drawable/button_puzi"
         android:gravity="center"
       android:text="선택완료"
-      android:textSize="16sp"
+      android:textSize="16dp"
       android:textColor="@color/colorWhite"
       android:layout_width="match_parent"
       android:layout_height="55dp"/>

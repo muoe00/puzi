@@ -19,7 +19,7 @@
     android:text="TextView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textSize="12sp"
+    android:textSize="12dp"
     android:textColor="#6d6d6d"
     android:layout_marginBottom="22dp"
     android:layout_marginStart="8dp"

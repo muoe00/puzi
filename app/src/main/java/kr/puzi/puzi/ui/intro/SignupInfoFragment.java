@@ -17,6 +17,8 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -131,14 +133,20 @@ public class SignupInfoFragment extends BaseFragment {
 			return;
 		}
 
+		checkInfo();
+
 		ProgressDialog.show(getActivity());
+
+		final String notifyFCM = FirebaseInstanceId.getInstance().getToken();
+
+		Log.i("SignupInfo","userVO.getNotifyId() : " + userVO.getNotifyId());
 
 		LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
 		service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
 			@Override
 			public Call<ResponseVO> execute(UserNetworkService userNetworkService, String token) {
 				return userNetworkService.signup(userVO.getUserId(), userVO.getPasswd(), userVO.getRegisterType()
-					, userVO.getEmail(), userVO.getNotifyId(), userVO.getGenderType(), userVO.getAge(), userVO.getFavoriteTypeList()
+					, userVO.getEmail(), notifyFCM, userVO.getGenderType(), userVO.getAge(), userVO.getFavoriteTypeList()
 					, userVO.getRecommendId(), userVO.getPhoneType(), userVO.getPhoneKey(), region, city);
 			}
 		});
