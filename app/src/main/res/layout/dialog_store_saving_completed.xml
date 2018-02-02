@@ -18,7 +18,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="38dp"
       android:gravity="center"
-      android:textSize="22sp"
+      android:textSize="22dp"
       android:textColor="#ff5146"
       android:lineSpacingExtra="-1sp"
       android:text="축하합니다!"/>
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="19dp"
         android:gravity="center"
-        android:textSize="22sp"
+        android:textSize="22dp"
         android:textColor="#333333"
         android:lineSpacingExtra="-1sp"
         android:text="적금이 "/>
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="19dp"
         android:gravity="center"
-        android:textSize="22sp"
+        android:textSize="22dp"
         android:textColor="#ff5146"
         android:lineSpacingExtra="-1sp"
         android:text="만기"/>
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="19dp"
         android:gravity="center"
-        android:textSize="22sp"
+        android:textSize="22dp"
         android:textColor="#333333"
         android:lineSpacingExtra="-1sp"
         android:text="되셨습니다."/>
@@ -89,7 +89,7 @@
         android:layout_weight="1"
         android:background="@drawable/button_store_challenge_success_close"
         android:text="닫기"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textColor="#ff5146"/>
 
       <kr.puzi.puzi.ui.customview.NotoButton
@@ -101,7 +101,7 @@
         android:layout_weight="1"
         android:background="@drawable/button_store_challenge_success_move"
         android:text="쿠폰함으로 이동"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textColor="@color/colorWhite"/>
 
     </LinearLayout>

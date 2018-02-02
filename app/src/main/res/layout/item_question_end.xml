@@ -58,7 +58,7 @@
                     <kr.puzi.puzi.ui.customview.NotoTextView
                         app:fontWeight="medium"
                         android:text="오늘의 질문이 마감되었습니다"
-                        android:textSize="18sp"
+                        android:textSize="18dp"
                         android:textColor="@color/colorWhite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>

@@ -23,7 +23,7 @@
       app:fontWeight="medium"
       android:text="아이디 찾기"
       android:textColor="@color/colorBlack"
-      android:textSize="20sp"
+      android:textSize="20dp"
       android:gravity="center"
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>
@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="20dp"
-        android:textSize="24sp"
+        android:textSize="24dp"
         android:textColor="@color/colorBlack"
         android:text="회원 정보에 등록된\n이메일 주소를 입력하세요"
         android:gravity="left" />
@@ -66,7 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_marginBottom="24dp"
-        android:textSize="15sp"
+        android:textSize="15dp"
         android:maxLines="1"
         android:id="@+id/edit_search_email"
         android:hint="이메일 주소를 입력하세요."
@@ -82,7 +82,7 @@
         android:layout_height="54dp"
         android:layout_marginBottom="20dp"
         android:id="@+id/btn_srchid"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:text="아이디 찾기"
         android:background="@drawable/button_puzi"
         android:textColor="@color/colorWhite"/>
@@ -103,7 +103,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:textColor="#6D6D6D"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:text="아직 푸지 회원이 아닌가요?"
         android:layout_weight="1"/>
 
@@ -116,7 +116,7 @@
         android:textColor="@color/colorPuzi"
         android:background="@null"
         android:text="무료 회원가입"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:layout_weight="1"/>
 
     </LinearLayout>

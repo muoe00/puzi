@@ -15,7 +15,7 @@
 
     <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="regular"
-      android:textSize="16sp"
+      android:textSize="16dp"
       android:textColor="#6d6d6d"
       android:lineSpacingExtra="8sp"
       android:id="@+id/tv_setting_notice_content"

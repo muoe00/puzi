@@ -13,7 +13,7 @@
     <kr.puzi.puzi.ui.customview.NotoTextView
       android:id="@+id/tv_item_store_withdraw_history_time"
       app:fontWeight="light"
-      android:textSize="20sp"
+      android:textSize="20dp"
       android:layout_marginLeft="16dp"
       android:layout_marginTop="15dp"
       android:layout_marginBottom="14dp"
@@ -25,7 +25,7 @@
     <kr.puzi.puzi.ui.customview.NotoTextView
       android:id="@+id/tv_item_store_withdraw_history_point"
       app:fontWeight="regular"
-      android:textSize="20sp"
+      android:textSize="20dp"
       android:fontFamily="sans-serif"
       android:textStyle="normal"
       android:textColor="#ff2470"

@@ -27,7 +27,7 @@
           android:layout_width="match_parent"
           android:layout_height="24dp"
           android:layout_marginBottom="8dp"
-          android:textSize="16sp"
+          android:textSize="16dp"
           android:textColor="#333333"
           android:text="문의 유형"
           android:gravity="left" />
@@ -56,7 +56,7 @@
           android:layout_width="match_parent"
           android:layout_height="24dp"
           android:layout_marginBottom="8dp"
-          android:textSize="16sp"
+          android:textSize="16dp"
           android:textColor="#333333"
           android:text="이메일"
           android:gravity="left" />
@@ -66,7 +66,7 @@
           android:background="@drawable/edittext"
           android:layout_width="match_parent"
           android:layout_height="54dp"
-          android:textSize="15sp"
+          android:textSize="15dp"
           android:id="@+id/edt_cs_user_email"
           android:textColor="#6D6D6D"
           android:textColorHint="#6D6D6D"
@@ -93,7 +93,7 @@
           android:layout_width="match_parent"
           android:layout_height="24dp"
           android:layout_marginBottom="8dp"
-          android:textSize="16sp"
+          android:textSize="16dp"
           android:textColor="@color/colorBlack"
           android:text="제목"
           android:gravity="left" />
@@ -103,7 +103,7 @@
           android:background="@drawable/edittext"
           android:layout_width="match_parent"
           android:layout_height="54dp"
-          android:textSize="15sp"
+          android:textSize="15dp"
           android:id="@+id/edt_cs_user_title"
           android:hint="제목을 입력하세요."
           android:textColor="#6D6D6D"
@@ -129,7 +129,7 @@
           android:layout_width="match_parent"
           android:layout_height="24dp"
           android:layout_marginBottom="8dp"
-          android:textSize="16sp"
+          android:textSize="16dp"
           android:textColor="@color/colorBlack"
           android:text="내용"
           android:gravity="left" />
@@ -139,7 +139,7 @@
           android:background="@drawable/edittext"
           android:layout_width="match_parent"
           android:layout_height="320dp"
-          android:textSize="15sp"
+          android:textSize="15dp"
           android:id="@+id/edt_cs_user_content"
           android:hint="내용을 입력하세요."
           android:gravity="top"
@@ -167,7 +167,7 @@
           android:layout_height="54dp"
           android:id="@+id/btn_ask"
           android:background="@drawable/button_puzi"
-          android:textSize="16sp"
+          android:textSize="16dp"
           android:text="문의하기"
           android:textColor="@color/colorWhite"/>
 

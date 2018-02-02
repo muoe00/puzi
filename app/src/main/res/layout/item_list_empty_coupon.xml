@@ -30,7 +30,7 @@
     <TextView
         android:layout_marginTop="23dp"
         android:text="사용가능한 쿠폰이 없습니다."
-        android:textSize="22sp"
+        android:textSize="22dp"
         android:textColor="#333333"
         android:lineSpacingExtra="9sp"
         android:layout_gravity="center"

@@ -40,7 +40,7 @@
             android:text="푸지응모"
             android:gravity="center"
             android:layout_marginRight="37dp"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:textColor="#333333"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
@@ -68,7 +68,7 @@
               android:layout_gravity="center_horizontal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:textSize="22sp"
+              android:textSize="22dp"
               android:textColor="#333333"
               android:gravity="center_horizontal"
               android:layout_marginTop="17dp"
@@ -81,7 +81,7 @@
               android:layout_gravity="center_horizontal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:textSize="25sp"
+              android:textSize="25dp"
               android:textStyle="bold"
               android:textColor="#333333"
               android:gravity="center_horizontal"
@@ -109,7 +109,7 @@
                 android:id="@+id/tv_store_challenge_count"
               android:background="@drawable/bg_store_challenge_count"
               android:text="100명 참여중"
-              android:textSize="16sp"
+              android:textSize="16dp"
               android:textColor="@color/colorWhite"
               android:gravity="center"
               android:layout_gravity="center_horizontal"
@@ -145,7 +145,7 @@
             app:fontWeight="regular"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="17dp"
-            android:textSize="17sp"
+            android:textSize="17dp"
             android:textColor="#333333"
             android:text="3배 확률 상승 아이템 "
             android:layout_width="wrap_content"
@@ -154,7 +154,7 @@
           <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="regular"
             android:layout_gravity="center_vertical"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:textColor="#333333"
             android:text="(+200P)"
             android:layout_weight="1"
@@ -192,7 +192,7 @@
           <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="regular"
             android:text="응모에 참여하시면 환불되지 않습니다."
-            android:textSize="13sp"
+            android:textSize="13dp"
             android:layout_marginTop="12dp"
             android:layout_marginLeft="17dp"
             android:layout_width="wrap_content"
@@ -212,7 +212,7 @@
               android:layout_width="52dp"
               android:layout_height="wrap_content"
               android:layout_marginRight="13dp"
-              android:textSize="14sp"
+              android:textSize="14dp"
               android:textColor="#6d6d6d"/>
 
             <kr.puzi.puzi.ui.customview.NotoTextView
@@ -220,7 +220,7 @@
               android:text="text"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
-              android:textSize="12sp"
+              android:textSize="12dp"
               android:textColor="#6d6d6d"
               android:id="@+id/tv_store_challenge_comment"
               android:layout_weight="1"/>
@@ -242,7 +242,7 @@
               android:layout_width="52dp"
               android:layout_height="wrap_content"
               android:layout_marginRight="13dp"
-              android:textSize="14sp"
+              android:textSize="14dp"
               android:textColor="#6d6d6d"/>
 
             <kr.puzi.puzi.ui.customview.NotoTextView
@@ -250,7 +250,7 @@
               android:text="TextView"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
-              android:textSize="12sp"
+              android:textSize="12dp"
               android:textColor="#6d6d6d"
               android:id="@+id/tv_store_challenge_expiryDay"
               android:layout_weight="1"/>
@@ -270,7 +270,7 @@
       android:text="응모하기"
       android:layout_width="match_parent"
       android:layout_height="55dp"
-      android:textSize="16sp"
+      android:textSize="16dp"
       android:textColor="#ffffff"
       android:id="@+id/btn_store_challenge"/>
 

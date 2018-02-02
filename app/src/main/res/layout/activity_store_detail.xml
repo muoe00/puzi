@@ -21,7 +21,7 @@
 
     <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="medium"
-      android:textSize="15sp"
+      android:textSize="15dp"
       android:gravity="center"
       android:layout_width="match_parent"
       android:layout_height="match_parent"

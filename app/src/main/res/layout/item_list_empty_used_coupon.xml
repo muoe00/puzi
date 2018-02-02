@@ -30,7 +30,7 @@ android:layout_height="match_parent">
   <TextView
       android:layout_marginTop="23dp"
       android:text="사용한 쿠폰이\n없습니다."
-      android:textSize="22sp"
+      android:textSize="22dp"
       android:textColor="#333333"
       android:lineSpacingExtra="9sp"
       android:layout_gravity="center"

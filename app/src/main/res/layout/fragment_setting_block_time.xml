@@ -39,7 +39,7 @@
 
             <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="demilight"
-              android:textSize="25sp"
+              android:textSize="25dp"
               android:textColor="#333333"
               android:lineSpacingExtra="8sp"
               android:text="광고를 받길"
@@ -48,7 +48,7 @@
 
             <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="demilight"
-              android:textSize="25sp"
+              android:textSize="25dp"
               android:textColor="@color/colorPuzi"
               android:lineSpacingExtra="8sp"
               android:text=" 원하지 않는 "
@@ -64,7 +64,7 @@
 
             <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="demilight"
-              android:textSize="25sp"
+              android:textSize="25dp"
               android:textColor="@color/colorPuzi"
               android:lineSpacingExtra="8sp"
               android:text="시간"
@@ -73,7 +73,7 @@
 
             <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="demilight"
-              android:textSize="25sp"
+              android:textSize="25dp"
               android:textColor="#333333"
               android:lineSpacingExtra="8sp"
               android:text="을 설정할 수 있습니다"
@@ -87,7 +87,7 @@
       </FrameLayout>
 
       <kr.puzi.puzi.ui.customview.NotoTextView
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textColor="#35343d"
         android:lineSpacingExtra="0sp"
         android:text="제한 시간"
@@ -115,7 +115,7 @@
           android:layout_marginLeft="5dp"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textSize="14sp"
+          android:textSize="14dp"
           android:layout_marginRight="13dp"
           android:textColor="#333333"/>
 
@@ -133,7 +133,7 @@
           android:layout_marginLeft="5dp"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textSize="14sp"
+          android:textSize="14dp"
           android:textColor="#333333"/>
 
         <LinearLayout
@@ -165,7 +165,7 @@
         android:layout_marginBottom="17dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textColor="#35343d"
         android:lineSpacingExtra="0sp"/>
 

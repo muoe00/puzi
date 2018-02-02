@@ -53,7 +53,7 @@
           android:text="companyName"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:textSize="16sp"
+          android:textSize="16dp"
           android:fontFamily="sans-serif"
           android:textStyle="normal"
           android:textColor="#6d6d6d"
@@ -129,7 +129,7 @@
           android:layout_gravity="center_vertical"
           android:layout_width="wrap_content"
           android:textColor="#333333"
-          android:textSize="12sp"
+          android:textSize="12dp"
           android:layout_height="wrap_content"
           android:id="@+id/tv_channel_detail_evaluate_average"/>
 
@@ -149,7 +149,7 @@
 
           <kr.puzi.puzi.ui.customview.RobotoTextView
             android:id="@+id/tv_channel_detail_myScore"
-            android:textSize="15sp"
+            android:textSize="15dp"
             android:fontFamily="sans-serif"
             android:textStyle="normal"
             android:textColor="#ffffff"
@@ -162,7 +162,7 @@
           <kr.puzi.puzi.ui.customview.NotoTextView
             app:fontWeight="regular"
             android:text="평가함"
-            android:textSize="14sp"
+            android:textSize="14dp"
             android:textColor="#dadada"
             android:lineSpacingExtra="5sp"
             android:gravity="center"
@@ -192,7 +192,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="13dp"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textColor="#333333"
         android:lineSpacingExtra="6sp"
         android:id="@+id/tv_channel_detail_comment"/>
@@ -226,7 +226,7 @@
         app:fontWeight="bold"
         android:layout_marginTop="20dp"
         android:text="댓글"
-        android:textSize="17sp"
+        android:textSize="17dp"
         android:textColor="#35343d"
         android:lineSpacingExtra="-1sp"
         android:layout_width="match_parent"
@@ -293,7 +293,7 @@
         android:layout_marginLeft="16dp"
         android:ems="10"
         android:background="@drawable/channel_detail_inputbox"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textColor="#333333"
         android:isScrollContainer="true"
         android:maxHeight="100dp"
@@ -310,7 +310,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:id="@+id/btn_channel_detail_write"
-        android:textSize="20sp"
+        android:textSize="20dp"
         android:textColor="#333333"
         android:background="#00000000"/>
 

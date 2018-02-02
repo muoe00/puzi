@@ -24,7 +24,7 @@
       app:fontWeight="regular"
       android:text="쿠폰함"
       android:textColor="#333333"
-      android:textSize="20sp"
+      android:textSize="20dp"
       android:gravity="center"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -64,7 +64,7 @@
           app:fontWeight="regular"
           android:id="@+id/tv_coupon_header"
           android:text="미사용 쿠폰"
-          android:textSize="16sp"
+          android:textSize="16dp"
           android:textColor="#333333"
           android:layout_width="wrap_content"
           android:layout_height="24dp"/>
@@ -72,7 +72,7 @@
         <TextView
           android:id="@+id/tv_coupon_num"
           android:layout_marginLeft="3dp"
-          android:textSize="16sp"
+          android:textSize="16dp"
           android:textColor="#f13d3a"
           android:layout_width="wrap_content"
           android:layout_height="24dp"/>
@@ -112,7 +112,7 @@
           app:fontWeight="regular"
           android:id="@+id/tv_used_coupon_header"
           android:text="사용 완료 쿠폰"
-          android:textSize="16sp"
+          android:textSize="16dp"
           android:textColor="#333333"
           android:layout_width="wrap_content"
           android:layout_height="24dp"/>
@@ -120,7 +120,7 @@
         <TextView
           android:id="@+id/tv_used_coupon_num"
           android:layout_marginLeft="3dp"
-          android:textSize="16sp"
+          android:textSize="16dp"
           android:textColor="#f13d3a"
           android:layout_width="wrap_content"
           android:layout_height="24dp"/>

@@ -22,7 +22,7 @@
     <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="medium"
         android:text="나의 오늘은"
-        android:textSize="13sp"
+        android:textSize="13dp"
         android:textColor="@color/colorWhite"
         android:layout_gravity="center"
         android:gravity="center"
@@ -52,7 +52,7 @@
       <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="regular"
         android:text="+"
-        android:textSize="12sp"
+        android:textSize="12dp"
         android:textColor="@color/colorWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -61,7 +61,7 @@
         app:fontWeight="regular"
         android:id="@+id/tv_question_plus_point"
         android:text=""
-        android:textSize="12sp"
+        android:textSize="12dp"
         android:textColor="@color/colorWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -69,7 +69,7 @@
       <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="regular"
         android:text="P"
-        android:textSize="12sp"
+        android:textSize="12dp"
         android:textColor="@color/colorWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

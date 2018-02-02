@@ -28,7 +28,7 @@
       android:id="@+id/tv_store_item_title"
       android:gravity="center"
       android:layout_marginEnd="50dp"
-      android:textSize="20sp"
+      android:textSize="20dp"
       android:textColor="#333333"
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>
@@ -60,7 +60,7 @@
       android:layout_marginTop="20dp"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:textSize="16sp"
+      android:textSize="16dp"
       android:textColor="#333333"
       android:id="@+id/tv_store_item_name"/>
 

@@ -17,7 +17,7 @@
       android:layout_marginTop="11dp"
       android:layout_gravity="center"
       android:text="포인트"
-      android:textSize="16sp"
+      android:textSize="16dp"
       android:textColor="#6d6d6d"
       android:layout_width="wrap_content"
       android:layout_height="24dp"/>
@@ -38,7 +38,7 @@
       <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="medium"
         android:gravity="center"
-        android:textSize="32sp"
+        android:textSize="32dp"
         android:textColor="@color/colorBlack"
         android:text="100,000"
         android:layout_marginRight="10dp"
@@ -74,7 +74,7 @@
       app:fontWeight="regular"
       android:layout_marginTop="13dp"
       android:text="푸지 앱 탈퇴하시면 고객님의\n앱 이용내역(포인트 포함)이"
-      android:textSize="20sp"
+      android:textSize="20dp"
       android:textColor="#333333"
       android:gravity="center"
       android:layout_width="match_parent"
@@ -83,7 +83,7 @@
     <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="regular"
       android:text="모두 삭제됩니다"
-      android:textSize="20sp"
+      android:textSize="20dp"
       android:textColor="#f13d3a"
       android:gravity="center"
       android:layout_width="match_parent"
@@ -92,7 +92,7 @@
     <kr.puzi.puzi.ui.customview.NotoButton
       app:fontWeight="medium"
       android:text="푸지 탈퇴하기"
-      android:textSize="16sp"
+      android:textSize="16dp"
       android:textColor="#ff2470"
       android:id="@+id/btn_out"
       android:background="@drawable/button_favorite_on"

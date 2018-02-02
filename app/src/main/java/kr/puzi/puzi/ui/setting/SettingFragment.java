@@ -9,9 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import kr.puzi.puzi.R;
+import kr.puzi.puzi.biz.user.UserVO;
+import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
 import kr.puzi.puzi.network.ResponseVO;
@@ -39,6 +42,8 @@ public class SettingFragment extends BaseFragment {
 
 	Unbinder unbinder;
 
+	@BindView(R.id.fl_setting_user)
+	FrameLayout flUser;
 	@BindView(R.id.tv_setting_versionNum)
 	TextView tvVersion;
 	@BindView(R.id.btn_setting_version)
@@ -53,6 +58,12 @@ public class SettingFragment extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_setting, container, false);
 		unbinder = ButterKnife.bind(this, view);
+
+		UserVO userVO = Preference.getMyInfo(getActivity());
+
+		if(userVO.getRegisterType().equals("K")) {
+			flUser.setVisibility(View.GONE);
+		}
 
 		getVersion();
 
