@@ -12,7 +12,7 @@
 
     <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="bold"
-      android:text="title"
+      android:text=""
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginLeft="16dp"
@@ -94,7 +94,7 @@
 
         <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="demilight"
-          android:text="0"
+          android:text=""
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textSize="10dp"
@@ -117,7 +117,7 @@
 
   <kr.puzi.puzi.ui.customview.NotoTextView
     app:fontWeight="regular"
-    android:text="comment"
+    android:text=""
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textSize="15dp"

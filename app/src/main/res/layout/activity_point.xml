@@ -62,7 +62,7 @@
         <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="regular"
           android:id="@+id/tv_point_user_name"
-          android:text="Puzi"
+          android:text=""
           android:textSize="15dp"
           android:textColor="@color/colorWhite"
           android:layout_width="wrap_content"
@@ -86,7 +86,7 @@
         <kr.puzi.puzi.ui.customview.NotoTextView
           app:fontWeight="bold"
           android:id="@+id/tv_point_user_level"
-          android:text="VVIP"
+          android:text=""
           android:textSize="20dp"
           android:textColor="@color/colorWhite"
           android:layout_width="wrap_content"

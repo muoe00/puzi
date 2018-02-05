@@ -70,7 +70,7 @@ public class StoreItemAdapter extends BaseAdapter {
 
 		BitmapUIL.load(storeItemVO.getPictureUrl(), viewHolder.ivPreview);
 		viewHolder.tvName.setText(storeItemVO.getName());
-		viewHolder.tvPrice.setText(TextUtils.addComma(storeItemVO.getPrice()) + "원");
+		viewHolder.tvPrice.setText(TextUtils.addComma(storeItemVO.getPrice()) + "P");
 
 		return v;
 	}

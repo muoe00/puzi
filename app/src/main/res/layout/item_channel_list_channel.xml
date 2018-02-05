@@ -42,7 +42,7 @@
       <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="regular"
         android:focusable ="false"
-        android:text="title"
+        android:text=""
         android:textSize="10dp"
         android:textColor="#666666"
         android:layout_marginTop="1dp"

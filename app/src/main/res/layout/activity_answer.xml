@@ -54,7 +54,7 @@
           android:id="@+id/tv_worry_title"
         android:textSize="30dp"
         android:textColor="@color/colorWhite"
-        android:text="지금 당신의 기분은 ?"
+        android:text=""
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -178,7 +178,7 @@
               android:id="@+id/tv_answer_a2_t1"
               android:gravity="center"
               android:textSize="24dp"
-              android:text="테스트"
+              android:text=""
               android:textColor="@color/colorBlack"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
@@ -208,7 +208,7 @@
               app:fontWeight="medium"
               android:id="@+id/tv_answer_a2_t2"
               android:gravity="center"
-              android:text="테스트"
+              android:text=""
               android:textSize="24dp"
               android:textColor="@color/colorBlack"
               android:layout_width="match_parent"
@@ -259,7 +259,7 @@
             <kr.puzi.puzi.ui.customview.NotoTextView
                 app:fontWeight="medium"
                 android:id="@+id/tv_answer_1_t"
-                android:text="테스트"
+                android:text=""
                 android:gravity="center"
                 android:textSize="24dp"
                 android:textColor="@color/colorBlack"
@@ -290,7 +290,7 @@
             <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="medium"
               android:id="@+id/tv_answer_2_t"
-              android:text="테스트"
+              android:text=""
               android:gravity="center"
               android:textSize="24dp"
               android:textColor="@color/colorBlack"

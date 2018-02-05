@@ -123,7 +123,7 @@ public class CouponActivity extends BaseFragmentActivity {
 	}
 
 	public void getUsedCouponList () {
-		usedCouponListAdapter.startProgress();
+		// usedCouponListAdapter.startProgress();
 		gvUsedCoupon.setSelection(usedCouponListAdapter.getCount() - 1);
 
 		final LazyRequestService service = new LazyRequestService(this, StoreNetworkService.class);
@@ -136,7 +136,7 @@ public class CouponActivity extends BaseFragmentActivity {
 		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-				usedCouponListAdapter.stopProgress();
+				// usedCouponListAdapter.stopProgress();
 
 				Log.i("Coupon", "responseVO : " + responseVO.toString());
 

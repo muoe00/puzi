@@ -5,6 +5,9 @@
   <string name="kakaolink_host">kakaolink</string>
   <string name="kakaotalk_host">kakaotalk</string>
 
+  <string name="confirm">확인</string>
+  <string name="cancel">취소</string>
+
   <string name="login_error_noid">아이디를 6자이상 입력해주세요</string>
   <string name="login_error_nopwd">비밀번호를 6자이상 입력해주세요</string>
   <string name="login_login">로그인</string>

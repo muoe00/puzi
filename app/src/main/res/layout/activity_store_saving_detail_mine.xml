@@ -80,7 +80,7 @@
 
             <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="medium"
-              android:text="아메리카노"
+              android:text=""
               android:layout_gravity="center_horizontal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -207,7 +207,7 @@
                 android:id="@+id/tv_store_saving_mine_count_text"
                 android:textColor="#ac3abd"
                 android:textSize="16dp"
-                android:text="30회 "
+                android:text="회 "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -216,7 +216,7 @@
                 android:id="@+id/tv_store_saving_mine_count_total_text"
                 android:textSize="13dp"
                 android:textColor="#666666"
-                android:text="/ 80회"
+                android:text="/ 회"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

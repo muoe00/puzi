@@ -20,7 +20,7 @@
 
   <kr.puzi.puzi.ui.customview.NotoTextView
     app:fontWeight="medium"
-    android:text="title"
+    android:text=""
     android:layout_width="176dp"
     android:layout_height="wrap_content"
     android:layout_marginLeft="8dp"
@@ -33,7 +33,7 @@
 
   <kr.puzi.puzi.ui.customview.NotoTextView
     app:fontWeight="light"
-    android:text="name"
+    android:text=""
     android:layout_width="176dp"
     android:layout_height="wrap_content"
     android:layout_marginLeft="8dp"

@@ -64,7 +64,7 @@
 
             <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="medium"
-              android:text="아메리카노"
+              android:text=""
               android:layout_gravity="center_horizontal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
 
             <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="bold"
-              android:text="300P"
+              android:text=""
               android:layout_gravity="center_horizontal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
               app:fontWeight="medium"
                 android:id="@+id/tv_store_challenge_count"
               android:background="@drawable/bg_store_challenge_count"
-              android:text="100명 참여중"
+              android:text="명 참여중"
               android:textSize="16dp"
               android:textColor="@color/colorWhite"
               android:gravity="center"
@@ -147,7 +147,7 @@
             android:layout_marginLeft="17dp"
             android:textSize="17dp"
             android:textColor="#333333"
-            android:text="3배 확률 상승 아이템 "
+            android:text="배 확률 상승 아이템 "
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

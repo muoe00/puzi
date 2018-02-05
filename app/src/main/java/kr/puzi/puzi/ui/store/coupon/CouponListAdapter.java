@@ -158,7 +158,6 @@ public class CouponListAdapter extends BaseAdapter {
 		return v;
 	}
 
-
 	public class ViewHolder {
 		@BindView(kr.puzi.puzi.R.id.iv_coupon)
 		public ImageView ivImage;

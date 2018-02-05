@@ -76,7 +76,7 @@ public class PurchaseItemActivity extends BaseFragmentActivity {
 		tvTitle.setText(storeVO.getName());
 		BitmapUIL.load(storeItemVO.getPictureUrl(), ivPreview);
 		tvName.setText(storeItemVO.getName());
-		tvPrice.setText(TextUtils.addComma(storeItemVO.getPrice()) + "원");
+		tvPrice.setText(TextUtils.addComma(storeItemVO.getPrice()) + "P");
 		tvComment.setText(storeItemVO.getComment());
 		tvExpiryDay.setText("구매시점으로 부터 " + storeItemVO.getExpiryDay() + "일");
 

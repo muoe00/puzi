@@ -148,7 +148,8 @@
 
   <LinearLayout
     android:background="#dadada"
-    android:layout_width="match_parent" android:layout_height="1dp"/>
+    android:layout_width="match_parent"
+    android:layout_height="1dp"/>
 
   <kr.puzi.puzi.ui.CustomViewPager
     android:id="@+id/vp_main"

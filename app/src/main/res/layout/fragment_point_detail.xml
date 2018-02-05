@@ -22,7 +22,7 @@
         app:fontWeight="regular"
         android:id="@+id/tv_point_type"
         android:gravity="center_vertical"
-        android:text="가입 축하 포인트 적립"
+        android:text=""
         android:textSize="18dp"
         android:layout_width="match_parent"
         android:layout_height="29dp"/>
@@ -31,7 +31,7 @@
         app:fontWeight="demilight"
         android:id="@+id/tv_point_at"
         android:gravity="center_vertical"
-        android:text="2017-10-03 20:00"
+        android:text=""
         android:textSize="14dp"
         android:layout_width="match_parent"
         android:layout_height="19dp"/>

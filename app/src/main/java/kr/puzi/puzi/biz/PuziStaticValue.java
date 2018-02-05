@@ -9,5 +9,5 @@ import static com.google.common.collect.Lists.newArrayList;
  */
 
 public class PuziStaticValue {
-	public static final List<String> DAILY_POINT_LIST = newArrayList("50원", "100원", "200원", "500원");
+	public static final List<String> DAILY_POINT_LIST = newArrayList("50P", "100P", "200P", "500P");
 }

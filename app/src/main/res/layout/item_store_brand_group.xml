@@ -6,7 +6,7 @@
 
   <kr.puzi.puzi.ui.customview.NotoTextView
     app:fontWeight="medium"
-    android:text="TextView"
+    android:text=""
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textSize="15dp"

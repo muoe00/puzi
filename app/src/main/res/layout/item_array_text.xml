@@ -6,7 +6,7 @@
 
   <kr.puzi.puzi.ui.customview.NotoTextView
     app:fontWeight="demilight"
-    android:text="TextView"
+    android:text=""
     android:layout_marginLeft="21dp"
     android:layout_marginRight="21dp"
     android:layout_marginTop="7dp"

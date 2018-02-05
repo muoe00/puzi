@@ -44,7 +44,6 @@
             android:textColor="#333333"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-
         </LinearLayout>
 
         <LinearLayout
@@ -72,7 +71,7 @@
 
             <kr.puzi.puzi.ui.customview.NotoTextView
               app:fontWeight="medium"
-              android:text="아메리카노"
+              android:text=""
               android:layout_gravity="center_horizontal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"

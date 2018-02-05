@@ -71,7 +71,7 @@
 
     <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="regular"
-      android:text="itemName"
+      android:text=""
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="5dp"
@@ -83,7 +83,7 @@
       android:id="@+id/tv_store_saving_item_name"/>
 
     <kr.puzi.puzi.ui.customview.RobotoTextView
-      android:text="price"
+      android:text=""
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="left"
@@ -96,6 +96,5 @@
       android:id="@+id/tv_store_saving_item_target"/>
 
   </LinearLayout>
-
 
 </LinearLayout>

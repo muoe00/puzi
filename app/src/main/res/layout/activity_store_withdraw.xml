@@ -64,7 +64,7 @@
 
         <kr.puzi.puzi.ui.customview.NotoTextView
           android:id="@+id/tv_store_withdraw_point"
-          android:text="10,000P"
+          android:text=""
           app:fontWeight="demilight"
           android:layout_marginTop="3dp"
           android:layout_marginLeft="16dp"

@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"/>
 
       <kr.puzi.puzi.ui.customview.NotoTextView
-        android:text="1000명"
+        android:text="명"
         android:id="@+id/tv_store_challenge_count"
         app:fontWeight="bold"
         android:textSize="8dp"
@@ -69,7 +69,7 @@
 
     <kr.puzi.puzi.ui.customview.NotoTextView
       app:fontWeight="regular"
-      android:text="itemName"
+      android:text=""
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginStart="9dp"
@@ -80,7 +80,7 @@
       android:id="@+id/iv_store_challenge_item_name"/>
 
     <kr.puzi.puzi.ui.customview.RobotoTextView
-      android:text="price"
+      android:text=""
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="left"
