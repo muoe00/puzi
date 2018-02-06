@@ -4,13 +4,25 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import kr.puzi.puzi.R;
-import kr.puzi.puzi.biz.myservice.*;
+import kr.puzi.puzi.biz.myservice.MyWorryAnswerDTO;
+import kr.puzi.puzi.biz.myservice.MyWorryAnswerResultDTO;
+import kr.puzi.puzi.biz.myservice.MyWorryQuestionDTO;
+import kr.puzi.puzi.biz.myservice.MyWorryQuestionDetailDTO;
+import kr.puzi.puzi.biz.myservice.PersonalType;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
 import kr.puzi.puzi.network.ResponseVO;
@@ -23,9 +35,6 @@ import kr.puzi.puzi.ui.common.PointDialog;
 import kr.puzi.puzi.ui.customview.NotoTextView;
 import kr.puzi.puzi.ui.myservice.QuestionFragment;
 import retrofit2.Call;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by juhyun on 2018. 1. 20..
@@ -143,7 +152,7 @@ public class AnswerActivity extends BaseActivity {
 
                 if(personalType.equals(PersonalType.NOT_ANSWERED)) {
                     btnOk.setVisibility(View.VISIBLE);
-                    updateAnswerView();
+                    // updateAnswerView();
 
                     if (isTwoAnser) {
                         tvA2P1.setVisibility(View.GONE);
@@ -312,6 +321,8 @@ public class AnswerActivity extends BaseActivity {
                         });
                     }
                 }, 1250);
+
+                // updateAnswerView();
             }
         });
     }
@@ -324,57 +335,69 @@ public class AnswerActivity extends BaseActivity {
             if(!isTwoAnser) {
                 index = myWorryAnswerResultDTO.getAnswerOneCount() * 100 / maxCount;
                 tvAnswer1.setText(myWorryQuestionDTO.getAnswerOne());
+                tvPercent1.setVisibility(View.VISIBLE);
                 tvPercent1.setText(index + "%");
                 btnAnswer1.setEnabled(false);
 
                 index = myWorryAnswerResultDTO.getAnswerTwoCount() * 100 / maxCount;
                 tvAnswer2.setText(myWorryQuestionDTO.getAnswerTwo());
+                tvPercent2.setVisibility(View.VISIBLE);
                 tvPercent2.setText(index + "%");
                 btnAnswer2.setEnabled(false);
 
                 index = myWorryAnswerResultDTO.getAnswerThreeCount() * 100 / maxCount;
                 tvAnswer3.setText(myWorryQuestionDTO.getAnswerThree());
+                tvPercent3.setVisibility(View.VISIBLE);
                 tvPercent3.setText(index + "%");
                 btnAnswer3.setEnabled(false);
 
                 index = myWorryAnswerResultDTO.getAnswerFourCount() * 100 / maxCount;
                 tvAnswer4.setText(myWorryQuestionDTO.getAnswerFour());
+                tvPercent4.setVisibility(View.VISIBLE);
                 tvPercent4.setText(index + "%");
                 btnAnswer4.setEnabled(false);
             } else {
                 index = myWorryAnswerResultDTO.getAnswerOneCount() * 100 / maxCount;
                 tvA2T1.setText(myWorryQuestionDTO.getAnswerOne());
+                tvA2P1.setVisibility(View.VISIBLE);
                 tvA2P1.setText(index + "%");
                 btnA2A1.setEnabled(false);
 
                 index = myWorryAnswerResultDTO.getAnswerTwoCount() * 100 / maxCount;
                 tvA2T2.setText(myWorryQuestionDTO.getAnswerTwo());
+                tvA2P2.setVisibility(View.VISIBLE);
                 tvA2P2.setText(index + "%");
                 btnA2A2.setEnabled(false);
             }
         } else {
             if(!isTwoAnser) {
                 tvAnswer1.setText(myWorryQuestionDTO.getAnswerOne());
+                tvPercent1.setVisibility(View.VISIBLE);
                 tvPercent1.setText(0 + "%");
                 btnAnswer1.setEnabled(false);
 
                 tvAnswer2.setText(myWorryQuestionDTO.getAnswerTwo());
+                tvPercent2.setVisibility(View.VISIBLE);
                 tvPercent2.setText(0 + "%");
                 btnAnswer2.setEnabled(false);
 
                 tvAnswer3.setText(myWorryQuestionDTO.getAnswerThree());
+                tvPercent3.setVisibility(View.VISIBLE);
                 tvPercent3.setText(0 + "%");
                 btnAnswer3.setEnabled(false);
 
                 tvAnswer4.setText(myWorryQuestionDTO.getAnswerFour());
+                tvPercent4.setVisibility(View.VISIBLE);
                 tvPercent4.setText(0 + "%");
                 btnAnswer4.setEnabled(false);
             } else {
                 tvA2T1.setText(myWorryQuestionDTO.getAnswerOne());
+                tvA2P1.setVisibility(View.VISIBLE);
                 tvA2P1.setText(0 + "%");
                 btnA2A1.setEnabled(false);
 
                 tvA2T2.setText(myWorryQuestionDTO.getAnswerTwo());
+                tvA2P2.setVisibility(View.VISIBLE);
                 tvA2P2.setText(0 + "%");
                 btnA2A2.setEnabled(false);
             }

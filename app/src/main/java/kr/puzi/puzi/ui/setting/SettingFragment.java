@@ -61,9 +61,9 @@ public class SettingFragment extends BaseFragment {
 
 		UserVO userVO = Preference.getMyInfo(getActivity());
 
-		if(userVO.getRegisterType().equals("K")) {
+		/*if(userVO.getRegisterType() == "K") {
 			flUser.setVisibility(View.GONE);
-		}
+		}*/
 
 		getVersion();
 

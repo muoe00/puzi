@@ -170,8 +170,6 @@ public class IntroActivity extends BaseFragmentActivity {
 				startActivity(new Intent(getActivity(), MainActivity.class));
 				getActivity().overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
 				getActivity().finish();
-				/*LoginFragment loginFragment = new LoginFragment();
-				loginFragment.successLogin(responseVO.getString("token"), id, pwd);*/
 			}
 
 			@Override
