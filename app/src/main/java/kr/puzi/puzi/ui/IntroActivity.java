@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
+
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
@@ -19,6 +20,10 @@ import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
+
+import java.security.MessageDigest;
+import java.util.ArrayList;
+
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.user.UserVO;
 import kr.puzi.puzi.cache.Preference;
@@ -32,9 +37,6 @@ import kr.puzi.puzi.ui.common.BasicDialog;
 import kr.puzi.puzi.ui.intro.SignupInfoFragment;
 import kr.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
-
-import java.security.MessageDigest;
-import java.util.ArrayList;
 
 import static kr.puzi.puzi.utils.PuziUtils.getDevicesUUID;
 
@@ -162,6 +164,7 @@ public class IntroActivity extends BaseFragmentActivity {
 		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
+				ProgressDialog.dismiss();
 				Toast.makeText(getActivity(), "responseVO " + responseVO.toString(), Toast.LENGTH_SHORT).show();
 				Preference.addProperty(getActivity(), "token", responseVO.getString("token"));
 				Preference.addProperty(getActivity(), "id", id);
@@ -261,7 +264,7 @@ public class IntroActivity extends BaseFragmentActivity {
 
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("userVO", userVO);
-		fragment.putEx
+		// fragment.putEx
 
 		if(fragment.isAdded()) {
 			return;
