@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.text.NumberFormat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -17,16 +19,9 @@ import butterknife.Unbinder;
 import kr.puzi.puzi.biz.user.LevelType;
 import kr.puzi.puzi.biz.user.UserVO;
 import kr.puzi.puzi.cache.Preference;
-import kr.puzi.puzi.network.CustomCallback;
-import kr.puzi.puzi.network.LazyRequestService;
-import kr.puzi.puzi.network.ResponseVO;
-import kr.puzi.puzi.network.service.UserNetworkService;
 import kr.puzi.puzi.ui.base.BaseFragment;
 import kr.puzi.puzi.ui.base.BaseFragmentActivity;
 import kr.puzi.puzi.utils.PuziUtils;
-import retrofit2.Call;
-
-import java.text.NumberFormat;
 
 /**
  * Created by muoe0 on 2017-07-08.
@@ -61,58 +56,42 @@ public class PointActivity extends BaseFragmentActivity {
 		ivPointBar.setVisibility(View.VISIBLE);
 		ivLevelBar.setVisibility(View.INVISIBLE);
 
-		getUser();
+		UserVO userVO = Preference.getMyInfo(getActivity());
+
+		NumberFormat numberFormat = NumberFormat.getInstance();
+
+		LevelType level = LevelType.valueOf(userVO.getLevelType());
+		tvUserLevel.setText(level.getComment());
+
+		switch(LevelType.findByComment(level.getComment())) {
+			case WELCOME:
+				ivLevel.setImageResource(kr.puzi.puzi.R.drawable.welcome_grade);
+				break;
+			case SILVER:
+				ivLevel.setImageResource(kr.puzi.puzi.R.drawable.silver_bg);
+				break;
+			case GOLD:
+				ivLevel.setImageResource(kr.puzi.puzi.R.drawable.gold_grade);
+				break;
+			case VIP:
+				ivLevel.setImageResource(kr.puzi.puzi.R.drawable.vip_grade);
+				break;
+			case VVIP:
+				ivLevel.setImageResource(kr.puzi.puzi.R.drawable.vvip_grade);
+				break;
+		}
+
+		tvUserName.setText(Preference.getProperty(getActivity(), "id"));
+
+		int point = userVO.getPoint();
+		String resultPoint = numberFormat.format(point);
+		tvPoint.setText(resultPoint);
+
+		int todayPoint = userVO.getTodayPoint();
+		String resultTodayPoint = numberFormat.format(todayPoint);
+		tvTodayPoint.setText(resultTodayPoint);
+
 		changedFragment(tag);
-	}
-
-	public void getUser() {
-		LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
-		service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
-			@Override
-			public Call<ResponseVO> execute(UserNetworkService userNetworkService, String token) {
-				return userNetworkService.myInfo(token);
-			}
-		});
-		service.enqueue(new CustomCallback(PointActivity.this) {
-			@Override
-			public void onSuccess(ResponseVO responseVO) {
-				UserVO userVO = responseVO.getValue("userInfoDTO", UserVO.class);
-				Log.i("INFO", "HomeFragment main / userVO : " + userVO.toString());
-
-				NumberFormat numberFormat = NumberFormat.getInstance();
-
-				LevelType level = LevelType.valueOf(userVO.getLevelType());
-				tvUserLevel.setText(level.getComment());
-
-				switch(LevelType.findByComment(level.getComment())) {
-					case WELCOME:
-						ivLevel.setImageResource(kr.puzi.puzi.R.drawable.welcome_grade);
-						break;
-					case SILVER:
-						ivLevel.setImageResource(kr.puzi.puzi.R.drawable.silver_bg);
-						break;
-					case GOLD:
-						ivLevel.setImageResource(kr.puzi.puzi.R.drawable.gold_grade);
-						break;
-					case VIP:
-						ivLevel.setImageResource(kr.puzi.puzi.R.drawable.vip_grade);
-						break;
-					case VVIP:
-						ivLevel.setImageResource(kr.puzi.puzi.R.drawable.vvip_grade);
-						break;
-				}
-
-				tvUserName.setText(Preference.getProperty(getActivity(), "id"));
-
-				int point = userVO.getPoint();
-				String resultPoint = numberFormat.format(point);
-				tvPoint.setText(resultPoint);
-
-				int todayPoint = userVO.getTodayPoint();
-				String resultTodayPoint = numberFormat.format(todayPoint);
-				tvTodayPoint.setText(resultTodayPoint);
-			}
-		});
 	}
 
 	public void changedFragment(int tag) {
