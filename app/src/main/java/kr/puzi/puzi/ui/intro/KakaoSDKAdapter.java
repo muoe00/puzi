@@ -2,6 +2,7 @@ package kr.puzi.puzi.ui.intro;
 
 import android.app.Activity;
 import android.content.Context;
+import com.kakao.auth.*;
 import kr.puzi.puzi.PuziApplication;
 
 /**

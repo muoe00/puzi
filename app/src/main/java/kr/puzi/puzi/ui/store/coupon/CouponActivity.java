@@ -183,7 +183,6 @@ public class CouponActivity extends BaseFragmentActivity {
 
 				usedCouponListAdapter.notifyDataSetChanged();
 				setGridViewHeightBasedOnChildren(usedCouponListAdapter, gvUsedCoupon);
-
 			}
 		});
 	}

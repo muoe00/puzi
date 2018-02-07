@@ -4,11 +4,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.*;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -110,6 +106,8 @@ public class AnswerActivity extends BaseActivity {
     NotoTextView tvA2P1;
     @BindView(R.id.tv_answer_a2_p2)
     NotoTextView tvA2P2;
+    @BindView(R.id.progress_Bar)
+    ProgressBar pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +122,10 @@ public class AnswerActivity extends BaseActivity {
         } else {
             isTwoAnser = false;
         }
+
+        pb.setIndeterminate(true);
+        pb.getIndeterminateDrawable().setColorFilter(0xFFFFFFFF, android.graphics.PorterDuff.Mode.MULTIPLY);
+        pb.setVisibility(View.VISIBLE);
 
         Log.i("AnswerActivity", "myWorryQuestionDTO : " + myWorryQuestionDTO.toString());
 
@@ -143,6 +145,8 @@ public class AnswerActivity extends BaseActivity {
             @Override
             public void onSuccess(ResponseVO responseVO) {
                 Log.i("AnswerActivity", responseVO.toString());
+
+                pb.setVisibility(View.GONE);
 
                 myWorryQuestionDetailDTO = responseVO.getValue("myWorryQuestionDetailDTO", MyWorryQuestionDetailDTO.class);
                 personalType = myWorryQuestionDetailDTO.getPersonalType();
@@ -308,21 +312,10 @@ public class AnswerActivity extends BaseActivity {
                     PointDialog.load(getActivity(), savePoint, state);
                 }
 
-                Timer timer = new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                updateAnswerView();
-                                btnOk.setVisibility(View.GONE);
-                            }
-                        });
-                    }
-                }, 1250);
-
-                // updateAnswerView();
+                int count = myWorryQuestionDTO.getAnsweredCount() + 1;
+                updateAnswerView();
+                tvCount.setText("" + count);
+                btnOk.setAnimation(R.anim.slide_in_bottom);
             }
         });
     }

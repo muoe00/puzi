@@ -1,5 +1,8 @@
 package kr.puzi.puzi.ui;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +12,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.ui.base.BaseFragment;
 import kr.puzi.puzi.ui.intro.LoginFragment;
 import kr.puzi.puzi.ui.intro.SignupFragment;
@@ -67,8 +72,22 @@ public class IntroFragment extends BaseFragment {
 
 	@OnClick(kr.puzi.puzi.R.id.btn_kakao_login)
 	public void kakaoLogin() {
-		IntroActivity introActivity = (IntroActivity) getActivity();
-		introActivity.isKakaoLogin();
+		if(!isConnected()){
+			Toast.makeText(MainActivity.this, "인터넷 연결을 확인해주세요", Toast.LENGTH_SHORT).show();
+		} else {
+			IntroActivity introActivity = (IntroActivity) getActivity();
+			introActivity.isKakaoLogin();
+		}
+	}
+
+	public boolean isConnected() {
+		ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = cm.getActiveNetworkInfo();
+		if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override
