@@ -11,8 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import kr.puzi.puzi.R;
+import kr.puzi.puzi.biz.user.RegisterType;
 import kr.puzi.puzi.biz.user.UserVO;
 import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
@@ -20,11 +26,6 @@ import kr.puzi.puzi.network.LazyRequestService;
 import kr.puzi.puzi.network.ResponseVO;
 import kr.puzi.puzi.network.service.AdvertisementNetworkService;
 import kr.puzi.puzi.ui.base.BaseFragment;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 import retrofit2.Call;
 
 /**
@@ -61,7 +62,9 @@ public class SettingFragment extends BaseFragment {
 
 		UserVO userVO = Preference.getMyInfo(getActivity());
 
-		if(userVO.getRegisterType() == "K") {
+		Toast.makeText(getActivity(), "userVO.getRegisterType() : " + userVO.getRegisterType(), Toast.LENGTH_SHORT).show();
+
+		if(userVO.getRegisterType().equals(RegisterType.K)) {
 			flUser.setVisibility(View.GONE);
 		}
 

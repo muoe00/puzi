@@ -25,6 +25,7 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 
 import kr.puzi.puzi.R;
+import kr.puzi.puzi.biz.user.RegisterType;
 import kr.puzi.puzi.biz.user.UserVO;
 import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
@@ -165,12 +166,15 @@ public class IntroActivity extends BaseFragmentActivity {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				ProgressDialog.dismiss();
-				Toast.makeText(getActivity(), "responseVO " + responseVO.toString(), Toast.LENGTH_SHORT).show();
 				Preference.addProperty(getActivity(), "token", responseVO.getString("token"));
 				Preference.addProperty(getActivity(), "id", id);
 				Preference.addProperty(getActivity(), "passwd", pwd);
 
-				startActivity(new Intent(getActivity(), MainActivity.class));
+				UserVO userVO = new UserVO();
+				userVO.setRegisterType(RegisterType.K);
+				Preference.saveMyInfo(getActivity(), userVO);
+
+				startActivity(new Intent(IntroActivity.this, MainActivity.class));
 				getActivity().overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
 				getActivity().finish();
 			}
@@ -186,8 +190,10 @@ public class IntroActivity extends BaseFragmentActivity {
 	public void kakaoIdSignup(final String id, final String pw) {
 		Preference.addProperty(getActivity(), "tempid", id);
 		Preference.addProperty(getActivity(), "temppasswd", pw);
-		Preference.addProperty(getActivity(), "kakao", "K");
-		// Preference.addProperty(getActivity(), "email", email);
+
+		UserVO userVO = new UserVO();
+		userVO.setRegisterType(RegisterType.K);
+		Preference.saveMyInfo(getActivity(), userVO);
 
 		BaseFragment infoFragment = new SignupInfoFragment();
 		IntroActivity introActivity = (IntroActivity) getActivity();
@@ -221,6 +227,7 @@ public class IntroActivity extends BaseFragmentActivity {
 
 				boolean isKakao = responseVO.getBoolean("registered");
 				String tempId = responseVO.getString("tempId");
+
 				if(isKakao) {
 					kakaoIdLogin(tempId, uuid);
 				} else {
@@ -241,7 +248,6 @@ public class IntroActivity extends BaseFragmentActivity {
 				Log.i("Hash key", something);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			Log.e("name not found", e.toString());
 		}
 	}

@@ -72,7 +72,6 @@ public class MainActivity extends BaseFragmentActivity {
 
 	public static boolean needToUpdateUserVO = false;
 
-	private PagerAdapter adapter;
 	private int rightButtonHome = kr.puzi.puzi.R.drawable.add_friend;
 	private EventInfoVO eventInfoVO;
 	private Gson gson = new Gson();
