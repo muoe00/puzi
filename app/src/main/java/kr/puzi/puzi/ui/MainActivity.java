@@ -146,7 +146,6 @@ public class MainActivity extends BaseFragmentActivity {
 	}
 
 	public void getUser() {
-
 		LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
 		service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
 			@Override

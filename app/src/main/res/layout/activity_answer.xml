@@ -94,7 +94,22 @@
       <View
           android:layout_width="match_parent"
           android:layout_height="0dp"
-        android:layout_weight="0.3">
+        android:layout_weight="0.15">
+
+      </View>
+
+      <ProgressBar
+        android:visibility="invisible"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:id="@+id/progress_Bar"/>
+
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15">
 
       </View>
 
@@ -378,6 +393,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
       </LinearLayout>
 
     </LinearLayout>

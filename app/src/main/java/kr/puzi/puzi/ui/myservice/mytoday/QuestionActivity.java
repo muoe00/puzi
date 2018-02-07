@@ -48,17 +48,29 @@ public class QuestionActivity extends BaseActivity {
     @BindView(kr.puzi.puzi.R.id.tv_answer_plus_point)
     NotoTextView tvPoint;
     @BindView(kr.puzi.puzi.R.id.ibtn_question_a1)
-    Button btnA1;
+    LinearLayout btnA1;
     @BindView(kr.puzi.puzi.R.id.ibtn_question_a2)
-    Button btnA2;
+    LinearLayout btnA2;
     @BindView(kr.puzi.puzi.R.id.ibtn_question_a3)
-    Button btnA3;
+    LinearLayout btnA3;
     @BindView(kr.puzi.puzi.R.id.ibtn_question_a4)
-    Button btnA4;
+    LinearLayout btnA4;
     @BindView(kr.puzi.puzi.R.id.ibtn_question_a2_a1)
-    Button btnA2A1;
+    LinearLayout btnA2A1;
     @BindView(kr.puzi.puzi.R.id.ibtn_question_a2_a2)
-    Button btnA2A2;
+    LinearLayout btnA2A2;
+    @BindView(kr.puzi.puzi.R.id.tv_question_a1)
+    NotoTextView tvA1;
+    @BindView(kr.puzi.puzi.R.id.tv_question_a2)
+    NotoTextView tvA2;
+    @BindView(kr.puzi.puzi.R.id.tv_question_a3)
+    NotoTextView tvA3;
+    @BindView(kr.puzi.puzi.R.id.tv_question_a4)
+    NotoTextView tvA4;
+    @BindView(kr.puzi.puzi.R.id.tv_question_a2_a1)
+    NotoTextView tvA2A1;
+    @BindView(kr.puzi.puzi.R.id.tv_question_a2_a2)
+    NotoTextView tvA2A2;
     @BindView(kr.puzi.puzi.R.id.ll_question_a4)
     LinearLayout llA4;
     @BindView(kr.puzi.puzi.R.id.ll_question_a2)
@@ -100,33 +112,33 @@ public class QuestionActivity extends BaseActivity {
         if(myTodayQuestionVO.getAnswerCount() == 2) {
             llA4.setVisibility(View.GONE);
             llA2.setVisibility(View.VISIBLE);
-            btnA2A1.setText(myTodayQuestionVO.getAnswerOne());
-            btnA2A2.setText(myTodayQuestionVO.getAnswerTwo());
+            tvA2A1.setText(myTodayQuestionVO.getAnswerOne());
+            tvA2A2.setText(myTodayQuestionVO.getAnswerTwo());
             btnA2A1.setEnabled(true);
             btnA2A2.setEnabled(true);
             btnA2A1.setBackgroundResource(R.drawable.button_question_off);
-            btnA2A1.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
+            tvA2A1.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
             btnA2A2.setBackgroundResource(R.drawable.button_question_off);
-            btnA2A2.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
+            tvA2A2.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
         } else {
             llA4.setVisibility(View.VISIBLE);
             llA2.setVisibility(View.GONE);
-            btnA1.setText(myTodayQuestionVO.getAnswerOne());
-            btnA2.setText(myTodayQuestionVO.getAnswerTwo());
-            btnA3.setText(myTodayQuestionVO.getAnswerThree());
-            btnA4.setText(myTodayQuestionVO.getAnswerFour());
+            tvA1.setText(myTodayQuestionVO.getAnswerOne());
+            tvA2.setText(myTodayQuestionVO.getAnswerTwo());
+            tvA3.setText(myTodayQuestionVO.getAnswerThree());
+            tvA4.setText(myTodayQuestionVO.getAnswerFour());
             btnA1.setEnabled(true);
             btnA2.setEnabled(true);
             btnA3.setEnabled(true);
             btnA4.setEnabled(true);
             btnA1.setBackgroundResource(R.drawable.button_question_off);
-            btnA1.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
+            tvA1.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
             btnA2.setBackgroundResource(R.drawable.button_question_off);
-            btnA2.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
+            tvA2.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
             btnA3.setBackgroundResource(R.drawable.button_question_off);
-            btnA3.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
+            tvA3.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
             btnA4.setBackgroundResource(R.drawable.button_question_off);
-            btnA4.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
+            tvA4.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
         }
     }
 
@@ -136,12 +148,12 @@ public class QuestionActivity extends BaseActivity {
             case kr.puzi.puzi.R.id.ibtn_question_a2_a1:
                 selectedCount = 1;
                 answer = myTodayQuestionVO.getAnswerOne();
-                checkButton(btnA2A1);
+                checkButton(btnA2A1, tvA2A1);
                 break;
             case kr.puzi.puzi.R.id.ibtn_question_a2_a2:
                 selectedCount = 2;
                 answer = myTodayQuestionVO.getAnswerTwo();
-                checkButton(btnA2A2);
+                checkButton(btnA2A2, tvA2A2);
                 break;
         }
 
@@ -154,22 +166,22 @@ public class QuestionActivity extends BaseActivity {
             case kr.puzi.puzi.R.id.ibtn_question_a1:
                 selectedCount = 1;
                 answer = myTodayQuestionVO.getAnswerOne();
-                checkButton(btnA1);
+                checkButton(btnA1, tvA1);
                 break;
             case kr.puzi.puzi.R.id.ibtn_question_a2:
                 selectedCount = 2;
                 answer = myTodayQuestionVO.getAnswerTwo();
-                checkButton(btnA2);
+                checkButton(btnA2, tvA2);
                 break;
             case kr.puzi.puzi.R.id.ibtn_question_a3:
                 selectedCount = 3;
                 answer = myTodayQuestionVO.getAnswerThree();
-                checkButton(btnA3);
+                checkButton(btnA3, tvA3);
                 break;
             case kr.puzi.puzi.R.id.ibtn_question_a4:
                 selectedCount = 4;
                 answer = myTodayQuestionVO.getAnswerFour();
-                checkButton(btnA4);
+                checkButton(btnA4, tvA4);
                 break;
         }
 
@@ -245,19 +257,19 @@ public class QuestionActivity extends BaseActivity {
         }
     }
 
-    public void checkButton(Button btn) {
+    public void checkButton(LinearLayout btn, NotoTextView tv) {
         if(isSelected) {
             isSelected = false;
             setEnabled(true);
             selectedCount = 0;
             btn.setBackgroundResource(kr.puzi.puzi.R.drawable.button_question_off);
-            btn.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
+            tv.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
 
         } else {
             isSelected = true;
             setEnabled(false);
             btn.setBackgroundResource(kr.puzi.puzi.R.drawable.button_question_on);
-            btn.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorPuzi));
+            tv.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorPuzi));
         }
     }
 

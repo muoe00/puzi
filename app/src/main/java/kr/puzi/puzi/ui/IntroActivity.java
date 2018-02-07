@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
@@ -20,11 +19,8 @@ import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
-
-import java.security.MessageDigest;
-import java.util.ArrayList;
-
 import kr.puzi.puzi.R;
+import kr.puzi.puzi.biz.user.UserVO;
 import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
@@ -36,6 +32,9 @@ import kr.puzi.puzi.ui.common.BasicDialog;
 import kr.puzi.puzi.ui.intro.SignupInfoFragment;
 import kr.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
+
+import java.security.MessageDigest;
+import java.util.ArrayList;
 
 import static kr.puzi.puzi.utils.PuziUtils.getDevicesUUID;
 
@@ -97,44 +96,45 @@ public class IntroActivity extends BaseFragmentActivity {
 		public void onSessionOpened() {
 			Log.i("TAG" , "onSessionOpened");
 
-			UserManagement.requestMe(new MeResponseCallback() {
+			if(Session.getCurrentSession().isOpened()) {
+				UserManagement.requestMe(new MeResponseCallback() {
+					@Override
+					public void onFailure(ErrorResult errorResult) {
+						ProgressDialog.dismiss();
+						int ErrorCode = errorResult.getErrorCode();
+						int ClientErrorCode = -777;
 
-				@Override
-				public void onFailure(ErrorResult errorResult) {
-					ProgressDialog.dismiss();
-					int ErrorCode = errorResult.getErrorCode();
-					int ClientErrorCode = -777;
-
-					if (ErrorCode == ClientErrorCode) {
-						Toast.makeText(getApplicationContext(), "카카오톡 서버의 네트워크가 불안정합니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-					} else {
-						Toast.makeText(getApplicationContext(), "카카오톡 로그인에 실패하였습니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-						Log.i("TAG" , "오류로 카카오로그인 실패 ");
+						if (ErrorCode == ClientErrorCode) {
+							Toast.makeText(getApplicationContext(), "카카오톡 서버의 네트워크가 불안정합니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+						} else {
+							Toast.makeText(getApplicationContext(), "카카오톡 로그인에 실패하였습니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+							Log.i("TAG", "오류로 카카오로그인 실패 ");
+						}
 					}
-				}
 
-				@Override
-				public void onSessionClosed(ErrorResult errorResult) {
-					Log.i("TAG" , "onSessionClosed : " + errorResult.getErrorMessage());
-					ProgressDialog.dismiss();
-				}
+					@Override
+					public void onSessionClosed(ErrorResult errorResult) {
+						Log.i("TAG", "onSessionClosed : " + errorResult.getErrorMessage());
+						ProgressDialog.dismiss();
+					}
 
-				@Override
-				public void onNotSignedUp() {
-					Toast.makeText(getApplicationContext(), "카카오톡에 가입되어 있지 않습니다.", Toast.LENGTH_SHORT).show();
-					Log.i("TAG" , "onNotSignedUp");
-					ProgressDialog.dismiss();
-				}
+					@Override
+					public void onNotSignedUp() {
+						Toast.makeText(getApplicationContext(), "카카오톡에 가입되어 있지 않습니다.", Toast.LENGTH_SHORT).show();
+						Log.i("TAG", "onNotSignedUp");
+						ProgressDialog.dismiss();
+					}
 
-				@Override
-				public void onSuccess(UserProfile userProfile) {
-					//로그인에 성공하면 로그인한 사용자의 일련번호, 닉네임, 이미지url등을 리턴합니다.
-					//사용자 ID는 보안상의 문제로 제공하지 않고 일련번호는 제공합니다.
-					Log.i("UserProfile", userProfile.toString());
-					ProgressDialog.dismiss();
-					checkUser();
-				}
-			});
+					@Override
+					public void onSuccess(UserProfile userProfile) {
+						//로그인에 성공하면 로그인한 사용자의 일련번호, 닉네임, 이미지url등을 리턴합니다.
+						//사용자 ID는 보안상의 문제로 제공하지 않고 일련번호는 제공합니다.
+						Log.i("UserProfile", userProfile.toString());
+						ProgressDialog.dismiss();
+						checkUser();
+					}
+				});
+			}
 
 		}
 
@@ -187,7 +187,6 @@ public class IntroActivity extends BaseFragmentActivity {
 		// Preference.addProperty(getActivity(), "email", email);
 
 		BaseFragment infoFragment = new SignupInfoFragment();
-
 		IntroActivity introActivity = (IntroActivity) getActivity();
 		introActivity.addFragment(infoFragment);
 	}
@@ -245,6 +244,25 @@ public class IntroActivity extends BaseFragmentActivity {
 	}
 
 	public void addFragment(BaseFragment fragment) {
+		if(fragment.isAdded()) {
+			return;
+		} else {
+			fragmentList.add(fragment);
+			fragmentTransaction = fragmentManager.beginTransaction();
+			fragmentTransaction.setCustomAnimations(kr.puzi.puzi.R.anim.rightin, kr.puzi.puzi.R.anim.leftout, kr.puzi.puzi.R.anim.rightin, kr.puzi.puzi.R.anim.leftout);
+			fragmentTransaction.replace(kr.puzi.puzi.R.id.intro_fragment_container, fragment);
+			fragmentTransaction.addToBackStack(null);
+			fragmentTransaction.commitAllowingStateLoss();
+			Log.i(PuziUtils.INFO, "fragment list size : " + fragmentList.size());
+		}
+	}
+
+	public void addFragment(BaseFragment fragment, UserVO userVO) {
+
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("userVO", userVO);
+		fragment.putEx
+
 		if(fragment.isAdded()) {
 			return;
 		} else {

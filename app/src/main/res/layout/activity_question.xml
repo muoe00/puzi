@@ -1,44 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
-              android:background="@drawable/bg_main"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
   <LinearLayout
     android:orientation="vertical"
+    android:background="@drawable/bg_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageButton
-      android:layout_gravity="right"
-      android:id="@+id/ibtn_question_close"
-      android:background="@drawable/close_btn"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+    <LinearLayout
+      android:layout_weight="0.01"
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+      </View>
+
+      <ImageButton
+        android:layout_gravity="right"
+        android:id="@+id/ibtn_question_close"
+        android:background="@drawable/close_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
     <LinearLayout
-      android:layout_marginTop="90dp"
+      android:layout_weight="0.98"
+      android:layout_marginTop="30dp"
+      android:layout_marginLeft="16dp"
+      android:layout_marginRight="16dp"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="0dp"
       android:orientation="vertical">
 
       <kr.puzi.puzi.ui.customview.NotoTextView
         app:fontWeight="demilight"
+        android:id="@+id/tv_question_q"
         android:textSize="30dp"
-          android:textColor="@color/colorWhite"
-          android:id="@+id/tv_question_q"
+        android:textColor="@color/colorWhite"
         android:text=""
         android:gravity="center"
-          android:paddingLeft="10dp"
-          android:paddingRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
       <LinearLayout
         android:layout_marginTop="10dp"
-          android:layout_marginBottom="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_gravity="center"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
@@ -72,108 +88,185 @@
       </LinearLayout>
 
       <View
-          android:id="@+id/view_question_weight"
-        android:layout_weight="0.2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="0.3">
+
+      </View>
 
       <LinearLayout
-          android:id="@+id/ll_question_a2"
-          android:visibility="visible"
-          android:orientation="vertical"
-          android:layout_weight="0.8"
-          android:gravity="bottom"
-          android:layout_marginLeft="16dp"
-          android:layout_marginRight="16dp"
-          android:layout_marginBottom="20dp"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content">
+        android:id="@+id/ll_question_a2"
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:gravity="bottom"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="163dp">
+          android:orientation="horizontal"
+          android:layout_marginBottom="10dp"
+          android:layout_width="match_parent"
+          android:layout_height="163dp">
 
-          <Button
-              android:background="@drawable/button_question_off"
-              android:id="@+id/ibtn_question_a2_a1"
-              android:layout_weight="0.5"
-              android:layout_marginRight="9dp"
-              android:layout_width="0dp"
-              android:layout_height="match_parent"/>
+          <LinearLayout
+            android:background="@drawable/button_question_off"
+            android:id="@+id/ibtn_question_a2_a1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="0.5"
+            android:layout_marginRight="9dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
 
-          <Button
-              android:background="@drawable/button_question_off"
-              android:id="@+id/ibtn_question_a2_a2"
-              android:layout_weight="0.5"
-              android:layout_marginLeft="9dp"
-              android:layout_width="0dp"
-              android:layout_height="match_parent"/>
+            <kr.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:id="@+id/tv_question_a2_a1"
+              android:gravity="center"
+              android:textSize="24dp"
+              android:text=""
+              android:textColor="@color/colorBlack"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+
+          </LinearLayout>
+
+          <LinearLayout
+            android:id="@+id/ibtn_question_a2_a2"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="0.5"
+            android:background="@drawable/button_question_off"
+            android:layout_marginLeft="9dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <kr.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:id="@+id/tv_question_a2_a2"
+              android:gravity="center"
+              android:text=""
+              android:textSize="24dp"
+              android:textColor="@color/colorBlack"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+
+          </LinearLayout>
 
         </LinearLayout>
 
       </LinearLayout>
 
       <LinearLayout
-          android:id="@+id/ll_question_a4"
-          android:visibility="gone"
-          android:orientation="vertical"
-          android:layout_weight="0.8"
-          android:gravity="center"
-          android:layout_marginLeft="16dp"
-          android:layout_marginRight="16dp"
-          android:layout_marginBottom="20dp"
+        android:id="@+id/ll_question_a4"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_weight="0.7"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <LinearLayout
+          android:layout_weight="0.5"
+          android:orientation="horizontal"
+          android:layout_marginBottom="10dp"
           android:layout_width="match_parent"
           android:layout_height="0dp">
 
-        <LinearLayout
-          android:orientation="horizontal"
-          android:layout_marginBottom="10dp"
-            android:layout_weight="0.5"
-          android:layout_width="match_parent"
-          android:layout_height="113dp">
-
-          <Button
+          <LinearLayout
             android:background="@drawable/button_question_off"
-              android:id="@+id/ibtn_question_a1"
+            android:id="@+id/ibtn_question_a1"
+            android:orientation="vertical"
+            android:gravity="center"
             android:layout_weight="0.5"
             android:layout_marginRight="9dp"
             android:layout_width="0dp"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
 
-          <Button
+            <kr.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:id="@+id/tv_question_a1"
+              android:text=""
+              android:gravity="center"
+              android:textSize="24dp"
+              android:textColor="@color/colorBlack"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+
+          </LinearLayout>
+
+          <LinearLayout
             android:background="@drawable/button_question_off"
-              android:id="@+id/ibtn_question_a2"
+            android:id="@+id/ibtn_question_a2"
+            android:orientation="vertical"
+            android:gravity="center"
             android:layout_weight="0.5"
             android:layout_marginLeft="9dp"
             android:layout_width="0dp"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+
+            <kr.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:id="@+id/tv_question_a2"
+              android:text=""
+              android:gravity="center"
+              android:textSize="24dp"
+              android:textColor="@color/colorBlack"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+
+          </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
+          android:layout_weight="0.5"
           android:orientation="horizontal"
-            android:layout_weight="0.5"
-            android:id="@+id/ll_question_container_2"
           android:layout_width="match_parent"
-          android:layout_height="113dp">
+          android:layout_height="0dp">
 
-          <Button
+          <LinearLayout
             android:background="@drawable/button_question_off"
-              android:id="@+id/ibtn_question_a3"
+            android:id="@+id/ibtn_question_a3"
+            android:orientation="vertical"
+            android:gravity="center"
             android:layout_weight="0.5"
             android:layout_marginRight="9dp"
             android:layout_width="0dp"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
 
-          <Button
+            <kr.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:id="@+id/tv_question_a3"
+              android:gravity="center"
+              android:textSize="24dp"
+              android:textColor="@color/colorBlack"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+
+          </LinearLayout>
+
+          <LinearLayout
             android:background="@drawable/button_question_off"
-              android:id="@+id/ibtn_question_a4"
+            android:id="@+id/ibtn_question_a4"
+            android:orientation="vertical"
+            android:gravity="center"
             android:layout_weight="0.5"
             android:layout_marginLeft="9dp"
             android:layout_width="0dp"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+
+            <kr.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="medium"
+              android:id="@+id/tv_question_a4"
+              android:gravity="center"
+              android:textSize="24dp"
+              android:textColor="@color/colorBlack"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+
+          </LinearLayout>
 
         </LinearLayout>
 
