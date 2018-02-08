@@ -11,6 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,17 +63,22 @@ public class SettingFragment extends BaseFragment {
 		View view = inflater.inflate(R.layout.fragment_setting, container, false);
 		unbinder = ButterKnife.bind(this, view);
 
-		UserVO userVO = Preference.getMyInfo(getActivity());
-
-		// Toast.makeText(getActivity(), "userVO.getRegisterType() : " + userVO.getRegisterType(), Toast.LENGTH_SHORT).show();
-
-		/*if(userVO.getRegisterType().equals(RegisterType.K)) {
-			flUser.setVisibility(View.GONE);
-		}*/
-
 		getVersion();
 
 		return view;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		UserVO userVO = Preference.getMyInfo(getActivity());
+
+		if(!userVO.getRegisterType().isEmpty()) {
+			if (userVO.getRegisterType() == "K") {
+				flUser.setVisibility(View.GONE);
+			}
+		}
 	}
 
 	@OnClick({R.id.btn_setting_notice, R.id.btn_setting_favorite, R.id.btn_setting_user,
