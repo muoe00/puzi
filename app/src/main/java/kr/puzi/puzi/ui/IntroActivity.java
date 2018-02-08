@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
+
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
@@ -19,7 +20,12 @@ import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
+
+import java.security.MessageDigest;
+import java.util.ArrayList;
+
 import kr.puzi.puzi.R;
+import kr.puzi.puzi.biz.user.RegisterType;
 import kr.puzi.puzi.biz.user.UserVO;
 import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
@@ -32,9 +38,6 @@ import kr.puzi.puzi.ui.common.BasicDialog;
 import kr.puzi.puzi.ui.intro.SignupInfoFragment;
 import kr.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
-
-import java.security.MessageDigest;
-import java.util.ArrayList;
 
 import static kr.puzi.puzi.utils.PuziUtils.getDevicesUUID;
 
@@ -162,12 +165,16 @@ public class IntroActivity extends BaseFragmentActivity {
 		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-				Toast.makeText(getActivity(), "responseVO " + responseVO.toString(), Toast.LENGTH_SHORT).show();
+				ProgressDialog.dismiss();
 				Preference.addProperty(getActivity(), "token", responseVO.getString("token"));
 				Preference.addProperty(getActivity(), "id", id);
 				Preference.addProperty(getActivity(), "passwd", pwd);
 
-				startActivity(new Intent(getActivity(), MainActivity.class));
+				UserVO userVO = new UserVO();
+				userVO.setRegisterType(RegisterType.K);
+				Preference.saveMyInfo(getActivity(), userVO);
+
+				startActivity(new Intent(IntroActivity.this, MainActivity.class));
 				getActivity().overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
 				getActivity().finish();
 			}
@@ -183,8 +190,10 @@ public class IntroActivity extends BaseFragmentActivity {
 	public void kakaoIdSignup(final String id, final String pw) {
 		Preference.addProperty(getActivity(), "tempid", id);
 		Preference.addProperty(getActivity(), "temppasswd", pw);
-		Preference.addProperty(getActivity(), "kakao", "K");
-		// Preference.addProperty(getActivity(), "email", email);
+
+		UserVO userVO = new UserVO();
+		userVO.setRegisterType(RegisterType.K);
+		Preference.saveMyInfo(getActivity(), userVO);
 
 		BaseFragment infoFragment = new SignupInfoFragment();
 		IntroActivity introActivity = (IntroActivity) getActivity();
@@ -218,6 +227,7 @@ public class IntroActivity extends BaseFragmentActivity {
 
 				boolean isKakao = responseVO.getBoolean("registered");
 				String tempId = responseVO.getString("tempId");
+
 				if(isKakao) {
 					kakaoIdLogin(tempId, uuid);
 				} else {
@@ -238,7 +248,6 @@ public class IntroActivity extends BaseFragmentActivity {
 				Log.i("Hash key", something);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			Log.e("name not found", e.toString());
 		}
 	}
@@ -261,7 +270,7 @@ public class IntroActivity extends BaseFragmentActivity {
 
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("userVO", userVO);
-		fragment.putEx
+		// fragment.putEx
 
 		if(fragment.isAdded()) {
 			return;

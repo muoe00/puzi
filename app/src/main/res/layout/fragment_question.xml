@@ -1,133 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-  <android.support.v7.widget.RecyclerView
-      android:id="@+id/rv_question"
+  <ScrollView
+      android:id="@+id/sv_question"
+      android:overScrollMode="never"
+      android:scrollbars="none"
       android:layout_width="match_parent"
-      android:layout_height="99dp">
-
-  </android.support.v7.widget.RecyclerView>
-
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical">
+      android:layout_height="match_parent">
 
     <LinearLayout
-        android:background="#f4f4f4"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="25dp">
-
-      <kr.puzi.puzi.ui.customview.NotoTextView
-          app:fontWeight="bold"
-          android:text="나의 고민은"
-          android:textSize="16dp"
-          android:textColor="#333333"
-          android:gravity="center"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"/>
-
-      <View
-          android:layout_width="0dp"
-          android:layout_height="0dp"
-          android:layout_weight="1">
-      </View>
-
-      <Spinner
-          android:background="@drawable/bg_spinner"
-          android:id="@+id/id_worry_spinner"
-          android:layout_gravity="right"
-          android:layout_width="65dp"
-          android:layout_height="match_parent">
-
-      </Spinner>
-
-    </LinearLayout>
-
-    <ScrollView
-        android:id="@+id/sv_question"
-        android:layout_marginTop="11dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:overScrollMode="never"
-        android:scrollbars="none"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+      <android.support.v7.widget.RecyclerView
+          android:id="@+id/rv_question"
+          android:layout_width="match_parent"
+          android:layout_height="99dp">
+
+      </android.support.v7.widget.RecyclerView>
+
       <LinearLayout
-          android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
 
-        <ListView
-            android:id="@+id/lv_vote"
-            android:divider="#00000000"
-            android:clickable="false"
-            android:focusable="false"
-            android:overScrollMode="never"
-            android:focusableInTouchMode="false"
+        <LinearLayout
+            android:background="#f4f4f4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"/>
+            android:layout_height="10dp"/>
 
-        <FrameLayout
-            android:id="@+id/fl_vote_more"
-            android:background="@drawable/bg_more"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="38dp">
+            android:layout_height="25dp">
 
-          <LinearLayout
-              android:layout_gravity="center"
-              android:orientation="horizontal"
+          <kr.puzi.puzi.ui.customview.NotoTextView
+              app:fontWeight="bold"
+              android:text="나의 고민은"
+              android:textSize="16dp"
+              android:textColor="#333333"
+              android:gravity="center"
               android:layout_width="wrap_content"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"/>
 
-            <ImageView
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/more_list"
-                android:id="@+id/imageView"/>
+          <View
+              android:layout_width="0dp"
+              android:layout_height="0dp"
+              android:layout_weight="1">
+          </View>
 
-            <kr.puzi.puzi.ui.customview.NotoTextView
-                android:layout_gravity="center_vertical"
-                app:fontWeight="demilight"
-                android:textSize="14dp"
-                android:textColor="#6d6d6d"
-                android:text="더보기"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+          <Spinner
+              android:background="@drawable/bg_spinner"
+              android:id="@+id/id_worry_spinner"
+              android:layout_gravity="right"
+              android:layout_width="65dp"
+              android:layout_height="match_parent">
 
-          </LinearLayout>
+          </Spinner>
 
-          <Button
-              android:background="?android:attr/selectableItemBackground"
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+          <ListView
+              android:id="@+id/lv_vote"
+              android:divider="#00000000"
+              android:clickable="false"
+              android:focusable="false"
+              android:overScrollMode="never"
+              android:focusableInTouchMode="false"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:id="@+id/btn_vote_more"
-              android:layout_marginTop="5dp"
-              android:layout_marginBottom="5dp"/>
+              android:layout_height="wrap_content"
+              android:background="@color/colorWhite"/>
 
-        </FrameLayout>
+          <FrameLayout
+              android:id="@+id/fl_vote_more"
+              android:background="@drawable/bg_more"
+              android:layout_width="match_parent"
+              android:layout_height="38dp">
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+              <ImageView
+                  android:layout_gravity="center_vertical"
+                  android:layout_marginRight="16dp"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/more_list"
+                  android:id="@+id/imageView"/>
+
+              <kr.puzi.puzi.ui.customview.NotoTextView
+                  android:layout_gravity="center_vertical"
+                  app:fontWeight="demilight"
+                  android:textSize="14dp"
+                  android:textColor="#6d6d6d"
+                  android:text="더보기"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <Button
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/btn_vote_more"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+
+          </FrameLayout>
+
+        </LinearLayout>
+
 
       </LinearLayout>
 
-    </ScrollView>
+    </LinearLayout>
 
-  </LinearLayout>
+  </ScrollView>
 
 </LinearLayout>

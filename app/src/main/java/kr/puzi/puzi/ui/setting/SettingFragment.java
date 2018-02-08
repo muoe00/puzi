@@ -15,7 +15,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import android.widget.Toast;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import kr.puzi.puzi.R;
+import kr.puzi.puzi.biz.user.RegisterType;
 import kr.puzi.puzi.biz.user.UserVO;
 import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
@@ -70,7 +77,7 @@ public class SettingFragment extends BaseFragment {
 		UserVO userVO = Preference.getMyInfo(getActivity());
 
 		if(!userVO.getRegisterType().isEmpty()) {
-			if(userVO.getRegisterType() == "K") {
+			if (userVO.getRegisterType() == "K") {
 				flUser.setVisibility(View.GONE);
 			}
 		}

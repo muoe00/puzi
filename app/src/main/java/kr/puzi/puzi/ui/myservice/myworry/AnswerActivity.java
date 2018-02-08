@@ -4,7 +4,14 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
-import android.widget.*;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -294,6 +301,8 @@ public class AnswerActivity extends BaseActivity {
             @Override
             public void onSuccess(ResponseVO responseVO) {
                 MainActivity.needToUpdateUserVO = true;
+                Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.alpha_out1000);
+                btnOk.setAnimation(animation);
 
                 savePoint = responseVO.getInteger("savedPoint");
                 saveCount = responseVO.getInteger("savedCount");
@@ -315,7 +324,19 @@ public class AnswerActivity extends BaseActivity {
                 int count = myWorryQuestionDTO.getAnsweredCount() + 1;
                 updateAnswerView();
                 tvCount.setText("" + count);
-                btnOk.setAnimation(R.anim.slide_in_bottom);
+
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                btnOk.setVisibility(View.GONE);
+                            }
+                        });
+                    }
+                }, 1000);
             }
         });
     }
