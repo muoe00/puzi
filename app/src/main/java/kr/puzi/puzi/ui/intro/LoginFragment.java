@@ -24,6 +24,8 @@ import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.Unbinder;
 import kr.puzi.puzi.R;
+import kr.puzi.puzi.biz.user.RegisterType;
+import kr.puzi.puzi.biz.user.UserVO;
 import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
@@ -122,6 +124,10 @@ public class LoginFragment extends BaseFragment {
 		Preference.addProperty(getActivity(), "token", token);
 		Preference.addProperty(getActivity(), "id", id);
 		Preference.addProperty(getActivity(), "passwd", pwd);
+
+		UserVO userVO = new UserVO();
+		userVO.setRegisterType(RegisterType.N);
+		Preference.saveMyInfo(getActivity(), userVO);
 
 		startActivity(new Intent(getActivity(), MainActivity.class));
 		getActivity().overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);

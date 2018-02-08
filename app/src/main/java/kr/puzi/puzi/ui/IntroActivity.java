@@ -79,7 +79,7 @@ public class IntroActivity extends BaseFragmentActivity {
 		mKakaocallback = new SessionCallback();
 		com.kakao.auth.Session.getCurrentSession().addCallback(mKakaocallback);
 		com.kakao.auth.Session.getCurrentSession().checkAndImplicitOpen();
-		com.kakao.auth.Session.getCurrentSession().open(AuthType.KAKAO_TALK_EXCLUDE_NATIVE_LOGIN, IntroActivity.this);
+		com.kakao.auth.Session.getCurrentSession().open(AuthType.KAKAO_TALK, IntroActivity.this);
 	}
 
 	@Override

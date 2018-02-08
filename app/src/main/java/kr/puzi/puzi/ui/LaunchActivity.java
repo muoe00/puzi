@@ -87,8 +87,8 @@ public class LaunchActivity extends BaseActivity {
 		final String autoId = Preference.getProperty(this, "id");
 		final String autoPw = Preference.getProperty(this, "passwd");
 
-		// 메인 화면으로 갈지(자동로그인 성공), 로그인 화면으로 갈지(자동로그인 실패) 결정 (변수 : auto_login)
-		if (autoId != null && autoPw != null) {
+		// 메인 화면으로 갈지(자동로그인 성공), 로그인 화면으로 갈지(자동로그인 실패) 결정
+		if (!android.text.TextUtils.isEmpty(autoId) && !android.text.TextUtils.isEmpty(autoPw)) {
 			login(autoId, autoPw, tokenFCM, DeviceKeyFinder.find(getActivity()));
 		} else {
 			new Handler() {
@@ -107,6 +107,7 @@ public class LaunchActivity extends BaseActivity {
 	}
 
 	public void login(final String id, final String sha256Pw, final String notifyId, final String phoneKey) {
+
 		LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
 		service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
 			@Override

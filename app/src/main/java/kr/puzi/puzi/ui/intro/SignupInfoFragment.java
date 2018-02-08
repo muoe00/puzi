@@ -104,13 +104,14 @@ public class SignupInfoFragment extends BaseFragment {
 		if("K".equals(isKakao)) {
 			userVO.setRegisterType(RegisterType.K);
 			userVO.setPasswd(Preference.getProperty(getActivity(), "temppasswd"));
+			userVO.setEmail("");
 		} else {
 			userVO.setRegisterType(RegisterType.N);
 			userVO.setPasswd(EncryptUtils.sha256(Preference.getProperty(getActivity(), "temppasswd")));
+			userVO.setEmail(Preference.getProperty(getActivity(), "tempemail"));
 		}
 
 		userVO.setUserId(Preference.getProperty(getActivity(), "tempid"));
-		userVO.setEmail(Preference.getProperty(getActivity(), "tempemail"));
 		userVO.setNotifyId(Preference.getProperty(getActivity(), "tokenFCM"));
 		userVO.setPhoneType(PhoneType.A);
 		userVO.setLevelType(LevelType.WELCOME);

@@ -156,6 +156,7 @@ public class MainActivity extends BaseFragmentActivity {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				UserVO userVO = responseVO.getValue("userInfoDTO", UserVO.class);
+
 				Preference.saveMyInfo(MainActivity.this, userVO);
 				updateUserInfoOnTitleBar();
 			}

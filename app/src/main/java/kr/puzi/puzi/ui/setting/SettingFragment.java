@@ -11,11 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,10 +49,10 @@ public class SettingFragment extends BaseFragment {
 	Button btnVersion;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_setting, container, false);
@@ -74,8 +69,10 @@ public class SettingFragment extends BaseFragment {
 
 		UserVO userVO = Preference.getMyInfo(getActivity());
 
+		// Toast.makeText(getActivity(), "register type : " + userVO.getRegisterType().toString(), Toast.LENGTH_SHORT).show();
+
 		if(!userVO.getRegisterType().isEmpty()) {
-			if (userVO.getRegisterType() == "K") {
+			if ("K".equals(userVO.getRegisterType())) {
 				flUser.setVisibility(View.GONE);
 			}
 		}
