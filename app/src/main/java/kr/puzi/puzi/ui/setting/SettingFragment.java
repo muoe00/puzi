@@ -11,7 +11,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.user.UserVO;
 import kr.puzi.puzi.cache.Preference;
@@ -20,11 +23,6 @@ import kr.puzi.puzi.network.LazyRequestService;
 import kr.puzi.puzi.network.ResponseVO;
 import kr.puzi.puzi.network.service.AdvertisementNetworkService;
 import kr.puzi.puzi.ui.base.BaseFragment;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 import retrofit2.Call;
 
 /**
@@ -54,20 +52,28 @@ public class SettingFragment extends BaseFragment {
 	{
 		super.onCreate(savedInstanceState);
 	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_setting, container, false);
 		unbinder = ButterKnife.bind(this, view);
 
-		UserVO userVO = Preference.getMyInfo(getActivity());
-
-		if(userVO.getRegisterType() == "K") {
-			flUser.setVisibility(View.GONE);
-		}
-
 		getVersion();
 
 		return view;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		UserVO userVO = Preference.getMyInfo(getActivity());
+
+		if(!userVO.getRegisterType().isEmpty()) {
+			if(userVO.getRegisterType() == "K") {
+				flUser.setVisibility(View.GONE);
+			}
+		}
 	}
 
 	@OnClick({R.id.btn_setting_notice, R.id.btn_setting_favorite, R.id.btn_setting_user,
