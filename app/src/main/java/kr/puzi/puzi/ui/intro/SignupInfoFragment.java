@@ -78,7 +78,7 @@ public class SignupInfoFragment extends BaseFragment {
 	@BindView(kr.puzi.puzi.R.id.sp_city) public Spinner spCity;
 
 	private boolean isConfirm = false;
-	private UserVO userVO;
+	private UserVO userVO = new UserVO();
 	private AlertDialog.Builder alert_confirm;
 	private ArrayList<String> favoritesList = new ArrayList<String>();
 	private ArrayList<String> yearList = new ArrayList<String>();
@@ -98,7 +98,6 @@ public class SignupInfoFragment extends BaseFragment {
 
 		alert_confirm = new AlertDialog.Builder(this.getContext());
 		alert_confirm.setPositiveButton("확인", null);
-		userVO = new UserVO();
 
 		String isKakao = Preference.getProperty(getActivity(), "kakao");
 		if("K".equals(isKakao)) {
@@ -213,7 +212,6 @@ public class SignupInfoFragment extends BaseFragment {
 	}
 
 	public void settingYears() {
-
 		int currentYear = currentYear();
 
 		for(int index = 1940; index <= currentYear; index++){

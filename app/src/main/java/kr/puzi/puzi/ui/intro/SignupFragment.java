@@ -9,10 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import kr.puzi.puzi.biz.user.RegisterType;
 import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
@@ -112,6 +114,8 @@ public class SignupFragment extends BaseFragment {
 
 	public void changedFragment() {
 		Log.i("DEBUG", "fragment changed.");
+
+		Preference.addProperty(getActivity(), "kakao", RegisterType.N.name());
 		BaseFragment infoFragment = new SignupInfoFragment();
 
 		IntroActivity introActivity = (IntroActivity) getActivity();

@@ -190,6 +190,7 @@ public class IntroActivity extends BaseFragmentActivity {
 	public void kakaoIdSignup(final String id, final String pw) {
 		Preference.addProperty(getActivity(), "tempid", id);
 		Preference.addProperty(getActivity(), "temppasswd", pw);
+		Preference.addProperty(getActivity(), "kakao", RegisterType.K.name());
 
 		UserVO userVO = new UserVO();
 		userVO.setRegisterType(RegisterType.K);
