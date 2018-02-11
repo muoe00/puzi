@@ -127,6 +127,9 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 
 		Log.i("QuestionFragment", "needToUpdateLike.size() : " + needToUpdateLike.size());
 
+		myWorryAdaptor.clean();
+		myWorryAdaptor.getList();
+
 		if(needToUpdateLike.size() > 0) {
 			for(UpdateLike updateLike : needToUpdateLike) {
 				myWorryAdaptor.changedState(updateLike);
@@ -307,7 +310,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		rvQuestion.setLayoutManager(manager);
 
 		// myWorry
-		myWorryAdaptor = new MyWorryAdaptor(getActivity(), kr.puzi.puzi.R.layout.item_question_vote, lvQuestion, svQuestion, new CustomPagingAdapter.ListHandler() {
+		myWorryAdaptor = new MyWorryAdaptor(getActivity(), kr.puzi.puzi.R.layout.item_question_vote, R.layout.item_question_vote_close, kr.puzi.puzi.R.layout.item_question_vote_up, R.layout.item_question_vote_close_up, lvQuestion, svQuestion, new CustomPagingAdapter.ListHandler() {
 			@Override
 			public void getList() {
 				myWorryAdaptor.startProgressWithScrollDown();
