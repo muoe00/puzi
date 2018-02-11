@@ -2,6 +2,7 @@ package kr.puzi.puzi.ui.myservice;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.myservice.MyTodayQuestionVO;
 import kr.puzi.puzi.biz.myservice.MyWorryQuestionDTO;
 import kr.puzi.puzi.biz.myservice.OrderType;
@@ -68,6 +70,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	public static int count = 0;
 	public static List<UpdateLike> needToUpdateLike = newArrayList();
 
+	@BindView(R.id.srl_service_container) SwipeRefreshLayout srlContainer;
 	@BindView(kr.puzi.puzi.R.id.lv_vote) ListView lvQuestion;
 	@BindView(kr.puzi.puzi.R.id.sv_question) ScrollView svQuestion;
 	@BindView(kr.puzi.puzi.R.id.rv_question) RecyclerView rvQuestion;
@@ -111,6 +114,9 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	public void onResume() {
 		Log.i("QuestionFragment", "onResume");
 		Log.i("QuestionFragment", "max : " + max);
+
+		isMore = false;
+		isItemClick = false;
 
 		if(max == count) {
 			count = 0;
@@ -294,7 +300,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	}
 
 	public void initComponent() {
-
 		// myToday
 		todayAdapter = new TodayAdapter(getContext());
 		rvQuestion.setHasFixedSize(true);
@@ -340,14 +345,16 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 			}
 		});
 
-		/*svQuestion.setColorSchemeResources(kr.puzi.puzi.R.color.colorPuzi);
-		svQuestion.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+		srlContainer.setColorSchemeResources(kr.puzi.puzi.R.color.colorPuzi);
+		srlContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 			@Override
 			public void onRefresh() {
-				refresh();
-				svQuestion.setRefreshing(false);
+				todayAdapter.notifyDataSetChanged();
+				myWorryAdaptor.initPagingIndex();
+				myWorryAdaptor.notifyDataSetChanged();
+				srlContainer.setRefreshing(false);
 			}
-		});*/
+		});
 	}
 
 	@Override
