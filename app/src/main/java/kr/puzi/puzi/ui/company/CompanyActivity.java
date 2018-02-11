@@ -7,12 +7,23 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.joooonho.SelectableRoundedImageView;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import com.joooonho.SelectableRoundedImageView;
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.channel.ChannelVO;
 import kr.puzi.puzi.biz.company.CompanyVO;
@@ -29,8 +40,6 @@ import kr.puzi.puzi.ui.common.DialogButtonCallback;
 import kr.puzi.puzi.ui.common.OneButtonDialog;
 import kr.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
-
-import java.util.List;
 
 public class CompanyActivity extends BaseFragmentActivity {
 
@@ -79,22 +88,14 @@ public class CompanyActivity extends BaseFragmentActivity {
 		companyVO = (CompanyVO) intent.getSerializableExtra("company");
 		Log.i(PuziUtils.INFO, "companyVO : " + companyVO.toString());
 
-		if(companyVO == null) {
-			int companyId = intent.getIntExtra("companyId", 0);
-			Log.i(PuziUtils.INFO, "companyId : " + companyId);
-			getCompany(companyId);
-		} else {
-			setCompanyInfo();
+		int companyId = 0;
+		 if(companyVO == null) {
+			companyId = intent.getIntExtra("companyId", 0);
+		 } else {
+			 companyId = companyVO.getCompanyId();
 		}
 
-		isBlock = companyVO.getBlocked();
-
-		if(isBlock) {
-			// btnBlock.setBackgroundResource();
-		} else if(!isBlock) {
-			// btnBlock.setBackgroundResource();
-		}
-
+		getCompany(companyId);
 		getChannelList(false);
 	}
 
@@ -167,7 +168,6 @@ public class CompanyActivity extends BaseFragmentActivity {
 	}
 
 	public void getCompany(final int companyId) {
-
 		LazyRequestService service = new LazyRequestService(getActivity(), CompanyNetworkService.class);
 		service.method(new LazyRequestService.RequestMothod<CompanyNetworkService>() {
 			@Override
@@ -333,12 +333,10 @@ public class CompanyActivity extends BaseFragmentActivity {
 			}
 		});
 		service.enqueue(new CustomCallback(this) {
-
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
 				companyVO.setLiked(add);
 				setLike();
-
 				String message = add ? "애독자로 추가되었습니다." : "애독자가 해제되었습니다.";
 				Toast.makeText(CompanyActivity.this, message, Toast.LENGTH_SHORT).show();
 			}

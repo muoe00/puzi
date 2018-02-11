@@ -7,14 +7,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import kr.puzi.puzi.biz.store.PurchaseHistoryVO;
 import kr.puzi.puzi.image.BitmapUIL;
+import kr.puzi.puzi.utils.TextUtils;
 import lombok.Getter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class UsedCouponListAdapter extends BaseAdapter {
 
@@ -132,25 +134,17 @@ public class UsedCouponListAdapter extends BaseAdapter {
 
 		switch(viewType) {
 			case VIEW_USED_COUPON:
-
 				final PurchaseHistoryVO purchaseHistoryVO = (PurchaseHistoryVO) getItem(position);
-
-				/*Log.i(PuziUtils.INFO, "Used getPictureUrl() : " + purchaseHistoryVO.getStoreItemDTO().getPictureUrl());
-				Log.i(PuziUtils.INFO, "Used getName() : " + purchaseHistoryVO.getStoreItemDTO().getName());
-				Log.i(PuziUtils.INFO, "Used getPrice() : " + purchaseHistoryVO.getStoreItemDTO().getPrice());
-				Log.i(PuziUtils.INFO, "Used getValidEndDate() : " + purchaseHistoryVO.getValidEndDate());*/
 
 				BitmapUIL.load(purchaseHistoryVO.getStoreItemDTO().getPictureUrl(), viewHolder.ivImage);
 				viewHolder.tvTitle.setText(purchaseHistoryVO.getStoreItemDTO().getName());
-				viewHolder.tvPrice.setText(purchaseHistoryVO.getStoreItemDTO().getPrice() + "");
+				viewHolder.tvPrice.setText(TextUtils.addComma(purchaseHistoryVO.getStoreItemDTO().getPrice()) + "P");
 				viewHolder.tvDate.setText(purchaseHistoryVO.getValidEndDate());
 
 				break;
 		}
-
 		return v;
 	}
-
 
 	public class ViewHolder {
 		@BindView(kr.puzi.puzi.R.id.iv_used_coupon)

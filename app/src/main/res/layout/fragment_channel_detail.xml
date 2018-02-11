@@ -204,7 +204,7 @@
         android:layout_height="10dp"/>
 
       <!-- 에디터스페이지 가로스크롤 -->
-      <kr.puzi.puzi.ui.HorizontalListView
+      <!--<kr.puzi.puzi.ui.HorizontalListView
           android:overScrollMode="never"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:widget="http://schemas.android.com/apk/res-auto"
@@ -220,7 +220,7 @@
       <LinearLayout
         android:background="#f4f4f4"
         android:layout_width="match_parent"
-        android:layout_height="10dp"/>
+        android:layout_height="10dp"/>-->
 
       <!-- 댓글 타이틀 -->
       <kr.puzi.puzi.ui.customview.NotoTextView

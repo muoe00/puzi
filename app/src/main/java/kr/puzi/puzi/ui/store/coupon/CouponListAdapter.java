@@ -8,14 +8,16 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import kr.puzi.puzi.biz.store.PurchaseHistoryVO;
 import kr.puzi.puzi.image.BitmapUIL;
+import kr.puzi.puzi.utils.TextUtils;
 import lombok.Getter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by 170605 on 2017-10-27.
@@ -141,7 +143,7 @@ public class CouponListAdapter extends BaseAdapter {
 
 				BitmapUIL.load(purchaseHistoryVO.getStoreItemDTO().getPictureUrl(), viewHolder.ivImage);
 				viewHolder.tvTitle.setText(purchaseHistoryVO.getStoreItemDTO().getName() + " (" + purchaseHistoryVO.getQuantity() + ")");
-				viewHolder.tvPrice.setText(purchaseHistoryVO.getStoreItemDTO().getPrice() + "");
+				viewHolder.tvPrice.setText(TextUtils.addComma(purchaseHistoryVO.getStoreItemDTO().getPrice()) + "P");
 				viewHolder.tvDate.setText(purchaseHistoryVO.getValidEndDate());
 
 				viewHolder.btnCoupon.setOnClickListener(new View.OnClickListener() {

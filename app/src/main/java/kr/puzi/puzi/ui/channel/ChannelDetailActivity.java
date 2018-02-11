@@ -8,12 +8,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.*;
-import butterknife.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
 import com.joooonho.SelectableRoundedImageView;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
-import kr.puzi.puzi.biz.channel.ChannelEditorsPageVO;
 import kr.puzi.puzi.biz.channel.ChannelReplyVO;
 import kr.puzi.puzi.biz.channel.ChannelVO;
 import kr.puzi.puzi.image.BitmapUIL;
@@ -21,18 +35,14 @@ import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
 import kr.puzi.puzi.network.ResponseVO;
 import kr.puzi.puzi.network.service.ChannelNetworkService;
-import kr.puzi.puzi.ui.HorizontalListView;
 import kr.puzi.puzi.ui.ProgressDialog;
 import kr.puzi.puzi.ui.advertisement.AdvertisementDetailActivity;
 import kr.puzi.puzi.ui.base.BaseFragmentActivity;
-import kr.puzi.puzi.ui.channel.editorspage.EditorsPageActivity;
 import kr.puzi.puzi.ui.channel.editorspage.EditorsPageAdapter;
 import kr.puzi.puzi.ui.channel.reply.ReplyListAdapter;
 import kr.puzi.puzi.ui.company.CompanyActivity;
 import kr.puzi.puzi.utils.UIUtils;
 import retrofit2.Call;
-
-import java.util.List;
 
 /**
  * Created by muoe0 on 2017-08-06.
@@ -74,8 +84,8 @@ public class ChannelDetailActivity extends BaseFragmentActivity {
 	ImageView ivEvaluateStar4;
 	@BindView(R.id.iv_evaluate_star_5)
 	ImageView ivEvaluateStar5;
-	@BindView(R.id.hlv_channel_detail_editors_page)
-	HorizontalListView hlvEditorsPage;
+	/*@BindView(R.id.hlv_channel_detail_editors_page)
+	HorizontalListView hlvEditorsPage;*/
 	@BindView(R.id.btn_channel_detail_evaluate)
 	ImageButton btnEvaluate;
 	@BindView(R.id.tv_channel_detail_myScore)
@@ -100,6 +110,7 @@ public class ChannelDetailActivity extends BaseFragmentActivity {
 		targetViewForPush = svContainer;
 
 		channelVO = (ChannelVO) getIntent().getSerializableExtra("channelVO");
+
 		if(channelVO == null) {
 			getChannelDetail(getIntent().getIntExtra("channelId", 1));
 		} else {
@@ -107,10 +118,15 @@ public class ChannelDetailActivity extends BaseFragmentActivity {
 		}
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+	}
+
 	private void initAll() {
 		initChannel();
 		initScrollAction();
-		getEditorsPagetList();
+		// getEditorsPagetList();
 		getChannelReplyList(false);
 	}
 
@@ -137,8 +153,8 @@ public class ChannelDetailActivity extends BaseFragmentActivity {
 
 	private void initChannel() {
 		// 에디터스페이지 어뎁터
-		editorsPageAdapter = new EditorsPageAdapter(this);
-		hlvEditorsPage.setAdapter(editorsPageAdapter);
+		// editorsPageAdapter = new EditorsPageAdapter(this);
+		// hlvEditorsPage.setAdapter(editorsPageAdapter);
 		// 댓글 어뎁터
 		replyListAdapter = new ReplyListAdapter(this);
 		lvReply.setAdapter(replyListAdapter);
@@ -178,7 +194,7 @@ public class ChannelDetailActivity extends BaseFragmentActivity {
 		});
 	}
 
-	private void getEditorsPagetList() {
+	/*private void getEditorsPagetList() {
 		editorsPageAdapter.startProgress();
 
 		LazyRequestService service = new LazyRequestService(getActivity(), ChannelNetworkService.class);
@@ -204,7 +220,7 @@ public class ChannelDetailActivity extends BaseFragmentActivity {
 				editorsPageAdapter.notifyDataSetChanged();
 			}
 		});
-	}
+	}*/
 
 	private void getChannelReplyList(boolean scrollToBottom) {
 		replyListAdapter.startProgress();
@@ -277,7 +293,6 @@ public class ChannelDetailActivity extends BaseFragmentActivity {
 	@OnClick(R.id.btn_channel_detail_evaluate)
 	public void evaluate() {
 		ChannelEvaluateDialog.load(this, channelVO.getChannelId(), new EvaluateListener() {
-
 			@Override
 			public void success(int score) {
 				channelVO.setScored(true);
@@ -342,14 +357,14 @@ public class ChannelDetailActivity extends BaseFragmentActivity {
 		}
 	}
 
-	@OnItemClick(R.id.hlv_channel_detail_editors_page)
+	/*@OnItemClick(R.id.hlv_channel_detail_editors_page)
 	public void editorsPageItemClick(AdapterView<?> parent, View view, int position, long id) {
 		ChannelEditorsPageVO channelEditorsPageVO = (ChannelEditorsPageVO) editorsPageAdapter.getItem(position);
 		Intent intent = new Intent(this, EditorsPageActivity.class);
 		intent.putExtra("channelEditorsPageVO", channelEditorsPageVO);
 		startActivity(intent);
 		doAnimationGoRight();
-	}
+	}*/
 
 	/**
 	 * 스크롤 뷰 안에 리스트뷰를 넣을 때 height문제로 인해서

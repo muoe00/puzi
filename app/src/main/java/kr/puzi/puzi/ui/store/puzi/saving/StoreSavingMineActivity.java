@@ -63,6 +63,8 @@ public class StoreSavingMineActivity extends BaseFragmentActivity {
 		unbinder = ButterKnife.bind(this);
 		targetViewForPush = flContainerTop;
 
+		dailyPointSelected(0);
+
 		initComponent();
 	}
 
@@ -102,11 +104,13 @@ public class StoreSavingMineActivity extends BaseFragmentActivity {
 	public void changeRequestOnClick() {
 		UserVO userVO = Preference.getMyInfo(getActivity());
 		UserSavingVO userSavingVO = userVO.getUserSavingDTO();
+
 		if(userSavingVO.isModifiedDailyPoint()) {
 			Toast.makeText(this, "더이상 하루 적금액을 변경할 수 없습니다.", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		if(userSavingVO.getDailyPoint() == selectedDailyPoint) {
+			Toast.makeText(this, "요청하신 금액이 기존과 동일합니다.", Toast.LENGTH_SHORT).show();
 			return;
 		}
 

@@ -12,6 +12,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -23,6 +24,13 @@ import android.widget.Toast;
 
 import com.joooonho.SelectableRoundedImageView;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import kr.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import kr.puzi.puzi.image.BitmapUIL;
 import kr.puzi.puzi.network.CustomCallback;
@@ -34,14 +42,6 @@ import kr.puzi.puzi.ui.channel.ChannelDetailActivity;
 import kr.puzi.puzi.ui.common.PointDialog;
 import kr.puzi.puzi.ui.company.CompanyActivity;
 import kr.puzi.puzi.utils.PuziUtils;
-
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 import retrofit2.Call;
 
 import static kr.puzi.puzi.ui.advertisement.AdvertisementFragment.updateSavedPoint;
@@ -136,10 +136,10 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 		BitmapUIL.load(receivedAdvertise.getCompanyInfoDTO().getPictureUrl(), companyPicture);
 		companyName.setText(receivedAdvertise.getCompanyInfoDTO().getCompanyAlias());
 
-		webView.setWebViewClient(new WebViewClient());
 		WebSettings webSettings = webView.getSettings();
 		webSettings.setJavaScriptEnabled(true);
-
+		webView.setWebChromeClient(new WebChromeClient());
+		webView.setWebViewClient(new WebViewClient());
 		webView.loadUrl(url);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

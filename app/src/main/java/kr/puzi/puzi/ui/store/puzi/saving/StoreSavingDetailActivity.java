@@ -2,10 +2,20 @@ package kr.puzi.puzi.ui.store.puzi.saving;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.*;
-import butterknife.*;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.gson.Gson;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemSelected;
+import butterknife.Unbinder;
+import kr.puzi.puzi.biz.PuziStaticValue;
 import kr.puzi.puzi.biz.store.puzi.StoreSavingItemVO;
 import kr.puzi.puzi.biz.user.UserVO;
 import kr.puzi.puzi.cache.Preference;
@@ -21,7 +31,6 @@ import kr.puzi.puzi.ui.base.BaseFragmentActivity;
 import kr.puzi.puzi.ui.common.DialogButtonCallback;
 import kr.puzi.puzi.ui.common.OneButtonDialog;
 import kr.puzi.puzi.utils.TextUtils;
-import kr.puzi.puzi.biz.PuziStaticValue;
 import retrofit2.Call;
 
 /**
@@ -83,15 +92,15 @@ public class StoreSavingDetailActivity extends BaseFragmentActivity {
 
 	@OnClick(kr.puzi.puzi.R.id.btn_store_saving)
 	public void onSavingClickListerner() {
+		UserVO myInfo = Preference.getMyInfo(getActivity());
+		if(myInfo.getUserSavingDTO() != null) {
+			Toast.makeText(getActivity(), "이미 가입된 적금이 있습니다.", Toast.LENGTH_LONG).show();
+			return;
+		}
 		OneButtonDialog.show(getActivity(), "적금가입", "적금에 가입하시겠습니까?", "가입", new DialogButtonCallback() {
 			@Override
 			public void onClick() {
 				UserVO myInfo = Preference.getMyInfo(getActivity());
-				if(myInfo.getUserSavingDTO() != null) {
-					Toast.makeText(getActivity(), "이미 가입된 적금이 있습니다.", Toast.LENGTH_LONG).show();
-					return;
-				}
-
 				requestSaving();
 			}
 		});

@@ -581,6 +581,7 @@ public class AnswerActivity extends BaseActivity {
 
     @OnClick(R.id.ibtn_question_close)
     public void closeView() {
+        QuestionFragment.isItemClick = false;
         finish();
     }
 }

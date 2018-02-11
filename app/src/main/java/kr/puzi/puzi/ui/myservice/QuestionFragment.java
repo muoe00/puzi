@@ -51,7 +51,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 
 	private Unbinder unbinder;
 	private View view;
-	private boolean mine = false, isBonusTime = false;
+	private boolean mine = false, isBonusTime = false, isMore = false;
 	private int state = 1, hour = 0, minute = 0, second = 0, max = 0;
 	private OrderType orderType = OrderType.RECENTLY;
 
@@ -64,6 +64,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	private MyWorryAdaptor myWorryAdaptor;
 	private ScheduledExecutorService excutors;
 
+	public static boolean isItemClick = false;
 	public static int count = 0;
 	public static List<UpdateLike> needToUpdateLike = newArrayList();
 
@@ -189,7 +190,9 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 
 						setTime();
 					} else {
-						excutors.shutdownNow();
+						if(excutors != null) {
+							excutors.shutdownNow();
+						}
 						state = ViewType.END.getIndex();
 					}
 				}
@@ -243,6 +246,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 
 	public void getWorryList() {
 		orderType = OrderType.getRandomType();
+		isMore = true;
 
 		LazyRequestService service = new LazyRequestService(getActivity(), MyServiceNetworkService.class);
 		service.method(new LazyRequestService.RequestMothod<MyServiceNetworkService>() {
@@ -254,6 +258,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
+				isMore = false;
 				myWorryAdaptor.stopProgress();
 
 				myWorryQuestionList = responseVO.getList("myWorryQuestionDTOList", MyWorryQuestionDTO.class);
@@ -266,18 +271,26 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				Log.i("QuestionFragment", "myWorryAdaptor.getCount() : " + myWorryAdaptor.getCount());
 				Log.i("QuestionFragment", "totalCount : " + totalCount);
 
-				if((myWorryAdaptor.getCount() == totalCount) || (myWorryAdaptor.isEmpty()) || !(myWorryAdaptor.isMore())) {
+				if ((myWorryAdaptor.getCount() == totalCount) || (myWorryAdaptor.isEmpty()) || !(myWorryAdaptor.isMore())) {
 					flMore.setVisibility(View.GONE);
 				} else {
 					flMore.setVisibility(View.VISIBLE);
 				}
+			}
+
+			@Override
+			public void onFail(ResponseVO responseVO) {
+				super.onFail(responseVO);
+				isMore = false;
 			}
 		});
 	}
 
 	@OnClick(kr.puzi.puzi.R.id.btn_vote_more)
 	public void clickMoreVoteList() {
-		myWorryAdaptor.getList();
+		if(!isMore) {
+			myWorryAdaptor.getList();
+		}
 	}
 
 	public void initComponent() {
@@ -326,15 +339,27 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				mine = false;
 			}
 		});
+
+		/*svQuestion.setColorSchemeResources(kr.puzi.puzi.R.color.colorPuzi);
+		svQuestion.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				refresh();
+				svQuestion.setRefreshing(false);
+			}
+		});*/
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-		Log.i("QuestionFragment", "onItemClick");
-		MyWorryQuestionDTO myWorryQuestionDTO = myWorryAdaptor.getItem(i);
-		Intent intent = new Intent(getActivity(), AnswerActivity.class);
-		intent.putExtra("myWorryQuestionDTO", myWorryQuestionDTO);
-		startActivity(intent);
+		if(!isItemClick) {
+			isItemClick = true;
+			Log.i("QuestionFragment", "onItemClick");
+			MyWorryQuestionDTO myWorryQuestionDTO = myWorryAdaptor.getItem(i);
+			Intent intent = new Intent(getActivity(), AnswerActivity.class);
+			intent.putExtra("myWorryQuestionDTO", myWorryQuestionDTO);
+			startActivity(intent);
+		}
 	}
 
 	@Data
