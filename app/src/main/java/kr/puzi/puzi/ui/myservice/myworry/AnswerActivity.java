@@ -313,12 +313,12 @@ public class AnswerActivity extends BaseActivity {
 
                 boolean state = false;
 
-                if(saveCount < 10) {
-                    state = false;
-                    PointDialog.load(getActivity(), saveCount, state);
-                } else if (saveCount == 10) {
+                if(savePoint > 0) {
                     state = true;
                     PointDialog.load(getActivity(), savePoint, state);
+                } else {
+                    state = false;
+                    PointDialog.load(getActivity(), saveCount, state);
                 }
 
                 int count = myWorryQuestionDTO.getAnsweredCount() + 1;
