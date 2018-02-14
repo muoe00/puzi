@@ -113,7 +113,9 @@ public class IntroActivity extends BaseFragmentActivity {
 
 					@Override
 					public void onSessionClosed(ErrorResult errorResult) {
+						Toast.makeText(getApplicationContext(), "카카오톡 로그인에 실패하였습니다["+errorResult.getErrorCode()+"]. 반복될 경우 관리자에게 문의해주세요.", Toast.LENGTH_SHORT).show();
 						Log.i("TAG", "onSessionClosed : " + errorResult.getErrorMessage());
+
 						ProgressDialog.dismiss();
 					}
 
@@ -199,7 +201,6 @@ public class IntroActivity extends BaseFragmentActivity {
 
 	public void checkUser(final String kakaoUUID) {
 		if(isCheckingKakaoTempId) {
-			ProgressDialog.dismiss();
 			return;
 		}
 		isCheckingKakaoTempId = true;
