@@ -1,22 +1,18 @@
 package kr.puzi.puzi.ui.user;
 
 import android.os.Bundle;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.webkit.*;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.ui.base.BaseFragmentActivity;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by JangwonPark on 2018. 1. 17..
@@ -55,7 +51,7 @@ public class EventWebViewActivity extends BaseFragmentActivity {
 			url = "http://" + url;
 		}
 		Map<String, String> extraHeaders = new HashMap<String, String>();
-//		extraHeaders.put("token", Preference.getProperty(getActivity(), "token"));
+		extraHeaders.put("token", Preference.getProperty(getActivity(), "token"));
 
 		wvContainer.getSettings().setJavaScriptEnabled(true);
 		wvContainer.setWebChromeClient(new WebChromeClient());
