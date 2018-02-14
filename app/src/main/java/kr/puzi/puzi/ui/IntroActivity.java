@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
@@ -20,10 +19,6 @@ import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
-
-import java.security.MessageDigest;
-import java.util.ArrayList;
-
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.user.RegisterType;
 import kr.puzi.puzi.biz.user.UserVO;
@@ -39,7 +34,8 @@ import kr.puzi.puzi.ui.intro.SignupInfoFragment;
 import kr.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
-import static kr.puzi.puzi.utils.PuziUtils.getDevicesUUID;
+import java.security.MessageDigest;
+import java.util.ArrayList;
 
 public class IntroActivity extends BaseFragmentActivity {
 
@@ -134,7 +130,7 @@ public class IntroActivity extends BaseFragmentActivity {
 						//사용자 ID는 보안상의 문제로 제공하지 않고 일련번호는 제공합니다.
 						Log.i("UserProfile", userProfile.toString());
 						ProgressDialog.dismiss();
-						checkUser();
+						checkUser(userProfile.getUUID());
 					}
 				});
 			}
@@ -201,7 +197,7 @@ public class IntroActivity extends BaseFragmentActivity {
 		introActivity.addFragment(infoFragment);
 	}
 
-	public void checkUser() {
+	public void checkUser(final String kakaoUUID) {
 		if(isCheckingKakaoTempId) {
 			ProgressDialog.dismiss();
 			return;
@@ -210,13 +206,11 @@ public class IntroActivity extends BaseFragmentActivity {
 
 		ProgressDialog.show(getActivity());
 
-		uuid = getDevicesUUID(getApplicationContext());
-
 		LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
 		service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
 			@Override
 			public Call<ResponseVO> execute(UserNetworkService userNetworkService, String token) {
-				return userNetworkService.checkKakao(uuid);
+				return userNetworkService.checkKakao(kakaoUUID);
 			}
 		});
 		service.enqueue(new CustomCallback(getActivity()) {
@@ -230,9 +224,9 @@ public class IntroActivity extends BaseFragmentActivity {
 				String tempId = responseVO.getString("tempId");
 
 				if(isKakao) {
-					kakaoIdLogin(tempId, uuid);
+					kakaoIdLogin(tempId, kakaoUUID);
 				} else {
-					kakaoIdSignup(tempId, uuid);
+					kakaoIdSignup(tempId, kakaoUUID);
 				}
 			}
 		});
