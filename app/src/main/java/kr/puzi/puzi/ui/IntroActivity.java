@@ -229,6 +229,13 @@ public class IntroActivity extends BaseFragmentActivity {
 					kakaoIdSignup(tempId, kakaoUUID);
 				}
 			}
+
+			@Override
+			public void onFail(ResponseVO responseVO) {
+				super.onFail(responseVO);
+				isCheckingKakaoTempId = false;
+			}
+
 		});
 	}
 
