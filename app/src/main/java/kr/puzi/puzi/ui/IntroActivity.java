@@ -106,7 +106,7 @@ public class IntroActivity extends BaseFragmentActivity {
 						if (ErrorCode == ClientErrorCode) {
 							Toast.makeText(getApplicationContext(), "카카오톡 서버의 네트워크가 불안정합니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
 						} else {
-							Toast.makeText(getApplicationContext(), "카카오톡 로그인에 실패하였습니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+							Toast.makeText(getApplicationContext(), "카카오톡 로그인에 실패하였습니다["+ErrorCode+"]. 반복될 경우 관리자에게 문의해주세요.", Toast.LENGTH_SHORT).show();
 							Log.i("TAG", "오류로 카카오로그인 실패 ");
 						}
 					}
