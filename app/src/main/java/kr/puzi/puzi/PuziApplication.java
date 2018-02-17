@@ -3,6 +3,8 @@ package kr.puzi.puzi;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.kakao.auth.KakaoSDK;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -19,6 +21,9 @@ public class PuziApplication extends Application {
 	public static PuziApplication getInstance() {
 		return instance;
 	}
+
+	private static GoogleAnalytics sAnalytics;
+	private static Tracker sTracker;
 	
 	@Override
 	public void onCreate() {
@@ -28,6 +33,8 @@ public class PuziApplication extends Application {
 		KakaoSDK.init(new KakaoSDKAdapter());
 
 		initImageLoader(getApplicationContext());
+
+		sAnalytics = GoogleAnalytics.getInstance(this);
 	}
 
 	public static Activity getCurrentActivity() {
@@ -60,5 +67,18 @@ public class PuziApplication extends Application {
 	public void onTerminate() {
 		super.onTerminate();
 		instance = null;
+	}
+
+	/**
+	 * Gets the default {@link Tracker} for this {@link Application}.
+	 * @return tracker
+	 */
+	synchronized public Tracker getDefaultTracker() {
+		// To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
+		if (sTracker == null) {
+			sTracker = sAnalytics.newTracker(R.xml.global_tracker);
+		}
+
+		return sTracker;
 	}
 }

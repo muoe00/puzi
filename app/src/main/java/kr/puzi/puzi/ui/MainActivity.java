@@ -12,8 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import butterknife.*;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
-
+import kr.puzi.puzi.PuziApplication;
 import kr.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import kr.puzi.puzi.biz.event.EventInfoVO;
 import kr.puzi.puzi.biz.user.UserVO;
@@ -36,6 +38,8 @@ import kr.puzi.puzi.ui.user.RecommendActivity;
 import kr.puzi.puzi.utils.PuziUtils;
 import kr.puzi.puzi.utils.TextUtils;
 import retrofit2.Call;
+
+import static android.R.attr.name;
 
 public class MainActivity extends BaseFragmentActivity {
 

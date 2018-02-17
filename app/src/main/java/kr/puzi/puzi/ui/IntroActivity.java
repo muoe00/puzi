@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
@@ -20,10 +19,6 @@ import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
-
-import java.security.MessageDigest;
-import java.util.ArrayList;
-
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.user.RegisterType;
 import kr.puzi.puzi.biz.user.UserVO;
@@ -39,7 +34,8 @@ import kr.puzi.puzi.ui.intro.SignupInfoFragment;
 import kr.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
 
-import static kr.puzi.puzi.utils.PuziUtils.getDevicesUUID;
+import java.security.MessageDigest;
+import java.util.ArrayList;
 
 public class IntroActivity extends BaseFragmentActivity {
 
@@ -98,54 +94,58 @@ public class IntroActivity extends BaseFragmentActivity {
 		@Override
 		public void onSessionOpened() {
 			Log.i("TAG" , "onSessionOpened");
-
-			if(Session.getCurrentSession().isOpened()) {
-				UserManagement.requestMe(new MeResponseCallback() {
-					@Override
-					public void onFailure(ErrorResult errorResult) {
-						ProgressDialog.dismiss();
-						int ErrorCode = errorResult.getErrorCode();
-						int ClientErrorCode = -777;
-
-						if (ErrorCode == ClientErrorCode) {
-							Toast.makeText(getApplicationContext(), "카카오톡 서버의 네트워크가 불안정합니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-						} else {
-							Toast.makeText(getApplicationContext(), "카카오톡 로그인에 실패하였습니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
-							Log.i("TAG", "오류로 카카오로그인 실패 ");
-						}
-					}
-
-					@Override
-					public void onSessionClosed(ErrorResult errorResult) {
-						Log.i("TAG", "onSessionClosed : " + errorResult.getErrorMessage());
-						ProgressDialog.dismiss();
-					}
-
-					@Override
-					public void onNotSignedUp() {
-						Toast.makeText(getApplicationContext(), "카카오톡에 가입되어 있지 않습니다.", Toast.LENGTH_SHORT).show();
-						Log.i("TAG", "onNotSignedUp");
-						ProgressDialog.dismiss();
-					}
-
-					@Override
-					public void onSuccess(UserProfile userProfile) {
-						//로그인에 성공하면 로그인한 사용자의 일련번호, 닉네임, 이미지url등을 리턴합니다.
-						//사용자 ID는 보안상의 문제로 제공하지 않고 일련번호는 제공합니다.
-						Log.i("UserProfile", userProfile.toString());
-						ProgressDialog.dismiss();
-						checkUser();
-					}
-				});
-			}
-
+			requestMe();
 		}
 
 		@Override
 		public void onSessionOpenFailed(KakaoException e) {
 			ProgressDialog.dismiss();
+			Toast.makeText(getApplicationContext(), "카카오톡 로그인에 실패하였습니다[10001]. 지속될 경우 관리자에게 문의해주세요.", Toast.LENGTH_SHORT).show();
 			Log.e("TAG" , "onSessionOpenFailed", e);
 		}
+	}
+
+	private void requestMe() {
+		ProgressDialog.show(getActivity());
+		UserManagement.requestMe(new MeResponseCallback() {
+			@Override
+			public void onFailure(ErrorResult errorResult) {
+				ProgressDialog.dismiss();
+				int ErrorCode = errorResult.getErrorCode();
+				int ClientErrorCode = -777;
+
+				if (ErrorCode == ClientErrorCode) {
+					Toast.makeText(getApplicationContext(), "카카오톡 서버의 네트워크가 불안정합니다. 잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(getApplicationContext(), "카카오톡 로그인에 실패하였습니다["+ErrorCode+"]. 지속될 경우 관리자에게 문의해주세요.", Toast.LENGTH_SHORT).show();
+					Log.i("TAG", "오류로 카카오로그인 실패 ");
+				}
+			}
+
+			@Override
+			public void onSessionClosed(ErrorResult errorResult) {
+				Toast.makeText(getApplicationContext(), "카카오톡 로그인에 실패하였습니다[1"+errorResult.getErrorCode()+"]. 지속될 경우 관리자에게 문의해주세요.", Toast.LENGTH_SHORT).show();
+				Log.i("TAG", "onSessionClosed : " + errorResult.getErrorMessage());
+
+				ProgressDialog.dismiss();
+			}
+
+			@Override
+			public void onNotSignedUp() {
+				Toast.makeText(getApplicationContext(), "카카오톡에 가입되어 있지 않습니다.", Toast.LENGTH_SHORT).show();
+				Log.i("TAG", "onNotSignedUp");
+				ProgressDialog.dismiss();
+			}
+
+			@Override
+			public void onSuccess(UserProfile userProfile) {
+				//로그인에 성공하면 로그인한 사용자의 일련번호, 닉네임, 이미지url등을 리턴합니다.
+				//사용자 ID는 보안상의 문제로 제공하지 않고 일련번호는 제공합니다.
+				Log.i("UserProfile", userProfile.toString());
+				ProgressDialog.dismiss();
+				checkUser(String.valueOf(userProfile.getId()));
+			}
+		});
 	}
 
 	public void kakaoIdLogin(final String id, final String pwd) {
@@ -201,22 +201,19 @@ public class IntroActivity extends BaseFragmentActivity {
 		introActivity.addFragment(infoFragment);
 	}
 
-	public void checkUser() {
+	public void checkUser(final String kakaoUUID) {
 		if(isCheckingKakaoTempId) {
-			ProgressDialog.dismiss();
 			return;
 		}
 		isCheckingKakaoTempId = true;
 
 		ProgressDialog.show(getActivity());
 
-		uuid = getDevicesUUID(getApplicationContext());
-
 		LazyRequestService service = new LazyRequestService(getActivity(), UserNetworkService.class);
 		service.method(new LazyRequestService.RequestMothod<UserNetworkService>() {
 			@Override
 			public Call<ResponseVO> execute(UserNetworkService userNetworkService, String token) {
-				return userNetworkService.checkKakao(uuid);
+				return userNetworkService.checkKakao(kakaoUUID);
 			}
 		});
 		service.enqueue(new CustomCallback(getActivity()) {
@@ -229,12 +226,21 @@ public class IntroActivity extends BaseFragmentActivity {
 				boolean isKakao = responseVO.getBoolean("registered");
 				String tempId = responseVO.getString("tempId");
 
+				Log.e("KAKAO", kakaoUUID);
+
 				if(isKakao) {
-					kakaoIdLogin(tempId, uuid);
+					kakaoIdLogin(tempId, kakaoUUID);
 				} else {
-					kakaoIdSignup(tempId, uuid);
+					kakaoIdSignup(tempId, kakaoUUID);
 				}
 			}
+
+			@Override
+			public void onFail(ResponseVO responseVO) {
+				super.onFail(responseVO);
+				isCheckingKakaoTempId = false;
+			}
+
 		});
 	}
 
