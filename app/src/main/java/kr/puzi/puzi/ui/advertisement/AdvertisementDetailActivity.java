@@ -1,6 +1,7 @@
 package kr.puzi.puzi.ui.advertisement;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,21 +17,12 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.joooonho.SelectableRoundedImageView;
-
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import com.joooonho.SelectableRoundedImageView;
 import kr.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import kr.puzi.puzi.image.BitmapUIL;
 import kr.puzi.puzi.network.CustomCallback;
@@ -43,6 +35,9 @@ import kr.puzi.puzi.ui.common.PointDialog;
 import kr.puzi.puzi.ui.company.CompanyActivity;
 import kr.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 import static kr.puzi.puzi.ui.advertisement.AdvertisementFragment.updateSavedPoint;
 
@@ -139,7 +134,27 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 		WebSettings webSettings = webView.getSettings();
 		webSettings.setJavaScriptEnabled(true);
 		webView.setWebChromeClient(new WebChromeClient());
-		webView.setWebViewClient(new WebViewClient());
+		webView.setWebViewClient(new WebViewClient() {
+			@Override
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				if(url.startsWith("https://play.google.com/store/apps/details")) {
+					String[] splited = url.split("=");
+					if(splited.length != 2) {
+						view.loadUrl(url);
+						return true;
+					}
+
+					Intent marketLaunch = new Intent(Intent.ACTION_VIEW);
+					marketLaunch.setData(Uri.parse("market://details?id="+splited[1]));
+					startActivity(marketLaunch);
+
+					return true;
+				} else {
+					view.loadUrl(url);
+					return true;
+				}
+			}
+		});
 		webView.loadUrl(url);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
