@@ -39,7 +39,8 @@
         android:textStyle="normal"
         android:textColor="#6d6d6d"
         android:lineSpacingExtra="4sp"
-        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/tv_item_myworry_reply_time"/>
 

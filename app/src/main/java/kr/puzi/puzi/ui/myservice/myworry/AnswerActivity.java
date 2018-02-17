@@ -9,13 +9,12 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.*;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+import butterknife.*;
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.myservice.*;
 import kr.puzi.puzi.biz.myworry.MyWorryReplyVO;
+import kr.puzi.puzi.biz.user.UserVO;
+import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
 import kr.puzi.puzi.network.ResponseVO;
@@ -696,7 +695,19 @@ public class AnswerActivity extends BaseActivity {
         }
     }
 
+    @OnItemLongClick(R.id.lv_reply_list_container)
+    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+        UserVO myInfo = Preference.getMyInfo(getActivity());
+        MyWorryReplyVO replyVO = myWorryReplyAdapter.getItem(position);
 
+        boolean useDelete = myInfo.getUserId().equals(replyVO.getWriter());
+        MyWorryReplyLongClickDialog.load(getActivity(), replyVO.getMyWorryReplyId(), useDelete, new DialogButtonCallback() {
+            @Override
+            public void onClick() {
+                myWorryReplyAdapter.removeItem(position);
+            }
+        });
+    }
 
     @OnClick(R.id.ibtn_question_close)
     public void closeView() {
