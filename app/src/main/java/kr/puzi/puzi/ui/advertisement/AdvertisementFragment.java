@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
@@ -25,6 +27,7 @@ import kr.puzi.puzi.network.ResponseVO;
 import kr.puzi.puzi.network.service.AdvertisementNetworkService;
 import kr.puzi.puzi.ui.CustomPagingAdapter;
 import kr.puzi.puzi.ui.base.BaseFragment;
+import kr.puzi.puzi.ui.common.PointDialog;
 import kr.puzi.puzi.utils.PuziUtils;
 import lombok.NoArgsConstructor;
 import retrofit2.Call;
@@ -43,6 +46,7 @@ public class AdvertisementFragment extends BaseFragment {
 	@BindView(R.id.vp_advertise) public ViewPager viewPager;
 	@BindView(kr.puzi.puzi.R.id.lv_advertise) public ListView lvAd;
 	@BindView(R.id.sv_ad) public ScrollView svAd;
+	@BindView(R.id.btn_slide_ad) public Button btnSlide;
 	@BindView(kr.puzi.puzi.R.id.srl_advertisement_container) public SwipeRefreshLayout srlContainer;
 
 	private boolean more = false;
@@ -130,6 +134,11 @@ public class AdvertisementFragment extends BaseFragment {
 				srlContainer.setRefreshing(false);
 			}
 		});
+	}
+
+	@OnClick(R.id.btn_slide_ad)
+	public void onClickSavedSlidePoint() {
+		PointDialog.load(getActivity(), 10, true);
 	}
 
 	public void getAdvertiseList() {
