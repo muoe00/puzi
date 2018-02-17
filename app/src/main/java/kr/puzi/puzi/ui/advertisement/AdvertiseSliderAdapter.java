@@ -18,6 +18,8 @@ import kr.puzi.puzi.R;
 
 public class AdvertiseSliderAdapter extends PagerAdapter {
 
+    public static int infiniteScroll = 50;
+
     private Activity activity;
     private int[] images = {R.drawable.ad_01_copy, R.drawable.image2, R.drawable.image3};
     private LayoutInflater inflater;
@@ -29,7 +31,7 @@ public class AdvertiseSliderAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return images.length;
+        return images.length * infiniteScroll;
     }
 
     @Override
@@ -39,6 +41,9 @@ public class AdvertiseSliderAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+
+        position %= images.length;
+
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.view_slider, container, false);
 
