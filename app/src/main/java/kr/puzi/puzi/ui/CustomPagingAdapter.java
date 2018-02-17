@@ -105,10 +105,10 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 		this.layoutResource2 = layoutResource2;
 		this.layoutResource3 = layoutResource3;
 		this.layoutResource4 = layoutResource4;
-		this.layoutResource5 = layoutResource5;
 		this.listView = listView;
 		this.scrollView = scrollView;
 		this.listHandler =listHandler;
+		this.moreBtn = moreBtn;
 		init();
 	}
 

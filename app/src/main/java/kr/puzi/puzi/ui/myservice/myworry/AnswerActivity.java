@@ -1,5 +1,6 @@
 package kr.puzi.puzi.ui.myservice.myworry;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -186,10 +187,14 @@ public class AnswerActivity extends BaseActivity {
                                 case 1:
                                     btnA2A1.setBackgroundResource(R.drawable.button_question_on);
                                     tvA2T1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                    tvA2T1.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
+                                    tvA2P1.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
                                     break;
                                 case 2:
                                     btnA2A2.setBackgroundResource(R.drawable.button_question_on);
                                     tvA2T2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                    tvA2T2.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
+                                    tvA2P2.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
                                     break;
                             }
                         } else {
@@ -197,18 +202,26 @@ public class AnswerActivity extends BaseActivity {
                                 case 1:
                                     btnAnswer1.setBackgroundResource(R.drawable.button_question_on);
                                     tvAnswer1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                    tvAnswer1.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
+                                    tvPercent1.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
                                     break;
                                 case 2:
                                     btnAnswer2.setBackgroundResource(R.drawable.button_question_on);
                                     tvAnswer2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                    tvAnswer2.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
+                                    tvPercent2.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
                                     break;
                                 case 3:
                                     btnAnswer3.setBackgroundResource(R.drawable.button_question_on);
                                     tvAnswer3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                    tvAnswer3.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
+                                    tvPercent3.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
                                     break;
                                 case 4:
                                     btnAnswer4.setBackgroundResource(R.drawable.button_question_on);
                                     tvAnswer4.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                                    tvAnswer4.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
+                                    tvPercent4.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
                                     break;
                             }
                         }
@@ -259,16 +272,16 @@ public class AnswerActivity extends BaseActivity {
     public void checkAnswer(View view) {
         switch (view.getId()) {
             case R.id.btn_answer_1:
-                checkButton(btnAnswer1, tvAnswer1, 1);
+                checkButton(btnAnswer1, tvAnswer1, tvPercent1, 1);
                 break;
             case R.id.btn_answer_2:
-                checkButton(btnAnswer2, tvAnswer2,2);
+                checkButton(btnAnswer2, tvAnswer2, tvPercent2,2);
                 break;
             case R.id.btn_answer_3:
-                checkButton(btnAnswer3, tvAnswer3,3);
+                checkButton(btnAnswer3, tvAnswer3, tvPercent3,3);
                 break;
             case R.id.btn_answer_4:
-                checkButton(btnAnswer4, tvAnswer4,4);
+                checkButton(btnAnswer4, tvAnswer4, tvPercent4,4);
                 break;
         }
     }
@@ -277,10 +290,10 @@ public class AnswerActivity extends BaseActivity {
     public void checkAnswer2(View view) {
         switch (view.getId()) {
             case kr.puzi.puzi.R.id.btn_answer_a2_a1:
-                checkButton(btnA2A1, tvA2T1, 1);
+                checkButton(btnA2A1, tvA2T1, tvA2P1, 1);
                 break;
             case kr.puzi.puzi.R.id.btn_answer_a2_a2:
-                checkButton(btnA2A2, tvA2T2, 2);
+                checkButton(btnA2A2, tvA2T2, tvA2P2, 2);
                 break;
         }
     }
@@ -418,7 +431,7 @@ public class AnswerActivity extends BaseActivity {
         }
     }
 
-    public void checkButton(LinearLayout btn, NotoTextView tv, int index) {
+    public void checkButton(LinearLayout btn, NotoTextView tv, NotoTextView tvP, int index) {
         if (isSelected) {
             if(selectedCount == index) {
                 isSelected = false;
@@ -473,6 +486,8 @@ public class AnswerActivity extends BaseActivity {
                 }
                 btn.setBackgroundResource(R.drawable.button_question_on);
                 tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+                tv.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
+                tvP.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
             }
         } else {
             isSelected = true;
@@ -493,6 +508,8 @@ public class AnswerActivity extends BaseActivity {
             }
             btn.setBackgroundResource(R.drawable.button_question_on);
             tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
+            tv.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
+            tvP.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
         }
     }
 

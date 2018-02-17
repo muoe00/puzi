@@ -4,8 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/puzi.iml" filepath="$PROJECT_DIR$/puzi.iml" />
-      <module fileurl="file://$PROJECT_DIR$/puzi-andorid.iml" filepath="$PROJECT_DIR$/puzi-andorid.iml" />
-      <module fileurl="file://C:\Users\170605\Desktop\Study\puzi\puzi-andorid.iml" filepath="C:\Users\170605\Desktop\Study\puzi\puzi-andorid.iml" />
     </modules>
   </component>
 </project>

@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -27,8 +26,6 @@ import kr.puzi.puzi.ui.myservice.mytoday.CategoryAdapter;
 
 public class MyWorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
 
-    public static int count = 0;
-
     private boolean mine = false;
     private Activity activity;
     private Context context;
@@ -37,7 +34,6 @@ public class MyWorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
 
     public MyWorryAdaptor(Activity activity, int layoutResource, int layoutResource2, int layoutResource3, int layoutResource4, ListView listView, ScrollView scrollView, ListHandler listHandler, boolean moreBtn) {
         super(activity, layoutResource, layoutResource2, layoutResource3, layoutResource4, 0, listView, scrollView, listHandler, moreBtn);
-
         this.activity = activity;
         this.context = activity.getApplicationContext();
     }
@@ -53,7 +49,7 @@ public class MyWorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
 
     @Override
     public int getViewTypeCount() {
-        return 5;
+        return 6;
     }
 
     @Override
@@ -64,14 +60,20 @@ public class MyWorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
         }
 
         MyWorryQuestionDTO myWorryQuestionDTO = getItem(position);
-        Log.i("MyWorryAdaptor", "count : " + count);
 
-        if(count < 5) {
-            count++;
-            if(myWorryQuestionDTO.isNeedToShowResult()){
-                return VIEW_LIST_4;
+        if(!mine) {
+            if(position < 5) {
+                if(myWorryQuestionDTO.isNeedToShowResult()){
+                    return VIEW_LIST_4;
+                } else {
+                    return VIEW_LIST_3;
+                }
             } else {
-                return VIEW_LIST_3;
+                if(myWorryQuestionDTO.isNeedToShowResult()){
+                    return VIEW_LIST_2;
+                } else {
+                    return VIEW_LIST;
+                }
             }
         } else {
             if(myWorryQuestionDTO.isNeedToShowResult()){
@@ -231,7 +233,6 @@ public class MyWorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
 
     class ViewHolder extends Holder {
 
-        @BindView(kr.puzi.puzi.R.id.ll_question_bg) public LinearLayout llBg;
         @BindView(kr.puzi.puzi.R.id.fl_vote_like) public RelativeLayout rlLike;
         @BindView(kr.puzi.puzi.R.id.tv_vote_comment) public NotoTextView tvComment;
         @BindView(kr.puzi.puzi.R.id.pg_worry) public ProgressBar progressBar;
@@ -247,7 +248,6 @@ public class MyWorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
 
     class ViewHolder2 extends Holder {
 
-        @BindView(kr.puzi.puzi.R.id.ll_question_bg) public LinearLayout llBg;
         @BindView(kr.puzi.puzi.R.id.fl_vote_like) public RelativeLayout rlLike;
         @BindView(kr.puzi.puzi.R.id.tv_vote_comment) public NotoTextView tvComment;
         @BindView(kr.puzi.puzi.R.id.pg_worry) public ProgressBar progressBar;
@@ -263,7 +263,6 @@ public class MyWorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
 
     class ViewHolder3 extends Holder {
 
-        @BindView(kr.puzi.puzi.R.id.ll_question_bg) public LinearLayout llBg;
         @BindView(kr.puzi.puzi.R.id.fl_vote_like) public RelativeLayout rlLike;
         @BindView(kr.puzi.puzi.R.id.tv_vote_comment) public NotoTextView tvComment;
         @BindView(kr.puzi.puzi.R.id.pg_worry) public ProgressBar progressBar;
@@ -279,7 +278,6 @@ public class MyWorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
 
     class ViewHolder4 extends Holder {
 
-        @BindView(kr.puzi.puzi.R.id.ll_question_bg) public LinearLayout llBg;
         @BindView(kr.puzi.puzi.R.id.fl_vote_like) public RelativeLayout rlLike;
         @BindView(kr.puzi.puzi.R.id.tv_vote_comment) public NotoTextView tvComment;
         @BindView(kr.puzi.puzi.R.id.pg_worry) public ProgressBar progressBar;
