@@ -189,7 +189,7 @@
             android:layout_height="match_parent">
 
             <kr.puzi.puzi.ui.customview.NotoTextView
-              app:fontWeight="medium"
+              app:fontWeight="regular"
               android:id="@+id/tv_answer_a2_t1"
               android:gravity="center"
               android:textSize="24dp"
@@ -199,7 +199,7 @@
               android:layout_height="wrap_content" />
 
             <kr.puzi.puzi.ui.customview.NotoTextView
-              app:fontWeight="medium"
+              app:fontWeight="regular"
               android:id="@+id/tv_answer_a2_p1"
               android:gravity="center"
               android:textSize="20dp"
@@ -220,7 +220,7 @@
             android:layout_height="match_parent">
 
             <kr.puzi.puzi.ui.customview.NotoTextView
-              app:fontWeight="medium"
+              app:fontWeight="regular"
               android:id="@+id/tv_answer_a2_t2"
               android:gravity="center"
               android:text=""
@@ -230,7 +230,7 @@
               android:layout_height="wrap_content" />
 
             <kr.puzi.puzi.ui.customview.NotoTextView
-              app:fontWeight="medium"
+              app:fontWeight="regular"
               android:id="@+id/tv_answer_a2_p2"
               android:gravity="center"
               android:textSize="20dp"
@@ -272,7 +272,7 @@
               android:layout_height="match_parent">
 
             <kr.puzi.puzi.ui.customview.NotoTextView
-                app:fontWeight="medium"
+                app:fontWeight="regular"
                 android:id="@+id/tv_answer_1_t"
                 android:text=""
                 android:gravity="center"
@@ -282,7 +282,7 @@
                 android:layout_height="wrap_content" />
 
             <kr.puzi.puzi.ui.customview.NotoTextView
-                app:fontWeight="medium"
+                app:fontWeight="regular"
                 android:id="@+id/tv_answer_1_p"
                 android:gravity="center"
                 android:textSize="20dp"
@@ -303,7 +303,7 @@
             android:layout_height="match_parent">
 
             <kr.puzi.puzi.ui.customview.NotoTextView
-              app:fontWeight="medium"
+              app:fontWeight="regular"
               android:id="@+id/tv_answer_2_t"
               android:text=""
               android:gravity="center"
@@ -313,7 +313,7 @@
               android:layout_height="wrap_content" />
 
             <kr.puzi.puzi.ui.customview.NotoTextView
-              app:fontWeight="medium"
+              app:fontWeight="regular"
               android:id="@+id/tv_answer_2_p"
               android:gravity="center"
               android:textSize="20dp"
@@ -343,7 +343,7 @@
               android:layout_height="match_parent">
 
               <kr.puzi.puzi.ui.customview.NotoTextView
-                  app:fontWeight="medium"
+                  app:fontWeight="regular"
                   android:id="@+id/tv_answer_3_t"
                   android:gravity="center"
                   android:textSize="24dp"
@@ -352,7 +352,7 @@
                   android:layout_height="wrap_content" />
 
               <kr.puzi.puzi.ui.customview.NotoTextView
-                  app:fontWeight="medium"
+                  app:fontWeight="regular"
                   android:id="@+id/tv_answer_3_p"
                   android:gravity="center"
                   android:textSize="20dp"
@@ -373,7 +373,7 @@
                 android:layout_height="match_parent">
 
               <kr.puzi.puzi.ui.customview.NotoTextView
-                  app:fontWeight="medium"
+                  app:fontWeight="regular"
                   android:id="@+id/tv_answer_4_t"
                   android:gravity="center"
                   android:textSize="24dp"
@@ -382,7 +382,7 @@
                   android:layout_height="wrap_content" />
 
               <kr.puzi.puzi.ui.customview.NotoTextView
-                  app:fontWeight="medium"
+                  app:fontWeight="regular"
                   android:id="@+id/tv_answer_4_p"
                   android:gravity="center"
                   android:textSize="20dp"

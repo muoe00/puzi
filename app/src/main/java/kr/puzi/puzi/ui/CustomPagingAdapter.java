@@ -36,11 +36,16 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 	protected static final int VIEW_EMPTY = 1;
 	protected static final int VIEW_PROGRESS = 2;
 	protected static final int VIEW_LIST_2 = 3;
+	protected static final int VIEW_LIST_3 = 4;
+	protected static final int VIEW_LIST_4 = 5;
 
 	protected LayoutInflater inflater;
 	protected Activity activity;
 	protected int layoutResource;
 	protected int layoutResource2;
+	protected int layoutResource3;
+	protected int layoutResource4;
+	protected int layoutResource5;
 	protected ListView listView;
 	protected GridView gridView;
 	protected ScrollView scrollView;
@@ -50,7 +55,7 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 
 	protected List<T> list = newArrayList();
 	@Getter
-	private int pagingIndex = 0; //시작할 때 +1하고 시작함, 즉 처음 pagingIndex값은 1임
+	private int pagingIndex = 0; // 시작할 때 +1하고 시작함, 즉 처음 pagingIndex 값은 1임
 
 	@Getter
 	private boolean progressed = false;
@@ -69,6 +74,10 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 		this(activity, layoutResource, layoutResource2, listView, null, listHandler);
 	}
 
+	public CustomPagingAdapter(Activity activity, int layoutResource, int layoutResource2, int layoutResource3, int layoutResource4, ListView listView, ScrollView scrollView, ListHandler listHandler, boolean moreBtn) {
+		this(activity, layoutResource, layoutResource2, layoutResource3, layoutResource4, 0, listView, scrollView, listHandler, moreBtn);
+	}
+
 	public CustomPagingAdapter(Activity activity, int layoutResource, ListView listView, ScrollView scrollView, ListHandler listHandler) {
 		this(activity, layoutResource, 0, listView, scrollView, listHandler);
 	}
@@ -82,6 +91,20 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 		this.inflater = activity.getLayoutInflater();
 		this.layoutResource = layoutResource;
 		this.layoutResource2 = layoutResource2;
+		this.listView = listView;
+		this.scrollView = scrollView;
+		this.listHandler =listHandler;
+		this.moreBtn = moreBtn;
+		init();
+	}
+
+	public CustomPagingAdapter(Activity activity, int layoutResource, int layoutResource2, int layoutResource3, int layoutResource4, int layoutResource5, ListView listView, ScrollView scrollView, ListHandler listHandler, boolean moreBtn) {
+		this.activity = activity;
+		this.inflater = activity.getLayoutInflater();
+		this.layoutResource = layoutResource;
+		this.layoutResource2 = layoutResource2;
+		this.layoutResource3 = layoutResource3;
+		this.layoutResource4 = layoutResource4;
 		this.listView = listView;
 		this.scrollView = scrollView;
 		this.listHandler =listHandler;
@@ -284,7 +307,7 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 
 	@Override
 	public int getViewTypeCount() {
-		return 3;
+		return 5;
 	}
 
 	@Override
@@ -338,6 +361,18 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 					viewHolder = createHolder2(v);
 					v.setTag(viewHolder);
 					break;
+
+				case VIEW_LIST_3:
+					v = inflater.inflate(layoutResource3, null);
+					viewHolder = createHolder3(v);
+					v.setTag(viewHolder);
+					break;
+
+				case VIEW_LIST_4:
+					v = inflater.inflate(layoutResource4, null);
+					viewHolder = createHolder4(v);
+					v.setTag(viewHolder);
+					break;
 			}
 		} else {
 			switch(viewType) {
@@ -350,6 +385,14 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 					break;
 
 				case VIEW_LIST_2:
+					viewHolder = (Holder) v.getTag();
+					break;
+
+				case VIEW_LIST_3:
+					viewHolder = (Holder) v.getTag();
+					break;
+
+				case VIEW_LIST_4:
 					viewHolder = (Holder) v.getTag();
 					break;
 			}
@@ -367,6 +410,14 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 			case VIEW_LIST_2:
 				setView2(viewHolder, getItem(position), position);
 				break;
+
+			case VIEW_LIST_3:
+				setView3(viewHolder, getItem(position), position);
+				break;
+
+			case VIEW_LIST_4:
+				setView4(viewHolder, getItem(position), position);
+				break;
 		}
 
 		return v;
@@ -376,11 +427,29 @@ public abstract class CustomPagingAdapter<T> extends BaseAdapter {
 		// @Override if use
 	}
 
+	public void setView3(Holder viewHolder, T item, int position) {
+		// @Override if use
+	}
+
+	public void setView4(Holder viewHolder, T item, int position) {
+		// @Override if use
+	}
+
 	protected abstract void setView(Holder viewHolder, T item, int position);
 
 	protected abstract Holder createHolder(View v);
 
 	protected Holder createHolder2(View v) {
+		// @Override if use
+		return null;
+	}
+
+	protected Holder createHolder3(View v) {
+		// @Override if use
+		return null;
+	}
+
+	protected Holder createHolder4(View v) {
 		// @Override if use
 		return null;
 	}

@@ -112,20 +112,18 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 
 	@Override
 	public void onResume() {
-		Log.i("QuestionFragment", "onResume");
-		Log.i("QuestionFragment", "max : " + max);
-
 		isMore = false;
 		isItemClick = false;
 
-		if(max == count) {
+		if(max != 0 && max == count) {
 			count = 0;
 			getQuestion();
 		} else {
 			setQuestion();
 		}
 
-		Log.i("QuestionFragment", "needToUpdateLike.size() : " + needToUpdateLike.size());
+		myWorryAdaptor.clean();
+		myWorryAdaptor.getList();
 
 		if(needToUpdateLike.size() > 0) {
 			for(UpdateLike updateLike : needToUpdateLike) {
@@ -138,7 +136,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 
 	@Override
 	public void onPause() {
-		Log.i("QuestionFragment", "onPause");
 		if(excutors != null) {
 			excutors.shutdownNow();
 		}
@@ -173,8 +170,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-				Log.i("QuestionFragment", responseVO.toString());
-
 				myTodayQuestionList = responseVO.getList("myTodayQuestionDTOList", MyTodayQuestionVO.class);
 				max = myTodayQuestionList.size();
 				isBonusTime = responseVO.getBoolean("isBonusTime");
@@ -213,7 +208,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	}
 
 	public void setTime() {
-		Log.i("QuestionFragment", "setTime");
 		if(excutors == null || excutors.isShutdown()) {
 			excutors = Executors.newSingleThreadScheduledExecutor();
 			excutors.scheduleAtFixedRate(new Runnable() {
@@ -223,16 +217,12 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 						@Override
 						public void run() {
 							second--;
-							Log.i("QuestionFragment", "second : " + second);
 							if (second <= 0) {
-								Log.i("QuestionFragment", "second : " + second);
 								if (minute > 0) {
-									Log.i("QuestionFragment", "minute : " + minute);
 									minute--;
 									second = 60;
 								} else {
 									if (hour > 0) {
-										Log.i("QuestionFragment", "hour : " + hour);
 										hour--;
 										minute = 59;
 										second = 60;
@@ -307,7 +297,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		rvQuestion.setLayoutManager(manager);
 
 		// myWorry
-		myWorryAdaptor = new MyWorryAdaptor(getActivity(), kr.puzi.puzi.R.layout.item_question_vote, lvQuestion, svQuestion, new CustomPagingAdapter.ListHandler() {
+		myWorryAdaptor = new MyWorryAdaptor(getActivity(), kr.puzi.puzi.R.layout.item_question_vote, R.layout.item_question_vote_close, kr.puzi.puzi.R.layout.item_question_vote_up, R.layout.item_question_vote_close_up, lvQuestion, svQuestion, new CustomPagingAdapter.ListHandler() {
 			@Override
 			public void getList() {
 				myWorryAdaptor.startProgressWithScrollDown();
@@ -336,7 +326,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				myWorryAdaptor.startProgress();
 				myWorryAdaptor.setMine(mine);
 				getWorryList();
-				Log.i("QuestionFragment", "mine : " + mine);
 			}
 
 			@Override
@@ -361,7 +350,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 		if(!isItemClick) {
 			isItemClick = true;
-			Log.i("QuestionFragment", "onItemClick");
 			MyWorryQuestionDTO myWorryQuestionDTO = myWorryAdaptor.getItem(i);
 			Intent intent = new Intent(getActivity(), AnswerActivity.class);
 			intent.putExtra("myWorryQuestionDTO", myWorryQuestionDTO);
