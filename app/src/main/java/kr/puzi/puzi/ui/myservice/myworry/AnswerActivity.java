@@ -6,8 +6,6 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.*;
 import butterknife.*;
 import kr.puzi.puzi.R;
@@ -676,27 +674,26 @@ public class AnswerActivity extends BaseActivity {
             ViewGroup.LayoutParams params = llReplyContainer.getLayoutParams();
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             llReplyContainer.setLayoutParams(params);
-            Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.bottom_out);
             lvReplyListContainer.setVisibility(View.GONE);
             llReplyWriteContainer.setVisibility(View.GONE);
-            lvReplyListContainer.startAnimation(animation);
-            llReplyWriteContainer.startAnimation(animation);
             llReplyPeddingContainer.setVisibility(View.GONE);
         } else {
             ViewGroup.LayoutParams params = llReplyContainer.getLayoutParams();
             params.height = ViewGroup.LayoutParams.MATCH_PARENT;
             llReplyContainer.setLayoutParams(params);
-            Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.bottom_in);
+//            Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.bottom_in);
             lvReplyListContainer.setVisibility(View.VISIBLE);
             llReplyWriteContainer.setVisibility(View.VISIBLE);
-            lvReplyListContainer.startAnimation(animation);
-            llReplyWriteContainer.startAnimation(animation);
+//            llReplyShowContainer.startAnimation(animation);
+//            lvReplyListContainer.startAnimation(animation);
+//            llReplyWriteContainer.startAnimation(animation);
             llReplyPeddingContainer.setVisibility(View.VISIBLE);
         }
     }
 
     @OnItemLongClick(R.id.lv_reply_list_container)
-    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+    public boolean onItemClick(int position) {
+        final int finalPosition = position;
         UserVO myInfo = Preference.getMyInfo(getActivity());
         MyWorryReplyVO replyVO = myWorryReplyAdapter.getItem(position);
 
@@ -704,9 +701,10 @@ public class AnswerActivity extends BaseActivity {
         MyWorryReplyLongClickDialog.load(getActivity(), replyVO.getMyWorryReplyId(), useDelete, new DialogButtonCallback() {
             @Override
             public void onClick() {
-                myWorryReplyAdapter.removeItem(position);
+                myWorryReplyAdapter.removeItem(finalPosition);
             }
         });
+        return false;
     }
 
     @OnClick(R.id.ibtn_question_close)

@@ -88,7 +88,7 @@
             android:gravity="center"
             android:layout_marginRight="14dp"
             app:fontWeight="regular"
-            android:text="510"
+            android:text=""
             android:textSize="20dp"
             android:textColor="@color/colorWhite"
             android:layout_width="wrap_content"
@@ -420,7 +420,6 @@
     <LinearLayout
       android:id="@+id/ll_reply_container"
       android:orientation="vertical"
-      android:background="@color/colorWhite"
       android:layout_gravity="bottom"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
@@ -435,7 +434,7 @@
 
       <LinearLayout
         android:visibility="gone"
-        android:background="#ffffff"
+        android:background="@color/colorWhite"
         android:id="@+id/ll_reply_show_container"
         android:layout_width="match_parent"
         android:layout_height="55dp">
@@ -462,6 +461,12 @@
           android:background="#00000000"
           android:src="@drawable/comment_down_button"/>
 
+        <LinearLayout
+          android:id="@+id/ll_reply_longclick_bar"
+          android:layout_width="match_parent"
+          android:background="#dadada"
+          android:layout_height="1dp"/>
+
       </LinearLayout>
 
       <ListView
@@ -472,6 +477,7 @@
         android:clickable="false"
         android:focusable="false"
         android:divider="#dadada"
+        android:background="@color/colorWhite"
         android:dividerHeight="0.5dp"
         android:focusableInTouchMode="false"
         android:longClickable="false"
@@ -482,6 +488,7 @@
       <LinearLayout
         android:id="@+id/ll_reply_write_container"
         android:visibility="gone"
+        android:background="@color/colorWhite"
         android:orientation="horizontal"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
@@ -489,14 +496,13 @@
         android:paddingLeft="11dp"
         android:paddingRight="11dp"
         android:paddingBottom="9dp"
-        android:background="#ffffff"
         android:layout_height="55dp">
 
         <kr.puzi.puzi.ui.customview.NotoEditText
           app:fontWeight="demilight"
           android:layout_weight="1"
           android:layout_width="0dp"
-          android:layout_height="wrap_content"
+          android:layout_height="match_parent"
           android:layout_gravity="center_vertical"
           android:paddingTop="6dp"
           android:paddingBottom="6dp"
