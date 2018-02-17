@@ -16,8 +16,8 @@ android {
 		applicationId 'kr.puzi.puzi'
 		minSdkVersion 16
 		targetSdkVersion 25
-		versionCode 21
-		versionName "1.0.12"
+		versionCode 22
+		versionName "1.0.13"
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 	}
 	buildTypes {
@@ -41,8 +41,8 @@ dependencies {
 	compile 'com.google.android.gms:play-services-analytics:10.2.4'
 	compile 'com.google.collections:google-collections:1.0'
 	compile 'com.google.code.gson:gson:2.7'
-	compile 'com.google.firebase:firebase-core:10.0.1'
-	compile 'com.google.firebase:firebase-messaging:10.0.1'
+	compile 'com.google.firebase:firebase-core:10.2.1'
+	compile 'com.google.firebase:firebase-messaging:10.2.1'
 	compile 'com.android.support:appcompat-v7:25.1.0'
 	compile 'com.android.support:support-v4:25.1.0'
 	compile 'com.android.support:design:25.1.0'
