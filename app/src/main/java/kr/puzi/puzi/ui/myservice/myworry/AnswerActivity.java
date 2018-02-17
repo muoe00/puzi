@@ -186,12 +186,14 @@ public class AnswerActivity extends BaseActivity {
                             switch (myWorryAnswerDTO.getAnswerNumber()) {
                                 case 1:
                                     btnA2A1.setBackgroundResource(R.drawable.button_question_on);
+                                    btnA2A2.setBackgroundResource(R.drawable.button_question_off);
                                     tvA2T1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
                                     tvA2T1.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
                                     tvA2P1.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
                                     break;
                                 case 2:
                                     btnA2A2.setBackgroundResource(R.drawable.button_question_on);
+                                    btnA2A1.setBackgroundResource(R.drawable.button_question_off);
                                     tvA2T2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
                                     tvA2T2.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
                                     tvA2P2.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
@@ -201,29 +203,51 @@ public class AnswerActivity extends BaseActivity {
                             switch (myWorryAnswerDTO.getAnswerNumber()) {
                                 case 1:
                                     btnAnswer1.setBackgroundResource(R.drawable.button_question_on);
+                                    btnAnswer2.setBackgroundResource(R.drawable.button_question_off);
+                                    btnAnswer3.setBackgroundResource(R.drawable.button_question_off);
+                                    btnAnswer4.setBackgroundResource(R.drawable.button_question_off);
                                     tvAnswer1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
                                     tvAnswer1.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
                                     tvPercent1.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
                                     break;
                                 case 2:
                                     btnAnswer2.setBackgroundResource(R.drawable.button_question_on);
+                                    btnAnswer1.setBackgroundResource(R.drawable.button_question_off);
+                                    btnAnswer3.setBackgroundResource(R.drawable.button_question_off);
+                                    btnAnswer4.setBackgroundResource(R.drawable.button_question_off);
                                     tvAnswer2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
                                     tvAnswer2.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
                                     tvPercent2.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
                                     break;
                                 case 3:
                                     btnAnswer3.setBackgroundResource(R.drawable.button_question_on);
+                                    btnAnswer2.setBackgroundResource(R.drawable.button_question_off);
+                                    btnAnswer1.setBackgroundResource(R.drawable.button_question_off);
+                                    btnAnswer4.setBackgroundResource(R.drawable.button_question_off);
                                     tvAnswer3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
                                     tvAnswer3.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
                                     tvPercent3.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
                                     break;
                                 case 4:
                                     btnAnswer4.setBackgroundResource(R.drawable.button_question_on);
+                                    btnAnswer2.setBackgroundResource(R.drawable.button_question_off);
+                                    btnAnswer3.setBackgroundResource(R.drawable.button_question_off);
+                                    btnAnswer1.setBackgroundResource(R.drawable.button_question_off);
                                     tvAnswer4.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPuzi));
                                     tvAnswer4.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
                                     tvPercent4.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Bold-Hestia.otf"));
                                     break;
                             }
+                        }
+                    } else {
+                        if(isTwoAnser) {
+                            btnA2A1.setBackgroundResource(R.drawable.button_question_off);
+                            btnA2A2.setBackgroundResource(R.drawable.button_question_off);
+                        } else {
+                            btnAnswer1.setBackgroundResource(R.drawable.button_question_off);
+                            btnAnswer2.setBackgroundResource(R.drawable.button_question_off);
+                            btnAnswer3.setBackgroundResource(R.drawable.button_question_off);
+                            btnAnswer4.setBackgroundResource(R.drawable.button_question_off);
                         }
                     }
                 }
@@ -337,6 +361,8 @@ public class AnswerActivity extends BaseActivity {
                 int count = myWorryQuestionDTO.getAnsweredCount() + 1;
                 updateAnswerView();
                 tvCount.setText("" + count);
+
+                QuestionFragment.updateResult(myWorryQuestionDTO.getMyWorryQuestionId(), true);
 
                 Timer timer = new Timer();
                 timer.schedule(new TimerTask() {

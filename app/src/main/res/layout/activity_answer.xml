@@ -179,7 +179,7 @@
             android:layout_height="163dp">
 
           <LinearLayout
-            android:background="@drawable/button_question_off"
+            android:background="@drawable/button_question"
             android:id="@+id/btn_answer_a2_a1"
             android:orientation="vertical"
             android:gravity="center"
@@ -192,7 +192,7 @@
               app:fontWeight="regular"
               android:id="@+id/tv_answer_a2_t1"
               android:gravity="center"
-              android:textSize="24dp"
+              android:textSize="22dp"
               android:text=""
               android:textColor="@color/colorBlack"
               android:layout_width="match_parent"
@@ -214,7 +214,7 @@
             android:orientation="vertical"
             android:gravity="center"
             android:layout_weight="0.5"
-            android:background="@drawable/button_question_off"
+            android:background="@drawable/button_question"
             android:layout_marginLeft="9dp"
             android:layout_width="0dp"
             android:layout_height="match_parent">
@@ -224,7 +224,7 @@
               android:id="@+id/tv_answer_a2_t2"
               android:gravity="center"
               android:text=""
-              android:textSize="24dp"
+              android:textSize="22dp"
               android:textColor="@color/colorBlack"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
@@ -262,7 +262,7 @@
           android:layout_height="0dp">
 
           <LinearLayout
-            android:background="@drawable/button_question_off"
+            android:background="@drawable/button_question"
             android:id="@+id/btn_answer_1"
               android:orientation="vertical"
               android:gravity="center"
@@ -276,7 +276,7 @@
                 android:id="@+id/tv_answer_1_t"
                 android:text=""
                 android:gravity="center"
-                android:textSize="24dp"
+                android:textSize="22dp"
                 android:textColor="@color/colorBlack"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -293,7 +293,7 @@
           </LinearLayout>
 
           <LinearLayout
-            android:background="@drawable/button_question_off"
+            android:background="@drawable/button_question"
             android:id="@+id/btn_answer_2"
             android:orientation="vertical"
             android:gravity="center"
@@ -307,7 +307,7 @@
               android:id="@+id/tv_answer_2_t"
               android:text=""
               android:gravity="center"
-              android:textSize="24dp"
+              android:textSize="22dp"
               android:textColor="@color/colorBlack"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
@@ -333,7 +333,7 @@
           android:layout_height="0dp">
 
             <LinearLayout
-              android:background="@drawable/button_question_off"
+              android:background="@drawable/button_question"
               android:id="@+id/btn_answer_3"
                 android:orientation="vertical"
                 android:gravity="center"
@@ -346,7 +346,7 @@
                   app:fontWeight="regular"
                   android:id="@+id/tv_answer_3_t"
                   android:gravity="center"
-                  android:textSize="24dp"
+                  android:textSize="22dp"
                   android:textColor="@color/colorBlack"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content" />
@@ -363,7 +363,7 @@
             </LinearLayout>
 
             <LinearLayout
-              android:background="@drawable/button_question_off"
+              android:background="@drawable/button_question"
               android:id="@+id/btn_answer_4"
                 android:orientation="vertical"
                 android:gravity="center"
@@ -376,7 +376,7 @@
                   app:fontWeight="regular"
                   android:id="@+id/tv_answer_4_t"
                   android:gravity="center"
-                  android:textSize="24dp"
+                  android:textSize="22dp"
                   android:textColor="@color/colorBlack"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content" />

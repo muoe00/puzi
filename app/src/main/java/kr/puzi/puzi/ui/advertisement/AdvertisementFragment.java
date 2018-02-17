@@ -2,6 +2,7 @@ package kr.puzi.puzi.ui.advertisement;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,9 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
@@ -23,8 +28,6 @@ import kr.puzi.puzi.utils.PuziUtils;
 import lombok.NoArgsConstructor;
 import retrofit2.Call;
 
-import java.util.List;
-
 import static com.google.common.collect.Lists.newArrayList;
 
 /**
@@ -35,12 +38,14 @@ public class AdvertisementFragment extends BaseFragment {
 
 	Unbinder unbinder;
 
+	@BindView(R.id.vp_advertise) public ViewPager viewPager;
 	@BindView(kr.puzi.puzi.R.id.lv_advertise) public ListView lvAd;
 	@BindView(kr.puzi.puzi.R.id.srl_advertisement_container) public SwipeRefreshLayout srlContainer;
 
 	private boolean more = false;
 	private int pagingIndex = 1;
 	boolean lastestScrollFlag = false;
+	private AdvertiseSliderAdapter advertiseSliderAdapter;
 	private AdvertisementListAdapter advertiseListAdapter;
 	private ReceivedAdvertiseVO startReceivedAdvertiseVO = null;
 
@@ -99,6 +104,9 @@ public class AdvertisementFragment extends BaseFragment {
 	private void initComponent() {
 		advertiseListAdapter = new AdvertisementListAdapter((BaseFragmentActivity) getActivity());
 		lvAd.setAdapter(advertiseListAdapter);
+
+		advertiseSliderAdapter = new AdvertiseSliderAdapter(getActivity());
+		viewPager.setAdapter(advertiseSliderAdapter);
 
 		srlContainer.setColorSchemeResources(kr.puzi.puzi.R.color.colorPuzi);
 		srlContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

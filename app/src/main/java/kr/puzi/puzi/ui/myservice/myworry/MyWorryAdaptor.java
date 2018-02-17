@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -200,6 +199,15 @@ public class MyWorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
         viewHolder.lvCategory.setAdapter(categoryAdapter);
     }
 
+    public void changedResult(QuestionFragment.UpdateNeedToResult updateNeedToResult) {
+        for(int i = 0; i < list.size(); i++) {
+            if(list.get(i).getMyWorryQuestionId() == updateNeedToResult.getId()) {
+                list.get(i).setNeedToShowResult(updateNeedToResult.isNeedToResult());
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     public void changedState(QuestionFragment.UpdateLike updateLike) {
         for(int i = 0; i < list.size(); i++) {
             if(list.get(i).getMyWorryQuestionId() == updateLike.getId()) {
@@ -207,7 +215,6 @@ public class MyWorryAdaptor extends CustomPagingAdapter<MyWorryQuestionDTO> {
                 list.get(i).setLikedCount(updateLike.getCount());
             }
         }
-        Log.i("MyWorryAdaptor", "changedState()");
         notifyDataSetChanged();
     }
 

@@ -68,6 +68,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 
 	public static boolean isItemClick = false;
 	public static int count = 0;
+	public static List<UpdateNeedToResult> changesNeedToResult = newArrayList();
 	public static List<UpdateLike> needToUpdateLike = newArrayList();
 
 	@BindView(R.id.srl_service_container) SwipeRefreshLayout srlContainer;
@@ -81,6 +82,11 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	public static void updateLike(int id, boolean isLike, int count) {
 		UpdateLike updateLike = new UpdateLike(id, isLike, count);
 		needToUpdateLike.add(updateLike);
+	}
+
+	public static void updateResult(int id, boolean needToResult) {
+		UpdateNeedToResult updateNeedToResult = new UpdateNeedToResult(id, needToResult);
+		changesNeedToResult.add(updateNeedToResult);
 	}
 
 	@Override
@@ -122,8 +128,12 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 			setQuestion();
 		}
 
-		myWorryAdaptor.clean();
-		myWorryAdaptor.getList();
+		if(changesNeedToResult.size() > 0) {
+			for(UpdateNeedToResult updateNeedToResult : changesNeedToResult) {
+				myWorryAdaptor.changedResult(updateNeedToResult);
+			}
+			changesNeedToResult.clear();
+		}
 
 		if(needToUpdateLike.size() > 0) {
 			for(UpdateLike updateLike : needToUpdateLike) {
@@ -367,6 +377,17 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 			this.id = id;
 			this.isLike = isLike;
 			this.count = count;
+		}
+	}
+
+	@Data
+	public static class UpdateNeedToResult {
+		private int id;
+		private boolean needToResult;
+
+		public UpdateNeedToResult(int id, boolean needToResult) {
+			this.id = id;
+			this.needToResult = needToResult;
 		}
 	}
 }
