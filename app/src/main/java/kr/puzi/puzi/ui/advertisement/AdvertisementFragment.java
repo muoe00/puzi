@@ -120,7 +120,24 @@ public class AdvertisementFragment extends BaseFragment {
 
 		advertiseSliderAdapter = new AdvertiseSliderAdapter(getActivity());
 		viewPager.setAdapter(advertiseSliderAdapter);
+		viewPager.setCurrentItem(3);
+		viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+			@Override
+			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+			}
+			@Override
+			public void onPageSelected(int position) {
+				if(position < 3)
+					viewPager.setCurrentItem(position + 3, false);
+				else if(position >= 3 * advertiseSliderAdapter.infiniteScroll)
+					viewPager.setCurrentItem(position - 3, false);
+			}
+			@Override
+			public void onPageScrollStateChanged(int state) {
+
+			}
+		});
 		srlContainer.setColorSchemeResources(kr.puzi.puzi.R.color.colorPuzi);
 		srlContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 			@Override
