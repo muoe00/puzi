@@ -1,6 +1,7 @@
 package kr.puzi.puzi.ui;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,12 +10,12 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-
-import com.google.firebase.iid.FirebaseInstanceId;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.kakao.util.helper.Utility;
+import kr.puzi.puzi.R;
 import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
@@ -39,8 +40,10 @@ public class LaunchActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(kr.puzi.puzi.R.layout.layout_splash);
+		setContentView(R.layout.layout_splash);
 		Log.d("TAG", "+++ onCreate");
+
+		Log.d("KeyHash", Utility.getKeyHash(getActivity()));
 
 		unbinder = ButterKnife.bind(this);
 
@@ -50,7 +53,7 @@ public class LaunchActivity extends BaseActivity {
 		Preference.addProperty(LaunchActivity.this, "tokenFCM", tokenFCM);
 
 		pbSplash.setIndeterminate(true);
-		pbSplash.getIndeterminateDrawable().setColorFilter(0xFFFFFFFF, android.graphics.PorterDuff.Mode.MULTIPLY);
+		pbSplash.getIndeterminateDrawable().setColorFilter(0xFFFFFFFF, PorterDuff.Mode.MULTIPLY);
 		pbSplash.setVisibility(View.VISIBLE);
 
 		if(!NotificationManagerCompat.from(getActivity()).areNotificationsEnabled()) {

@@ -16,8 +16,8 @@ android {
 		applicationId 'kr.puzi.puzi'
 		minSdkVersion 16
 		targetSdkVersion 25
-		versionCode 9
-		versionName "1.0.3"
+		versionCode 21
+		versionName "1.0.12"
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 	}
 	buildTypes {
@@ -38,6 +38,7 @@ dependencies {
 	androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
 		exclude group: 'com.android.support', module: 'support-annotations'
 	})
+	compile 'com.google.android.gms:play-services-analytics:10.2.4'
 	compile 'com.google.collections:google-collections:1.0'
 	compile 'com.google.code.gson:gson:2.7'
 	compile 'com.google.firebase:firebase-core:10.0.1'
@@ -62,6 +63,7 @@ dependencies {
 	compile group: project.KAKAO_SDK_GROUP, name: 'kakaostory', version: project.KAKAO_SDK_VERSION
 	compile group: project.KAKAO_SDK_GROUP, name: 'kakaotalk', version: project.KAKAO_SDK_VERSION
 	compile 'com.ssomai:android.scalablelayout:2.1.6'
+	compile group: 'com.facebook.android', name: 'facebook-android-sdk', version: '3.19.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

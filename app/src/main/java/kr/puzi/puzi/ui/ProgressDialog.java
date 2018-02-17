@@ -12,7 +12,9 @@ public class ProgressDialog {
 
 	public static void show(Activity activity){
 		if(dialog == null || !dialog.isShowing()) {
-			dialog = android.app.ProgressDialog.show(activity, "", "연결중입니다...", true);
+			if(!activity.isFinishing()) {
+				dialog = android.app.ProgressDialog.show(activity, "", "연결중입니다...", true);
+			}
 		}
 	}
 

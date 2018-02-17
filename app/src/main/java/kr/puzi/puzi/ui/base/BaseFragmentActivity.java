@@ -16,7 +16,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import kr.puzi.puzi.PuziApplication;
 import kr.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import kr.puzi.puzi.fcm.PuziBroadcastReceiver;
 import kr.puzi.puzi.fcm.PuziPushManager;
@@ -32,6 +34,7 @@ import static kr.puzi.puzi.fcm.PuziPushType.ADVERTISEMENT;
 public class BaseFragmentActivity extends FragmentActivity {
 
 	public static List<Activity> activities = new ArrayList<>();
+	private Tracker mTracker;
 
 	protected View targetViewForPush;
 
@@ -39,6 +42,11 @@ public class BaseFragmentActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		activities.add(this);
+
+		PuziApplication application = (PuziApplication) getApplication();
+		mTracker = application.getDefaultTracker();
+		mTracker.setScreenName(this.getClass().getSimpleName());
+		mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 	}
 
 	@Override
