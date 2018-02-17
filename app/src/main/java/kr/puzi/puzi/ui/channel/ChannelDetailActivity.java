@@ -8,24 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.TextView;
-
-import com.joooonho.SelectableRoundedImageView;
-
-import java.util.List;
-
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import com.joooonho.SelectableRoundedImageView;
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import kr.puzi.puzi.biz.channel.ChannelReplyVO;
@@ -43,6 +31,8 @@ import kr.puzi.puzi.ui.channel.reply.ReplyListAdapter;
 import kr.puzi.puzi.ui.company.CompanyActivity;
 import kr.puzi.puzi.utils.UIUtils;
 import retrofit2.Call;
+
+import java.util.List;
 
 /**
  * Created by muoe0 on 2017-08-06.
@@ -66,7 +56,7 @@ public class ChannelDetailActivity extends BaseFragmentActivity {
 	EditText etWriteReply;
 	@BindView(R.id.lv_channel_detail_reply)
 	ListView lvReply;
-	@BindView(R.id.tv_channel_detail_reply_title)
+	@BindView(R.id.tv_reply_title)
 	TextView tvReplyTitle;
 	@BindView(R.id.sv_channel_detail)
 	ScrollView svContainer;

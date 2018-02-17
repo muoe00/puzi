@@ -5,32 +5,23 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import kr.puzi.puzi.R;
-import kr.puzi.puzi.biz.myservice.MyWorryAnswerDTO;
-import kr.puzi.puzi.biz.myservice.MyWorryAnswerResultDTO;
-import kr.puzi.puzi.biz.myservice.MyWorryQuestionDTO;
-import kr.puzi.puzi.biz.myservice.MyWorryQuestionDetailDTO;
-import kr.puzi.puzi.biz.myservice.PersonalType;
+import kr.puzi.puzi.biz.myservice.*;
+import kr.puzi.puzi.biz.myworry.MyWorryReplyVO;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
 import kr.puzi.puzi.network.ResponseVO;
 import kr.puzi.puzi.network.service.MyServiceNetworkService;
+import kr.puzi.puzi.network.service.MyWorryReplyNetworkService;
+import kr.puzi.puzi.ui.CustomPagingAdapter;
 import kr.puzi.puzi.ui.MainActivity;
 import kr.puzi.puzi.ui.base.BaseActivity;
 import kr.puzi.puzi.ui.common.DialogButtonCallback;
@@ -39,6 +30,10 @@ import kr.puzi.puzi.ui.common.PointDialog;
 import kr.puzi.puzi.ui.customview.NotoTextView;
 import kr.puzi.puzi.ui.myservice.QuestionFragment;
 import retrofit2.Call;
+
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by juhyun on 2018. 1. 20..
@@ -55,6 +50,7 @@ public class AnswerActivity extends BaseActivity {
     private MyWorryAnswerDTO myWorryAnswerDTO;
     private MyWorryQuestionDetailDTO myWorryQuestionDetailDTO;
     private MyWorryAnswerResultDTO myWorryAnswerResultDTO;
+    private MyWorryReplyAdapter myWorryReplyAdapter;
 
     @BindView(R.id.ibtn_question_report)
     ImageButton ibtnReport;
@@ -116,6 +112,18 @@ public class AnswerActivity extends BaseActivity {
     NotoTextView tvA2P2;
     @BindView(R.id.progress_Bar)
     ProgressBar pb;
+    @BindView(R.id.ll_reply_show_container)
+    LinearLayout llReplyShowContainer;
+    @BindView(R.id.lv_reply_list_container)
+    ListView lvReplyListContainer;
+    @BindView(R.id.ll_reply_write_container)
+    LinearLayout llReplyWriteContainer;
+    @BindView(R.id.ll_reply_container)
+    LinearLayout llReplyContainer;
+    @BindView(R.id.tv_reply_show_title)
+    TextView tvReplyTitle;
+    @BindView(R.id.ll_reply_pedding_container)
+    LinearLayout llReplyPeddingContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +147,42 @@ public class AnswerActivity extends BaseActivity {
 
         initComponents();
         getDetail();
+        getReply();
+    }
+
+    private void getReply() {
+        myWorryReplyAdapter = new MyWorryReplyAdapter(getActivity(), lvReplyListContainer, new CustomPagingAdapter.ListHandler() {
+            @Override
+            public void getList() {
+                requestReplyList();
+            }
+        });
+        lvReplyListContainer.setAdapter(myWorryReplyAdapter);
+        myWorryReplyAdapter.getList();
+    }
+
+    private void requestReplyList() {
+        LazyRequestService service = new LazyRequestService(getActivity(), MyWorryReplyNetworkService.class);
+        service.method(new LazyRequestService.RequestMothod<MyWorryReplyNetworkService>() {
+            @Override
+            public Call<ResponseVO> execute(MyWorryReplyNetworkService myWorryReplyNetworkService, String token) {
+                return myWorryReplyNetworkService.getReplyList(token, myWorryQuestionDTO.getMyWorryQuestionId(), myWorryReplyAdapter.getPagingIndex());
+            }
+        });
+        service.enqueue(new CustomCallback(getActivity()) {
+
+            @Override
+            public void onSuccess(ResponseVO responseVO) {
+                myWorryReplyAdapter.stopProgress();
+
+                List<MyWorryReplyVO> list = responseVO.getList("myWorryReplyDTOList", MyWorryReplyVO.class);
+                int totalCount = responseVO.getInteger("totalCount");
+
+                tvReplyTitle.setText("댓글 " + totalCount);
+                myWorryReplyAdapter.addListWithTotalCount(list, totalCount);
+            }
+
+        });
     }
 
     public void getDetail() {
@@ -164,6 +208,7 @@ public class AnswerActivity extends BaseActivity {
 
                 if(personalType.equals(PersonalType.NOT_ANSWERED)) {
                     btnOk.setVisibility(View.VISIBLE);
+                    llReplyShowContainer.setVisibility(View.GONE);
                     // updateAnswerView();
 
                     if (isTwoAnser) {
@@ -177,7 +222,8 @@ public class AnswerActivity extends BaseActivity {
                     }
 
                 } else {
-                    btnOk.setVisibility(View.GONE);
+                    btnOk.setVisibility(View.INVISIBLE);
+                    llReplyShowContainer.setVisibility(View.VISIBLE);
                     myWorryAnswerDTO = myWorryQuestionDetailDTO.getMyWorryAnswerDTO();
                     updateAnswerView();
 
@@ -314,8 +360,10 @@ public class AnswerActivity extends BaseActivity {
             @Override
             public void onSuccess(ResponseVO responseVO) {
                 MainActivity.needToUpdateUserVO = true;
-                Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.alpha_out1000);
-                btnOk.setAnimation(animation);
+//                Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.alpha_out500);
+//                btnOk.setAnimation(animation);
+//                Animation animation2= AnimationUtils.loadAnimation(getActivity(), R.anim.alpha500);
+//                llReplyShowContainer.setAnimation(animation2);
 
                 savePoint = responseVO.getInteger("savedPoint");
                 saveCount = responseVO.getInteger("savedCount");
@@ -345,7 +393,8 @@ public class AnswerActivity extends BaseActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                btnOk.setVisibility(View.GONE);
+                                btnOk.setVisibility(View.INVISIBLE);
+                                llReplyShowContainer.setVisibility(View.VISIBLE);
                             }
                         });
                     }
@@ -595,6 +644,33 @@ public class AnswerActivity extends BaseActivity {
             }
         });
     }
+
+    @OnClick(R.id.btn_reply_show)
+    public void clickReplyShowButton() {
+        if(lvReplyListContainer.getVisibility() == View.VISIBLE) {
+            ViewGroup.LayoutParams params = llReplyContainer.getLayoutParams();
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            llReplyContainer.setLayoutParams(params);
+            Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.bottom_out);
+            lvReplyListContainer.setVisibility(View.GONE);
+            llReplyWriteContainer.setVisibility(View.GONE);
+            lvReplyListContainer.startAnimation(animation);
+            llReplyWriteContainer.startAnimation(animation);
+            llReplyPeddingContainer.setVisibility(View.GONE);
+        } else {
+            ViewGroup.LayoutParams params = llReplyContainer.getLayoutParams();
+            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            llReplyContainer.setLayoutParams(params);
+            Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.bottom_in);
+            lvReplyListContainer.setVisibility(View.VISIBLE);
+            llReplyWriteContainer.setVisibility(View.VISIBLE);
+            lvReplyListContainer.startAnimation(animation);
+            llReplyWriteContainer.startAnimation(animation);
+            llReplyPeddingContainer.setVisibility(View.VISIBLE);
+        }
+    }
+
+
 
     @OnClick(R.id.ibtn_question_close)
     public void closeView() {
