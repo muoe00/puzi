@@ -20,6 +20,7 @@ import kr.puzi.puzi.network.service.MyServiceNetworkService;
 import kr.puzi.puzi.network.service.MyWorryReplyNetworkService;
 import kr.puzi.puzi.ui.CustomPagingAdapter;
 import kr.puzi.puzi.ui.MainActivity;
+import kr.puzi.puzi.ui.ProgressDialog;
 import kr.puzi.puzi.ui.base.BaseActivity;
 import kr.puzi.puzi.ui.common.DialogButtonCallback;
 import kr.puzi.puzi.ui.common.OneButtonDialog;
@@ -117,10 +118,14 @@ public class AnswerActivity extends BaseActivity {
     LinearLayout llReplyWriteContainer;
     @BindView(R.id.ll_reply_container)
     LinearLayout llReplyContainer;
-    @BindView(R.id.tv_reply_show_title)
-    TextView tvReplyTitle;
+    @BindView(R.id.tv_reply_show_count)
+    TextView tvReplyCount;
     @BindView(R.id.ll_reply_pedding_container)
     LinearLayout llReplyPeddingContainer;
+    @BindView(R.id.ll_reply_list_bar)
+    LinearLayout llReplyListBar;
+    @BindView(R.id.et_channel_detail_write_reply)
+    EditText etWriteReply;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,7 +180,7 @@ public class AnswerActivity extends BaseActivity {
                 List<MyWorryReplyVO> list = responseVO.getList("myWorryReplyDTOList", MyWorryReplyVO.class);
                 int totalCount = responseVO.getInteger("totalCount");
 
-                tvReplyTitle.setText("댓글 " + totalCount);
+                tvReplyCount.setText(""+totalCount);
                 myWorryReplyAdapter.addListWithTotalCount(list, totalCount);
             }
 
@@ -677,6 +682,7 @@ public class AnswerActivity extends BaseActivity {
             lvReplyListContainer.setVisibility(View.GONE);
             llReplyWriteContainer.setVisibility(View.GONE);
             llReplyPeddingContainer.setVisibility(View.GONE);
+            llReplyListBar.setVisibility(View.GONE);
         } else {
             ViewGroup.LayoutParams params = llReplyContainer.getLayoutParams();
             params.height = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -688,6 +694,7 @@ public class AnswerActivity extends BaseActivity {
 //            lvReplyListContainer.startAnimation(animation);
 //            llReplyWriteContainer.startAnimation(animation);
             llReplyPeddingContainer.setVisibility(View.VISIBLE);
+            llReplyListBar.setVisibility(View.VISIBLE);
         }
     }
 
@@ -702,9 +709,39 @@ public class AnswerActivity extends BaseActivity {
             @Override
             public void onClick() {
                 myWorryReplyAdapter.removeItem(finalPosition);
+                tvReplyCount.setText("" + myWorryReplyAdapter.getCount());
             }
         });
         return false;
+    }
+
+    @OnClick(R.id.btn_channel_detail_write_reply)
+    public void clickWriteButton() {
+        String replyToCheck = etWriteReply.getText().toString();
+        if(replyToCheck.replaceAll(" ", "").length() == 0) {
+            return;
+        }
+
+        final String comment = etWriteReply.getText().toString();
+        ProgressDialog.show(getActivity());
+
+        LazyRequestService service = new LazyRequestService(this, MyWorryReplyNetworkService.class);
+        service.method(new LazyRequestService.RequestMothod<MyWorryReplyNetworkService>() {
+            @Override
+            public Call<ResponseVO> execute(MyWorryReplyNetworkService myWorryReplyNetworkService, String token) {
+                return myWorryReplyNetworkService.write(token, myWorryQuestionDTO.getMyWorryQuestionId(), comment);
+            }
+        });
+        service.enqueue(new CustomCallback(this) {
+            @Override
+            public void onSuccess(ResponseVO responseVO) {
+                MyWorryReplyVO replyVO = responseVO.getValue("myWorryReplyDTO", MyWorryReplyVO.class);
+                myWorryReplyAdapter.addFirst(replyVO);
+                etWriteReply.setText("");
+                tvReplyCount.setText("" + myWorryReplyAdapter.getCount());
+                closeInputKeyboard(etWriteReply);
+            }
+        });
     }
 
     @OnClick(R.id.ibtn_question_close)

@@ -25,6 +25,7 @@
         app:fontWeight="medium"
         android:textSize="16dp"
         android:fontFamily="sans-serif"
+        android:layout_marginRight="5dp"
         android:textStyle="bold"
         android:textColor="#35343d"
         android:lineSpacingExtra="0sp"
