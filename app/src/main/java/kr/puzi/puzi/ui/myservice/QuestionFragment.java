@@ -349,8 +349,12 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 			@Override
 			public void onRefresh() {
 				todayAdapter.notifyDataSetChanged();
+				myWorryAdaptor.clean();
 				myWorryAdaptor.initPagingIndex();
-				myWorryAdaptor.notifyDataSetChanged();
+				myWorryAdaptor.increasePagingIndex();
+				myWorryAdaptor.startProgress();
+				myWorryAdaptor.setMine(mine);
+				getWorryList();
 				srlContainer.setRefreshing(false);
 			}
 		});
