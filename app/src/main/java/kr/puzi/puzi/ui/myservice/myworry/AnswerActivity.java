@@ -6,10 +6,31 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-import butterknife.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemLongClick;
+import butterknife.Unbinder;
 import kr.puzi.puzi.R;
-import kr.puzi.puzi.biz.myservice.*;
+import kr.puzi.puzi.biz.myservice.MyWorryAnswerDTO;
+import kr.puzi.puzi.biz.myservice.MyWorryAnswerResultDTO;
+import kr.puzi.puzi.biz.myservice.MyWorryQuestionDTO;
+import kr.puzi.puzi.biz.myservice.MyWorryQuestionDetailDTO;
+import kr.puzi.puzi.biz.myservice.PersonalType;
 import kr.puzi.puzi.biz.myworry.MyWorryReplyVO;
 import kr.puzi.puzi.biz.user.UserVO;
 import kr.puzi.puzi.cache.Preference;
@@ -28,10 +49,6 @@ import kr.puzi.puzi.ui.common.PointDialog;
 import kr.puzi.puzi.ui.customview.NotoTextView;
 import kr.puzi.puzi.ui.myservice.QuestionFragment;
 import retrofit2.Call;
-
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by juhyun on 2018. 1. 20..
@@ -515,6 +532,7 @@ public class AnswerActivity extends BaseActivity {
                 selectedCount = 0;
                 btn.setBackgroundResource(R.drawable.button_question_off);
                 tv.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                tv.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Regular-Hestia.otf"));
             } else {
                 isSelected = true;
                 selectedCount = index;
@@ -528,8 +546,12 @@ public class AnswerActivity extends BaseActivity {
                         tvAnswer2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
                         tvAnswer3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
                         tvAnswer4.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        tvAnswer2.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Regular-Hestia.otf"));
+                        tvAnswer3.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Regular-Hestia.otf"));
+                        tvAnswer4.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Regular-Hestia.otf"));
                         btnA2A2.setBackgroundResource(R.drawable.button_question_off);
                         tvA2T2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        tvA2T2.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Regular-Hestia.otf"));
                         break;
                     case 2:
                         answer = myWorryQuestionDTO.getAnswerTwo();
@@ -539,8 +561,12 @@ public class AnswerActivity extends BaseActivity {
                         tvAnswer1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
                         tvAnswer3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
                         tvAnswer4.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        tvAnswer1.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Regular-Hestia.otf"));
+                        tvAnswer3.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Regular-Hestia.otf"));
+                        tvAnswer4.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Regular-Hestia.otf"));
                         btnA2A1.setBackgroundResource(R.drawable.button_question_off);
                         tvA2T1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        tvA2T1.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Regular-Hestia.otf"));
                         break;
                     case 3:
                         answer = myWorryQuestionDTO.getAnswerThree();
@@ -550,6 +576,9 @@ public class AnswerActivity extends BaseActivity {
                         tvAnswer1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
                         tvAnswer2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
                         tvAnswer4.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        tvAnswer2.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Regular-Hestia.otf"));
+                        tvAnswer1.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Regular-Hestia.otf"));
+                        tvAnswer4.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Regular-Hestia.otf"));
                         break;
                     case 4:
                         answer = myWorryQuestionDTO.getAnswerFour();
@@ -559,6 +588,9 @@ public class AnswerActivity extends BaseActivity {
                         tvAnswer1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
                         tvAnswer3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
                         tvAnswer2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                        tvAnswer2.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Regular-Hestia.otf"));
+                        tvAnswer3.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Regular-Hestia.otf"));
+                        tvAnswer1.setTypeface(Typeface.createFromAsset(getApplicationContext().getAssets(), "NotoSansKR-Regular-Hestia.otf"));
                         break;
                 }
                 btn.setBackgroundResource(R.drawable.button_question_on);
@@ -572,15 +604,43 @@ public class AnswerActivity extends BaseActivity {
             switch (index) {
                 case 1:
                     answer = myWorryQuestionDTO.getAnswerOne();
+                    btnAnswer2.setBackgroundResource(R.drawable.button_question_off);
+                    btnAnswer3.setBackgroundResource(R.drawable.button_question_off);
+                    btnAnswer4.setBackgroundResource(R.drawable.button_question_off);
+                    tvAnswer2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                    tvAnswer3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                    tvAnswer4.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                    btnA2A2.setBackgroundResource(R.drawable.button_question_off);
+                    tvA2T2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
                     break;
                 case 2:
                     answer = myWorryQuestionDTO.getAnswerTwo();
+                    btnAnswer1.setBackgroundResource(R.drawable.button_question_off);
+                    btnAnswer3.setBackgroundResource(R.drawable.button_question_off);
+                    btnAnswer4.setBackgroundResource(R.drawable.button_question_off);
+                    tvAnswer1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                    tvAnswer3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                    tvAnswer4.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                    btnA2A1.setBackgroundResource(R.drawable.button_question_off);
+                    tvA2T1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
                     break;
                 case 3:
                     answer = myWorryQuestionDTO.getAnswerThree();
+                    btnAnswer1.setBackgroundResource(R.drawable.button_question_off);
+                    btnAnswer2.setBackgroundResource(R.drawable.button_question_off);
+                    btnAnswer4.setBackgroundResource(R.drawable.button_question_off);
+                    tvAnswer1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                    tvAnswer2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                    tvAnswer4.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
                     break;
                 case 4:
                     answer = myWorryQuestionDTO.getAnswerFour();
+                    btnAnswer1.setBackgroundResource(R.drawable.button_question_off);
+                    btnAnswer3.setBackgroundResource(R.drawable.button_question_off);
+                    btnAnswer2.setBackgroundResource(R.drawable.button_question_off);
+                    tvAnswer1.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                    tvAnswer3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
+                    tvAnswer2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorBlack));
                     break;
             }
             btn.setBackgroundResource(R.drawable.button_question_on);

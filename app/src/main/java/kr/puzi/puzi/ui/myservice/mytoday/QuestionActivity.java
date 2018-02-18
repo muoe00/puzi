@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
 import java.util.List;
@@ -116,9 +115,9 @@ public class QuestionActivity extends BaseActivity {
             tvA2A2.setText(myTodayQuestionVO.getAnswerTwo());
             btnA2A1.setEnabled(true);
             btnA2A2.setEnabled(true);
-            btnA2A1.setBackgroundResource(R.drawable.button_question_off);
+            btnA2A1.setBackgroundResource(R.drawable.button_question);
             tvA2A1.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
-            btnA2A2.setBackgroundResource(R.drawable.button_question_off);
+            btnA2A2.setBackgroundResource(R.drawable.button_question);
             tvA2A2.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
         } else {
             llA4.setVisibility(View.VISIBLE);
@@ -131,13 +130,13 @@ public class QuestionActivity extends BaseActivity {
             btnA2.setEnabled(true);
             btnA3.setEnabled(true);
             btnA4.setEnabled(true);
-            btnA1.setBackgroundResource(R.drawable.button_question_off);
+            btnA1.setBackgroundResource(R.drawable.button_question);
             tvA1.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
-            btnA2.setBackgroundResource(R.drawable.button_question_off);
+            btnA2.setBackgroundResource(R.drawable.button_question);
             tvA2.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
-            btnA3.setBackgroundResource(R.drawable.button_question_off);
+            btnA3.setBackgroundResource(R.drawable.button_question);
             tvA3.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
-            btnA4.setBackgroundResource(R.drawable.button_question_off);
+            btnA4.setBackgroundResource(R.drawable.button_question);
             tvA4.setTextColor(ContextCompat.getColor(getApplicationContext(), kr.puzi.puzi.R.color.colorTextGray));
         }
     }
