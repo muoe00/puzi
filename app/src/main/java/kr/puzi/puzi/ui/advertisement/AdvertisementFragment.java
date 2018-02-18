@@ -1,6 +1,7 @@
 package kr.puzi.puzi.ui.advertisement;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -8,29 +9,27 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.ScrollView;
-
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+import android.widget.*;
+import butterknife.*;
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
+import kr.puzi.puzi.biz.advertisement.SlidingInfoVO;
+import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
 import kr.puzi.puzi.network.ResponseVO;
 import kr.puzi.puzi.network.service.AdvertisementNetworkService;
+import kr.puzi.puzi.network.service.SlidingNetworkService;
 import kr.puzi.puzi.ui.CustomPagingAdapter;
+import kr.puzi.puzi.ui.MainActivity;
+import kr.puzi.puzi.ui.ProgressDialog;
 import kr.puzi.puzi.ui.base.BaseFragment;
 import kr.puzi.puzi.ui.common.PointDialog;
 import kr.puzi.puzi.utils.PuziUtils;
 import lombok.NoArgsConstructor;
 import retrofit2.Call;
+
+import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -48,13 +47,13 @@ public class AdvertisementFragment extends BaseFragment {
 	@BindView(R.id.sv_ad) public ScrollView svAd;
 	@BindView(R.id.btn_slide_ad) public Button btnSlide;
 	@BindView(kr.puzi.puzi.R.id.srl_advertisement_container) public SwipeRefreshLayout srlContainer;
+	@BindView(kr.puzi.puzi.R.id.sliding_container) public LinearLayout llSlidingContainer;
+	@BindView(kr.puzi.puzi.R.id.tx_sliding_count) public TextView tvSlidingCount;
 
-	private boolean more = false;
-	private int pagingIndex = 1;
-	boolean lastestScrollFlag = false;
 	private AdvertiseSliderAdapter advertiseSliderAdapter;
 	private AdvertisementListAdapter advertiseListAdapter;
 	private ReceivedAdvertiseVO startReceivedAdvertiseVO = null;
+	private int selectedSlidingPosition = 0;
 
 	public static List<Integer> needToUpdateIds = newArrayList();
 
@@ -79,8 +78,6 @@ public class AdvertisementFragment extends BaseFragment {
 		unbinder = ButterKnife.bind(this, v);
 
 		initComponent();
-		getAdvertiseList();
-		initScrollAction();
 
 		if(startReceivedAdvertiseVO != null) {
 			Log.d("PUSH", "++++startReceivedAdvertiseVO : " + startReceivedAdvertiseVO);
@@ -118,44 +115,121 @@ public class AdvertisementFragment extends BaseFragment {
 				getAdvertiseList();
 			}
 		}, false);
-		advertiseListAdapter.setMore(false);
-		advertiseListAdapter.getList();
 		lvAd.setAdapter(advertiseListAdapter);
+		advertiseListAdapter.getList();
 
-		advertiseSliderAdapter = new AdvertiseSliderAdapter(getActivity());
-		viewPager.setAdapter(advertiseSliderAdapter);
-		viewPager.setCurrentItem(3);
-		viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-			@Override
-			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-			}
-			@Override
-			public void onPageSelected(int position) {
-				if(position < 3)
-					viewPager.setCurrentItem(position + 3, false);
-				else if(position >= 3 * advertiseSliderAdapter.infiniteScroll)
-					viewPager.setCurrentItem(position - 3, false);
-			}
-			@Override
-			public void onPageScrollStateChanged(int state) {
-
-			}
-		});
 		srlContainer.setColorSchemeResources(kr.puzi.puzi.R.color.colorPuzi);
 		srlContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 			@Override
 			public void onRefresh() {
-				advertiseListAdapter.initPagingIndex();
-				advertiseListAdapter.notifyDataSetChanged();
+				advertiseListAdapter.clean();
+				advertiseListAdapter.getList();
 				srlContainer.setRefreshing(false);
 			}
 		});
+
+		requestSlidingList();
+	}
+
+	private void requestSlidingList() {
+		LazyRequestService service = new LazyRequestService(getActivity(), SlidingNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<SlidingNetworkService>() {
+			@Override
+			public Call<ResponseVO> execute(SlidingNetworkService slidingNetworkService, String token) {
+				return slidingNetworkService.slidingList(token);
+			}
+		});
+		service.enqueue(new CustomCallback(getActivity()) {
+			@Override
+			public void onSuccess(ResponseVO responseVO) {
+
+				List<SlidingInfoVO> advertiseList = responseVO.getList("slidingInfoDTOList", SlidingInfoVO.class);
+				if(advertiseList == null || advertiseList.size() == 0) {
+					return;
+				}
+
+				final int size = advertiseList.size();
+				tvSlidingCount.setText("1 / " + size);
+				SlidingInfoVO slidingInfoVO = advertiseList.get(0);
+				if(slidingInfoVO.isSaved()) {
+					btnSlide.setText("적립완료");
+					btnSlide.setTextColor(Color.parseColor("#666666"));
+					btnSlide.setBackgroundResource(R.drawable.bg_sliding_saved);
+				} else {
+					btnSlide.setText("적립하기");
+					btnSlide.setTextColor(Color.parseColor("#ff2470"));
+					btnSlide.setBackgroundResource(R.drawable.bg_sliding_save);
+				}
+				advertiseSliderAdapter = new AdvertiseSliderAdapter(getActivity(), advertiseList);
+				viewPager.setAdapter(advertiseSliderAdapter);
+				viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+					@Override
+					public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+					}
+
+					@Override
+					public void onPageSelected(int position) {
+						selectedSlidingPosition = position;
+						int realPosition = advertiseSliderAdapter.getRealPosition(selectedSlidingPosition);
+						tvSlidingCount.setText((realPosition+1) + " / " + advertiseSliderAdapter.getTotalCount());
+						if(position < size)
+							viewPager.setCurrentItem(position + size, false);
+						else if(position >= size * advertiseSliderAdapter.infiniteScroll)
+							viewPager.setCurrentItem(position - size, false);
+
+						SlidingInfoVO slidingInfoVO = advertiseSliderAdapter.getItem(realPosition);
+						if(slidingInfoVO.isSaved()) {
+							btnSlide.setText("적립완료");
+							btnSlide.setTextColor(Color.parseColor("#666666"));
+							btnSlide.setBackgroundResource(R.drawable.bg_sliding_saved);
+						} else {
+							btnSlide.setText("적립하기");
+							btnSlide.setTextColor(Color.parseColor("#ff2470"));
+							btnSlide.setBackgroundResource(R.drawable.bg_sliding_save);
+						}
+					}
+
+					@Override
+					public void onPageScrollStateChanged(int state) {
+					}
+				});
+
+				llSlidingContainer.setVisibility(View.VISIBLE);
+			}
+		});
+
 	}
 
 	@OnClick(R.id.btn_slide_ad)
 	public void onClickSavedSlidePoint() {
-		PointDialog.load(getActivity(), 10, true);
+		final int realPosition = advertiseSliderAdapter.getRealPosition(selectedSlidingPosition);
+		final SlidingInfoVO slidingInfoVO = advertiseSliderAdapter.getItem(realPosition);
+		if(!slidingInfoVO.isSaved()) {
+			ProgressDialog.show(getActivity());
+
+			LazyRequestService service = new LazyRequestService(getActivity(), SlidingNetworkService.class);
+			service.method(new LazyRequestService.RequestMothod<SlidingNetworkService>() {
+				@Override
+				public Call<ResponseVO> execute(SlidingNetworkService slidingNetworkService, String token) {
+					return slidingNetworkService.save(token, slidingInfoVO.getUserSlidingId());
+				}
+			});
+			service.enqueue(new CustomCallback(getActivity()) {
+				@Override
+				public void onSuccess(ResponseVO responseVO) {
+					ProgressDialog.dismiss();
+
+					int savedPoint = responseVO.getInteger("savedPoint");
+					PointDialog.load(getActivity(), savedPoint, true);
+					advertiseSliderAdapter.updateSaved(realPosition);
+					btnSlide.setText("적립완료");
+					btnSlide.setTextColor(Color.parseColor("#666666"));
+					btnSlide.setBackgroundResource(R.drawable.bg_sliding_saved);
+					Preference.updateMyInfoPlusPoint(getActivity(), savedPoint);
+					((MainActivity)getActivity()).updateUserInfoOnTitleBar();
+				}
+			});
+		}
 	}
 
 	public void getAdvertiseList() {
@@ -163,7 +237,7 @@ public class AdvertisementFragment extends BaseFragment {
 		service.method(new LazyRequestService.RequestMothod<AdvertisementNetworkService>() {
 			@Override
 			public Call<ResponseVO> execute(AdvertisementNetworkService advertisementNetworkService, String token) {
-				return advertisementNetworkService.adList(token, pagingIndex);
+				return advertisementNetworkService.adList(token, advertiseListAdapter.getPagingIndex());
 			}
 		});
 		service.enqueue(new CustomCallback(getActivity()) {
@@ -175,42 +249,12 @@ public class AdvertisementFragment extends BaseFragment {
 				Log.d(PuziUtils.INFO, "Advertise main / advertiseList : " + advertiseList.toString());
 				Log.d(PuziUtils.INFO, "advertiseList totalCount : " + responseVO.getInteger("totalCount"));
 
-				advertiseListAdapter.addList(advertiseList);
-				advertiseListAdapter.notifyDataSetChanged();
-
-				if(advertiseListAdapter.getCount() == responseVO.getInteger("totalCount")) {
-					more = false;
-					return;
-				}
-				more = true;
-			}
-		});
-	}
-
-	private void initScrollAction() {
-		lvAd.setOnScrollListener(new AbsListView.OnScrollListener() {
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-				Log.i(PuziUtils.INFO, "scrollState : " + scrollState + ", more : " + more);
-
-				if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastestScrollFlag) {
-					if(more) {
-						pagingIndex = pagingIndex + 1;
-						getAdvertiseList();
-						advertiseListAdapter.notifyDataSetChanged();
-					}
-				}
-			}
-
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-				lastestScrollFlag = (totalItemCount > 0) && firstVisibleItem + visibleItemCount >= totalItemCount;
+				advertiseListAdapter.addListWithTotalCount(advertiseList, responseVO.getInteger("totalCount"));
 			}
 		});
 	}
 
 	public synchronized void refresh(int adId, boolean saved) {
-		pagingIndex = 1;
 		advertiseListAdapter.changeSaved(adId, saved);
 		advertiseListAdapter.notifyDataSetChanged();
 	}
@@ -220,4 +264,5 @@ public class AdvertisementFragment extends BaseFragment {
 		super.onDestroyView();
 		unbinder.unbind();
 	}
+
 }

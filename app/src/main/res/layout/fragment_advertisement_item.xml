@@ -15,20 +15,33 @@
       android:layout_gravity="center"
       android:orientation="vertical"
       android:layout_width="match_parent"
-      android:layout_height="224dp">
+      android:layout_height="wrap_content">
 
-    <com.joooonho.SelectableRoundedImageView
+    <com.ssomai.android.scalablelayout.ScalableLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_above="@+id/main_textview"
+      app:scale_base_width="328"
+      app:scale_base_height="224">
+
+      <com.joooonho.SelectableRoundedImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:sriv_right_top_corner_radius="8dp"
         app:sriv_left_top_corner_radius="8dp"
         app:sriv_right_bottom_corner_radius="8dp"
         app:sriv_left_bottom_corner_radius="8dp"
+        app:scale_left="0"
+        app:scale_top="0"
+        app:scale_width="328"
+        app:scale_height="224"
         app:sriv_oval="false"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         android:id="@+id/iv_home_advertise"
         android:background="#00000000"/>
+
+    </com.ssomai.android.scalablelayout.ScalableLayout>
 
     <Button
         android:layout_width="match_parent"

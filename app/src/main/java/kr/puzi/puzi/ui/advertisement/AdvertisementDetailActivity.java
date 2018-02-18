@@ -13,10 +13,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.webkit.*;
 import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,7 +68,7 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 	private int count = 0;
 	private boolean start = false;
 
-	private String url, answerOne, answerTwo;
+	private String answerOne, answerTwo;
 	private long startTime;
 	private int touchCount, channelId;
 	private boolean isChanged = false;
@@ -127,9 +124,12 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 		}
 
 		channelId = receivedAdvertise.getChannelId();
-		url = receivedAdvertise.getLink();
 		BitmapUIL.load(receivedAdvertise.getCompanyInfoDTO().getPictureUrl(), companyPicture);
 		companyName.setText(receivedAdvertise.getCompanyInfoDTO().getCompanyAlias());
+
+		if(!receivedAdvertise.getLink().startsWith("http")) {
+			receivedAdvertise.setLink("http://" + receivedAdvertise.getLink());
+		}
 
 		WebSettings webSettings = webView.getSettings();
 		webSettings.setJavaScriptEnabled(true);
@@ -137,13 +137,15 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 		webView.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				if(url.startsWith("https://play.google.com/store/apps/details")) {
+				Log.d("URLTEST", url);
+				if(url.indexOf("play.google.com/store/apps/details") != -1) {
 					String[] splited = url.split("=");
 					if(splited.length != 2) {
 						view.loadUrl(url);
 						return true;
 					}
 
+					Log.d("URLTEST", "11111");
 					Intent marketLaunch = new Intent(Intent.ACTION_VIEW);
 					marketLaunch.setData(Uri.parse("market://details?id="+splited[1]));
 					startActivity(marketLaunch);
@@ -154,8 +156,23 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 					return true;
 				}
 			}
+
+			@Override
+			public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+				super.onReceivedError(view, request, error);
+				Log.d("URLTEST", "LOAD ERROR");
+			}
+			@Override
+			public void onPageFinished(WebView view, String url) {
+				super.onPageFinished(view, url);
+				Log.d("URLTEST", "LOAD FINISH " + url);
+				if(url.equals("about:blank")) {
+					webView.loadUrl(receivedAdvertise.getLink());
+				}
+			}
 		});
-		webView.loadUrl(url);
+		webView.loadUrl(receivedAdvertise.getLink());
+		Log.d("URLTEST", receivedAdvertise.getLink());
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 			webView.setOnScrollChangeListener(new View.OnScrollChangeListener() {

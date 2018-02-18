@@ -188,7 +188,7 @@ public class MainActivity extends BaseFragmentActivity {
 	}
 
 
-	private void updateUserInfoOnTitleBar() {
+	public void updateUserInfoOnTitleBar() {
 		UserVO userVO = Preference.getMyInfo(getActivity());
 		if(userVO == null) {
 			return;

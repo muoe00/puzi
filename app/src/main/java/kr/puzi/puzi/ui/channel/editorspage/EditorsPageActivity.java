@@ -1,15 +1,14 @@
 package kr.puzi.puzi.ui.channel.editorspage;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.webkit.*;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
@@ -59,20 +58,40 @@ public class EditorsPageActivity extends BaseFragmentActivity {
 
 	private void initChannelEditorsPage() {
 		tvTitle.setText("불러오는 중입니다..");
-		wvContainer.getSettings().setJavaScriptEnabled(true);
+
 		if(!channelEditorsPageVO.getLink().startsWith("http")) {
 			channelEditorsPageVO.setLink("http://" + channelEditorsPageVO.getLink());
 		}
-		wvContainer.loadUrl(channelEditorsPageVO.getLink());
-		wvContainer.setWebViewClient(new WebViewClient(){
 
+		WebSettings webSettings = wvContainer.getSettings();
+		webSettings.setJavaScriptEnabled(true);
+		wvContainer.setWebChromeClient(new WebChromeClient());
+		wvContainer.setWebViewClient(new WebViewClient() {
+			@Override
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				if(url.indexOf("play.google.com/store/apps/details") != -1) {
+					String[] splited = url.split("=");
+					if(splited.length != 2) {
+						view.loadUrl(url);
+						return true;
+					}
+
+					Intent marketLaunch = new Intent(Intent.ACTION_VIEW);
+					marketLaunch.setData(Uri.parse("market://details?id="+splited[1]));
+					startActivity(marketLaunch);
+
+					return true;
+				} else {
+					view.loadUrl(url);
+					return true;
+				}
+			}
 			@Override
 			public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
 				super.onReceivedError(view, request, error);
 				tvTitle.setText("불러오기를 실패하였습니다.");
 				pageError = true;
 			}
-
 			@Override
 			public void onPageFinished(WebView view, String url) {
 				super.onPageFinished(view, url);
@@ -81,6 +100,7 @@ public class EditorsPageActivity extends BaseFragmentActivity {
 				}
 			}
 		});
+		wvContainer.loadUrl(channelEditorsPageVO.getLink());
 
 		layoutHeight = llTopContainer.getLayoutParams().height;
 		layoutHeight2 = llBottomContainer.getLayoutParams().height;

@@ -20,6 +20,7 @@ import kr.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import kr.puzi.puzi.biz.company.CompanyVO;
 import kr.puzi.puzi.image.BitmapUIL;
 import kr.puzi.puzi.ui.CustomPagingAdapter;
+import kr.puzi.puzi.ui.MainActivity;
 import kr.puzi.puzi.ui.base.BaseFragmentActivity;
 import kr.puzi.puzi.ui.company.CompanyActivity;
 
@@ -45,7 +46,7 @@ public class AdvertisementListAdapter extends CustomPagingAdapter<ReceivedAdvert
 		bundle.putSerializable("advertise", receivedAdvertise);
 		intent.putExtras(bundle);
 		activity.startActivity(intent);
-		// activity.doAnimationGoRight();
+		((MainActivity)activity).doAnimationGoRight();
 	}
 
 	public void changedCompany(CompanyVO company) {
@@ -54,7 +55,7 @@ public class AdvertisementListAdapter extends CustomPagingAdapter<ReceivedAdvert
 		bundle.putSerializable("company", company);
 		intent.putExtras(bundle);
 		activity.startActivity(intent);
-		// activity.doAnimationGoRight();
+		((MainActivity)activity).doAnimationGoRight();
 	}
 
 	public void changeSaved(int adId, boolean saved) {
