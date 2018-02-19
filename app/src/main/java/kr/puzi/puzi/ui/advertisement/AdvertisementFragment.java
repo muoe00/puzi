@@ -47,7 +47,7 @@ public class AdvertisementFragment extends BaseFragment {
 	@BindView(R.id.sv_ad) public ScrollView svAd;
 	@BindView(R.id.btn_slide_ad) public Button btnSlide;
 	@BindView(kr.puzi.puzi.R.id.srl_advertisement_container) public SwipeRefreshLayout srlContainer;
-	@BindView(kr.puzi.puzi.R.id.sliding_container) public LinearLayout llSlidingContainer;
+	@BindView(kr.puzi.puzi.R.id.sliding_container) public FrameLayout llSlidingContainer;
 	@BindView(kr.puzi.puzi.R.id.tx_sliding_count) public TextView tvSlidingCount;
 
 	private AdvertiseSliderAdapter advertiseSliderAdapter;
@@ -145,6 +145,7 @@ public class AdvertisementFragment extends BaseFragment {
 
 				List<SlidingInfoVO> advertiseList = responseVO.getList("slidingInfoDTOList", SlidingInfoVO.class);
 				if(advertiseList == null || advertiseList.size() == 0) {
+					viewPager.setVisibility(View.GONE);
 					return;
 				}
 
@@ -265,4 +266,7 @@ public class AdvertisementFragment extends BaseFragment {
 		unbinder.unbind();
 	}
 
+	public void addAdvertisement(ReceivedAdvertiseVO receivedAdvertiseVO) {
+		advertiseListAdapter.addFirst(receivedAdvertiseVO);
+	}
 }

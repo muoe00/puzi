@@ -95,7 +95,7 @@ public class RecommendActivity extends BaseFragmentActivity {
 		}
 	}
 
-	@OnClick(kr.puzi.puzi.R.id.ibtn_event_link)
+	@OnClick({kr.puzi.puzi.R.id.ibtn_event_link, kr.puzi.puzi.R.id.btn_event_link})
 	public void clickEvent() {
 		Intent intent = new Intent(getActivity(), EventWebViewActivity.class);
 		intent.putExtra("url", eventInfoVO.getUrl());

@@ -1,36 +1,16 @@
 package kr.puzi.puzi.ui.myservice.myworry;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnItemLongClick;
-import butterknife.Unbinder;
+import android.widget.*;
+import butterknife.*;
 import kr.puzi.puzi.R;
-import kr.puzi.puzi.biz.myservice.MyWorryAnswerDTO;
-import kr.puzi.puzi.biz.myservice.MyWorryAnswerResultDTO;
-import kr.puzi.puzi.biz.myservice.MyWorryQuestionDTO;
-import kr.puzi.puzi.biz.myservice.MyWorryQuestionDetailDTO;
-import kr.puzi.puzi.biz.myservice.PersonalType;
+import kr.puzi.puzi.biz.myservice.*;
 import kr.puzi.puzi.biz.myworry.MyWorryReplyVO;
 import kr.puzi.puzi.biz.user.UserVO;
 import kr.puzi.puzi.cache.Preference;
@@ -49,6 +29,10 @@ import kr.puzi.puzi.ui.common.PointDialog;
 import kr.puzi.puzi.ui.customview.NotoTextView;
 import kr.puzi.puzi.ui.myservice.QuestionFragment;
 import retrofit2.Call;
+
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by juhyun on 2018. 1. 20..
@@ -143,6 +127,8 @@ public class AnswerActivity extends BaseActivity {
     LinearLayout llReplyListBar;
     @BindView(R.id.et_channel_detail_write_reply)
     EditText etWriteReply;
+    @BindView(R.id.tv_reply_show_title_reply)
+    TextView tvReplyShowTitleReply;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -734,7 +720,7 @@ public class AnswerActivity extends BaseActivity {
     }
 
     @OnClick(R.id.btn_reply_show)
-    public void clickReplyShowButton() {
+    public void clickReplyShowButton(View view) {
         if(lvReplyListContainer.getVisibility() == View.VISIBLE) {
             ViewGroup.LayoutParams params = llReplyContainer.getLayoutParams();
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -743,18 +729,22 @@ public class AnswerActivity extends BaseActivity {
             llReplyWriteContainer.setVisibility(View.GONE);
             llReplyPeddingContainer.setVisibility(View.GONE);
             llReplyListBar.setVisibility(View.GONE);
+            ((ImageButton) view).setImageResource(R.drawable.comment_up_button_white);
+            tvReplyShowTitleReply.setTextColor(Color.parseColor("#ffffff"));
+            llReplyShowContainer.setBackgroundColor(Color.parseColor("#50ffffff"));
+            tvReplyCount.setTextColor(Color.parseColor("#ffffff"));
         } else {
             ViewGroup.LayoutParams params = llReplyContainer.getLayoutParams();
             params.height = ViewGroup.LayoutParams.MATCH_PARENT;
             llReplyContainer.setLayoutParams(params);
-//            Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.bottom_in);
             lvReplyListContainer.setVisibility(View.VISIBLE);
             llReplyWriteContainer.setVisibility(View.VISIBLE);
-//            llReplyShowContainer.startAnimation(animation);
-//            lvReplyListContainer.startAnimation(animation);
-//            llReplyWriteContainer.startAnimation(animation);
             llReplyPeddingContainer.setVisibility(View.VISIBLE);
             llReplyListBar.setVisibility(View.VISIBLE);
+            ((ImageButton) view).setImageResource(R.drawable.comment_down_button_black);
+            tvReplyShowTitleReply.setTextColor(Color.parseColor("#333333"));
+            llReplyShowContainer.setBackgroundColor(Color.parseColor("#ffffff"));
+            tvReplyCount.setTextColor(Color.parseColor("#333333"));
         }
     }
 
