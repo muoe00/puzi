@@ -13,6 +13,30 @@ public class OneButtonDialog {
 
 	private static AlertDialog dialog = null;
 
+	public static void show(Activity activity, String title, String message, String successButtonName, String cancelButton,
+		final DialogButtonCallback callback) {
+
+		if(dialog != null && dialog.isShowing()){
+			return;
+		}
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+		builder.setTitle(title);
+		builder.setMessage(message);
+		builder.setNegativeButton(cancelButton, new Dialog.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		});
+		builder.setPositiveButton(successButtonName, new Dialog.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				callback.onClick();
+			}
+		});
+		dialog = builder.show();
+	}
+
 	public static void show(Activity activity, String title, String message, String buttonName, final DialogButtonCallback callback) {
 		if(dialog != null && dialog.isShowing()){
 			return;

@@ -24,6 +24,8 @@ import kr.puzi.puzi.network.LazyRequestService;
 import kr.puzi.puzi.network.ResponseVO;
 import kr.puzi.puzi.network.service.AdvertisementNetworkService;
 import kr.puzi.puzi.ui.base.BaseFragment;
+import kr.puzi.puzi.ui.common.DialogButtonCallback;
+import kr.puzi.puzi.ui.common.OneButtonDialog;
 import retrofit2.Call;
 
 /**
@@ -139,6 +141,24 @@ public class SettingFragment extends BaseFragment {
 			} else {
 				btnVersion.setVisibility(View.VISIBLE);
 			}
+
+			String[] splitedCurrentVersion = appVersion.split("\\.");
+			String[] splitedServerVersion = version.split("\\.");
+
+			if(splitedCurrentVersion.length != 3 || splitedServerVersion.length != 3) {
+				return;
+			}
+
+			if(!splitedCurrentVersion[0].equals(splitedServerVersion[0]) || !splitedCurrentVersion[1].equals(splitedServerVersion[1])){
+				OneButtonDialog.show(getActivity(), "버전 업데이트", "푸지의 새로운 기능이 추가되었습니다. 더 많은 포인트적립을 위해 업데이트 해주세요 :)",
+					"업데이트", "나중에", new DialogButtonCallback() {
+						@Override
+						public void onClick() {
+							versionClick(null);
+						}
+					});
+			}
+
 		} catch (PackageManager.NameNotFoundException e) {
 			Log.e("VERSION", e.toString(), e);
 		}

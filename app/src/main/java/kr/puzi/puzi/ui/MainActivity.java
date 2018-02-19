@@ -134,7 +134,14 @@ public class MainActivity extends BaseFragmentActivity {
 			switch (messageVO.getType()) {
 				case ADVERTISEMENT:
 					ReceivedAdvertiseVO receivedAdvertiseVO = messageVO.getReceivedAdvertiseDTO();
-					// receivedAdvertiseVO
+					for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+						if (fragment.isVisible()) {
+							if(fragment instanceof AdvertisementFragment){
+								AdvertisementFragment advertisementFragment = (AdvertisementFragment) fragment;
+								advertisementFragment.addAdvertisement(receivedAdvertiseVO);
+							}
+						}
+					}
 					break;
 			}
 			showAlertOnTheTop(messageVO, llMain);
