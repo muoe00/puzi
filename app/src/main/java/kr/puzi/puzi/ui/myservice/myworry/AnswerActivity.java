@@ -809,4 +809,10 @@ public class AnswerActivity extends BaseActivity {
         QuestionFragment.isItemClick = false;
         finish();
     }
+
+    /*@Override
+    public void onBackPressed() {
+        QuestionFragment.isItemClick = false;
+        finish();
+    }*/
 }
