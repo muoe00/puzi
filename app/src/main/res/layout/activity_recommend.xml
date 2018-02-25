@@ -53,7 +53,6 @@
 
           <ImageButton
             android:id="@+id/ibtn_event_link"
-            android:src="@drawable/recommend_event_image"
             android:background="#000000"
             android:scaleType="fitXY"
             app:scale_left="0"
@@ -65,23 +64,36 @@
 
         </com.ssomai.android.scalablelayout.ScalableLayout>
 
-        <Button
-          android:layout_gravity="center|bottom"
-          android:layout_marginLeft="70dp"
-          android:layout_marginRight="70dp"
-          android:layout_marginBottom="6dp"
-          android:paddingLeft="10dp"
-          android:paddingRight="10dp"
-          android:paddingTop="5dp"
-          android:paddingBottom="5dp"
-          android:text="이모티콘 받기"
-          android:id="@+id/btn_event_link"
-          android:background="@drawable/bg_emoticon_save"
-          android:scaleType="fitXY"
-          android:textColor="#ffffff"
-          android:textSize="15dp"
-          android:layout_width="match_parent"
-          android:layout_height="40dp"/>
+        <LinearLayout
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_gravity="right|bottom"
+            android:layout_width="match_parent"
+            android:layout_height="28dp">
+
+          <View
+              android:layout_weight="0.65"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"/>
+
+          <Button
+              android:layout_weight="0.35"
+              android:paddingLeft="10dp"
+              android:paddingRight="10dp"
+              android:paddingTop="3dp"
+              android:paddingBottom="3dp"
+              android:text="이모티콘 받기"
+              android:id="@+id/btn_event_link"
+              android:background="@drawable/bg_emoticon_save"
+              android:scaleType="fitXY"
+              android:textColor="#ffffff"
+              android:textSize="15dp"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+
 
       </FrameLayout>
 

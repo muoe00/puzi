@@ -2,6 +2,7 @@ package kr.puzi.puzi.ui.myservice;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -53,6 +54,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 
 	private Unbinder unbinder;
 	private View view;
+	private long mLastClickTime = 0;
 	private boolean mine = false, isBonusTime = false, isMore = false;
 	private int state = 1, hour = 0, minute = 0, second = 0, max = 0;
 	private OrderType orderType = OrderType.RECENTLY;
@@ -66,7 +68,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	private MyWorryAdaptor myWorryAdaptor;
 	private ScheduledExecutorService excutors;
 
-	public static boolean isItemClick = false;
 	public static int count = 0;
 	public static List<UpdateNeedToResult> changesNeedToResult = newArrayList();
 	public static List<UpdateLike> needToUpdateLike = newArrayList();
@@ -119,7 +120,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	@Override
 	public void onResume() {
 		isMore = false;
-		isItemClick = false;
 
 		if(max != 0 && max == count) {
 			count = 0;
@@ -362,13 +362,15 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-		if(!isItemClick) {
-			isItemClick = true;
-			MyWorryQuestionDTO myWorryQuestionDTO = myWorryAdaptor.getItem(i);
-			Intent intent = new Intent(getActivity(), AnswerActivity.class);
-			intent.putExtra("myWorryQuestionDTO", myWorryQuestionDTO);
-			startActivity(intent);
+		if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+			return;
 		}
+		mLastClickTime = SystemClock.elapsedRealtime();
+
+		MyWorryQuestionDTO myWorryQuestionDTO = myWorryAdaptor.getItem(i);
+		Intent intent = new Intent(getActivity(), AnswerActivity.class);
+		intent.putExtra("myWorryQuestionDTO", myWorryQuestionDTO);
+		startActivity(intent);
 	}
 
 	@Data

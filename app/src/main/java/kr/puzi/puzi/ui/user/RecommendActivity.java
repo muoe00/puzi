@@ -6,18 +6,20 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.kakao.kakaolink.KakaoLink;
+import com.kakao.kakaolink.KakaoTalkLinkMessageBuilder;
+import com.kakao.util.KakaoParameterException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import kr.puzi.puzi.biz.event.EventInfoVO;
 import kr.puzi.puzi.biz.user.UserVO;
 import kr.puzi.puzi.cache.Preference;
+import kr.puzi.puzi.image.BitmapUIL;
 import kr.puzi.puzi.ui.base.BaseFragmentActivity;
-
-import com.google.gson.Gson;
-import com.kakao.kakaolink.KakaoLink;
-import com.kakao.kakaolink.KakaoTalkLinkMessageBuilder;
-import com.kakao.util.KakaoParameterException;
 
 /**
  * Created by muoe0 on 2017-07-08.
@@ -84,6 +86,7 @@ public class RecommendActivity extends BaseFragmentActivity {
 		if(!eventInfoVO.getEventStatusType().isShowEvent()) {
 			ibtnEventLink.setVisibility(View.GONE);
 		}
+		BitmapUIL.load("https://s3.ap-northeast-2.amazonaws.com/puzi/emoticon_event.jpg", ibtnEventLink);
 	}
 
 	@OnClick(kr.puzi.puzi.R.id.recommend_kakaoButton)
