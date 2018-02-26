@@ -69,7 +69,7 @@ public class ScreenOnAlertActivity extends BaseActivity {
 			public void run() {
 				closeAlertOnTheTop();
 			}
-		}, 2000);
+		}, 2500);
 	}
 
 	private void closeAlertOnTheTop() {
