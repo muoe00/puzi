@@ -12,9 +12,7 @@ import android.os.PowerManager;
 import android.os.Vibrator;
 import android.util.Log;
 import com.google.gson.Gson;
-
 import kr.puzi.puzi.ui.MainActivity;
-import kr.puzi.puzi.ui.fcm.ScreenOffAlertActivity;
 import kr.puzi.puzi.ui.fcm.ScreenOnAlertActivity;
 
 import static kr.puzi.puzi.fcm.PuziPushType.ADVERTISEMENT;
@@ -87,16 +85,16 @@ public class PuziBroadcastReceiver extends BroadcastReceiver {
 			vibrator.vibrate(500);
 		}
 
-		if (!isScreenOn(context)) {
-			// 잠겨있을 경우 깨우기
-			Intent newViewIntent = getNewIntent(context, messageVO, ScreenOffAlertActivity.class);
-			newViewIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			context.startActivity(newViewIntent);
-		} else {
+//		if (!isScreenOn(context)) {
+//			 잠겨있을 경우 깨우기
+//			Intent newViewIntent = getNewIntent(context, messageVO, ScreenOffAlertActivity.class);
+//			newViewIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//			context.startActivity(newViewIntent);
+//		} else {
 			Intent newViewIntent = getNewIntent(context, messageVO, ScreenOnAlertActivity.class);
 			newViewIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			context.startActivity(newViewIntent);
-		}
+//		}
 
 		notificationManager.notify(0, notification);
 	}
