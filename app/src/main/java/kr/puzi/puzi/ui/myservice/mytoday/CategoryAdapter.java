@@ -6,14 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import kr.puzi.puzi.biz.myservice.CategoryType;
-import kr.puzi.puzi.ui.customview.NotoTextView;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import kr.puzi.puzi.biz.myservice.CategoryType;
+import kr.puzi.puzi.ui.customview.NotoTextView;
 
 /**
  * Created by juhyun on 2018. 1. 20..
@@ -39,7 +38,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View v = LayoutInflater.from(parent.getContext()).inflate(kr.puzi.puzi.R.layout.item_question_category, parent, false);
 
         ViewHolder viewHolder = new ViewHolder(v);
