@@ -64,36 +64,23 @@
 
         </com.ssomai.android.scalablelayout.ScalableLayout>
 
-        <LinearLayout
-            android:layout_marginBottom="6dp"
-            android:layout_marginRight="6dp"
-            android:layout_gravity="right|bottom"
-            android:layout_width="match_parent"
-            android:layout_height="28dp">
-
-          <View
-              android:layout_weight="0.65"
-              android:layout_width="0dp"
-              android:layout_height="match_parent"/>
-
-          <Button
-              android:layout_weight="0.35"
-              android:paddingLeft="10dp"
-              android:paddingRight="10dp"
-              android:paddingTop="3dp"
-              android:paddingBottom="3dp"
-              android:text="이모티콘 받기"
-              android:id="@+id/btn_event_link"
-              android:background="@drawable/bg_emoticon_save"
-              android:scaleType="fitXY"
-              android:textColor="#ffffff"
-              android:textSize="15dp"
-              android:layout_width="0dp"
-              android:layout_height="match_parent"/>
-
-        </LinearLayout>
-
-
+        <Button
+          android:layout_gravity="center|bottom"
+          android:layout_marginLeft="80dp"
+          android:layout_marginRight="80dp"
+          android:layout_marginBottom="6dp"
+          android:paddingLeft="10dp"
+          android:paddingRight="10dp"
+          android:paddingTop="5dp"
+          android:paddingBottom="5dp"
+          android:text="이모티콘 받기"
+          android:id="@+id/btn_event_link"
+          android:background="@drawable/bg_emoticon_save"
+          android:scaleType="fitXY"
+          android:textColor="#ffffff"
+          android:textSize="15dp"
+          android:layout_width="match_parent"
+          android:layout_height="40dp"/>
 
       </FrameLayout>
 
