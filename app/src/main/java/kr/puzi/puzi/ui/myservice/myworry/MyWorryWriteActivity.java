@@ -3,8 +3,24 @@ package kr.puzi.puzi.ui.myservice.myworry;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.*;
-import butterknife.*;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemClick;
+import butterknife.Unbinder;
 import kr.puzi.puzi.biz.myworry.QuestionType;
 import kr.puzi.puzi.biz.user.AgeType;
 import kr.puzi.puzi.biz.user.GenderType;
@@ -16,9 +32,6 @@ import kr.puzi.puzi.network.service.MyWorryNetworkService;
 import kr.puzi.puzi.ui.ProgressDialog;
 import kr.puzi.puzi.ui.base.BaseFragmentActivity;
 import retrofit2.Call;
-
-import java.util.List;
-import java.util.Map;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -191,7 +204,20 @@ public class MyWorryWriteActivity extends BaseFragmentActivity {
 			priceInfoMap.get("MY_WORRY_4Q_LUXURY_PRICE"),
 			priceInfoMap.get("MY_WORRY_4Q_PREMIUM_PRICE")
 		);
-		adapter = new MyWorryWriteAdapter(getActivity(), priceForTypes);
+
+		List<Integer> countForTypes = isTwoAnswer ? newArrayList(
+				priceInfoMap.get("MY_WORRY_2Q_LOW_COUNT"),
+				priceInfoMap.get("MY_WORRY_2Q_STANDARD_COUNT"),
+				priceInfoMap.get("MY_WORRY_2Q_LUXURY_COUNT"),
+				priceInfoMap.get("MY_WORRY_2Q_PREMIUM_COUNT")
+		) : newArrayList(
+				priceInfoMap.get("MY_WORRY_4Q_LOW_COUNT"),
+				priceInfoMap.get("MY_WORRY_4Q_STANDARD_COUNT"),
+				priceInfoMap.get("MY_WORRY_4Q_LUXURY_COUNT"),
+				priceInfoMap.get("MY_WORRY_4Q_PREMIUM_COUNT")
+		);
+
+		adapter = new MyWorryWriteAdapter(getActivity(), priceForTypes, countForTypes);
 		gvType.setAdapter(adapter);
 	}
 

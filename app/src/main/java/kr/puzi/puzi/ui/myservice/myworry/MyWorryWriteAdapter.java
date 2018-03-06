@@ -6,13 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import kr.puzi.puzi.utils.TextUtils;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 /**
  * Created by JangwonPark on 2017. 12. 26..
@@ -25,6 +26,7 @@ public class MyWorryWriteAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
 	private List<Integer> priceList;
+	private List<Integer> countList;
 
 	@Getter @Setter
 	private int selectedType = 0;
@@ -33,9 +35,10 @@ public class MyWorryWriteAdapter extends BaseAdapter {
 		return priceList.get(selectedType);
 	}
 
-	public MyWorryWriteAdapter(Activity activity, List<Integer> priceList) {
+	public MyWorryWriteAdapter(Activity activity, List<Integer> priceList, List<Integer> countList) {
 		this.inflater = activity.getLayoutInflater();
 		this.priceList = priceList;
+		this.countList = countList;
 	}
 
 	@Override
@@ -72,8 +75,8 @@ public class MyWorryWriteAdapter extends BaseAdapter {
 		holder.tvtitle.setText(titleName);
 
 		int price = priceList.get(position);
-		String answerCount = getAnswerCount(position);
-		holder.tvPrice.setText(TextUtils.addComma(price) + "p(최대답변수:" + answerCount + "명)");
+		String answerCount = String.valueOf(TextUtils.addComma(countList.get(position)));
+		holder.tvPrice.setText(TextUtils.addComma(price) + "p (" + answerCount + "명)");
 
 		return v;
 	}
@@ -114,18 +117,6 @@ public class MyWorryWriteAdapter extends BaseAdapter {
 			return SELECTED;
 		}
 		return NORMAL;
-	}
-
-	private String getAnswerCount(int position) {
-		if(position == 0) {
-			return "21";
-		} else if(position == 1) {
-			return "201";
-		} else if(position == 2) {
-			return "801";
-		} else {
-			return "무제한";
-		}
 	}
 
 	private String getTitleCount(int position) {
