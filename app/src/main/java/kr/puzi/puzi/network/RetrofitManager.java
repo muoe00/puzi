@@ -9,13 +9,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitManager {
 
-    private static final String baseURL_DEBUG = "http://dev.api.puzi.kr";
-    private static final String baseURL = "https://api.puzi.kr";
-
 	public static <T> T create(Class<T> c){
 
 		return new Retrofit.Builder()
-			.baseUrl(baseURL)
+			.baseUrl(FixValues.baseURL)
 			.addConverterFactory(GsonConverterFactory.create())
 			.build()
 			.create(c);
