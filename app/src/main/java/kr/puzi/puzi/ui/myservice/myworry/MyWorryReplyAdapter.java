@@ -22,7 +22,8 @@ public class MyWorryReplyAdapter extends CustomPagingAdapter<MyWorryReplyVO> {
 	protected void setView(Holder viewHolder, MyWorryReplyVO item, int position) {
 		ViewHolder holder = (ViewHolder) viewHolder;
 
-		holder.tvName.setText(item.getWriter());
+		String writer = "***" + item.getWriter().substring(3);
+		holder.tvName.setText(writer);
 		holder.tvTime.setText(item.getCreatedAt());
 		holder.tvComment.setText(item.getComment());
 	}
