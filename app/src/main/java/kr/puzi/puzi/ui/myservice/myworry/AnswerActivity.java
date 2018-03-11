@@ -748,8 +748,9 @@ public class AnswerActivity extends BaseActivity {
             llReplyListBar.setVisibility(View.GONE);
             ((ImageButton) view).setImageResource(R.drawable.comment_up_button_white);
             tvReplyShowTitleReply.setTextColor(Color.parseColor("#ffffff"));
-            llReplyShowContainer.setBackgroundColor(Color.parseColor("#50ffffff"));
+            llReplyShowContainer.setBackgroundColor(Color.parseColor("#50000000"));
             tvReplyCount.setTextColor(Color.parseColor("#ffffff"));
+            closeInputKeyboard(etWriteReply);
         } else {
             ViewGroup.LayoutParams params = llReplyContainer.getLayoutParams();
             params.height = ViewGroup.LayoutParams.MATCH_PARENT;
