@@ -3,14 +3,17 @@ package kr.puzi.puzi;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+import com.igaworks.IgawCommon;
 import com.kakao.auth.KakaoSDK;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+
 import kr.puzi.puzi.ui.intro.KakaoSDKAdapter;
 
 public class PuziApplication extends Application {
@@ -33,6 +36,7 @@ public class PuziApplication extends Application {
 		KakaoSDK.init(new KakaoSDKAdapter());
 
 		initImageLoader(getApplicationContext());
+		IgawCommon.autoSessionTracking(PuziApplication.this);
 
 		sAnalytics = GoogleAnalytics.getInstance(this);
 	}

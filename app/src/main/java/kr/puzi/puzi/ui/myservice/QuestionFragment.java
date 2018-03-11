@@ -251,7 +251,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	}
 
 	public void getWorryList() {
-		orderType = OrderType.getRandomType();
 		isMore = true;
 
 		LazyRequestService service = new LazyRequestService(getActivity(), MyServiceNetworkService.class);
@@ -319,7 +318,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		lvQuestion.setAdapter(myWorryAdaptor);
 		lvQuestion.setOnItemClickListener(this);
 
-		List<String> filterType = Arrays.asList("전체", "나의 고민");
+		List<String> filterType = Arrays.asList(OrderType.RECENTLY.getComment(), OrderType.POPULAR.getComment(), OrderType.MINE.getComment());
 		spinnerAdapter = new SpinnerAdapter(getContext(), filterType);
 		spinner.setAdapter(spinnerAdapter);
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -327,6 +326,10 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				if(position == 0) {
 					mine = false;
+					orderType = OrderType.RECENTLY;
+				} else if(position == 1){
+					mine = false;
+					orderType = OrderType.POPULAR;
 				} else {
 					mine = true;
 				}

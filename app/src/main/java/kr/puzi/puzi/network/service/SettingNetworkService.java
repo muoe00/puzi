@@ -1,11 +1,16 @@
 package kr.puzi.puzi.network.service;
 
+import java.util.List;
+
 import kr.puzi.puzi.biz.user.FavoriteType;
 import kr.puzi.puzi.network.ResponseVO;
 import retrofit2.Call;
-import retrofit2.http.*;
-
-import java.util.List;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by muoe0 on 2017-07-09.
@@ -61,4 +66,6 @@ public interface SettingNetworkService {
 	@POST("/setting/center/out")
 	Call<ResponseVO> out(@Header("token") String token);
 
+	@GET("/v2/setting/version")
+	Call<ResponseVO> version(@Header("token") String token);
 }

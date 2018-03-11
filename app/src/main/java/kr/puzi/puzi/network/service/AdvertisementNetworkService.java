@@ -8,8 +8,6 @@ import retrofit2.http.*;
  * Created by muoe0 on 2017-04-28.
  */
 public interface AdvertisementNetworkService {
-	@GET("/v2/advertise/main")
-	Call<ResponseVO> main(@Header("token") String token);
 
 	@GET("/v2/advertise/list")
 	Call<ResponseVO> adList(@Header("token") String token,
