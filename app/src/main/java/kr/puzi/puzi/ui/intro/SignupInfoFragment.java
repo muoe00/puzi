@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.igaworks.adbrix.IgawAdbrix;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -164,6 +165,13 @@ public class SignupInfoFragment extends BaseFragment {
 				Intent intent = new Intent(getActivity(), MainActivity.class);
 				startActivity(intent);
 				getActivity().finish();
+
+				if(userVO.getRegisterType().equals(RegisterType.K)) {
+					IgawAdbrix.retention("KakaoTalkLoginComplete");
+				} else if(userVO.getRegisterType().equals(RegisterType.N)){
+					IgawAdbrix.retention("registrationComplete");
+				}
+
 			}
 		});
 	}

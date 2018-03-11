@@ -2,6 +2,7 @@ package kr.puzi.puzi.ui.myservice.myworry;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -86,6 +87,7 @@ public class MyWorryWriteActivity extends BaseFragmentActivity {
 	@BindView(kr.puzi.puzi.R.id.ll_container_top)
 	LinearLayout llContainerTop;
 
+	private long mLastClickTime = 0;
 	private Map<String, Integer> priceInfoMap;
 	private MyWorryWriteAdapter adapter;
 	private int answerCount = 2;
@@ -301,6 +303,12 @@ public class MyWorryWriteActivity extends BaseFragmentActivity {
 
 	@OnClick(kr.puzi.puzi.R.id.btn_myworry_write_item_target_write)
 	public void writeOnClick() {
+
+		if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+			return;
+		}
+		mLastClickTime = SystemClock.elapsedRealtime();
+
 		final String question = etQuestion.getText().toString();
 		if(question == null || question.length() == 0) {
 			Toast.makeText(getActivity(), "질문을 입력해주세요", Toast.LENGTH_SHORT).show();

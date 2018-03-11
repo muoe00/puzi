@@ -10,11 +10,14 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.igaworks.IgawCommon;
+import com.kakao.util.helper.Utility;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.kakao.util.helper.Utility;
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
@@ -84,6 +87,13 @@ public class LaunchActivity extends BaseActivity {
 		if(goAlarmSetting) {
 			checkLogin();
 		}
+		IgawCommon.startSession(LaunchActivity.this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		IgawCommon.endSession();
 	}
 
 	public void checkLogin() {

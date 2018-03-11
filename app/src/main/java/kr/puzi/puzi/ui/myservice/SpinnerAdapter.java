@@ -19,7 +19,6 @@ public class SpinnerAdapter extends BaseAdapter {
     List<String> data;
     LayoutInflater inflater;
 
-
     public SpinnerAdapter(Context context, List<String> data){
         this.context = context;
         this.data = data;

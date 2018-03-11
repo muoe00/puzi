@@ -7,6 +7,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+
 import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.service.UserNetworkService;
 import kr.puzi.puzi.ui.IntroActivity;
@@ -14,10 +19,6 @@ import kr.puzi.puzi.ui.ProgressDialog;
 import kr.puzi.puzi.ui.base.BaseFragmentActivity;
 import okhttp3.Request;
 import retrofit2.Call;
-
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 
 import static kr.puzi.puzi.network.ResultType.LOGIN_FAIL;
 
