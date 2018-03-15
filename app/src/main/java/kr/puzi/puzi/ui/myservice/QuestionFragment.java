@@ -191,7 +191,13 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 					setQuestion();
 
 				} else {
-					boolean isMoreQuestion = responseVO.getBoolean("isMoreQuestion");
+					boolean isMoreQuestion = false;
+
+					try {
+						isMoreQuestion = responseVO.getBoolean("isMoreQuestion");
+					} catch(NullPointerException e) {
+						Log.d("QuestionFragment", e.getMessage());
+					}
 
 					if(isMoreQuestion) {
 						state = ViewType.REMAIN.getIndex();
