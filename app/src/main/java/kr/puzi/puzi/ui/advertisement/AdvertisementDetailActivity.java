@@ -151,12 +151,12 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				Log.d("URLTEST", url);
-				if(url.indexOf("play.google.com/store/apps/details") != -1) {
+				if(url.indexOf("play.google.com/store/apps/details") != -1 || url.indexOf("market://details?id=") != -1) {
 					splited = url.split("=");
-					if(splited.length != 2) {
+					/*if(splited.length != 2) {
 						view.loadUrl(url);
 						return true;
-					}
+					}*/
 
 					llDialog.setVisibility(View.GONE);
 					progressCircle.setVisibility(View.GONE);
@@ -179,6 +179,7 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 					} else {
 						Log.d("URLTEST", "11111");
 						Intent marketLaunch = new Intent(Intent.ACTION_VIEW);
+						Log.i("webView", "link : " + Uri.parse("market://details?id="+splited[1]));
 						marketLaunch.setData(Uri.parse("market://details?id="+splited[1]));
 						getActivity().finish();
 						startActivity(marketLaunch);
@@ -186,6 +187,7 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 
 					return true;
 				} else {
+					Log.i("webView", "loadUrl : " + url);
 					view.loadUrl(url);
 					return true;
 				}

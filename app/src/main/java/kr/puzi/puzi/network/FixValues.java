@@ -6,5 +6,5 @@ package kr.puzi.puzi.network;
 
 public class FixValues {
 
-    public static final String baseURL = "http://dev.api.puzi.kr";
+    public static final String baseURL = "https://api.puzi.kr";
 }
