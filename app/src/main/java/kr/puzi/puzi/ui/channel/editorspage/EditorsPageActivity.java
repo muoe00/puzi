@@ -69,19 +69,23 @@ public class EditorsPageActivity extends BaseFragmentActivity {
 		wvContainer.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				if(url.indexOf("play.google.com/store/apps/details") != -1) {
+				if(url.indexOf("play.google.com/store/apps/details") != -1 || url.indexOf("market://details?id=") != -1) {
 					String[] splited = url.split("=");
-					if(splited.length != 2) {
+					/*if(splited.length != 2) {
 						view.loadUrl(url);
 						return true;
-					}
+					}*/
+
+					Log.i("webView", "link : " + Uri.parse("market://details?id="+splited[1]));
 
 					Intent marketLaunch = new Intent(Intent.ACTION_VIEW);
 					marketLaunch.setData(Uri.parse("market://details?id="+splited[1]));
+					getActivity().finish();
 					startActivity(marketLaunch);
 
 					return true;
 				} else {
+					Log.i("webView", "loadUrl : " + url);
 					view.loadUrl(url);
 					return true;
 				}
