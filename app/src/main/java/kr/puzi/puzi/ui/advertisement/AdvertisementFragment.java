@@ -7,10 +7,21 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-import butterknife.*;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import kr.puzi.puzi.biz.advertisement.SlidingInfoVO;
@@ -28,8 +39,6 @@ import kr.puzi.puzi.ui.common.PointDialog;
 import kr.puzi.puzi.utils.PuziUtils;
 import lombok.NoArgsConstructor;
 import retrofit2.Call;
-
-import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -50,6 +59,7 @@ public class AdvertisementFragment extends BaseFragment {
 	@BindView(kr.puzi.puzi.R.id.sliding_container) public FrameLayout llSlidingContainer;
 	@BindView(kr.puzi.puzi.R.id.tx_sliding_count) public TextView tvSlidingCount;
 
+	private boolean vpEnabled;
 	private AdvertiseSliderAdapter advertiseSliderAdapter;
 	private AdvertisementListAdapter advertiseListAdapter;
 	private ReceivedAdvertiseVO startReceivedAdvertiseVO = null;
@@ -76,6 +86,8 @@ public class AdvertisementFragment extends BaseFragment {
 
 		v = inflater.inflate(kr.puzi.puzi.R.layout.fragment_advertisement, container, false);
 		unbinder = ButterKnife.bind(this, v);
+
+		vpEnabled = true;
 
 		initComponent();
 
@@ -108,6 +120,18 @@ public class AdvertisementFragment extends BaseFragment {
 	}
 
 	private void initComponent() {
+
+		viewPager.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if(!vpEnabled) {
+					return true;
+				}
+
+				return false;
+			}
+		});
+
 		advertiseListAdapter = new AdvertisementListAdapter(getActivity(), R.layout.fragment_advertisement_item, R.layout.fragment_advertisement_item_new, R.layout.fragment_advertisement_item_saved, 0, lvAd, svAd, new CustomPagingAdapter.ListHandler() {
 			@Override
 			public void getList() {
@@ -125,6 +149,22 @@ public class AdvertisementFragment extends BaseFragment {
 				advertiseListAdapter.clean();
 				advertiseListAdapter.getList();
 				srlContainer.setRefreshing(false);
+			}
+		});
+		srlContainer.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+
+				if(event.getY() < viewPager.getBottom()) {
+					viewPager.setFocusable(true);
+					v.setFocusable(false);
+					return true;
+				} else {
+					viewPager.setFocusable(false);
+					v.setFocusable(false);
+					return false;
+				}
+
 			}
 		});
 
@@ -147,6 +187,12 @@ public class AdvertisementFragment extends BaseFragment {
 				if(advertiseList == null || advertiseList.size() == 0) {
 					viewPager.setVisibility(View.GONE);
 					return;
+				}
+
+				if(advertiseList.size() == 1) {
+					vpEnabled = false;
+				} else {
+					vpEnabled = true;
 				}
 
 				final int size = advertiseList.size();
