@@ -10,6 +10,7 @@
 
     <!-- 일반답변화면 -->
     <LinearLayout
+        android:id="@+id/ll_myworry_background"
       android:orientation="vertical"
       android:background="@drawable/bg_main"
       android:layout_width="match_parent"

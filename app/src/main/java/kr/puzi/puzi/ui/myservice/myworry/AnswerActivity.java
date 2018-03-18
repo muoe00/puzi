@@ -2,6 +2,7 @@ package kr.puzi.puzi.ui.myservice.myworry;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -146,14 +148,43 @@ public class AnswerActivity extends BaseActivity {
     EditText etWriteReply;
     @BindView(R.id.tv_reply_show_title_reply)
     TextView tvReplyShowTitleReply;
+    @BindView(R.id.ll_myworry_background)
+    LinearLayout llBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_answer);
+        getWindow().setBackgroundDrawable( new ColorDrawable(0x7f000000) );
 
         unbinder = ButterKnife.bind(this);
+
+        Random random = new Random();
+
+        int index = random.nextInt(6) + 1;
+
+        switch (index) {
+            case 1:
+                llBackground.setBackgroundResource(R.drawable.bg_2);
+                break;
+            case 2:
+                llBackground.setBackgroundResource(R.drawable.bg_3);
+                break;
+            case 3:
+                llBackground.setBackgroundResource(R.drawable.bg_4);
+                break;
+            case 4:
+                llBackground.setBackgroundResource(R.drawable.bg_5);
+                break;
+            case 5:
+                llBackground.setBackgroundResource(R.drawable.bg_6);
+                break;
+            case 6:
+                llBackground.setBackgroundResource(R.drawable.bg_main);
+                break;
+        }
+
         myWorryQuestionDTO = (MyWorryQuestionDTO) getIntent().getExtras().getSerializable("myWorryQuestionDTO");
         if (myWorryQuestionDTO.getQuestionCount() == 2) {
             isTwoAnser = true;
