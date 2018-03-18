@@ -63,7 +63,6 @@ public class MainActivity extends BaseFragmentActivity {
 	@BindView(kr.puzi.puzi.R.id.btn_setting) public Button btnSetting;
 	@BindView(kr.puzi.puzi.R.id.ibtn_right_button) public ImageButton ibtnRightButton;
 	@BindView(kr.puzi.puzi.R.id.ll_main_bar) public LinearLayout llMain;
-	@BindView(kr.puzi.puzi.R.id.ll_main_setting) public LinearLayout llMainSetting;
 	@BindView(kr.puzi.puzi.R.id.fl_main_saving) public FrameLayout flMainSaving;
 	@BindView(kr.puzi.puzi.R.id.tv_main_saving) public TextView tvMainSaving;
 
@@ -307,7 +306,6 @@ public class MainActivity extends BaseFragmentActivity {
 		switch (id) {
 			case FRAGMENT_ADVERTISE:
 				llMain.setVisibility(View.VISIBLE);
-				llMainSetting.setVisibility(View.GONE);
 				ivAdvertise.setImageResource(kr.puzi.puzi.R.drawable.home_on);
 				ivChannel.setImageResource(kr.puzi.puzi.R.drawable.channel_off);
 				ivStore.setImageResource(kr.puzi.puzi.R.drawable.store_off);
@@ -316,7 +314,6 @@ public class MainActivity extends BaseFragmentActivity {
 				return;
 			case FRAGMENT_CHANNEL:
 				llMain.setVisibility(View.VISIBLE);
-				llMainSetting.setVisibility(View.GONE);
 				ivAdvertise.setImageResource(kr.puzi.puzi.R.drawable.home_off);
 				ivChannel.setImageResource(kr.puzi.puzi.R.drawable.channel_on);
 				ivStore.setImageResource(kr.puzi.puzi.R.drawable.store_off);
@@ -325,7 +322,6 @@ public class MainActivity extends BaseFragmentActivity {
 				return;
 			case FRAGMENT_STORE:
 				llMain.setVisibility(View.VISIBLE);
-				llMainSetting.setVisibility(View.GONE);
 				ivAdvertise.setImageResource(kr.puzi.puzi.R.drawable.home_off);
 				ivChannel.setImageResource(kr.puzi.puzi.R.drawable.channel_off);
 				ivStore.setImageResource(kr.puzi.puzi.R.drawable.store_selected);
@@ -334,7 +330,6 @@ public class MainActivity extends BaseFragmentActivity {
 				return;
 			case FRAGMENT_SETTING:
 				llMain.setVisibility(View.GONE);
-				llMainSetting.setVisibility(View.VISIBLE);
 				ivAdvertise.setImageResource(kr.puzi.puzi.R.drawable.home_off);
 				ivChannel.setImageResource(kr.puzi.puzi.R.drawable.channel_off);
 				ivStore.setImageResource(kr.puzi.puzi.R.drawable.store_off);

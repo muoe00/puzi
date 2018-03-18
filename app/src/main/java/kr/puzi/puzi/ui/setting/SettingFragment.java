@@ -71,8 +71,6 @@ public class SettingFragment extends BaseFragment {
 
 		UserVO userVO = Preference.getMyInfo(getActivity());
 
-		// Toast.makeText(getActivity(), "register type : " + userVO.getRegisterType().toString(), Toast.LENGTH_SHORT).show();
-
 		if(!userVO.getRegisterType().isEmpty()) {
 			if ("K".equals(userVO.getRegisterType())) {
 				flUser.setVisibility(View.GONE);

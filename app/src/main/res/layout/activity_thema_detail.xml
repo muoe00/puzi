@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_thema_detail_container"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:background="#ffffff"
+        android:layout_height="54dp">
+
+        <ImageButton
+            android:layout_gravity="left|center"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:src="@drawable/back"
+            android:id="@+id/btn_back_web"/>
+
+        <LinearLayout
+            android:id="@+id/ll_thema_detail"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginRight="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <kr.puzi.puzi.ui.customview.RobotoTextView
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:textSize="16dp"
+                android:textColor="#6D6D6D"
+                android:layout_gravity="center"
+                android:id="@+id/tv_thema_detail_title"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_marginTop="54dp"
+        android:layout_marginBottom="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--정보화면-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <kr.puzi.puzi.ui.customview.NotoTextView
+                    android:id="@+id/tv_thema_count"
+                    android:text="PA1001"
+                    app:fontWeight="regular"
+                    android:textSize="10dp"
+                    android:textColor="#9B9B9B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <kr.puzi.puzi.ui.customview.NotoTextView
+                    android:id="@+id/tv_thema_percent"
+                    android:text="PA1001"
+                    app:fontWeight="regular"
+                    android:textSize="10dp"
+                    android:textColor="#9B9B9B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chart_thema_mine"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+            </LinearLayout>
+
+            <!-- 댓글화면 -->
+            <LinearLayout
+                android:id="@+id/ll_reply_container"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+                    android:id="@+id/ll_reply_show_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp">
+
+                    <kr.puzi.puzi.ui.customview.NotoTextView
+                        app:fontWeight="demilight"
+                        android:text="댓글 "
+                        android:textColor="#000000"
+                        android:textSize="16dp"
+                        android:gravity="center_vertical|left"
+                        android:layout_marginLeft="29dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                    <kr.puzi.puzi.ui.customview.NotoTextView
+                        app:fontWeight="demilight"
+                        android:textColor="#000000"
+                        android:textSize="16dp"
+                        android:gravity="center_vertical|left"
+                        android:id="@+id/tv_reply_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/ll_reply_list_bar"
+                    android:layout_width="match_parent"
+                    android:background="#dadada"
+                    android:layout_height="1dp"/>
+
+                <ListView
+                    android:overScrollMode="never"
+                    android:id="@+id/lv_reply_list_container"
+                    android:choiceMode="none"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:divider="#dadada"
+                    android:background="@color/colorWhite"
+                    android:dividerHeight="0.5dp"
+                    android:focusableInTouchMode="false"
+                    android:longClickable="false"
+                    android:layout_weight="3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- 댓글입력창 -->
+    <LinearLayout
+        android:id="@+id/ll_reply_write_container"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:paddingTop="11dp"
+        android:paddingLeft="11dp"
+        android:paddingRight="11dp"
+        android:paddingBottom="9dp"
+        android:layout_height="55dp">
+
+        <kr.puzi.puzi.ui.customview.NotoEditText
+            app:fontWeight="demilight"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:ems="10"
+            android:background="@drawable/bg_myworry_reply_write"
+            android:textSize="15dp"
+            android:textColor="#333333"
+            android:isScrollContainer="true"
+            android:maxHeight="100dp"
+            android:inputType="textMultiLine"
+            android:id="@+id/et_thema_detail_write_reply"
+            android:hint="댓글을 입력하세요"/>
+
+        <kr.puzi.puzi.ui.customview.NotoButton
+            app:fontWeight="demilight"
+            android:id="@+id/btn_thema_detail_write_reply"
+            android:text="등록"
+            android:layout_width="56dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:textSize="15dp"
+            android:textColor="#ffffff"
+            android:background="@drawable/bg_myworry_reply_write_button"/>
+
+    </LinearLayout>
+
+</FrameLayout>
