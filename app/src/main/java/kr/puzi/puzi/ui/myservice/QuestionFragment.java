@@ -10,19 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.Spinner;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -43,6 +31,12 @@ import kr.puzi.puzi.ui.myservice.myworry.AnswerActivity;
 import kr.puzi.puzi.ui.myservice.myworry.MyWorryAdaptor;
 import lombok.Data;
 import retrofit2.Call;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -111,8 +105,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 			}
 		};
 		todayAdapter.setRefreshCallback(refreshCallback);
-
-		Log.i("QuestionFragment", "onCreateView");
 
 		return view;
 	}
@@ -269,6 +261,8 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
+				Log.i("QuestionFragment", "index : " + myWorryAdaptor.getPagingIndex());
+
 				isMore = false;
 				myWorryAdaptor.stopProgress();
 
@@ -282,7 +276,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				Log.i("QuestionFragment", "myWorryAdaptor.getCount() : " + myWorryAdaptor.getCount());
 				Log.i("QuestionFragment", "totalCount : " + totalCount);
 
-				if ((myWorryAdaptor.getCount() == totalCount) || (myWorryAdaptor.isEmpty()) || !(myWorryAdaptor.isMore())) {
+				if ((myWorryAdaptor.getCount() == totalCount) || (myWorryQuestionList.isEmpty())) {
 					flMore.setVisibility(View.GONE);
 				} else {
 					flMore.setVisibility(View.VISIBLE);
@@ -339,12 +333,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				} else {
 					mine = true;
 				}
-				myWorryAdaptor.clean();
-				myWorryAdaptor.initPagingIndex();
-				myWorryAdaptor.increasePagingIndex();
-				myWorryAdaptor.startProgress();
-				myWorryAdaptor.setMine(mine);
-				getWorryList();
+				initMyWorry();
 			}
 
 			@Override
@@ -358,15 +347,19 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 			@Override
 			public void onRefresh() {
 				todayAdapter.notifyDataSetChanged();
-				myWorryAdaptor.clean();
-				myWorryAdaptor.initPagingIndex();
-				myWorryAdaptor.increasePagingIndex();
-				myWorryAdaptor.startProgress();
-				myWorryAdaptor.setMine(mine);
-				getWorryList();
+				initMyWorry();
 				srlContainer.setRefreshing(false);
 			}
 		});
+	}
+
+	public void initMyWorry() {
+		myWorryAdaptor.clean();
+		myWorryAdaptor.initPagingIndex();
+		myWorryAdaptor.increasePagingIndex();
+		myWorryAdaptor.startProgress();
+		myWorryAdaptor.setMine(mine);
+		getWorryList();
 	}
 
 	@Override
