@@ -12,6 +12,7 @@ import com.joooonho.SelectableRoundedImageView;
 import butterknife.BindView;
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.thema.ThemaDTO;
+import kr.puzi.puzi.image.BitmapUIL;
 import kr.puzi.puzi.ui.CustomPagingAdapter;
 import kr.puzi.puzi.ui.customview.NotoTextView;
 
@@ -63,6 +64,12 @@ public class ThemaAdapter extends CustomPagingAdapter<ThemaDTO> {
     protected void setView(Holder holder, final ThemaDTO item, int position) {
         final ThemaAdapter.ViewHolder viewHolder = (ThemaAdapter.ViewHolder) holder;
 
+        BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
+        viewHolder.tvPercent.setText(String.valueOf(item.getRate()));
+        viewHolder.tvTitle.setText("당신은 " + item.getTargetMax() + "입니다");
+        viewHolder.tvMax.setText(item.getTargetMax());
+        viewHolder.tvMin.setText(item.getTargetMin());
+        viewHolder.tvCount.setText(item.getTotalUserCount());
 
     }
 
@@ -70,28 +77,43 @@ public class ThemaAdapter extends CustomPagingAdapter<ThemaDTO> {
     public void setView2(Holder holder, final ThemaDTO item, int position) {
         final ThemaAdapter.ViewHolder viewHolder = (ThemaAdapter.ViewHolder) holder;
 
-
+        BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
+        viewHolder.tvPercent.setText(String.valueOf(item.getRate()));
+        viewHolder.tvTitle.setText("당신은 " + item.getTargetMax() + "입니다");
+        viewHolder.tvMax.setText(item.getTargetMax());
+        viewHolder.tvMin.setText(item.getTargetMin());
+        viewHolder.tvCount.setText(item.getTotalUserCount());
     }
 
     @Override
     public void setView3(Holder holder, final ThemaDTO item, int position) {
-        final ThemaAdapter.ViewHolder3 viewHolder = (ThemaAdapter.ViewHolder3) holder;
+        final ThemaAdapter.ViewHolder viewHolder = (ThemaAdapter.ViewHolder) holder;
+
+        BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
+        viewHolder.tvPercent.setText(String.valueOf(item.getRate()));
+        viewHolder.tvMax.setText(item.getTargetMax());
+        viewHolder.tvMin.setText(item.getTargetMin());
+        viewHolder.tvCount.setText(item.getTotalUserCount());
 
     }
 
     @Override
     public void setView4(Holder holder, final ThemaDTO item, int position) {
-        final ThemaAdapter.ViewHolder4 viewHolder = (ThemaAdapter.ViewHolder4) holder;
+        final ThemaAdapter.ViewHolder viewHolder = (ThemaAdapter.ViewHolder) holder;
+
+        BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
+        viewHolder.tvMax.setText(item.getTargetMax());
+        viewHolder.tvMin.setText(item.getTargetMin());
+        viewHolder.tvCount.setText(item.getTotalUserCount());
 
     }
-
 
     @Override
     protected Holder createHolder(View v) {
         return new ThemaAdapter.ViewHolder(v);
     }
 
-    @Override
+    /*@Override
     protected Holder createHolder2(View v) {
         return new ThemaAdapter.ViewHolder2(v);
     }
@@ -104,7 +126,7 @@ public class ThemaAdapter extends CustomPagingAdapter<ThemaDTO> {
     @Override
     protected Holder createHolder4(View v) {
         return new ThemaAdapter.ViewHolder4(v);
-    }
+    }*/
 
     class ViewHolder extends Holder {
 
@@ -114,14 +136,19 @@ public class ThemaAdapter extends CustomPagingAdapter<ThemaDTO> {
         NotoTextView tvPercent;
         @BindView(R.id.tv_thema_title)
         NotoTextView tvTitle;
-
+        @BindView(R.id.tv_thema_versus_max)
+        NotoTextView tvMax;
+        @BindView(R.id.tv_thema_versus_min)
+        NotoTextView tvMin;
+        @BindView(R.id.tv_thema_item_count)
+        NotoTextView tvCount;
 
         public ViewHolder(View view) {
             super(view);
         }
     }
 
-    class ViewHolder2 extends Holder {
+    /*class ViewHolder2 extends Holder {
 
         public ViewHolder2(View view) {
             super(view);
@@ -140,5 +167,5 @@ public class ThemaAdapter extends CustomPagingAdapter<ThemaDTO> {
         public ViewHolder4(View view) {
             super(view);
         }
-    }
+    }*/
 }

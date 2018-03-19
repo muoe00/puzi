@@ -62,8 +62,6 @@ public class ThemaFragment extends BaseFragment implements AdapterView.OnItemCli
 
         initComponents();
 
-
-
         return view;
     }
 
