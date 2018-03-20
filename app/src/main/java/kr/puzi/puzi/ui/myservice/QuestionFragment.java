@@ -32,12 +32,6 @@ import kr.puzi.puzi.ui.myservice.myworry.MyWorryAdaptor;
 import lombok.Data;
 import retrofit2.Call;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 import static com.google.common.collect.Lists.newArrayList;
 
 /**
@@ -105,6 +99,8 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 			}
 		};
 		todayAdapter.setRefreshCallback(refreshCallback);
+
+		Log.i("QuestionFragment", "onCreateView");
 
 		return view;
 	}
@@ -261,8 +257,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		service.enqueue(new CustomCallback(getActivity()) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
-				Log.i("QuestionFragment", "index : " + myWorryAdaptor.getPagingIndex());
-
 				isMore = false;
 				myWorryAdaptor.stopProgress();
 
@@ -333,7 +327,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				} else {
 					mine = true;
 				}
-				initMyWorry();
+				initWorryList();
 			}
 
 			@Override
@@ -347,13 +341,13 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 			@Override
 			public void onRefresh() {
 				todayAdapter.notifyDataSetChanged();
-				initMyWorry();
+				initWorryList();
 				srlContainer.setRefreshing(false);
 			}
 		});
 	}
 
-	public void initMyWorry() {
+	public void initWorryList() {
 		myWorryAdaptor.clean();
 		myWorryAdaptor.initPagingIndex();
 		myWorryAdaptor.increasePagingIndex();
