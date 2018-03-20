@@ -7,12 +7,6 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-
-import java.util.List;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -29,6 +23,11 @@ import kr.puzi.puzi.ui.common.PointDialog;
 import kr.puzi.puzi.ui.customview.NotoTextView;
 import kr.puzi.puzi.ui.myservice.QuestionFragment;
 import retrofit2.Call;
+
+import java.util.List;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by juhyun on 2018. 1. 14..
@@ -89,8 +88,22 @@ public class QuestionActivity extends BaseActivity {
         unbinder = ButterKnife.bind(this);
         activity = this;
 
-        Random random = new Random();
+        myTodayQuestionVOList = (List<MyTodayQuestionVO>) getIntent().getExtras().getSerializable("questionList");
+        size = myTodayQuestionVOList.size();
 
+        setComponents();
+    }
+
+    public void init() {
+        isSelected = false;
+        answer = "";
+        selectedCount = 0;
+
+        Log.i("QuestionActivity", "init size : " + size + " count : " + QuestionFragment.count);
+    }
+
+    public void setComponents() {
+        Random random = new Random();
         int index = random.nextInt(6) + 1;
 
         switch (index) {
@@ -114,23 +127,6 @@ public class QuestionActivity extends BaseActivity {
                 break;
         }
 
-        myTodayQuestionVOList = (List<MyTodayQuestionVO>) getIntent().getExtras().getSerializable("questionList");
-        size = myTodayQuestionVOList.size();
-
-        Log.i("QuestionActivity", "onCreate size : " + size + " count : " + QuestionFragment.count);
-
-        setComponents();
-    }
-
-    public void init() {
-        isSelected = false;
-        answer = "";
-        selectedCount = 0;
-
-        Log.i("QuestionActivity", "init size : " + size + " count : " + QuestionFragment.count);
-    }
-
-    public void setComponents() {
         myTodayQuestionVO = myTodayQuestionVOList.get(QuestionFragment.count);
 
         Log.i("QuestionActivity", "setComponents myTodayQuestionVO : " + myTodayQuestionVO.toString());
