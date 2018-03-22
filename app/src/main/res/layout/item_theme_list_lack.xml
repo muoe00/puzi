@@ -158,6 +158,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:id="@+id/tv_theme_item_count"
                     android:text="2000"
                     android:textColor="#9B9B9B"
                     android:textSize="16dp"
