@@ -8,6 +8,7 @@ import kr.puzi.puzi.ui.base.BaseFragment;
 import kr.puzi.puzi.ui.setting.SettingFragment;
 import kr.puzi.puzi.ui.store.StoreFragment;
 import kr.puzi.puzi.ui.myservice.QuestionFragment;
+import kr.puzi.puzi.ui.thema.ThemaFragment;
 
 /**
  * Created by muoe0 on 2017-07-08.
@@ -19,6 +20,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 	private QuestionFragment questionFragment = new QuestionFragment();
 	private StoreFragment storeFragment = new StoreFragment();
 	private SettingFragment settingFragment = new SettingFragment();
+	private ThemaFragment themaFragment = new ThemaFragment();
 
 	public PagerAdapter(FragmentManager fragmentManager) {
 		super(fragmentManager);
@@ -37,7 +39,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 			case 2:
 				return storeFragment;
 			case 3:
-				return settingFragment;
+				return themaFragment;
 			default:
 				return null;
 		}
@@ -53,7 +55,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 			case 2:
 				return storeFragment;
 			case 3:
-				return settingFragment;
+				return themaFragment;
 			default:
 				return null;
 		}

@@ -1,5 +1,6 @@
 *.iml
 .gradle
+*.class
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
@@ -7,4 +8,4 @@
 /build
 /captures
 .externalNativeBuild
-FixValues.class
+FixValues.java

@@ -67,6 +67,7 @@ dependencies {
 	compile 'com.facebook.android:facebook-android-sdk:3.19.0'
 	compile files('libs/IgawAdbrix_v4.4.9a.jar')
 	compile files('libs/IgawCommon_v4.5.4a.jar')
+	compile 'com.github.PhilJay:MpAndroidChart:v3.0.2'
 }
 
 apply plugin: 'com.google.gms.google-services'
