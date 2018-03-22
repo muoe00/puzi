@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:id="@+id/iv_thema_background"
+                android:id="@+id/iv_theme_background"
                 android:background="#00000000"/>
 
         </com.ssomai.android.scalablelayout.ScalableLayout>
@@ -46,11 +46,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
-            android:id="@+id/btn_thema_item"/>
+            android:id="@+id/btn_theme_item"/>
 
         <LinearLayout
             android:orientation="horizontal"
-            android:id="@+id/rl_thema_item"
+            android:id="@+id/rl_theme_item"
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -67,11 +67,25 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
                     <kr.puzi.puzi.ui.customview.NotoTextView
                         app:fontWeight="regular"
                         android:textSize="16dp"
                         android:textColor="#9B9B9B"
-                        android:text="\?"
+                        android:text="100"
+                        android:gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <kr.puzi.puzi.ui.customview.NotoTextView
+                        app:fontWeight="regular"
+                        android:textSize="16dp"
+                        android:textColor="#9B9B9B"
+                        android:text="%"
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -84,24 +98,24 @@
                 android:orientation="vertical"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true">
 
                 <kr.puzi.puzi.ui.customview.NotoTextView
                     app:fontWeight="medium"
-                    android:textSize="16dp"
+                    android:textSize="22dp"
                     android:textColor="#333333"
-                    android:text="응답 데이터가 부족하여\n개인 지표를 확인할 수 없습니다"
+                    android:text="타이틀 자리입니다"
                     android:gravity="center_vertical"
                     android:ellipsize="marquee"
                     android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
                     android:focusableInTouchMode="true"
                     android:focusable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tv_thema_title"/>
+                    android:id="@+id/tv_theme_title"/>
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -116,7 +130,7 @@
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_thema_versus_max"/>
+                        android:id="@+id/tv_theme_versus_max"/>
 
                     <kr.puzi.puzi.ui.customview.NotoTextView
                         app:fontWeight="regular"
@@ -126,7 +140,7 @@
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_thema_versus"/>
+                        android:id="@+id/tv_theme_versus"/>
 
                     <kr.puzi.puzi.ui.customview.NotoTextView
                         app:fontWeight="regular"
@@ -136,7 +150,7 @@
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_thema_versus_min"/>
+                        android:id="@+id/tv_theme_versus_min"/>
 
                 </LinearLayout>
 

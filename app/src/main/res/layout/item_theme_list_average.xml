@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:id="@+id/iv_thema_background"
+                android:id="@+id/iv_theme_background"
                 android:background="#00000000"/>
 
         </com.ssomai.android.scalablelayout.ScalableLayout>
@@ -46,11 +46,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
-            android:id="@+id/btn_thema_item"/>
+            android:id="@+id/btn_theme_item"/>
 
         <LinearLayout
             android:orientation="horizontal"
-            android:id="@+id/rl_thema_item"
+            android:id="@+id/rl_theme_item"
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -76,9 +76,8 @@
                         app:fontWeight="regular"
                         android:textSize="16dp"
                         android:textColor="#9B9B9B"
-                        android:text="100"
+                        android:text="50"
                         android:gravity="center_vertical"
-                        android:id="@+id/tv_thema_item_percent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -107,7 +106,7 @@
                     app:fontWeight="medium"
                     android:textSize="22dp"
                     android:textColor="#333333"
-                    android:text="타이틀 자리입니다"
+                    android:text="당신은 일반인입니다"
                     android:gravity="center_vertical"
                     android:ellipsize="marquee"
                     android:marqueeRepeatLimit="marquee_forever"
@@ -116,7 +115,7 @@
                     android:focusable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tv_thema_title"/>
+                    android:id="@+id/tv_theme_title"/>
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -131,7 +130,7 @@
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_thema_versus_max"/>
+                        android:id="@+id/tv_theme_versus_max"/>
 
                     <kr.puzi.puzi.ui.customview.NotoTextView
                         app:fontWeight="regular"
@@ -141,7 +140,7 @@
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_thema_versus"/>
+                        android:id="@+id/tv_theme_versus"/>
 
                     <kr.puzi.puzi.ui.customview.NotoTextView
                         app:fontWeight="regular"
@@ -151,7 +150,7 @@
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_thema_versus_min"/>
+                        android:id="@+id/tv_theme_versus_min"/>
 
                 </LinearLayout>
 
@@ -173,7 +172,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:id="@+id/tv_thema_item_count"
                     android:text="2000"
                     android:textColor="#9B9B9B"
                     android:textSize="16dp"

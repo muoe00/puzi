@@ -1,4 +1,4 @@
-package kr.puzi.puzi.biz.thema;
+package kr.puzi.puzi.biz.theme;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

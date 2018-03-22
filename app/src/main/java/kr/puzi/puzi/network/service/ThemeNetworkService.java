@@ -12,7 +12,7 @@ import retrofit2.http.POST;
  * Created by juhyun on 2018. 3. 17..
  */
 
-public interface ThemaNetworkService {
+public interface ThemeNetworkService {
 
     @GET("/theme/list")
     Call<ResponseVO> getList(@Header("token") String token);
@@ -23,7 +23,8 @@ public interface ThemaNetworkService {
 
     @GET("/theme/reply/list")
     Call<ResponseVO> getReplyList(@Header("token") String token,
-                                  @Field("themeInfoId") int themeInfoId);
+                                  @Field("themeInfoId") int themeInfoId,
+        @Field("pagingIndex") int pagingIndex);
 
     @FormUrlEncoded
     @POST("/theme/reply/write")

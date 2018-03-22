@@ -1,9 +1,9 @@
 package kr.puzi.puzi.biz.myservice;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.List;
-
-import lombok.Data;
 
 /**
  * Created by juhyun on 2018. 1. 14..
@@ -24,6 +24,6 @@ public class MyWorryQuestionDTO implements Serializable {
     private int likedCount;                         // 좋아요숫자
     private boolean notifiedByMe;                   // 내가신고했는지
     private boolean likedByMe;                      // 내가좋아요했는지
-    private List<CategoryType> categoryTypeList;      // UserInfoDTO 참조 (연령, 성별만)
+    private List<CategoryType> categoryTypeList;    // UserInfoDTO 참조 (연령, 성별만)
     private boolean needToShowResult;
 }

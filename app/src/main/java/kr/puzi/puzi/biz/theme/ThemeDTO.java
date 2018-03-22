@@ -1,15 +1,17 @@
-package kr.puzi.puzi.biz.thema;
+package kr.puzi.puzi.biz.theme;
 
-import lombok.Getter;
+import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * Created by juhyun on 2018. 3. 17..
  */
 
-@Getter
-public class ThemaDTO {
+@Data
+public class ThemeDTO implements Serializable {
 
-    private long themeInfoId;       // 시퀀스
+    private int themeInfoId;       // 시퀀스
     private DegreeType degreeType;
     private double rate;            // 비율
     private String targetMin;       // 최소 테마이름

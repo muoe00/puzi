@@ -1,4 +1,4 @@
-package kr.puzi.puzi.ui.thema;
+package kr.puzi.puzi.ui.theme;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +11,7 @@ import com.joooonho.SelectableRoundedImageView;
 
 import butterknife.BindView;
 import kr.puzi.puzi.R;
-import kr.puzi.puzi.biz.thema.ThemaDTO;
+import kr.puzi.puzi.biz.theme.ThemeDTO;
 import kr.puzi.puzi.image.BitmapUIL;
 import kr.puzi.puzi.ui.CustomPagingAdapter;
 import kr.puzi.puzi.ui.customview.NotoTextView;
@@ -20,13 +20,13 @@ import kr.puzi.puzi.ui.customview.NotoTextView;
  * Created by juhyun on 2018. 3. 18..
  */
 
-public class ThemaAdapter extends CustomPagingAdapter<ThemaDTO> {
+public class ThemeAdapter extends CustomPagingAdapter<ThemeDTO> {
 
     private Activity activity;
     private Context context;
     private LinearLayoutManager manager;
 
-    public ThemaAdapter(Activity activity, int layoutResource, int layoutResource2, int layoutResource3, int layoutResource4, ListView listView, ScrollView scrollView, ListHandler listHandler, boolean moreBtn) {
+    public ThemeAdapter(Activity activity, int layoutResource, int layoutResource2, int layoutResource3, int layoutResource4, ListView listView, ScrollView scrollView, ListHandler listHandler, boolean moreBtn) {
         super(activity, layoutResource, layoutResource2, layoutResource3, layoutResource4, 0, listView, scrollView, listHandler, moreBtn);
         this.activity = activity;
         this.context = activity.getApplicationContext();
@@ -44,9 +44,9 @@ public class ThemaAdapter extends CustomPagingAdapter<ThemaDTO> {
             return type;
         }
 
-        ThemaDTO themaDTO = getItem(position);
+        ThemeDTO themeDTO = getItem(position);
 
-        switch (themaDTO.getDegreeType()) {
+        switch (themeDTO.getDegreeType()) {
             case MAX:
                 return VIEW_LIST;
             case MIN:
@@ -61,8 +61,8 @@ public class ThemaAdapter extends CustomPagingAdapter<ThemaDTO> {
     }
 
     @Override
-    protected void setView(Holder holder, final ThemaDTO item, int position) {
-        final ThemaAdapter.ViewHolder viewHolder = (ThemaAdapter.ViewHolder) holder;
+    protected void setView(Holder holder, final ThemeDTO item, int position) {
+        final ThemeAdapter.ViewHolder viewHolder = (ThemeAdapter.ViewHolder) holder;
 
         BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
         viewHolder.tvPercent.setText(String.valueOf(item.getRate()));
@@ -74,8 +74,8 @@ public class ThemaAdapter extends CustomPagingAdapter<ThemaDTO> {
     }
 
     @Override
-    public void setView2(Holder holder, final ThemaDTO item, int position) {
-        final ThemaAdapter.ViewHolder viewHolder = (ThemaAdapter.ViewHolder) holder;
+    public void setView2(Holder holder, final ThemeDTO item, int position) {
+        final ThemeAdapter.ViewHolder viewHolder = (ThemeAdapter.ViewHolder) holder;
 
         BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
         viewHolder.tvPercent.setText(String.valueOf(item.getRate()));
@@ -86,8 +86,8 @@ public class ThemaAdapter extends CustomPagingAdapter<ThemaDTO> {
     }
 
     @Override
-    public void setView3(Holder holder, final ThemaDTO item, int position) {
-        final ThemaAdapter.ViewHolder viewHolder = (ThemaAdapter.ViewHolder) holder;
+    public void setView3(Holder holder, final ThemeDTO item, int position) {
+        final ThemeAdapter.ViewHolder viewHolder = (ThemeAdapter.ViewHolder) holder;
 
         BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
         viewHolder.tvPercent.setText(String.valueOf(item.getRate()));
@@ -98,8 +98,8 @@ public class ThemaAdapter extends CustomPagingAdapter<ThemaDTO> {
     }
 
     @Override
-    public void setView4(Holder holder, final ThemaDTO item, int position) {
-        final ThemaAdapter.ViewHolder viewHolder = (ThemaAdapter.ViewHolder) holder;
+    public void setView4(Holder holder, final ThemeDTO item, int position) {
+        final ThemeAdapter.ViewHolder viewHolder = (ThemeAdapter.ViewHolder) holder;
 
         BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
         viewHolder.tvMax.setText(item.getTargetMax());
@@ -110,7 +110,7 @@ public class ThemaAdapter extends CustomPagingAdapter<ThemaDTO> {
 
     @Override
     protected Holder createHolder(View v) {
-        return new ThemaAdapter.ViewHolder(v);
+        return new ThemeAdapter.ViewHolder(v);
     }
 
     /*@Override
@@ -130,17 +130,17 @@ public class ThemaAdapter extends CustomPagingAdapter<ThemaDTO> {
 
     class ViewHolder extends Holder {
 
-        @BindView(R.id.iv_thema_background)
+        @BindView(R.id.iv_theme_background)
         SelectableRoundedImageView ivBack;
-        @BindView(R.id.tv_thema_item_percent)
+        @BindView(R.id.tv_theme_item_percent)
         NotoTextView tvPercent;
-        @BindView(R.id.tv_thema_title)
+        @BindView(R.id.tv_theme_title)
         NotoTextView tvTitle;
-        @BindView(R.id.tv_thema_versus_max)
+        @BindView(R.id.tv_theme_versus_max)
         NotoTextView tvMax;
-        @BindView(R.id.tv_thema_versus_min)
+        @BindView(R.id.tv_theme_versus_min)
         NotoTextView tvMin;
-        @BindView(R.id.tv_thema_item_count)
+        @BindView(R.id.tv_theme_item_count)
         NotoTextView tvCount;
 
         public ViewHolder(View view) {

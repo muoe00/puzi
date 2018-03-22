@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/ll_thema_detail_container"
+        android:id="@+id/ll_theme_detail_container"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:background="#ffffff"
@@ -22,7 +22,7 @@
             android:id="@+id/btn_back_web"/>
 
         <LinearLayout
-            android:id="@+id/ll_thema_detail"
+            android:id="@+id/ll_theme_detail"
             android:clickable="true"
             android:layout_weight="1"
             android:orientation="horizontal"
@@ -36,7 +36,7 @@
                 android:textSize="16dp"
                 android:textColor="#6D6D6D"
                 android:layout_gravity="center"
-                android:id="@+id/tv_thema_detail_title"/>
+                android:id="@+id/tv_theme_detail_title"/>
 
         </LinearLayout>
 
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content">
 
                 <kr.puzi.puzi.ui.customview.NotoTextView
-                    android:id="@+id/tv_thema_count"
+                    android:id="@+id/tv_theme_count"
                     android:text="PA1001"
                     app:fontWeight="regular"
                     android:textSize="10dp"
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content" />
 
                 <kr.puzi.puzi.ui.customview.NotoTextView
-                    android:id="@+id/tv_thema_percent"
+                    android:id="@+id/tv_theme_percent"
                     android:text="PA1001"
                     app:fontWeight="regular"
                     android:textSize="10dp"
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content">
 
                 <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/chart_thema_mine"
+                    android:id="@+id/chart_theme_mine"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 

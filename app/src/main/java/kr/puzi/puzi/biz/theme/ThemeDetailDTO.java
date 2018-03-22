@@ -1,10 +1,10 @@
-package kr.puzi.puzi.biz.thema;
+package kr.puzi.puzi.biz.theme;
 
 /**
  * Created by juhyun on 2018. 3. 17..
  */
 
-public class ThemaDetailDTO {
+public class ThemeDetailDTO {
 
     private long themeInfoId;                           // 시퀀스
     private DegreeType degreeType;
@@ -18,7 +18,7 @@ public class ThemaDetailDTO {
     private double totalAverageScore;		            // 전체평균점수
     private double totalMinAverageScore;		        // 최소테마 평균점수
     private double totalMaxAverageScore;		        // 최대테마 평균점수
-    private UserThemaDailyDTO userThemeDailies;		    // 데일리리스트
+    private UserThemeDailyDTO userThemeDailies;		    // 데일리리스트
 
 
 }

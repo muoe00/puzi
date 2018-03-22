@@ -84,6 +84,7 @@
       android:name="kr.puzi.puzi.ui.company.CompanyActivity"
       android:label="@string/title_activity_company">
     </activity>
+    <activity android:name=".ui.theme.ThemeDetailActivity"/>
 
     <service
       android:name="kr.puzi.puzi.fcm.FirebaseMessagingService">
