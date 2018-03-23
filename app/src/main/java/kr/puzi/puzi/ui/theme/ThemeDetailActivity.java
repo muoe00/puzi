@@ -1,21 +1,22 @@
 package kr.puzi.puzi.ui.theme;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+import butterknife.*;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.theme.ThemeDTO;
+import kr.puzi.puzi.biz.theme.ThemeDetailDTO;
 import kr.puzi.puzi.biz.theme.ThemeReplyAdapter;
 import kr.puzi.puzi.biz.theme.ThemeReplyVO;
+import kr.puzi.puzi.biz.user.UserVO;
+import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
 import kr.puzi.puzi.network.ResponseVO;
@@ -53,6 +54,7 @@ public class ThemeDetailActivity extends BaseActivity {
     EditText etWriteReply;
 
     private ThemeDTO themeDTO;
+    private ThemeDetailDTO themeDetailDTO;
     private ThemeReplyAdapter themeReplyAdapter;
 
     @Override
@@ -64,7 +66,27 @@ public class ThemeDetailActivity extends BaseActivity {
 
         themeDTO = (ThemeDTO) getIntent().getExtras().getSerializable("themeDTO");
 
-        getReply();
+        // getThemeDetail();
+        // getReply();
+    }
+
+    public void getThemeDetail() {
+        LazyRequestService service = new LazyRequestService(getActivity(), ThemeNetworkService.class);
+        service.method(new LazyRequestService.RequestMothod<ThemeNetworkService>() {
+            @Override
+            public Call<ResponseVO> execute(ThemeNetworkService themeNetworkService, String token) {
+                return themeNetworkService.getDetail(token, themeDTO.getThemeInfoId());
+            }
+        });
+        service.enqueue(new CustomCallback(getActivity()) {
+            @Override
+            public void onSuccess(ResponseVO responseVO) {
+
+                themeDetailDTO = responseVO.getValue("themeDetailDTO", ThemeDetailDTO.class);
+
+                Log.i("ThemeDetailActivity", "themeDetailDTO : " + themeDetailDTO.toString());
+            }
+        });
     }
 
     private void getReply() {
@@ -87,7 +109,6 @@ public class ThemeDetailActivity extends BaseActivity {
             }
         });
         service.enqueue(new CustomCallback(getActivity()) {
-
             @Override
             public void onSuccess(ResponseVO responseVO) {
                 themeReplyAdapter.stopProgress();
@@ -127,6 +148,23 @@ public class ThemeDetailActivity extends BaseActivity {
                 closeInputKeyboard(etWriteReply);
             }
         });
+    }
+
+    @OnItemLongClick(R.id.lv_reply_list_container)
+    public boolean onItemClick(int position) {
+        final int finalPosition = position;
+        UserVO myInfo = Preference.getMyInfo(getActivity());
+        ThemeReplyVO replyVO = themeReplyAdapter.getItem(position);
+
+        boolean useDelete = myInfo.getUserId().equals(replyVO.getWriter());
+        /*MyWorryReplyLongClickDialog.load(getActivity(), replyVO.getMyWorryReplyId(), useDelete, new DialogButtonCallback() {
+            @Override
+            public void onClick() {
+                themeReplyAdapter.removeItem(finalPosition);
+                tvReplyCount.setText("" + myWorryReplyAdapter.getCount());
+            }
+        });*/
+        return false;
     }
 
     public void initComponents() {

@@ -1,9 +1,12 @@
 package kr.puzi.puzi.biz.theme;
 
+import lombok.Data;
+
 /**
  * Created by juhyun on 2018. 3. 17..
  */
 
+@Data
 public class ThemeDetailDTO {
 
     private long themeInfoId;                           // 시퀀스
@@ -19,7 +22,6 @@ public class ThemeDetailDTO {
     private double totalMinAverageScore;		        // 최소테마 평균점수
     private double totalMaxAverageScore;		        // 최대테마 평균점수
     private UserThemeDailyDTO userThemeDailies;		    // 데일리리스트
-
 
 }
 

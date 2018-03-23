@@ -34,7 +34,7 @@ import java.util.List;
  * Created by juhyun on 2018. 3. 17..
  */
 
-public class ThemeFragment extends BaseFragment implements AdapterView.OnItemClickListener{
+public class ThemeFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
     Unbinder unbinder;
 
@@ -54,7 +54,6 @@ public class ThemeFragment extends BaseFragment implements AdapterView.OnItemCli
     ImageButton ibtnSetting;
 
     private long mLastClickTime = 0;
-    private boolean isMore = false;
 
     private UserVO userVO;
     private List<ThemeDTO> themeList;
@@ -71,7 +70,6 @@ public class ThemeFragment extends BaseFragment implements AdapterView.OnItemCli
         unbinder = ButterKnife.bind(this, view);
 
         userVO = Preference.getMyInfo(getActivity());
-
         tvId.setText(userVO.getUserId());
 
         initComponents();
@@ -80,8 +78,6 @@ public class ThemeFragment extends BaseFragment implements AdapterView.OnItemCli
     }
 
     public void getThemeList() {
-        isMore = true;
-
         final LazyRequestService service = new LazyRequestService(getActivity(), ThemeNetworkService.class);
         service.method(new LazyRequestService.RequestMothod<ThemeNetworkService>() {
             @Override
@@ -92,40 +88,36 @@ public class ThemeFragment extends BaseFragment implements AdapterView.OnItemCli
         service.enqueue(new CustomCallback(getActivity()) {
             @Override
             public void onSuccess(ResponseVO responseVO) {
-                isMore = false;
                 themeAdapter.stopProgress();
 
                 themeList = responseVO.getList("themeDTOList", ThemeDTO.class);
                 int totalCount = responseVO.getInteger("totalCount");
 
-                Log.i("ThemaFragment", responseVO.toString());
+                Log.i("ThemeFragment", responseVO.toString());
 
                 themeAdapter.addListWithTotalCount(themeList, totalCount);
 
-                Log.i("ThemaFragment", "themeList.size() : " + themeList.size());
-                Log.i("ThemaFragment", "totalCount : " + totalCount);
-
-                /*if ((themeAdapter.getCount() == totalCount) || (themeAdapter.isEmpty())) {
-                    flMore.setVisibility(View.GONE);
-                } else {
-                    flMore.setVisibility(View.VISIBLE);
-                }*/
+                Log.i("ThemeFragment", "themeList.size() : " + themeList.size());
+                Log.i("ThemeFragment", "totalCount : " + totalCount);
             }
 
             @Override
             public void onFail(ResponseVO responseVO) {
                 super.onFail(responseVO);
-                isMore = false;
             }
         });
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.i("ThemeFragment", "1 onItemClick : " + position);
+
         if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
             return;
         }
         mLastClickTime = SystemClock.elapsedRealtime();
+
+        Log.i("ThemeFragment", "2 onItemClick : " + position);
 
         ThemeDTO themeDTO = themeAdapter.getItem(position);
         Intent intent = new Intent(getActivity(), ThemeDetailActivity.class);
@@ -165,8 +157,6 @@ public class ThemeFragment extends BaseFragment implements AdapterView.OnItemCli
 
     @Override
     public void onResume() {
-        isMore = false;
-
         super.onResume();
     }
 

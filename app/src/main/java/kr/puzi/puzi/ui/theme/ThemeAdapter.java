@@ -6,10 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ScrollView;
-
-import com.joooonho.SelectableRoundedImageView;
-
 import butterknife.BindView;
+import com.joooonho.SelectableRoundedImageView;
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.theme.ThemeDTO;
 import kr.puzi.puzi.ui.CustomPagingAdapter;

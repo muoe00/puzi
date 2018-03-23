@@ -2,11 +2,7 @@ package kr.puzi.puzi.network.service;
 
 import kr.puzi.puzi.network.ResponseVO;
 import retrofit2.Call;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
-import retrofit2.http.Header;
-import retrofit2.http.POST;
+import retrofit2.http.*;
 
 /**
  * Created by juhyun on 2018. 3. 17..
@@ -19,12 +15,12 @@ public interface ThemeNetworkService {
 
     @GET("/theme/detail")
     Call<ResponseVO> getDetail(@Header("token") String token,
-                               @Field("themeInfoId") int themeInfoId);
+                               @Query("themeInfoId") int themeInfoId);
 
     @GET("/theme/reply/list")
     Call<ResponseVO> getReplyList(@Header("token") String token,
-                                  @Field("themeInfoId") int themeInfoId,
-        @Field("pagingIndex") int pagingIndex);
+                                  @Query("themeInfoId") int themeInfoId,
+                                  @Query("pagingIndex") int pagingIndex);
 
     @FormUrlEncoded
     @POST("/theme/reply/write")
