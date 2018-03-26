@@ -2,6 +2,8 @@ package kr.puzi.puzi.biz.theme;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * Created by juhyun on 2018. 3. 17..
  */
@@ -9,7 +11,7 @@ import lombok.Data;
 @Data
 public class ThemeDetailDTO {
 
-    private long themeInfoId;                           // 시퀀스
+    private int themeInfoId;                           // 시퀀스
     private DegreeType degreeType;
     private String targetMin;                           // 최소 테마이름
     private String targetMinComment;                    // 최소 테마 설명
@@ -21,7 +23,7 @@ public class ThemeDetailDTO {
     private double totalAverageScore;		            // 전체평균점수
     private double totalMinAverageScore;		        // 최소테마 평균점수
     private double totalMaxAverageScore;		        // 최대테마 평균점수
-    private UserThemeDailyDTO userThemeDailies;		    // 데일리리스트
+    private List<UserThemeDailyDTO> userThemeDailies;		    // 데일리리스트
 
 }
 

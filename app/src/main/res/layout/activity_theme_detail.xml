@@ -56,39 +56,174 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!--정보화면-->
+            <!-- 프로필 화면 -->
             <LinearLayout
+                android:id="@+id/ll_theme_detail_profile"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="200dp">
 
-                <kr.puzi.puzi.ui.customview.NotoTextView
-                    android:id="@+id/tv_theme_count"
-                    android:text="PA1001"
-                    app:fontWeight="regular"
-                    android:textSize="10dp"
-                    android:textColor="#9B9B9B"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <LinearLayout
+                  android:layout_weight="1"
+                  android:orientation="vertical"
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent">
 
-                <kr.puzi.puzi.ui.customview.NotoTextView
-                    android:id="@+id/tv_theme_percent"
-                    android:text="PA1001"
-                    app:fontWeight="regular"
-                    android:textSize="10dp"
-                    android:textColor="#9B9B9B"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <kr.puzi.puzi.ui.customview.NotoTextView
+                      android:id="@+id/tv_theme_count"
+                      android:text="PA1001"
+                      app:fontWeight="regular"
+                      android:textSize="10dp"
+                      android:textColor="#9B9B9B"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content" />
+
+                    <kr.puzi.puzi.ui.customview.NotoTextView
+                      android:id="@+id/tv_theme_percent"
+                      android:text="PA1001"
+                      app:fontWeight="regular"
+                      android:textSize="10dp"
+                      android:textColor="#9B9B9B"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                  android:layout_weight="1"
+                  android:orientation="vertical"
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent">
+
+                    <ProgressBar
+                      android:id="@+id/pb_theme"
+                      style="@android:style/Widget.ProgressBar.Horizontal"
+                      android:layout_centerInParent="true"
+                      android:layout_width="10dp"
+                      android:layout_height="180dp"
+                      android:max="100"
+                      android:progress="66"
+                      android:progressDrawable="@drawable/progress_thema" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
+            <!-- 정보 화면 -->
+            <LinearLayout
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="100dp">
+
+                <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_weight="1"
+                  android:layout_width="match_parent"
+                  android:layout_height="0dp">
+
+                    <LinearLayout
+                      android:orientation="vertical"
+                      android:gravity="center"
+                      android:layout_weight="1"
+                      android:layout_width="0dp"
+                      android:layout_height="match_parent">
+
+                        <kr.puzi.puzi.ui.customview.NotoTextView
+                          android:text="1.7"
+                          android:id="@+id/tv_theme_detail_my_score_count"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"/>
+
+                        <kr.puzi.puzi.ui.customview.NotoTextView
+                          android:text="나의 커피지수"
+                          android:id="@+id/tv_theme_detail_my_score"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                      android:orientation="vertical"
+                      android:gravity="center"
+                      android:layout_weight="1"
+                      android:layout_width="0dp"
+                      android:layout_height="match_parent">
+
+                        <kr.puzi.puzi.ui.customview.NotoTextView
+                          android:text="1.7"
+                          android:id="@+id/tv_theme_detail_whole_score_count"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"/>
+
+                        <kr.puzi.puzi.ui.customview.NotoTextView
+                          android:text="전체 평균지수"
+                          android:id="@+id/tv_theme_detail_whole_score"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                  android:orientation="horizontal"
+                  android:layout_weight="1"
+                  android:layout_width="match_parent"
+                  android:layout_height="0dp">
+
+                    <LinearLayout
+                      android:orientation="vertical"
+                      android:gravity="center"
+                      android:layout_weight="1"
+                      android:layout_width="0dp"
+                      android:layout_height="match_parent">
+
+                        <kr.puzi.puzi.ui.customview.NotoTextView
+                          android:text="1.7"
+                          android:id="@+id/tv_theme_detail_min_score_count"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"/>
+
+                        <kr.puzi.puzi.ui.customview.NotoTextView
+                          android:text="나의 커피지수"
+                          android:id="@+id/tv_theme_detail_min_score"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                      android:orientation="vertical"
+                      android:gravity="center"
+                      android:layout_weight="1"
+                      android:layout_width="0dp"
+                      android:layout_height="match_parent">
+
+                        <kr.puzi.puzi.ui.customview.NotoTextView
+                          android:text="1.7"
+                          android:id="@+id/tv_theme_detail_max_score_count"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"/>
+
+                        <kr.puzi.puzi.ui.customview.NotoTextView
+                          android:text="나의 커피지수"
+                          android:id="@+id/tv_theme_detail_max_score"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 그래프 화면 -->
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/chart_theme_mine"
+                    android:id="@+id/chart_theme"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 
