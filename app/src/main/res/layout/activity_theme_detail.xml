@@ -70,7 +70,7 @@
                   android:layout_height="match_parent">
 
                     <kr.puzi.puzi.ui.customview.NotoTextView
-                      android:id="@+id/tv_theme_count"
+                      android:id="@+id/tv_theme_id"
                       android:text="PA1001"
                       app:fontWeight="regular"
                       android:textSize="10dp"
@@ -79,31 +79,136 @@
                       android:layout_height="wrap_content" />
 
                     <kr.puzi.puzi.ui.customview.NotoTextView
-                      android:id="@+id/tv_theme_percent"
-                      android:text="PA1001"
-                      app:fontWeight="regular"
-                      android:textSize="10dp"
-                      android:textColor="#9B9B9B"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content" />
+                        android:id="@+id/tv_theme_percent"
+                        android:text="PA1001"
+                        app:fontWeight="regular"
+                        android:textSize="10dp"
+                        android:textColor="#9B9B9B"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <kr.puzi.puzi.ui.customview.NotoTextView
+                        android:id="@+id/tv_theme_count"
+                        android:text="PA1001"
+                        app:fontWeight="regular"
+                        android:textSize="10dp"
+                        android:textColor="#9B9B9B"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
                 <LinearLayout
                   android:layout_weight="1"
-                  android:orientation="vertical"
+                  android:orientation="horizontal"
+                    android:gravity="right|center"
                   android:layout_width="0dp"
                   android:layout_height="match_parent">
 
                     <ProgressBar
                       android:id="@+id/pb_theme"
                       style="@android:style/Widget.ProgressBar.Horizontal"
-                      android:layout_centerInParent="true"
                       android:layout_width="10dp"
                       android:layout_height="180dp"
                       android:max="100"
                       android:progress="66"
                       android:progressDrawable="@drawable/progress_thema" />
+
+                    <LinearLayout
+                        android:layout_width="50dp"
+                        android:orientation="vertical"
+                        android:layout_marginRight="50dp"
+                        android:layout_height="180dp"
+                        android:layout_gravity="end|center">
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp">
+
+                            <kr.puzi.puzi.ui.customview.NotoTextView
+                                android:text="0%"
+                                android:textSize="10sp"
+                                android:layout_weight="0.2"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="top"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp" />
+
+                            <kr.puzi.puzi.ui.customview.NotoTextView
+                                android:text="커피홀릭"
+                                android:textSize="6sp"
+                                android:rotation="-90"
+                                android:gravity="center_vertical"
+                                android:layout_weight="0.6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp" />
+
+                            <kr.puzi.puzi.ui.customview.NotoTextView
+                                android:text="20%"
+                                android:textSize="10sp"
+                                android:layout_weight="0.2"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="end"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp">
+
+                            <kr.puzi.puzi.ui.customview.NotoTextView
+                                android:text="일반인"
+                                android:textSize="6sp"
+                                android:rotation="-90"
+                                android:gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp">
+
+                            <kr.puzi.puzi.ui.customview.NotoTextView
+                                android:text="80%"
+                                android:textSize="10sp"
+                                android:layout_weight="0.3"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="start"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp" />
+
+                            <kr.puzi.puzi.ui.customview.NotoTextView
+                                android:text="디카페인"
+                                android:textSize="6sp"
+                                android:rotation="-90"
+                                android:gravity="center_vertical"
+                                android:layout_weight="0.4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp" />
+
+                            <kr.puzi.puzi.ui.customview.NotoTextView
+                                android:text="100%"
+                                android:textSize="10sp"
+                                android:layout_weight="0.3"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="end"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -124,6 +229,7 @@
                     <LinearLayout
                       android:orientation="vertical"
                       android:gravity="center"
+                        android:paddingLeft="10dp"
                       android:layout_weight="1"
                       android:layout_width="0dp"
                       android:layout_height="match_parent">
@@ -146,6 +252,7 @@
                       android:orientation="vertical"
                       android:gravity="center"
                       android:layout_weight="1"
+                        android:paddingRight="10dp"
                       android:layout_width="0dp"
                       android:layout_height="match_parent">
 
@@ -174,6 +281,7 @@
                     <LinearLayout
                       android:orientation="vertical"
                       android:gravity="center"
+                        android:paddingLeft="10dp"
                       android:layout_weight="1"
                       android:layout_width="0dp"
                       android:layout_height="match_parent">
@@ -195,6 +303,7 @@
                     <LinearLayout
                       android:orientation="vertical"
                       android:gravity="center"
+                        android:paddingRight="10dp"
                       android:layout_weight="1"
                       android:layout_width="0dp"
                       android:layout_height="match_parent">

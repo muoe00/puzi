@@ -15,31 +15,31 @@
           android:clipOrientation="vertical"
           android:gravity="fill_vertical">
           <layer-list>
-            <item android:top="120dp">
+            <item android:top="130dp">
               <shape>
                 <solid android:color="#0090FF" />
               </shape>
             </item>
 
-            <item android:top="118dp">
+            <item android:top="128dp">
               <shape>
                 <solid android:color="#00000000" />
               </shape>
             </item>
 
-            <item android:top="62dp" android:bottom="62dp">
+            <item android:top="52dp" android:bottom="52dp">
               <shape>
                 <solid android:color="#aaaaaa" />
               </shape>
             </item>
 
-            <item android:bottom="118dp">
+            <item android:bottom="128dp">
               <shape>
                 <solid android:color="#00000000" />
               </shape>
             </item>
 
-            <item android:bottom="120dp">
+            <item android:bottom="130dp">
               <shape>
                 <solid android:color="#FF90FF" />
               </shape>
