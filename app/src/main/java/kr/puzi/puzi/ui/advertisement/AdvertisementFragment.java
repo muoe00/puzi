@@ -139,6 +139,7 @@ public class AdvertisementFragment extends BaseFragment {
 				getAdvertiseList();
 			}
 		}, false);
+
 		lvAd.setAdapter(advertiseListAdapter);
 		advertiseListAdapter.getList();
 
@@ -151,10 +152,10 @@ public class AdvertisementFragment extends BaseFragment {
 				srlContainer.setRefreshing(false);
 			}
 		});
+
 		srlContainer.setOnTouchListener(new View.OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-
 				if(event.getY() < viewPager.getBottom()) {
 					viewPager.setFocusable(true);
 					v.setFocusable(false);
