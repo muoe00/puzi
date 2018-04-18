@@ -65,6 +65,7 @@
         </com.ssomai.android.scalablelayout.ScalableLayout>
 
         <Button
+            android:visibility="gone"
           android:layout_gravity="center|bottom"
           android:layout_marginLeft="80dp"
           android:layout_marginRight="80dp"
