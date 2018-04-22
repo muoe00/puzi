@@ -6,10 +6,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ScrollView;
-import butterknife.BindView;
+
 import com.joooonho.SelectableRoundedImageView;
+
+import butterknife.BindView;
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.theme.ThemeDTO;
+import kr.puzi.puzi.image.BitmapUIL;
 import kr.puzi.puzi.ui.CustomPagingAdapter;
 import kr.puzi.puzi.ui.customview.NotoTextView;
 
@@ -61,9 +64,9 @@ public class ThemeAdapter extends CustomPagingAdapter<ThemeDTO> {
     protected void setView(Holder holder, final ThemeDTO item, int position) {
         final ThemeAdapter.ViewHolder viewHolder = (ThemeAdapter.ViewHolder) holder;
 
-        // BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
+        BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
         viewHolder.tvPercent.setText(String.valueOf(item.getRate()));
-        viewHolder.tvTitle.setText("당신은 " + item.getTargetMax() + "입니다");
+        viewHolder.tvTitle.setText(item.getTargetMax());
         viewHolder.tvMax.setText(item.getTargetMax());
         viewHolder.tvMin.setText(item.getTargetMin());
         viewHolder.tvCount.setText(String.valueOf(item.getTotalUserCount()));
@@ -74,9 +77,9 @@ public class ThemeAdapter extends CustomPagingAdapter<ThemeDTO> {
     public void setView2(Holder holder, final ThemeDTO item, int position) {
         final ThemeAdapter.ViewHolder2 viewHolder = (ThemeAdapter.ViewHolder2) holder;
 
-        // BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
+        BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
         viewHolder.tvPercent.setText(String.valueOf(item.getRate()));
-        viewHolder.tvTitle.setText("당신은 " + item.getTargetMax() + "입니다");
+        viewHolder.tvTitle.setText(item.getTargetMax());
         viewHolder.tvMax.setText(item.getTargetMax());
         viewHolder.tvMin.setText(item.getTargetMin());
         viewHolder.tvCount.setText(String.valueOf(item.getTotalUserCount()));
@@ -86,7 +89,7 @@ public class ThemeAdapter extends CustomPagingAdapter<ThemeDTO> {
     public void setView3(Holder holder, final ThemeDTO item, int position) {
         final ThemeAdapter.ViewHolder3 viewHolder = (ThemeAdapter.ViewHolder3) holder;
 
-        // BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
+        BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
         viewHolder.tvMax.setText(item.getTargetMax());
         viewHolder.tvMin.setText(item.getTargetMin());
         viewHolder.tvCount.setText(String.valueOf(item.getTotalUserCount()));
@@ -97,7 +100,7 @@ public class ThemeAdapter extends CustomPagingAdapter<ThemeDTO> {
     public void setView4(Holder holder, final ThemeDTO item, int position) {
         final ThemeAdapter.ViewHolder4 viewHolder = (ThemeAdapter.ViewHolder4) holder;
 
-        // BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
+        BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
         viewHolder.tvMax.setText(item.getTargetMax());
         viewHolder.tvMin.setText(item.getTargetMin());
         viewHolder.tvCount.setText(String.valueOf(item.getTotalUserCount()));

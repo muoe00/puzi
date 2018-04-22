@@ -6,11 +6,21 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import butterknife.*;
+import android.widget.ScrollView;
+
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemLongClick;
+import butterknife.Unbinder;
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.theme.ThemeDTO;
 import kr.puzi.puzi.biz.theme.ThemeDetailDTO;
@@ -29,8 +39,7 @@ import kr.puzi.puzi.ui.customview.NotoTextView;
 import kr.puzi.puzi.ui.customview.RobotoTextView;
 import retrofit2.Call;
 
-import java.util.ArrayList;
-import java.util.List;
+import static kr.puzi.puzi.utils.TextUtils.addComma;
 
 /**
  * Created by juhyun on 2018. 3. 18..
@@ -42,6 +51,14 @@ public class ThemeDetailActivity extends BaseActivity {
 
     @BindView(R.id.chart_theme)
     LineChart chartMine;
+    @BindView(R.id.tv_theme_id)
+    NotoTextView tvId;
+    @BindView(R.id.tv_theme_percent)
+    NotoTextView tvPercent;
+    @BindView(R.id.tv_theme_count)
+    NotoTextView tvCount;
+    @BindView(R.id.tv_theme_user_count)
+    NotoTextView tvUserCount;
     @BindView(R.id.tv_theme_detail_title)
     RobotoTextView tvTitle;
     @BindView(R.id.ll_reply_show_container)
@@ -74,7 +91,10 @@ public class ThemeDetailActivity extends BaseActivity {
     NotoTextView tvMinScoreCount;
     @BindView(R.id.pb_theme)
     ProgressBar pvTheme;
+    @BindView(R.id.sv_thema_detail)
+    ScrollView svThema;
 
+    private UserVO userVO;
     private ThemeDTO themeDTO;
     private ThemeDetailDTO themeDetailDTO;
     private ThemeReplyAdapter themeReplyAdapter;
@@ -87,9 +107,22 @@ public class ThemeDetailActivity extends BaseActivity {
         unbinder = ButterKnife.bind(this);
 
         themeDTO = (ThemeDTO) getIntent().getExtras().getSerializable("themeDTO");
+        tvTitle.setText(themeDTO.getTargetMin() + " vs " + themeDTO.getTargetMax());
+        tvPercent.setText("상위 " + themeDTO.getRate() + "%");
 
-        String title = themeDTO.getTargetMin() + " vs " + themeDTO.getTargetMax();
-        tvTitle.setText(title);
+        switch (themeDTO.getDegreeType()) {
+            case MAX:
+                tvCount.setText(themeDTO.getTargetMax() + "입니다.");
+            case MIN:
+                tvCount.setText(themeDTO.getTargetMin() + "입니다.");
+            case AVERAGE:
+                tvCount.setText("일반인입니다.");
+        }
+
+        userVO = Preference.getMyInfo(getActivity());
+        tvId.setText(userVO.getUserId() + "님은");
+
+        tvUserCount.setText("대상인원 " + addComma(themeDTO.getTotalUserCount()) + "명");
 
         getThemeDetail();
         getReply();
@@ -117,7 +150,7 @@ public class ThemeDetailActivity extends BaseActivity {
     }
 
     private void getReply() {
-        themeReplyAdapter = new ThemeReplyAdapter(getActivity(), lvReplyListContainer, new CustomPagingAdapter.ListHandler() {
+        themeReplyAdapter = new ThemeReplyAdapter(getActivity(), R.layout.item_thema_reply, lvReplyListContainer, svThema, new CustomPagingAdapter.ListHandler() {
             @Override
             public void getList() {
                 requestReplyList();
@@ -142,6 +175,8 @@ public class ThemeDetailActivity extends BaseActivity {
 
                 List<ThemeReplyVO> list = responseVO.getList("themeReplyDTOList", ThemeReplyVO.class);
                 int totalCount = responseVO.getInteger("totalCount");
+
+                Log.i("ThemeDetailActivity", "reply totalCount : " + totalCount);
 
                 themeReplyAdapter.addListWithTotalCount(list, totalCount);
             }
@@ -195,13 +230,14 @@ public class ThemeDetailActivity extends BaseActivity {
 
     public void initCount(ThemeDetailDTO themeDetailDTO) {
         tvMyScore.setText("나의 " + themeDetailDTO.getTargetMax() + " 지수");
-        tvMyScoreCount.setText(String.valueOf(themeDetailDTO.getMyAverageScore()));
-        tvMyScoreCount.setText(String.valueOf(themeDetailDTO.getTotalAverageScore()));
+
+        tvMyScoreCount.setText(String.format("%.1f", themeDetailDTO.getMyAverageScore()));
+        tvWholeScoreCount.setText(String.format("%.1f", themeDetailDTO.getTotalAverageScore()));
 
         tvMaxScore.setText(themeDetailDTO.getTargetMax() + " 평균지수");
-        tvMaxScoreCount.setText(String.valueOf(themeDetailDTO.getTotalMaxAverageScore()));
+        tvMaxScoreCount.setText(String.format("%.1f", themeDetailDTO.getTotalMaxAverageScore()));
         tvMinScore.setText(themeDetailDTO.getTargetMin() + " 평균지수");
-        tvMinScoreCount.setText(String.valueOf(themeDetailDTO.getTotalMinAverageScore()));
+        tvMinScoreCount.setText(String.format("%.1f", themeDetailDTO.getTotalMinAverageScore()));
     }
 
     public void initChart(ThemeDetailDTO themeDetailDTO) {

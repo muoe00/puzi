@@ -8,8 +8,8 @@
     android:layout_height="match_parent">
 
     <FrameLayout
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         android:layout_gravity="center"
@@ -35,6 +35,7 @@
                 app:scale_top="0"
                 app:scale_width="328"
                 app:scale_height="80"
+                android:src="@drawable/rectangle_33_copy_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
@@ -51,13 +52,14 @@
             android:layout_height="wrap_content">
 
             <FrameLayout
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="40.2dp"
+                android:layout_height="40.2dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="12dp">
+                android:layout_marginLeft="13.4dp">
 
                 <LinearLayout
                     android:gravity="center"
+                    android:background="@drawable/bg_thema_lack"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
@@ -65,7 +67,7 @@
                     <kr.puzi.puzi.ui.customview.NotoTextView
                         app:fontWeight="regular"
                         android:textSize="16dp"
-                        android:textColor="#9B9B9B"
+                        android:textColor="#ffffff"
                         android:text="\?"
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
@@ -86,8 +88,8 @@
 
                 <kr.puzi.puzi.ui.customview.NotoTextView
                     app:fontWeight="medium"
-                    android:textSize="16dp"
-                    android:textColor="#333333"
+                    android:textSize="15dp"
+                    android:textColor="#ffffff"
                     android:text="응답 데이터가 부족하여\n개인 지표를 확인할 수 없습니다"
                     android:gravity="center_vertical"
                     android:ellipsize="marquee"
@@ -105,8 +107,8 @@
 
                     <kr.puzi.puzi.ui.customview.NotoTextView
                         app:fontWeight="regular"
-                        android:textSize="16dp"
-                        android:textColor="#9B9B9B"
+                        android:textSize="11dp"
+                        android:textColor="#ffffff"
                         android:text="company"
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
@@ -115,8 +117,8 @@
 
                     <kr.puzi.puzi.ui.customview.NotoTextView
                         app:fontWeight="regular"
-                        android:textSize="16dp"
-                        android:textColor="#9B9B9B"
+                        android:textSize="11dp"
+                        android:textColor="#ffffff"
                         android:text=" vs "
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
@@ -125,8 +127,8 @@
 
                     <kr.puzi.puzi.ui.customview.NotoTextView
                         app:fontWeight="regular"
-                        android:textSize="16dp"
-                        android:textColor="#9B9B9B"
+                        android:textSize="11dp"
+                        android:textColor="#ffffff"
                         android:text="company"
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
@@ -146,17 +148,21 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_gravity="center"
+                    android:src="@drawable/people"
+                    android:layout_width="9.6dp"
+                    android:layout_height="9.6dp" />
 
                 <kr.puzi.puzi.ui.customview.NotoTextView
+                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:id="@+id/tv_theme_item_count"
+                    android:layout_marginLeft="1.9dp"
                     android:text="2000"
-                    android:textColor="#9B9B9B"
-                    android:textSize="16dp"
+                    android:textColor="#ffffff"
+                    android:textSize="11dp"
                     app:fontWeight="regular" />
 
             </LinearLayout>

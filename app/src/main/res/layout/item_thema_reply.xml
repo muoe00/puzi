@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="19.5dp"
+        android:paddingBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginBottom="9dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <kr.puzi.puzi.ui.customview.NotoTextView
+                app:fontWeight="medium"
+                android:textSize="16dp"
+                android:fontFamily="sans-serif"
+                android:layout_marginRight="5dp"
+                android:textStyle="bold"
+                android:textColor="#35343d"
+                android:lineSpacingExtra="0sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_item_thema_reply_name"/>
+
+            <kr.puzi.puzi.ui.customview.NotoTextView
+                app:fontWeight="demilight"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:textColor="#6d6d6d"
+                android:lineSpacingExtra="4sp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_item_thema_reply_time"/>
+
+        </LinearLayout>
+
+        <kr.puzi.puzi.ui.customview.NotoTextView
+            app:fontWeight="demilight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#333333"
+            android:lineSpacingExtra="7sp"
+            android:id="@+id/tv_item_thema_reply_comment"/>
+
+    </LinearLayout>
+
+</LinearLayout>

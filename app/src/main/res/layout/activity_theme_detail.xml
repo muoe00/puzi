@@ -26,6 +26,7 @@
             android:clickable="true"
             android:layout_weight="1"
             android:orientation="horizontal"
+            android:gravity="center"
             android:layout_marginRight="50dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -33,8 +34,9 @@
             <kr.puzi.puzi.ui.customview.RobotoTextView
                 android:layout_width="wrap_content"
                 android:layout_height="19dp"
-                android:textSize="16dp"
-                android:textColor="#6D6D6D"
+                android:textSize="20dp"
+                android:textColor="#333333"
+                android:gravity="center"
                 android:layout_gravity="center"
                 android:id="@+id/tv_theme_detail_title"/>
 
@@ -43,6 +45,7 @@
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/sv_thema_detail"
         android:layout_marginTop="54dp"
         android:layout_marginBottom="55dp"
         android:layout_width="match_parent"
@@ -61,9 +64,11 @@
                 android:id="@+id/ll_theme_detail_profile"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="244dp">
 
                 <LinearLayout
+                    android:layout_marginLeft="28.4dp"
+                    android:layout_marginTop="10.5dp"
                   android:layout_weight="1"
                   android:orientation="vertical"
                   android:layout_width="0dp"
@@ -73,8 +78,8 @@
                       android:id="@+id/tv_theme_id"
                       android:text="PA1001"
                       app:fontWeight="regular"
-                      android:textSize="10dp"
-                      android:textColor="#9B9B9B"
+                      android:textSize="26dp"
+                      android:textColor="#ffffff"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content" />
 
@@ -82,8 +87,8 @@
                         android:id="@+id/tv_theme_percent"
                         android:text="PA1001"
                         app:fontWeight="regular"
-                        android:textSize="10dp"
-                        android:textColor="#9B9B9B"
+                        android:textSize="26dp"
+                        android:textColor="#ff2470"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -91,8 +96,18 @@
                         android:id="@+id/tv_theme_count"
                         android:text="PA1001"
                         app:fontWeight="regular"
-                        android:textSize="10dp"
-                        android:textColor="#9B9B9B"
+                        android:textSize="26dp"
+                        android:textColor="#ff2470"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <kr.puzi.puzi.ui.customview.NotoTextView
+                        android:id="@+id/tv_theme_user_count"
+                        android:layout_marginTop="7.6dp"
+                        android:text="PA1001"
+                        app:fontWeight="regular"
+                        android:textSize="11dp"
+                        android:textColor="#ffffff"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -108,28 +123,30 @@
                     <ProgressBar
                       android:id="@+id/pb_theme"
                       style="@android:style/Widget.ProgressBar.Horizontal"
-                      android:layout_width="10dp"
+                      android:layout_width="5dp"
                       android:layout_height="180dp"
                       android:max="100"
                       android:progress="66"
                       android:progressDrawable="@drawable/progress_thema" />
 
                     <LinearLayout
-                        android:layout_width="50dp"
+                        android:layout_width="52dp"
                         android:orientation="vertical"
                         android:layout_marginRight="50dp"
                         android:layout_height="180dp"
                         android:layout_gravity="end|center">
 
                         <LinearLayout
-                            android:layout_weight="1"
+                            android:layout_weight="0.3"
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="0dp">
 
                             <kr.puzi.puzi.ui.customview.NotoTextView
+                                app:fontWeight="bold"
                                 android:text="0%"
                                 android:textSize="10sp"
+                                android:textColor="#ff2470"
                                 android:layout_weight="0.2"
                                 android:layout_marginLeft="10dp"
                                 android:gravity="top"
@@ -137,8 +154,10 @@
                                 android:layout_height="0dp" />
 
                             <kr.puzi.puzi.ui.customview.NotoTextView
+                                app:fontWeight="medium"
                                 android:text="커피홀릭"
                                 android:textSize="6sp"
+                                android:textColor="#ff2470"
                                 android:rotation="-90"
                                 android:gravity="center_vertical"
                                 android:layout_weight="0.6"
@@ -146,8 +165,10 @@
                                 android:layout_height="0dp" />
 
                             <kr.puzi.puzi.ui.customview.NotoTextView
+                                app:fontWeight="bold"
                                 android:text="20%"
                                 android:textSize="10sp"
+                                android:textColor="#ff2470"
                                 android:layout_weight="0.2"
                                 android:layout_marginLeft="10dp"
                                 android:gravity="end"
@@ -157,15 +178,17 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_weight="1"
+                            android:layout_weight="0.4"
                             android:gravity="center_vertical"
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="0dp">
 
                             <kr.puzi.puzi.ui.customview.NotoTextView
+                                app:fontWeight="medium"
                                 android:text="일반인"
                                 android:textSize="6sp"
+                                android:textColor="#9b9b9b"
                                 android:rotation="-90"
                                 android:gravity="center_vertical"
                                 android:layout_width="wrap_content"
@@ -174,33 +197,39 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_weight="1"
+                            android:layout_weight="0.3"
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="0dp">
 
                             <kr.puzi.puzi.ui.customview.NotoTextView
+                                app:fontWeight="bold"
                                 android:text="80%"
                                 android:textSize="10sp"
-                                android:layout_weight="0.3"
+                                android:textColor="#60b3fb"
+                                android:layout_weight="0.2"
                                 android:layout_marginLeft="10dp"
                                 android:gravity="start"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp" />
 
                             <kr.puzi.puzi.ui.customview.NotoTextView
+                                app:fontWeight="medium"
                                 android:text="디카페인"
                                 android:textSize="6sp"
+                                android:textColor="#60b3fb"
                                 android:rotation="-90"
                                 android:gravity="center_vertical"
-                                android:layout_weight="0.4"
+                                android:layout_weight="0.6"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp" />
 
                             <kr.puzi.puzi.ui.customview.NotoTextView
+                                app:fontWeight="bold"
                                 android:text="100%"
                                 android:textSize="10sp"
-                                android:layout_weight="0.3"
+                                android:textColor="#60b3fb"
+                                android:layout_weight="0.2"
                                 android:layout_marginLeft="10dp"
                                 android:gravity="end"
                                 android:layout_width="wrap_content"
@@ -213,12 +242,17 @@
                 </LinearLayout>
 
             </LinearLayout>
+            
+            <LinearLayout
+                android:background="#dadada"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"></LinearLayout>
 
             <!-- 정보 화면 -->
             <LinearLayout
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="100dp">
+              android:layout_height="126.6dp">
 
                 <LinearLayout
                   android:orientation="horizontal"
@@ -235,13 +269,19 @@
                       android:layout_height="match_parent">
 
                         <kr.puzi.puzi.ui.customview.NotoTextView
+                            app:fontWeight="bold"
                           android:text="1.7"
+                            android:textSize="23dp"
+                            android:textColor="#ff2470"
                           android:id="@+id/tv_theme_detail_my_score_count"
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"/>
 
                         <kr.puzi.puzi.ui.customview.NotoTextView
+                            app:fontWeight="bold"
                           android:text="나의 커피지수"
+                            android:textSize="12dp"
+                            android:textColor="#ff2470"
                           android:id="@+id/tv_theme_detail_my_score"
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"/>
@@ -257,13 +297,19 @@
                       android:layout_height="match_parent">
 
                         <kr.puzi.puzi.ui.customview.NotoTextView
+                            app:fontWeight="medium"
+                            android:textColor="#333333"
                           android:text="1.7"
+                            android:textSize="20dp"
                           android:id="@+id/tv_theme_detail_whole_score_count"
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"/>
 
                         <kr.puzi.puzi.ui.customview.NotoTextView
+                            app:fontWeight="medium"
+                            android:textColor="#6d6d6d"
                           android:text="전체 평균지수"
+                            android:textSize="12dp"
                           android:id="@+id/tv_theme_detail_whole_score"
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"/>
@@ -287,13 +333,19 @@
                       android:layout_height="match_parent">
 
                         <kr.puzi.puzi.ui.customview.NotoTextView
+                            app:fontWeight="medium"
+                            android:textColor="#333333"
                           android:text="1.7"
+                            android:textSize="20dp"
                           android:id="@+id/tv_theme_detail_min_score_count"
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"/>
 
                         <kr.puzi.puzi.ui.customview.NotoTextView
                           android:text="나의 커피지수"
+                            android:textSize="12dp"
+                            app:fontWeight="medium"
+                            android:textColor="#6d6d6d"
                           android:id="@+id/tv_theme_detail_min_score"
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"/>
@@ -309,13 +361,19 @@
                       android:layout_height="match_parent">
 
                         <kr.puzi.puzi.ui.customview.NotoTextView
+                            app:fontWeight="medium"
+                            android:textColor="#333333"
                           android:text="1.7"
+                            android:textSize="20dp"
                           android:id="@+id/tv_theme_detail_max_score_count"
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"/>
 
                         <kr.puzi.puzi.ui.customview.NotoTextView
                           android:text="나의 커피지수"
+                            android:textSize="12dp"
+                            app:fontWeight="medium"
+                            android:textColor="#6d6d6d"
                           android:id="@+id/tv_theme_detail_max_score"
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"/>
@@ -325,14 +383,34 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:background="#dadada"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"></LinearLayout>
+
             <!-- 그래프 화면 -->
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <kr.puzi.puzi.ui.customview.NotoTextView
+                    app:fontWeight="medium"
+                    android:layout_marginLeft="35.3dp"
+                    android:layout_marginBottom="8.8dp"
+                    android:layout_marginTop="10.3dp"
+                    android:text="나의 최근 일주일 커피지수"
+                    android:textSize="16dp"
+                    android:textColor="#333333"
+                    android:id="@+id/tv_thema_graph_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/chart_theme"
+                    android:layout_marginLeft="35.3dp"
+                    android:layout_marginRight="35.3dp"
+                    android:layout_marginBottom="26.5dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 
@@ -377,7 +455,7 @@
                     android:id="@+id/ll_reply_list_bar"
                     android:layout_width="match_parent"
                     android:background="#dadada"
-                    android:layout_height="1dp"/>
+                    android:layout_height="match_parent"/>
 
                 <ListView
                     android:overScrollMode="never"
@@ -399,6 +477,11 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <LinearLayout
+        android:background="#dadada"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"></LinearLayout>
 
     <!-- 댓글입력창 -->
     <LinearLayout

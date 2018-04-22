@@ -17,7 +17,7 @@
           <layer-list>
             <item android:top="130dp">
               <shape>
-                <solid android:color="#0090FF" />
+                <solid android:color="#60b3fb" />
               </shape>
             </item>
 
@@ -29,7 +29,7 @@
 
             <item android:top="52dp" android:bottom="52dp">
               <shape>
-                <solid android:color="#aaaaaa" />
+                <solid android:color="#9b9b9b" />
               </shape>
             </item>
 
@@ -41,7 +41,7 @@
 
             <item android:bottom="130dp">
               <shape>
-                <solid android:color="#FF90FF" />
+                <solid android:color="#ff2470" />
               </shape>
             </item>
 

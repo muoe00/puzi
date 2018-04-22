@@ -3,9 +3,10 @@ package kr.puzi.puzi.biz.theme;
 import android.app.Activity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
+
 import butterknife.BindView;
-import kr.puzi.puzi.R;
 import kr.puzi.puzi.ui.CustomPagingAdapter;
 
 /**
@@ -14,8 +15,8 @@ import kr.puzi.puzi.ui.CustomPagingAdapter;
 
 public class ThemeReplyAdapter extends CustomPagingAdapter<ThemeReplyVO> {
 
-	public ThemeReplyAdapter(Activity activity, ListView listView, ListHandler listHandler) {
-		super(activity, R.layout.item_myworry_reply, listView, listHandler);
+	public ThemeReplyAdapter(Activity activity, int layoutResource, ListView listView, ScrollView scrollView, ListHandler listHandler) {
+		super(activity, layoutResource, listView, scrollView, listHandler);
 	}
 
 	@Override
@@ -35,9 +36,9 @@ public class ThemeReplyAdapter extends CustomPagingAdapter<ThemeReplyVO> {
 
 	public class ViewHolder extends Holder {
 
-		@BindView(kr.puzi.puzi.R.id.tv_item_myworry_reply_name) public TextView tvName;
-		@BindView(kr.puzi.puzi.R.id.tv_item_myworry_reply_time) public TextView tvTime;
-		@BindView(kr.puzi.puzi.R.id.tv_item_myworry_reply_comment) public TextView tvComment;
+		@BindView(kr.puzi.puzi.R.id.tv_item_thema_reply_name) public TextView tvName;
+		@BindView(kr.puzi.puzi.R.id.tv_item_thema_reply_time) public TextView tvTime;
+		@BindView(kr.puzi.puzi.R.id.tv_item_thema_reply_comment) public TextView tvComment;
 
 		public ViewHolder(View view) {
 			super(view);
