@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -55,6 +57,7 @@ public class AdvertisementFragment extends BaseFragment {
 	@BindView(kr.puzi.puzi.R.id.lv_advertise) public ListView lvAd;
 	@BindView(R.id.sv_ad) public ScrollView svAd;
 	@BindView(R.id.btn_slide_ad) public Button btnSlide;
+	@BindView(R.id.ll_gv) public LinearLayout llGv;
 	@BindView(kr.puzi.puzi.R.id.srl_advertisement_container) public SwipeRefreshLayout srlContainer;
 	@BindView(kr.puzi.puzi.R.id.sliding_container) public FrameLayout llSlidingContainer;
 	@BindView(kr.puzi.puzi.R.id.tx_sliding_count) public TextView tvSlidingCount;
@@ -64,6 +67,9 @@ public class AdvertisementFragment extends BaseFragment {
 	private AdvertisementListAdapter advertiseListAdapter;
 	private ReceivedAdvertiseVO startReceivedAdvertiseVO = null;
 	private int selectedSlidingPosition = 0;
+
+	private GestureDetector gestureDetector;
+	private boolean isLockOnHorizontialAxis;
 
 	public static List<Integer> needToUpdateIds = newArrayList();
 
@@ -88,6 +94,7 @@ public class AdvertisementFragment extends BaseFragment {
 		unbinder = ButterKnife.bind(this, v);
 
 		vpEnabled = true;
+		gestureDetector = new GestureDetector(getContext(), new XScrollDetector());
 
 		initComponent();
 
@@ -121,17 +128,6 @@ public class AdvertisementFragment extends BaseFragment {
 
 	private void initComponent() {
 
-		viewPager.setOnTouchListener(new View.OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				if(!vpEnabled) {
-					return true;
-				}
-
-				return false;
-			}
-		});
-
 		advertiseListAdapter = new AdvertisementListAdapter(getActivity(), R.layout.fragment_advertisement_item, R.layout.fragment_advertisement_item_new, R.layout.fragment_advertisement_item_saved, 0, lvAd, svAd, new CustomPagingAdapter.ListHandler() {
 			@Override
 			public void getList() {
@@ -143,7 +139,8 @@ public class AdvertisementFragment extends BaseFragment {
 		lvAd.setAdapter(advertiseListAdapter);
 		advertiseListAdapter.getList();
 
-		srlContainer.setColorSchemeResources(kr.puzi.puzi.R.color.colorPuzi);
+		srlContainer.setHorizontalScrollBarEnabled(false);
+		srlContainer.setColorSchemeResources(R.color.colorPuzi);
 		srlContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 			@Override
 			public void onRefresh() {
@@ -153,16 +150,41 @@ public class AdvertisementFragment extends BaseFragment {
 			}
 		});
 
+		viewPager.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				Log.i("slide", "viewPager onTouch");
+
+				if (!isLockOnHorizontialAxis)
+					isLockOnHorizontialAxis = gestureDetector.onTouchEvent(event);
+
+				if (event.getAction() == MotionEvent.ACTION_UP)
+					isLockOnHorizontialAxis = false;
+
+				if (isLockOnHorizontialAxis) {
+					srlContainer.setEnabled(false);
+				} else if (!isLockOnHorizontialAxis) {
+					srlContainer.setEnabled(true);
+				}
+
+				if(!vpEnabled) {
+					return true;
+				}
+				return false;
+			}
+		});
+
+
 		srlContainer.setOnTouchListener(new View.OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
+				Log.i("slide", "srlContainer onTouch");
+
 				if(event.getY() < viewPager.getBottom()) {
-					viewPager.setFocusable(true);
-					v.setFocusable(false);
+					Log.i("slide", "srlContainer onTouch viewPager.getBottom()");
 					return true;
 				} else {
-					viewPager.setFocusable(false);
-					v.setFocusable(false);
+					Log.i("slide", "srlContainer onTouch event.getY()");
 					return false;
 				}
 
@@ -170,6 +192,13 @@ public class AdvertisementFragment extends BaseFragment {
 		});
 
 		requestSlidingList();
+	}
+
+	public static class XScrollDetector extends GestureDetector.SimpleOnGestureListener {
+		@Override
+		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+			return Math.abs(distanceX) > Math.abs(distanceY);
+		}
 	}
 
 	private void requestSlidingList() {
@@ -188,9 +217,7 @@ public class AdvertisementFragment extends BaseFragment {
 				if(advertiseList == null || advertiseList.size() == 0) {
 					viewPager.setVisibility(View.GONE);
 					return;
-				}
-
-				if(advertiseList.size() == 1) {
+				} else if(advertiseList.size() == 1) {
 					vpEnabled = false;
 				} else {
 					vpEnabled = true;
