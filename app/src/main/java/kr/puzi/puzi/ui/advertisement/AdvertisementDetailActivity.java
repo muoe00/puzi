@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,13 +14,27 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
-import android.webkit.*;
-import android.widget.*;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.joooonho.SelectableRoundedImageView;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import com.joooonho.SelectableRoundedImageView;
 import kr.puzi.puzi.biz.advertisement.ReceivedAdvertiseVO;
 import kr.puzi.puzi.image.BitmapUIL;
 import kr.puzi.puzi.network.CustomCallback;
@@ -32,9 +47,6 @@ import kr.puzi.puzi.ui.common.PointDialog;
 import kr.puzi.puzi.ui.company.CompanyActivity;
 import kr.puzi.puzi.utils.PuziUtils;
 import retrofit2.Call;
-
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 import static kr.puzi.puzi.ui.advertisement.AdvertisementFragment.updateSavedPoint;
 
@@ -68,6 +80,7 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 	private int count = 0;
 	private boolean start = false;
 
+	private String[] splited;
 	private String answerOne, answerTwo;
 	private long startTime;
 	private int touchCount, channelId;
@@ -138,20 +151,43 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				Log.d("URLTEST", url);
-				if(url.indexOf("play.google.com/store/apps/details") != -1) {
-					String[] splited = url.split("=");
-					if(splited.length != 2) {
+				if(url.indexOf("play.google.com/store/apps/details") != -1 || url.indexOf("market://details?id=") != -1) {
+					splited = url.split("=");
+					/*if(splited.length != 2) {
 						view.loadUrl(url);
 						return true;
-					}
+					}*/
 
-					Log.d("URLTEST", "11111");
-					Intent marketLaunch = new Intent(Intent.ACTION_VIEW);
-					marketLaunch.setData(Uri.parse("market://details?id="+splited[1]));
-					startActivity(marketLaunch);
+					llDialog.setVisibility(View.GONE);
+					progressCircle.setVisibility(View.GONE);
+					tvProgress.setVisibility(View.GONE);
+					tvProgress2.setVisibility(View.GONE);
+					ivState.setVisibility(View.GONE);
+
+					if(!receivedAdvertise.isSaved() && receivedAdvertise.isToday()) {
+						savePoint("playstore");
+						new Handler().postDelayed(new Runnable() {
+							@Override
+							public void run() {
+								Log.d("URLTEST", "11111");
+								Intent marketLaunch = new Intent(Intent.ACTION_VIEW);
+								marketLaunch.setData(Uri.parse("market://details?id="+splited[1]));
+								getActivity().finish();
+								startActivity(marketLaunch);
+							}
+						}, 1300);
+					} else {
+						Log.d("URLTEST", "11111");
+						Intent marketLaunch = new Intent(Intent.ACTION_VIEW);
+						Log.i("webView", "link : " + Uri.parse("market://details?id="+splited[1]));
+						marketLaunch.setData(Uri.parse("market://details?id="+splited[1]));
+						getActivity().finish();
+						startActivity(marketLaunch);
+					}
 
 					return true;
 				} else {
+					Log.i("webView", "loadUrl : " + url);
 					view.loadUrl(url);
 					return true;
 				}
@@ -323,6 +359,7 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 		}
 	}
 
+
 	private void transAnimation(boolean bool){
 
 		AnimationSet aniInSet = new AnimationSet(true);
@@ -352,6 +389,10 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 
 		final String answer = view.getId() == kr.puzi.puzi.R.id.tv_ad_answer_first ? answerOne : answerTwo;
 
+		savePoint(answer);
+	}
+
+	public void savePoint(final String answer) {
 		LazyRequestService service = new LazyRequestService(getActivity(), AdvertisementNetworkService.class);
 		service.method(new LazyRequestService.RequestMothod<AdvertisementNetworkService>() {
 			@Override
@@ -362,15 +403,15 @@ public class AdvertisementDetailActivity extends BaseFragmentActivity {
 		service.enqueue(new CustomCallback(AdvertisementDetailActivity.this) {
 			@Override
 			public void onSuccess(ResponseVO responseVO) {
+				Log.i("SavePoint", "onSuccess");
 
 				if(receivedAdvertise.isTest()) {
 					Toast.makeText(getBaseContext(), "테스트 광고입니다", Toast.LENGTH_SHORT).show();
 				} else {
+
 					int savedPoint = responseVO.getInteger("savedPoint");
 
 					PointDialog.load(getActivity(), savedPoint, true);
-
-					// Toast.makeText(getBaseContext(), savedPoint + "원이 적립되었습니다.", Toast.LENGTH_SHORT).show();
 
 					Intent intent = new Intent();
 					intent.putExtra("advertiseIndex", receivedAdvertise.getReceivedAdvertiseId());

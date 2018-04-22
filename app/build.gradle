@@ -16,8 +16,8 @@ android {
 		applicationId 'kr.puzi.puzi'
 		minSdkVersion 16
 		targetSdkVersion 25
-		versionCode 26
-		versionName "1.1.2"
+		versionCode 37
+		versionName "1.1.13"
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 		multiDexEnabled true
 	}
@@ -64,7 +64,9 @@ dependencies {
 	compile group: project.KAKAO_SDK_GROUP, name: 'kakaostory', version: project.KAKAO_SDK_VERSION
 	compile group: project.KAKAO_SDK_GROUP, name: 'kakaotalk', version: project.KAKAO_SDK_VERSION
 	compile 'com.ssomai:android.scalablelayout:2.1.6'
-	compile group: 'com.facebook.android', name: 'facebook-android-sdk', version: '3.19.0'
+	compile 'com.facebook.android:facebook-android-sdk:3.19.0'
+	compile files('libs/IgawAdbrix_v4.4.9a.jar')
+	compile files('libs/IgawCommon_v4.5.4a.jar')
 }
 
 apply plugin: 'com.google.gms.google-services'

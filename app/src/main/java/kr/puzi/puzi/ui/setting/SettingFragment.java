@@ -22,7 +22,7 @@ import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
 import kr.puzi.puzi.network.ResponseVO;
-import kr.puzi.puzi.network.service.AdvertisementNetworkService;
+import kr.puzi.puzi.network.service.SettingNetworkService;
 import kr.puzi.puzi.ui.base.BaseFragment;
 import kr.puzi.puzi.ui.common.DialogButtonCallback;
 import kr.puzi.puzi.ui.common.OneButtonDialog;
@@ -114,11 +114,11 @@ public class SettingFragment extends BaseFragment {
 	}
 
 	public void getVersion() {
-		LazyRequestService service = new LazyRequestService(getActivity(), AdvertisementNetworkService.class);
-		service.method(new LazyRequestService.RequestMothod<AdvertisementNetworkService>() {
+		LazyRequestService service = new LazyRequestService(getActivity(), SettingNetworkService.class);
+		service.method(new LazyRequestService.RequestMothod<SettingNetworkService>() {
 			@Override
-			public Call<ResponseVO> execute(AdvertisementNetworkService advertisementNetworkService, String token) {
-				return advertisementNetworkService.main(token);
+			public Call<ResponseVO> execute(SettingNetworkService settingNetworkService, String token) {
+				return settingNetworkService.version(token);
 			}
 		});
 		service.enqueue(new CustomCallback(getActivity()) {

@@ -10,19 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.Spinner;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -43,6 +31,12 @@ import kr.puzi.puzi.ui.myservice.myworry.AnswerActivity;
 import kr.puzi.puzi.ui.myservice.myworry.MyWorryAdaptor;
 import lombok.Data;
 import retrofit2.Call;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -191,7 +185,13 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 					setQuestion();
 
 				} else {
-					boolean isMoreQuestion = responseVO.getBoolean("isMoreQuestion");
+					boolean isMoreQuestion = false;
+
+					try {
+						isMoreQuestion = responseVO.getBoolean("isMoreQuestion");
+					} catch(NullPointerException e) {
+						Log.d("QuestionFragment", e.getMessage());
+					}
 
 					if(isMoreQuestion) {
 						state = ViewType.REMAIN.getIndex();
@@ -251,7 +251,6 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 	}
 
 	public void getWorryList() {
-		orderType = OrderType.getRandomType();
 		isMore = true;
 
 		LazyRequestService service = new LazyRequestService(getActivity(), MyServiceNetworkService.class);
@@ -277,7 +276,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 				Log.i("QuestionFragment", "myWorryAdaptor.getCount() : " + myWorryAdaptor.getCount());
 				Log.i("QuestionFragment", "totalCount : " + totalCount);
 
-				if ((myWorryAdaptor.getCount() == totalCount) || (myWorryAdaptor.isEmpty()) || !(myWorryAdaptor.isMore())) {
+				if ((myWorryAdaptor.getCount() == totalCount) || (myWorryQuestionList.isEmpty())) {
 					flMore.setVisibility(View.GONE);
 				} else {
 					flMore.setVisibility(View.VISIBLE);
@@ -319,7 +318,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		lvQuestion.setAdapter(myWorryAdaptor);
 		lvQuestion.setOnItemClickListener(this);
 
-		List<String> filterType = Arrays.asList("전체", "나의 고민");
+		List<String> filterType = Arrays.asList(OrderType.RECENTLY.getComment(), OrderType.POPULAR.getComment(), OrderType.MINE.getComment());
 		spinnerAdapter = new SpinnerAdapter(getContext(), filterType);
 		spinner.setAdapter(spinnerAdapter);
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -327,15 +326,14 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				if(position == 0) {
 					mine = false;
+					orderType = OrderType.RECENTLY;
+				} else if(position == 1){
+					mine = false;
+					orderType = OrderType.POPULAR;
 				} else {
 					mine = true;
 				}
-				myWorryAdaptor.clean();
-				myWorryAdaptor.initPagingIndex();
-				myWorryAdaptor.increasePagingIndex();
-				myWorryAdaptor.startProgress();
-				myWorryAdaptor.setMine(mine);
-				getWorryList();
+				initWorryList();
 			}
 
 			@Override
@@ -349,15 +347,19 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 			@Override
 			public void onRefresh() {
 				todayAdapter.notifyDataSetChanged();
-				myWorryAdaptor.clean();
-				myWorryAdaptor.initPagingIndex();
-				myWorryAdaptor.increasePagingIndex();
-				myWorryAdaptor.startProgress();
-				myWorryAdaptor.setMine(mine);
-				getWorryList();
+				initWorryList();
 				srlContainer.setRefreshing(false);
 			}
 		});
+	}
+
+	public void initWorryList() {
+		myWorryAdaptor.clean();
+		myWorryAdaptor.initPagingIndex();
+		myWorryAdaptor.increasePagingIndex();
+		myWorryAdaptor.startProgress();
+		myWorryAdaptor.setMine(mine);
+		getWorryList();
 	}
 
 	@Override
@@ -371,6 +373,7 @@ public class QuestionFragment extends BaseFragment implements AdapterView.OnItem
 		Intent intent = new Intent(getActivity(), AnswerActivity.class);
 		intent.putExtra("myWorryQuestionDTO", myWorryQuestionDTO);
 		startActivity(intent);
+		doAnimationGoRight();
 	}
 
 	@Data

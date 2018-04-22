@@ -10,6 +10,7 @@
 
     <!-- 일반답변화면 -->
     <LinearLayout
+        android:id="@+id/ll_myworry_background"
       android:orientation="vertical"
       android:background="@drawable/bg_main"
       android:layout_width="match_parent"
@@ -412,6 +413,7 @@
       <kr.puzi.puzi.ui.customview.NotoButton
         app:fontWeight="medium"
         android:id="@+id/btn_answer_ok"
+        android:visibility="invisible"
         android:background="@drawable/button_puzi"
         android:gravity="center"
         android:text="선택완료"
@@ -441,7 +443,7 @@
 
       <LinearLayout
         android:visibility="gone"
-        android:background="#50ffffff"
+        android:background="#50000000"
         android:id="@+id/ll_reply_show_container"
         android:layout_width="match_parent"
         android:layout_height="55dp">

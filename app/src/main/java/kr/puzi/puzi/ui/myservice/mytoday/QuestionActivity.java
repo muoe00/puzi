@@ -1,6 +1,7 @@
 package kr.puzi.puzi.ui.myservice.mytoday;
 
 import android.app.Activity;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -28,6 +29,11 @@ import kr.puzi.puzi.ui.myservice.QuestionFragment;
 import retrofit2.Call;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -77,20 +83,21 @@ public class QuestionActivity extends BaseActivity {
     LinearLayout llA4;
     @BindView(kr.puzi.puzi.R.id.ll_question_a2)
     LinearLayout llA2;
+    @BindView(R.id.ll_mytoday_background)
+    LinearLayout llBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(kr.puzi.puzi.R.layout.activity_question);
+        getWindow().setBackgroundDrawable( new ColorDrawable(0x7f000000) );
 
         unbinder = ButterKnife.bind(this);
         activity = this;
 
         myTodayQuestionVOList = (List<MyTodayQuestionVO>) getIntent().getExtras().getSerializable("questionList");
         size = myTodayQuestionVOList.size();
-
-        Log.i("QuestionActivity", "onCreate size : " + size + " count : " + QuestionFragment.count);
 
         setComponents();
         sendCustomGA();
@@ -115,6 +122,30 @@ public class QuestionActivity extends BaseActivity {
     }
 
     public void setComponents() {
+        Random random = new Random();
+        int index = random.nextInt(6) + 1;
+
+        switch (index) {
+            case 1:
+                llBackground.setBackgroundResource(R.drawable.bg_2);
+                break;
+            case 2:
+                llBackground.setBackgroundResource(R.drawable.bg_3);
+                break;
+            case 3:
+                llBackground.setBackgroundResource(R.drawable.bg_4);
+                break;
+            case 4:
+                llBackground.setBackgroundResource(R.drawable.bg_5);
+                break;
+            case 5:
+                llBackground.setBackgroundResource(R.drawable.bg_6);
+                break;
+            case 6:
+                llBackground.setBackgroundResource(R.drawable.bg_main);
+                break;
+        }
+
         myTodayQuestionVO = myTodayQuestionVOList.get(QuestionFragment.count);
 
         Log.i("QuestionActivity", "setComponents myTodayQuestionVO : " + myTodayQuestionVO.toString());
