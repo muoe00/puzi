@@ -6,17 +6,16 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import kr.puzi.puzi.PuziApplication;
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.myservice.MyTodayQuestionVO;
+import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
 import kr.puzi.puzi.network.ResponseVO;
@@ -27,6 +26,10 @@ import kr.puzi.puzi.ui.common.PointDialog;
 import kr.puzi.puzi.ui.customview.NotoTextView;
 import kr.puzi.puzi.ui.myservice.QuestionFragment;
 import retrofit2.Call;
+
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by juhyun on 2018. 1. 14..
@@ -90,6 +93,17 @@ public class QuestionActivity extends BaseActivity {
         Log.i("QuestionActivity", "onCreate size : " + size + " count : " + QuestionFragment.count);
 
         setComponents();
+        sendCustomGA();
+    }
+
+    private void sendCustomGA() {
+        PuziApplication application = (PuziApplication) getApplication();
+        Tracker mTracker = application.getDefaultTracker();
+        mTracker.setScreenName(this.getClass().getSimpleName());
+        mTracker.send(new HitBuilders.ScreenViewBuilder()
+            .setCustomMetric(2, 5)
+            .setCustomDimension(3, Preference.getMyInfo(getActivity()).getLevelType())
+            .build());
     }
 
     public void init() {

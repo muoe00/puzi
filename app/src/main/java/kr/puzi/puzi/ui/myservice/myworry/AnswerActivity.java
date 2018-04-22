@@ -7,31 +7,13 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnItemLongClick;
-import butterknife.Unbinder;
+import android.widget.*;
+import butterknife.*;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import kr.puzi.puzi.PuziApplication;
 import kr.puzi.puzi.R;
-import kr.puzi.puzi.biz.myservice.MyWorryAnswerDTO;
-import kr.puzi.puzi.biz.myservice.MyWorryAnswerResultDTO;
-import kr.puzi.puzi.biz.myservice.MyWorryQuestionDTO;
-import kr.puzi.puzi.biz.myservice.MyWorryQuestionDetailDTO;
-import kr.puzi.puzi.biz.myservice.PersonalType;
+import kr.puzi.puzi.biz.myservice.*;
 import kr.puzi.puzi.biz.myworry.MyWorryReplyVO;
 import kr.puzi.puzi.biz.user.UserVO;
 import kr.puzi.puzi.cache.Preference;
@@ -50,6 +32,10 @@ import kr.puzi.puzi.ui.common.PointDialog;
 import kr.puzi.puzi.ui.customview.NotoTextView;
 import kr.puzi.puzi.ui.myservice.QuestionFragment;
 import retrofit2.Call;
+
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by juhyun on 2018. 1. 20..
@@ -170,6 +156,17 @@ public class AnswerActivity extends BaseActivity {
         initComponents();
         getDetail();
         getReply();
+        sendCustomGA();
+    }
+
+    private void sendCustomGA() {
+        PuziApplication application = (PuziApplication) getApplication();
+        Tracker mTracker = application.getDefaultTracker();
+        mTracker.setScreenName(this.getClass().getSimpleName());
+        mTracker.send(new HitBuilders.ScreenViewBuilder()
+            .setCustomMetric(2, 4)
+            .setCustomDimension(3, Preference.getMyInfo(getActivity()).getLevelType())
+            .build());
     }
 
     private void getReply() {

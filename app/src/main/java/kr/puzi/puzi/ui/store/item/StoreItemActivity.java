@@ -5,10 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import butterknife.*;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
+import kr.puzi.puzi.PuziApplication;
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.store.StoreItemVO;
 import kr.puzi.puzi.biz.store.StoreVO;
+import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.image.BitmapUIL;
 import kr.puzi.puzi.network.CustomCallback;
 import kr.puzi.puzi.network.LazyRequestService;
@@ -54,6 +58,18 @@ public class StoreItemActivity extends BaseFragmentActivity {
 		initComponent();
 
 		getStoreItemList();
+
+		sendCustomGA();
+	}
+
+	private void sendCustomGA() {
+		PuziApplication application = (PuziApplication) getApplication();
+		Tracker mTracker = application.getDefaultTracker();
+		mTracker.setScreenName(this.getClass().getSimpleName());
+		mTracker.send(new HitBuilders.ScreenViewBuilder()
+			.setCustomMetric(2, 2)
+			.setCustomDimension(3, Preference.getMyInfo(getActivity()).getLevelType())
+			.build());
 	}
 
 	private void initComponent() {

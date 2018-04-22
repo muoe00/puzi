@@ -90,7 +90,10 @@ public class MainActivity extends BaseFragmentActivity {
 
 		getUser();
 		getEventInfo();
+		initComponent();
+	}
 
+	private void initComponent() {
 		viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager()));
 		viewPager.setOffscreenPageLimit(5);
 		viewPager.setCurrentItem(FRAGMENT_ADVERTISE);
@@ -170,6 +173,15 @@ public class MainActivity extends BaseFragmentActivity {
 
 				Preference.saveMyInfo(MainActivity.this, userVO);
 				updateUserInfoOnTitleBar();
+
+				PuziApplication application = (PuziApplication) getApplication();
+				Tracker tracker = application.getDefaultTracker();
+				tracker.set("&uid", userVO.getUserId());
+				tracker.send(new HitBuilders.EventBuilder()
+					.setCustomDimension(3, userVO.getLevelType())
+					.setCategory("UX")
+					.setAction("Login")
+					.build());
 			}
 		});
 	}
