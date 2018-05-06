@@ -35,8 +35,10 @@ import kr.puzi.puzi.network.service.ThemeNetworkService;
 import kr.puzi.puzi.ui.CustomPagingAdapter;
 import kr.puzi.puzi.ui.ProgressDialog;
 import kr.puzi.puzi.ui.base.BaseActivity;
+import kr.puzi.puzi.ui.common.DialogButtonCallback;
 import kr.puzi.puzi.ui.customview.NotoTextView;
 import kr.puzi.puzi.ui.customview.RobotoTextView;
+import kr.puzi.puzi.ui.myservice.myworry.MyWorryReplyLongClickDialog;
 import retrofit2.Call;
 
 import static kr.puzi.puzi.utils.TextUtils.addComma;
@@ -218,13 +220,13 @@ public class ThemeDetailActivity extends BaseActivity {
         ThemeReplyVO replyVO = themeReplyAdapter.getItem(position);
 
         boolean useDelete = myInfo.getUserId().equals(replyVO.getWriter());
-        /*MyWorryReplyLongClickDialog.load(getActivity(), replyVO.getMyWorryReplyId(), useDelete, new DialogButtonCallback() {
+        MyWorryReplyLongClickDialog.load(getActivity(), replyVO.getMyWorryReplyId(), useDelete, new DialogButtonCallback() {
             @Override
             public void onClick() {
                 themeReplyAdapter.removeItem(finalPosition);
-                tvReplyCount.setText("" + myWorryReplyAdapter.getCount());
+                // tvReplyCount.setText("" + myWorryReplyAdapter.getCount());
             }
-        });*/
+        });
         return false;
     }
 

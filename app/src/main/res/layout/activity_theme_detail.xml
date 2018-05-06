@@ -156,7 +156,7 @@
                             <kr.puzi.puzi.ui.customview.NotoTextView
                                 app:fontWeight="medium"
                                 android:text="커피홀릭"
-                                android:textSize="6sp"
+                                android:textSize="7sp"
                                 android:textColor="#ff2470"
                                 android:rotation="-90"
                                 android:gravity="center_vertical"
@@ -187,7 +187,7 @@
                             <kr.puzi.puzi.ui.customview.NotoTextView
                                 app:fontWeight="medium"
                                 android:text="일반인"
-                                android:textSize="6sp"
+                                android:textSize="7sp"
                                 android:textColor="#9b9b9b"
                                 android:rotation="-90"
                                 android:gravity="center_vertical"
@@ -216,7 +216,7 @@
                             <kr.puzi.puzi.ui.customview.NotoTextView
                                 app:fontWeight="medium"
                                 android:text="디카페인"
-                                android:textSize="6sp"
+                                android:textSize="7sp"
                                 android:textColor="#60b3fb"
                                 android:rotation="-90"
                                 android:gravity="center_vertical"

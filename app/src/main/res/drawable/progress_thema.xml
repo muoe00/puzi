@@ -8,12 +8,14 @@
     </shape>
   </item>
 
-  <item android:id="@android:id/progress">
+  <item
+      android:id="@android:id/secondaryProgress">
     <layer-list>
       <item>
         <clip
-          android:clipOrientation="vertical"
-          android:gravity="fill_vertical">
+            android:layout_height="wrap_content"
+            android:clipOrientation="vertical"
+            android:gravity="fill_vertical">
           <layer-list>
             <item android:top="130dp">
               <shape>
@@ -27,7 +29,57 @@
               </shape>
             </item>
 
-            <item android:top="52dp" android:bottom="52dp">
+            <item
+                android:bottom="52dp"
+                android:top="52dp">
+              <shape>
+                <solid android:color="#9b9b9b" />
+              </shape>
+            </item>
+
+            <item android:bottom="128dp">
+              <shape>
+                <solid android:color="#00000000" />
+              </shape>
+            </item>
+
+            <item android:bottom="130dp">
+              <shape>
+                <solid android:color="#ff2470" />
+              </shape>
+            </item>
+
+          </layer-list>
+        </clip>
+
+      </item>
+
+    </layer-list>
+  </item>
+
+  <item android:id="@android:id/progress">
+    <layer-list>
+      <item>
+        <clip
+            android:layout_height="wrap_content"
+            android:clipOrientation="vertical"
+            android:gravity="fill_vertical">
+          <layer-list>
+            <item android:top="130dp">
+              <shape>
+                <solid android:color="#60b3fb" />
+              </shape>
+            </item>
+
+            <item android:top="128dp">
+              <shape>
+                <solid android:color="#00000000" />
+              </shape>
+            </item>
+
+            <item
+                android:bottom="52dp"
+                android:top="52dp">
               <shape>
                 <solid android:color="#9b9b9b" />
               </shape>
