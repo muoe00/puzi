@@ -1,31 +1,20 @@
 package kr.puzi.puzi.ui.theme;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.ScrollView;
-
+import android.widget.*;
+import butterknife.*;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnItemLongClick;
-import butterknife.Unbinder;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import kr.puzi.puzi.R;
-import kr.puzi.puzi.biz.theme.ThemeDTO;
-import kr.puzi.puzi.biz.theme.ThemeDetailDTO;
-import kr.puzi.puzi.biz.theme.ThemeReplyAdapter;
-import kr.puzi.puzi.biz.theme.ThemeReplyVO;
+import kr.puzi.puzi.biz.theme.*;
 import kr.puzi.puzi.biz.user.UserVO;
 import kr.puzi.puzi.cache.Preference;
 import kr.puzi.puzi.network.CustomCallback;
@@ -40,6 +29,9 @@ import kr.puzi.puzi.ui.customview.NotoTextView;
 import kr.puzi.puzi.ui.customview.RobotoTextView;
 import kr.puzi.puzi.ui.myservice.myworry.MyWorryReplyLongClickDialog;
 import retrofit2.Call;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static kr.puzi.puzi.utils.TextUtils.addComma;
 
@@ -145,8 +137,7 @@ public class ThemeDetailActivity extends BaseActivity {
                 Log.i("ThemeDetailActivity", "themeDetailDTO : " + themeDetailDTO.toString());
 
                 initCount(themeDetailDTO);
-
-
+                initChart(themeDetailDTO.getUserThemeDailies());
             }
         });
     }
@@ -242,31 +233,72 @@ public class ThemeDetailActivity extends BaseActivity {
         tvMinScoreCount.setText(String.format("%.1f", themeDetailDTO.getTotalMinAverageScore()));
     }
 
-    public void initChart(ThemeDetailDTO themeDetailDTO) {
+    public void initChart(List<UserThemeDailyDTO> dailyDTOList) {
 
         ArrayList<Entry> entriesEntry = new ArrayList<>();
+        String[] xString = new String[dailyDTOList.size()];
+        int[] yInt = new int[dailyDTOList.size()];
 
-        entriesEntry.add(new Entry(4f, 0));
-        entriesEntry.add(new Entry(2f, 1));
-        entriesEntry.add(new Entry(15f, 2));
-        entriesEntry.add(new Entry(9f, 3));
-        entriesEntry.add(new Entry(1f, 4));
-        entriesEntry.add(new Entry(8f, 5));
+        int size = dailyDTOList.size() - 1;
+
+        for(int i = 0; i < dailyDTOList.size(); i ++) {
+            yInt[i] = i;
+            xString[i] = dailyDTOList.get(size - i).getTargetDate();
+            Log.i("initChart", "i : " + i + ", " + xString[i]);
+            entriesEntry.add(new Entry(i, (float) dailyDTOList.get(size - i).getScore()));
+            Log.i("initChart", "i : " + i + ", " + entriesEntry.get(i).toString());
+        }
+
+        XAxis xAxis = chartMine.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setAxisMinimum(0);
+        xAxis.setAxisMaximum(xString.length - 1);
+        xAxis.setLabelCount(xString.length - 1);
+        xAxis.setDrawAxisLine(true);
+        xAxis.setDrawGridLines(false);
+        xAxis.setCenterAxisLabels(false);
+        xAxis.setValueFormatter(new StringXAxisValueFormatter(xString));
+
+        YAxis yRAxis = chartMine.getAxisRight();
+        yRAxis.setEnabled(false);
+        /*yRAxis.setAxisMinimum(0);
+        yRAxis.setAxisMaximum(xString.length - 1);
+        yRAxis.setLabelCount(xString.length - 1);
+        yRAxis.setDrawAxisLine(true);
+        yRAxis.setDrawGridLines(false);
+        yRAxis.setGranularity(0f);
+        yRAxis.setCenterAxisLabels(false);
+        yRAxis.setValueFormatter(new IntXAxisValueFormatter(yInt));*/
+
+        int color = ContextCompat.getColor(this, R.color.colorPuzi);
 
         LineDataSet lineDataSet = new LineDataSet(entriesEntry, "");
+        lineDataSet.setDrawCircles(true);
+        lineDataSet.setDrawCircleHole(false);
+        lineDataSet.setValueTextSize(0);
+        lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        lineDataSet.setColor(color);
+        lineDataSet.setCircleColor(color);
+        lineDataSet.setFillColor(color);
+        lineDataSet.setLineWidth(2f);
+        lineDataSet.setCircleRadius(3f);
+        lineDataSet.setLabel("");
+
         LineData lineData = new LineData(lineDataSet);
 
         chartMine.setData(lineData);
         chartMine.setDrawGridBackground(false);
-
         chartMine.setTouchEnabled(false);
         chartMine.setDoubleTapToZoomEnabled(false);
-        chartMine.getXAxis().setDrawAxisLine(false);
-        chartMine.getXAxis().setDrawGridLines(false);
-        chartMine.getAxisLeft().setDrawGridLines(false);
-        chartMine.getAxisLeft().setDrawAxisLine(false);
+        chartMine.getLegend().setEnabled(false);
+        chartMine.setDescription(null);
         chartMine.getAxisRight().setDrawGridLines(false);
-        chartMine.getAxisRight().setDrawAxisLine(false);
+
+        //chartMine.getXAxis().setDrawAxisLine(false);
+        //chartMine.getXAxis().setDrawGridLines(false);
+        //chartMine.getAxisLeft().setDrawGridLines(false);
+        //chartMine.getAxisLeft().setDrawAxisLine(false);
+        //chartMine.getAxisRight().setDrawAxisLine(false);
 
         chartMine.invalidate();
     }
@@ -280,5 +312,77 @@ public class ThemeDetailActivity extends BaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
         doAnimationGoLeft();
+    }
+
+    public class StringXAxisValueFormatter implements IAxisValueFormatter {
+
+        private int num = -1;
+        private String[] mValues;
+
+        public StringXAxisValueFormatter(String[] values) {
+            this.mValues = values;
+        }
+
+        @Override
+        public String getFormattedValue(float value, AxisBase axis) {
+
+            Log.i("MyXAxisValueFormatter","value : " + value);
+
+            if (value >= 0) {
+                Log.i("MyXAxisValueFormatter","value : " + ((int)(value % mValues.length)) + ", mValues[(int) value] : " + mValues[(int) value % mValues.length]);
+                return mValues[(int) value % mValues.length];
+            }
+            return "";
+
+            /*if (value < mValues.length) {
+                num++;
+
+                if (num < mValues.length) {
+                    Log.i("StringXAxisValue", "num : " + num + ", mValues[(int) value] : " + mValues[num]);
+                    return mValues[num];
+                } else {
+                    num = -1;
+                    return "";
+                }
+            } else {
+                return "";
+            }*/
+
+        }
+
+    }
+
+    public class IntXAxisValueFormatter implements IAxisValueFormatter {
+
+        private int num = -1;
+        private int[] mValues;
+
+        public IntXAxisValueFormatter(int[] values) {
+            this.mValues = values;
+        }
+
+        @Override
+        public String getFormattedValue(float value, AxisBase axis) {
+            /*if (value >= 0) {
+                if (value <= mValues.length) {
+                    Log.i("MyXAxisValueFormatter","value : " + value + ", mValues[(int) value] : " + mValues[(int)value]);
+
+                }
+                return "";
+            }
+            return "";*/
+
+            num++;
+
+            if(num < mValues.length) {
+                Log.i("MyXAxisValueFormatter","num : " + num + ", mValues[(int) value] : " + mValues[num]);
+                return String.valueOf(mValues[num]);
+            } else {
+                num = -1;
+                return "";
+            }
+
+        }
+
     }
 }

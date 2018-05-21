@@ -40,14 +40,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:id="@+id/iv_theme_background"
+                android:id="@+id/iv_theme_average_background"
                 android:background="#00000000"/>
 
         </com.ssomai.android.scalablelayout.ScalableLayout>
 
         <LinearLayout
             android:orientation="horizontal"
-            android:id="@+id/rl_theme_item"
+            android:id="@+id/rl_theme_average_item"
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -70,7 +70,7 @@
                         android:textSize="14dp"
                         android:textColor="#ffffff"
                         android:text="50"
-                        android:id="@+id/tv_theme_item_percent"
+                        android:id="@+id/tv_theme_average_item_percent"
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -158,7 +158,7 @@
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_theme_versus_max"/>
+                        android:id="@+id/tv_theme_average_versus_max"/>
 
                     <kr.puzi.puzi.ui.customview.NotoTextView
                         app:fontWeight="regular"
@@ -168,7 +168,7 @@
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_theme_versus"/>
+                        android:id="@+id/tv_theme_average_versus"/>
 
                     <kr.puzi.puzi.ui.customview.NotoTextView
                         app:fontWeight="regular"
@@ -178,7 +178,7 @@
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_theme_versus_min"/>
+                        android:id="@+id/tv_theme_average_versus_min"/>
 
                 </LinearLayout>
 
@@ -203,7 +203,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:id="@+id/tv_theme_item_count"
+                    android:id="@+id/tv_theme_average_item_count"
                     android:layout_marginLeft="1.9dp"
                     android:text="2000"
                     android:textColor="#ffffff"

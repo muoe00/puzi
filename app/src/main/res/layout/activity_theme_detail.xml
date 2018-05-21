@@ -412,7 +412,7 @@
                     android:layout_marginRight="35.3dp"
                     android:layout_marginBottom="26.5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="121dp"/>
 
 
             </LinearLayout>

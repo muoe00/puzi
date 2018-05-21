@@ -3,13 +3,12 @@ package kr.puzi.puzi.ui.theme;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ScrollView;
-
-import com.joooonho.SelectableRoundedImageView;
-
 import butterknife.BindView;
+import com.joooonho.SelectableRoundedImageView;
 import kr.puzi.puzi.R;
 import kr.puzi.puzi.biz.theme.ThemeDTO;
 import kr.puzi.puzi.image.BitmapUIL;
@@ -46,17 +45,29 @@ public class ThemeAdapter extends CustomPagingAdapter<ThemeDTO> {
 
         ThemeDTO themeDTO = getItem(position);
 
-        switch (themeDTO.getDegreeType()) {
-            case MAX:
-                return VIEW_LIST;
-            case MIN:
-                return VIEW_LIST_2;
-            case AVERAGE:
-                return VIEW_LIST_3;
-            case LACK:
-                return VIEW_LIST_4;
-            default:
-                return VIEW_LIST_4;
+
+        if(themeDTO.getDegreeType() != null) {
+
+            switch (themeDTO.getDegreeType()) {
+                case MAX:
+                    Log.i("ThemeAdapter", "MAX : " + themeDTO.toString());
+                    return VIEW_LIST;
+                case AVERAGE:
+                    Log.i("ThemeAdapter", "AVERAGE : " + themeDTO.toString());
+                    return VIEW_LIST_2;
+                case MIN:
+                    Log.i("ThemeAdapter", "MIN : " + themeDTO.toString());
+                    return VIEW_LIST_3;
+                case LACK:
+                    Log.i("ThemeAdapter", "LACK : " + themeDTO.toString());
+                    return VIEW_LIST_4;
+                default:
+                    Log.i("ThemeAdapter", "DEFAULT : " + themeDTO.toString());
+                    return VIEW_LIST_4;
+            }
+        } else {
+            Log.i("ThemeAdapter", "ELSE : " + themeDTO.toString());
+            return VIEW_LIST_4;
         }
     }
 
@@ -79,7 +90,7 @@ public class ThemeAdapter extends CustomPagingAdapter<ThemeDTO> {
 
         BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
         viewHolder.tvPercent.setText(String.valueOf(item.getRate()));
-        viewHolder.tvTitle.setText(item.getTargetMax());
+        // viewHolder.tvTitle.setText(item.getTargetMax());
         viewHolder.tvMax.setText(item.getTargetMax());
         viewHolder.tvMin.setText(item.getTargetMin());
         viewHolder.tvCount.setText(String.valueOf(item.getTotalUserCount()));
@@ -89,7 +100,7 @@ public class ThemeAdapter extends CustomPagingAdapter<ThemeDTO> {
     public void setView3(Holder holder, final ThemeDTO item, int position) {
         final ThemeAdapter.ViewHolder3 viewHolder = (ThemeAdapter.ViewHolder3) holder;
 
-        BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
+        // BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
         viewHolder.tvMax.setText(item.getTargetMax());
         viewHolder.tvMin.setText(item.getTargetMin());
         viewHolder.tvCount.setText(String.valueOf(item.getTotalUserCount()));
@@ -127,19 +138,20 @@ public class ThemeAdapter extends CustomPagingAdapter<ThemeDTO> {
         return new ThemeAdapter.ViewHolder4(v);
     }
 
+    /* MAX */
     class ViewHolder extends Holder {
 
-        @BindView(R.id.iv_theme_background)
+        @BindView(R.id.iv_theme_max_background)
         SelectableRoundedImageView ivBack;
-        @BindView(R.id.tv_theme_item_percent)
+        @BindView(R.id.tv_theme_max_item_percent)
         NotoTextView tvPercent;
-        @BindView(R.id.tv_theme_title)
+        @BindView(R.id.tv_theme_max_title)
         NotoTextView tvTitle;
-        @BindView(R.id.tv_theme_versus_max)
+        @BindView(R.id.tv_theme_max_versus_max)
         NotoTextView tvMax;
-        @BindView(R.id.tv_theme_versus_min)
+        @BindView(R.id.tv_theme_max_versus_min)
         NotoTextView tvMin;
-        @BindView(R.id.tv_theme_item_count)
+        @BindView(R.id.tv_theme_max_item_count)
         NotoTextView tvCount;
 
         public ViewHolder(View view) {
@@ -147,19 +159,20 @@ public class ThemeAdapter extends CustomPagingAdapter<ThemeDTO> {
         }
     }
 
+    /* AVERAGE */
     class ViewHolder2 extends Holder {
 
-        @BindView(R.id.iv_theme_background)
+        @BindView(R.id.iv_theme_average_background)
         SelectableRoundedImageView ivBack;
-        @BindView(R.id.tv_theme_item_percent)
+        @BindView(R.id.tv_theme_average_item_percent)
         NotoTextView tvPercent;
-        @BindView(R.id.tv_theme_title)
-        NotoTextView tvTitle;
-        @BindView(R.id.tv_theme_versus_max)
+        /*@BindView(R.id.tv_theme_average_title)
+        NotoTextView tvTitle;*/
+        @BindView(R.id.tv_theme_average_versus_max)
         NotoTextView tvMax;
-        @BindView(R.id.tv_theme_versus_min)
+        @BindView(R.id.tv_theme_average_versus_min)
         NotoTextView tvMin;
-        @BindView(R.id.tv_theme_item_count)
+        @BindView(R.id.tv_theme_average_item_count)
         NotoTextView tvCount;
 
         public ViewHolder2(View view) {
@@ -167,17 +180,18 @@ public class ThemeAdapter extends CustomPagingAdapter<ThemeDTO> {
         }
     }
 
+    /* MIN */
     class ViewHolder3 extends Holder {
 
-        @BindView(R.id.iv_theme_background)
+        @BindView(R.id.iv_theme_min_background)
         SelectableRoundedImageView ivBack;
-        @BindView(R.id.tv_theme_title)
+        @BindView(R.id.tv_theme_min_title)
         NotoTextView tvTitle;
-        @BindView(R.id.tv_theme_versus_max)
+        @BindView(R.id.tv_theme_min_versus_max)
         NotoTextView tvMax;
-        @BindView(R.id.tv_theme_versus_min)
+        @BindView(R.id.tv_theme_min_versus_min)
         NotoTextView tvMin;
-        @BindView(R.id.tv_theme_item_count)
+        @BindView(R.id.tv_theme_min_item_count)
         NotoTextView tvCount;
 
         public ViewHolder3(View view) {
@@ -185,17 +199,16 @@ public class ThemeAdapter extends CustomPagingAdapter<ThemeDTO> {
         }
     }
 
+    /* LACK */
     class ViewHolder4 extends Holder {
 
-        @BindView(R.id.iv_theme_background)
+        @BindView(R.id.iv_theme_lack_background)
         SelectableRoundedImageView ivBack;
-        @BindView(R.id.tv_theme_title)
-        NotoTextView tvTitle;
-        @BindView(R.id.tv_theme_versus_max)
+        @BindView(R.id.tv_theme_lack_versus_max)
         NotoTextView tvMax;
-        @BindView(R.id.tv_theme_versus_min)
+        @BindView(R.id.tv_theme_lack_versus_min)
         NotoTextView tvMin;
-        @BindView(R.id.tv_theme_item_count)
+        @BindView(R.id.tv_theme_lack_item_count)
         NotoTextView tvCount;
 
         public ViewHolder4(View view) {
