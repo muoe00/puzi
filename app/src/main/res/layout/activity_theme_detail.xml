@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:src="@drawable/back"
-            android:id="@+id/btn_back_web"/>
+            android:id="@+id/btn_back"/>
 
         <LinearLayout
             android:id="@+id/ll_theme_detail"
@@ -34,7 +34,7 @@
             <kr.puzi.puzi.ui.customview.RobotoTextView
                 android:layout_width="wrap_content"
                 android:layout_height="19dp"
-                android:textSize="20dp"
+                android:textSize="16dp"
                 android:textColor="#333333"
                 android:gravity="center"
                 android:layout_gravity="center"
@@ -86,7 +86,7 @@
                     <kr.puzi.puzi.ui.customview.NotoTextView
                         android:id="@+id/tv_theme_percent"
                         android:text="PA1001"
-                        app:fontWeight="regular"
+                        app:fontWeight="bold"
                         android:textSize="26dp"
                         android:textColor="#ff2470"
                         android:layout_width="wrap_content"
@@ -95,7 +95,7 @@
                     <kr.puzi.puzi.ui.customview.NotoTextView
                         android:id="@+id/tv_theme_count"
                         android:text="PA1001"
-                        app:fontWeight="regular"
+                        app:fontWeight="bold"
                         android:textSize="26dp"
                         android:textColor="#ff2470"
                         android:layout_width="wrap_content"
@@ -120,14 +120,25 @@
                   android:layout_width="0dp"
                   android:layout_height="match_parent">
 
-                    <ProgressBar
-                      android:id="@+id/pb_theme"
-                      style="@android:style/Widget.ProgressBar.Horizontal"
-                      android:layout_width="5dp"
-                      android:layout_height="180dp"
-                      android:max="100"
-                      android:progress="66"
-                      android:progressDrawable="@drawable/progress_thema" />
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:background="@drawable/bg_progress_thema"
+                            android:layout_width="5dp"
+                            android:layout_height="180dp" />
+
+                        <kr.puzi.puzi.ui.customview.VerticalSeekBar
+                            android:id="@+id/pb_theme"
+                            android:layout_width="5dp"
+                            android:layout_height="180dp"
+                            android:max="100"
+                            android:progress="10"
+                            android:thumb="@drawable/bg_progress_thumb_thema"
+                            android:background="#00000000"/>
+
+                    </FrameLayout>
 
                     <LinearLayout
                         android:layout_width="52dp"
@@ -508,6 +519,7 @@
             android:paddingRight="10dp"
             android:ems="10"
             android:background="@drawable/bg_myworry_reply_write"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:textSize="15dp"
             android:textColor="#333333"
             android:isScrollContainer="true"

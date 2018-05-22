@@ -46,17 +46,21 @@ public class ThemeAdapter extends CustomPagingAdapter<ThemeDTO> {
 
         ThemeDTO themeDTO = getItem(position);
 
-        switch (themeDTO.getDegreeType()) {
-            case MAX:
-                return VIEW_LIST;
-            case MIN:
-                return VIEW_LIST_2;
-            case AVERAGE:
-                return VIEW_LIST_3;
-            case LACK:
-                return VIEW_LIST_4;
-            default:
-                return VIEW_LIST_4;
+        if(themeDTO != null) {
+            switch (themeDTO.getDegreeType()) {
+                case MAX:
+                    return VIEW_LIST;
+                case MIN:
+                    return VIEW_LIST_2;
+                case NORMAL:
+                    return VIEW_LIST_3;
+                case LACK:
+                    return VIEW_LIST_4;
+                default:
+                    return VIEW_LIST_4;
+            }
+        } else {
+            return VIEW_LIST_4;
         }
     }
 
@@ -65,7 +69,7 @@ public class ThemeAdapter extends CustomPagingAdapter<ThemeDTO> {
         final ThemeAdapter.ViewHolder viewHolder = (ThemeAdapter.ViewHolder) holder;
 
         BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
-        viewHolder.tvPercent.setText(String.valueOf(item.getRate()));
+        viewHolder.tvPercent.setText(String.valueOf(String.format("%.0f" , item.getRate())));
         viewHolder.tvTitle.setText(item.getTargetMax());
         viewHolder.tvMax.setText(item.getTargetMax());
         viewHolder.tvMin.setText(item.getTargetMin());
@@ -78,7 +82,7 @@ public class ThemeAdapter extends CustomPagingAdapter<ThemeDTO> {
         final ThemeAdapter.ViewHolder2 viewHolder = (ThemeAdapter.ViewHolder2) holder;
 
         BitmapUIL.load(item.getThemeBackground(), viewHolder.ivBack);
-        viewHolder.tvPercent.setText(String.valueOf(item.getRate()));
+        viewHolder.tvPercent.setText(String.valueOf(String.format("%.0f" , item.getRate())));
         viewHolder.tvTitle.setText(item.getTargetMax());
         viewHolder.tvMax.setText(item.getTargetMax());
         viewHolder.tvMin.setText(item.getTargetMin());

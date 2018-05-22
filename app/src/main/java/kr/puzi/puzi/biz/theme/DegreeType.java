@@ -12,7 +12,7 @@ public enum DegreeType {
 
     MAX("최대"),
     MIN("최소"),
-    AVERAGE("일반인"),
+    NORMAL("일반인"),
     LACK("데이터부족");
 
     @Getter

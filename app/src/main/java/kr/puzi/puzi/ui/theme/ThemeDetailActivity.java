@@ -110,14 +110,14 @@ public class ThemeDetailActivity extends BaseActivity {
 
         themeDTO = (ThemeDTO) getIntent().getExtras().getSerializable("themeDTO");
         tvTitle.setText(themeDTO.getTargetMin() + " vs " + themeDTO.getTargetMax());
-        tvPercent.setText("상위 " + themeDTO.getRate() + "%");
+        tvPercent.setText("상위 " + String.format("%.0f" , themeDTO.getRate()) + "%");
 
         switch (themeDTO.getDegreeType()) {
             case MAX:
                 tvCount.setText(themeDTO.getTargetMax() + "입니다.");
             case MIN:
                 tvCount.setText(themeDTO.getTargetMin() + "입니다.");
-            case AVERAGE:
+            case NORMAL:
                 tvCount.setText("일반인입니다.");
         }
 
@@ -128,6 +128,10 @@ public class ThemeDetailActivity extends BaseActivity {
 
         getThemeDetail();
         getReply();
+
+        closeInputKeyboard(etWriteReply);
+
+        // initChart();
     }
 
     public void getThemeDetail() {
@@ -145,7 +149,6 @@ public class ThemeDetailActivity extends BaseActivity {
                 Log.i("ThemeDetailActivity", "themeDetailDTO : " + themeDetailDTO.toString());
 
                 initCount(themeDetailDTO);
-
 
             }
         });
@@ -242,7 +245,7 @@ public class ThemeDetailActivity extends BaseActivity {
         tvMinScoreCount.setText(String.format("%.1f", themeDetailDTO.getTotalMinAverageScore()));
     }
 
-    public void initChart(ThemeDetailDTO themeDetailDTO) {
+    public void initChart() {
 
         ArrayList<Entry> entriesEntry = new ArrayList<>();
 
@@ -280,5 +283,10 @@ public class ThemeDetailActivity extends BaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
         doAnimationGoLeft();
+    }
+
+    @OnClick(kr.puzi.puzi.R.id.btn_back)
+    public void closeView() {
+        finish();
     }
 }
