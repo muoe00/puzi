@@ -93,9 +93,9 @@ public class ThemeFragment extends BaseFragment implements AdapterView.OnItemCli
                 themeList = responseVO.getList("themeDTOList", ThemeDTO.class);
                 int totalCount = responseVO.getInteger("totalCount");
 
-                Log.i("ThemeFragment", responseVO.toString());
+                Log.i("ThemeFragment", themeList.get(0).toString());
 
-                themeAdapter.addListWithTotalCount(themeList, totalCount);
+                themeAdapter.addList(themeList);
 
                 Log.i("ThemeFragment", "themeList.size() : " + themeList.size());
                 Log.i("ThemeFragment", "totalCount : " + totalCount);
@@ -127,7 +127,7 @@ public class ThemeFragment extends BaseFragment implements AdapterView.OnItemCli
     }
 
     public void initComponents() {
-        themeAdapter = new ThemeAdapter(getActivity(), R.layout.item_theme_list_max, R.layout.item_theme_list_min, kr.puzi.puzi.R.layout.item_theme_list_average, R.layout.item_theme_list_lack,
+        themeAdapter = new ThemeAdapter(getActivity(), R.layout.item_theme_list_max,kr.puzi.puzi.R.layout.item_theme_list_average, R.layout.item_theme_list_min, R.layout.item_theme_list_lack,
             lvTheme,
             svTheme, new CustomPagingAdapter.ListHandler() {
             @Override

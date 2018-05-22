@@ -26,26 +26,27 @@
 
             <com.joooonho.SelectableRoundedImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                app:sriv_right_top_corner_radius="16dp"
-                app:sriv_left_top_corner_radius="16dp"
-                app:sriv_right_bottom_corner_radius="16dp"
-                app:sriv_left_bottom_corner_radius="16dp"
+                app:sriv_right_top_corner_radius="8dp"
+                app:sriv_left_top_corner_radius="8dp"
+                app:sriv_right_bottom_corner_radius="8dp"
+                app:sriv_left_bottom_corner_radius="8dp"
                 app:sriv_oval="false"
                 app:scale_left="0"
                 app:scale_top="0"
                 app:scale_width="328"
                 app:scale_height="80"
+                android:src="@drawable/rectangle_33_copy_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:id="@+id/iv_theme_background"
+                android:id="@+id/iv_theme_max_background"
                 android:background="#00000000"/>
 
         </com.ssomai.android.scalablelayout.ScalableLayout>
 
         <LinearLayout
             android:orientation="horizontal"
-            android:id="@+id/rl_theme_item"
+            android:id="@+id/rl_theme_max_item"
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -70,7 +71,7 @@
                         android:text="100"
                         android:background="@null"
                         android:gravity="center_vertical"
-                        android:id="@+id/tv_theme_item_percent"
+                        android:id="@+id/tv_theme_max_item_percent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -126,7 +127,7 @@
                         android:singleLine="true"
                         android:focusableInTouchMode="true"
                         android:focusable="true"
-                        android:id="@+id/tv_theme_title"
+                        android:id="@+id/tv_theme_max_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
@@ -159,7 +160,7 @@
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_theme_versus_max"/>
+                        android:id="@+id/tv_theme_max_versus_max"/>
 
                     <kr.puzi.puzi.ui.customview.NotoTextView
                         app:fontWeight="regular"
@@ -169,7 +170,7 @@
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_theme_versus"/>
+                        android:id="@+id/tv_theme_max_versus"/>
 
                     <kr.puzi.puzi.ui.customview.NotoTextView
                         app:fontWeight="regular"
@@ -179,7 +180,7 @@
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_theme_versus_min"/>
+                        android:id="@+id/tv_theme_max_versus_min"/>
 
                 </LinearLayout>
 
@@ -204,7 +205,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:id="@+id/tv_theme_item_count"
+                    android:id="@+id/tv_theme_max_item_count"
                     android:layout_marginLeft="1.9dp"
                     android:text="2000"
                     android:textColor="#ffffff"
